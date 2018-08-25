@@ -80,13 +80,19 @@ module X86-SYNTAX
 
   syntax X86Ids ::= List{X86Id, ","} [klabel(X86Idlist)]
 
-  syntax AssemblerDirective ::=  ".section" SectionName 
+  syntax AssemblerDirective ::=  ".section" ".rodata"
+                            | ".data"
+                            | ".text" 
+                            | ".bss" 
+                            | ".file" String 
                             | ".globl" X86Id 
                             | ".string" String 
                             | ".long" Int 
                             | ".quad" Int 
-  syntax SectionName ::= ".text"   [token]
-                        | ".data" [token]
+                            | ".comm" X86Id "," Int "," Int 
+                            | ".zero" Int 
+                            //| ".zero" Int 
+ // syntax SectionName ::= ".rodata"   [token]
 
   syntax Label ::= X86Id ":"
         

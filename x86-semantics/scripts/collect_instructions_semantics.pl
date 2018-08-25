@@ -74,6 +74,7 @@ sub populate {
   execute("rm  $target/cmpl_*imm8*"       , $doit);
   execute("rm  $target/cmpq_*imm8*"       , $doit);
   execute("rm  $target/addl_*imm8*"       , $doit);
+  execute("rm  $target/subl_*imm8*");
   execute("rm  $target/addq_*imm8*"       , $doit);
   execute("rm  $target/leaq_*m16*"        , $doit);
   execute("rm  $target/leaq_*m32*"        , $doit);
