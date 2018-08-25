@@ -1,7 +1,27 @@
+strlen:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movq	$0, -8(%rbp)
+	jmp	L2
+L3:
+	addq	$1, -8(%rbp)
+L2:
+	movq	-24(%rbp), %rdx
+	movq	-8(%rbp), %rax
+	addq	%rdx, %rax
+	movzbl	(%rax), %eax
+	testb	%al, %al
+	jne	L3
+	movq	-8(%rbp), %rax
+	popq	%rbp
+	ret
 LC0:
-	.string	"w+"
+	.string	"w"
 LC1:
 	.string	"file.txt"
+LC2:
+	.string	"r"
 main:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -31,10 +51,12 @@ main:
 	movq	%rax, %rdi
 	call	fwrite
 	movq	-152(%rbp), %rax
-	movl	$0, %edx
-	movl	$0, %esi
 	movq	%rax, %rdi
-	call	fseek
+	call	fclose
+	movl	$LC2, %esi
+	movl	$LC1, %edi
+	call	fopen
+	movq	%rax, -152(%rbp)
 	leaq	-144(%rbp), %rax
 	movq	%rax, %rdi
 	call	strlen
@@ -54,7 +76,8 @@ main:
 	movl	$0, %eax
 	movq	-8(%rbp), %rcx
 	xorq	$40, %rcx
-	je	L3
-L3:
+	je	L7
+	call	__stack_chk_fail
+L7:
 	leave
 	ret
