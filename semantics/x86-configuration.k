@@ -31,9 +31,12 @@ module X86-CONFIGURATION
 
     <functargets> .Map </functargets> 
     <rotargets> .Map </rotargets> 
+    <datatargets> .Map </datatargets> 
+    <bsstargets> .Map </bsstargets> 
     <entrypoint> .K </entrypoint>
     <nextLocPc> mi(64, 0) </nextLocPc>
     <lastseenlabel> .K </lastseenlabel>
+    <currentsection> "text" </currentsection>
 
     <memstate>
       <text> code( .Map ) </text>
@@ -41,6 +44,8 @@ module X86-CONFIGURATION
         <memory/>
         <stackbase> stackBaseInfo(.K, .K) </stackbase>
         <robase> roBaseInfo(.K /* Alocation id*/, .K /*Base Pointer*/, .K /*Next Location*/ ) </robase>
+        <database> dataBaseInfo(.K , .K , .K ) </database>
+        <bssbase>   bssBaseInfo(.K , .K , .K ) </bssbase>
       </stack>
     </memstate>
 

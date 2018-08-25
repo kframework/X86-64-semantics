@@ -30,6 +30,8 @@ module X86-ASBTRACT-SYNTAX
   syntax Int ::= iloc(MInt)
   syntax StackBaseInfo ::= stackBaseInfo(/*MemLoc, Intial Offset*/ K, K)
   syntax ROBaseInfo ::= roBaseInfo(/*MemLoc, Intial Offset, Next location*/ K, K, K)
+  syntax DataBaseInfo ::= dataBaseInfo(/*MemLoc, Intial Offset, Next location*/ K, K, K)
+  syntax BssBaseInfo ::= bssBaseInfo(/*MemLoc, Intial Offset, Next location*/ K, K, K)
 
   syntax Abstractinstruction ::= storedInstr(Instruction)
   syntax Abstractinstruction ::= execinstr(Instruction)

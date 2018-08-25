@@ -34,6 +34,20 @@ module X86-MEMORY-SYNTAX
       /* Alignment in bits */ Int)
 
   /*@
+    Allocate Bss  memory and save allocated pointer
+  */
+  syntax KItem ::= allocateBssMemory(
+      /* Number of elements */ Int,
+      /* Alignment in bits */ Int)
+
+  /*@
+    Allocate Data  memory and save allocated pointer
+  */
+  syntax KItem ::= allocateDataMemory(
+      /* Number of elements */ Int,
+      /* Alignment in bits */ Int)
+
+  /*@
     Allocate memory: Used for allocating Read only memory
   */
   syntax KItem ::= allocateROMemory(
@@ -203,6 +217,34 @@ module X86-MEMORY
                         ("RSP"  |->  ptr(L, BP)) 
                         ("RBP"  |->  ptr(L, BP)) ) 
     </regstate>
+
+  /*@
+    Allocate Bss  memory and save allocated pointer
+  */
+  rule <k> allocateBssMemory(N:Int, A:Int) =>  
+    saveBssPointer(allocateLocalMemory(N, A)) ... </k>
+      <bssbase> 
+        bssBaseInfo(_:K, _:K => mi(addrSize, 0), _:K => mi(addrSize, 0))  
+      </bssbase>
+
+  syntax KItem ::=  saveBssPointer(K) [strict(1)]
+  rule <k> saveBssPointer(L:MemLoc) => .
+  ... </k>
+    <bssbase> bssBaseInfo(_:K => L, _:K, _:K)  </bssbase>
+
+  /*@
+    Allocate Data  memory and save allocated pointer
+  */
+  rule <k> allocateDataMemory(N:Int, A:Int) =>  
+    saveDataPointer(allocateLocalMemory(N, A)) ... </k>
+      <database> 
+        dataBaseInfo(_:K, _:K => mi(addrSize, 0), _:K => mi(addrSize, 0))  
+      </database>
+
+  syntax KItem ::=  saveDataPointer(K) [strict(1)]
+  rule <k> saveDataPointer(L:MemLoc) => .
+  ... </k>
+    <database> dataBaseInfo(_:K => L, _:K, _:K)  </database>
 
   /*@
     Allocate Read Only memory and save allocated pointer
