@@ -26,7 +26,7 @@ ${OUTDIR}/%.xstate: %.s
 	@echo ""
 	@echo  "Generate: $@ "
 	@mkdir -p ${OUTDIR}
-	${RUN_SH} --file $< --xrun --output $@ 
+	${RUN_SH} --file $< --xrun --output $@ #--linker gcc
 
 %.cstate: ${OUTDIR}/%.kstate ${OUTDIR}/%.xstate
 	@echo ""

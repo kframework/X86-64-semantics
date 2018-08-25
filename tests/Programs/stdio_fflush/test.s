@@ -1,9 +1,15 @@
+	.file	"test.c"
+	.section	.rodata
 LC0:
-	.string	"r+"
+	.string	"w"
 LC1:
 	.string	"example.txt"
 LC2:
 	.string	"test"
+LC3:
+	.string	"r"
+	.text
+	.globl	main
 main:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -24,6 +30,13 @@ main:
 	movq	-104(%rbp), %rax
 	movq	%rax, %rdi
 	call	fflush
+	movq	-104(%rbp), %rax
+	movq	%rax, %rdi
+	call	fclose
+	movl	$LC3, %esi
+	movl	$LC1, %edi
+	call	fopen
+	movq	%rax, -104(%rbp)
 	movq	-104(%rbp), %rdx
 	leaq	-96(%rbp), %rax
 	movl	$80, %esi

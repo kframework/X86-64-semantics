@@ -7,10 +7,11 @@ int main () {
    int year;
    FILE * fp;
 
-   fp = fopen ("file.txt", "w+");
+   fp = fopen ("file.txt", "w");
    fputs("We are in 2012", fp);
    
-   rewind(fp);
+   fclose(fp);
+   fp = fopen ("file.txt", "r");
    fscanf(fp, "%s %s %s %d", str1, str2, str3, &year);
    
    printf("Read String1 |%s|\n", str1 );

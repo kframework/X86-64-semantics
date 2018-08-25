@@ -1,19 +1,25 @@
+	.file	"test.c"
+	.section	.rodata
 LC0:
-	.string	"w+"
+	.string	"w"
 LC1:
 	.string	"file.txt"
 LC2:
 	.string	"We are in 2012"
 LC3:
-	.string	"%s %s %s %d"
+	.string	"r"
 LC4:
-	.string	"Read String1 |%s|\n"
+	.string	"%s %s %s %d"
 LC5:
-	.string	"Read String2 |%s|\n"
+	.string	"Read String1 |%s|\n"
 LC6:
-	.string	"Read String3 |%s|\n"
+	.string	"Read String2 |%s|\n"
 LC7:
+	.string	"Read String3 |%s|\n"
+LC8:
 	.string	"Read Integer |%d|\n"
+	.text
+	.globl	main
 main:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -33,7 +39,11 @@ main:
 	call	fwrite
 	movq	-72(%rbp), %rax
 	movq	%rax, %rdi
-	call	rewind
+	call	fclose
+	movl	$LC3, %esi
+	movl	$LC1, %edi
+	call	fopen
+	movq	%rax, -72(%rbp)
 	leaq	-76(%rbp), %rdi
 	leaq	-32(%rbp), %rsi
 	leaq	-48(%rbp), %rcx
@@ -41,28 +51,28 @@ main:
 	movq	-72(%rbp), %rax
 	movq	%rdi, %r9
 	movq	%rsi, %r8
-	movl	$LC3, %esi
+	movl	$LC4, %esi
 	movq	%rax, %rdi
 	movl	$0, %eax
-	call	fscanf
+	call	__isoc99_fscanf
 	leaq	-64(%rbp), %rax
-	movq	%rax, %rsi
-	movl	$LC4, %edi
-	movl	$0, %eax
-	call	printf
-	leaq	-48(%rbp), %rax
 	movq	%rax, %rsi
 	movl	$LC5, %edi
 	movl	$0, %eax
 	call	printf
-	leaq	-32(%rbp), %rax
+	leaq	-48(%rbp), %rax
 	movq	%rax, %rsi
 	movl	$LC6, %edi
 	movl	$0, %eax
 	call	printf
+	leaq	-32(%rbp), %rax
+	movq	%rax, %rsi
+	movl	$LC7, %edi
+	movl	$0, %eax
+	call	printf
 	movl	-76(%rbp), %eax
 	movl	%eax, %esi
-	movl	$LC7, %edi
+	movl	$LC8, %edi
 	movl	$0, %eax
 	call	printf
 	movq	-72(%rbp), %rax
