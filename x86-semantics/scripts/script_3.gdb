@@ -45,10 +45,12 @@ define nstep
  while ($foo--)
   process_instr
   si
+#  ni
  end
 end
 
 b *_start
+#b *main
 r
 nstep 10000
 q

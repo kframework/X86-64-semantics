@@ -14,7 +14,7 @@ main:
 	movq	%rax, %rdi
 	call	getc
 	movb	%al, -9(%rbp)
-	movq	stdout(%rip), %rdx
+	movq	$stdout, %rdx
 	movsbl	-9(%rbp), %eax
 	movq	%rdx, %rsi
 	movl	%eax, %edi

@@ -1,4 +1,5 @@
-main:      
+.globl _start
+_start:      
         pushq   %rbp
         movq    %rsp, %rbp
         subq    $16, %rsp
