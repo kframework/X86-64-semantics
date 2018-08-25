@@ -126,62 +126,62 @@ module X86-C-LIBRARY
   rule writeString(PV:PointerVal, "") => storeToMemory(mi(8,0), PV, 8)
 
   // write chars 
-  rule <k> writeAsChars(PV:PointerVal, S:String) => writeCharBytes({getRegisterValue(%rsi, RSMap)}:>PointerVal, S)
+  rule <k> writeAsChars(C:MInt, S:String) => writeCharBytes({getRegisterValue(%rsi, RSMap)}:>PointerVal, S)
   ...</k>
     <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
       requires I ==Int 0
 
-  rule <k> writeAsChars(PV:PointerVal, S:String) => writeCharBytes({getRegisterValue(%rdx, RSMap)}:>PointerVal, S)
+  rule <k> writeAsChars(C:MInt, S:String) => writeCharBytes({getRegisterValue(%rdx, RSMap)}:>PointerVal, S)
   ...</k>
     <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
       requires I ==Int 1
   
-  rule <k> writeAsChars(PV:PointerVal, S:String) => writeCharBytes({getRegisterValue(%rcx, RSMap)}:>PointerVal, S)
+  rule <k> writeAsChars(C:MInt, S:String) => writeCharBytes({getRegisterValue(%rcx, RSMap)}:>PointerVal, S)
   ...</k>
     <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
       requires I ==Int 2    
 
-  rule <k> writeAsChars(PV:PointerVal, S:String) => writeCharBytes({getRegisterValue(%r8, RSMap)}:>PointerVal, S)
+  rule <k> writeAsChars(C:MInt, S:String) => writeCharBytes({getRegisterValue(%r8, RSMap)}:>PointerVal, S)
   ...</k>
     <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
       requires I ==Int 3
   
-  rule <k> writeAsChars(PV:PointerVal, S:String) => writeCharBytes({getRegisterValue(%r9, RSMap)}:>PointerVal, S)
+  rule <k> writeAsChars(C:MInt, S:String) => writeCharBytes({getRegisterValue(%r9, RSMap)}:>PointerVal, S)
   ...</k>
     <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
       requires I ==Int 4
 
   // write chars    
-  rule <k> writeAsString(PV:PointerVal, S:String) => writeString({getRegisterValue(%rsi, RSMap)}:>PointerVal, S)
+  rule <k> writeAsString(C:MInt, S:String) => writeString({getRegisterValue(%rsi, RSMap)}:>PointerVal, S)
   ...</k>
     <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
       requires I ==Int 0
 
-  rule <k> writeAsString(PV:PointerVal, S:String) => writeString({getRegisterValue(%rdx, RSMap)}:>PointerVal, S)
+  rule <k> writeAsString(C:MInt, S:String) => writeString({getRegisterValue(%rdx, RSMap)}:>PointerVal, S)
   ...</k>
     <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
       requires I ==Int 1
 
-  rule <k> writeAsString(PV:PointerVal, S:String) => writeString({getRegisterValue(%rcx, RSMap)}:>PointerVal, S)
+  rule <k> writeAsString(C:MInt, S:String) => writeString({getRegisterValue(%rcx, RSMap)}:>PointerVal, S)
   ...</k>
     <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
       requires I ==Int 2
 
-  rule <k> writeAsString(PV:PointerVal, S:String) => writeString({getRegisterValue(%r8, RSMap)}:>PointerVal, S)
+  rule <k> writeAsString(C:MInt, S:String) => writeString({getRegisterValue(%r8, RSMap)}:>PointerVal, S)
   ...</k>
     <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
       requires I ==Int 3
 
-  rule <k> writeAsString(PV:PointerVal, S:String) => writeString({getRegisterValue(%r9, RSMap)}:>PointerVal, S)
+  rule <k> writeAsString(C:MInt, S:String) => writeString({getRegisterValue(%r9, RSMap)}:>PointerVal, S)
   ...</k>
     <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>

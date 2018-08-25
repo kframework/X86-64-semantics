@@ -9,7 +9,7 @@ LC2:
 LC3:
 	.string	"r"
 LC4:
-	.string	"%s %s %s %d"
+	.string	"%s %s %s %s"
 LC5:
 	.string	"Read String1 |%s|\n"
 LC6:
@@ -17,65 +17,65 @@ LC6:
 LC7:
 	.string	"Read String3 |%s|\n"
 LC8:
-	.string	"Read Integer |%d|\n"
+	.string	"Read Integer |%s|\n"
 	.text
 	.globl	main
 main:
 	pushq	%rbp
 	movq	%rsp, %rbp
-	subq	$80, %rsp
+	subq	$96, %rsp
 	movq	$40, %rax
 	movq	%rax, -8(%rbp)
 	xorl	%eax, %eax
 	movl	$LC0, %esi
 	movl	$LC1, %edi
 	call	fopen
-	movq	%rax, -72(%rbp)
-	movq	-72(%rbp), %rax
+	movq	%rax, -88(%rbp)
+	movq	-88(%rbp), %rax
 	movq	%rax, %rcx
 	movl	$14, %edx
 	movl	$1, %esi
 	movl	$LC2, %edi
 	call	fwrite
-	movq	-72(%rbp), %rax
+	movq	-88(%rbp), %rax
 	movq	%rax, %rdi
 	call	fclose
 	movl	$LC3, %esi
 	movl	$LC1, %edi
 	call	fopen
-	movq	%rax, -72(%rbp)
-	leaq	-76(%rbp), %rdi
-	leaq	-32(%rbp), %rsi
-	leaq	-48(%rbp), %rcx
-	leaq	-64(%rbp), %rdx
-	movq	-72(%rbp), %rax
+	movq	%rax, -88(%rbp)
+	leaq	-32(%rbp), %rdi
+	leaq	-48(%rbp), %rsi
+	leaq	-64(%rbp), %rcx
+	leaq	-80(%rbp), %rdx
+	movq	-88(%rbp), %rax
 	movq	%rdi, %r9
 	movq	%rsi, %r8
 	movl	$LC4, %esi
 	movq	%rax, %rdi
 	movl	$0, %eax
 	call	__isoc99_fscanf
-	leaq	-64(%rbp), %rax
+	leaq	-80(%rbp), %rax
 	movq	%rax, %rsi
 	movl	$LC5, %edi
 	movl	$0, %eax
 	call	printf
-	leaq	-48(%rbp), %rax
+	leaq	-64(%rbp), %rax
 	movq	%rax, %rsi
 	movl	$LC6, %edi
 	movl	$0, %eax
 	call	printf
-	leaq	-32(%rbp), %rax
+	leaq	-48(%rbp), %rax
 	movq	%rax, %rsi
 	movl	$LC7, %edi
 	movl	$0, %eax
 	call	printf
-	movl	-76(%rbp), %eax
-	movl	%eax, %esi
+	leaq	-32(%rbp), %rax
+	movq	%rax, %rsi
 	movl	$LC8, %edi
 	movl	$0, %eax
 	call	printf
-	movq	-72(%rbp), %rax
+	movq	-88(%rbp), %rax
 	movq	%rax, %rdi
 	call	fclose
 	movl	$0, %eax
