@@ -56,6 +56,7 @@ module X86-BUILTIN
   ...</k>
     <regstate> RSMap </regstate>
 
+  // read from stdin  
   rule <k>
     execinstr (call fgets:Builtin,  .Operands) =>
       stdio_fgets(
@@ -154,6 +155,7 @@ module X86-BUILTIN
   ...</k>
     <regstate> RSMap </regstate>
 
+  // read from stdin  
   rule <k>
     execinstr (call getchar:Builtin,  .Operands) => stdio_getchar
   ...</k>
@@ -261,6 +263,11 @@ module X86-BUILTIN
     <formatcountfloat> _ => 0 </formatcountfloat>
 
   rule <k>
+    execinstr (call __isoc99_fscanf:Builtin,  .Operands) =>
+      execinstr (call fscanf,  .Operands)
+  ...</k>
+
+  rule <k>
     execinstr (call fscanf:Builtin,  .Operands) =>
       stdio_fscanf(
           {getRegisterValue(%rdi, RSMap)}:>PointerVal, 
@@ -281,6 +288,8 @@ module X86-BUILTIN
     <formatcountfloat> _ => 0 </formatcountfloat>
 
 
+  // Potential bug in the implementation of stdio_sscanf
+  // check common-c-library-stdio.k  
   rule <k>
     execinstr (call sscanf:Builtin,  .Operands) =>
       stdio_sscanf(
@@ -301,6 +310,7 @@ module X86-BUILTIN
     <formatcountint> _ => 1 </formatcountint>
     <formatcountfloat> _ => 0 </formatcountfloat>
 
+  // From stdin  
   rule <k>
     execinstr (call scanf:Builtin,  .Operands) =>
       stdio_scanf(
