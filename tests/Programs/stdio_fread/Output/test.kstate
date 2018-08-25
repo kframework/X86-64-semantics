@@ -10,7 +10,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0
   </functargets>
   <rotargets>
@@ -18,6 +18,12 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
   </rotargets>
+  <datatargets>
+    .Map
+  </datatargets>
+  <bsstargets>
+    .Map
+  </bsstargets>
   <entrypoint>
     64'15
   </entrypoint>
@@ -27,6 +33,9 @@
   <lastseenlabel>
     L7
   </lastseenlabel>
+  <currentsection>
+    "text"
+  </currentsection>
   <memstate>
     <text>
       code ( iloc ( 64'0 ) |-> storedInstr ( pushq %rbp , .Operands )
@@ -105,7 +114,7 @@
     <stack>
       <memory>
         <nextLoc>
-          6
+          8
         </nextLoc>
         <objects>
           mem ( symloc ( 1 , 128 ) |-> mVector ( 1024 , 8 , 0 |-> byte ( 0 , 8'0 )
@@ -964,14 +973,14 @@
           853 |-> byte ( 0 , 8'0 )
           854 |-> byte ( 0 , 8'0 )
           855 |-> byte ( 0 , 8'0 )
-          856 |-> byte ( 0 , ptr ( symloc ( 5 , 0 ) , 64'0 ) )
-          857 |-> byte ( 1 , ptr ( symloc ( 5 , 0 ) , 64'0 ) )
-          858 |-> byte ( 2 , ptr ( symloc ( 5 , 0 ) , 64'0 ) )
-          859 |-> byte ( 3 , ptr ( symloc ( 5 , 0 ) , 64'0 ) )
-          860 |-> byte ( 4 , ptr ( symloc ( 5 , 0 ) , 64'0 ) )
-          861 |-> byte ( 5 , ptr ( symloc ( 5 , 0 ) , 64'0 ) )
-          862 |-> byte ( 6 , ptr ( symloc ( 5 , 0 ) , 64'0 ) )
-          863 |-> byte ( 7 , ptr ( symloc ( 5 , 0 ) , 64'0 ) )
+          856 |-> byte ( 0 , ptr ( symloc ( 7 , 0 ) , 64'1 ) )
+          857 |-> byte ( 1 , ptr ( symloc ( 7 , 0 ) , 64'1 ) )
+          858 |-> byte ( 2 , ptr ( symloc ( 7 , 0 ) , 64'1 ) )
+          859 |-> byte ( 3 , ptr ( symloc ( 7 , 0 ) , 64'1 ) )
+          860 |-> byte ( 4 , ptr ( symloc ( 7 , 0 ) , 64'1 ) )
+          861 |-> byte ( 5 , ptr ( symloc ( 7 , 0 ) , 64'1 ) )
+          862 |-> byte ( 6 , ptr ( symloc ( 7 , 0 ) , 64'1 ) )
+          863 |-> byte ( 7 , ptr ( symloc ( 7 , 0 ) , 64'1 ) )
           864 |-> byte ( 0 , 64'2338328219631577204 )
           865 |-> byte ( 1 , 64'2338328219631577204 )
           866 |-> byte ( 2 , 64'2338328219631577204 )
@@ -1132,7 +1141,7 @@
           1021 |-> byte ( 5 , 64'-1 )
           1022 |-> byte ( 6 , 64'-1 )
           1023 |-> byte ( 7 , 64'-1 ) )
-          symloc ( 2 , 128 ) |-> mVector ( 256 , 8 , 0 |-> byte ( 0 , 8'119 )
+          symloc ( 2 , 128 ) |-> mVector ( 128 , 8 , 0 |-> byte ( 0 , 8'119 )
           1 |-> byte ( 0 , 8'0 )
           2 |-> byte ( 0 , 8'102 )
           3 |-> byte ( 0 , 8'105 )
@@ -1259,139 +1268,140 @@
           124 |-> byte ( 0 , 8'0 )
           125 |-> byte ( 0 , 8'0 )
           126 |-> byte ( 0 , 8'0 )
-          127 |-> byte ( 0 , 8'0 )
-          128 |-> byte ( 0 , 8'0 )
-          129 |-> byte ( 0 , 8'0 )
-          130 |-> byte ( 0 , 8'0 )
-          131 |-> byte ( 0 , 8'0 )
-          132 |-> byte ( 0 , 8'0 )
-          133 |-> byte ( 0 , 8'0 )
-          134 |-> byte ( 0 , 8'0 )
-          135 |-> byte ( 0 , 8'0 )
-          136 |-> byte ( 0 , 8'0 )
-          137 |-> byte ( 0 , 8'0 )
-          138 |-> byte ( 0 , 8'0 )
-          139 |-> byte ( 0 , 8'0 )
-          140 |-> byte ( 0 , 8'0 )
-          141 |-> byte ( 0 , 8'0 )
-          142 |-> byte ( 0 , 8'0 )
-          143 |-> byte ( 0 , 8'0 )
-          144 |-> byte ( 0 , 8'0 )
-          145 |-> byte ( 0 , 8'0 )
-          146 |-> byte ( 0 , 8'0 )
-          147 |-> byte ( 0 , 8'0 )
-          148 |-> byte ( 0 , 8'0 )
-          149 |-> byte ( 0 , 8'0 )
-          150 |-> byte ( 0 , 8'0 )
-          151 |-> byte ( 0 , 8'0 )
-          152 |-> byte ( 0 , 8'0 )
-          153 |-> byte ( 0 , 8'0 )
-          154 |-> byte ( 0 , 8'0 )
-          155 |-> byte ( 0 , 8'0 )
-          156 |-> byte ( 0 , 8'0 )
-          157 |-> byte ( 0 , 8'0 )
-          158 |-> byte ( 0 , 8'0 )
-          159 |-> byte ( 0 , 8'0 )
-          160 |-> byte ( 0 , 8'0 )
-          161 |-> byte ( 0 , 8'0 )
-          162 |-> byte ( 0 , 8'0 )
-          163 |-> byte ( 0 , 8'0 )
-          164 |-> byte ( 0 , 8'0 )
-          165 |-> byte ( 0 , 8'0 )
-          166 |-> byte ( 0 , 8'0 )
-          167 |-> byte ( 0 , 8'0 )
-          168 |-> byte ( 0 , 8'0 )
-          169 |-> byte ( 0 , 8'0 )
-          170 |-> byte ( 0 , 8'0 )
-          171 |-> byte ( 0 , 8'0 )
-          172 |-> byte ( 0 , 8'0 )
-          173 |-> byte ( 0 , 8'0 )
-          174 |-> byte ( 0 , 8'0 )
-          175 |-> byte ( 0 , 8'0 )
-          176 |-> byte ( 0 , 8'0 )
-          177 |-> byte ( 0 , 8'0 )
-          178 |-> byte ( 0 , 8'0 )
-          179 |-> byte ( 0 , 8'0 )
-          180 |-> byte ( 0 , 8'0 )
-          181 |-> byte ( 0 , 8'0 )
-          182 |-> byte ( 0 , 8'0 )
-          183 |-> byte ( 0 , 8'0 )
-          184 |-> byte ( 0 , 8'0 )
-          185 |-> byte ( 0 , 8'0 )
-          186 |-> byte ( 0 , 8'0 )
-          187 |-> byte ( 0 , 8'0 )
-          188 |-> byte ( 0 , 8'0 )
-          189 |-> byte ( 0 , 8'0 )
-          190 |-> byte ( 0 , 8'0 )
-          191 |-> byte ( 0 , 8'0 )
-          192 |-> byte ( 0 , 8'0 )
-          193 |-> byte ( 0 , 8'0 )
-          194 |-> byte ( 0 , 8'0 )
-          195 |-> byte ( 0 , 8'0 )
-          196 |-> byte ( 0 , 8'0 )
-          197 |-> byte ( 0 , 8'0 )
-          198 |-> byte ( 0 , 8'0 )
-          199 |-> byte ( 0 , 8'0 )
-          200 |-> byte ( 0 , 8'0 )
-          201 |-> byte ( 0 , 8'0 )
-          202 |-> byte ( 0 , 8'0 )
-          203 |-> byte ( 0 , 8'0 )
-          204 |-> byte ( 0 , 8'0 )
-          205 |-> byte ( 0 , 8'0 )
-          206 |-> byte ( 0 , 8'0 )
-          207 |-> byte ( 0 , 8'0 )
-          208 |-> byte ( 0 , 8'0 )
-          209 |-> byte ( 0 , 8'0 )
-          210 |-> byte ( 0 , 8'0 )
-          211 |-> byte ( 0 , 8'0 )
-          212 |-> byte ( 0 , 8'0 )
-          213 |-> byte ( 0 , 8'0 )
-          214 |-> byte ( 0 , 8'0 )
-          215 |-> byte ( 0 , 8'0 )
-          216 |-> byte ( 0 , 8'0 )
-          217 |-> byte ( 0 , 8'0 )
-          218 |-> byte ( 0 , 8'0 )
-          219 |-> byte ( 0 , 8'0 )
-          220 |-> byte ( 0 , 8'0 )
-          221 |-> byte ( 0 , 8'0 )
-          222 |-> byte ( 0 , 8'0 )
-          223 |-> byte ( 0 , 8'0 )
-          224 |-> byte ( 0 , 8'0 )
-          225 |-> byte ( 0 , 8'0 )
-          226 |-> byte ( 0 , 8'0 )
-          227 |-> byte ( 0 , 8'0 )
-          228 |-> byte ( 0 , 8'0 )
-          229 |-> byte ( 0 , 8'0 )
-          230 |-> byte ( 0 , 8'0 )
-          231 |-> byte ( 0 , 8'0 )
-          232 |-> byte ( 0 , 8'0 )
-          233 |-> byte ( 0 , 8'0 )
-          234 |-> byte ( 0 , 8'0 )
-          235 |-> byte ( 0 , 8'0 )
-          236 |-> byte ( 0 , 8'0 )
-          237 |-> byte ( 0 , 8'0 )
-          238 |-> byte ( 0 , 8'0 )
-          239 |-> byte ( 0 , 8'0 )
-          240 |-> byte ( 0 , 8'0 )
-          241 |-> byte ( 0 , 8'0 )
-          242 |-> byte ( 0 , 8'0 )
-          243 |-> byte ( 0 , 8'0 )
-          244 |-> byte ( 0 , 8'0 )
-          245 |-> byte ( 0 , 8'0 )
-          246 |-> byte ( 0 , 8'0 )
-          247 |-> byte ( 0 , 8'0 )
-          248 |-> byte ( 0 , 8'0 )
-          249 |-> byte ( 0 , 8'0 )
-          250 |-> byte ( 0 , 8'0 )
-          251 |-> byte ( 0 , 8'0 )
-          252 |-> byte ( 0 , 8'0 )
-          253 |-> byte ( 0 , 8'0 )
-          254 |-> byte ( 0 , 8'0 )
-          255 |-> byte ( 0 , 8'0 ) )
-          symloc ( 3 , 0 ) |-> mVector ( 4 , 8 , 0 |-> byte ( 0 , 32'1 )
-          1 |-> byte ( 1 , 32'1 )
-          2 |-> byte ( 2 , 32'1 )
-          3 |-> byte ( 3 , 32'1 ) ) )
+          127 |-> byte ( 0 , 8'0 ) )
+          symloc ( 3 , 128 ) |-> mVector ( 64 , 8 , 0 |-> byte ( 0 , 8'0 )
+          1 |-> byte ( 0 , 8'0 )
+          2 |-> byte ( 0 , 8'0 )
+          3 |-> byte ( 0 , 8'0 )
+          4 |-> byte ( 0 , 8'0 )
+          5 |-> byte ( 0 , 8'0 )
+          6 |-> byte ( 0 , 8'0 )
+          7 |-> byte ( 0 , 8'0 )
+          8 |-> byte ( 0 , 8'0 )
+          9 |-> byte ( 0 , 8'0 )
+          10 |-> byte ( 0 , 8'0 )
+          11 |-> byte ( 0 , 8'0 )
+          12 |-> byte ( 0 , 8'0 )
+          13 |-> byte ( 0 , 8'0 )
+          14 |-> byte ( 0 , 8'0 )
+          15 |-> byte ( 0 , 8'0 )
+          16 |-> byte ( 0 , 8'0 )
+          17 |-> byte ( 0 , 8'0 )
+          18 |-> byte ( 0 , 8'0 )
+          19 |-> byte ( 0 , 8'0 )
+          20 |-> byte ( 0 , 8'0 )
+          21 |-> byte ( 0 , 8'0 )
+          22 |-> byte ( 0 , 8'0 )
+          23 |-> byte ( 0 , 8'0 )
+          24 |-> byte ( 0 , 8'0 )
+          25 |-> byte ( 0 , 8'0 )
+          26 |-> byte ( 0 , 8'0 )
+          27 |-> byte ( 0 , 8'0 )
+          28 |-> byte ( 0 , 8'0 )
+          29 |-> byte ( 0 , 8'0 )
+          30 |-> byte ( 0 , 8'0 )
+          31 |-> byte ( 0 , 8'0 )
+          32 |-> byte ( 0 , 8'0 )
+          33 |-> byte ( 0 , 8'0 )
+          34 |-> byte ( 0 , 8'0 )
+          35 |-> byte ( 0 , 8'0 )
+          36 |-> byte ( 0 , 8'0 )
+          37 |-> byte ( 0 , 8'0 )
+          38 |-> byte ( 0 , 8'0 )
+          39 |-> byte ( 0 , 8'0 )
+          40 |-> byte ( 0 , 8'0 )
+          41 |-> byte ( 0 , 8'0 )
+          42 |-> byte ( 0 , 8'0 )
+          43 |-> byte ( 0 , 8'0 )
+          44 |-> byte ( 0 , 8'0 )
+          45 |-> byte ( 0 , 8'0 )
+          46 |-> byte ( 0 , 8'0 )
+          47 |-> byte ( 0 , 8'0 )
+          48 |-> byte ( 0 , 8'0 )
+          49 |-> byte ( 0 , 8'0 )
+          50 |-> byte ( 0 , 8'0 )
+          51 |-> byte ( 0 , 8'0 )
+          52 |-> byte ( 0 , 8'0 )
+          53 |-> byte ( 0 , 8'0 )
+          54 |-> byte ( 0 , 8'0 )
+          55 |-> byte ( 0 , 8'0 )
+          56 |-> byte ( 0 , 8'0 )
+          57 |-> byte ( 0 , 8'0 )
+          58 |-> byte ( 0 , 8'0 )
+          59 |-> byte ( 0 , 8'0 )
+          60 |-> byte ( 0 , 8'0 )
+          61 |-> byte ( 0 , 8'0 )
+          62 |-> byte ( 0 , 8'0 )
+          63 |-> byte ( 0 , 8'0 ) )
+          symloc ( 4 , 128 ) |-> mVector ( 64 , 8 , 0 |-> byte ( 0 , 8'0 )
+          1 |-> byte ( 0 , 8'0 )
+          2 |-> byte ( 0 , 8'0 )
+          3 |-> byte ( 0 , 8'0 )
+          4 |-> byte ( 0 , 8'0 )
+          5 |-> byte ( 0 , 8'0 )
+          6 |-> byte ( 0 , 8'0 )
+          7 |-> byte ( 0 , 8'0 )
+          8 |-> byte ( 0 , 8'0 )
+          9 |-> byte ( 0 , 8'0 )
+          10 |-> byte ( 0 , 8'0 )
+          11 |-> byte ( 0 , 8'0 )
+          12 |-> byte ( 0 , 8'0 )
+          13 |-> byte ( 0 , 8'0 )
+          14 |-> byte ( 0 , 8'0 )
+          15 |-> byte ( 0 , 8'0 )
+          16 |-> byte ( 0 , 8'0 )
+          17 |-> byte ( 0 , 8'0 )
+          18 |-> byte ( 0 , 8'0 )
+          19 |-> byte ( 0 , 8'0 )
+          20 |-> byte ( 0 , 8'0 )
+          21 |-> byte ( 0 , 8'0 )
+          22 |-> byte ( 0 , 8'0 )
+          23 |-> byte ( 0 , 8'0 )
+          24 |-> byte ( 0 , 8'0 )
+          25 |-> byte ( 0 , 8'0 )
+          26 |-> byte ( 0 , 8'0 )
+          27 |-> byte ( 0 , 8'0 )
+          28 |-> byte ( 0 , 8'0 )
+          29 |-> byte ( 0 , 8'0 )
+          30 |-> byte ( 0 , 8'0 )
+          31 |-> byte ( 0 , 8'0 )
+          32 |-> byte ( 0 , 8'0 )
+          33 |-> byte ( 0 , 8'0 )
+          34 |-> byte ( 0 , 8'0 )
+          35 |-> byte ( 0 , 8'0 )
+          36 |-> byte ( 0 , 8'0 )
+          37 |-> byte ( 0 , 8'0 )
+          38 |-> byte ( 0 , 8'0 )
+          39 |-> byte ( 0 , 8'0 )
+          40 |-> byte ( 0 , 8'0 )
+          41 |-> byte ( 0 , 8'0 )
+          42 |-> byte ( 0 , 8'0 )
+          43 |-> byte ( 0 , 8'0 )
+          44 |-> byte ( 0 , 8'0 )
+          45 |-> byte ( 0 , 8'0 )
+          46 |-> byte ( 0 , 8'0 )
+          47 |-> byte ( 0 , 8'0 )
+          48 |-> byte ( 0 , 8'0 )
+          49 |-> byte ( 0 , 8'0 )
+          50 |-> byte ( 0 , 8'0 )
+          51 |-> byte ( 0 , 8'0 )
+          52 |-> byte ( 0 , 8'0 )
+          53 |-> byte ( 0 , 8'0 )
+          54 |-> byte ( 0 , 8'0 )
+          55 |-> byte ( 0 , 8'0 )
+          56 |-> byte ( 0 , 8'0 )
+          57 |-> byte ( 0 , 8'0 )
+          58 |-> byte ( 0 , 8'0 )
+          59 |-> byte ( 0 , 8'0 )
+          60 |-> byte ( 0 , 8'0 )
+          61 |-> byte ( 0 , 8'0 )
+          62 |-> byte ( 0 , 8'0 )
+          63 |-> byte ( 0 , 8'0 ) )
+          symloc ( 5 , 0 ) |-> mVector ( 5 , 8 , 0 |-> byte ( 0 , 8'0 )
+          1 |-> byte ( 0 , 32'1 )
+          2 |-> byte ( 1 , 32'1 )
+          3 |-> byte ( 2 , 32'1 )
+          4 |-> byte ( 3 , 32'1 ) ) )
         </objects>
       </memory>
       <stackbase>
@@ -1400,6 +1410,12 @@
       <robase>
         roBaseInfo ( symloc ( 2 , 128 ) , 64'0 , 64'13 )
       </robase>
+      <database>
+        dataBaseInfo ( symloc ( 3 , 128 ) , 64'0 , 64'0 )
+      </database>
+      <bssbase>
+        bssBaseInfo ( symloc ( 4 , 128 ) , 64'0 , 64'0 )
+      </bssbase>
     </stack>
   </memstate>
   <environment>
@@ -1428,7 +1444,7 @@
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'1016 )
     "RBX" |-> 64'0
     "RCX" |-> 64'0
-    "RDI" |-> ptr ( symloc ( 5 , 0 ) , 64'0 )
+    "RDI" |-> ptr ( symloc ( 7 , 0 ) , 64'1 )
     "RDX" |-> 64'1
     "RIP" |-> 64'18446744073709551615
     "RSI" |-> 64'23
@@ -1501,7 +1517,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -1551,7 +1567,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -1601,7 +1617,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -1651,7 +1667,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -1701,7 +1717,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -1751,7 +1767,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -1801,7 +1817,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -1851,7 +1867,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -1901,7 +1917,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -1951,7 +1967,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -2001,7 +2017,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -2051,7 +2067,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -2101,7 +2117,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -2151,7 +2167,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -2201,7 +2217,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -2251,7 +2267,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -2267,7 +2283,7 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RAX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'1008 )
     "RBX" |-> 64'0
     "RCX" |-> 64'0
@@ -2301,7 +2317,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -2317,7 +2333,7 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RAX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'1008 )
     "RBX" |-> 64'0
     "RCX" |-> 64'0
@@ -2351,7 +2367,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -2401,7 +2417,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -2451,7 +2467,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -2501,7 +2517,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -2551,7 +2567,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -2601,7 +2617,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -2651,7 +2667,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -2701,7 +2717,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -2751,7 +2767,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -2801,7 +2817,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -2851,7 +2867,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -2901,7 +2917,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -2951,7 +2967,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -3001,7 +3017,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -3051,7 +3067,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -3101,7 +3117,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -3151,7 +3167,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -3201,7 +3217,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -3251,7 +3267,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -3301,7 +3317,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -3351,7 +3367,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -3401,7 +3417,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -3451,7 +3467,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -3501,7 +3517,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -3551,7 +3567,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -3601,7 +3617,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -3651,7 +3667,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -3701,7 +3717,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -3751,7 +3767,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -3801,7 +3817,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -3851,7 +3867,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -3901,7 +3917,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -3951,7 +3967,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -4001,7 +4017,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -4051,7 +4067,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -4101,7 +4117,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -4151,7 +4167,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -4201,7 +4217,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -4251,7 +4267,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -4301,7 +4317,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -4351,7 +4367,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -4401,7 +4417,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -4451,7 +4467,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -4501,7 +4517,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -4551,7 +4567,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -4601,7 +4617,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -4651,7 +4667,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -4701,7 +4717,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -4751,7 +4767,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -4801,7 +4817,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -4851,7 +4867,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -4901,7 +4917,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -4951,7 +4967,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -5001,7 +5017,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -5051,7 +5067,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -5101,7 +5117,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -5151,7 +5167,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -5201,7 +5217,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -5251,7 +5267,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -5301,7 +5317,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -5351,7 +5367,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -5401,7 +5417,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -5451,7 +5467,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -5501,7 +5517,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -5551,7 +5567,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -5601,7 +5617,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -5651,7 +5667,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -5701,7 +5717,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -5751,7 +5767,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -5801,7 +5817,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -5851,7 +5867,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -5901,7 +5917,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -5951,7 +5967,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -6001,7 +6017,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -6051,7 +6067,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -6101,7 +6117,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -6151,7 +6167,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -6201,7 +6217,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -6251,7 +6267,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -6301,7 +6317,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -6351,7 +6367,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -6401,7 +6417,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -6451,7 +6467,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -6501,7 +6517,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -6551,7 +6567,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -6601,7 +6617,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -6651,7 +6667,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -6701,7 +6717,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -6751,7 +6767,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -6801,7 +6817,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -6851,7 +6867,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -6901,7 +6917,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -6951,7 +6967,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -7001,7 +7017,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -7051,7 +7067,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -7101,7 +7117,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -7151,7 +7167,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -7201,7 +7217,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -7251,7 +7267,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -7301,7 +7317,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -7351,7 +7367,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -7401,7 +7417,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -7451,7 +7467,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -7501,7 +7517,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -7551,7 +7567,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -7601,7 +7617,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -7651,7 +7667,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -7701,7 +7717,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -7751,7 +7767,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -7801,7 +7817,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -7851,7 +7867,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -7901,7 +7917,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -7951,7 +7967,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -8001,7 +8017,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -8051,7 +8067,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -8101,7 +8117,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -8151,7 +8167,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -8201,7 +8217,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -8251,7 +8267,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -8301,7 +8317,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'1
@@ -8351,7 +8367,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'1
@@ -8401,7 +8417,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'1
@@ -8451,7 +8467,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -8501,7 +8517,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -8551,7 +8567,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -8601,7 +8617,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -8651,7 +8667,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -8701,7 +8717,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -8751,7 +8767,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -8801,7 +8817,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -8851,7 +8867,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -8901,7 +8917,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -8951,7 +8967,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -9001,7 +9017,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -9051,7 +9067,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -9101,7 +9117,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -9151,7 +9167,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -9201,7 +9217,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -9251,7 +9267,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -9301,7 +9317,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -9351,7 +9367,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -9401,7 +9417,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -9451,7 +9467,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -9501,7 +9517,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -9551,7 +9567,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -9601,7 +9617,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -9651,7 +9667,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -9701,7 +9717,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -9751,7 +9767,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -9801,7 +9817,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -9851,7 +9867,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -9901,7 +9917,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -9951,7 +9967,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -10001,7 +10017,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -10051,7 +10067,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -10101,7 +10117,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -10151,7 +10167,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -10201,7 +10217,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -10251,7 +10267,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -10301,7 +10317,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -10351,7 +10367,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -10401,7 +10417,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -10451,7 +10467,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -10501,7 +10517,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -10551,7 +10567,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -10601,7 +10617,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -10651,7 +10667,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -10701,7 +10717,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -10751,7 +10767,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -10801,7 +10817,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -10851,7 +10867,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -10901,7 +10917,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -10951,7 +10967,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -10972,7 +10988,7 @@
     "RBX" |-> 64'0
     "RCX" |-> 64'0
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
-    "RDX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RDX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RIP" |-> 64'37
     "RSI" |-> 64'23
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'848 )
@@ -11001,7 +11017,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -11022,7 +11038,7 @@
     "RBX" |-> 64'0
     "RCX" |-> 64'0
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
-    "RDX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RDX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RIP" |-> 64'38
     "RSI" |-> 64'23
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'848 )
@@ -11051,7 +11067,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -11070,9 +11086,9 @@
     "RAX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'1008 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
-    "RDX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RDX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RIP" |-> 64'39
     "RSI" |-> 64'23
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'848 )
@@ -11101,7 +11117,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -11120,7 +11136,7 @@
     "RAX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'1008 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> 64'1
     "RIP" |-> 64'40
@@ -11151,7 +11167,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -11170,7 +11186,7 @@
     "RAX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'1008 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> 64'1
     "RIP" |-> 64'41
@@ -11201,7 +11217,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -11220,7 +11236,7 @@
     "RAX" |-> 64'1
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'1008 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> 64'1
     "RIP" |-> 64'42
@@ -11251,7 +11267,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -11267,10 +11283,10 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RAX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'1008 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> 64'1
     "RIP" |-> 64'43
@@ -11301,7 +11317,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -11317,11 +11333,11 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RAX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'1008 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
-    "RDI" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
+    "RDI" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDX" |-> 64'1
     "RIP" |-> 64'44
     "RSI" |-> 64'23
@@ -11351,7 +11367,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -11370,8 +11386,8 @@
     "RAX" |-> 64'0
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'1008 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
-    "RDI" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
+    "RDI" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDX" |-> 64'1
     "RIP" |-> 64'45
     "RSI" |-> 64'23
@@ -11401,7 +11417,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -11420,8 +11436,8 @@
     "RAX" |-> 64'0
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'1008 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
-    "RDI" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
+    "RDI" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDX" |-> 64'1
     "RIP" |-> 64'46
     "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
@@ -11451,7 +11467,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -11470,7 +11486,7 @@
     "RAX" |-> 64'0
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'1008 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     "RDX" |-> 64'1
     "RIP" |-> 64'47
@@ -11501,7 +11517,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -11517,10 +11533,10 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> ptr ( symloc ( 5 , 0 ) , 64'0 )
+    "RAX" |-> ptr ( symloc ( 7 , 0 ) , 64'1 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'1008 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     "RDX" |-> 64'1
     "RIP" |-> 64'48
@@ -11551,7 +11567,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -11567,10 +11583,10 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> ptr ( symloc ( 5 , 0 ) , 64'0 )
+    "RAX" |-> ptr ( symloc ( 7 , 0 ) , 64'1 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'1008 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     "RDX" |-> 64'1
     "RIP" |-> 64'49
@@ -11601,7 +11617,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -11620,7 +11636,7 @@
     "RAX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'1008 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     "RDX" |-> 64'1
     "RIP" |-> 64'50
@@ -11651,7 +11667,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -11670,7 +11686,7 @@
     "RAX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'1008 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> 64'1
     "RIP" |-> 64'51
@@ -11701,7 +11717,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -11720,7 +11736,7 @@
     "RAX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'1008 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> 64'1
     "RIP" |-> 64'0
@@ -11751,7 +11767,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -11770,7 +11786,7 @@
     "RAX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'1008 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> 64'1
     "RIP" |-> 64'1
@@ -11801,7 +11817,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -11820,7 +11836,7 @@
     "RAX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> 64'1
     "RIP" |-> 64'2
@@ -11851,7 +11867,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -11870,7 +11886,7 @@
     "RAX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> 64'1
     "RIP" |-> 64'3
@@ -11901,7 +11917,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -11920,7 +11936,7 @@
     "RAX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> 64'1
     "RIP" |-> 64'4
@@ -11951,7 +11967,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -11970,7 +11986,7 @@
     "RAX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> 64'1
     "RIP" |-> 64'6
@@ -12001,7 +12017,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -12020,7 +12036,7 @@
     "RAX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'7
@@ -12051,7 +12067,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -12070,7 +12086,7 @@
     "RAX" |-> 64'0
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'8
@@ -12101,7 +12117,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -12120,7 +12136,7 @@
     "RAX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'9
@@ -12151,7 +12167,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -12170,7 +12186,7 @@
     "RAX" |-> 64'116
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'10
@@ -12201,7 +12217,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -12220,7 +12236,7 @@
     "RAX" |-> 64'116
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'11
@@ -12251,7 +12267,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -12270,7 +12286,7 @@
     "RAX" |-> 64'116
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'5
@@ -12301,7 +12317,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -12320,7 +12336,7 @@
     "RAX" |-> 64'116
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'6
@@ -12351,7 +12367,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -12370,7 +12386,7 @@
     "RAX" |-> 64'116
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'7
@@ -12401,7 +12417,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -12420,7 +12436,7 @@
     "RAX" |-> 64'1
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'8
@@ -12451,7 +12467,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -12470,7 +12486,7 @@
     "RAX" |-> ptr ( symloc ( 1 , 128 ) , 64'865 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'9
@@ -12501,7 +12517,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -12520,7 +12536,7 @@
     "RAX" |-> 64'104
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'10
@@ -12551,7 +12567,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -12570,7 +12586,7 @@
     "RAX" |-> 64'104
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'11
@@ -12601,7 +12617,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -12620,7 +12636,7 @@
     "RAX" |-> 64'104
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'5
@@ -12651,7 +12667,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -12670,7 +12686,7 @@
     "RAX" |-> 64'104
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'6
@@ -12701,7 +12717,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -12720,7 +12736,7 @@
     "RAX" |-> 64'104
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'7
@@ -12751,7 +12767,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -12770,7 +12786,7 @@
     "RAX" |-> 64'2
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'8
@@ -12801,7 +12817,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -12820,7 +12836,7 @@
     "RAX" |-> ptr ( symloc ( 1 , 128 ) , 64'866 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'9
@@ -12851,7 +12867,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -12870,7 +12886,7 @@
     "RAX" |-> 64'105
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'10
@@ -12901,7 +12917,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -12920,7 +12936,7 @@
     "RAX" |-> 64'105
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'11
@@ -12951,7 +12967,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -12970,7 +12986,7 @@
     "RAX" |-> 64'105
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'5
@@ -13001,7 +13017,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -13020,7 +13036,7 @@
     "RAX" |-> 64'105
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'6
@@ -13051,7 +13067,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -13070,7 +13086,7 @@
     "RAX" |-> 64'105
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'7
@@ -13101,7 +13117,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -13120,7 +13136,7 @@
     "RAX" |-> 64'3
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'8
@@ -13151,7 +13167,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -13170,7 +13186,7 @@
     "RAX" |-> ptr ( symloc ( 1 , 128 ) , 64'867 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'9
@@ -13201,7 +13217,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -13220,7 +13236,7 @@
     "RAX" |-> 64'115
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'10
@@ -13251,7 +13267,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -13270,7 +13286,7 @@
     "RAX" |-> 64'115
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'11
@@ -13301,7 +13317,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -13320,7 +13336,7 @@
     "RAX" |-> 64'115
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'5
@@ -13351,7 +13367,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -13370,7 +13386,7 @@
     "RAX" |-> 64'115
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'6
@@ -13401,7 +13417,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -13420,7 +13436,7 @@
     "RAX" |-> 64'115
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'7
@@ -13451,7 +13467,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -13470,7 +13486,7 @@
     "RAX" |-> 64'4
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'8
@@ -13501,7 +13517,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -13520,7 +13536,7 @@
     "RAX" |-> ptr ( symloc ( 1 , 128 ) , 64'868 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'9
@@ -13551,7 +13567,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -13570,7 +13586,7 @@
     "RAX" |-> 64'32
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'10
@@ -13601,7 +13617,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -13620,7 +13636,7 @@
     "RAX" |-> 64'32
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'11
@@ -13651,7 +13667,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -13670,7 +13686,7 @@
     "RAX" |-> 64'32
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'5
@@ -13701,7 +13717,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -13720,7 +13736,7 @@
     "RAX" |-> 64'32
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'6
@@ -13751,7 +13767,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -13770,7 +13786,7 @@
     "RAX" |-> 64'32
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'7
@@ -13801,7 +13817,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -13820,7 +13836,7 @@
     "RAX" |-> 64'5
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'8
@@ -13851,7 +13867,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -13870,7 +13886,7 @@
     "RAX" |-> ptr ( symloc ( 1 , 128 ) , 64'869 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'9
@@ -13901,7 +13917,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -13920,7 +13936,7 @@
     "RAX" |-> 64'105
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'10
@@ -13951,7 +13967,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -13970,7 +13986,7 @@
     "RAX" |-> 64'105
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'11
@@ -14001,7 +14017,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -14020,7 +14036,7 @@
     "RAX" |-> 64'105
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'5
@@ -14051,7 +14067,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -14070,7 +14086,7 @@
     "RAX" |-> 64'105
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'6
@@ -14101,7 +14117,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -14120,7 +14136,7 @@
     "RAX" |-> 64'105
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'7
@@ -14151,7 +14167,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -14170,7 +14186,7 @@
     "RAX" |-> 64'6
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'8
@@ -14201,7 +14217,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -14220,7 +14236,7 @@
     "RAX" |-> ptr ( symloc ( 1 , 128 ) , 64'870 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'9
@@ -14251,7 +14267,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -14270,7 +14286,7 @@
     "RAX" |-> 64'115
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'10
@@ -14301,7 +14317,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -14320,7 +14336,7 @@
     "RAX" |-> 64'115
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'11
@@ -14351,7 +14367,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -14370,7 +14386,7 @@
     "RAX" |-> 64'115
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'5
@@ -14401,7 +14417,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -14420,7 +14436,7 @@
     "RAX" |-> 64'115
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'6
@@ -14451,7 +14467,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -14470,7 +14486,7 @@
     "RAX" |-> 64'115
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'7
@@ -14501,7 +14517,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -14520,7 +14536,7 @@
     "RAX" |-> 64'7
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'8
@@ -14551,7 +14567,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -14570,7 +14586,7 @@
     "RAX" |-> ptr ( symloc ( 1 , 128 ) , 64'871 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'9
@@ -14601,7 +14617,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -14620,7 +14636,7 @@
     "RAX" |-> 64'32
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'10
@@ -14651,7 +14667,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -14670,7 +14686,7 @@
     "RAX" |-> 64'32
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'11
@@ -14701,7 +14717,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -14720,7 +14736,7 @@
     "RAX" |-> 64'32
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'5
@@ -14751,7 +14767,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -14770,7 +14786,7 @@
     "RAX" |-> 64'32
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'6
@@ -14801,7 +14817,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -14820,7 +14836,7 @@
     "RAX" |-> 64'32
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'7
@@ -14851,7 +14867,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -14870,7 +14886,7 @@
     "RAX" |-> 64'8
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'8
@@ -14901,7 +14917,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -14920,7 +14936,7 @@
     "RAX" |-> ptr ( symloc ( 1 , 128 ) , 64'872 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'9
@@ -14951,7 +14967,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -14970,7 +14986,7 @@
     "RAX" |-> 64'116
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'10
@@ -15001,7 +15017,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -15020,7 +15036,7 @@
     "RAX" |-> 64'116
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'11
@@ -15051,7 +15067,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -15070,7 +15086,7 @@
     "RAX" |-> 64'116
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'5
@@ -15101,7 +15117,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -15120,7 +15136,7 @@
     "RAX" |-> 64'116
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'6
@@ -15151,7 +15167,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -15170,7 +15186,7 @@
     "RAX" |-> 64'116
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'7
@@ -15201,7 +15217,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -15220,7 +15236,7 @@
     "RAX" |-> 64'9
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'8
@@ -15251,7 +15267,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -15270,7 +15286,7 @@
     "RAX" |-> ptr ( symloc ( 1 , 128 ) , 64'873 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'9
@@ -15301,7 +15317,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -15320,7 +15336,7 @@
     "RAX" |-> 64'117
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'10
@@ -15351,7 +15367,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -15370,7 +15386,7 @@
     "RAX" |-> 64'117
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'11
@@ -15401,7 +15417,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -15420,7 +15436,7 @@
     "RAX" |-> 64'117
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'5
@@ -15451,7 +15467,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -15470,7 +15486,7 @@
     "RAX" |-> 64'117
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'6
@@ -15501,7 +15517,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -15520,7 +15536,7 @@
     "RAX" |-> 64'117
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'7
@@ -15551,7 +15567,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -15570,7 +15586,7 @@
     "RAX" |-> 64'10
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'8
@@ -15601,7 +15617,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -15620,7 +15636,7 @@
     "RAX" |-> ptr ( symloc ( 1 , 128 ) , 64'874 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'9
@@ -15651,7 +15667,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -15670,7 +15686,7 @@
     "RAX" |-> 64'116
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'10
@@ -15701,7 +15717,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -15720,7 +15736,7 @@
     "RAX" |-> 64'116
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'11
@@ -15751,7 +15767,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -15770,7 +15786,7 @@
     "RAX" |-> 64'116
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'5
@@ -15801,7 +15817,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -15820,7 +15836,7 @@
     "RAX" |-> 64'116
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'6
@@ -15851,7 +15867,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -15870,7 +15886,7 @@
     "RAX" |-> 64'116
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'7
@@ -15901,7 +15917,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -15920,7 +15936,7 @@
     "RAX" |-> 64'11
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'8
@@ -15951,7 +15967,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -15970,7 +15986,7 @@
     "RAX" |-> ptr ( symloc ( 1 , 128 ) , 64'875 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'9
@@ -16001,7 +16017,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -16020,7 +16036,7 @@
     "RAX" |-> 64'111
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'10
@@ -16051,7 +16067,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -16070,7 +16086,7 @@
     "RAX" |-> 64'111
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'11
@@ -16101,7 +16117,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -16120,7 +16136,7 @@
     "RAX" |-> 64'111
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'5
@@ -16151,7 +16167,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -16170,7 +16186,7 @@
     "RAX" |-> 64'111
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'6
@@ -16201,7 +16217,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -16220,7 +16236,7 @@
     "RAX" |-> 64'111
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'7
@@ -16251,7 +16267,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -16270,7 +16286,7 @@
     "RAX" |-> 64'12
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'8
@@ -16301,7 +16317,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -16320,7 +16336,7 @@
     "RAX" |-> ptr ( symloc ( 1 , 128 ) , 64'876 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'9
@@ -16351,7 +16367,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -16370,7 +16386,7 @@
     "RAX" |-> 64'114
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'10
@@ -16401,7 +16417,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -16420,7 +16436,7 @@
     "RAX" |-> 64'114
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'11
@@ -16451,7 +16467,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -16470,7 +16486,7 @@
     "RAX" |-> 64'114
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'5
@@ -16501,7 +16517,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -16520,7 +16536,7 @@
     "RAX" |-> 64'114
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'6
@@ -16551,7 +16567,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -16570,7 +16586,7 @@
     "RAX" |-> 64'114
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'7
@@ -16601,7 +16617,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -16620,7 +16636,7 @@
     "RAX" |-> 64'13
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'8
@@ -16651,7 +16667,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -16670,7 +16686,7 @@
     "RAX" |-> ptr ( symloc ( 1 , 128 ) , 64'877 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'9
@@ -16701,7 +16717,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -16720,7 +16736,7 @@
     "RAX" |-> 64'105
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'10
@@ -16751,7 +16767,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -16770,7 +16786,7 @@
     "RAX" |-> 64'105
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'11
@@ -16801,7 +16817,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -16820,7 +16836,7 @@
     "RAX" |-> 64'105
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'5
@@ -16851,7 +16867,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -16870,7 +16886,7 @@
     "RAX" |-> 64'105
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'6
@@ -16901,7 +16917,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -16920,7 +16936,7 @@
     "RAX" |-> 64'105
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'7
@@ -16951,7 +16967,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -16970,7 +16986,7 @@
     "RAX" |-> 64'14
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'8
@@ -17001,7 +17017,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -17020,7 +17036,7 @@
     "RAX" |-> ptr ( symloc ( 1 , 128 ) , 64'878 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'9
@@ -17051,7 +17067,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -17070,7 +17086,7 @@
     "RAX" |-> 64'97
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'10
@@ -17101,7 +17117,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -17120,7 +17136,7 @@
     "RAX" |-> 64'97
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'11
@@ -17151,7 +17167,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -17170,7 +17186,7 @@
     "RAX" |-> 64'97
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'5
@@ -17201,7 +17217,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -17220,7 +17236,7 @@
     "RAX" |-> 64'97
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'6
@@ -17251,7 +17267,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -17270,7 +17286,7 @@
     "RAX" |-> 64'97
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'7
@@ -17301,7 +17317,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -17320,7 +17336,7 @@
     "RAX" |-> 64'15
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'8
@@ -17351,7 +17367,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -17370,7 +17386,7 @@
     "RAX" |-> ptr ( symloc ( 1 , 128 ) , 64'879 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'9
@@ -17401,7 +17417,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -17420,7 +17436,7 @@
     "RAX" |-> 64'108
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'10
@@ -17451,7 +17467,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -17470,7 +17486,7 @@
     "RAX" |-> 64'108
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'11
@@ -17501,7 +17517,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -17520,7 +17536,7 @@
     "RAX" |-> 64'108
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'5
@@ -17551,7 +17567,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'1
@@ -17570,7 +17586,7 @@
     "RAX" |-> 64'108
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'6
@@ -17601,7 +17617,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'1
@@ -17620,7 +17636,7 @@
     "RAX" |-> 64'108
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'7
@@ -17651,7 +17667,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'1
@@ -17670,7 +17686,7 @@
     "RAX" |-> 64'16
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'8
@@ -17701,7 +17717,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -17720,7 +17736,7 @@
     "RAX" |-> ptr ( symloc ( 1 , 128 ) , 64'880 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'9
@@ -17751,7 +17767,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -17770,7 +17786,7 @@
     "RAX" |-> 64'115
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'10
@@ -17801,7 +17817,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -17820,7 +17836,7 @@
     "RAX" |-> 64'115
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'11
@@ -17851,7 +17867,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -17870,7 +17886,7 @@
     "RAX" |-> 64'115
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'5
@@ -17901,7 +17917,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -17920,7 +17936,7 @@
     "RAX" |-> 64'115
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'6
@@ -17951,7 +17967,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -17970,7 +17986,7 @@
     "RAX" |-> 64'115
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'7
@@ -18001,7 +18017,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -18020,7 +18036,7 @@
     "RAX" |-> 64'17
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'8
@@ -18051,7 +18067,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -18070,7 +18086,7 @@
     "RAX" |-> ptr ( symloc ( 1 , 128 ) , 64'881 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'9
@@ -18101,7 +18117,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -18120,7 +18136,7 @@
     "RAX" |-> 64'112
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'10
@@ -18151,7 +18167,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -18170,7 +18186,7 @@
     "RAX" |-> 64'112
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'11
@@ -18201,7 +18217,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -18220,7 +18236,7 @@
     "RAX" |-> 64'112
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'5
@@ -18251,7 +18267,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -18270,7 +18286,7 @@
     "RAX" |-> 64'112
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'6
@@ -18301,7 +18317,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -18320,7 +18336,7 @@
     "RAX" |-> 64'112
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'7
@@ -18351,7 +18367,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -18370,7 +18386,7 @@
     "RAX" |-> 64'18
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'8
@@ -18401,7 +18417,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -18420,7 +18436,7 @@
     "RAX" |-> ptr ( symloc ( 1 , 128 ) , 64'882 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'9
@@ -18451,7 +18467,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -18470,7 +18486,7 @@
     "RAX" |-> 64'111
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'10
@@ -18501,7 +18517,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -18520,7 +18536,7 @@
     "RAX" |-> 64'111
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'11
@@ -18551,7 +18567,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -18570,7 +18586,7 @@
     "RAX" |-> 64'111
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'5
@@ -18601,7 +18617,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -18620,7 +18636,7 @@
     "RAX" |-> 64'111
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'6
@@ -18651,7 +18667,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -18670,7 +18686,7 @@
     "RAX" |-> 64'111
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'7
@@ -18701,7 +18717,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -18720,7 +18736,7 @@
     "RAX" |-> 64'19
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'8
@@ -18751,7 +18767,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -18770,7 +18786,7 @@
     "RAX" |-> ptr ( symloc ( 1 , 128 ) , 64'883 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'9
@@ -18801,7 +18817,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -18820,7 +18836,7 @@
     "RAX" |-> 64'105
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'10
@@ -18851,7 +18867,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -18870,7 +18886,7 @@
     "RAX" |-> 64'105
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'11
@@ -18901,7 +18917,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -18920,7 +18936,7 @@
     "RAX" |-> 64'105
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'5
@@ -18951,7 +18967,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -18970,7 +18986,7 @@
     "RAX" |-> 64'105
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'6
@@ -19001,7 +19017,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -19020,7 +19036,7 @@
     "RAX" |-> 64'105
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'7
@@ -19051,7 +19067,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -19070,7 +19086,7 @@
     "RAX" |-> 64'20
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'8
@@ -19101,7 +19117,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -19120,7 +19136,7 @@
     "RAX" |-> ptr ( symloc ( 1 , 128 ) , 64'884 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'9
@@ -19151,7 +19167,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -19170,7 +19186,7 @@
     "RAX" |-> 64'110
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'10
@@ -19201,7 +19217,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -19220,7 +19236,7 @@
     "RAX" |-> 64'110
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'11
@@ -19251,7 +19267,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -19270,7 +19286,7 @@
     "RAX" |-> 64'110
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'5
@@ -19301,7 +19317,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -19320,7 +19336,7 @@
     "RAX" |-> 64'110
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'6
@@ -19351,7 +19367,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -19370,7 +19386,7 @@
     "RAX" |-> 64'110
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'7
@@ -19401,7 +19417,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -19420,7 +19436,7 @@
     "RAX" |-> 64'21
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'8
@@ -19451,7 +19467,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -19470,7 +19486,7 @@
     "RAX" |-> ptr ( symloc ( 1 , 128 ) , 64'885 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'9
@@ -19501,7 +19517,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -19520,7 +19536,7 @@
     "RAX" |-> 64'116
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'10
@@ -19551,7 +19567,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -19570,7 +19586,7 @@
     "RAX" |-> 64'116
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'11
@@ -19601,7 +19617,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -19620,7 +19636,7 @@
     "RAX" |-> 64'116
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'5
@@ -19651,7 +19667,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -19670,7 +19686,7 @@
     "RAX" |-> 64'116
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'6
@@ -19701,7 +19717,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -19720,7 +19736,7 @@
     "RAX" |-> 64'116
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'7
@@ -19751,7 +19767,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> 1'0
@@ -19770,7 +19786,7 @@
     "RAX" |-> 64'22
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'8
@@ -19801,7 +19817,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -19820,7 +19836,7 @@
     "RAX" |-> ptr ( symloc ( 1 , 128 ) , 64'886 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'9
@@ -19851,7 +19867,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -19870,7 +19886,7 @@
     "RAX" |-> 64'0
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'10
@@ -19901,7 +19917,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -19920,7 +19936,7 @@
     "RAX" |-> 64'0
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'11
@@ -19951,7 +19967,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -19970,7 +19986,7 @@
     "RAX" |-> 64'0
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'12
@@ -20001,7 +20017,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -20020,7 +20036,7 @@
     "RAX" |-> 64'22
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'832 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'13
@@ -20051,7 +20067,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -20070,7 +20086,7 @@
     "RAX" |-> 64'22
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'1008 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'14
@@ -20101,7 +20117,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -20120,7 +20136,7 @@
     "RAX" |-> 64'22
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'1008 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'52
@@ -20151,7 +20167,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -20170,7 +20186,7 @@
     "RAX" |-> 64'22
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'1008 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RIP" |-> 64'53
@@ -20201,7 +20217,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -20220,9 +20236,9 @@
     "RAX" |-> 64'22
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'1008 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
-    "RDX" |-> ptr ( symloc ( 5 , 0 ) , 64'0 )
+    "RDX" |-> ptr ( symloc ( 7 , 0 ) , 64'1 )
     "RIP" |-> 64'54
     "RSI" |-> 64'23
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'848 )
@@ -20251,7 +20267,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -20270,9 +20286,9 @@
     "RAX" |-> ptr ( symloc ( 1 , 128 ) , 64'896 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'1008 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 4 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 6 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
-    "RDX" |-> ptr ( symloc ( 5 , 0 ) , 64'0 )
+    "RDX" |-> ptr ( symloc ( 7 , 0 ) , 64'1 )
     "RIP" |-> 64'55
     "RSI" |-> 64'23
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'848 )
@@ -20301,7 +20317,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -20320,9 +20336,9 @@
     "RAX" |-> ptr ( symloc ( 1 , 128 ) , 64'896 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'1008 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 5 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 7 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
-    "RDX" |-> ptr ( symloc ( 5 , 0 ) , 64'0 )
+    "RDX" |-> ptr ( symloc ( 7 , 0 ) , 64'1 )
     "RIP" |-> 64'56
     "RSI" |-> 64'23
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'848 )
@@ -20351,7 +20367,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -20370,7 +20386,7 @@
     "RAX" |-> ptr ( symloc ( 1 , 128 ) , 64'896 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'1008 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 5 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 7 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'864 )
     "RDX" |-> 64'1
     "RIP" |-> 64'57
@@ -20401,7 +20417,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -20420,7 +20436,7 @@
     "RAX" |-> ptr ( symloc ( 1 , 128 ) , 64'896 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'1008 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 5 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 7 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'896 )
     "RDX" |-> 64'1
     "RIP" |-> 64'58
@@ -20451,7 +20467,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -20470,7 +20486,7 @@
     "RAX" |-> 64'1
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'1008 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 5 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 7 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'896 )
     "RDX" |-> 64'1
     "RIP" |-> 64'59
@@ -20501,7 +20517,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -20520,7 +20536,7 @@
     "RAX" |-> ptr ( symloc ( 1 , 128 ) , 64'896 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'1008 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 5 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 7 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'896 )
     "RDX" |-> 64'1
     "RIP" |-> 64'60
@@ -20551,7 +20567,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -20570,7 +20586,7 @@
     "RAX" |-> ptr ( symloc ( 1 , 128 ) , 64'896 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'1008 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 5 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 7 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'896 )
     "RDX" |-> 64'1
     "RIP" |-> 64'61
@@ -20601,7 +20617,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -20620,7 +20636,7 @@
     "RAX" |-> 64'23
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'1008 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 5 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 7 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'896 )
     "RDX" |-> 64'1
     "RIP" |-> 64'62
@@ -20651,7 +20667,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -20667,10 +20683,10 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> ptr ( symloc ( 5 , 0 ) , 64'0 )
+    "RAX" |-> ptr ( symloc ( 7 , 0 ) , 64'1 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'1008 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 5 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 7 , 0 ) , 64'1 )
     "RDI" |-> ptr ( symloc ( 1 , 128 ) , 64'896 )
     "RDX" |-> 64'1
     "RIP" |-> 64'63
@@ -20701,7 +20717,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -20717,11 +20733,11 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> ptr ( symloc ( 5 , 0 ) , 64'0 )
+    "RAX" |-> ptr ( symloc ( 7 , 0 ) , 64'1 )
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'1008 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 5 , 0 ) , 64'0 )
-    "RDI" |-> ptr ( symloc ( 5 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 7 , 0 ) , 64'1 )
+    "RDI" |-> ptr ( symloc ( 7 , 0 ) , 64'1 )
     "RDX" |-> 64'1
     "RIP" |-> 64'64
     "RSI" |-> 64'23
@@ -20751,7 +20767,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -20770,8 +20786,8 @@
     "RAX" |-> 64'0
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'1008 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 5 , 0 ) , 64'0 )
-    "RDI" |-> ptr ( symloc ( 5 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 7 , 0 ) , 64'1 )
+    "RDI" |-> ptr ( symloc ( 7 , 0 ) , 64'1 )
     "RDX" |-> 64'1
     "RIP" |-> 64'65
     "RSI" |-> 64'23
@@ -20801,7 +20817,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -20820,8 +20836,8 @@
     "RAX" |-> 64'0
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'1008 )
     "RBX" |-> 64'0
-    "RCX" |-> ptr ( symloc ( 5 , 0 ) , 64'0 )
-    "RDI" |-> ptr ( symloc ( 5 , 0 ) , 64'0 )
+    "RCX" |-> ptr ( symloc ( 7 , 0 ) , 64'1 )
+    "RDI" |-> ptr ( symloc ( 7 , 0 ) , 64'1 )
     "RDX" |-> 64'1
     "RIP" |-> 64'66
     "RSI" |-> 64'23
@@ -20851,7 +20867,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -20871,7 +20887,7 @@
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'1008 )
     "RBX" |-> 64'0
     "RCX" |-> 64'40
-    "RDI" |-> ptr ( symloc ( 5 , 0 ) , 64'0 )
+    "RDI" |-> ptr ( symloc ( 7 , 0 ) , 64'1 )
     "RDX" |-> 64'1
     "RIP" |-> 64'67
     "RSI" |-> 64'23
@@ -20901,7 +20917,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -20921,7 +20937,7 @@
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'1008 )
     "RBX" |-> 64'0
     "RCX" |-> 64'0
-    "RDI" |-> ptr ( symloc ( 5 , 0 ) , 64'0 )
+    "RDI" |-> ptr ( symloc ( 7 , 0 ) , 64'1 )
     "RDX" |-> 64'1
     "RIP" |-> 64'68
     "RSI" |-> 64'23
@@ -20951,7 +20967,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -20971,7 +20987,7 @@
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'1008 )
     "RBX" |-> 64'0
     "RCX" |-> 64'0
-    "RDI" |-> ptr ( symloc ( 5 , 0 ) , 64'0 )
+    "RDI" |-> ptr ( symloc ( 7 , 0 ) , 64'1 )
     "RDX" |-> 64'1
     "RIP" |-> 64'70
     "RSI" |-> 64'23
@@ -21001,7 +21017,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -21021,7 +21037,7 @@
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'1016 )
     "RBX" |-> 64'0
     "RCX" |-> 64'0
-    "RDI" |-> ptr ( symloc ( 5 , 0 ) , 64'0 )
+    "RDI" |-> ptr ( symloc ( 7 , 0 ) , 64'1 )
     "RDX" |-> 64'1
     "RIP" |-> 64'71
     "RSI" |-> 64'23
@@ -21051,7 +21067,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
     ListItem (
 "AF" |-> undefMInt
@@ -21071,7 +21087,7 @@
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'1016 )
     "RBX" |-> 64'0
     "RCX" |-> 64'0
-    "RDI" |-> ptr ( symloc ( 5 , 0 ) , 64'0 )
+    "RDI" |-> ptr ( symloc ( 7 , 0 ) , 64'1 )
     "RDX" |-> 64'1
     "RIP" |-> 64'18446744073709551615
     "RSI" |-> 64'23
@@ -21101,7 +21117,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'2 )
     LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'11 )
     main |-> 64'15
-    stdout |-> ptr ( symloc ( 3 , 0 ) , 64'0 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
     strlen |-> 64'0 )
   </regstatequeue>
   <formatcountint>

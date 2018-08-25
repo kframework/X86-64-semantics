@@ -1,7 +1,11 @@
+	.file	"test.c"
+	.section	.rodata
 LC2:
 	.string	"Sandeep"
 LC3:
 	.string	"int=%d  char*=%s float=%f double=%f"
+	.text
+	.globl	main
 main:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -26,6 +30,7 @@ main:
 	movl	$0, %eax
 	leave
 	ret
+	.section	.rodata
 LC0:
 	.long	1072064102
 LC1:
