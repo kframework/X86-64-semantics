@@ -28,7 +28,7 @@ main:
 	movq	$40, %rax
 	movq	%rax, -24(%rbp)
 	xorl	%eax, %eax
-	movq	stdout(%rip), %rax
+	movq	$stdout, %rax
 	movq	%rax, -128(%rbp)
 	movl	$LC0, %esi
 	movl	$LC1, %edi
