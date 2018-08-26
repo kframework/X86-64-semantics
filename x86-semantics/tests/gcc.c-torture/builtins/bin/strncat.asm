@@ -145,6 +145,108 @@ L18:
 L20:
 	popq	%rbp
 	ret
+	.globl	strchr
+strchr:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	movl	%esi, -12(%rbp)
+	nop
+	movq	-8(%rbp), %rax
+	movzbl	(%rax), %eax
+	movl	-12(%rbp), %edx
+	cmpb	%dl, %al
+	je	L27
+	movq	-8(%rbp), %rax
+	leaq	1(%rax), %rdx
+	movq	%rdx, -8(%rbp)
+	movzbl	(%rax), %eax
+	testb	%al, %al
+	jne	L24
+	movl	$0, %eax
+	jmp	L22
+L24:
+	movq	-8(%rbp), %rax
+	jmp	L22
+L27:
+L22:
+	popq	%rbp
+	ret
+	.globl	strlen
+strlen:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movq	$0, -8(%rbp)
+	jmp	L29
+L30:
+	addq	$1, -8(%rbp)
+L29:
+	movq	-24(%rbp), %rdx
+	movq	-8(%rbp), %rax
+	addq	%rdx, %rax
+	movzbl	(%rax), %eax
+	testb	%al, %al
+	jne	L30
+	movq	-8(%rbp), %rax
+	popq	%rbp
+	ret
+	.globl	strcpy
+strcpy:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	-24(%rbp), %rax
+	movq	%rax, -8(%rbp)
+	nop
+L33:
+	movq	-24(%rbp), %rax
+	leaq	1(%rax), %rdx
+	movq	%rdx, -24(%rbp)
+	movq	-32(%rbp), %rdx
+	leaq	1(%rdx), %rcx
+	movq	%rcx, -32(%rbp)
+	movzbl	(%rdx), %edx
+	movb	%dl, (%rax)
+	movzbl	(%rax), %eax
+	testb	%al, %al
+	jne	L33
+	movq	-8(%rbp), %rax
+	popq	%rbp
+	ret
+	.globl	strcmp
+strcmp:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	jmp	L36
+L38:
+	addq	$1, -8(%rbp)
+	addq	$1, -16(%rbp)
+L36:
+	movq	-8(%rbp), %rax
+	movzbl	(%rax), %eax
+	testb	%al, %al
+	je	L37
+	movq	-8(%rbp), %rax
+	movzbl	(%rax), %edx
+	movq	-16(%rbp), %rax
+	movzbl	(%rax), %eax
+	cmpb	%al, %dl
+	je	L38
+L37:
+	movq	-8(%rbp), %rax
+	movzbl	(%rax), %eax
+	movzbl	%al, %edx
+	movq	-16(%rbp), %rax
+	movzbl	(%rax), %eax
+	movzbl	%al, %eax
+	subl	%eax, %edx
+	movl	%edx, %eax
+	popq	%rbp
+	ret
 	.comm	inside_main,4,4
 	.globl	main
 .globl _start
@@ -207,17 +309,17 @@ main_test:
 	leaq	-80(%rbp), %rdx
 	leaq	-80(%rbp), %rax
 	cmpq	%rax, %rdx
-	jne	L26
+	jne	L44
 	leaq	-80(%rbp), %rax
 	movl	$15, %edx
 	movl	$LC2, %esi
 	movq	%rax, %rdi
 	call	memcmp
 	testl	%eax, %eax
-	je	L27
-L26:
+	je	L45
+L44:
 	call	abort
-L27:
+L45:
 	leaq	-80(%rbp), %rax
 	movl	$64, %edx
 	movl	$88, %esi
@@ -237,17 +339,17 @@ L27:
 	movq	%rax, %rdx
 	leaq	-80(%rbp), %rax
 	cmpq	%rax, %rdx
-	jne	L28
+	jne	L46
 	leaq	-80(%rbp), %rax
 	movl	$15, %edx
 	movl	$LC2, %esi
 	movq	%rax, %rdi
 	call	memcmp
 	testl	%eax, %eax
-	je	L29
-L28:
+	je	L47
+L46:
 	call	abort
-L29:
+L47:
 	leaq	-80(%rbp), %rax
 	movl	$64, %edx
 	movl	$88, %esi
@@ -271,21 +373,21 @@ L29:
 	leaq	-80(%rbp), %rax
 	addq	$1, %rax
 	cmpq	%rax, %rdx
-	jne	L30
+	jne	L48
 	leaq	-80(%rbp), %rax
 	addq	$1, %rax
 	cmpq	-88(%rbp), %rax
-	jne	L30
+	jne	L48
 	leaq	-80(%rbp), %rax
 	movl	$15, %edx
 	movl	$LC2, %esi
 	movq	%rax, %rdi
 	call	memcmp
 	testl	%eax, %eax
-	je	L31
-L30:
+	je	L49
+L48:
 	call	abort
-L31:
+L49:
 	leaq	-80(%rbp), %rax
 	movl	$64, %edx
 	movl	$88, %esi
@@ -310,21 +412,21 @@ L31:
 	leaq	-80(%rbp), %rax
 	addq	$6, %rax
 	cmpq	%rax, %rdx
-	jne	L32
+	jne	L50
 	leaq	-80(%rbp), %rax
 	addq	$1, %rax
 	cmpq	-88(%rbp), %rax
-	jne	L32
+	jne	L50
 	leaq	-80(%rbp), %rax
 	movl	$15, %edx
 	movl	$LC2, %esi
 	movq	%rax, %rdi
 	call	memcmp
 	testl	%eax, %eax
-	je	L33
-L32:
+	je	L51
+L50:
 	call	abort
-L33:
+L51:
 	leaq	-80(%rbp), %rax
 	movl	$64, %edx
 	movl	$88, %esi
@@ -350,21 +452,21 @@ L33:
 	leaq	-80(%rbp), %rax
 	addq	$6, %rax
 	cmpq	%rax, %rdx
-	jne	L34
+	jne	L52
 	leaq	-80(%rbp), %rax
 	addq	$1, %rax
 	cmpq	-88(%rbp), %rax
-	jne	L34
+	jne	L52
 	leaq	-80(%rbp), %rax
 	movl	$15, %edx
 	movl	$LC2, %esi
 	movq	%rax, %rdi
 	call	memcmp
 	testl	%eax, %eax
-	je	L35
-L34:
+	je	L53
+L52:
 	call	abort
-L35:
+L53:
 	leaq	-80(%rbp), %rax
 	movl	$64, %edx
 	movl	$88, %esi
@@ -383,21 +485,21 @@ L35:
 	leaq	-80(%rbp), %rax
 	addq	$6, %rax
 	cmpq	%rax, %rdx
-	jne	L36
+	jne	L54
 	leaq	-80(%rbp), %rax
 	addq	$1, %rax
 	cmpq	-88(%rbp), %rax
-	jne	L36
+	jne	L54
 	leaq	-80(%rbp), %rax
 	movl	$15, %edx
 	movl	$LC2, %esi
 	movq	%rax, %rdi
 	call	memcmp
 	testl	%eax, %eax
-	je	L37
-L36:
+	je	L55
+L54:
 	call	abort
-L37:
+L55:
 	leaq	-80(%rbp), %rax
 	movl	$64, %edx
 	movl	$88, %esi
@@ -419,24 +521,24 @@ L37:
 	leaq	-80(%rbp), %rax
 	addq	$6, %rax
 	cmpq	%rax, %rdx
-	jne	L38
+	jne	L56
 	leaq	-80(%rbp), %rax
 	addq	$1, %rax
 	cmpq	-88(%rbp), %rax
-	jne	L38
+	jne	L56
 	movl $x(%rip), %eax
 	cmpl	$124, %eax
-	jne	L38
+	jne	L56
 	leaq	-80(%rbp), %rax
 	movl	$15, %edx
 	movl	$LC2, %esi
 	movq	%rax, %rdi
 	call	memcmp
 	testl	%eax, %eax
-	je	L39
-L38:
+	je	L57
+L56:
 	call	abort
-L39:
+L57:
 	leaq	-80(%rbp), %rax
 	movl	$64, %edx
 	movl	$88, %esi
@@ -462,17 +564,17 @@ L39:
 	leaq	-80(%rbp), %rdx
 	leaq	-80(%rbp), %rax
 	cmpq	%rax, %rdx
-	jne	L40
+	jne	L58
 	leaq	-80(%rbp), %rax
 	movl	$18, %edx
 	movl	$LC3, %esi
 	movq	%rax, %rdi
 	call	memcmp
 	testl	%eax, %eax
-	je	L41
-L40:
+	je	L59
+L58:
 	call	abort
-L41:
+L59:
 	leaq	-80(%rbp), %rax
 	movl	$64, %edx
 	movl	$88, %esi
@@ -498,17 +600,17 @@ L41:
 	leaq	-80(%rbp), %rdx
 	leaq	-80(%rbp), %rax
 	cmpq	%rax, %rdx
-	jne	L42
+	jne	L60
 	leaq	-80(%rbp), %rax
 	movl	$18, %edx
 	movl	$LC3, %esi
 	movq	%rax, %rdi
 	call	memcmp
 	testl	%eax, %eax
-	je	L43
-L42:
+	je	L61
+L60:
 	call	abort
-L43:
+L61:
 	leaq	-80(%rbp), %rax
 	movl	$64, %edx
 	movl	$88, %esi
@@ -528,17 +630,17 @@ L43:
 	movq	%rax, %rdx
 	leaq	-80(%rbp), %rax
 	cmpq	%rax, %rdx
-	jne	L44
+	jne	L62
 	leaq	-80(%rbp), %rax
 	movl	$26, %edx
 	movl	$LC4, %esi
 	movq	%rax, %rdi
 	call	memcmp
 	testl	%eax, %eax
-	je	L45
-L44:
+	je	L63
+L62:
 	call	abort
-L45:
+L63:
 	leaq	-80(%rbp), %rax
 	movl	$64, %edx
 	movl	$88, %esi
@@ -562,21 +664,21 @@ L45:
 	leaq	-80(%rbp), %rax
 	addq	$1, %rax
 	cmpq	%rax, %rdx
-	jne	L46
+	jne	L64
 	leaq	-80(%rbp), %rax
 	addq	$1, %rax
 	cmpq	-88(%rbp), %rax
-	jne	L46
+	jne	L64
 	leaq	-80(%rbp), %rax
 	movl	$26, %edx
 	movl	$LC4, %esi
 	movq	%rax, %rdi
 	call	memcmp
 	testl	%eax, %eax
-	je	L47
-L46:
+	je	L65
+L64:
 	call	abort
-L47:
+L65:
 	leaq	-80(%rbp), %rax
 	movl	$64, %edx
 	movl	$88, %esi
@@ -601,21 +703,21 @@ L47:
 	leaq	-80(%rbp), %rax
 	addq	$6, %rax
 	cmpq	%rax, %rdx
-	jne	L48
+	jne	L66
 	leaq	-80(%rbp), %rax
 	addq	$1, %rax
 	cmpq	-88(%rbp), %rax
-	jne	L48
+	jne	L66
 	leaq	-80(%rbp), %rax
 	movl	$26, %edx
 	movl	$LC4, %esi
 	movq	%rax, %rdi
 	call	memcmp
 	testl	%eax, %eax
-	je	L49
-L48:
+	je	L67
+L66:
 	call	abort
-L49:
+L67:
 	leaq	-80(%rbp), %rax
 	movl	$64, %edx
 	movl	$88, %esi
@@ -641,21 +743,21 @@ L49:
 	leaq	-80(%rbp), %rax
 	addq	$6, %rax
 	cmpq	%rax, %rdx
-	jne	L50
+	jne	L68
 	leaq	-80(%rbp), %rax
 	addq	$1, %rax
 	cmpq	-88(%rbp), %rax
-	jne	L50
+	jne	L68
 	leaq	-80(%rbp), %rax
 	movl	$21, %edx
 	movl	$LC5, %esi
 	movq	%rax, %rdi
 	call	memcmp
 	testl	%eax, %eax
-	je	L51
-L50:
+	je	L69
+L68:
 	call	abort
-L51:
+L69:
 	leaq	-80(%rbp), %rax
 	movl	$64, %edx
 	movl	$88, %esi
@@ -669,22 +771,22 @@ L51:
 	leaq	-80(%rbp), %rdx
 	leaq	-80(%rbp), %rax
 	cmpq	%rax, %rdx
-	jne	L52
+	jne	L70
 	leaq	-80(%rbp), %rax
 	movl	$15, %edx
 	movl	$LC2, %esi
 	movq	%rax, %rdi
 	call	memcmp
 	testl	%eax, %eax
-	je	L55
-L52:
+	je	L73
+L70:
 	call	abort
-L55:
+L73:
 	nop
 	movq	-8(%rbp), %rax
 	xorq	$40, %rax
-	je	L54
+	je	L72
 	call	__stack_chk_fail
-L54:
+L72:
 	leave
 	ret

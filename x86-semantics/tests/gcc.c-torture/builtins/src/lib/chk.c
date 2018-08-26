@@ -339,173 +339,173 @@ __strncat_chk (char *d, const char *s, __SIZE_TYPE__ n, __SIZE_TYPE__ size)
 /* No chk test in GCC testsuite needs more bytes than this.
    As we can't expect vsnprintf to be available on the target,
    assume 4096 bytes is enough.  */
-static char chk_sprintf_buf[4096];
-
-int
-__sprintf_chk (char *str, int flag, __SIZE_TYPE__ size, const char *fmt, ...)
-{
-  int ret;
-  va_list ap;
-
-  /* If size is -1 and flag 0, GCC should always optimize the call into
-     sprintf.  */
-  if (size == (__SIZE_TYPE__) -1 && flag == 0)
-    abort ();
-  ++chk_calls;
-#ifdef __OPTIMIZE__
-  if (sprintf_disallowed && inside_main)
-    abort();
-#endif
-  va_start (ap, fmt);
-  ret = vsprintf (chk_sprintf_buf, fmt, ap);
-  va_end (ap);
-  if (ret >= 0)
-    {
-      if (ret >= size)
-	__chk_fail ();
-      memcpy (str, chk_sprintf_buf, ret + 1);
-    }
-  return ret;
-}
-
-int
-__vsprintf_chk (char *str, int flag, __SIZE_TYPE__ size, const char *fmt,
-		va_list ap)
-{
-  int ret;
-
-  /* If size is -1 and flag 0, GCC should always optimize the call into
-     vsprintf.  */
-  if (size == (__SIZE_TYPE__) -1 && flag == 0)
-    abort ();
-  ++chk_calls;
-#ifdef __OPTIMIZE__
-  if (vsprintf_disallowed && inside_main)
-    abort();
-#endif
-  ret = vsprintf (chk_sprintf_buf, fmt, ap);
-  if (ret >= 0)
-    {
-      if (ret >= size)
-	__chk_fail ();
-      memcpy (str, chk_sprintf_buf, ret + 1);
-    }
-  return ret;
-}
-
-int
-__snprintf_chk (char *str, __SIZE_TYPE__ len, int flag, __SIZE_TYPE__ size,
-		const char *fmt, ...)
-{
-  int ret;
-  va_list ap;
-
-  /* If size is -1 and flag 0, GCC should always optimize the call into
-     snprintf.  */
-  if (size == (__SIZE_TYPE__) -1 && flag == 0)
-    abort ();
-  ++chk_calls;
-  if (size < len)
-    __chk_fail ();
-#ifdef __OPTIMIZE__
-  if (snprintf_disallowed && inside_main)
-    abort();
-#endif
-  va_start (ap, fmt);
-  ret = vsprintf (chk_sprintf_buf, fmt, ap);
-  va_end (ap);
-  if (ret >= 0)
-    {
-      if (ret < len)
-	memcpy (str, chk_sprintf_buf, ret + 1);
-      else
-	{
-	  memcpy (str, chk_sprintf_buf, len - 1);
-	  str[len - 1] = '\0';
-	}
-    }
-  return ret;
-}
-
-int
-__vsnprintf_chk (char *str, __SIZE_TYPE__ len, int flag, __SIZE_TYPE__ size,
-		 const char *fmt, va_list ap)
-{
-  int ret;
-
-  /* If size is -1 and flag 0, GCC should always optimize the call into
-     vsnprintf.  */
-  if (size == (__SIZE_TYPE__) -1 && flag == 0)
-    abort ();
-  ++chk_calls;
-  if (size < len)
-    __chk_fail ();
-#ifdef __OPTIMIZE__
-  if (vsnprintf_disallowed && inside_main)
-    abort();
-#endif
-  ret = vsprintf (chk_sprintf_buf, fmt, ap);
-  if (ret >= 0)
-    {
-      if (ret < len)
-	memcpy (str, chk_sprintf_buf, ret + 1);
-      else
-	{
-	  memcpy (str, chk_sprintf_buf, len - 1);
-	  str[len - 1] = '\0';
-	}
-    }
-  return ret;
-}
-
-int
-snprintf (char *str, __SIZE_TYPE__ len, const char *fmt, ...)
-{
-  int ret;
-  va_list ap;
-
-#ifdef __OPTIMIZE__
-  if (snprintf_disallowed && inside_main)
-    abort();
-#endif
-  va_start (ap, fmt);
-  ret = vsprintf (chk_sprintf_buf, fmt, ap);
-  va_end (ap);
-  if (ret >= 0)
-    {
-      if (ret < len)
-	memcpy (str, chk_sprintf_buf, ret + 1);
-      else if (len)
-	{
-	  memcpy (str, chk_sprintf_buf, len - 1);
-	  str[len - 1] = '\0';
-	}
-    }
-  return ret;
-}
-
-/* uClibc's vsprintf calls vsnprintf.  */
-#ifndef __UCLIBC__
-int
-vsnprintf (char *str, __SIZE_TYPE__ len, const char *fmt, va_list ap)
-{
-  int ret;
-
-#ifdef __OPTIMIZE__
-  if (vsnprintf_disallowed && inside_main)
-    abort();
-#endif
-  ret = vsprintf (chk_sprintf_buf, fmt, ap);
-  if (ret >= 0)
-    {
-      if (ret < len)
-	memcpy (str, chk_sprintf_buf, ret + 1);
-      else if (len)
-	{
-	  memcpy (str, chk_sprintf_buf, len - 1);
-	  str[len - 1] = '\0';
-	}
-    }
-  return ret;
-}
-#endif
+//static char chk_sprintf_buf[4096];
+//
+//int
+//__sprintf_chk (char *str, int flag, __SIZE_TYPE__ size, const char *fmt, ...)
+//{
+//  int ret;
+//  va_list ap;
+//
+//  /* If size is -1 and flag 0, GCC should always optimize the call into
+//     sprintf.  */
+//  if (size == (__SIZE_TYPE__) -1 && flag == 0)
+//    abort ();
+//  ++chk_calls;
+//#ifdef __OPTIMIZE__
+//  if (sprintf_disallowed && inside_main)
+//    abort();
+//#endif
+//  va_start (ap, fmt);
+//  ret = vsprintf (chk_sprintf_buf, fmt, ap);
+//  va_end (ap);
+//  if (ret >= 0)
+//    {
+//      if (ret >= size)
+//	__chk_fail ();
+//      memcpy (str, chk_sprintf_buf, ret + 1);
+//    }
+//  return ret;
+//}
+//
+//int
+//__vsprintf_chk (char *str, int flag, __SIZE_TYPE__ size, const char *fmt,
+//		va_list ap)
+//{
+//  int ret;
+//
+//  /* If size is -1 and flag 0, GCC should always optimize the call into
+//     vsprintf.  */
+//  if (size == (__SIZE_TYPE__) -1 && flag == 0)
+//    abort ();
+//  ++chk_calls;
+//#ifdef __OPTIMIZE__
+//  if (vsprintf_disallowed && inside_main)
+//    abort();
+//#endif
+//  ret = vsprintf (chk_sprintf_buf, fmt, ap);
+//  if (ret >= 0)
+//    {
+//      if (ret >= size)
+//	__chk_fail ();
+//      memcpy (str, chk_sprintf_buf, ret + 1);
+//    }
+//  return ret;
+//}
+//
+//int
+//__snprintf_chk (char *str, __SIZE_TYPE__ len, int flag, __SIZE_TYPE__ size,
+//		const char *fmt, ...)
+//{
+//  int ret;
+//  va_list ap;
+//
+//  /* If size is -1 and flag 0, GCC should always optimize the call into
+//     snprintf.  */
+//  if (size == (__SIZE_TYPE__) -1 && flag == 0)
+//    abort ();
+//  ++chk_calls;
+//  if (size < len)
+//    __chk_fail ();
+//#ifdef __OPTIMIZE__
+//  if (snprintf_disallowed && inside_main)
+//    abort();
+//#endif
+//  va_start (ap, fmt);
+//  ret = vsprintf (chk_sprintf_buf, fmt, ap);
+//  va_end (ap);
+//  if (ret >= 0)
+//    {
+//      if (ret < len)
+//	memcpy (str, chk_sprintf_buf, ret + 1);
+//      else
+//	{
+//	  memcpy (str, chk_sprintf_buf, len - 1);
+//	  str[len - 1] = '\0';
+//	}
+//    }
+//  return ret;
+//}
+//
+//int
+//__vsnprintf_chk (char *str, __SIZE_TYPE__ len, int flag, __SIZE_TYPE__ size,
+//		 const char *fmt, va_list ap)
+//{
+//  int ret;
+//
+//  /* If size is -1 and flag 0, GCC should always optimize the call into
+//     vsnprintf.  */
+//  if (size == (__SIZE_TYPE__) -1 && flag == 0)
+//    abort ();
+//  ++chk_calls;
+//  if (size < len)
+//    __chk_fail ();
+//#ifdef __OPTIMIZE__
+//  if (vsnprintf_disallowed && inside_main)
+//    abort();
+//#endif
+//  ret = vsprintf (chk_sprintf_buf, fmt, ap);
+//  if (ret >= 0)
+//    {
+//      if (ret < len)
+//	memcpy (str, chk_sprintf_buf, ret + 1);
+//      else
+//	{
+//	  memcpy (str, chk_sprintf_buf, len - 1);
+//	  str[len - 1] = '\0';
+//	}
+//    }
+//  return ret;
+//}
+//
+//int
+//snprintf (char *str, __SIZE_TYPE__ len, const char *fmt, ...)
+//{
+//  int ret;
+//  va_list ap;
+//
+//#ifdef __OPTIMIZE__
+//  if (snprintf_disallowed && inside_main)
+//    abort();
+//#endif
+//  va_start (ap, fmt);
+//  ret = vsprintf (chk_sprintf_buf, fmt, ap);
+//  va_end (ap);
+//  if (ret >= 0)
+//    {
+//      if (ret < len)
+//	memcpy (str, chk_sprintf_buf, ret + 1);
+//      else if (len)
+//	{
+//	  memcpy (str, chk_sprintf_buf, len - 1);
+//	  str[len - 1] = '\0';
+//	}
+//    }
+//  return ret;
+//}
+//
+///* uClibc's vsprintf calls vsnprintf.  */
+//#ifndef __UCLIBC__
+//int
+//vsnprintf (char *str, __SIZE_TYPE__ len, const char *fmt, va_list ap)
+//{
+//  int ret;
+//
+//#ifdef __OPTIMIZE__
+//  if (vsnprintf_disallowed && inside_main)
+//    abort();
+//#endif
+//  ret = vsprintf (chk_sprintf_buf, fmt, ap);
+//  if (ret >= 0)
+//    {
+//      if (ret < len)
+//	memcpy (str, chk_sprintf_buf, ret + 1);
+//      else if (len)
+//	{
+//	  memcpy (str, chk_sprintf_buf, len - 1);
+//	  str[len - 1] = '\0';
+//	}
+//    }
+//  return ret;
+//}
+//#endif

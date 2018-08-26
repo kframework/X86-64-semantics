@@ -34,15 +34,15 @@
 #undef strncat
 #define strncat(dst, src, len) \
   __builtin___strncat_chk (dst, src, len, os (dst))
-#undef sprintf
-#define sprintf(dst, ...) \
-  __builtin___sprintf_chk (dst, 0, os (dst), __VA_ARGS__)
+//#undef sprintf
+//#define sprintf(dst, ...) \
+//  __builtin___sprintf_chk (dst, 0, os (dst), __VA_ARGS__)
 #undef vsprintf
 #define vsprintf(dst, fmt, ap) \
   __builtin___vsprintf_chk (dst, 0, os (dst), fmt, ap)
-#undef snprintf
-#define snprintf(dst, len, ...) \
-  __builtin___snprintf_chk (dst, len, 0, os (dst), __VA_ARGS__)
+//#undef snprintf
+//#define snprintf(dst, len, ...) \
+//  __builtin___snprintf_chk (dst, len, 0, os (dst), __VA_ARGS__)
 #undef vsnprintf
 #define vsnprintf(dst, len, fmt, ap) \
   __builtin___vsnprintf_chk (dst, len, 0, os (dst), fmt, ap)

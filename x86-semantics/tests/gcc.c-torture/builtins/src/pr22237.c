@@ -2,7 +2,7 @@
 #include "lib/main.c"
 extern void abort (void);
 extern void exit (int);
-struct s { unsigned char a[256]; };
+struct s { unsigned char a[8]; };
 union u { struct { struct s b; int c; } d; struct { int c; struct s b; } e; };
 static union u v;
 static union u v0;
@@ -18,7 +18,7 @@ static void
 init (struct s *sp)
 {
   int i;
-  for (i = 0; i < 256; i++)
+  for (i = 0; i < 8; i++)
     sp->a[i] = i;
 }
 
@@ -26,7 +26,7 @@ static void
 check (struct s *sp)
 {
   int i;
-  for (i = 0; i < 256; i++)
+  for (i = 0; i < 8; i++)
     if (sp->a[i] != i)
       abort ();
 }

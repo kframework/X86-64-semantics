@@ -63,8 +63,8 @@ link_error:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	call	abort
-	.comm	v,260,32
-	.comm	v0,260,32
+	.comm	v,12,8
+	.comm	v0,12,8
 	.data
 p:
 	.quad	v
@@ -75,99 +75,59 @@ rp:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	subq	$16, %rsp
-	movq	%rdi, -8(%rbp)
+	movq	$40, %rax
+	movq	%rax, -8(%rbp)
+	xorl	%eax, %eax
 	movq $p(%rip), %rax
+	movq	(%rax), %rax
 	movq	-8(%rbp), %rdx
-	movq	%rdx, %rcx
-	movl	$256, %edx
-	movq	%rax, %rsi
-	movq	%rcx, %rdi
-	call	memcpy
-	movq	-8(%rbp), %rax
+	xorq	$40, %rdx
+	je	L12
+	call	__stack_chk_fail
+L12:
 	leave
 	ret
 rq:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	subq	$16, %rsp
-	movq	%rdi, -8(%rbp)
-	movq $q(%rip), %rax
-	movq	-8(%rbp), %rdx
-	movq	%rdx, %rcx
-	movl	$256, %edx
-	movq	%rax, %rsi
-	movq	%rcx, %rdi
-	call	memcpy
-	movq	-8(%rbp), %rax
-	leave
-	ret
-pq:
-	leaq	8(%rsp), %r10
-	andq	$-32, %rsp
-	pushq	-8(%r10)
-	pushq	%rbp
-	movq	%rsp, %rbp
-	pushq	%r10
-	pushq	%rbx
-	subq	$288, %rsp
 	movq	$40, %rax
-	movq	%rax, -24(%rbp)
+	movq	%rax, -8(%rbp)
 	xorl	%eax, %eax
-	movq $p(%rip), %rbx
-	leaq	-304(%rbp), %rax
-	movq	%rax, %rdi
-	call	rq
-	movq	%rbx, %rcx
-	leaq	-304(%rbp), %rax
-	movl	$256, %edx
-	movq	%rax, %rsi
-	movq	%rcx, %rdi
-	call	memcpy
-	nop
-	movq	-24(%rbp), %rax
-	xorq	$40, %rax
+	movq $q(%rip), %rax
+	movq	(%rax), %rax
+	movq	-8(%rbp), %rdx
+	xorq	$40, %rdx
 	je	L15
 	call	__stack_chk_fail
 L15:
-	addq	$288, %rsp
-	popq	%rbx
-	popq	%r10
-	popq	%rbp
-	leaq	-8(%r10), %rsp
+	leave
 	ret
-qp:
-	leaq	8(%rsp), %r10
-	andq	$-32, %rsp
-	pushq	-8(%r10)
+pq:
 	pushq	%rbp
 	movq	%rsp, %rbp
-	pushq	%r10
 	pushq	%rbx
-	subq	$288, %rsp
-	movq	$40, %rax
-	movq	%rax, -24(%rbp)
-	xorl	%eax, %eax
-	movq $q(%rip), %rbx
-	leaq	-304(%rbp), %rax
-	movq	%rax, %rdi
-	call	rp
-	movq	%rbx, %rcx
-	leaq	-304(%rbp), %rax
-	movl	$256, %edx
-	movq	%rax, %rsi
-	movq	%rcx, %rdi
-	call	memcpy
+	subq	$8, %rsp
+	movq $p(%rip), %rbx
+	call	rq
+	movq	%rax, (%rbx)
 	nop
-	movq	-24(%rbp), %rax
-	xorq	$40, %rax
-	je	L17
-	call	__stack_chk_fail
-L17:
-	addq	$288, %rsp
+	addq	$8, %rsp
 	popq	%rbx
-	popq	%r10
 	popq	%rbp
-	leaq	-8(%r10), %rsp
+	ret
+qp:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	pushq	%rbx
+	subq	$8, %rsp
+	movq $q(%rip), %rbx
+	call	rp
+	movq	%rax, (%rbx)
+	nop
+	addq	$8, %rsp
+	popq	%rbx
+	popq	%rbp
 	ret
 init:
 	pushq	%rbp
@@ -184,7 +144,7 @@ L20:
 	movb	%cl, (%rdx,%rax)
 	addl	$1, -4(%rbp)
 L19:
-	cmpl	$255, -4(%rbp)
+	cmpl	$7, -4(%rbp)
 	jle	L20
 	nop
 	popq	%rbp
@@ -208,7 +168,7 @@ L24:
 L23:
 	addl	$1, -4(%rbp)
 L22:
-	cmpl	$255, -4(%rbp)
+	cmpl	$7, -4(%rbp)
 	jle	L24
 	nop
 	leave
@@ -217,12 +177,10 @@ L22:
 main_test:
 	pushq	%rbp
 	movq	%rsp, %rbp
-	movl	$v, %eax
-	movl	$v0, %ecx
-	movl	$260, %edx
-	movq	%rcx, %rsi
-	movq	%rax, %rdi
-	call	memcpy
+	movq $v0(%rip), %rax
+	movq	%rax, $v(%rip)
+	movl $v0 + 8(%rip), %eax
+	movl	%eax, $v + 8(%rip)
 	movq $p(%rip), %rax
 	movq	%rax, %rdi
 	call	init
@@ -230,12 +188,10 @@ main_test:
 	movq $q(%rip), %rax
 	movq	%rax, %rdi
 	call	check
-	movl	$v, %eax
-	movl	$v0, %ecx
-	movl	$260, %edx
-	movq	%rcx, %rsi
-	movq	%rax, %rdi
-	call	memcpy
+	movq $v0(%rip), %rax
+	movq	%rax, $v(%rip)
+	movl $v0 + 8(%rip), %eax
+	movl	%eax, $v + 8(%rip)
 	movq $q(%rip), %rax
 	movq	%rax, %rdi
 	call	init
