@@ -76,16 +76,23 @@ sub populate {
   execute("rm  $target/addl_*imm8*"       , $doit);
   execute("rm  $target/subl_*imm8*");
   execute("rm  $target/addq_*imm8*"       , $doit);
+  execute("rm  $target/andq_*imm8*"       , $doit);
+  execute("rm  $target/andl_*imm8*"       , $doit);
   execute("rm  $target/leaq_*m16*"        , $doit);
   execute("rm  $target/leaq_*m32*"        , $doit);
   execute("rm  $target/movq_r64_imm32.k"  , $doit);
   execute("rm  $target/xorq_*imm8*"       , $doit);
   execute("rm  $target/subq_*imm8*"       , $doit);
   execute("rm  $target/xorl_*imm8*"       , $doit);
+  execute("rm  $target/orl_*imm8*"       , $doit);
   execute("rm  $target/pushq_*imm8*"      , $doit);
   execute("rm  $target/pushq_*imm16*"     , $doit);
+  execute("rm  $target/imulq_*imm8*"     , $doit);
+  execute("rm  $target/imull_*imm8*"     , $doit);
   execute("rm  $target/*_rax_*"           , $doit);
   execute("rm  $target/*_eax_*"           , $doit);
+  execute("rm  $target/*_ax_*"           , $doit);
+  execute("rm  $target/*_al_*"           , $doit);
 
 }
 
