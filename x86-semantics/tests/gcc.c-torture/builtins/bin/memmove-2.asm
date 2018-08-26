@@ -91,7 +91,7 @@ p:
 	.zero	24
 	.globl	q
 q:
-	.quad	p+4
+	 .quad p + 4
 	.section	.rodata
 LC0:
 	.string	"abddefg"
