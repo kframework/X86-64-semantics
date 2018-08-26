@@ -68,6 +68,8 @@ module X86-SYNTAX
                    | "gets"  [token]
                    | "fseek"  [token]
                    | "rewind"  [token]
+                   | "malloc"  [token]
+                   | "free"  [token]
                    //| "stdout"  [token]
                  //  | "__stack_chk_fail"  [token]
   syntax X86Id ::= Id

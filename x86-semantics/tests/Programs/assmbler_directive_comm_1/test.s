@@ -7,6 +7,8 @@ main:
 	movq	%rsp, %rbp
 	movabsq	$29113321805538644, %rax
 	movq	%rax, $str(%rip)
+	movl	$str, %edi
+	call	puts
 	movl	$0, %eax
 	popq	%rbp
 	ret

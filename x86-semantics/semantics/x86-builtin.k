@@ -21,6 +21,25 @@ module X86-BUILTIN
 
   //rule initBuiltin(stdout) => allocateSTDOUTMemory(4, 0)
 
+
+  rule <k>
+    execinstr (call malloc:Builtin,  .Operands) =>
+      allocateLocalMemory(uvalueMInt(getRegisterValue(%rdi, RSMap)), 0) ~>
+      execinstr (call malloc:Builtin,  .Operands)
+  ...</k>
+    <regstate> RSMap </regstate>
+
+  rule <k>
+    L:MemLoc ~> execinstr (call malloc:Builtin,  .Operands) =>
+      setRegisterValue(ptr(L, mi(64, 0)), %rax)
+  ...</k>
+
+
+  rule <k>
+    execinstr (call free:Builtin,  .Operands) => freeMemory({getRegisterValue(%rdi, RSMap)}:>PointerVal)
+  ...</k>
+    <regstate> RSMap </regstate>
+
   rule <k>
     execinstr (call rewind:Builtin,  .Operands) =>
       stdio_rewind(
