@@ -1,7 +1,6 @@
 	.file	"memcmp.c"
 	.text
 	.globl	memcmp
-	.type	memcmp, @function
 memcmp:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -12,26 +11,26 @@ memcmp:
 	movq	%rax, -16(%rbp)
 	movq	-32(%rbp), %rax
 	movq	%rax, -8(%rbp)
-	jmp	.L2
-.L4:
+	jmp	L2
+L4:
 	addq	$1, -16(%rbp)
 	addq	$1, -8(%rbp)
 	subq	$1, -40(%rbp)
-.L2:
+L2:
 	cmpq	$0, -40(%rbp)
-	je	.L3
+	je	L3
 	movq	-16(%rbp), %rax
 	movzbl	(%rax), %edx
 	movq	-8(%rbp), %rax
 	movzbl	(%rax), %eax
 	cmpb	%al, %dl
-	je	.L4
-.L3:
+	je	L4
+L3:
 	cmpq	$0, -40(%rbp)
-	jne	.L5
+	jne	L5
 	movl	$0, %eax
-	jmp	.L6
-.L5:
+	jmp	L6
+L5:
 	movq	-16(%rbp), %rax
 	movzbl	(%rax), %eax
 	movzbl	%al, %edx
@@ -40,37 +39,32 @@ memcmp:
 	movzbl	%al, %eax
 	subl	%eax, %edx
 	movl	%edx, %eax
-.L6:
+L6:
 	popq	%rbp
 	ret
-	.size	memcmp, .-memcmp
 	.comm	inside_main,4,4
 	.globl	main
-	.type	main, @function
-main:
+.globl _start
+_start:
 	pushq	%rbp
 	movq	%rsp, %rbp
-	movl	$1, inside_main(%rip)
+	movl	$1, $inside_main(%rip)
 	call	main_test
-	movl	$0, inside_main(%rip)
+	movl	$0, $inside_main(%rip)
 	movl	$0, %eax
 	popq	%rbp
 	ret
-	.size	main, .-main
 	.globl	link_error
-	.type	link_error, @function
 link_error:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	call	abort
-	.size	link_error, .-link_error
 	.globl	main_test
-	.type	main_test, @function
 main_test:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	subq	$16, %rsp
-	movq	%fs:40, %rax
+	movq	$40, %rax
 	movq	%rax, -8(%rbp)
 	xorl	%eax, %eax
 	leaq	-16(%rbp), %rax
@@ -83,9 +77,9 @@ main_test:
 	addq	$3, %rax
 	movzbl	(%rax), %eax
 	cmpb	%al, %dl
-	je	.L11
+	je	L11
 	call	abort
-.L11:
+L11:
 	leaq	-16(%rbp), %rax
 	movzbl	(%rax), %eax
 	movzbl	%al, %edx
@@ -96,9 +90,9 @@ main_test:
 	subl	%eax, %edx
 	movl	%edx, %eax
 	testl	%eax, %eax
-	js	.L12
+	js	L12
 	call	abort
-.L12:
+L12:
 	leaq	-16(%rbp), %rax
 	addq	$2, %rax
 	movzbl	(%rax), %eax
@@ -109,16 +103,14 @@ main_test:
 	subl	%eax, %edx
 	movl	%edx, %eax
 	testl	%eax, %eax
-	jg	.L10
+	jg	L15
 	call	abort
-.L10:
+L15:
+	nop
 	movq	-8(%rbp), %rax
-	xorq	%fs:40, %rax
-	je	.L14
+	xorq	$40, %rax
+	je	L14
 	call	__stack_chk_fail
-.L14:
+L14:
 	leave
 	ret
-	.size	main_test, .-main_test
-	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
-	.section	.note.GNU-stack,"",@progbits

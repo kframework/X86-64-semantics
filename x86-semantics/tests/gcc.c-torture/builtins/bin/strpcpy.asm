@@ -1,14 +1,13 @@
 	.file	"strpcpy.c"
 	.text
 	.globl	stpcpy
-	.type	stpcpy, @function
 stpcpy:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	movq	%rdi, -8(%rbp)
 	movq	%rsi, -16(%rbp)
-	jmp	.L2
-.L3:
+	jmp	L2
+L3:
 	movq	-8(%rbp), %rax
 	leaq	1(%rax), %rdx
 	movq	%rdx, -8(%rbp)
@@ -17,201 +16,216 @@ stpcpy:
 	movq	%rcx, -16(%rbp)
 	movzbl	(%rdx), %edx
 	movb	%dl, (%rax)
-.L2:
+L2:
 	movq	-16(%rbp), %rax
 	movzbl	(%rax), %eax
 	testb	%al, %al
-	jne	.L3
+	jne	L3
 	movq	-8(%rbp), %rax
 	movb	$0, (%rax)
 	movq	-8(%rbp), %rax
 	popq	%rbp
 	ret
-	.size	stpcpy, .-stpcpy
 	.comm	inside_main,4,4
 	.globl	main
-	.type	main, @function
-main:
+.globl _start
+_start:
 	pushq	%rbp
 	movq	%rsp, %rbp
-	movl	$1, inside_main(%rip)
+	movl	$1, $inside_main(%rip)
 	call	main_test
-	movl	$0, inside_main(%rip)
+	movl	$0, $inside_main(%rip)
 	movl	$0, %eax
 	popq	%rbp
 	ret
-	.size	main, .-main
 	.globl	link_error
-	.type	link_error, @function
 link_error:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	call	abort
-	.size	link_error, .-link_error
 	.globl	s1
 	.section	.rodata
-	.type	s1, @object
-	.size	s1, 4
 s1:
 	.string	"123"
 	.globl	p
 	.bss
-	.align 32
-	.type	p, @object
-	.size	p, 32
 p:
 	.zero	32
 	.globl	s2
 	.section	.rodata
-.LC0:
+LC0:
 	.string	"defg"
 	.data
-	.align 8
-	.type	s2, @object
-	.size	s2, 8
 s2:
-	.quad	.LC0
+	.quad	LC0
 	.globl	s3
 	.section	.rodata
-.LC1:
+LC1:
 	.string	"FGH"
 	.data
-	.align 8
-	.type	s3, @object
-	.size	s3, 8
 s3:
-	.quad	.LC1
+	.quad	LC1
 	.globl	l1
-	.align 8
-	.type	l1, @object
-	.size	l1, 8
 l1:
 	.quad	1
 	.section	.rodata
-.LC2:
+LC2:
 	.string	"abcde"
-.LC3:
+LC3:
+	.string	"vwxyz"
+LC4:
 	.string	"wxyz"
-.LC4:
+LC5:
 	.string	"a"
 	.string	"cde"
-.LC5:
+LC6:
 	.string	"a"
 	.string	"cfghij"
-.LC6:
+LC7:
 	.string	"z"
 	.string	"23"
 	.string	""
-.LC7:
+LC8:
 	.string	"ABCDEFG"
-.LC8:
+LC9:
 	.string	"abcFGH"
 	.text
 	.globl	main_test
-	.type	main_test, @function
 main_test:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	subq	$16, %rsp
 	movl	$8, -4(%rbp)
-	movl	$1684234849, p(%rip)
-	movw	$101, p+4(%rip)
+	movl	$1684234849, $p(%rip)
+	movw	$101, $p+4(%rip)
+	movl	$p+5, %edx
+	movl	$p+5, %eax
+	cmpq	%rax, %rdx
+	jne	L9
 	movl	$6, %edx
-	movl	$.LC2, %esi
+	movl	$LC2, %esi
 	movl	$p, %edi
 	call	memcmp
 	testl	%eax, %eax
-	je	.L9
+	je	L10
+L9:
 	call	abort
-.L9:
-	movl	$2054781047, p+16(%rip)
-	movb	$0, p+20(%rip)
+L10:
+	movl	$LC3+1, %edx
+	movl	$p+16, %eax
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+	call	stpcpy
+	movl	$p+20, %edx
+	cmpq	%rdx, %rax
+	jne	L11
+	movl	$p+16, %eax
 	movl	$5, %edx
-	movl	$.LC3, %esi
-	movl	$p+16, %edi
+	movl	$LC4, %esi
+	movq	%rax, %rdi
 	call	memcmp
 	testl	%eax, %eax
-	je	.L10
+	je	L12
+L11:
 	call	abort
-.L10:
-	movb	$0, p+1(%rip)
+L12:
+	movl	$p+1, %eax
+	movb	$0, (%rax)
+	movq	%rax, %rdx
+	movl	$p+1, %eax
+	cmpq	%rax, %rdx
+	jne	L13
 	movl	$6, %edx
-	movl	$.LC4, %esi
+	movl	$LC5, %esi
 	movl	$p, %edi
 	call	memcmp
 	testl	%eax, %eax
-	je	.L11
+	je	L14
+L13:
 	call	abort
-.L11:
-	movl	$1768449894, p+3(%rip)
-	movw	$106, p+7(%rip)
+L14:
+	movl	$p+3, %eax
+	movl	$1768449894, (%rax)
+	movw	$106, 4(%rax)
+	addq	$5, %rax
+	movl	$p+8, %edx
+	cmpq	%rdx, %rax
+	jne	L15
 	movl	$9, %edx
-	movl	$.LC5, %esi
+	movl	$LC6, %esi
 	movl	$p, %edi
 	call	memcmp
 	testl	%eax, %eax
-	je	.L12
+	je	L16
+L15:
 	call	abort
-.L12:
+L16:
 	addl	$1, -4(%rbp)
 	movl	$p+21, %eax
 	movw	$13106, (%rax)
 	movb	$0, 2(%rax)
 	addq	$2, %rax
-	cmpq	$p+23, %rax
-	jne	.L13
+	movl	$p+23, %edx
+	cmpq	%rdx, %rax
+	jne	L17
 	cmpl	$9, -4(%rbp)
-	jne	.L13
+	jne	L17
+	movl	$p+19, %eax
 	movl	$5, %edx
-	movl	$.LC6, %esi
-	movl	$p+19, %edi
+	movl	$LC7, %esi
+	movq	%rax, %rdi
 	call	memcmp
 	testl	%eax, %eax
-	je	.L14
-.L13:
+	je	L18
+L17:
 	call	abort
-.L14:
-	movl	$1145258561, p(%rip)
-	movb	$0, p+4(%rip)
+L18:
+	movl	$1145258561, $p(%rip)
+	movb	$0, $p+4(%rip)
 	movl	$p+4, %eax
 	movl	$4671045, (%rax)
 	addq	$3, %rax
-	cmpq	$p+7, %rax
-	jne	.L15
+	movl	$p+7, %edx
+	cmpq	%rdx, %rax
+	jne	L19
 	movl	$8, %edx
-	movl	$.LC7, %esi
+	movl	$LC8, %esi
 	movl	$p, %edi
 	call	memcmp
 	testl	%eax, %eax
-	je	.L16
-.L15:
+	je	L20
+L19:
 	call	abort
-.L16:
-	movl	$1684234849, p(%rip)
-	movw	$101, p+4(%rip)
+L20:
+	movl	$1684234849, $p(%rip)
+	movw	$101, $p+4(%rip)
+	movl	$p+5, %edx
+	movl	$p+5, %eax
+	cmpq	%rax, %rdx
+	jne	L21
 	movl	$6, %edx
-	movl	$.LC2, %esi
+	movl	$LC2, %esi
 	movl	$p, %edi
 	call	memcmp
 	testl	%eax, %eax
-	je	.L17
+	je	L22
+L21:
 	call	abort
-.L17:
-	movl	$1, inside_main(%rip)
-	movq	s3(%rip), %rax
+L22:
+	movl	$1, $inside_main(%rip)
+	movq $s3(%rip), %rax
+	movl	$p+3, %edx
 	movq	%rax, %rsi
-	movl	$p+3, %edi
+	movq	%rdx, %rdi
 	call	strcpy
 	movl	$6, %edx
-	movl	$.LC8, %esi
+	movl	$LC9, %esi
 	movl	$p, %edi
 	call	memcmp
 	testl	%eax, %eax
-	je	.L8
+	je	L24
 	call	abort
-.L8:
+L24:
+	nop
 	leave
 	ret
-	.size	main_test, .-main_test
-	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
-	.section	.note.GNU-stack,"",@progbits

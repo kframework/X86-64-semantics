@@ -1,36 +1,33 @@
 	.file	"strchr.c"
 	.text
 	.globl	strchr
-	.type	strchr, @function
 strchr:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	movq	%rdi, -8(%rbp)
 	movl	%esi, -12(%rbp)
-.L5:
+L5:
 	movq	-8(%rbp), %rax
 	movzbl	(%rax), %eax
 	movsbl	%al, %eax
 	cmpl	-12(%rbp), %eax
-	jne	.L2
+	jne	L2
 	movq	-8(%rbp), %rax
-	jmp	.L3
-.L2:
+	jmp	L3
+L2:
 	movq	-8(%rbp), %rax
 	movzbl	(%rax), %eax
 	testb	%al, %al
-	jne	.L4
+	jne	L4
 	movl	$0, %eax
-	jmp	.L3
-.L4:
+	jmp	L3
+L4:
 	addq	$1, -8(%rbp)
-	jmp	.L5
-.L3:
+	jmp	L5
+L3:
 	popq	%rbp
 	ret
-	.size	strchr, .-strchr
 	.globl	index
-	.type	index, @function
 index:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -44,46 +41,41 @@ index:
 	call	strchr
 	leave
 	ret
-	.size	index, .-index
 	.comm	inside_main,4,4
 	.globl	main
-	.type	main, @function
-main:
+.globl _start
+_start:
 	pushq	%rbp
 	movq	%rsp, %rbp
-	movl	$1, inside_main(%rip)
+	movl	$1, $inside_main(%rip)
 	call	main_test
-	movl	$0, inside_main(%rip)
+	movl	$0, $inside_main(%rip)
 	movl	$0, %eax
 	popq	%rbp
 	ret
-	.size	main, .-main
 	.globl	link_error
-	.type	link_error, @function
 link_error:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	call	abort
-	.size	link_error, .-link_error
 	.section	.rodata
-.LC0:
+LC0:
 	.string	"hello world"
 	.text
 	.globl	main_test
-	.type	main_test, @function
 main_test:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	subq	$16, %rsp
-	movq	$.LC0, -8(%rbp)
+	movq	$LC0, -8(%rbp)
 	movq	-8(%rbp), %rax
 	movl	$120, %esi
 	movq	%rax, %rdi
 	call	strchr
 	testq	%rax, %rax
-	je	.L12
+	je	L12
 	call	abort
-.L12:
+L12:
 	movq	-8(%rbp), %rax
 	movl	$111, %esi
 	movq	%rax, %rdi
@@ -92,9 +84,9 @@ main_test:
 	movq	-8(%rbp), %rax
 	addq	$4, %rax
 	cmpq	%rax, %rdx
-	je	.L13
+	je	L13
 	call	abort
-.L13:
+L13:
 	movq	-8(%rbp), %rax
 	addq	$5, %rax
 	movl	$111, %esi
@@ -104,9 +96,9 @@ main_test:
 	movq	-8(%rbp), %rax
 	addq	$7, %rax
 	cmpq	%rax, %rdx
-	je	.L14
+	je	L14
 	call	abort
-.L14:
+L14:
 	movq	-8(%rbp), %rax
 	movl	$0, %esi
 	movq	%rax, %rdi
@@ -115,9 +107,9 @@ main_test:
 	movq	-8(%rbp), %rax
 	addq	$11, %rax
 	cmpq	%rax, %rdx
-	je	.L15
+	je	L15
 	call	abort
-.L15:
+L15:
 	movq	-8(%rbp), %rax
 	movl	$111, %esi
 	movq	%rax, %rdi
@@ -126,9 +118,9 @@ main_test:
 	movq	-8(%rbp), %rax
 	addq	$4, %rax
 	cmpq	%rax, %rdx
-	je	.L16
+	je	L16
 	call	abort
-.L16:
+L16:
 	movq	-8(%rbp), %rax
 	movl	$111, %esi
 	movq	%rax, %rdi
@@ -137,11 +129,9 @@ main_test:
 	movq	-8(%rbp), %rax
 	addq	$4, %rax
 	cmpq	%rax, %rdx
-	je	.L11
+	je	L18
 	call	abort
-.L11:
+L18:
+	nop
 	leave
 	ret
-	.size	main_test, .-main_test
-	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
-	.section	.note.GNU-stack,"",@progbits

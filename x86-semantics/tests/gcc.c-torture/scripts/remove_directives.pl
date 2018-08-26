@@ -34,22 +34,40 @@ for my $line (@lines) {
       next;
     }
 
-    if($line =~ m/\.file .*/) {
+    if($line =~ m/GNU-stack/) {
       next;
     }
+
+    #if($line =~ m/\.file .*/) {
+    #  next;
+    #}
 
     if($line =~ m/(.*)\%fs:(.*)/) {
       print $1. "\$" . $2. "\n";
       next;
     }
 
-    if($line =~ m/\.text|\.globl|\.type|\.size|\.ident|\.section|\.file|\.data|\.align|\.weak/) {
+    if($line =~ m/(.*)stdout\(%rip\)(.*)/) {
+      print $1. "\$stdout" . $2. "\n";
       next;
     }
 
-    if($line =~ m/main(.*)/) {
+    if($line =~ m/(.*)\s+(\S+)\(%rip\)(.*)/) {
+      print $1. " \$$2(%rip)" . $3. "\n";
+      next;
+    }
+
+    #if($line =~ m/\.text|\.globl|\.type|\.size|\.ident|\.section|\.file|\.data|\.align|\.weak/) {
+    #  next;
+    #}
+    if($line =~ m/\.type|\.size|\.ident|\.align|\.weak|\.local/) {
+      next;
+    }
+
+    #if($line =~ m/^main(.*)/) {
+    if($line =~ m/^main:/) {
       print ".globl _start\n";
-      print "_start". $1. "\n";
+      print "_start:". "\n";
       next;
     }
 
@@ -59,7 +77,7 @@ for my $line (@lines) {
     }
 
     if($line =~ m/(.*)jmp\s*\*(.*)/) {
-      print  $1. "call $2". "\n";
+      print  $1. "jmp $2". "\n";
       next;
     }
 
