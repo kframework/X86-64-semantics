@@ -165,12 +165,12 @@ module X86-LOADER
       requires  LabelId in_keys (ROMap) andBool SectionName ==String "rodata" andBool SectionName =/=String "bss"
 
   // .quad L + I
-  rule <k> .quad L:X86Id   => .quad L:X86Id + 0
+  rule <k> .quad LName:X86Id   => .quad LName:X86Id + 0
   ...</k>
 
-  rule <k> .quad L:X86Id + I:Int  =>  
+  rule <k> .quad LName:X86Id + I:Int  =>  
     storeToMemory(
-        addMInt({FMap[L]}:>PointerVal, mi(64, I)),
+        addMInt({FMap[LName]}:>PointerVal, mi(64, I)),
         ptr(L, NextOffset), 
         64)
   ...</k>
@@ -187,11 +187,11 @@ module X86-LOADER
       requires (notBool LabelId in_keys (ROMap)) 
               andBool SectionName ==String "rodata" 
               andBool SectionName =/=String "bss"
-              andBool L in_keys (FMap)
+              andBool LName in_keys (FMap)
 
-  rule <k> .quad L:X86Id + I:Int  =>  
+  rule <k> .quad LName:X86Id + I:Int  =>  
     storeToMemory(
-        addMInt({FMap[L]}:>PointerVal, mi(64, I)),
+        addMInt({FMap[LName]}:>PointerVal, mi(64, I)),
         ptr(L, NextOffset), 
         64)
   ...</k>
@@ -208,7 +208,7 @@ module X86-LOADER
       requires  LabelId in_keys (ROMap) 
                 andBool SectionName ==String "rodata" 
                 andBool SectionName =/=String "bss"
-                andBool L in_keys (FMap)
+                andBool LName in_keys (FMap)
 
 
   // .quad  in .data section
@@ -249,9 +249,9 @@ module X86-LOADER
       requires  LabelId in_keys (DMap) andBool SectionName ==String "data" andBool SectionName =/=String "bss"
 
   // .quad L + I
-  rule <k> .quad L:X86Id + I:Int  =>  
+  rule <k> .quad LName:X86Id + I:Int  =>  
     storeToMemory(
-        addMInt({FMap[L]}:>PointerVal, mi(64, I)),
+        addMInt({FMap[LName]}:>PointerVal, mi(64, I)),
         ptr(L, NextOffset), 
         64)
   ...</k>
@@ -268,11 +268,11 @@ module X86-LOADER
       requires (notBool LabelId in_keys (DMap)) 
                 andBool SectionName ==String "data" 
                 andBool SectionName =/=String "bss"
-                andBool L in_keys (FMap)
+                andBool LName in_keys (FMap)
 
-  rule <k> .quad L:X86Id + I:Int  =>  
+  rule <k> .quad LName:X86Id + I:Int  =>  
     storeToMemory(
-        addMInt({FMap[L]}:>PointerVal, mi(64, I)),
+        addMInt({FMap[LName]}:>PointerVal, mi(64, I)),
         ptr(L, NextOffset), 
         64)
   ...</k>
@@ -289,7 +289,7 @@ module X86-LOADER
       requires  LabelId in_keys (DMap) 
                 andBool SectionName ==String "data" 
                 andBool SectionName =/=String "bss"
-                andBool L in_keys (FMap)
+                andBool LName in_keys (FMap)
 
   // .long I in .rodata section
   rule <k> .long I:Int  =>  
