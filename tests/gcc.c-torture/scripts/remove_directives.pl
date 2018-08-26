@@ -4,6 +4,8 @@
 use strict;
 use warnings;
 use Getopt::Long;
+use lib qw( /home/sdasgup3/scripts-n-docs/scripts/perl/ );
+use utils;
 
 my $file = "";
 
@@ -19,6 +21,11 @@ close $fp;
 my %LS = ();
 for my $line (@lines) {
     chomp $line;
+    $line = utils::trim($line);
+    if($line =~ m/.*:$/g) {
+    } else {
+      $line = "    " . $line;
+    }
 
     if($line =~ m/\.type|\.size|\.ident|\.align|\.weak|\.local/) {
       next;
