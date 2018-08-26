@@ -136,6 +136,7 @@ module X86-SYNTAX
                | "(" R64 ")"
                | "(" Rip ")"
                | "$" X86Id "(" Rip ")"
+               | "$" X86Id "+" Int "(" Rip ")"
  //              | Sreg ":" "(" R32 ")"
  //              | Sreg ":" "(" R64 ")"
  //              | Sreg ":" "(" Rip ")"
