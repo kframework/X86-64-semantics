@@ -73,6 +73,7 @@ module X86-SYNTAX
                    //| "stdout"  [token]
                  //  | "__stack_chk_fail"  [token]
   syntax X86Id ::= Id
+  syntax X86Id ::= Builtin
 
   /*@
     Special symbols.

@@ -1,98 +1,6 @@
 	.file	"fprintf.c"
-	.text
-	.globl	fprintf
-fprintf:
-	pushq	%rbp
-	movq	%rsp, %rbp
-	subq	$240, %rsp
-	movq	%rdi, -232(%rbp)
-	movq	%rsi, -240(%rbp)
-	movq	%rdx, -160(%rbp)
-	movq	%rcx, -152(%rbp)
-	movq	%r8, -144(%rbp)
-	movq	%r9, -136(%rbp)
-	testb	%al, %al
-	je	L2
-	vmovaps	%xmm0, -128(%rbp)
-	vmovaps	%xmm1, -112(%rbp)
-	vmovaps	%xmm2, -96(%rbp)
-	vmovaps	%xmm3, -80(%rbp)
-	vmovaps	%xmm4, -64(%rbp)
-	vmovaps	%xmm5, -48(%rbp)
-	vmovaps	%xmm6, -32(%rbp)
-	vmovaps	%xmm7, -16(%rbp)
-L2:
-	movq	$40, %rax
-	movq	%rax, -184(%rbp)
-	xorl	%eax, %eax
-	movl	$16, -208(%rbp)
-	movl	$48, -204(%rbp)
-	leaq	16(%rbp), %rax
-	movq	%rax, -200(%rbp)
-	leaq	-176(%rbp), %rax
-	movq	%rax, -192(%rbp)
-	leaq	-208(%rbp), %rdx
-	movq	-240(%rbp), %rcx
-	movq	-232(%rbp), %rax
-	movq	%rcx, %rsi
-	movq	%rax, %rdi
-	call	vfprintf
-	movl	%eax, -212(%rbp)
-	movl	-212(%rbp), %eax
-	movq	-184(%rbp), %rsi
-	xorq	$40, %rsi
-	je	L4
-	call	__stack_chk_fail
-L4:
-	leave
-	ret
-	.globl	fprintf_unlocked
-fprintf_unlocked:
-	pushq	%rbp
-	movq	%rsp, %rbp
-	subq	$240, %rsp
-	movq	%rdi, -232(%rbp)
-	movq	%rsi, -240(%rbp)
-	movq	%rdx, -160(%rbp)
-	movq	%rcx, -152(%rbp)
-	movq	%r8, -144(%rbp)
-	movq	%r9, -136(%rbp)
-	testb	%al, %al
-	je	L6
-	vmovaps	%xmm0, -128(%rbp)
-	vmovaps	%xmm1, -112(%rbp)
-	vmovaps	%xmm2, -96(%rbp)
-	vmovaps	%xmm3, -80(%rbp)
-	vmovaps	%xmm4, -64(%rbp)
-	vmovaps	%xmm5, -48(%rbp)
-	vmovaps	%xmm6, -32(%rbp)
-	vmovaps	%xmm7, -16(%rbp)
-L6:
-	movq	$40, %rax
-	movq	%rax, -184(%rbp)
-	xorl	%eax, %eax
-	movl	$16, -208(%rbp)
-	movl	$48, -204(%rbp)
-	leaq	16(%rbp), %rax
-	movq	%rax, -200(%rbp)
-	leaq	-176(%rbp), %rax
-	movq	%rax, -192(%rbp)
-	leaq	-208(%rbp), %rdx
-	movq	-240(%rbp), %rcx
-	movq	-232(%rbp), %rax
-	movq	%rcx, %rsi
-	movq	%rax, %rdi
-	call	vfprintf
-	movl	%eax, -212(%rbp)
-	movl	-212(%rbp), %eax
-	movq	-184(%rbp), %rsi
-	xorq	$40, %rsi
-	je	L8
-	call	__stack_chk_fail
-L8:
-	leave
-	ret
 	.comm	inside_main,4,4
+	.text
 	.globl	main
 .globl _start
 _start:
@@ -166,14 +74,14 @@ main_test:
 	leaq	-32(%rbp), %rax
 	addq	$8, %rax
 	cmpq	-56(%rbp), %rax
-	jne	L13
+	jne	L5
 	movq	-56(%rbp), %rax
 	movq	(%rax), %rax
 	testq	%rax, %rax
-	je	L14
-L13:
+	je	L6
+L5:
 	call	abort
-L14:
+L6:
 	leaq	-32(%rbp), %rax
 	movq	%rax, -56(%rbp)
 	movq	-56(%rbp), %rax
@@ -190,22 +98,22 @@ L14:
 	leaq	-32(%rbp), %rax
 	addq	$8, %rax
 	cmpq	-56(%rbp), %rax
-	jne	L15
+	jne	L7
 	movq	-56(%rbp), %rax
 	movq	(%rax), %rax
 	testq	%rax, %rax
-	jne	L15
+	jne	L7
 	leaq	-48(%rbp), %rax
 	addq	$8, %rax
 	cmpq	-72(%rbp), %rax
-	jne	L15
+	jne	L7
 	movq	-72(%rbp), %rax
 	movq	(%rax), %rax
 	testq	%rax, %rax
-	je	L16
-L15:
+	je	L8
+L7:
 	call	abort
-L16:
+L8:
 	leaq	-48(%rbp), %rax
 	movq	%rax, -72(%rbp)
 	movq	-72(%rbp), %rax
@@ -237,14 +145,14 @@ L16:
 	leaq	-32(%rbp), %rax
 	addq	$8, %rax
 	cmpq	-56(%rbp), %rax
-	jne	L17
+	jne	L9
 	movq	-56(%rbp), %rax
 	movq	(%rax), %rax
 	testq	%rax, %rax
-	je	L18
-L17:
+	je	L10
+L9:
 	call	abort
-L18:
+L10:
 	leaq	-32(%rbp), %rax
 	movq	%rax, -56(%rbp)
 	movq	-56(%rbp), %rax
@@ -263,22 +171,22 @@ L18:
 	leaq	-32(%rbp), %rax
 	addq	$8, %rax
 	cmpq	-56(%rbp), %rax
-	jne	L19
+	jne	L11
 	movq	-56(%rbp), %rax
 	movq	(%rax), %rax
 	testq	%rax, %rax
-	jne	L19
+	jne	L11
 	leaq	-48(%rbp), %rax
 	addq	$8, %rax
 	cmpq	-72(%rbp), %rax
-	jne	L19
+	jne	L11
 	movq	-72(%rbp), %rax
 	movq	(%rax), %rax
 	testq	%rax, %rax
-	je	L20
-L19:
+	je	L12
+L11:
 	call	abort
-L20:
+L12:
 	leaq	-48(%rbp), %rax
 	movq	%rax, -72(%rbp)
 	movq	-72(%rbp), %rax
@@ -293,14 +201,14 @@ L20:
 	leaq	-48(%rbp), %rax
 	addq	$8, %rax
 	cmpq	-72(%rbp), %rax
-	jne	L21
+	jne	L13
 	movq	-72(%rbp), %rax
 	movq	(%rax), %rax
 	testq	%rax, %rax
-	je	L22
-L21:
+	je	L14
+L13:
 	call	abort
-L22:
+L14:
 	leaq	-48(%rbp), %rax
 	movq	%rax, -72(%rbp)
 	movq	-72(%rbp), %rax
@@ -318,8 +226,8 @@ L22:
 	nop
 	movq	-8(%rbp), %rax
 	xorq	$40, %rax
-	je	L23
+	je	L15
 	call	__stack_chk_fail
-L23:
+L15:
 	leave
 	ret

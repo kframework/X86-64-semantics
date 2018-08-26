@@ -1,52 +1,6 @@
 	.file	"sprintf.c"
-	.text
-	.globl	sprintf
-sprintf:
-	pushq	%rbp
-	movq	%rsp, %rbp
-	subq	$240, %rsp
-	movq	%rdi, -232(%rbp)
-	movq	%rsi, -240(%rbp)
-	movq	%rdx, -160(%rbp)
-	movq	%rcx, -152(%rbp)
-	movq	%r8, -144(%rbp)
-	movq	%r9, -136(%rbp)
-	testb	%al, %al
-	je	L2
-	vmovaps	%xmm0, -128(%rbp)
-	vmovaps	%xmm1, -112(%rbp)
-	vmovaps	%xmm2, -96(%rbp)
-	vmovaps	%xmm3, -80(%rbp)
-	vmovaps	%xmm4, -64(%rbp)
-	vmovaps	%xmm5, -48(%rbp)
-	vmovaps	%xmm6, -32(%rbp)
-	vmovaps	%xmm7, -16(%rbp)
-L2:
-	movq	$40, %rax
-	movq	%rax, -184(%rbp)
-	xorl	%eax, %eax
-	movl	$16, -208(%rbp)
-	movl	$48, -204(%rbp)
-	leaq	16(%rbp), %rax
-	movq	%rax, -200(%rbp)
-	leaq	-176(%rbp), %rax
-	movq	%rax, -192(%rbp)
-	leaq	-208(%rbp), %rdx
-	movq	-240(%rbp), %rcx
-	movq	-232(%rbp), %rax
-	movq	%rcx, %rsi
-	movq	%rax, %rdi
-	call	vsprintf
-	movl	%eax, -212(%rbp)
-	movl	-212(%rbp), %eax
-	movq	-184(%rbp), %rsi
-	xorq	$40, %rsi
-	je	L4
-	call	__stack_chk_fail
-L4:
-	leave
-	ret
 	.comm	inside_main,4,4
+	.text
 	.globl	main
 .globl _start
 _start:
@@ -132,13 +86,13 @@ main_test:
 	movl	$buffer, %edi
 	call	memcmp
 	testl	%eax, %eax
-	jne	L16
+	jne	L12
 	movzbl $buffer+4(%rip), %eax
 	cmpb	$65, %al
-	je	L17
-L16:
+	je	L13
+L12:
 	call	abort
-L17:
+L13:
 	movl	$32, %edx
 	movl	$65, %esi
 	movl	$buffer, %edi
@@ -146,21 +100,21 @@ L17:
 	movl	$0, %eax
 	call	test2
 	cmpl	$3, %eax
-	je	L18
+	je	L14
 	call	abort
-L18:
+L14:
 	movl	$4, %edx
 	movl	$LC0, %esi
 	movl	$buffer, %edi
 	call	memcmp
 	testl	%eax, %eax
-	jne	L19
+	jne	L15
 	movzbl $buffer+4(%rip), %eax
 	cmpb	$65, %al
-	je	L20
-L19:
+	je	L16
+L15:
 	call	abort
-L20:
+L16:
 	movl	$32, %edx
 	movl	$65, %esi
 	movl	$buffer, %edi
@@ -172,13 +126,13 @@ L20:
 	movl	$buffer, %edi
 	call	memcmp
 	testl	%eax, %eax
-	jne	L21
+	jne	L17
 	movzbl $buffer+4(%rip), %eax
 	cmpb	$65, %al
-	je	L22
-L21:
+	je	L18
+L17:
 	call	abort
-L22:
+L18:
 	movl	$32, %edx
 	movl	$65, %esi
 	movl	$buffer, %edi
@@ -186,21 +140,21 @@ L22:
 	movl	$0, %eax
 	call	test4
 	cmpl	$3, %eax
-	je	L23
+	je	L19
 	call	abort
-L23:
+L19:
 	movl	$4, %edx
 	movl	$LC1, %esi
 	movl	$buffer, %edi
 	call	memcmp
 	testl	%eax, %eax
-	jne	L24
+	jne	L20
 	movzbl $buffer+4(%rip), %eax
 	cmpb	$65, %al
-	je	L25
-L24:
+	je	L21
+L20:
 	call	abort
-L25:
+L21:
 	movl	$32, %edx
 	movl	$65, %esi
 	movl	$buffer, %edi
@@ -212,13 +166,13 @@ L25:
 	movl	$buffer, %edi
 	call	memcmp
 	testl	%eax, %eax
-	jne	L26
+	jne	L22
 	movzbl $buffer+5(%rip), %eax
 	cmpb	$65, %al
-	je	L28
-L26:
+	je	L24
+L22:
 	call	abort
-L28:
+L24:
 	nop
 	popq	%rbp
 	ret

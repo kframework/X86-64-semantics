@@ -117,4 +117,14 @@ wc ./job_101_600/blacklist.txt ./ieee/blacklist.txt ./builtins/blacklist.txt ./j
 
 
 
+## Testing gcc.c-torture/builtins
+ - Commented the definitions of fprintf/printf/sprintf as
+    the definitions use 'v' variants of the library functions with we do not support.
+    This will not hurt as we directly support  fprintf/printf/sprintf.
+    Following source files are modified.
+      - src/lib/fprintf.c
+      - src/lib/printf.c
+      - src/lib/sprintf.c
+
+
 
