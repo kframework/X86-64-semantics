@@ -20,6 +20,10 @@ my %LS = ();
 for my $line (@lines) {
     chomp $line;
 
+    if($line =~ m/\.type|\.size|\.ident|\.align|\.weak|\.local/) {
+      next;
+    }
+
     if($line =~ m/^(.*)\.quad\s+(\S+)\+(\d+)(.*)/) {
       my $pre = $1;
       my $base = $2;
@@ -31,6 +35,7 @@ for my $line (@lines) {
       next;
     }
 
+    # X+4(%rip)
     if($line =~ m/^(.*)\s+(\S+)\+(\d+)\(%rip\)(.*)/) {
       my $pre = $1;
       my $base = $2;
@@ -43,6 +48,21 @@ for my $line (@lines) {
       next;
     }
 
+    # X(%rax)
+    #if($line =~ m/^(.*)\s+(\w+)(\(%rip|%rax|%rbx|%rcx|%rdx\))(.*)/) {
+    if($line =~ m/^(.*)\s+([a-zA-Z]+[0-9]*)\(%rax\)(.*)/) {
+      my $pre = $1;
+      my $base = $2;
+      #my $reg = $3;
+      my $post = $3;
+      $base =~ s/\.//g;
+      $base = "\$".$base;
+      $line = $pre . " $base(%rax)$post";
+      print "$line". "\n";
+      next;
+    }
+
+    # X+Y
     if($line =~ m/^(.*)\s+(\S+)\+(\d+)(.*)/) {
       my $pre = $1;
       my $base = $2;
@@ -103,9 +123,6 @@ for my $line (@lines) {
     #if($line =~ m/\.text|\.globl|\.type|\.size|\.ident|\.section|\.file|\.data|\.align|\.weak/) {
     #  next;
     #}
-    if($line =~ m/\.type|\.size|\.ident|\.align|\.weak|\.local/) {
-      next;
-    }
 
     #if($line =~ m/^main(.*)/) {
     if($line =~ m/^main:/) {

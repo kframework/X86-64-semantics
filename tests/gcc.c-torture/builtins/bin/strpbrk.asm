@@ -96,6 +96,27 @@ L16:
 	movl	%edx, %eax
 	popq	%rbp
 	ret
+	.globl	exit
+exit:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movl	%edi, -4(%rbp)
+	movq $-1, %rax
+	jmp %rax
+	
+	nop
+	popq	%rbp
+	ret
+	.globl	abort
+abort:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq $-1, %rax
+	jmp %rax
+	
+	nop
+	popq	%rbp
+	ret
 	.comm	inside_main,4,4
 	.globl	main
 .globl _start
@@ -129,17 +150,17 @@ fn:
 	movq	%rax, %rdi
 	call	strchr
 	cmpq	-8(%rbp), %rax
-	je	L23
+	je	L25
 	call	abort
-L23:
+L25:
 	movq	-8(%rbp), %rax
 	movl	$104, %esi
 	movq	%rax, %rdi
 	call	strchr
 	cmpq	-8(%rbp), %rax
-	je	L24
+	je	L26
 	call	abort
-L24:
+L26:
 	movq	-8(%rbp), %rax
 	movl	$119, %esi
 	movq	%rax, %rdi
@@ -148,21 +169,9 @@ L24:
 	movq	-8(%rbp), %rax
 	addq	$6, %rax
 	cmpq	%rax, %rdx
-	je	L25
+	je	L27
 	call	abort
-L25:
-	movq	-8(%rbp), %rax
-	addq	$6, %rax
-	movl	$111, %esi
-	movq	%rax, %rdi
-	call	strchr
-	movq	%rax, %rdx
-	movq	-8(%rbp), %rax
-	addq	$7, %rax
-	cmpq	%rax, %rdx
-	je	L26
-	call	abort
-L26:
+L27:
 	movq	-8(%rbp), %rax
 	addq	$6, %rax
 	movl	$111, %esi
@@ -175,6 +184,18 @@ L26:
 	je	L28
 	call	abort
 L28:
+	movq	-8(%rbp), %rax
+	addq	$6, %rax
+	movl	$111, %esi
+	movq	%rax, %rdi
+	call	strchr
+	movq	%rax, %rdx
+	movq	-8(%rbp), %rax
+	addq	$7, %rax
+	cmpq	%rax, %rdx
+	je	L30
+	call	abort
+L30:
 	nop
 	leave
 	ret
@@ -203,8 +224,8 @@ main_test:
 	nop
 	movq	-8(%rbp), %rax
 	xorq	$40, %rax
-	je	L30
+	je	L32
 	call	__stack_chk_fail
-L30:
+L32:
 	leave
 	ret

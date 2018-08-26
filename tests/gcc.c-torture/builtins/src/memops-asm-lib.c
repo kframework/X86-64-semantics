@@ -4,6 +4,18 @@ typedef __SIZE_TYPE__ size_t;
 
 #define TEST_ABORT if (inside_main) abort()
 
+int memcmp(const void* s1, const void* s2,size_t n)
+{
+    const unsigned char *p1 = s1, *p2 = s2;
+    while(n--)
+        if( *p1 != *p2 )
+            return *p1 - *p2;
+        else
+            p1++,p2++;
+    return 0;
+}
+
+
 /* LTO code is at the present to able to track that asm alias my_bcopy on builtin
    actually refers to this function.  See PR47181. */
 __attribute__ ((used))

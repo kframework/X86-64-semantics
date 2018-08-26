@@ -124,6 +124,7 @@ wc ./job_101_600/blacklist.txt ./ieee/blacklist.txt ./builtins/blacklist.txt ./j
       - src/lib/fprintf.c
       - src/lib/printf.c
       - src/lib/sprintf.c
+ - Some constants are reduced in size: src/pr22237.c 256 --> 8
 
 
 
