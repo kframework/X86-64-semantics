@@ -208,6 +208,7 @@ module X86-C-LIBRARY
   rule isValidTypeFormatPair(MI:MInt, "%f", "") => true
   rule isValidTypeFormatPair(MI:MInt, "%s", "") => true
   rule isValidTypeFormatPair(MI:MInt, "%p", "") => true
+  rule isValidTypeFormatPair(MI:MInt, "%u", "") => true
   //rule isValidTypeFormatPair(PV:PointerVal, "%p", "") => true
   //rule isValidTypeFormatPair(_:MInt, _:String, _:String) => false [owise]
 
