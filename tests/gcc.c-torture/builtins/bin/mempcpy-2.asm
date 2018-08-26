@@ -51,7 +51,7 @@ link_error:
 	.globl	buf2
 	.data
 buf2:
-	.quad	buf1+256
+	 .quad buf1 + 256
 	.comm	buf5,160,32
 	.comm	buf7,20,16
 	.section	.rodata

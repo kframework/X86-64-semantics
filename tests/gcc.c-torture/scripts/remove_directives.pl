@@ -20,6 +20,17 @@ my %LS = ();
 for my $line (@lines) {
     chomp $line;
 
+    if($line =~ m/^(.*)\.quad\s+(\S+)\+(\d+)(.*)/) {
+      my $pre = $1;
+      my $base = $2;
+      my $const = $3;
+      my $post = $4;
+      $base =~ s/\.//g;
+      $line = $pre . " .quad $base + $const$post";
+      print "$line". "\n";
+      next;
+    }
+
     if($line =~ m/^(.*)\s+(\S+)\+(\d+)\(%rip\)(.*)/) {
       my $pre = $1;
       my $base = $2;

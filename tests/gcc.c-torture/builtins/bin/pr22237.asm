@@ -69,7 +69,7 @@ link_error:
 p:
 	.quad	v
 q:
-	.quad	v+4
+	 .quad v + 4
 	.text
 rp:
 	pushq	%rbp
