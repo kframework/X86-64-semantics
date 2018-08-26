@@ -1160,15 +1160,15 @@ L141:
 	call	abort
 L142:
 	movq	$-1, %rdx
-	movl	$LC3+1, %ecx
-	movl	$p+16, %eax
+	movl $LC3 + 1, %ecx
+	movl $p + 16, %eax
 	movq	%rcx, %rsi
 	movq	%rax, %rdi
 	call	__strcpy_chk
-	movl	$p+16, %edx
+	movl $p + 16, %edx
 	cmpq	%rdx, %rax
 	jne	L143
-	movl	$p+16, %eax
+	movl $p + 16, %eax
 	movl	$5, %edx
 	movl	$LC4, %esi
 	movq	%rax, %rdi
@@ -1179,11 +1179,11 @@ L143:
 	call	abort
 L144:
 	movq	$-1, %rdx
-	movl	$p+1, %eax
+	movl $p + 1, %eax
 	movl	$LC5, %esi
 	movq	%rax, %rdi
 	call	__strcpy_chk
-	movl	$p+1, %edx
+	movl $p + 1, %edx
 	cmpq	%rdx, %rax
 	jne	L145
 	movl	$6, %edx
@@ -1196,11 +1196,11 @@ L145:
 	call	abort
 L146:
 	movq	$-1, %rdx
-	movl	$p+3, %eax
+	movl $p + 3, %eax
 	movl	$LC7, %esi
 	movq	%rax, %rdi
 	call	__strcpy_chk
-	movl	$p+3, %edx
+	movl $p + 3, %edx
 	cmpq	%rdx, %rax
 	jne	L147
 	movl	$9, %edx
@@ -1559,7 +1559,7 @@ L187:
 L188:
 	movq	%rax, -80(%rbp)
 	movq	$-1, %rdx
-	movl	$s1+1, %ecx
+	movl $s1 + 1, %ecx
 	movq	-80(%rbp), %rax
 	movq	%rcx, %rsi
 	movq	%rax, %rdi

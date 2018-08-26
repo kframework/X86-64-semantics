@@ -1174,17 +1174,17 @@ L141:
 	call	abort
 L142:
 	movq	$-1, %rdx
-	movl	$LC3+1, %esi
-	movl	$p+16, %eax
+	movl $LC3 + 1, %esi
+	movl $p + 16, %eax
 	movq	%rdx, %rcx
 	movl	$2, %edx
 	movq	%rax, %rdi
 	call	__memcpy_chk
 	movq	%rax, %rdx
-	movl	$p+16, %eax
+	movl $p + 16, %eax
 	cmpq	%rax, %rdx
 	jne	L143
-	movl	$p+16, %eax
+	movl $p + 16, %eax
 	movl	$5, %edx
 	movl	$LC4, %esi
 	movq	%rax, %rdi
@@ -1195,14 +1195,14 @@ L143:
 	call	abort
 L144:
 	movq	$-1, %rdx
-	movl	$p+1, %eax
+	movl $p + 1, %eax
 	movq	%rdx, %rcx
 	movl	$1, %edx
 	movl	$LC5, %esi
 	movq	%rax, %rdi
 	call	__memcpy_chk
 	movq	%rax, %rdx
-	movl	$p+1, %eax
+	movl $p + 1, %eax
 	cmpq	%rax, %rdx
 	jne	L145
 	movl	$6, %edx
@@ -1215,14 +1215,14 @@ L145:
 	call	abort
 L146:
 	movq	$-1, %rdx
-	movl	$p+3, %eax
+	movl $p + 3, %eax
 	movq	%rdx, %rcx
 	movl	$4, %edx
 	movl	$LC7, %esi
 	movq	%rax, %rdi
 	call	__memcpy_chk
 	movq	%rax, %rdx
-	movl	$p+3, %eax
+	movl $p + 3, %eax
 	cmpq	%rax, %rdx
 	jne	L147
 	movl	$8, %edx
@@ -1236,31 +1236,31 @@ L147:
 L148:
 	movl	$8, -4(%rbp)
 	movq	$-1, %rdx
-	movl	$p+20, %eax
+	movl $p + 20, %eax
 	movq	%rdx, %rcx
 	movl	$6, %edx
 	movl	$LC9, %esi
 	movq	%rax, %rdi
 	call	__memcpy_chk
 	movq	$-1, %rdx
-	movl	$p+25, %eax
+	movl $p + 25, %eax
 	movq	%rdx, %rcx
 	movl	$6, %edx
 	movl	$LC10, %esi
 	movq	%rax, %rdi
 	call	__memcpy_chk
 	movq	$-1, %rdx
-	movl	$p+26, %eax
+	movl $p + 26, %eax
 	movq	%rdx, %rcx
 	movl	$3, %edx
 	movl	$s1, %esi
 	movq	%rax, %rdi
 	call	__memcpy_chk
 	movq	%rax, %rdx
-	movl	$p+26, %eax
+	movl $p + 26, %eax
 	cmpq	%rax, %rdx
 	jne	L149
-	movl	$p+25, %eax
+	movl $p + 25, %eax
 	movl	$6, %edx
 	movl	$LC11, %esi
 	movq	%rax, %rdi
@@ -1275,7 +1275,7 @@ L150:
 	addq	$4, %rax
 	movl	$6776421, (%rax)
 	movq	%rax, %rdx
-	movl	$p+4, %eax
+	movl $p + 4, %eax
 	cmpq	%rax, %rdx
 	jne	L151
 	movl	$8, %edx
@@ -1303,7 +1303,7 @@ L153:
 L154:
 	movq	$-1, %rdx
 	movq $s3(%rip), %rax
-	movl	$p+5, %edi
+	movl $p + 5, %edi
 	movq	%rdx, %rcx
 	movl	$1, %edx
 	movq	%rax, %rsi
@@ -1325,8 +1325,8 @@ L156:
 	movl	$0, $chk_calls(%rip)
 	movq	$-1, %rdx
 	movq $l1(%rip), %rax
-	movl	$s1+1, %esi
-	movl	$p+6, %edi
+	movl $s1 + 1, %esi
+	movl $p + 6, %edi
 	movq	%rdx, %rcx
 	movq	%rax, %rdx
 	call	__memcpy_chk
@@ -1492,7 +1492,7 @@ L168:
 	movq	%rax, %rdi
 	call	__memcpy_chk
 	movq	%rax, %rdx
-	movl	$buf1+2, %eax
+	movl $buf1 + 2, %eax
 	cmpq	%rax, %rdx
 	jne	L169
 	movl	$19, %edx
@@ -1515,7 +1515,7 @@ L170:
 	movq	%rax, %rdi
 	call	__memcpy_chk
 	movq	%rax, %rdx
-	movl	$buf1+4, %eax
+	movl $buf1 + 4, %eax
 	cmpq	%rax, %rdx
 	jne	L171
 	movl	$19, %edx
@@ -1527,7 +1527,7 @@ L170:
 L171:
 	call	abort
 L172:
-	movl	$buf5+1, %edx
+	movl $buf5 + 1, %edx
 	addl	$1, -4(%rbp)
 	movl	-4(%rbp), %eax
 	cltq
@@ -1535,7 +1535,7 @@ L172:
 	addq	$buf1, %rax
 	movzbl	(%rdx), %edx
 	movb	%dl, (%rax)
-	movl	$buf1+10, %edx
+	movl $buf1 + 10, %edx
 	cmpq	%rdx, %rax
 	jne	L173
 	movl	$19, %edx
@@ -1558,7 +1558,7 @@ L174:
 	movq	%rax, %rsi
 	call	__memcpy_chk
 	movq	%rax, %rdx
-	movl	$buf1+14, %eax
+	movl $buf1 + 14, %eax
 	cmpq	%rax, %rdx
 	jne	L175
 	movl	$19, %edx
@@ -1623,7 +1623,7 @@ L180:
 	movl	$buf5, %esi
 	call	__memcpy_chk
 	movq	%rax, %rdx
-	movl	$buf1+4, %eax
+	movl $buf1 + 4, %eax
 	cmpq	%rax, %rdx
 	jne	L181
 	movl	$19, %edx
@@ -1638,7 +1638,7 @@ L182:
 	movl	-44(%rbp), %eax
 	addl	$1, %eax
 	cltq
-	movl	$buf5+1, %esi
+	movl $buf5 + 1, %esi
 	addl	$1, -4(%rbp)
 	movl	-4(%rbp), %edx
 	movslq	%edx, %rdx
@@ -1649,7 +1649,7 @@ L182:
 	movq	%rcx, %rdi
 	call	memcpy
 	movq	%rax, %rdx
-	movl	$buf1+11, %eax
+	movl $buf1 + 11, %eax
 	cmpq	%rax, %rdx
 	jne	L183
 	movl	$19, %edx
@@ -1673,7 +1673,7 @@ L184:
 	movq	%rax, %rsi
 	call	__memcpy_chk
 	movq	%rax, %rdx
-	movl	$buf1+14, %eax
+	movl $buf1 + 14, %eax
 	cmpq	%rax, %rdx
 	jne	L185
 	movl	$19, %edx
@@ -1821,7 +1821,7 @@ L196:
 L197:
 	call	abort
 L198:
-	movl	$buf7+1, %esi
+	movl $buf7 + 1, %esi
 	movq $buf2(%rip), %rcx
 	movl	-4(%rbp), %eax
 	leal	1(%rax), %edx
@@ -1905,7 +1905,7 @@ L204:
 	movl	-44(%rbp), %eax
 	addl	$1, %eax
 	movslq	%eax, %rcx
-	movl	$buf7+1, %edi
+	movl $buf7 + 1, %edi
 	movq $buf2(%rip), %rsi
 	movl	-4(%rbp), %eax
 	leal	1(%rax), %edx

@@ -94,7 +94,7 @@ L15:
 	movq	%rdx, $h(%rip)
 	testq	%rax, %rax
 	je	L16
-	movl	$LC2+1, %eax
+	movl $LC2 + 1, %eax
 	jmp	L17
 L16:
 	movl	$LC1, %eax

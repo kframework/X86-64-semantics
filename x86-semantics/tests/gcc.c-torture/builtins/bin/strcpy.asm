@@ -93,15 +93,15 @@ main_test:
 L8:
 	call	abort
 L9:
-	movl	$LC1+1, %edx
-	movl	$p+16, %eax
+	movl $LC1 + 1, %edx
+	movl $p + 16, %eax
 	movq	%rdx, %rsi
 	movq	%rax, %rdi
 	call	strcpy
-	movl	$p+16, %edx
+	movl $p + 16, %edx
 	cmpq	%rdx, %rax
 	jne	L10
-	movl	$p+16, %eax
+	movl $p + 16, %eax
 	movl	$5, %edx
 	movl	$LC2, %esi
 	movq	%rax, %rdi
@@ -111,10 +111,10 @@ L9:
 L10:
 	call	abort
 L11:
-	movl	$p+1, %eax
+	movl $p + 1, %eax
 	movb	$0, (%rax)
 	movq	%rax, %rdx
-	movl	$p+1, %eax
+	movl $p + 1, %eax
 	cmpq	%rax, %rdx
 	jne	L12
 	movl	$6, %edx
@@ -126,11 +126,11 @@ L11:
 L12:
 	call	abort
 L13:
-	movl	$p+3, %eax
+	movl $p + 3, %eax
 	movl	$1768449894, (%rax)
 	movw	$106, 4(%rax)
 	movq	%rax, %rdx
-	movl	$p+3, %eax
+	movl $p + 3, %eax
 	cmpq	%rax, %rdx
 	jne	L14
 	movl	$9, %edx
@@ -157,14 +157,14 @@ L15:
 L16:
 	call	abort
 L17:
-	movl	$LC6+1, %edx
-	movl	$p+16, %eax
+	movl $LC6 + 1, %edx
+	movl $p + 16, %eax
 	movzwl	(%rdx), %edx
 	movw	%dx, (%rax)
-	movl	$p+16, %edx
+	movl $p + 16, %edx
 	cmpq	%rdx, %rax
 	jne	L18
-	movl	$p+16, %eax
+	movl $p + 16, %eax
 	movl	$5, %edx
 	movl	$LC7, %esi
 	movq	%rax, %rdi
@@ -174,12 +174,12 @@ L17:
 L18:
 	call	abort
 L19:
-	movl	$p+1, %eax
+	movl $p + 1, %eax
 	movl	$1, %edx
 	movl	$LC8, %esi
 	movq	%rax, %rdi
 	call	memcpy
-	movl	$p+1, %edx
+	movl $p + 1, %edx
 	cmpq	%rdx, %rax
 	jne	L20
 	movl	$6, %edx
@@ -191,12 +191,12 @@ L19:
 L20:
 	call	abort
 L21:
-	movl	$p+3, %eax
+	movl $p + 3, %eax
 	movl	$4, %edx
 	movl	$LC10, %esi
 	movq	%rax, %rdi
 	call	memcpy
-	movl	$p+3, %edx
+	movl $p + 3, %edx
 	cmpq	%rdx, %rax
 	jne	L22
 	movl	$9, %edx

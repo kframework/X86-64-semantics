@@ -43,6 +43,18 @@ for my $line (@lines) {
       next;
     }
 
+    if($line =~ m/^(.*)\s+(\S+)\+(\d+)(.*)/) {
+      my $pre = $1;
+      my $base = $2;
+      my $const = $3;
+      my $post = $4;
+      $base =~ s/\.//g;
+      #$base = "\$".$base;
+      $line = $pre . " $base + $const$post";
+      print "$line". "\n";
+      next;
+    }
+
     if($line =~ m/^\.L(.*)/) {
       print "L". $1. "\n";
       next;

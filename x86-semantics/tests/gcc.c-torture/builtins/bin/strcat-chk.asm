@@ -1875,7 +1875,7 @@ L176:
 	call	__memset_chk
 	movq	-72(%rbp), %rax
 	movq	$-1, %rdx
-	movl	$s1+1, %ecx
+	movl $s1 + 1, %ecx
 	movq	-72(%rbp), %rax
 	movq	%rcx, %rsi
 	movq	%rax, %rdi
