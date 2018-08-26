@@ -93,6 +93,8 @@ module X86-SYNTAX
                             | ".string" String 
                             | ".long" Int 
                             | ".quad" Int 
+                            | ".quad" X86Id
+                            | ".quad" X86Id "+" Int 
                             | ".comm" X86Id "," Int "," Int 
                             | ".zero" Int 
                             //| ".zero" Int 

@@ -1,76 +1,56 @@
 	.file	"strstr-asm.c"
 	.text
-	.globl	my_strstr
-my_strstr:
+	.globl	strstr
+strstr:
 	pushq	%rbp
 	movq	%rsp, %rbp
-	subq	$32, %rsp
 	movq	%rdi, -24(%rbp)
 	movq	%rsi, -32(%rbp)
+	jmp	L2
+L9:
+	movq	-24(%rbp), %rax
+	movq	%rax, -16(%rbp)
 	movq	-32(%rbp), %rax
-	movq	%rax, %rdi
-	call	strlen
 	movq	%rax, -8(%rbp)
-	cmpq	$0, -8(%rbp)
-	jne	L2
-	movq	-24(%rbp), %rax
 	jmp	L3
-L2:
-	movq	-32(%rbp), %rax
-	movzbl	(%rax), %eax
-	movsbl	%al, %edx
-	movq	-24(%rbp), %rax
-	movl	%edx, %esi
-	movq	%rax, %rdi
-	call	strchr
-	movq	%rax, -24(%rbp)
-	jmp	L4
 L6:
-	movq	-8(%rbp), %rdx
-	movq	-32(%rbp), %rcx
-	movq	-24(%rbp), %rax
-	movq	%rcx, %rsi
-	movq	%rax, %rdi
-	call	strncmp
-	testl	%eax, %eax
-	jne	L5
-	movq	-24(%rbp), %rax
-	jmp	L3
-L5:
-	movq	-32(%rbp), %rax
-	movzbl	(%rax), %eax
-	movsbl	%al, %eax
-	movq	-24(%rbp), %rdx
-	addq	$1, %rdx
-	movl	%eax, %esi
-	movq	%rdx, %rdi
-	call	strchr
-	movq	%rax, -24(%rbp)
-L4:
-	cmpq	$0, -24(%rbp)
-	jne	L6
-	movl	$0, %eax
-L3:
-	leave
-	ret
-	.globl	my_strstr
-my_strstr:
-	pushq	%rbp
-	movq	%rsp, %rbp
-	subq	$16, %rsp
-	movq	%rdi, -8(%rbp)
-	movq	%rsi, -16(%rbp)
-	movl $inside_main(%rip), %eax
-	testl	%eax, %eax
-	je	L8
-	call	abort
-L8:
-	movq	-16(%rbp), %rdx
 	movq	-8(%rbp), %rax
-	movq	%rdx, %rsi
-	movq	%rax, %rdi
-	call	my_strstr
-	leave
+	movzbl	(%rax), %edx
+	movq	-16(%rbp), %rax
+	movzbl	(%rax), %eax
+	cmpb	%al, %dl
+	jne	L10
+	addq	$1, -16(%rbp)
+	addq	$1, -8(%rbp)
+L3:
+	movq	-8(%rbp), %rax
+	movzbl	(%rax), %eax
+	testb	%al, %al
+	je	L5
+	movq	-16(%rbp), %rax
+	movzbl	(%rax), %eax
+	testb	%al, %al
+	jne	L6
+	jmp	L5
+L10:
+	nop
+L5:
+	movq	-8(%rbp), %rax
+	movzbl	(%rax), %eax
+	testb	%al, %al
+	jne	L7
+	movq	-24(%rbp), %rax
+	jmp	L8
+L7:
+	addq	$1, -24(%rbp)
+L2:
+	movq	-24(%rbp), %rax
+	movzbl	(%rax), %eax
+	testb	%al, %al
+	jne	L9
+	movl	$0, %eax
+L8:
+	popq	%rbp
 	ret
 	.comm	inside_main,4,4
 	.globl	main
@@ -118,9 +98,9 @@ main_test:
 	movq	%rax, %rdi
 	call	strchr
 	cmpq	-8(%rbp), %rax
-	je	L14
+	je	L15
 	call	abort
-L14:
+L15:
 	movq	-8(%rbp), %rax
 	movl	$119, %esi
 	movq	%rax, %rdi
@@ -129,9 +109,9 @@ L14:
 	movq	-8(%rbp), %rax
 	addq	$6, %rax
 	cmpq	%rax, %rdx
-	je	L15
+	je	L16
 	call	abort
-L15:
+L16:
 	movq	-8(%rbp), %rax
 	addq	$6, %rax
 	movl	$111, %esi
@@ -141,34 +121,34 @@ L15:
 	movq	-8(%rbp), %rax
 	addq	$7, %rax
 	cmpq	%rax, %rdx
-	je	L16
+	je	L17
 	call	abort
-L16:
+L17:
 	movq	-8(%rbp), %rax
 	addq	$1, %rax
 	movl	$LC2, %esi
 	movq	%rax, %rdi
-	call	my_strstr
+	call	strstr
 	movq	%rax, %rdx
 	movq	-8(%rbp), %rax
 	addq	$6, %rax
 	cmpq	%rax, %rdx
-	je	L17
+	je	L18
 	call	abort
-L17:
+L18:
 	movq $p(%rip), %rax
 	movq	-8(%rbp), %rdx
 	addq	$2, %rdx
 	movq	%rax, %rsi
 	movq	%rdx, %rdi
-	call	my_strstr
+	call	strstr
 	movq	%rax, %rdx
 	movq	-8(%rbp), %rax
 	addq	$8, %rax
 	cmpq	%rax, %rdx
-	je	L18
+	je	L19
 	call	abort
-L18:
+L19:
 	movq $q(%rip), %rax
 	addq	$1, %rax
 	movl	$111, %esi
@@ -178,21 +158,21 @@ L18:
 	movq $q(%rip), %rax
 	addq	$4, %rax
 	cmpq	%rax, %rdx
-	je	L19
+	je	L20
 	call	abort
-L19:
+L20:
 	movq	-8(%rbp), %rax
 	addq	$1, %rax
 	movl	$LC2, %esi
 	movq	%rax, %rdi
-	call	my_strstr
+	call	strstr
 	movq	%rax, %rdx
 	movq	-8(%rbp), %rax
 	addq	$6, %rax
 	cmpq	%rax, %rdx
-	je	L21
+	je	L22
 	call	abort
-L21:
+L22:
 	nop
 	leave
 	ret

@@ -107,8 +107,8 @@ module X86-LOADER
           BaseOffset:MInt, 
           NextOffset:MInt => addMInt(NextOffset, mi(addrSize, I))) 
     </database>
-    <currentsection> SectionName:String </currentsection>
-      requires notBool LabelId in_keys (DMap) andBool SectionName ==String "data"
+    //<currentsection> SectionName:String </currentsection>
+      requires notBool LabelId in_keys (DMap) //andBool SectionName ==String "data"
 
   rule <k> .zero I:Int  =>  
     storeToMemory(
@@ -124,10 +124,11 @@ module X86-LOADER
           BaseOffset:MInt, 
           NextOffset:MInt => addMInt(NextOffset, mi(addrSize, I))) 
     </database>
-    <currentsection> SectionName:String </currentsection>
-      requires  LabelId in_keys (DMap) andBool SectionName ==String "data"    
+    //<currentsection> SectionName:String </currentsection>
+      requires  LabelId in_keys (DMap) //andBool SectionName ==String "data"    
 
-  // .quad I in .rodata section
+  // .quad in .rodata section
+  // .quad I
   rule <k> .quad I:Int  =>  
     storeToMemory(
         mi(64, I),
@@ -163,7 +164,55 @@ module X86-LOADER
     <currentsection> SectionName:String </currentsection>
       requires  LabelId in_keys (ROMap) andBool SectionName ==String "rodata" andBool SectionName =/=String "bss"
 
-  // .quad I in .data section
+  // .quad L + I
+  rule <k> .quad LabelId:X86Id   => .quad LabelId:X86Id + 0
+  ...</k>
+
+  rule <k> .quad LabelId:X86Id + I:Int  =>  
+    storeToMemory(
+        addMInt({FMap[LabelId]}:>PointerVal, mi(64, I)),
+        ptr(L, NextOffset), 
+        64)
+  ...</k>
+    <functargets> FMap:Map => FMap[LabelId <- ptr(L, NextOffset)] </functargets>
+    <rotargets> ROMap:Map => ROMap[LabelId <- ptr(L, NextOffset)] </rotargets>
+    <lastseenlabel> LabelId:X86Id </lastseenlabel>
+    <robase> 
+      roBaseInfo(
+          L:MemLoc, 
+          BaseOffset:MInt, 
+          NextOffset:MInt => addMInt(NextOffset, mi(addrSize, 8))) 
+    </robase>
+    <currentsection> SectionName:String </currentsection>
+      requires (notBool LabelId in_keys (ROMap)) 
+              andBool SectionName ==String "rodata" 
+              andBool SectionName =/=String "bss"
+              andBool LabelId in_keys (FMap)
+
+  rule <k> .quad LabelId:X86Id + I:Int  =>  
+    storeToMemory(
+        addMInt({FMap[LabelId]}:>PointerVal, mi(64, I)),
+        ptr(L, NextOffset), 
+        64)
+  ...</k>
+    <functargets> FMap:Map </functargets>
+    <rotargets> ROMap:Map  </rotargets>
+    <lastseenlabel> LabelId:X86Id </lastseenlabel>
+    <robase> 
+      roBaseInfo(
+          L:MemLoc, 
+          BaseOffset:MInt, 
+          NextOffset:MInt => addMInt(NextOffset, mi(addrSize, 8))) 
+    </robase>
+    <currentsection> SectionName:String </currentsection>
+      requires  LabelId in_keys (ROMap) 
+                andBool SectionName ==String "rodata" 
+                andBool SectionName =/=String "bss"
+                andBool LabelId in_keys (FMap)
+
+
+  // .quad  in .data section
+  // .quad I    
   rule <k> .quad I:Int  =>  
     storeToMemory(
         mi(64, I),
@@ -198,6 +247,49 @@ module X86-LOADER
     </database>
     <currentsection> SectionName:String </currentsection>
       requires  LabelId in_keys (DMap) andBool SectionName ==String "data" andBool SectionName =/=String "bss"
+
+  // .quad L + I
+  rule <k> .quad LabelId:X86Id + I:Int  =>  
+    storeToMemory(
+        addMInt({FMap[LabelId]}:>PointerVal, mi(64, I)),
+        ptr(L, NextOffset), 
+        64)
+  ...</k>
+    <functargets> FMap:Map => FMap[LabelId <- ptr(L, NextOffset)] </functargets>
+    <datatargets> DMap:Map => DMap[LabelId <- ptr(L, NextOffset)] </datatargets>
+    <lastseenlabel> LabelId:X86Id </lastseenlabel>
+    <database> 
+      dataBaseInfo(
+          L:MemLoc, 
+          BaseOffset:MInt, 
+          NextOffset:MInt => addMInt(NextOffset, mi(addrSize, 8))) 
+    </database>
+    <currentsection> SectionName:String </currentsection>
+      requires (notBool LabelId in_keys (DMap)) 
+                andBool SectionName ==String "data" 
+                andBool SectionName =/=String "bss"
+                andBool LabelId in_keys (FMap)
+
+  rule <k> .quad LabelId:X86Id + I:Int  =>  
+    storeToMemory(
+        addMInt({FMap[LabelId]}:>PointerVal, mi(64, I)),
+        ptr(L, NextOffset), 
+        64)
+  ...</k>
+    <functargets> FMap:Map </functargets>
+    <datatargets> DMap:Map  </datatargets>
+    <lastseenlabel> LabelId:X86Id </lastseenlabel>
+    <database> 
+      dataBaseInfo(
+          L:MemLoc, 
+          BaseOffset:MInt, 
+          NextOffset:MInt => addMInt(NextOffset, mi(addrSize, 8))) 
+    </database>
+    <currentsection> SectionName:String </currentsection>
+      requires  LabelId in_keys (DMap) 
+                andBool SectionName ==String "data" 
+                andBool SectionName =/=String "bss"
+                andBool LabelId in_keys (FMap)
 
   // .long I in .rodata section
   rule <k> .long I:Int  =>  

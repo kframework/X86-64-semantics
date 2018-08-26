@@ -6,7 +6,7 @@
 extern void abort (void);
 
 extern int inside_main;
-void *chk_fail_buf[256] __attribute__((aligned (16)));
+//void *chk_fail_buf[256] __attribute__((aligned (16)));
 volatile int chk_fail_allowed, chk_calls;
 volatile int memcpy_disallowed, mempcpy_disallowed, memmove_disallowed;
 volatile int memset_disallowed, strcpy_disallowed, stpcpy_disallowed;
@@ -19,8 +19,8 @@ extern int vsprintf (char *, const char *, va_list);
 void __attribute__((noreturn))
 __chk_fail (void)
 {
-  if (chk_fail_allowed)
-    __builtin_longjmp (chk_fail_buf, 1);
+  //if (chk_fail_allowed)
+  //  __builtin_longjmp (chk_fail_buf, 1);
   abort ();
 }
 
