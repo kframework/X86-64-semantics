@@ -117,6 +117,7 @@ module X86-SYNTAX
                        | X86Id 
                        | Builtin
                        | "$" X86Id
+                       | "$" X86Id "+" Int
 
 
   syntax Simpleoperand ::= Register | Imm | MemOffset 

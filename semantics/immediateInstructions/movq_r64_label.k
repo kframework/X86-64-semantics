@@ -5,11 +5,15 @@ module MOVQ-R64-LABEL
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (movq ($ L:X86Id), R2:R64,  .Operands) => .
+    execinstr (movq ($ L:X86Id), R2:R64,  .Operands) => execinstr (movq ($ L:X86Id) + 0, R2:R64,  .Operands)
+  ...</k>
+
+  rule <k>
+    execinstr (movq ($ L:X86Id) + I:Int, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> LoadAddr
+convToRegKeys(R2) |-> addMInt( LoadAddr, mi(64, I))
 )
 
     </regstate>
