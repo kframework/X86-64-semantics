@@ -126,66 +126,74 @@ module X86-C-LIBRARY
   rule writeString(PV:PointerVal, "") => storeToMemory(mi(8,0), PV, 8)
 
   // write chars 
+  rule <k> writeAsChars(C:MInt, S:String) => writeCharBytes({C}:>PointerVal, S)
+  ...</k>
+    requires notBool eqMInt(C, mi(64, -1))
+
   rule <k> writeAsChars(C:MInt, S:String) => writeCharBytes({getRegisterValue(%rsi, RSMap)}:>PointerVal, S)
   ...</k>
     <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
-      requires I ==Int 0
+      requires I ==Int 0 andBool eqMInt(C, mi(64, -1))
 
   rule <k> writeAsChars(C:MInt, S:String) => writeCharBytes({getRegisterValue(%rdx, RSMap)}:>PointerVal, S)
   ...</k>
     <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
-      requires I ==Int 1
-  
+      requires I ==Int 1 andBool eqMInt(C, mi(64, -1))
+
   rule <k> writeAsChars(C:MInt, S:String) => writeCharBytes({getRegisterValue(%rcx, RSMap)}:>PointerVal, S)
   ...</k>
     <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
-      requires I ==Int 2    
+      requires I ==Int 2 andBool eqMInt(C, mi(64, -1))   
 
   rule <k> writeAsChars(C:MInt, S:String) => writeCharBytes({getRegisterValue(%r8, RSMap)}:>PointerVal, S)
   ...</k>
     <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
-      requires I ==Int 3
+      requires I ==Int 3 andBool eqMInt(C, mi(64, -1))
   
   rule <k> writeAsChars(C:MInt, S:String) => writeCharBytes({getRegisterValue(%r9, RSMap)}:>PointerVal, S)
   ...</k>
     <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
-      requires I ==Int 4
+      requires I ==Int 4 andBool eqMInt(C, mi(64, -1))
 
-  // write chars    
+  // write string    
+  rule <k> writeAsString(C:MInt, S:String) => writeString({C}:>PointerVal, S)
+  ...</k>
+    requires notBool eqMInt(C, mi(64, -1))
+
   rule <k> writeAsString(C:MInt, S:String) => writeString({getRegisterValue(%rsi, RSMap)}:>PointerVal, S)
   ...</k>
     <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
-      requires I ==Int 0
+      requires I ==Int 0 andBool eqMInt(C, mi(64, -1))
 
   rule <k> writeAsString(C:MInt, S:String) => writeString({getRegisterValue(%rdx, RSMap)}:>PointerVal, S)
   ...</k>
     <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
-      requires I ==Int 1
+      requires I ==Int 1 andBool eqMInt(C, mi(64, -1))
 
   rule <k> writeAsString(C:MInt, S:String) => writeString({getRegisterValue(%rcx, RSMap)}:>PointerVal, S)
   ...</k>
     <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
-      requires I ==Int 2
+      requires I ==Int 2 andBool eqMInt(C, mi(64, -1))
 
   rule <k> writeAsString(C:MInt, S:String) => writeString({getRegisterValue(%r8, RSMap)}:>PointerVal, S)
   ...</k>
     <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
-      requires I ==Int 3
+      requires I ==Int 3 andBool eqMInt(C, mi(64, -1))
 
   rule <k> writeAsString(C:MInt, S:String) => writeString({getRegisterValue(%r9, RSMap)}:>PointerVal, S)
   ...</k>
     <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
-      requires I ==Int 4
+      requires I ==Int 4 andBool eqMInt(C, mi(64, -1))
 
 
   // formatter

@@ -66,6 +66,8 @@ module X86-BUILTIN
           )  
   ...</k>
     <regstate> RSMap </regstate>
+    //<formatcountint> _ => 2 </formatcountint>
+    //<formatcountfloat> _ => 0 </formatcountfloat>
 
   rule <k>
     execinstr (call fgetc:Builtin,  .Operands) =>
