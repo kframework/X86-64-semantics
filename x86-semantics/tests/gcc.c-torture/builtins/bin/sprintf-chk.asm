@@ -1163,11 +1163,11 @@ test1:
 	movabsq	$4702111234474983745, %rax
 	movq	%rax, $buffer(%rip)
 	movabsq	$4702111234474983745, %rax
-	movq	%rax, $buffer+8(%rip)
+	movq	%rax, $buffer + 8(%rip)
 	movabsq	$4702111234474983745, %rax
-	movq	%rax, $buffer+16(%rip)
+	movq	%rax, $buffer + 16(%rip)
 	movabsq	$4702111234474983745, %rax
-	movq	%rax, $buffer+24(%rip)
+	movq	%rax, $buffer + 24(%rip)
 	movl	$7303014, $buffer(%rip)
 	movl	$4, %edx
 	movl	$LC3, %esi
@@ -1175,7 +1175,7 @@ test1:
 	call	memcmp
 	testl	%eax, %eax
 	jne	L142
-	movzbl $buffer+4(%rip), %eax
+	movzbl $buffer + 4(%rip), %eax
 	cmpb	$65, %al
 	je	L143
 L142:
@@ -1184,11 +1184,11 @@ L143:
 	movabsq	$4702111234474983745, %rax
 	movq	%rax, $buffer(%rip)
 	movabsq	$4702111234474983745, %rax
-	movq	%rax, $buffer+8(%rip)
+	movq	%rax, $buffer + 8(%rip)
 	movabsq	$4702111234474983745, %rax
-	movq	%rax, $buffer+16(%rip)
+	movq	%rax, $buffer + 16(%rip)
 	movabsq	$4702111234474983745, %rax
-	movq	%rax, $buffer+24(%rip)
+	movq	%rax, $buffer + 24(%rip)
 	movl	$7303014, $buffer(%rip)
 	movl	$3, %eax
 	cmpl	$3, %eax
@@ -1201,7 +1201,7 @@ L144:
 	call	memcmp
 	testl	%eax, %eax
 	jne	L145
-	movzbl $buffer+4(%rip), %eax
+	movzbl $buffer + 4(%rip), %eax
 	cmpb	$65, %al
 	je	L146
 L145:
@@ -1210,11 +1210,11 @@ L146:
 	movabsq	$4702111234474983745, %rax
 	movq	%rax, $buffer(%rip)
 	movabsq	$4702111234474983745, %rax
-	movq	%rax, $buffer+8(%rip)
+	movq	%rax, $buffer + 8(%rip)
 	movabsq	$4702111234474983745, %rax
-	movq	%rax, $buffer+16(%rip)
+	movq	%rax, $buffer + 16(%rip)
 	movabsq	$4702111234474983745, %rax
-	movq	%rax, $buffer+24(%rip)
+	movq	%rax, $buffer + 24(%rip)
 	movl	$7496034, $buffer(%rip)
 	movl	$4, %edx
 	movl	$LC4, %esi
@@ -1222,7 +1222,7 @@ L146:
 	call	memcmp
 	testl	%eax, %eax
 	jne	L147
-	movzbl $buffer+4(%rip), %eax
+	movzbl $buffer + 4(%rip), %eax
 	cmpb	$65, %al
 	je	L148
 L147:
@@ -1231,11 +1231,11 @@ L148:
 	movabsq	$4702111234474983745, %rax
 	movq	%rax, $buffer(%rip)
 	movabsq	$4702111234474983745, %rax
-	movq	%rax, $buffer+8(%rip)
+	movq	%rax, $buffer + 8(%rip)
 	movabsq	$4702111234474983745, %rax
-	movq	%rax, $buffer+16(%rip)
+	movq	%rax, $buffer + 16(%rip)
 	movabsq	$4702111234474983745, %rax
-	movq	%rax, $buffer+24(%rip)
+	movq	%rax, $buffer + 24(%rip)
 	movl	$7496034, $buffer(%rip)
 	movl	$3, %eax
 	cmpl	$3, %eax
@@ -1248,7 +1248,7 @@ L149:
 	call	memcmp
 	testl	%eax, %eax
 	jne	L150
-	movzbl $buffer+4(%rip), %eax
+	movzbl $buffer + 4(%rip), %eax
 	cmpb	$65, %al
 	je	L151
 L150:
@@ -1263,11 +1263,11 @@ L152:
 	movabsq	$4702111234474983745, %rax
 	movq	%rax, $buffer(%rip)
 	movabsq	$4702111234474983745, %rax
-	movq	%rax, $buffer+8(%rip)
+	movq	%rax, $buffer + 8(%rip)
 	movabsq	$4702111234474983745, %rax
-	movq	%rax, $buffer+16(%rip)
+	movq	%rax, $buffer + 16(%rip)
 	movabsq	$4702111234474983745, %rax
-	movq	%rax, $buffer+24(%rip)
+	movq	%rax, $buffer + 24(%rip)
 	movq $ptr(%rip), %rax
 	movq	%rax, %r8
 	movl	$LC5, %ecx
@@ -1282,7 +1282,7 @@ L152:
 	call	memcmp
 	testl	%eax, %eax
 	jne	L153
-	movzbl $buffer+5(%rip), %eax
+	movzbl $buffer + 5(%rip), %eax
 	cmpb	$65, %al
 	je	L154
 L153:
@@ -1291,11 +1291,11 @@ L154:
 	movabsq	$4702111234474983745, %rax
 	movq	%rax, $buffer(%rip)
 	movabsq	$4702111234474983745, %rax
-	movq	%rax, $buffer+8(%rip)
+	movq	%rax, $buffer + 8(%rip)
 	movabsq	$4702111234474983745, %rax
-	movq	%rax, $buffer+16(%rip)
+	movq	%rax, $buffer + 16(%rip)
 	movabsq	$4702111234474983745, %rax
-	movq	%rax, $buffer+24(%rip)
+	movq	%rax, $buffer + 24(%rip)
 	movq $ptr(%rip), %rax
 	movzbl	(%rax), %eax
 	movsbl	%al, %eax

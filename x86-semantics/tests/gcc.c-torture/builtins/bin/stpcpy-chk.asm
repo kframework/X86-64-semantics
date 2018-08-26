@@ -1172,7 +1172,7 @@ test1:
 	movl	$8, -4(%rbp)
 	movl	$1, $stpcpy_disallowed(%rip)
 	movl	$1684234849, $p(%rip)
-	movw	$101, $p+4(%rip)
+	movw	$101, $p + 4(%rip)
 	movl	$p+5, %edx
 	movl	$p+5, %eax
 	cmpq	%rax, %rdx
@@ -1260,7 +1260,7 @@ L150:
 	call	abort
 L151:
 	movl	$1145258561, $p(%rip)
-	movb	$0, $p+4(%rip)
+	movb	$0, $p + 4(%rip)
 	movl	$p+4, %eax
 	movl	$4671045, (%rax)
 	addq	$3, %rax
@@ -1277,7 +1277,7 @@ L152:
 	call	abort
 L153:
 	movl	$1684234849, $p(%rip)
-	movw	$101, $p+4(%rip)
+	movw	$101, $p + 4(%rip)
 	movl	$p+5, %edx
 	movl	$p+5, %eax
 	cmpq	%rax, %rdx

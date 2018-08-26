@@ -183,15 +183,15 @@ main_test:
 	subq	$96, %rsp
 	vmovss $LC2(%rip), %xmm0
 	vmovss	%xmm0, -40(%rbp)
-	vmovss $LC2+4(%rip), %xmm0
+	vmovss $LC2 + 4(%rip), %xmm0
 	vmovss	%xmm0, -36(%rbp)
 	vmovsd $LC3(%rip), %xmm0
 	vmovsd	%xmm0, -32(%rbp)
-	vmovsd $LC3+8(%rip), %xmm0
+	vmovsd $LC3 + 8(%rip), %xmm0
 	vmovsd	%xmm0, -24(%rbp)
 	vmovsd $LC3(%rip), %xmm0
 	vmovsd	%xmm0, -16(%rbp)
-	vmovsd $LC3+8(%rip), %xmm0
+	vmovsd $LC3 + 8(%rip), %xmm0
 	vmovsd	%xmm0, -8(%rbp)
 	vmovss	-40(%rbp), %xmm1
 	vmovss	-36(%rbp), %xmm0
@@ -406,7 +406,7 @@ L38:
 	call	abort
 L39:
 	movq $LC3(%rip), %rax
-	vmovsd $LC3+8(%rip), %xmm1
+	vmovsd $LC3 + 8(%rip), %xmm1
 	vmovq	%rax, %xmm0
 	call	conj
 	vmovq	%xmm0, %rax
@@ -464,7 +464,7 @@ L79:
 	call	abort
 L99:
 	movq $LC3(%rip), %rax
-	vmovsd $LC3+8(%rip), %xmm1
+	vmovsd $LC3 + 8(%rip), %xmm1
 	vmovq	%rax, %xmm0
 	call	creal
 	vmovq	%xmm0, %rax
@@ -509,7 +509,7 @@ L83:
 	call	abort
 L101:
 	movq $LC3(%rip), %rax
-	vmovsd $LC3+8(%rip), %xmm1
+	vmovsd $LC3 + 8(%rip), %xmm1
 	vmovq	%rax, %xmm0
 	call	cimag
 	vmovq	%xmm0, %rax
@@ -581,7 +581,7 @@ L53:
 	call	abort
 L54:
 	movq $LC3(%rip), %rax
-	vmovsd $LC3+8(%rip), %xmm1
+	vmovsd $LC3 + 8(%rip), %xmm1
 	vmovq	%rax, %xmm0
 	call	conjl
 	vmovq	%xmm0, %rax
@@ -639,7 +639,7 @@ L88:
 	call	abort
 L103:
 	movq $LC3(%rip), %rax
-	vmovsd $LC3+8(%rip), %xmm1
+	vmovsd $LC3 + 8(%rip), %xmm1
 	vmovq	%rax, %xmm0
 	call	creall
 	vmovq	%xmm0, %rax
@@ -684,7 +684,7 @@ L92:
 	call	abort
 L105:
 	movq $LC3(%rip), %rax
-	vmovsd $LC3+8(%rip), %xmm1
+	vmovsd $LC3 + 8(%rip), %xmm1
 	vmovq	%rax, %xmm0
 	call	cimagl
 	vmovq	%xmm0, %rax

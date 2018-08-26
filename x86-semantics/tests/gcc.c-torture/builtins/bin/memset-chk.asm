@@ -1143,7 +1143,7 @@ test1:
 	sall	$8, %eax
 	addl	%edx, %eax
 	movw	%ax, $buffer(%rip)
-	movb	%cl, $buffer+2(%rip)
+	movb	%cl, $buffer + 2(%rip)
 	movl $argc(%rip), %eax
 	movzbl	%al, %eax
 	imull	$16843009, %eax, %eax
@@ -1152,7 +1152,7 @@ test1:
 	movzbl	%al, %edx
 	imull	$16843009, %edx, %edx
 	movl	%edx, $buffer(%rip)
-	movb	%al, $buffer+4(%rip)
+	movb	%al, $buffer + 4(%rip)
 	movl $argc(%rip), %eax
 	movl	%eax, %edx
 	movzbl	%dl, %eax
@@ -1162,7 +1162,7 @@ test1:
 	movl	%edx, %eax
 	sall	$8, %eax
 	addl	%edx, %eax
-	movw	%ax, $buffer+4(%rip)
+	movw	%ax, $buffer + 4(%rip)
 	movl $argc(%rip), %eax
 	movl	%eax, %edx
 	movzbl	%dl, %eax
@@ -1172,8 +1172,8 @@ test1:
 	movl	%ecx, %eax
 	sall	$8, %eax
 	addl	%ecx, %eax
-	movw	%ax, $buffer+4(%rip)
-	movb	%dl, $buffer+6(%rip)
+	movw	%ax, $buffer + 4(%rip)
+	movb	%dl, $buffer + 6(%rip)
 	movl $argc(%rip), %eax
 	movzbl	%al, %edx
 	movabsq	$72340172838076673, %rax
@@ -1184,7 +1184,7 @@ test1:
 	movabsq	$72340172838076673, %rdx
 	imulq	%rcx, %rdx
 	movq	%rdx, $buffer(%rip)
-	movb	%al, $buffer+8(%rip)
+	movb	%al, $buffer + 8(%rip)
 	movl $argc(%rip), %eax
 	movl	%eax, %edx
 	movzbl	%dl, %ecx
@@ -1195,7 +1195,7 @@ test1:
 	movl	%edx, %eax
 	sall	$8, %eax
 	addl	%edx, %eax
-	movw	%ax, $buffer+8(%rip)
+	movw	%ax, $buffer + 8(%rip)
 	movl $argc(%rip), %eax
 	movl	%eax, %edx
 	movzbl	%dl, %ecx
@@ -1206,8 +1206,8 @@ test1:
 	movl	%ecx, %eax
 	sall	$8, %eax
 	addl	%ecx, %eax
-	movw	%ax, $buffer+8(%rip)
-	movb	%dl, $buffer+10(%rip)
+	movw	%ax, $buffer + 8(%rip)
+	movb	%dl, $buffer + 10(%rip)
 	movl $argc(%rip), %eax
 	movl	%eax, %edx
 	movzbl	%dl, %ecx
@@ -1216,7 +1216,7 @@ test1:
 	movq	%rax, $buffer(%rip)
 	movzbl	%dl, %eax
 	imull	$16843009, %eax, %eax
-	movl	%eax, $buffer+8(%rip)
+	movl	%eax, $buffer + 8(%rip)
 	movl $argc(%rip), %eax
 	movzbl	%al, %ecx
 	movabsq	$72340172838076673, %rdx
@@ -1224,8 +1224,8 @@ test1:
 	movq	%rdx, $buffer(%rip)
 	movzbl	%al, %edx
 	imull	$16843009, %edx, %edx
-	movl	%edx, $buffer+8(%rip)
-	movb	%al, $buffer+12(%rip)
+	movl	%edx, $buffer + 8(%rip)
+	movb	%al, $buffer + 12(%rip)
 	movl $argc(%rip), %eax
 	movzbl	%al, %ecx
 	movabsq	$72340172838076673, %rdx
@@ -1233,12 +1233,12 @@ test1:
 	movq	%rdx, $buffer(%rip)
 	movzbl	%al, %edx
 	imull	$16843009, %edx, %edx
-	movl	%edx, $buffer+8(%rip)
+	movl	%edx, $buffer + 8(%rip)
 	movzbl	%al, %edx
 	movl	%edx, %eax
 	sall	$8, %eax
 	addl	%edx, %eax
-	movw	%ax, $buffer+12(%rip)
+	movw	%ax, $buffer + 12(%rip)
 	movl $argc(%rip), %eax
 	movl	%eax, %edx
 	movzbl	%dl, %ecx
@@ -1247,13 +1247,13 @@ test1:
 	movq	%rax, $buffer(%rip)
 	movzbl	%dl, %eax
 	imull	$16843009, %eax, %eax
-	movl	%eax, $buffer+8(%rip)
+	movl	%eax, $buffer + 8(%rip)
 	movzbl	%dl, %ecx
 	movl	%ecx, %eax
 	sall	$8, %eax
 	addl	%ecx, %eax
-	movw	%ax, $buffer+12(%rip)
-	movb	%dl, $buffer+14(%rip)
+	movw	%ax, $buffer + 12(%rip)
+	movb	%dl, $buffer + 14(%rip)
 	movl $argc(%rip), %eax
 	movl	%eax, %edx
 	movzbl	%dl, %ecx
@@ -1263,7 +1263,7 @@ test1:
 	movzbl	%dl, %edx
 	movabsq	$72340172838076673, %rax
 	imulq	%rdx, %rax
-	movq	%rax, $buffer+8(%rip)
+	movq	%rax, $buffer + 8(%rip)
 	movl $argc(%rip), %eax
 	movzbl	%al, %ecx
 	movabsq	$72340172838076673, %rdx
@@ -1272,8 +1272,8 @@ test1:
 	movzbl	%al, %ecx
 	movabsq	$72340172838076673, %rdx
 	imulq	%rcx, %rdx
-	movq	%rdx, $buffer+8(%rip)
-	movb	%al, $buffer+16(%rip)
+	movq	%rdx, $buffer + 8(%rip)
+	movb	%al, $buffer + 16(%rip)
 	movl	$0, $memset_disallowed(%rip)
 	movl $chk_calls(%rip), %eax
 	testl	%eax, %eax

@@ -1156,7 +1156,7 @@ test1:
 	movl	$0, $chk_calls(%rip)
 	movl	$1, $strcpy_disallowed(%rip)
 	movl	$1684234849, $p(%rip)
-	movw	$101, $p+4(%rip)
+	movw	$101, $p + 4(%rip)
 	movl	$p, %eax
 	cmpq	$p, %rax
 	jne	L142
@@ -1223,7 +1223,7 @@ L148:
 	call	abort
 L149:
 	movl	$1684234849, $p(%rip)
-	movw	$101, $p+4(%rip)
+	movw	$101, $p + 4(%rip)
 	movl	$p, %eax
 	cmpq	$p, %rax
 	jne	L150

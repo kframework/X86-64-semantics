@@ -244,13 +244,13 @@ L16:
 L17:
 	movq $baz(%rip), %rax
 	movq	%rax, -368(%rbp)
-	movq $baz+8(%rip), %rax
+	movq $baz + 8(%rip), %rax
 	movq	%rax, -360(%rbp)
-	movq $baz+16(%rip), %rax
+	movq $baz + 16(%rip), %rax
 	movq	%rax, -352(%rbp)
-	movq $baz+24(%rip), %rax
+	movq $baz + 24(%rip), %rax
 	movq	%rax, -344(%rbp)
-	movq $baz+32(%rip), %rax
+	movq $baz + 32(%rip), %rax
 	movq	%rax, -336(%rbp)
 	leaq	-368(%rbp), %rax
 	movl	$40, %edx
@@ -262,7 +262,7 @@ L17:
 	call	abort
 L18:
 	movl	$1684234849, $p(%rip)
-	movw	$101, $p+4(%rip)
+	movw	$101, $p + 4(%rip)
 	movl	$p, %eax
 	cmpq	$p, %rax
 	jne	L19

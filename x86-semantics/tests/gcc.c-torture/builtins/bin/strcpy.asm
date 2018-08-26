@@ -80,7 +80,7 @@ main_test:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	movl	$1684234849, $p(%rip)
-	movw	$101, $p+4(%rip)
+	movw	$101, $p + 4(%rip)
 	movl	$p, %eax
 	cmpq	$p, %rax
 	jne	L8
@@ -209,7 +209,7 @@ L22:
 	call	abort
 L23:
 	movl	$1684234849, $p(%rip)
-	movw	$101, $p+4(%rip)
+	movw	$101, $p + 4(%rip)
 	movl	$p, %eax
 	cmpq	$p, %rax
 	jne	L24
@@ -223,7 +223,7 @@ L24:
 	call	abort
 L25:
 	movl	$1145258561, $p(%rip)
-	movw	$69, $p+4(%rip)
+	movw	$69, $p + 4(%rip)
 	movl	$p, %eax
 	cmpq	$p, %rax
 	jne	L26

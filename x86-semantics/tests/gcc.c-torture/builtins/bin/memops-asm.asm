@@ -330,11 +330,11 @@ main_test:
 	xorl	%eax, %eax
 	movq $a(%rip), %rax
 	movq	%rax, -80(%rbp)
-	movq $a+8(%rip), %rax
+	movq $a + 8(%rip), %rax
 	movq	%rax, -72(%rbp)
-	movq $a+16(%rip), %rax
+	movq $a + 16(%rip), %rax
 	movq	%rax, -64(%rbp)
-	movq $a+24(%rip), %rax
+	movq $a + 24(%rip), %rax
 	movq	%rax, -56(%rbp)
 	movq	$0, -48(%rbp)
 	movq	$0, -40(%rbp)
