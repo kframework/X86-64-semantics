@@ -20,3 +20,14 @@ strcspn (const char *s1, const char *s2)
  found:
   return p - s1;
 }
+
+void exit(int code) {
+   __asm__ ("movq $-1, %rax\n\t"
+            "jmp %rax\n\t");
+}
+
+void abort(void) {
+   __asm__ ("movq $-1, %rax\n\t"
+            "jmp %rax\n\t");
+}
+

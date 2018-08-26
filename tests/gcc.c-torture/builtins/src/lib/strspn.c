@@ -1,3 +1,5 @@
+#include<stddef.h>
+
 extern void abort (void);
 extern int inside_main;
 
@@ -22,4 +24,21 @@ strcspn (const char *s1, const char *s2)
     proceed:;
     }
   return p - s1;
+}
+
+char *strchr(const char *s, int c) {
+  while(*s != (char)c) {
+    if(!*s++)
+      return 0;
+    return (char *)s;
+  }
+}
+
+
+size_t strspn(const char *s1, const char *s2)
+{
+    size_t ret=0;
+    while(*s1 && strchr(s2,*s1++))
+        ret++;
+    return ret;    
 }

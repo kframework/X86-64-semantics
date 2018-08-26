@@ -3,6 +3,14 @@
 extern void abort (void);
 extern int inside_main;
 extern size_t strlen(const char *);
+
+size_t strlen(const char *s) {
+    size_t i;
+    for (i = 0; s[i] != '\0'; i++) ;
+    return i;
+}
+
+
 int
 fputs(const char *string, FILE *stream)
 {

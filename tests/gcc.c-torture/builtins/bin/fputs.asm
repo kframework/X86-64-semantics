@@ -1,5 +1,24 @@
 	.file	"fputs.c"
 	.text
+	.globl	strlen
+strlen:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movq	$0, -8(%rbp)
+	jmp	L2
+L3:
+	addq	$1, -8(%rbp)
+L2:
+	movq	-24(%rbp), %rdx
+	movq	-8(%rbp), %rax
+	addq	%rdx, %rax
+	movzbl	(%rax), %eax
+	testb	%al, %al
+	jne	L3
+	movq	-8(%rbp), %rax
+	popq	%rbp
+	ret
 	.globl	fputs
 fputs:
 	pushq	%rbp
@@ -20,12 +39,12 @@ fputs:
 	movq	%rax, -8(%rbp)
 	movq	-16(%rbp), %rax
 	cmpq	-8(%rbp), %rax
-	jbe	L2
+	jbe	L6
 	movl	$-1, %eax
-	jmp	L4
-L2:
+	jmp	L8
+L6:
 	movl	$0, %eax
-L4:
+L8:
 	leave
 	ret
 	.globl	fputs_unlocked
@@ -131,14 +150,14 @@ main_test:
 	leaq	-32(%rbp), %rax
 	addq	$8, %rax
 	cmpq	-48(%rbp), %rax
-	jne	L11
+	jne	L15
 	movq	-48(%rbp), %rax
 	movq	(%rax), %rax
 	testq	%rax, %rax
-	je	L12
-L11:
+	je	L16
+L15:
 	call	abort
-L12:
+L16:
 	leaq	-32(%rbp), %rax
 	movq	%rax, -48(%rbp)
 	movq	-48(%rbp), %rax
@@ -151,14 +170,14 @@ L12:
 	leaq	-32(%rbp), %rax
 	addq	$8, %rax
 	cmpq	-48(%rbp), %rax
-	jne	L13
+	jne	L17
 	movq	-48(%rbp), %rax
 	movq	(%rax), %rax
 	testq	%rax, %rax
-	je	L14
-L13:
+	je	L18
+L17:
 	call	abort
-L14:
+L18:
 	leaq	-32(%rbp), %rax
 	movq	%rax, -48(%rbp)
 	movq	-48(%rbp), %rax
@@ -173,14 +192,14 @@ L14:
 	leaq	-32(%rbp), %rax
 	addq	$8, %rax
 	cmpq	-48(%rbp), %rax
-	jne	L15
+	jne	L19
 	movq	-48(%rbp), %rax
 	movq	(%rax), %rax
 	testq	%rax, %rax
-	je	L16
-L15:
+	je	L20
+L19:
 	call	abort
-L16:
+L20:
 	leaq	-32(%rbp), %rax
 	movq	%rax, -48(%rbp)
 	movq	-48(%rbp), %rax
@@ -205,29 +224,29 @@ L16:
 	leal	1(%rax), %ecx
 	movl	%ecx, $i(%rip)
 	testl	%eax, %eax
-	je	L17
+	je	L21
 	movl	$LC3, %eax
-	jmp	L18
-L17:
+	jmp	L22
+L21:
 	movl	$LC4, %eax
-L18:
+L22:
 	movq	%rdx, %rsi
 	movq	%rax, %rdi
 	call	fputs
 	leaq	-32(%rbp), %rax
 	addq	$8, %rax
 	cmpq	-48(%rbp), %rax
-	jne	L19
+	jne	L23
 	movq	-48(%rbp), %rax
 	movq	(%rax), %rax
 	testq	%rax, %rax
-	jne	L19
+	jne	L23
 	movl $i(%rip), %eax
 	cmpl	$1, %eax
-	je	L20
-L19:
+	je	L24
+L23:
 	call	abort
-L20:
+L24:
 	subq	$8, -48(%rbp)
 	movq	-48(%rbp), %rax
 	movq	(%rax), %rax
@@ -239,18 +258,18 @@ L20:
 	call	fputc
 	leaq	-32(%rbp), %rax
 	cmpq	%rax, -48(%rbp)
-	jne	L21
+	jne	L25
 	movl $i(%rip), %eax
 	testl	%eax, %eax
-	je	L24
-L21:
+	je	L28
+L25:
 	call	abort
-L24:
+L28:
 	nop
 	movq	-8(%rbp), %rax
 	xorq	$40, %rax
-	je	L23
+	je	L27
 	call	__stack_chk_fail
-L23:
+L27:
 	leave
 	ret

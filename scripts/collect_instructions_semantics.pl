@@ -59,10 +59,21 @@ sub populate {
   my $opcode = shift @_;
   my $doit = shift @_;
 
-  execute("cp $regDir/$opcode* $target 1> /dev/null 2>&1",  $doit);
-  execute("cp $immDir/$opcode* $target 1> /dev/null 2>&1",  $doit);
-  execute("cp $memDir/$opcode* $target 1> /dev/null 2>&1",  $doit);
-  execute("cp $sysDir/$opcode* $target 1> /dev/null 2>&1",  $doit);
+  execute("cp $regDir/$opcode* $immDir/$opcode* $memDir/$opcode* $sysDir/$opcode* $target 1> /dev/null 2>&1",  $doit);
+
+  my $varb = $opcode . "b";
+  my $varw = $opcode . "w";
+  my $varl = $opcode . "l";
+  my $varq = $opcode . "q";
+
+  execute("cp $regDir/$varb* $immDir/$varb* $memDir/$varb* $sysDir/$varb* $target 1> /dev/null 2>&1",  $doit);
+  execute("cp $regDir/$varw* $immDir/$varw* $memDir/$varw* $sysDir/$varw* $target 1> /dev/null 2>&1",  $doit);
+  execute("cp $regDir/$varl* $immDir/$varl* $memDir/$varl* $sysDir/$varl* $target 1> /dev/null 2>&1",  $doit);
+  execute("cp $regDir/$varq* $immDir/$varq* $memDir/$varq* $sysDir/$varq* $target 1> /dev/null 2>&1",  $doit);
+
+  #execute("cp $immDir/$opcode* $target 1> /dev/null 2>&1",  $doit);
+  #execute("cp $memDir/$opcode* $target 1> /dev/null 2>&1",  $doit);
+  #execute("cp $sysDir/$opcode* $target 1> /dev/null 2>&1",  $doit);
   execute("cp $extraDir/* $target ",                          $doit);
   execute("cp $sysDir/callq* $target ",                       $doit);
   execute("cp $sysDir/jmpq* $target ",                        $doit);
