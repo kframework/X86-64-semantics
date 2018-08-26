@@ -26,7 +26,7 @@ L2:
 	ret
 	.section	.rodata
 LC0:
-	.string	"String = %s,  Address = %u\n"
+	.string	"String = %s\n"
 	.text
 	.globl	main
 main:
@@ -37,12 +37,11 @@ main:
 	call	malloc
 	movq	%rax, -8(%rbp)
 	movq	-8(%rbp), %rax
-	movabsq	$7809639169054242164, %rcx
-	movq	%rcx, (%rax)
+	movabsq	$7809639169054242164, %rdx
+	movq	%rdx, (%rax)
 	movl	$1768910963, 8(%rax)
 	movw	$29806, 12(%rax)
 	movb	$0, 14(%rax)
-	movq	-8(%rbp), %rdx
 	movq	-8(%rbp), %rax
 	movq	%rax, %rsi
 	movl	$LC0, %edi
