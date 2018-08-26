@@ -49,5 +49,3 @@ strrchr
 strspn
 strstr
 strstr-asm
-vsnprintf-chk
-vsprintf-chk

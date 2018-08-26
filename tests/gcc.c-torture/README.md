@@ -33,6 +33,12 @@ source cmd_worklist.txt
 cat bin_worklist.txt | parallel "../scripts/remove_directives.pl --file bin/{}.asm > bin/{}.tmp; mv bin/{}.tmp bin/{}.asm"
 ```
 
+# collect the instructions semantics
+```
+cp collect_instructions_semantics.txt ../../../semantics/
+../../../scripts/collect_instructions_semantics.pl --file collect_instructions_semantics.txt
+```
+
 # Remove blacklist instr from test pool
 ```
 cat bin_blacklist.txt  | parallel -j1 "sed -i '/\<{}\>/d' cmd_worklist.txt "
