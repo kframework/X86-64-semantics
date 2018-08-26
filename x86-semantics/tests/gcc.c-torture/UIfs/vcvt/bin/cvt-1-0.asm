@@ -293,15 +293,15 @@ _start:
   pushq $1100836660
   pushq $1409286144
 	vucomisd	(%rsp), %xmm1
-  pop %r15
-  pop %r15
+  popq %r15
+  popq %r15
 	jp	L51
 	vmovq	%rax, %xmm2
   pushq $1100836660
   pushq $1409286144
 	vucomisd	(%rsp), %xmm2
-  pop %r15
-  pop %r15
+  popq %r15
+  popq %r15
 	je	L53
 L51:
 	call	abort

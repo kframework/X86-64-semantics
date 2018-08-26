@@ -232,7 +232,7 @@ foo:
 	jmp	L40
 L41:
 	vxorps	%xmm0, %xmm0, %xmm0
-	vcvtsi2ss	-4(%rbp), %xmm0, %xmm0
+	vcvtsi2ssl -4(%rbp), %xmm0, %xmm0
 	vmovd	%xmm0, %eax
 	vmovd	%eax, %xmm1
 	vcvttss2siq	%xmm1, %rax

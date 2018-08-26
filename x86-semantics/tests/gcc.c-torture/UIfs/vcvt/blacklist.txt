@@ -5,3 +5,5 @@ float-floor-0
 stdarg-1-0
 conversion-0
 930603-1-0
+stdarg-4-0
+complex-6.c
