@@ -5,13 +5,13 @@ module MOVQ-M64-LABEL
   imports X86-CONFIGURATION
 
   rule <k>
-     execinstr (movq:Opcode ($ L:X86Id), M:Mem,  .Operands) => execinstr (movq:Opcode ($ L:X86Id) + 0, M,  .Operands)
+     execinstr (movq:Opcode $ L:X86Id, M:Mem,  .Operands) => execinstr (movq:Opcode $ L:X86Id + 0, M,  .Operands)
   ...</k>
 
-  context execinstr(movq:Opcode ($ L:X86Id) + I:Int, HOLE:Mem,  .Operands) [result(MemOffset)]
+  context execinstr(movq:Opcode $ L:X86Id + I:Int, HOLE:Mem,  .Operands) [result(MemOffset)]
   
   rule <k>
-     execinstr (movq:Opcode ($ L:X86Id) + I:Int, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+     execinstr (movq:Opcode $ L:X86Id + I:Int, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       
             storeToMemory(
               ptr(
