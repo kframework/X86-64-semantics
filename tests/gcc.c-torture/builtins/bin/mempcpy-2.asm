@@ -290,13 +290,13 @@ L27:
 	call	abort
 L28:
 	movq	-24(%rbp), %rax
-	movq	LC7(%rip), %rdx
+	movq $LC7(%rip), %rdx
 	movq	%rdx, (%rax)
-	movq	LC7+8(%rip), %rdx
+	movq $LC7+8(%rip), %rdx
 	movq	%rdx, 8(%rax)
-	movzwl	LC7+16(%rip), %edx
+	movzwl $LC7+16(%rip), %edx
 	movw	%dx, 16(%rax)
-	movzbl	LC7+18(%rip), %edx
+	movzbl $LC7+18(%rip), %edx
 	movb	%dl, 18(%rax)
 	movl	-44(%rbp), %eax
 	addl	$6, %eax
@@ -540,13 +540,13 @@ L49:
 	call	abort
 L50:
 	movq	-32(%rbp), %rax
-	movq	LC7(%rip), %rdx
+	movq $LC7(%rip), %rdx
 	movq	%rdx, (%rax)
-	movq	LC7+8(%rip), %rdx
+	movq $LC7+8(%rip), %rdx
 	movq	%rdx, 8(%rax)
-	movzwl	LC7+16(%rip), %edx
+	movzwl $LC7+16(%rip), %edx
 	movw	%dx, 16(%rax)
-	movzbl	LC7+18(%rip), %edx
+	movzbl $LC7+18(%rip), %edx
 	movb	%dl, 18(%rax)
 	movl	-44(%rbp), %eax
 	addl	$6, %eax

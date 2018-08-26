@@ -14,7 +14,7 @@ conjf:
 	vmovss	-28(%rbp), %xmm0
 	vmovss	%xmm0, -4(%rbp)
 	vmovss	-4(%rbp), %xmm1
-	vmovss	LC0(%rip), %xmm0
+	vmovss $LC0(%rip), %xmm0
 	vxorps	%xmm1, %xmm0, %xmm0
 	vmovss	-8(%rbp), %xmm1
 	vmovss	%xmm1, -40(%rbp)
@@ -37,7 +37,7 @@ conj:
 	vmovsd	-24(%rbp), %xmm0
 	vmovsd	%xmm0, -8(%rbp)
 	vmovsd	-8(%rbp), %xmm1
-	vmovsd	LC1(%rip), %xmm0
+	vmovsd $LC1(%rip), %xmm0
 	vxorpd	%xmm1, %xmm0, %xmm0
 	vmovsd	-16(%rbp), %xmm1
 	vmovq	%xmm0, %rdx
@@ -60,7 +60,7 @@ conjl:
 	vmovsd	-24(%rbp), %xmm0
 	vmovsd	%xmm0, -8(%rbp)
 	vmovsd	-8(%rbp), %xmm1
-	vmovsd	LC1(%rip), %xmm0
+	vmovsd $LC1(%rip), %xmm0
 	vxorpd	%xmm1, %xmm0, %xmm0
 	vmovsd	-16(%rbp), %xmm1
 	vmovq	%xmm0, %rdx
@@ -181,17 +181,17 @@ main_test:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	subq	$96, %rsp
-	vmovss	LC2(%rip), %xmm0
+	vmovss $LC2(%rip), %xmm0
 	vmovss	%xmm0, -40(%rbp)
-	vmovss	LC2+4(%rip), %xmm0
+	vmovss $LC2+4(%rip), %xmm0
 	vmovss	%xmm0, -36(%rbp)
-	vmovsd	LC3(%rip), %xmm0
+	vmovsd $LC3(%rip), %xmm0
 	vmovsd	%xmm0, -32(%rbp)
-	vmovsd	LC3+8(%rip), %xmm0
+	vmovsd $LC3+8(%rip), %xmm0
 	vmovsd	%xmm0, -24(%rbp)
-	vmovsd	LC3(%rip), %xmm0
+	vmovsd $LC3(%rip), %xmm0
 	vmovsd	%xmm0, -16(%rbp)
-	vmovsd	LC3+8(%rip), %xmm0
+	vmovsd $LC3+8(%rip), %xmm0
 	vmovsd	%xmm0, -8(%rbp)
 	vmovss	-40(%rbp), %xmm1
 	vmovss	-36(%rbp), %xmm0
@@ -204,18 +204,18 @@ main_test:
 	movq	%rax, -64(%rbp)
 	vmovss	-64(%rbp), %xmm1
 	vmovss	-60(%rbp), %xmm0
-	vmovss	LC4(%rip), %xmm2
+	vmovss $LC4(%rip), %xmm2
 	vucomiss	%xmm2, %xmm1
 	setp	%al
 	movl	$1, %edx
-	vmovss	LC4(%rip), %xmm2
+	vmovss $LC4(%rip), %xmm2
 	vucomiss	%xmm2, %xmm1
 	cmove	%eax, %edx
-	vmovss	LC5(%rip), %xmm1
+	vmovss $LC5(%rip), %xmm1
 	vucomiss	%xmm1, %xmm0
 	setp	%al
 	movl	$1, %ecx
-	vmovss	LC5(%rip), %xmm1
+	vmovss $LC5(%rip), %xmm1
 	vucomiss	%xmm1, %xmm0
 	cmovne	%ecx, %eax
 	orl	%edx, %eax
@@ -226,20 +226,20 @@ L23:
 	vmovss	-40(%rbp), %xmm1
 	vmovss	-36(%rbp), %xmm0
 	vmovaps	%xmm0, %xmm2
-	vmovss	LC0(%rip), %xmm0
+	vmovss $LC0(%rip), %xmm0
 	vxorps	%xmm2, %xmm0, %xmm0
-	vmovss	LC4(%rip), %xmm2
+	vmovss $LC4(%rip), %xmm2
 	vucomiss	%xmm2, %xmm1
 	setp	%al
 	movl	$1, %edx
-	vmovss	LC4(%rip), %xmm2
+	vmovss $LC4(%rip), %xmm2
 	vucomiss	%xmm2, %xmm1
 	cmove	%eax, %edx
-	vmovss	LC5(%rip), %xmm1
+	vmovss $LC5(%rip), %xmm1
 	vucomiss	%xmm1, %xmm0
 	setp	%al
 	movl	$1, %ecx
-	vmovss	LC5(%rip), %xmm1
+	vmovss $LC5(%rip), %xmm1
 	vucomiss	%xmm1, %xmm0
 	cmovne	%ecx, %eax
 	orl	%edx, %eax
@@ -247,25 +247,25 @@ L23:
 	jne	L24
 	call	abort
 L24:
-	movq	LC2(%rip), %rax
+	movq $LC2(%rip), %rax
 	vmovq	%rax, %xmm0
 	call	conjf
 	vmovq	%xmm0, %rax
 	movq	%rax, -72(%rbp)
 	vmovss	-72(%rbp), %xmm1
 	vmovss	-68(%rbp), %xmm0
-	vmovss	LC4(%rip), %xmm2
+	vmovss $LC4(%rip), %xmm2
 	vucomiss	%xmm2, %xmm1
 	setp	%al
 	movl	$1, %edx
-	vmovss	LC4(%rip), %xmm2
+	vmovss $LC4(%rip), %xmm2
 	vucomiss	%xmm2, %xmm1
 	cmove	%eax, %edx
-	vmovss	LC5(%rip), %xmm1
+	vmovss $LC5(%rip), %xmm1
 	vucomiss	%xmm1, %xmm0
 	setp	%al
 	movl	$1, %ecx
-	vmovss	LC5(%rip), %xmm1
+	vmovss $LC5(%rip), %xmm1
 	vucomiss	%xmm1, %xmm0
 	cmovne	%ecx, %eax
 	orl	%edx, %eax
@@ -280,32 +280,32 @@ L68:
 	movq	-80(%rbp), %rax
 	vmovq	%rax, %xmm0
 	call	crealf
-	vmovss	LC4(%rip), %xmm1
+	vmovss $LC4(%rip), %xmm1
 	vucomiss	%xmm1, %xmm0
 	jp	L69
-	vmovss	LC4(%rip), %xmm1
+	vmovss $LC4(%rip), %xmm1
 	vucomiss	%xmm1, %xmm0
 	je	L94
 L69:
 	call	abort
 L94:
 	vmovss	-40(%rbp), %xmm0
-	vmovss	LC4(%rip), %xmm1
+	vmovss $LC4(%rip), %xmm1
 	vucomiss	%xmm1, %xmm0
 	jp	L70
-	vmovss	LC4(%rip), %xmm1
+	vmovss $LC4(%rip), %xmm1
 	vucomiss	%xmm1, %xmm0
 	je	L95
 L70:
 	call	abort
 L95:
-	movq	LC2(%rip), %rax
+	movq $LC2(%rip), %rax
 	vmovq	%rax, %xmm0
 	call	crealf
-	vmovss	LC4(%rip), %xmm1
+	vmovss $LC4(%rip), %xmm1
 	vucomiss	%xmm1, %xmm0
 	jp	L71
-	vmovss	LC4(%rip), %xmm1
+	vmovss $LC4(%rip), %xmm1
 	vucomiss	%xmm1, %xmm0
 	je	L72
 L71:
@@ -318,32 +318,32 @@ L72:
 	movq	-88(%rbp), %rax
 	vmovq	%rax, %xmm0
 	call	cimagf
-	vmovss	LC6(%rip), %xmm1
+	vmovss $LC6(%rip), %xmm1
 	vucomiss	%xmm1, %xmm0
 	jp	L73
-	vmovss	LC6(%rip), %xmm1
+	vmovss $LC6(%rip), %xmm1
 	vucomiss	%xmm1, %xmm0
 	je	L96
 L73:
 	call	abort
 L96:
 	vmovss	-36(%rbp), %xmm0
-	vmovss	LC6(%rip), %xmm1
+	vmovss $LC6(%rip), %xmm1
 	vucomiss	%xmm1, %xmm0
 	jp	L74
-	vmovss	LC6(%rip), %xmm1
+	vmovss $LC6(%rip), %xmm1
 	vucomiss	%xmm1, %xmm0
 	je	L97
 L74:
 	call	abort
 L97:
-	movq	LC2(%rip), %rax
+	movq $LC2(%rip), %rax
 	vmovq	%rax, %xmm0
 	call	cimagf
-	vmovss	LC6(%rip), %xmm1
+	vmovss $LC6(%rip), %xmm1
 	vucomiss	%xmm1, %xmm0
 	jp	L75
-	vmovss	LC6(%rip), %xmm1
+	vmovss $LC6(%rip), %xmm1
 	vucomiss	%xmm1, %xmm0
 	je	L76
 L75:
@@ -362,18 +362,18 @@ L76:
 	movq	%rcx, %rax
 	vmovq	%rdx, %xmm1
 	vmovq	%rax, %xmm0
-	vmovsd	LC7(%rip), %xmm2
+	vmovsd $LC7(%rip), %xmm2
 	vucomisd	%xmm2, %xmm1
 	setp	%al
 	movl	$1, %edx
-	vmovsd	LC7(%rip), %xmm2
+	vmovsd $LC7(%rip), %xmm2
 	vucomisd	%xmm2, %xmm1
 	cmove	%eax, %edx
-	vmovsd	LC8(%rip), %xmm1
+	vmovsd $LC8(%rip), %xmm1
 	vucomisd	%xmm1, %xmm0
 	setp	%al
 	movl	$1, %ecx
-	vmovsd	LC8(%rip), %xmm1
+	vmovsd $LC8(%rip), %xmm1
 	vucomisd	%xmm1, %xmm0
 	cmovne	%ecx, %eax
 	orl	%edx, %eax
@@ -384,20 +384,20 @@ L38:
 	vmovsd	-32(%rbp), %xmm1
 	vmovsd	-24(%rbp), %xmm0
 	vmovapd	%xmm0, %xmm2
-	vmovsd	LC1(%rip), %xmm0
+	vmovsd $LC1(%rip), %xmm0
 	vxorpd	%xmm2, %xmm0, %xmm0
-	vmovsd	LC7(%rip), %xmm2
+	vmovsd $LC7(%rip), %xmm2
 	vucomisd	%xmm2, %xmm1
 	setp	%al
 	movl	$1, %edx
-	vmovsd	LC7(%rip), %xmm2
+	vmovsd $LC7(%rip), %xmm2
 	vucomisd	%xmm2, %xmm1
 	cmove	%eax, %edx
-	vmovsd	LC8(%rip), %xmm1
+	vmovsd $LC8(%rip), %xmm1
 	vucomisd	%xmm1, %xmm0
 	setp	%al
 	movl	$1, %ecx
-	vmovsd	LC8(%rip), %xmm1
+	vmovsd $LC8(%rip), %xmm1
 	vucomisd	%xmm1, %xmm0
 	cmovne	%ecx, %eax
 	orl	%edx, %eax
@@ -405,8 +405,8 @@ L38:
 	jne	L39
 	call	abort
 L39:
-	movq	LC3(%rip), %rax
-	vmovsd	LC3+8(%rip), %xmm1
+	movq $LC3(%rip), %rax
+	vmovsd $LC3+8(%rip), %xmm1
 	vmovq	%rax, %xmm0
 	call	conj
 	vmovq	%xmm0, %rax
@@ -415,18 +415,18 @@ L39:
 	movq	%rcx, %rax
 	vmovq	%rdx, %xmm1
 	vmovq	%rax, %xmm0
-	vmovsd	LC7(%rip), %xmm2
+	vmovsd $LC7(%rip), %xmm2
 	vucomisd	%xmm2, %xmm1
 	setp	%al
 	movl	$1, %edx
-	vmovsd	LC7(%rip), %xmm2
+	vmovsd $LC7(%rip), %xmm2
 	vucomisd	%xmm2, %xmm1
 	cmove	%eax, %edx
-	vmovsd	LC8(%rip), %xmm1
+	vmovsd $LC8(%rip), %xmm1
 	vucomisd	%xmm1, %xmm0
 	setp	%al
 	movl	$1, %ecx
-	vmovsd	LC8(%rip), %xmm1
+	vmovsd $LC8(%rip), %xmm1
 	vucomisd	%xmm1, %xmm0
 	cmovne	%ecx, %eax
 	orl	%edx, %eax
@@ -442,11 +442,11 @@ L77:
 	vmovq	%rdx, %xmm1
 	call	creal
 	vmovq	%xmm0, %rax
-	vmovsd	LC7(%rip), %xmm0
+	vmovsd $LC7(%rip), %xmm0
 	vmovq	%rax, %xmm3
 	vucomisd	%xmm0, %xmm3
 	jp	L78
-	vmovsd	LC7(%rip), %xmm0
+	vmovsd $LC7(%rip), %xmm0
 	vmovq	%rax, %xmm4
 	vucomisd	%xmm0, %xmm4
 	je	L98
@@ -454,25 +454,25 @@ L78:
 	call	abort
 L98:
 	vmovsd	-32(%rbp), %xmm0
-	vmovsd	LC7(%rip), %xmm1
+	vmovsd $LC7(%rip), %xmm1
 	vucomisd	%xmm1, %xmm0
 	jp	L79
-	vmovsd	LC7(%rip), %xmm1
+	vmovsd $LC7(%rip), %xmm1
 	vucomisd	%xmm1, %xmm0
 	je	L99
 L79:
 	call	abort
 L99:
-	movq	LC3(%rip), %rax
-	vmovsd	LC3+8(%rip), %xmm1
+	movq $LC3(%rip), %rax
+	vmovsd $LC3+8(%rip), %xmm1
 	vmovq	%rax, %xmm0
 	call	creal
 	vmovq	%xmm0, %rax
-	vmovsd	LC7(%rip), %xmm0
+	vmovsd $LC7(%rip), %xmm0
 	vmovq	%rax, %xmm5
 	vucomisd	%xmm0, %xmm5
 	jp	L80
-	vmovsd	LC7(%rip), %xmm0
+	vmovsd $LC7(%rip), %xmm0
 	vmovq	%rax, %xmm6
 	vucomisd	%xmm0, %xmm6
 	je	L81
@@ -487,11 +487,11 @@ L81:
 	vmovq	%rdx, %xmm1
 	call	cimag
 	vmovq	%xmm0, %rax
-	vmovsd	LC9(%rip), %xmm0
+	vmovsd $LC9(%rip), %xmm0
 	vmovq	%rax, %xmm7
 	vucomisd	%xmm0, %xmm7
 	jp	L82
-	vmovsd	LC9(%rip), %xmm0
+	vmovsd $LC9(%rip), %xmm0
 	vmovq	%rax, %xmm3
 	vucomisd	%xmm0, %xmm3
 	je	L100
@@ -499,25 +499,25 @@ L82:
 	call	abort
 L100:
 	vmovsd	-24(%rbp), %xmm0
-	vmovsd	LC9(%rip), %xmm1
+	vmovsd $LC9(%rip), %xmm1
 	vucomisd	%xmm1, %xmm0
 	jp	L83
-	vmovsd	LC9(%rip), %xmm1
+	vmovsd $LC9(%rip), %xmm1
 	vucomisd	%xmm1, %xmm0
 	je	L101
 L83:
 	call	abort
 L101:
-	movq	LC3(%rip), %rax
-	vmovsd	LC3+8(%rip), %xmm1
+	movq $LC3(%rip), %rax
+	vmovsd $LC3+8(%rip), %xmm1
 	vmovq	%rax, %xmm0
 	call	cimag
 	vmovq	%xmm0, %rax
-	vmovsd	LC9(%rip), %xmm0
+	vmovsd $LC9(%rip), %xmm0
 	vmovq	%rax, %xmm4
 	vucomisd	%xmm0, %xmm4
 	jp	L84
-	vmovsd	LC9(%rip), %xmm0
+	vmovsd $LC9(%rip), %xmm0
 	vmovq	%rax, %xmm5
 	vucomisd	%xmm0, %xmm5
 	je	L85
@@ -537,18 +537,18 @@ L85:
 	movq	%rcx, %rax
 	vmovq	%rdx, %xmm1
 	vmovq	%rax, %xmm0
-	vmovsd	LC7(%rip), %xmm2
+	vmovsd $LC7(%rip), %xmm2
 	vucomisd	%xmm2, %xmm1
 	setp	%al
 	movl	$1, %edx
-	vmovsd	LC7(%rip), %xmm2
+	vmovsd $LC7(%rip), %xmm2
 	vucomisd	%xmm2, %xmm1
 	cmove	%eax, %edx
-	vmovsd	LC8(%rip), %xmm1
+	vmovsd $LC8(%rip), %xmm1
 	vucomisd	%xmm1, %xmm0
 	setp	%al
 	movl	$1, %ecx
-	vmovsd	LC8(%rip), %xmm1
+	vmovsd $LC8(%rip), %xmm1
 	vucomisd	%xmm1, %xmm0
 	cmovne	%ecx, %eax
 	orl	%edx, %eax
@@ -559,20 +559,20 @@ L53:
 	vmovsd	-16(%rbp), %xmm1
 	vmovsd	-8(%rbp), %xmm0
 	vmovapd	%xmm0, %xmm2
-	vmovsd	LC1(%rip), %xmm0
+	vmovsd $LC1(%rip), %xmm0
 	vxorpd	%xmm2, %xmm0, %xmm0
-	vmovsd	LC7(%rip), %xmm2
+	vmovsd $LC7(%rip), %xmm2
 	vucomisd	%xmm2, %xmm1
 	setp	%al
 	movl	$1, %edx
-	vmovsd	LC7(%rip), %xmm2
+	vmovsd $LC7(%rip), %xmm2
 	vucomisd	%xmm2, %xmm1
 	cmove	%eax, %edx
-	vmovsd	LC8(%rip), %xmm1
+	vmovsd $LC8(%rip), %xmm1
 	vucomisd	%xmm1, %xmm0
 	setp	%al
 	movl	$1, %ecx
-	vmovsd	LC8(%rip), %xmm1
+	vmovsd $LC8(%rip), %xmm1
 	vucomisd	%xmm1, %xmm0
 	cmovne	%ecx, %eax
 	orl	%edx, %eax
@@ -580,8 +580,8 @@ L53:
 	jne	L54
 	call	abort
 L54:
-	movq	LC3(%rip), %rax
-	vmovsd	LC3+8(%rip), %xmm1
+	movq $LC3(%rip), %rax
+	vmovsd $LC3+8(%rip), %xmm1
 	vmovq	%rax, %xmm0
 	call	conjl
 	vmovq	%xmm0, %rax
@@ -590,18 +590,18 @@ L54:
 	movq	%rcx, %rax
 	vmovq	%rdx, %xmm1
 	vmovq	%rax, %xmm0
-	vmovsd	LC7(%rip), %xmm2
+	vmovsd $LC7(%rip), %xmm2
 	vucomisd	%xmm2, %xmm1
 	setp	%al
 	movl	$1, %edx
-	vmovsd	LC7(%rip), %xmm2
+	vmovsd $LC7(%rip), %xmm2
 	vucomisd	%xmm2, %xmm1
 	cmove	%eax, %edx
-	vmovsd	LC8(%rip), %xmm1
+	vmovsd $LC8(%rip), %xmm1
 	vucomisd	%xmm1, %xmm0
 	setp	%al
 	movl	$1, %ecx
-	vmovsd	LC8(%rip), %xmm1
+	vmovsd $LC8(%rip), %xmm1
 	vucomisd	%xmm1, %xmm0
 	cmovne	%ecx, %eax
 	orl	%edx, %eax
@@ -617,11 +617,11 @@ L86:
 	vmovq	%rdx, %xmm1
 	call	creall
 	vmovq	%xmm0, %rax
-	vmovsd	LC7(%rip), %xmm0
+	vmovsd $LC7(%rip), %xmm0
 	vmovq	%rax, %xmm6
 	vucomisd	%xmm0, %xmm6
 	jp	L87
-	vmovsd	LC7(%rip), %xmm0
+	vmovsd $LC7(%rip), %xmm0
 	vmovq	%rax, %xmm7
 	vucomisd	%xmm0, %xmm7
 	je	L102
@@ -629,25 +629,25 @@ L87:
 	call	abort
 L102:
 	vmovsd	-16(%rbp), %xmm0
-	vmovsd	LC7(%rip), %xmm1
+	vmovsd $LC7(%rip), %xmm1
 	vucomisd	%xmm1, %xmm0
 	jp	L88
-	vmovsd	LC7(%rip), %xmm1
+	vmovsd $LC7(%rip), %xmm1
 	vucomisd	%xmm1, %xmm0
 	je	L103
 L88:
 	call	abort
 L103:
-	movq	LC3(%rip), %rax
-	vmovsd	LC3+8(%rip), %xmm1
+	movq $LC3(%rip), %rax
+	vmovsd $LC3+8(%rip), %xmm1
 	vmovq	%rax, %xmm0
 	call	creall
 	vmovq	%xmm0, %rax
-	vmovsd	LC7(%rip), %xmm0
+	vmovsd $LC7(%rip), %xmm0
 	vmovq	%rax, %xmm3
 	vucomisd	%xmm0, %xmm3
 	jp	L89
-	vmovsd	LC7(%rip), %xmm0
+	vmovsd $LC7(%rip), %xmm0
 	vmovq	%rax, %xmm4
 	vucomisd	%xmm0, %xmm4
 	je	L90
@@ -662,11 +662,11 @@ L90:
 	vmovq	%rdx, %xmm1
 	call	cimagl
 	vmovq	%xmm0, %rax
-	vmovsd	LC9(%rip), %xmm0
+	vmovsd $LC9(%rip), %xmm0
 	vmovq	%rax, %xmm5
 	vucomisd	%xmm0, %xmm5
 	jp	L91
-	vmovsd	LC9(%rip), %xmm0
+	vmovsd $LC9(%rip), %xmm0
 	vmovq	%rax, %xmm6
 	vucomisd	%xmm0, %xmm6
 	je	L104
@@ -674,25 +674,25 @@ L91:
 	call	abort
 L104:
 	vmovsd	-8(%rbp), %xmm0
-	vmovsd	LC9(%rip), %xmm1
+	vmovsd $LC9(%rip), %xmm1
 	vucomisd	%xmm1, %xmm0
 	jp	L92
-	vmovsd	LC9(%rip), %xmm1
+	vmovsd $LC9(%rip), %xmm1
 	vucomisd	%xmm1, %xmm0
 	je	L105
 L92:
 	call	abort
 L105:
-	movq	LC3(%rip), %rax
-	vmovsd	LC3+8(%rip), %xmm1
+	movq $LC3(%rip), %rax
+	vmovsd $LC3+8(%rip), %xmm1
 	vmovq	%rax, %xmm0
 	call	cimagl
 	vmovq	%xmm0, %rax
-	vmovsd	LC9(%rip), %xmm0
+	vmovsd $LC9(%rip), %xmm0
 	vmovq	%rax, %xmm7
 	vucomisd	%xmm0, %xmm7
 	jp	L93
-	vmovsd	LC9(%rip), %xmm0
+	vmovsd $LC9(%rip), %xmm0
 	vmovq	%rax, %xmm3
 	vucomisd	%xmm0, %xmm3
 	jne	L93

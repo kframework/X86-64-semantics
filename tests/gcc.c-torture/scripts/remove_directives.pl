@@ -26,7 +26,15 @@ for my $line (@lines) {
     }
 
     if($line =~ m/(.*)\.L(.*)/) {
-      print $1."L". $2. "\n";
+      my $text = $1."L". $2;
+
+      if($text =~ m/(.*)\s+(\S+)\(%rip\)(.*)/) {
+        $text = $1. " \$$2(%rip)" . $3;
+        #print $1. " \$$2(%rip)" . $3. "\n";
+        #next;
+      }
+      #print $1."L". $2. "\n";
+      print $text. "\n";
       next;
     }
 

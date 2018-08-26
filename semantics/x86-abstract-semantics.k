@@ -119,6 +119,12 @@ module X86-ABSTRACT-SEMANTICS
       <regstate> RSMap </regstate>
       <functargets>...  L |-> LoadAddr:PointerVal  ...</functargets>
 
+  rule <k> $ L:X86Id + I:Int (%rip) => 
+    memOffset( ptr(getMemLoc(LoadAddr), addMInt( getMIntVal(LoadAddr), mi(bitwidthMInt(LoadAddr), I))))
+  ...</k>
+      <regstate> RSMap </regstate>
+      <functargets>...  L |-> LoadAddr:PointerVal  ...</functargets>
+
   rule <k> (R1:R64):Mem => 
     memOffset( addMInt(mi(64, 0), addMInt(getRegisterValue(R1, RSMap), mulMInt(mi(64, 0), mi(64, 1))))) 
   ...</k>
