@@ -231,7 +231,7 @@ L19:
 	call	abort
 L20:
 	movl	$1145258561, $p(%rip)
-	movw	$69, $p+4(%rip)
+	movw	$69, $p + 4(%rip)
 	movl	$p+6, %edx
 	movl	$p+6, %eax
 	cmpq	%rax, %rdx

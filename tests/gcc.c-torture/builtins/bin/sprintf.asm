@@ -87,7 +87,7 @@ main_test:
 	call	memcmp
 	testl	%eax, %eax
 	jne	L12
-	movzbl $buffer+4(%rip), %eax
+	movzbl $buffer + 4(%rip), %eax
 	cmpb	$65, %al
 	je	L13
 L12:
@@ -109,7 +109,7 @@ L14:
 	call	memcmp
 	testl	%eax, %eax
 	jne	L15
-	movzbl $buffer+4(%rip), %eax
+	movzbl $buffer + 4(%rip), %eax
 	cmpb	$65, %al
 	je	L16
 L15:
@@ -127,7 +127,7 @@ L16:
 	call	memcmp
 	testl	%eax, %eax
 	jne	L17
-	movzbl $buffer+4(%rip), %eax
+	movzbl $buffer + 4(%rip), %eax
 	cmpb	$65, %al
 	je	L18
 L17:
@@ -149,7 +149,7 @@ L19:
 	call	memcmp
 	testl	%eax, %eax
 	jne	L20
-	movzbl $buffer+4(%rip), %eax
+	movzbl $buffer + 4(%rip), %eax
 	cmpb	$65, %al
 	je	L21
 L20:
@@ -167,7 +167,7 @@ L21:
 	call	memcmp
 	testl	%eax, %eax
 	jne	L22
-	movzbl $buffer+5(%rip), %eax
+	movzbl $buffer + 5(%rip), %eax
 	cmpb	$65, %al
 	je	L24
 L22:

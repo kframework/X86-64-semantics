@@ -143,13 +143,13 @@ main_test:
 	movabsq	$6437991695636517714, %rax
 	movq	%rax, $buf5(%rip)
 	movabsq	$3906085646303834202, %rax
-	movq	%rax, $buf5+8(%rip)
-	movl	$3749943, $buf5+16(%rip)
+	movq	%rax, $buf5 + 8(%rip)
+	movl	$3749943, $buf5 + 16(%rip)
 	movabsq	$6437991695636517714, %rax
 	movq	%rax, $buf7(%rip)
 	movabsq	$3906085646303834202, %rax
-	movq	%rax, $buf7+8(%rip)
-	movl	$3749943, $buf7+16(%rip)
+	movq	%rax, $buf7 + 8(%rip)
+	movl	$3749943, $buf7 + 16(%rip)
 	movq $buf2(%rip), %rax
 	movl	$0, %ecx
 	movl	$LC3, %edx

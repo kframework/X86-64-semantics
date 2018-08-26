@@ -20,6 +20,18 @@ my %LS = ();
 for my $line (@lines) {
     chomp $line;
 
+    if($line =~ m/^(.*)\s+(\S+)\+(\d+)\(%rip\)(.*)/) {
+      my $pre = $1;
+      my $base = $2;
+      my $const = $3;
+      my $post = $4;
+      $base =~ s/\.//g;
+      $base = "\$".$base;
+      $line = $pre . " $base + $const(%rip)$post";
+      print "$line". "\n";
+      next;
+    }
+
     if($line =~ m/^\.L(.*)/) {
       print "L". $1. "\n";
       next;
