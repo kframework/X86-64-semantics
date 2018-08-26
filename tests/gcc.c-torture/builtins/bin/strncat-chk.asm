@@ -1834,7 +1834,7 @@ L189:
 	call	__memset_chk
 	movq	-72(%rbp), %rax
 	movq	$-1, %rdx
-	movl	$s1+1, %esi
+	movl $s1 + 1, %esi
 	movq	-72(%rbp), %rax
 	movq	%rdx, %rcx
 	movl	$2, %edx

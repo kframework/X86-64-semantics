@@ -354,7 +354,7 @@ L29:
 	movl	%edx, $i(%rip)
 	testl	%eax, %eax
 	je	L30
-	movl	$LC5+1, %ecx
+	movl $LC5 + 1, %ecx
 	jmp	L31
 L30:
 	movl	$LC6, %ecx

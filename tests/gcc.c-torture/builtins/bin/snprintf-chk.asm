@@ -1683,7 +1683,7 @@ L177:
 	addq	$17, %rax
 L178:
 	movq	%rax, -104(%rbp)
-	movl	$s1+1, %ecx
+	movl $s1 + 1, %ecx
 	movq	$-1, %rdx
 	movq	-104(%rbp), %rax
 	movq	%rcx, %r9
