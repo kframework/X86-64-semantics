@@ -251,18 +251,18 @@ _start:
 	call	ll_to_ld
 	vmovq	%xmm0, %rax
 	vmovq	%rax, %xmm1
-  push $1076101120
-  push $0
+  pushq $1076101120
+  pushq $0
 	vucomisd	(%rsp), %xmm1
-  pop %r15
-  pop %r15
+  popq %r15
+  popq %r15
 	jp	L47
 	vmovq	%rax, %xmm2
-  push $1076101120
-  push $0
+  pushq $1076101120
+  pushq $0
 	vucomisd	(%rsp), %xmm2
-  pop %r15
-  pop %r15
+  popq %r15
+  popq %r15
 	je	L48
 L47:
 	call	abort

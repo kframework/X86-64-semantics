@@ -225,11 +225,6 @@ L38:
 L36:
 	popq	%rbp
 	ret
-v:
-	.long	0
-	.long	1074266112
-	.long	0
-	.long	1072693248
 foo:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -245,8 +240,8 @@ foo:
 	movq	%rax, -8(%rbp)
 	movq	-24(%rbp), %rax
 	movq	%rax, -16(%rbp)
-	movq	v(%rip), %rdx
-	movq	v+8(%rip), %rax
+	movq	$1074266112, %rdx
+	movq	$1072693248, %rax
 	vmovq	%rdx, %xmm2
 	vucomisd	-8(%rbp), %xmm2
 	setp	%sil
@@ -278,8 +273,8 @@ bar:
 	movq	%rcx, %rax
 	movq	%rdx, -16(%rbp)
 	movq	%rax, -8(%rbp)
-	movq	v(%rip), %rdx
-	movq	v+8(%rip), %rax
+	movq	$1074266112, %rdx
+	movq	$1072693248, %rax
 	movq	%rdx, %rcx
 	movq	%rax, %rdx
 	movq	%rcx, %rax
@@ -295,7 +290,7 @@ baz:
 	jmp	L44
 L45:
 	vxorps	%xmm0, %xmm0, %xmm0
-	vcvtsi2ss	-4(%rbp), %xmm0, %xmm0
+	vcvtsi2ssl	-4(%rbp), %xmm0, %xmm0
 	movl	$0, %eax
 	vmovd	%eax, %xmm2
 	vmulss	%xmm2, %xmm0, %xmm1

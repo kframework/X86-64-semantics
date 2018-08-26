@@ -8,4 +8,3 @@ floatunsisf-1-0
 func-ptr-1-0
 pr47538-0
 pr66233-0
-stdarg-4-0
