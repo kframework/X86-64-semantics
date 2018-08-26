@@ -275,7 +275,7 @@ module X86-C-LIBRARY
       requires I ==Int 4
 
   // %p    
-  rule <k> getValueToPrint(PV:PointerVal, "%p", "") => formatPointer({getRegisterValue(%rsi, RSMap)}:>PointerVal)
+  rule <k> getValueToPrint(C:MInt, "%p", "") => formatPointer({getRegisterValue(%rsi, RSMap)}:>PointerVal)
   ...</k>
     <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
@@ -304,6 +304,38 @@ module X86-C-LIBRARY
     <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
       requires I ==Int 4
+
+  // %u    
+  rule <k> getValueToPrint(C:MInt, "%u", "") => formatPointer({getRegisterValue(%rsi, RSMap)}:>PointerVal)
+  ...</k>
+    <formatcountint> I => I +Int 1 </formatcountint>
+    <regstate> RSMap </regstate>
+      requires I ==Int 0
+
+  rule <k> getValueToPrint(C:MInt, "%u", "") => formatPointer({getRegisterValue(%rdx, RSMap)}:>PointerVal)
+  ...</k>
+    <formatcountint> I => I +Int 1 </formatcountint>
+    <regstate> RSMap </regstate>
+      requires I ==Int 1
+
+  rule <k> getValueToPrint(C:MInt, "%u", "") => formatPointer({getRegisterValue(%rcx, RSMap)}:>PointerVal)
+  ...</k>
+    <formatcountint> I => I +Int 1 </formatcountint>
+    <regstate> RSMap </regstate>
+      requires I ==Int 2
+
+  rule <k> getValueToPrint(C:MInt, "%u", "") => formatPointer({getRegisterValue(%r8, RSMap)}:>PointerVal)
+  ...</k>
+    <formatcountint> I => I +Int 1 </formatcountint>
+    <regstate> RSMap </regstate>
+      requires I ==Int 3
+
+  rule <k> getValueToPrint(C:MInt, "%u", "") => formatPointer({getRegisterValue(%r9, RSMap)}:>PointerVal)
+  ...</k>
+    <formatcountint> I => I +Int 1 </formatcountint>
+    <regstate> RSMap </regstate>
+      requires I ==Int 4
+
 
   // %s    
   rule <k> getValueToPrint(C:MInt, "%s", "") => formatString({C}:>PointerVal)

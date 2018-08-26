@@ -15,7 +15,8 @@ int main () {
    /* Initial memory allocation */
    str = (char *) malloc(15);
    strcpy(str, "tutorialspoint");
-   printf("String = %s,  Address = %u\n", str, str);
+   //printf("String = %s,  Address = %u\n", str, str);
+   printf("String = %s\n", str);
 
    free(str);
    
