@@ -5,11 +5,11 @@ module MOVL-R32-LABEL
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (movl ($ L:X86Id), R2:R32,  .Operands) => execinstr (movl ($ L:X86Id) + 0, R2:R32,  .Operands)
+    execinstr (movl $ L:X86Id, R2:R32,  .Operands) => execinstr (movl $ L:X86Id + 0, R2:R32,  .Operands)
   ...</k>
 
   rule <k>
-    execinstr (movl ($ L:X86Id) + I:Int, R2:R32,  .Operands) => .
+    execinstr (movl $ L:X86Id + I:Int, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
