@@ -9,6 +9,11 @@ module ALTERNATIVE-OPCODES
   ...</k>
 
   rule <k> 
+    execinstr (cmovne:Opcode  R1:R32, R2:R32, .Operands) =>  
+      execinstr (cmovnel R1, R2,  .Operands)
+  ...</k>
+
+  rule <k> 
     execinstr (push:Opcode  R:R64, .Operands) =>  execinstr (pushq  R:R64, .Operands)
   ...</k>
   rule <k> 
