@@ -17,6 +17,9 @@ module X86-ABSTRACT-SEMANTICS
   rule getMemLoc(ptr(L:MemLoc, MI:MInt)) => L
   rule getMIntVal(ptr(L:MemLoc, MI:MInt)) => MI
 
+  //negMInt
+  rule negMInt(PV:PointerVal) => ptr (getMemLoc(PV), negMInt(getMIntVal(PV)))
+
   // Arithmetic
   //rule addMInt(ptr(L:MemLoc, MI1:MInt), ptr(L:MemLoc, MI2:MInt)) => 
   //  ptr(L, addMInt(MI1, MI2))
@@ -113,11 +116,10 @@ module X86-ABSTRACT-SEMANTICS
     The following code streamlines the offset calculation so as to have a single rule for each memory 
     instrcution.    
   */
-  rule <k> $ L:X86Id (%rip) => 
-    memOffset( ptr(getMemLoc(LoadAddr), getMIntVal(LoadAddr)))
+
+  // rip
+  rule <k> $ L:X86Id (%rip) => $ L:X86Id + 0 (%rip)
   ...</k>
-      <regstate> RSMap </regstate>
-      <functargets>...  L |-> LoadAddr:PointerVal  ...</functargets>
 
   rule <k> $ L:X86Id + I:Int (%rip) => 
     memOffset( ptr(getMemLoc(LoadAddr), addMInt( getMIntVal(LoadAddr), mi(bitwidthMInt(LoadAddr), I))))
@@ -125,6 +127,7 @@ module X86-ABSTRACT-SEMANTICS
       <regstate> RSMap </regstate>
       <functargets>...  L |-> LoadAddr:PointerVal  ...</functargets>
 
+  // r64    
   rule <k> (R1:R64):Mem => 
     memOffset( addMInt(mi(64, 0), addMInt(getRegisterValue(R1, RSMap), mulMInt(mi(64, 0), mi(64, 1))))) 
   ...</k>
@@ -134,6 +137,15 @@ module X86-ABSTRACT-SEMANTICS
     memOffset( addMInt(mi(64, I), addMInt(getRegisterValue(R1, RSMap), mulMInt(mi(64, 0), mi(64, 1)))))
   ...</k>
       <regstate> RSMap </regstate>
+
+  rule <k> $ L:X86Id (R1:R64):Mem => $ L:X86Id + 0 (R1:R64):Mem
+  ...</k>
+
+  rule <k> $ L:X86Id + I:Int (R1:R64):Mem => 
+    memOffset( addMInt(addMInt(LoadAddr, mi(bitwidthMInt(LoadAddr), I)), addMInt(getRegisterValue(R1, RSMap), mulMInt(mi(64, 0), mi(64, 1)))))
+  ...</k>
+      <regstate> RSMap </regstate>
+      <functargets>...  L |-> LoadAddr:PointerVal  ...</functargets>
 
   rule <k> (, R2:R64):Mem => 
     memOffset( addMInt(mi(64, 0), addMInt(mi(64, 0), mulMInt(getRegisterValue(R2, RSMap), mi(64, 1)))))
