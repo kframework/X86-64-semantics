@@ -48,9 +48,15 @@ for my $line (@lines) {
       next;
     }
 
+    if($line =~ m/(.*)stdout\(%rip\)(.*)/) {
+      print $1. "\$stdout" . $2. "\n";
+      next;
+    }
+
     if($line =~ m/^(.*)\+(.*)/g) {
       $line  = "$1 + $2"; 
     }
+
 
     # Case quad
     if($line =~ m/\.quad/g) {
@@ -75,7 +81,8 @@ for my $line (@lines) {
       next;
     }
 
-    if($line =~ m/^(.*) ([a-zA-Z]+[0-9]*) \+ (\d+)(.*)/) {
+    #print $line. "\n";
+    if($line =~ m/^(.*)\s+([a-zA-Z]+[0-9]*) \+ (\d+)(.*)/) {
       my $pre = $1;
       my $base = $2;
       my $const = $3;
@@ -83,11 +90,11 @@ for my $line (@lines) {
 
         $base = "\$". $base;
       $line = $pre . " $base + $const$post";
-      print "$line". "\n";
+      print "" . "$line". "\n";
       next;
     }
 
-    if($line =~ m/^(.*) ([a-zA-Z]+[0-9]*)\(%(\w+)\)(.*)/) {
+    if($line =~ m/^(.*)\s+([_a-zA-Z]+[0-9]*)\(%(\w+)\)(.*)/) {
       my $pre = $1;
       my $base = $2;
       my $reg = $3;
@@ -95,7 +102,7 @@ for my $line (@lines) {
 
       $base = "\$". $base;
       $line = $pre . " $base(%$reg)$post";
-      print "$line". "\n";
+      print "". "$line". "\n";
       next;
     }
 
@@ -112,15 +119,11 @@ for my $line (@lines) {
       next;
     }
 
-    if($line =~ m/(.*)stdout\(%rip\)(.*)/) {
-      print $1. "\$stdout" . $2. "\n";
-      next;
-    }
 
-    if($line =~ m/(.*)\s+(\S+)\(%rip\)(.*)/) {
-      print $1. " \$$2(%rip)" . $3. "\n";
-      next;
-    }
+    #if($line =~ m/(.*)\s+(\S+)\(%rip\)(.*)/) {
+    #  print $1. " \$$2(%rip)" . $3. "\n";
+    #  next;
+    #}
 
     if($line =~ m/^main:/) {
       print ".globl _start\n";

@@ -899,7 +899,7 @@ L121:
     movq	$-1, %rdx
     movl	-28(%rbp), %eax
     cltq
-    leaq	u2(%rax), %rcx
+    leaq $u2(%rax), %rcx
     movl	-32(%rbp), %eax
     cltq
     addq	$u1, %rax
