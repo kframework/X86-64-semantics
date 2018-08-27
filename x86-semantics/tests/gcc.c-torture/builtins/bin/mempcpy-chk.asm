@@ -1274,7 +1274,7 @@ L145:
     movl	-4(%rbp), %edx
     movslq	%edx, %rdx
     addq	$8, %rdx
-    leaq	buf1(%rdx), %rcx
+    leaq $buf1(%rdx), %rcx
     movq	%rax, %rdx
     movq	%rcx, %rdi
     call	mempcpy
@@ -2058,10 +2058,10 @@ L212:
     cltq
     movl	-28(%rbp), %edx
     movslq	%edx, %rdx
-    leaq	u2(%rdx), %rsi
+    leaq $u2(%rdx), %rsi
     movl	-32(%rbp), %edx
     movslq	%edx, %rdx
-    leaq	u1(%rdx), %rdi
+    leaq $u1(%rdx), %rdi
     movq	%rax, %rdx
     call	__mempcpy_chk
     movq	%rax, -8(%rbp)
@@ -2232,7 +2232,7 @@ L233:
     movb	$0, $dstb + 2(%rip)
     movzwl $srcb(%rip), %eax
     movw	%ax, $dstb(%rip)
-    movzbl	srcb + $2(%rip), %eax
+    movzbl $srcb + 2(%rip), %eax
     movb	%al, $dstb + 2(%rip)
     movl	$dstb + 3, %eax
     movq	%rax, $vx(%rip)
@@ -2253,7 +2253,7 @@ L233:
     movb	$0, $dstb + 4(%rip)
     movl $srcb(%rip), %eax
     movl	%eax, $dstb(%rip)
-    movzbl	srcb + $4(%rip), %eax
+    movzbl $srcb + 4(%rip), %eax
     movb	%al, $dstb + 4(%rip)
     movl	$dstb + 5, %eax
     movq	%rax, $vx(%rip)
@@ -2265,7 +2265,7 @@ L233:
     movw	$0, $dstb + 4(%rip)
     movl $srcb(%rip), %eax
     movl	%eax, $dstb(%rip)
-    movzwl	srcb + $4(%rip), %eax
+    movzwl $srcb + 4(%rip), %eax
     movw	%ax, $dstb + 4(%rip)
     movl	$dstb + 6, %eax
     movq	%rax, $vx(%rip)
@@ -2278,9 +2278,9 @@ L233:
     movb	$0, $dstb + 6(%rip)
     movl $srcb(%rip), %eax
     movl	%eax, $dstb(%rip)
-    movzwl	srcb + $4(%rip), %eax
+    movzwl $srcb + 4(%rip), %eax
     movw	%ax, $dstb + 4(%rip)
-    movzbl	srcb + $6(%rip), %eax
+    movzbl $srcb + 6(%rip), %eax
     movb	%al, $dstb + 6(%rip)
     movl	$dstb + 7, %eax
     movq	%rax, $vx(%rip)
@@ -2301,7 +2301,7 @@ L233:
     movb	$0, $dstb + 8(%rip)
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movzbl	srcb + $8(%rip), %eax
+    movzbl $srcb + 8(%rip), %eax
     movb	%al, $dstb + 8(%rip)
     movl	$dstb + 9, %eax
     movq	%rax, $vx(%rip)
@@ -2313,7 +2313,7 @@ L233:
     movw	$0, $dstb + 8(%rip)
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movzwl	srcb + $8(%rip), %eax
+    movzwl $srcb + 8(%rip), %eax
     movw	%ax, $dstb + 8(%rip)
     movl	$dstb + 10, %eax
     movq	%rax, $vx(%rip)
@@ -2326,9 +2326,9 @@ L233:
     movb	$0, $dstb + 10(%rip)
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movzwl	srcb + $8(%rip), %eax
+    movzwl $srcb + 8(%rip), %eax
     movw	%ax, $dstb + 8(%rip)
-    movzbl	srcb + $10(%rip), %eax
+    movzbl $srcb + 10(%rip), %eax
     movb	%al, $dstb + 10(%rip)
     movl	$dstb + 11, %eax
     movq	%rax, $vx(%rip)
@@ -2340,7 +2340,7 @@ L233:
     movl	$0, $dstb + 8(%rip)
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movl	srcb + $8(%rip), %eax
+    movl $srcb + 8(%rip), %eax
     movl	%eax, $dstb + 8(%rip)
     movl	$dstb + 12, %eax
     movq	%rax, $vx(%rip)
@@ -2353,9 +2353,9 @@ L233:
     movb	$0, $dstb + 12(%rip)
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movl	srcb + $8(%rip), %eax
+    movl $srcb + 8(%rip), %eax
     movl	%eax, $dstb + 8(%rip)
-    movzbl	srcb + $12(%rip), %eax
+    movzbl $srcb + 12(%rip), %eax
     movb	%al, $dstb + 12(%rip)
     movl	$dstb + 13, %eax
     movq	%rax, $vx(%rip)
@@ -2368,9 +2368,9 @@ L233:
     movw	$0, $dstb + 12(%rip)
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movl	srcb + $8(%rip), %eax
+    movl $srcb + 8(%rip), %eax
     movl	%eax, $dstb + 8(%rip)
-    movzwl	srcb + $12(%rip), %eax
+    movzwl $srcb + 12(%rip), %eax
     movw	%ax, $dstb + 12(%rip)
     movl	$dstb + 14, %eax
     movq	%rax, $vx(%rip)
@@ -2384,11 +2384,11 @@ L233:
     movb	$0, $dstb + 14(%rip)
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movl	srcb + $8(%rip), %eax
+    movl $srcb + 8(%rip), %eax
     movl	%eax, $dstb + 8(%rip)
-    movzwl	srcb + $12(%rip), %eax
+    movzwl $srcb + 12(%rip), %eax
     movw	%ax, $dstb + 12(%rip)
-    movzbl	srcb + $14(%rip), %eax
+    movzbl $srcb + 14(%rip), %eax
     movb	%al, $dstb + 14(%rip)
     movl	$dstb + 15, %eax
     movq	%rax, $vx(%rip)
@@ -2399,7 +2399,7 @@ L233:
     movq	$0, $dstb(%rip)
     movq	$0, $dstb + 8(%rip)
     movq $srcb(%rip), %rax
-    movq	srcb + $8(%rip), %rdx
+    movq $srcb + 8(%rip), %rdx
     movq	%rax, $dstb(%rip)
     movq	%rdx, $dstb + 8(%rip)
     movl	$dstb + 16, %eax
@@ -2413,9 +2413,9 @@ L233:
     movb	$0, $dstb + 16(%rip)
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movzbl	srcb + $16(%rip), %eax
+    movzbl $srcb + 16(%rip), %eax
     movb	%al, $dstb + 16(%rip)
     movl	$dstb + 17, %eax
     movq	%rax, $vx(%rip)
@@ -2428,9 +2428,9 @@ L233:
     movw	$0, $dstb + 16(%rip)
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movzwl	srcb + $16(%rip), %eax
+    movzwl $srcb + 16(%rip), %eax
     movw	%ax, $dstb + 16(%rip)
     movl	$dstb + 18, %eax
     movq	%rax, $vx(%rip)
@@ -2444,11 +2444,11 @@ L233:
     movb	$0, $dstb + 18(%rip)
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movzwl	srcb + $16(%rip), %eax
+    movzwl $srcb + 16(%rip), %eax
     movw	%ax, $dstb + 16(%rip)
-    movzbl	srcb + $18(%rip), %eax
+    movzbl $srcb + 18(%rip), %eax
     movb	%al, $dstb + 18(%rip)
     movl	$dstb + 19, %eax
     movq	%rax, $vx(%rip)
@@ -2461,9 +2461,9 @@ L233:
     movl	$0, $dstb + 16(%rip)
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movl	srcb + $16(%rip), %eax
+    movl $srcb + 16(%rip), %eax
     movl	%eax, $dstb + 16(%rip)
     movl	$dstb + 20, %eax
     movq	%rax, $vx(%rip)
@@ -2477,11 +2477,11 @@ L233:
     movb	$0, $dstb + 20(%rip)
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movl	srcb + $16(%rip), %eax
+    movl $srcb + 16(%rip), %eax
     movl	%eax, $dstb + 16(%rip)
-    movzbl	srcb + $20(%rip), %eax
+    movzbl $srcb + 20(%rip), %eax
     movb	%al, $dstb + 20(%rip)
     movl	$dstb + 21, %eax
     movq	%rax, $vx(%rip)
@@ -2495,11 +2495,11 @@ L233:
     movw	$0, $dstb + 20(%rip)
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movl	srcb + $16(%rip), %eax
+    movl $srcb + 16(%rip), %eax
     movl	%eax, $dstb + 16(%rip)
-    movzwl	srcb + $20(%rip), %eax
+    movzwl $srcb + 20(%rip), %eax
     movw	%ax, $dstb + 20(%rip)
     movl	$dstb + 22, %eax
     movq	%rax, $vx(%rip)
@@ -2514,13 +2514,13 @@ L233:
     movb	$0, $dstb + 22(%rip)
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movl	srcb + $16(%rip), %eax
+    movl $srcb + 16(%rip), %eax
     movl	%eax, $dstb + 16(%rip)
-    movzwl	srcb + $20(%rip), %eax
+    movzwl $srcb + 20(%rip), %eax
     movw	%ax, $dstb + 20(%rip)
-    movzbl	srcb + $22(%rip), %eax
+    movzbl $srcb + 22(%rip), %eax
     movb	%al, $dstb + 22(%rip)
     movl	$dstb + 23, %eax
     movq	%rax, $vx(%rip)
@@ -2533,9 +2533,9 @@ L233:
     movq	$0, $dstb + 16(%rip)
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
     movl	$dstb + 24, %eax
     movq	%rax, $vx(%rip)
@@ -2549,11 +2549,11 @@ L233:
     movb	$0, $dstb + 24(%rip)
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movzbl	srcb + $24(%rip), %eax
+    movzbl $srcb + 24(%rip), %eax
     movb	%al, $dstb + 24(%rip)
     movl	$dstb + 25, %eax
     movq	%rax, $vx(%rip)
@@ -2567,11 +2567,11 @@ L233:
     movw	$0, $dstb + 24(%rip)
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movzwl	srcb + $24(%rip), %eax
+    movzwl $srcb + 24(%rip), %eax
     movw	%ax, $dstb + 24(%rip)
     movl	$dstb + 26, %eax
     movq	%rax, $vx(%rip)
@@ -2586,13 +2586,13 @@ L233:
     movb	$0, $dstb + 26(%rip)
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movzwl	srcb + $24(%rip), %eax
+    movzwl $srcb + 24(%rip), %eax
     movw	%ax, $dstb + 24(%rip)
-    movzbl	srcb + $26(%rip), %eax
+    movzbl $srcb + 26(%rip), %eax
     movb	%al, $dstb + 26(%rip)
     movl	$dstb + 27, %eax
     movq	%rax, $vx(%rip)
@@ -2606,11 +2606,11 @@ L233:
     movl	$0, $dstb + 24(%rip)
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movl	srcb + $24(%rip), %eax
+    movl $srcb + 24(%rip), %eax
     movl	%eax, $dstb + 24(%rip)
     movl	$dstb + 28, %eax
     movq	%rax, $vx(%rip)
@@ -2625,13 +2625,13 @@ L233:
     movb	$0, $dstb + 28(%rip)
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movl	srcb + $24(%rip), %eax
+    movl $srcb + 24(%rip), %eax
     movl	%eax, $dstb + 24(%rip)
-    movzbl	srcb + $28(%rip), %eax
+    movzbl $srcb + 28(%rip), %eax
     movb	%al, $dstb + 28(%rip)
     movl	$dstb + 29, %eax
     movq	%rax, $vx(%rip)
@@ -2646,13 +2646,13 @@ L233:
     movw	$0, $dstb + 28(%rip)
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movl	srcb + $24(%rip), %eax
+    movl $srcb + 24(%rip), %eax
     movl	%eax, $dstb + 24(%rip)
-    movzwl	srcb + $28(%rip), %eax
+    movzwl $srcb + 28(%rip), %eax
     movw	%ax, $dstb + 28(%rip)
     movl	$dstb + 30, %eax
     movq	%rax, $vx(%rip)
@@ -2674,15 +2674,15 @@ L233:
     addq	$1, %rdx
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movl	srcb + $24(%rip), %eax
+    movl $srcb + 24(%rip), %eax
     movl	%eax, $dstb + 24(%rip)
-    movzwl	srcb + $28(%rip), %eax
+    movzwl $srcb + 28(%rip), %eax
     movw	%ax, $dstb + 28(%rip)
-    movzbl	srcb + $30(%rip), %eax
+    movzbl $srcb + 30(%rip), %eax
     movb	%al, $dstb + 30(%rip)
     movl	$dstb + 31, %eax
     movq	%rax, $vx(%rip)
@@ -2696,11 +2696,11 @@ L233:
     movq	$0, $dstb + 24(%rip)
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
     movl	$dstb + 32, %eax
     movq	%rax, $vx(%rip)
@@ -2715,13 +2715,13 @@ L233:
     movb	$0, $dstb + 32(%rip)
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movzbl	srcb + $32(%rip), %eax
+    movzbl $srcb + 32(%rip), %eax
     movb	%al, $dstb + 32(%rip)
     movl	$dstb + 33, %eax
     movq	%rax, $vx(%rip)
@@ -2736,13 +2736,13 @@ L233:
     movw	$0, $dstb + 32(%rip)
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movzwl	srcb + $32(%rip), %eax
+    movzwl $srcb + 32(%rip), %eax
     movw	%ax, $dstb + 32(%rip)
     movl	$dstb + 34, %eax
     movq	%rax, $vx(%rip)
@@ -2762,15 +2762,15 @@ L233:
     addq	$1, %rdx
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movzwl	srcb + $32(%rip), %eax
+    movzwl $srcb + 32(%rip), %eax
     movw	%ax, $dstb + 32(%rip)
-    movzbl	srcb + $34(%rip), %eax
+    movzbl $srcb + 34(%rip), %eax
     movb	%al, $dstb + 34(%rip)
     movl	$dstb + 35, %eax
     movq	%rax, $vx(%rip)
@@ -2785,13 +2785,13 @@ L233:
     movl	$0, $dstb + 32(%rip)
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movl	srcb + $32(%rip), %eax
+    movl $srcb + 32(%rip), %eax
     movl	%eax, $dstb + 32(%rip)
     movl	$dstb + 36, %eax
     movq	%rax, $vx(%rip)
@@ -2811,15 +2811,15 @@ L233:
     addq	$1, %rdx
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movl	srcb + $32(%rip), %eax
+    movl $srcb + 32(%rip), %eax
     movl	%eax, $dstb + 32(%rip)
-    movzbl	srcb + $36(%rip), %eax
+    movzbl $srcb + 36(%rip), %eax
     movb	%al, $dstb + 36(%rip)
     movl	$dstb + 37, %eax
     movq	%rax, $vx(%rip)
@@ -2839,15 +2839,15 @@ L233:
     addq	$2, %rdx
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movl	srcb + $32(%rip), %eax
+    movl $srcb + 32(%rip), %eax
     movl	%eax, $dstb + 32(%rip)
-    movzwl	srcb + $36(%rip), %eax
+    movzwl $srcb + 36(%rip), %eax
     movw	%ax, $dstb + 36(%rip)
     movl	$dstb + 38, %eax
     movq	%rax, $vx(%rip)
@@ -2869,17 +2869,17 @@ L233:
     addq	$1, %rdx
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movl	srcb + $32(%rip), %eax
+    movl $srcb + 32(%rip), %eax
     movl	%eax, $dstb + 32(%rip)
-    movzwl	srcb + $36(%rip), %eax
+    movzwl $srcb + 36(%rip), %eax
     movw	%ax, $dstb + 36(%rip)
-    movzbl	srcb + $38(%rip), %eax
+    movzbl $srcb + 38(%rip), %eax
     movb	%al, $dstb + 38(%rip)
     movl	$dstb + 39, %eax
     movq	%rax, $vx(%rip)
@@ -2894,13 +2894,13 @@ L233:
     movq	$0, $dstb + 32(%rip)
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movq	srcb + $32(%rip), %rax
+    movq $srcb + 32(%rip), %rax
     movq	%rax, $dstb + 32(%rip)
     movl	$dstb + 40, %eax
     movq	%rax, $vx(%rip)
@@ -2918,15 +2918,15 @@ L233:
     addq	$1, %rdx
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movq	srcb + $32(%rip), %rax
+    movq $srcb + 32(%rip), %rax
     movq	%rax, $dstb + 32(%rip)
-    movzbl	srcb + $40(%rip), %eax
+    movzbl $srcb + 40(%rip), %eax
     movb	%al, $dstb + 40(%rip)
     movl	$dstb + 41, %eax
     movq	%rax, $vx(%rip)
@@ -2944,15 +2944,15 @@ L233:
     addq	$2, %rdx
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movq	srcb + $32(%rip), %rax
+    movq $srcb + 32(%rip), %rax
     movq	%rax, $dstb + 32(%rip)
-    movzwl	srcb + $40(%rip), %eax
+    movzwl $srcb + 40(%rip), %eax
     movw	%ax, $dstb + 40(%rip)
     movl	$dstb + 42, %eax
     movq	%rax, $vx(%rip)
@@ -2972,17 +2972,17 @@ L233:
     addq	$1, %rdx
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movq	srcb + $32(%rip), %rax
+    movq $srcb + 32(%rip), %rax
     movq	%rax, $dstb + 32(%rip)
-    movzwl	srcb + $40(%rip), %eax
+    movzwl $srcb + 40(%rip), %eax
     movw	%ax, $dstb + 40(%rip)
-    movzbl	srcb + $42(%rip), %eax
+    movzbl $srcb + 42(%rip), %eax
     movb	%al, $dstb + 42(%rip)
     movl	$dstb + 43, %eax
     movq	%rax, $vx(%rip)
@@ -3000,15 +3000,15 @@ L233:
     addq	$4, %rdx
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movq	srcb + $32(%rip), %rax
+    movq $srcb + 32(%rip), %rax
     movq	%rax, $dstb + 32(%rip)
-    movl	srcb + $40(%rip), %eax
+    movl $srcb + 40(%rip), %eax
     movl	%eax, $dstb + 40(%rip)
     movl	$dstb + 44, %eax
     movq	%rax, $vx(%rip)
@@ -3028,17 +3028,17 @@ L233:
     addq	$1, %rdx
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movq	srcb + $32(%rip), %rax
+    movq $srcb + 32(%rip), %rax
     movq	%rax, $dstb + 32(%rip)
-    movl	srcb + $40(%rip), %eax
+    movl $srcb + 40(%rip), %eax
     movl	%eax, $dstb + 40(%rip)
-    movzbl	srcb + $44(%rip), %eax
+    movzbl $srcb + 44(%rip), %eax
     movb	%al, $dstb + 44(%rip)
     movl	$dstb + 45, %eax
     movq	%rax, $vx(%rip)
@@ -3058,17 +3058,17 @@ L233:
     addq	$2, %rdx
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movq	srcb + $32(%rip), %rax
+    movq $srcb + 32(%rip), %rax
     movq	%rax, $dstb + 32(%rip)
-    movl	srcb + $40(%rip), %eax
+    movl $srcb + 40(%rip), %eax
     movl	%eax, $dstb + 40(%rip)
-    movzwl	srcb + $44(%rip), %eax
+    movzwl $srcb + 44(%rip), %eax
     movw	%ax, $dstb + 44(%rip)
     movl	$dstb + 46, %eax
     movq	%rax, $vx(%rip)
@@ -3090,19 +3090,19 @@ L233:
     addq	$1, %rdx
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movq	srcb + $32(%rip), %rax
+    movq $srcb + 32(%rip), %rax
     movq	%rax, $dstb + 32(%rip)
-    movl	srcb + $40(%rip), %eax
+    movl $srcb + 40(%rip), %eax
     movl	%eax, $dstb + 40(%rip)
-    movzwl	srcb + $44(%rip), %eax
+    movzwl $srcb + 44(%rip), %eax
     movw	%ax, $dstb + 44(%rip)
-    movzbl	srcb + $46(%rip), %eax
+    movzbl $srcb + 46(%rip), %eax
     movb	%al, $dstb + 46(%rip)
     movl	$dstb + 47, %eax
     movq	%rax, $vx(%rip)
@@ -3118,15 +3118,15 @@ L233:
     rep stosq
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movq	srcb + $32(%rip), %rax
+    movq $srcb + 32(%rip), %rax
     movq	%rax, $dstb + 32(%rip)
-    movq	srcb + $40(%rip), %rax
+    movq $srcb + 40(%rip), %rax
     movq	%rax, $dstb + 40(%rip)
     movl	$dstb + 48, %eax
     movq	%rax, $vx(%rip)
@@ -3144,17 +3144,17 @@ L233:
     addq	$1, %rdx
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movq	srcb + $32(%rip), %rax
+    movq $srcb + 32(%rip), %rax
     movq	%rax, $dstb + 32(%rip)
-    movq	srcb + $40(%rip), %rax
+    movq $srcb + 40(%rip), %rax
     movq	%rax, $dstb + 40(%rip)
-    movzbl	srcb + $48(%rip), %eax
+    movzbl $srcb + 48(%rip), %eax
     movb	%al, $dstb + 48(%rip)
     movl	$dstb + 49, %eax
     movq	%rax, $vx(%rip)
@@ -3172,17 +3172,17 @@ L233:
     addq	$2, %rdx
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movq	srcb + $32(%rip), %rax
+    movq $srcb + 32(%rip), %rax
     movq	%rax, $dstb + 32(%rip)
-    movq	srcb + $40(%rip), %rax
+    movq $srcb + 40(%rip), %rax
     movq	%rax, $dstb + 40(%rip)
-    movzwl	srcb + $48(%rip), %eax
+    movzwl $srcb + 48(%rip), %eax
     movw	%ax, $dstb + 48(%rip)
     movl	$dstb + 50, %eax
     movq	%rax, $vx(%rip)
@@ -3202,19 +3202,19 @@ L233:
     addq	$1, %rdx
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movq	srcb + $32(%rip), %rax
+    movq $srcb + 32(%rip), %rax
     movq	%rax, $dstb + 32(%rip)
-    movq	srcb + $40(%rip), %rax
+    movq $srcb + 40(%rip), %rax
     movq	%rax, $dstb + 40(%rip)
-    movzwl	srcb + $48(%rip), %eax
+    movzwl $srcb + 48(%rip), %eax
     movw	%ax, $dstb + 48(%rip)
-    movzbl	srcb + $50(%rip), %eax
+    movzbl $srcb + 50(%rip), %eax
     movb	%al, $dstb + 50(%rip)
     movl	$dstb + 51, %eax
     movq	%rax, $vx(%rip)
@@ -3232,17 +3232,17 @@ L233:
     addq	$4, %rdx
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movq	srcb + $32(%rip), %rax
+    movq $srcb + 32(%rip), %rax
     movq	%rax, $dstb + 32(%rip)
-    movq	srcb + $40(%rip), %rax
+    movq $srcb + 40(%rip), %rax
     movq	%rax, $dstb + 40(%rip)
-    movl	srcb + $48(%rip), %eax
+    movl $srcb + 48(%rip), %eax
     movl	%eax, $dstb + 48(%rip)
     movl	$dstb + 52, %eax
     movq	%rax, $vx(%rip)
@@ -3262,19 +3262,19 @@ L233:
     addq	$1, %rdx
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movq	srcb + $32(%rip), %rax
+    movq $srcb + 32(%rip), %rax
     movq	%rax, $dstb + 32(%rip)
-    movq	srcb + $40(%rip), %rax
+    movq $srcb + 40(%rip), %rax
     movq	%rax, $dstb + 40(%rip)
-    movl	srcb + $48(%rip), %eax
+    movl $srcb + 48(%rip), %eax
     movl	%eax, $dstb + 48(%rip)
-    movzbl	srcb + $52(%rip), %eax
+    movzbl $srcb + 52(%rip), %eax
     movb	%al, $dstb + 52(%rip)
     movl	$dstb + 53, %eax
     movq	%rax, $vx(%rip)
@@ -3294,19 +3294,19 @@ L233:
     addq	$2, %rdx
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movq	srcb + $32(%rip), %rax
+    movq $srcb + 32(%rip), %rax
     movq	%rax, $dstb + 32(%rip)
-    movq	srcb + $40(%rip), %rax
+    movq $srcb + 40(%rip), %rax
     movq	%rax, $dstb + 40(%rip)
-    movl	srcb + $48(%rip), %eax
+    movl $srcb + 48(%rip), %eax
     movl	%eax, $dstb + 48(%rip)
-    movzwl	srcb + $52(%rip), %eax
+    movzwl $srcb + 52(%rip), %eax
     movw	%ax, $dstb + 52(%rip)
     movl	$dstb + 54, %eax
     movq	%rax, $vx(%rip)
@@ -3328,21 +3328,21 @@ L233:
     addq	$1, %rdx
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movq	srcb + $32(%rip), %rax
+    movq $srcb + 32(%rip), %rax
     movq	%rax, $dstb + 32(%rip)
-    movq	srcb + $40(%rip), %rax
+    movq $srcb + 40(%rip), %rax
     movq	%rax, $dstb + 40(%rip)
-    movl	srcb + $48(%rip), %eax
+    movl $srcb + 48(%rip), %eax
     movl	%eax, $dstb + 48(%rip)
-    movzwl	srcb + $52(%rip), %eax
+    movzwl $srcb + 52(%rip), %eax
     movw	%ax, $dstb + 52(%rip)
-    movzbl	srcb + $54(%rip), %eax
+    movzbl $srcb + 54(%rip), %eax
     movb	%al, $dstb + 54(%rip)
     movl	$dstb + 55, %eax
     movq	%rax, $vx(%rip)
@@ -3358,17 +3358,17 @@ L233:
     rep stosq
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movq	srcb + $32(%rip), %rax
+    movq $srcb + 32(%rip), %rax
     movq	%rax, $dstb + 32(%rip)
-    movq	srcb + $40(%rip), %rax
+    movq $srcb + 40(%rip), %rax
     movq	%rax, $dstb + 40(%rip)
-    movq	srcb + $48(%rip), %rax
+    movq $srcb + 48(%rip), %rax
     movq	%rax, $dstb + 48(%rip)
     movl	$dstb + 56, %eax
     movq	%rax, $vx(%rip)
@@ -3386,19 +3386,19 @@ L233:
     addq	$1, %rdx
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movq	srcb + $32(%rip), %rax
+    movq $srcb + 32(%rip), %rax
     movq	%rax, $dstb + 32(%rip)
-    movq	srcb + $40(%rip), %rax
+    movq $srcb + 40(%rip), %rax
     movq	%rax, $dstb + 40(%rip)
-    movq	srcb + $48(%rip), %rax
+    movq $srcb + 48(%rip), %rax
     movq	%rax, $dstb + 48(%rip)
-    movzbl	srcb + $56(%rip), %eax
+    movzbl $srcb + 56(%rip), %eax
     movb	%al, $dstb + 56(%rip)
     movl	$dstb + 57, %eax
     movq	%rax, $vx(%rip)
@@ -3416,19 +3416,19 @@ L233:
     addq	$2, %rdx
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movq	srcb + $32(%rip), %rax
+    movq $srcb + 32(%rip), %rax
     movq	%rax, $dstb + 32(%rip)
-    movq	srcb + $40(%rip), %rax
+    movq $srcb + 40(%rip), %rax
     movq	%rax, $dstb + 40(%rip)
-    movq	srcb + $48(%rip), %rax
+    movq $srcb + 48(%rip), %rax
     movq	%rax, $dstb + 48(%rip)
-    movzwl	srcb + $56(%rip), %eax
+    movzwl $srcb + 56(%rip), %eax
     movw	%ax, $dstb + 56(%rip)
     movl	$dstb + 58, %eax
     movq	%rax, $vx(%rip)
@@ -3448,21 +3448,21 @@ L233:
     addq	$1, %rdx
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movq	srcb + $32(%rip), %rax
+    movq $srcb + 32(%rip), %rax
     movq	%rax, $dstb + 32(%rip)
-    movq	srcb + $40(%rip), %rax
+    movq $srcb + 40(%rip), %rax
     movq	%rax, $dstb + 40(%rip)
-    movq	srcb + $48(%rip), %rax
+    movq $srcb + 48(%rip), %rax
     movq	%rax, $dstb + 48(%rip)
-    movzwl	srcb + $56(%rip), %eax
+    movzwl $srcb + 56(%rip), %eax
     movw	%ax, $dstb + 56(%rip)
-    movzbl	srcb + $58(%rip), %eax
+    movzbl $srcb + 58(%rip), %eax
     movb	%al, $dstb + 58(%rip)
     movl	$dstb + 59, %eax
     movq	%rax, $vx(%rip)
@@ -3480,19 +3480,19 @@ L233:
     addq	$4, %rdx
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movq	srcb + $32(%rip), %rax
+    movq $srcb + 32(%rip), %rax
     movq	%rax, $dstb + 32(%rip)
-    movq	srcb + $40(%rip), %rax
+    movq $srcb + 40(%rip), %rax
     movq	%rax, $dstb + 40(%rip)
-    movq	srcb + $48(%rip), %rax
+    movq $srcb + 48(%rip), %rax
     movq	%rax, $dstb + 48(%rip)
-    movl	srcb + $56(%rip), %eax
+    movl $srcb + 56(%rip), %eax
     movl	%eax, $dstb + 56(%rip)
     movl	$dstb + 60, %eax
     movq	%rax, $vx(%rip)
@@ -3512,21 +3512,21 @@ L233:
     addq	$1, %rdx
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movq	srcb + $32(%rip), %rax
+    movq $srcb + 32(%rip), %rax
     movq	%rax, $dstb + 32(%rip)
-    movq	srcb + $40(%rip), %rax
+    movq $srcb + 40(%rip), %rax
     movq	%rax, $dstb + 40(%rip)
-    movq	srcb + $48(%rip), %rax
+    movq $srcb + 48(%rip), %rax
     movq	%rax, $dstb + 48(%rip)
-    movl	srcb + $56(%rip), %eax
+    movl $srcb + 56(%rip), %eax
     movl	%eax, $dstb + 56(%rip)
-    movzbl	srcb + $60(%rip), %eax
+    movzbl $srcb + 60(%rip), %eax
     movb	%al, $dstb + 60(%rip)
     movl	$dstb + 61, %eax
     movq	%rax, $vx(%rip)
@@ -3546,21 +3546,21 @@ L233:
     addq	$2, %rdx
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movq	srcb + $32(%rip), %rax
+    movq $srcb + 32(%rip), %rax
     movq	%rax, $dstb + 32(%rip)
-    movq	srcb + $40(%rip), %rax
+    movq $srcb + 40(%rip), %rax
     movq	%rax, $dstb + 40(%rip)
-    movq	srcb + $48(%rip), %rax
+    movq $srcb + 48(%rip), %rax
     movq	%rax, $dstb + 48(%rip)
-    movl	srcb + $56(%rip), %eax
+    movl $srcb + 56(%rip), %eax
     movl	%eax, $dstb + 56(%rip)
-    movzwl	srcb + $60(%rip), %eax
+    movzwl $srcb + 60(%rip), %eax
     movw	%ax, $dstb + 60(%rip)
     movl	$dstb + 62, %eax
     movq	%rax, $vx(%rip)
@@ -3582,23 +3582,23 @@ L233:
     addq	$1, %rdx
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movq	srcb + $32(%rip), %rax
+    movq $srcb + 32(%rip), %rax
     movq	%rax, $dstb + 32(%rip)
-    movq	srcb + $40(%rip), %rax
+    movq $srcb + 40(%rip), %rax
     movq	%rax, $dstb + 40(%rip)
-    movq	srcb + $48(%rip), %rax
+    movq $srcb + 48(%rip), %rax
     movq	%rax, $dstb + 48(%rip)
-    movl	srcb + $56(%rip), %eax
+    movl $srcb + 56(%rip), %eax
     movl	%eax, $dstb + 56(%rip)
-    movzwl	srcb + $60(%rip), %eax
+    movzwl $srcb + 60(%rip), %eax
     movw	%ax, $dstb + 60(%rip)
-    movzbl	srcb + $62(%rip), %eax
+    movzbl $srcb + 62(%rip), %eax
     movb	%al, $dstb + 62(%rip)
     movl	$dstb + 63, %eax
     movq	%rax, $vx(%rip)
@@ -3614,19 +3614,19 @@ L233:
     rep stosq
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movq	srcb + $32(%rip), %rax
+    movq $srcb + 32(%rip), %rax
     movq	%rax, $dstb + 32(%rip)
-    movq	srcb + $40(%rip), %rax
+    movq $srcb + 40(%rip), %rax
     movq	%rax, $dstb + 40(%rip)
-    movq	srcb + $48(%rip), %rax
+    movq $srcb + 48(%rip), %rax
     movq	%rax, $dstb + 48(%rip)
-    movq	srcb + $56(%rip), %rax
+    movq $srcb + 56(%rip), %rax
     movq	%rax, $dstb + 56(%rip)
     movl	$dstb + 64, %eax
     movq	%rax, $vx(%rip)
@@ -3644,21 +3644,21 @@ L233:
     addq	$1, %rdx
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movq	srcb + $32(%rip), %rax
+    movq $srcb + 32(%rip), %rax
     movq	%rax, $dstb + 32(%rip)
-    movq	srcb + $40(%rip), %rax
+    movq $srcb + 40(%rip), %rax
     movq	%rax, $dstb + 40(%rip)
-    movq	srcb + $48(%rip), %rax
+    movq $srcb + 48(%rip), %rax
     movq	%rax, $dstb + 48(%rip)
-    movq	srcb + $56(%rip), %rax
+    movq $srcb + 56(%rip), %rax
     movq	%rax, $dstb + 56(%rip)
-    movzbl	srcb + $64(%rip), %eax
+    movzbl $srcb + 64(%rip), %eax
     movb	%al, $dstb + 64(%rip)
     movl	$dstb + 65, %eax
     movq	%rax, $vx(%rip)
@@ -3676,21 +3676,21 @@ L233:
     addq	$2, %rdx
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movq	srcb + $32(%rip), %rax
+    movq $srcb + 32(%rip), %rax
     movq	%rax, $dstb + 32(%rip)
-    movq	srcb + $40(%rip), %rax
+    movq $srcb + 40(%rip), %rax
     movq	%rax, $dstb + 40(%rip)
-    movq	srcb + $48(%rip), %rax
+    movq $srcb + 48(%rip), %rax
     movq	%rax, $dstb + 48(%rip)
-    movq	srcb + $56(%rip), %rax
+    movq $srcb + 56(%rip), %rax
     movq	%rax, $dstb + 56(%rip)
-    movzwl	srcb + $64(%rip), %eax
+    movzwl $srcb + 64(%rip), %eax
     movw	%ax, $dstb + 64(%rip)
     movl	$dstb + 66, %eax
     movq	%rax, $vx(%rip)
@@ -3710,23 +3710,23 @@ L233:
     addq	$1, %rdx
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movq	srcb + $32(%rip), %rax
+    movq $srcb + 32(%rip), %rax
     movq	%rax, $dstb + 32(%rip)
-    movq	srcb + $40(%rip), %rax
+    movq $srcb + 40(%rip), %rax
     movq	%rax, $dstb + 40(%rip)
-    movq	srcb + $48(%rip), %rax
+    movq $srcb + 48(%rip), %rax
     movq	%rax, $dstb + 48(%rip)
-    movq	srcb + $56(%rip), %rax
+    movq $srcb + 56(%rip), %rax
     movq	%rax, $dstb + 56(%rip)
-    movzwl	srcb + $64(%rip), %eax
+    movzwl $srcb + 64(%rip), %eax
     movw	%ax, $dstb + 64(%rip)
-    movzbl	srcb + $66(%rip), %eax
+    movzbl $srcb + 66(%rip), %eax
     movb	%al, $dstb + 66(%rip)
     movl	$dstb + 67, %eax
     movq	%rax, $vx(%rip)
@@ -3744,21 +3744,21 @@ L233:
     addq	$4, %rdx
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movq	srcb + $32(%rip), %rax
+    movq $srcb + 32(%rip), %rax
     movq	%rax, $dstb + 32(%rip)
-    movq	srcb + $40(%rip), %rax
+    movq $srcb + 40(%rip), %rax
     movq	%rax, $dstb + 40(%rip)
-    movq	srcb + $48(%rip), %rax
+    movq $srcb + 48(%rip), %rax
     movq	%rax, $dstb + 48(%rip)
-    movq	srcb + $56(%rip), %rax
+    movq $srcb + 56(%rip), %rax
     movq	%rax, $dstb + 56(%rip)
-    movl	srcb + $64(%rip), %eax
+    movl $srcb + 64(%rip), %eax
     movl	%eax, $dstb + 64(%rip)
     movl	$dstb + 68, %eax
     movq	%rax, $vx(%rip)
@@ -3778,23 +3778,23 @@ L233:
     addq	$1, %rdx
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movq	srcb + $32(%rip), %rax
+    movq $srcb + 32(%rip), %rax
     movq	%rax, $dstb + 32(%rip)
-    movq	srcb + $40(%rip), %rax
+    movq $srcb + 40(%rip), %rax
     movq	%rax, $dstb + 40(%rip)
-    movq	srcb + $48(%rip), %rax
+    movq $srcb + 48(%rip), %rax
     movq	%rax, $dstb + 48(%rip)
-    movq	srcb + $56(%rip), %rax
+    movq $srcb + 56(%rip), %rax
     movq	%rax, $dstb + 56(%rip)
-    movl	srcb + $64(%rip), %eax
+    movl $srcb + 64(%rip), %eax
     movl	%eax, $dstb + 64(%rip)
-    movzbl	srcb + $68(%rip), %eax
+    movzbl $srcb + 68(%rip), %eax
     movb	%al, $dstb + 68(%rip)
     movl	$dstb + 69, %eax
     movq	%rax, $vx(%rip)
@@ -3814,23 +3814,23 @@ L233:
     addq	$2, %rdx
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movq	srcb + $32(%rip), %rax
+    movq $srcb + 32(%rip), %rax
     movq	%rax, $dstb + 32(%rip)
-    movq	srcb + $40(%rip), %rax
+    movq $srcb + 40(%rip), %rax
     movq	%rax, $dstb + 40(%rip)
-    movq	srcb + $48(%rip), %rax
+    movq $srcb + 48(%rip), %rax
     movq	%rax, $dstb + 48(%rip)
-    movq	srcb + $56(%rip), %rax
+    movq $srcb + 56(%rip), %rax
     movq	%rax, $dstb + 56(%rip)
-    movl	srcb + $64(%rip), %eax
+    movl $srcb + 64(%rip), %eax
     movl	%eax, $dstb + 64(%rip)
-    movzwl	srcb + $68(%rip), %eax
+    movzwl $srcb + 68(%rip), %eax
     movw	%ax, $dstb + 68(%rip)
     movl	$dstb + 70, %eax
     movq	%rax, $vx(%rip)
@@ -3852,25 +3852,25 @@ L233:
     addq	$1, %rdx
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movq	srcb + $32(%rip), %rax
+    movq $srcb + 32(%rip), %rax
     movq	%rax, $dstb + 32(%rip)
-    movq	srcb + $40(%rip), %rax
+    movq $srcb + 40(%rip), %rax
     movq	%rax, $dstb + 40(%rip)
-    movq	srcb + $48(%rip), %rax
+    movq $srcb + 48(%rip), %rax
     movq	%rax, $dstb + 48(%rip)
-    movq	srcb + $56(%rip), %rax
+    movq $srcb + 56(%rip), %rax
     movq	%rax, $dstb + 56(%rip)
-    movl	srcb + $64(%rip), %eax
+    movl $srcb + 64(%rip), %eax
     movl	%eax, $dstb + 64(%rip)
-    movzwl	srcb + $68(%rip), %eax
+    movzwl $srcb + 68(%rip), %eax
     movw	%ax, $dstb + 68(%rip)
-    movzbl	srcb + $70(%rip), %eax
+    movzbl $srcb + 70(%rip), %eax
     movb	%al, $dstb + 70(%rip)
     movl	$dstb + 71, %eax
     movq	%rax, $vx(%rip)
@@ -3886,21 +3886,21 @@ L233:
     rep stosq
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movq	srcb + $32(%rip), %rax
+    movq $srcb + 32(%rip), %rax
     movq	%rax, $dstb + 32(%rip)
-    movq	srcb + $40(%rip), %rax
+    movq $srcb + 40(%rip), %rax
     movq	%rax, $dstb + 40(%rip)
-    movq	srcb + $48(%rip), %rax
+    movq $srcb + 48(%rip), %rax
     movq	%rax, $dstb + 48(%rip)
-    movq	srcb + $56(%rip), %rax
+    movq $srcb + 56(%rip), %rax
     movq	%rax, $dstb + 56(%rip)
-    movq	srcb + $64(%rip), %rax
+    movq $srcb + 64(%rip), %rax
     movq	%rax, $dstb + 64(%rip)
     movl	$dstb + 72, %eax
     movq	%rax, $vx(%rip)
@@ -3918,23 +3918,23 @@ L233:
     addq	$1, %rdx
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movq	srcb + $32(%rip), %rax
+    movq $srcb + 32(%rip), %rax
     movq	%rax, $dstb + 32(%rip)
-    movq	srcb + $40(%rip), %rax
+    movq $srcb + 40(%rip), %rax
     movq	%rax, $dstb + 40(%rip)
-    movq	srcb + $48(%rip), %rax
+    movq $srcb + 48(%rip), %rax
     movq	%rax, $dstb + 48(%rip)
-    movq	srcb + $56(%rip), %rax
+    movq $srcb + 56(%rip), %rax
     movq	%rax, $dstb + 56(%rip)
-    movq	srcb + $64(%rip), %rax
+    movq $srcb + 64(%rip), %rax
     movq	%rax, $dstb + 64(%rip)
-    movzbl	srcb + $72(%rip), %eax
+    movzbl $srcb + 72(%rip), %eax
     movb	%al, $dstb + 72(%rip)
     movl	$dstb + 73, %eax
     movq	%rax, $vx(%rip)
@@ -3952,23 +3952,23 @@ L233:
     addq	$2, %rdx
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movq	srcb + $32(%rip), %rax
+    movq $srcb + 32(%rip), %rax
     movq	%rax, $dstb + 32(%rip)
-    movq	srcb + $40(%rip), %rax
+    movq $srcb + 40(%rip), %rax
     movq	%rax, $dstb + 40(%rip)
-    movq	srcb + $48(%rip), %rax
+    movq $srcb + 48(%rip), %rax
     movq	%rax, $dstb + 48(%rip)
-    movq	srcb + $56(%rip), %rax
+    movq $srcb + 56(%rip), %rax
     movq	%rax, $dstb + 56(%rip)
-    movq	srcb + $64(%rip), %rax
+    movq $srcb + 64(%rip), %rax
     movq	%rax, $dstb + 64(%rip)
-    movzwl	srcb + $72(%rip), %eax
+    movzwl $srcb + 72(%rip), %eax
     movw	%ax, $dstb + 72(%rip)
     movl	$dstb + 74, %eax
     movq	%rax, $vx(%rip)
@@ -3988,25 +3988,25 @@ L233:
     addq	$1, %rdx
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movq	srcb + $32(%rip), %rax
+    movq $srcb + 32(%rip), %rax
     movq	%rax, $dstb + 32(%rip)
-    movq	srcb + $40(%rip), %rax
+    movq $srcb + 40(%rip), %rax
     movq	%rax, $dstb + 40(%rip)
-    movq	srcb + $48(%rip), %rax
+    movq $srcb + 48(%rip), %rax
     movq	%rax, $dstb + 48(%rip)
-    movq	srcb + $56(%rip), %rax
+    movq $srcb + 56(%rip), %rax
     movq	%rax, $dstb + 56(%rip)
-    movq	srcb + $64(%rip), %rax
+    movq $srcb + 64(%rip), %rax
     movq	%rax, $dstb + 64(%rip)
-    movzwl	srcb + $72(%rip), %eax
+    movzwl $srcb + 72(%rip), %eax
     movw	%ax, $dstb + 72(%rip)
-    movzbl	srcb + $74(%rip), %eax
+    movzbl $srcb + 74(%rip), %eax
     movb	%al, $dstb + 74(%rip)
     movl	$dstb + 75, %eax
     movq	%rax, $vx(%rip)
@@ -4024,23 +4024,23 @@ L233:
     addq	$4, %rdx
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movq	srcb + $32(%rip), %rax
+    movq $srcb + 32(%rip), %rax
     movq	%rax, $dstb + 32(%rip)
-    movq	srcb + $40(%rip), %rax
+    movq $srcb + 40(%rip), %rax
     movq	%rax, $dstb + 40(%rip)
-    movq	srcb + $48(%rip), %rax
+    movq $srcb + 48(%rip), %rax
     movq	%rax, $dstb + 48(%rip)
-    movq	srcb + $56(%rip), %rax
+    movq $srcb + 56(%rip), %rax
     movq	%rax, $dstb + 56(%rip)
-    movq	srcb + $64(%rip), %rax
+    movq $srcb + 64(%rip), %rax
     movq	%rax, $dstb + 64(%rip)
-    movl	srcb + $72(%rip), %eax
+    movl $srcb + 72(%rip), %eax
     movl	%eax, $dstb + 72(%rip)
     movl	$dstb + 76, %eax
     movq	%rax, $vx(%rip)
@@ -4060,25 +4060,25 @@ L233:
     addq	$1, %rdx
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movq	srcb + $32(%rip), %rax
+    movq $srcb + 32(%rip), %rax
     movq	%rax, $dstb + 32(%rip)
-    movq	srcb + $40(%rip), %rax
+    movq $srcb + 40(%rip), %rax
     movq	%rax, $dstb + 40(%rip)
-    movq	srcb + $48(%rip), %rax
+    movq $srcb + 48(%rip), %rax
     movq	%rax, $dstb + 48(%rip)
-    movq	srcb + $56(%rip), %rax
+    movq $srcb + 56(%rip), %rax
     movq	%rax, $dstb + 56(%rip)
-    movq	srcb + $64(%rip), %rax
+    movq $srcb + 64(%rip), %rax
     movq	%rax, $dstb + 64(%rip)
-    movl	srcb + $72(%rip), %eax
+    movl $srcb + 72(%rip), %eax
     movl	%eax, $dstb + 72(%rip)
-    movzbl	srcb + $76(%rip), %eax
+    movzbl $srcb + 76(%rip), %eax
     movb	%al, $dstb + 76(%rip)
     movl	$dstb + 77, %eax
     movq	%rax, $vx(%rip)
@@ -4098,25 +4098,25 @@ L233:
     addq	$2, %rdx
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movq	srcb + $32(%rip), %rax
+    movq $srcb + 32(%rip), %rax
     movq	%rax, $dstb + 32(%rip)
-    movq	srcb + $40(%rip), %rax
+    movq $srcb + 40(%rip), %rax
     movq	%rax, $dstb + 40(%rip)
-    movq	srcb + $48(%rip), %rax
+    movq $srcb + 48(%rip), %rax
     movq	%rax, $dstb + 48(%rip)
-    movq	srcb + $56(%rip), %rax
+    movq $srcb + 56(%rip), %rax
     movq	%rax, $dstb + 56(%rip)
-    movq	srcb + $64(%rip), %rax
+    movq $srcb + 64(%rip), %rax
     movq	%rax, $dstb + 64(%rip)
-    movl	srcb + $72(%rip), %eax
+    movl $srcb + 72(%rip), %eax
     movl	%eax, $dstb + 72(%rip)
-    movzwl	srcb + $76(%rip), %eax
+    movzwl $srcb + 76(%rip), %eax
     movw	%ax, $dstb + 76(%rip)
     movl	$dstb + 78, %eax
     movq	%rax, $vx(%rip)
@@ -4138,27 +4138,27 @@ L233:
     addq	$1, %rdx
     movq $srcb(%rip), %rax
     movq	%rax, $dstb(%rip)
-    movq	srcb + $8(%rip), %rax
+    movq $srcb + 8(%rip), %rax
     movq	%rax, $dstb + 8(%rip)
-    movq	srcb + $16(%rip), %rax
+    movq $srcb + 16(%rip), %rax
     movq	%rax, $dstb + 16(%rip)
-    movq	srcb + $24(%rip), %rax
+    movq $srcb + 24(%rip), %rax
     movq	%rax, $dstb + 24(%rip)
-    movq	srcb + $32(%rip), %rax
+    movq $srcb + 32(%rip), %rax
     movq	%rax, $dstb + 32(%rip)
-    movq	srcb + $40(%rip), %rax
+    movq $srcb + 40(%rip), %rax
     movq	%rax, $dstb + 40(%rip)
-    movq	srcb + $48(%rip), %rax
+    movq $srcb + 48(%rip), %rax
     movq	%rax, $dstb + 48(%rip)
-    movq	srcb + $56(%rip), %rax
+    movq $srcb + 56(%rip), %rax
     movq	%rax, $dstb + 56(%rip)
-    movq	srcb + $64(%rip), %rax
+    movq $srcb + 64(%rip), %rax
     movq	%rax, $dstb + 64(%rip)
-    movl	srcb + $72(%rip), %eax
+    movl $srcb + 72(%rip), %eax
     movl	%eax, $dstb + 72(%rip)
-    movzwl	srcb + $76(%rip), %eax
+    movzwl $srcb + 76(%rip), %eax
     movw	%ax, $dstb + 76(%rip)
-    movzbl	srcb + $78(%rip), %eax
+    movzbl $srcb + 78(%rip), %eax
     movb	%al, $dstb + 78(%rip)
     movl	$dstb + 79, %eax
     movq	%rax, $vx(%rip)

@@ -1314,7 +1314,7 @@ L143:
     cltq
     movl	-28(%rbp), %edx
     movslq	%edx, %rdx
-    leaq	u(%rdx), %rdi
+    leaq $u(%rdx), %rdi
     movq	%rax, %rdx
     movl	$0, %esi
     call	__memset_chk
@@ -1379,7 +1379,7 @@ L152:
     movsbl	%al, %eax
     movl	-28(%rbp), %ecx
     movslq	%ecx, %rcx
-    leaq	u(%rcx), %rdi
+    leaq $u(%rcx), %rdi
     movq	%rsi, %rcx
     movl	%eax, %esi
     call	__memset_chk
@@ -1442,7 +1442,7 @@ L162:
     cltq
     movl	-28(%rbp), %edx
     movslq	%edx, %rdx
-    leaq	u(%rdx), %rdi
+    leaq $u(%rdx), %rdi
     movq	%rax, %rdx
     movl	$66, %esi
     call	__memset_chk
@@ -1627,7 +1627,7 @@ L192:
     movsbl	%al, %eax
     movl	-12(%rbp), %edx
     movslq	%edx, %rdx
-    leaq	u2(%rdx), %rdi
+    leaq $u2(%rdx), %rdi
     movl	$1, %edx
     movl	%eax, %esi
     call	__memset_chk
@@ -1703,7 +1703,7 @@ L197:
     movsbl	%al, %eax
     movl	-12(%rbp), %edx
     movslq	%edx, %rdx
-    leaq	u2(%rdx), %rdi
+    leaq $u2(%rdx), %rdi
     movl	$2, %edx
     movl	%eax, %esi
     call	__memset_chk
@@ -1779,7 +1779,7 @@ L202:
     movsbl	%al, %eax
     movl	-12(%rbp), %edx
     movslq	%edx, %rdx
-    leaq	u2(%rdx), %rdi
+    leaq $u2(%rdx), %rdi
     movl	$3, %edx
     movl	%eax, %esi
     call	__memset_chk
@@ -1855,7 +1855,7 @@ L207:
     movsbl	%al, %eax
     movl	-12(%rbp), %edx
     movslq	%edx, %rdx
-    leaq	u2(%rdx), %rdi
+    leaq $u2(%rdx), %rdi
     movl	$4, %edx
     movl	%eax, %esi
     call	__memset_chk
@@ -1931,7 +1931,7 @@ L212:
     movsbl	%al, %eax
     movl	-12(%rbp), %edx
     movslq	%edx, %rdx
-    leaq	u2(%rdx), %rdi
+    leaq $u2(%rdx), %rdi
     movl	$5, %edx
     movl	%eax, %esi
     call	__memset_chk
@@ -2007,7 +2007,7 @@ L217:
     movsbl	%al, %eax
     movl	-12(%rbp), %edx
     movslq	%edx, %rdx
-    leaq	u2(%rdx), %rdi
+    leaq $u2(%rdx), %rdi
     movl	$6, %edx
     movl	%eax, %esi
     call	__memset_chk
@@ -2083,7 +2083,7 @@ L222:
     movsbl	%al, %eax
     movl	-12(%rbp), %edx
     movslq	%edx, %rdx
-    leaq	u2(%rdx), %rdi
+    leaq $u2(%rdx), %rdi
     movl	$7, %edx
     movl	%eax, %esi
     call	__memset_chk
@@ -2159,7 +2159,7 @@ L227:
     movsbl	%al, %eax
     movl	-12(%rbp), %edx
     movslq	%edx, %rdx
-    leaq	u2(%rdx), %rdi
+    leaq $u2(%rdx), %rdi
     movl	$8, %edx
     movl	%eax, %esi
     call	__memset_chk
@@ -2235,7 +2235,7 @@ L232:
     movsbl	%al, %eax
     movl	-12(%rbp), %edx
     movslq	%edx, %rdx
-    leaq	u2(%rdx), %rdi
+    leaq $u2(%rdx), %rdi
     movl	$9, %edx
     movl	%eax, %esi
     call	__memset_chk
@@ -2311,7 +2311,7 @@ L237:
     movsbl	%al, %eax
     movl	-12(%rbp), %edx
     movslq	%edx, %rdx
-    leaq	u2(%rdx), %rdi
+    leaq $u2(%rdx), %rdi
     movl	$10, %edx
     movl	%eax, %esi
     call	__memset_chk
@@ -2387,7 +2387,7 @@ L242:
     movsbl	%al, %eax
     movl	-12(%rbp), %edx
     movslq	%edx, %rdx
-    leaq	u2(%rdx), %rdi
+    leaq $u2(%rdx), %rdi
     movl	$11, %edx
     movl	%eax, %esi
     call	__memset_chk
@@ -2463,7 +2463,7 @@ L247:
     movsbl	%al, %eax
     movl	-12(%rbp), %edx
     movslq	%edx, %rdx
-    leaq	u2(%rdx), %rdi
+    leaq $u2(%rdx), %rdi
     movl	$12, %edx
     movl	%eax, %esi
     call	__memset_chk
@@ -2539,7 +2539,7 @@ L252:
     movsbl	%al, %eax
     movl	-12(%rbp), %edx
     movslq	%edx, %rdx
-    leaq	u2(%rdx), %rdi
+    leaq $u2(%rdx), %rdi
     movl	$13, %edx
     movl	%eax, %esi
     call	__memset_chk
@@ -2615,7 +2615,7 @@ L257:
     movsbl	%al, %eax
     movl	-12(%rbp), %edx
     movslq	%edx, %rdx
-    leaq	u2(%rdx), %rdi
+    leaq $u2(%rdx), %rdi
     movl	$14, %edx
     movl	%eax, %esi
     call	__memset_chk
@@ -2691,7 +2691,7 @@ L262:
     movsbl	%al, %eax
     movl	-12(%rbp), %edx
     movslq	%edx, %rdx
-    leaq	u2(%rdx), %rdi
+    leaq $u2(%rdx), %rdi
     movl	$15, %edx
     movl	%eax, %esi
     call	__memset_chk

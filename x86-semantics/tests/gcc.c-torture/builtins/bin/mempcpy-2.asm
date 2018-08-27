@@ -327,7 +327,7 @@ L30:
     movl	-4(%rbp), %edx
     movslq	%edx, %rdx
     addq	$8, %rdx
-    leaq	buf1(%rdx), %rcx
+    leaq $buf1(%rdx), %rcx
     movq	%rax, %rdx
     movq	%rcx, %rdi
     call	mempcpy

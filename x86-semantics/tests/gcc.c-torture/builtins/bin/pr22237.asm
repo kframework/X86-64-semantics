@@ -179,7 +179,7 @@ main_test:
     movq	%rsp, %rbp
     movq $v0(%rip), %rax
     movq	%rax, $v(%rip)
-    movl	v0 + $8(%rip), %eax
+    movl $v0 + 8(%rip), %eax
     movl	%eax, $v + 8(%rip)
     movq $p(%rip), %rax
     movq	%rax, %rdi
@@ -190,7 +190,7 @@ main_test:
     call	check
     movq $v0(%rip), %rax
     movq	%rax, $v(%rip)
-    movl	v0 + $8(%rip), %eax
+    movl $v0 + 8(%rip), %eax
     movl	%eax, $v + 8(%rip)
     movq $q(%rip), %rax
     movq	%rax, %rdi
