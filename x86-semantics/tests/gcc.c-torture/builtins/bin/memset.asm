@@ -1,4 +1,3 @@
-    .file	"memset.c"
     .text
     .globl	memset
 memset:

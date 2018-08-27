@@ -1,4 +1,3 @@
-    .file	"abs-2.c"
     .text
     .globl	abs
 abs:

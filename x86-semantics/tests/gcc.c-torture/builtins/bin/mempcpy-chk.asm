@@ -1,4 +1,3 @@
-    .file	"mempcpy-chk.c"
     .comm	chk_fail_allowed,4,4
     .comm	chk_calls,4,4
     .comm	memcpy_disallowed,4,4

@@ -1,4 +1,3 @@
-    .file	"printf.c"
     .comm	inside_main,4,4
     .text
     .globl	main

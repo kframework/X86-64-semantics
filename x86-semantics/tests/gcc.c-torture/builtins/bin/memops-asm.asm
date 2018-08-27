@@ -1,4 +1,3 @@
-    .file	"memops-asm.c"
     .text
     .globl	memcmp
 memcmp:

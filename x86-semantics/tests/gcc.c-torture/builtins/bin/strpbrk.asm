@@ -1,4 +1,3 @@
-    .file	"strpbrk.c"
     .text
     .globl	strpbrk
 strpbrk:
@@ -101,13 +100,9 @@ exit:
     pushq	%rbp
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
-    #APP
-    # 39 "./src/lib/strpbrk.c" 1
     movq $-1, %rax
     jmp %rax
     
-    # 0 "" 2
-    #NO_APP
     nop
     popq	%rbp
     ret
@@ -115,13 +110,9 @@ exit:
 abort:
     pushq	%rbp
     movq	%rsp, %rbp
-    #APP
-    # 44 "./src/lib/strpbrk.c" 1
     movq $-1, %rax
     jmp %rax
     
-    # 0 "" 2
-    #NO_APP
     nop
     popq	%rbp
     ret

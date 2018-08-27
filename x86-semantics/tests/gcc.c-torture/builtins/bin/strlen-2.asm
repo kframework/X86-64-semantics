@@ -1,4 +1,3 @@
-    .file	"strlen-2.c"
     .text
     .globl	strlen
 strlen:
@@ -17,6 +16,27 @@ L2:
     testb	%al, %al
     jne	L3
     movq	-8(%rbp), %rax
+    popq	%rbp
+    ret
+    .globl	exit
+exit:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movl	%edi, -4(%rbp)
+    movq $-1, %rax
+    jmp %rax
+    
+    nop
+    popq	%rbp
+    ret
+    .globl	abort
+abort:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq $-1, %rax
+    jmp %rax
+    
+    nop
     popq	%rbp
     ret
     .comm	inside_main,4,4
@@ -48,9 +68,9 @@ foo:
     movq	%rsp, %rbp
     movq $l(%rip), %rax
     testq	%rax, %rax
-    je	L9
+    je	L11
     call	abort
-L9:
+L11:
     movq $l(%rip), %rax
     addq	$1, %rax
     movq	%rax, $l(%rip)
@@ -73,93 +93,93 @@ main_test:
     leaq	1(%rax), %rdx
     movq	%rdx, $g(%rip)
     testq	%rax, %rax
-    je	L12
+    je	L14
     movl	$LC0, %eax
-    jmp	L13
-L12:
+    jmp	L15
+L14:
     movl	$LC1, %eax
-L13:
+L15:
     movq	%rax, %rdi
     call	strlen
     cmpq	$3, %rax
-    jne	L14
+    jne	L16
     movq $g(%rip), %rax
     cmpq	$1, %rax
-    je	L15
-L14:
+    je	L17
+L16:
     call	abort
-L15:
+L17:
     movq $h(%rip), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, $h(%rip)
     testq	%rax, %rax
-    je	L16
+    je	L18
     movl	$LC2 + 1, %eax
-    jmp	L17
-L16:
+    jmp	L19
+L18:
     movl	$LC1, %eax
-L17:
+L19:
     movq	%rax, %rdi
     call	strlen
     cmpq	$3, %rax
-    jne	L18
+    jne	L20
     movq $h(%rip), %rax
     cmpq	$1, %rax
-    je	L19
-L18:
+    je	L21
+L20:
     call	abort
-L19:
+L21:
     movq $i(%rip), %rax
     addq	$1, %rax
     movq	%rax, $i(%rip)
     movq $i(%rip), %rax
     cmpq	$1, %rax
-    je	L20
+    je	L22
     call	abort
-L20:
+L22:
     movl	$0, $inside_main(%rip)
     movq $j(%rip), %rax
     testq	%rax, %rax
-    je	L21
+    je	L23
     movq $k(%rip), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, $k(%rip)
     addq	$LC0, %rax
-    jmp	L22
-L21:
+    jmp	L24
+L23:
     movq $k(%rip), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, $k(%rip)
     addq	$LC1, %rax
-L22:
+L24:
     movq	%rax, %rdi
     call	strlen
     cmpq	$3, %rax
-    jne	L23
+    jne	L25
     movq $k(%rip), %rax
     cmpq	$1, %rax
-    je	L24
-L23:
+    je	L26
+L25:
     call	abort
-L24:
+L26:
     call	foo
     testq	%rax, %rax
-    je	L25
+    je	L27
     movl	$LC0, %eax
-    jmp	L26
-L25:
+    jmp	L28
+L27:
     movl	$LC1, %eax
-L26:
+L28:
     movq	%rax, %rdi
     call	strlen
     cmpq	$3, %rax
-    jne	L27
+    jne	L29
     movq $l(%rip), %rax
     cmpq	$1, %rax
-    je	L29
-L27:
-    call	abort
+    je	L31
 L29:
+    call	abort
+L31:
     nop
     popq	%rbp
     ret

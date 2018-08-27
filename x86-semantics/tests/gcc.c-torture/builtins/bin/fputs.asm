@@ -1,4 +1,3 @@
-    .file	"fputs.c"
     .text
     .globl	strlen
 strlen:

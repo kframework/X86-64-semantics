@@ -1,4 +1,3 @@
-    .file	"strncpy.c"
     .text
     .globl	strncpy
 strncpy:

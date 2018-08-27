@@ -1,4 +1,3 @@
-    .file	"strcmp.c"
     .text
     .globl	strcmp
 strcmp:

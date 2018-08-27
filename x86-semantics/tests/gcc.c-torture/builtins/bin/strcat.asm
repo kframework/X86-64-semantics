@@ -1,4 +1,3 @@
-    .file	"strcat.c"
     .text
     .globl	strcat
 strcat:
@@ -92,13 +91,9 @@ exit:
     pushq	%rbp
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
-    #APP
-    # 42 "./src/lib/strcat.c" 1
     movq $-1, %rax
     jmp %rax
     
-    # 0 "" 2
-    #NO_APP
     nop
     popq	%rbp
     ret
@@ -106,13 +101,9 @@ exit:
 abort:
     pushq	%rbp
     movq	%rsp, %rbp
-    #APP
-    # 47 "./src/lib/strcat.c" 1
     movq $-1, %rax
     jmp %rax
     
-    # 0 "" 2
-    #NO_APP
     nop
     popq	%rbp
     ret

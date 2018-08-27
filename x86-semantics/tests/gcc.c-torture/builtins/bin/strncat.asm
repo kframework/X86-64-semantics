@@ -1,4 +1,3 @@
-    .file	"strncat.c"
     .text
     .globl	strncat
 strncat:
