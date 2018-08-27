@@ -1,4 +1,3 @@
-    .file	"fp-cmp-4.c"
     .text
     .globl	strchr
 strchr:
@@ -437,7 +436,7 @@ L70:
     addq	%rax, %rax
     addq	%rdx, %rax
     salq	$3, %rax
-    addq	$data.2450, %rax
+    addq	$data2450, %rax
     movzbl	16(%rax), %eax
     andl	$1, %eax
     movzbl	%al, %ecx
@@ -447,7 +446,7 @@ L70:
     addq	%rax, %rax
     addq	%rdx, %rax
     salq	$3, %rax
-    addq	$data.2450 + 8, %rax
+    addq	$data2450 + 8, %rax
     vmovsd	(%rax), %xmm0
     movl	-8(%rbp), %eax
     movslq	%eax, %rdx
@@ -455,7 +454,7 @@ L70:
     addq	%rax, %rax
     addq	%rdx, %rax
     salq	$3, %rax
-    addq	$data.2450, %rax
+    addq	$data2450, %rax
     movq	(%rax), %rax
     movl	%ecx, %edi
     vmovapd	%xmm0, %xmm1
@@ -467,7 +466,7 @@ L70:
     addq	%rax, %rax
     addq	%rdx, %rax
     salq	$3, %rax
-    addq	$data.2450, %rax
+    addq	$data2450, %rax
     movzbl	16(%rax), %eax
     shrb	%al
     andl	$1, %eax
@@ -478,7 +477,7 @@ L70:
     addq	%rax, %rax
     addq	%rdx, %rax
     salq	$3, %rax
-    addq	$data.2450 + 8, %rax
+    addq	$data2450 + 8, %rax
     vmovsd	(%rax), %xmm0
     movl	-8(%rbp), %eax
     movslq	%eax, %rdx
@@ -486,7 +485,7 @@ L70:
     addq	%rax, %rax
     addq	%rdx, %rax
     salq	$3, %rax
-    addq	$data.2450, %rax
+    addq	$data2450, %rax
     movq	(%rax), %rax
     movl	%ecx, %edi
     vmovapd	%xmm0, %xmm1
@@ -498,7 +497,7 @@ L70:
     addq	%rax, %rax
     addq	%rdx, %rax
     salq	$3, %rax
-    addq	$data.2450, %rax
+    addq	$data2450, %rax
     movzbl	16(%rax), %eax
     shrb	$2, %al
     andl	$1, %eax
@@ -509,7 +508,7 @@ L70:
     addq	%rax, %rax
     addq	%rdx, %rax
     salq	$3, %rax
-    addq	$data.2450 + 8, %rax
+    addq	$data2450 + 8, %rax
     vmovsd	(%rax), %xmm0
     movl	-8(%rbp), %eax
     movslq	%eax, %rdx
@@ -517,7 +516,7 @@ L70:
     addq	%rax, %rax
     addq	%rdx, %rax
     salq	$3, %rax
-    addq	$data.2450, %rax
+    addq	$data2450, %rax
     movq	(%rax), %rax
     movl	%ecx, %edi
     vmovapd	%xmm0, %xmm1
@@ -529,7 +528,7 @@ L70:
     addq	%rax, %rax
     addq	%rdx, %rax
     salq	$3, %rax
-    addq	$data.2450, %rax
+    addq	$data2450, %rax
     movzbl	16(%rax), %eax
     shrb	$3, %al
     andl	$1, %eax
@@ -540,7 +539,7 @@ L70:
     addq	%rax, %rax
     addq	%rdx, %rax
     salq	$3, %rax
-    addq	$data.2450 + 8, %rax
+    addq	$data2450 + 8, %rax
     vmovsd	(%rax), %xmm0
     movl	-8(%rbp), %eax
     movslq	%eax, %rdx
@@ -548,7 +547,7 @@ L70:
     addq	%rax, %rax
     addq	%rdx, %rax
     salq	$3, %rax
-    addq	$data.2450, %rax
+    addq	$data2450, %rax
     movq	(%rax), %rax
     movl	%ecx, %edi
     vmovapd	%xmm0, %xmm1
@@ -560,7 +559,7 @@ L70:
     addq	%rax, %rax
     addq	%rdx, %rax
     salq	$3, %rax
-    addq	$data.2450, %rax
+    addq	$data2450, %rax
     movzbl	16(%rax), %eax
     shrb	$4, %al
     andl	$1, %eax
@@ -571,7 +570,7 @@ L70:
     addq	%rax, %rax
     addq	%rdx, %rax
     salq	$3, %rax
-    addq	$data.2450 + 8, %rax
+    addq	$data2450 + 8, %rax
     vmovsd	(%rax), %xmm0
     movl	-8(%rbp), %eax
     movslq	%eax, %rdx
@@ -579,7 +578,7 @@ L70:
     addq	%rax, %rax
     addq	%rdx, %rax
     salq	$3, %rax
-    addq	$data.2450, %rax
+    addq	$data2450, %rax
     movq	(%rax), %rax
     movl	%ecx, %edi
     vmovapd	%xmm0, %xmm1
@@ -591,7 +590,7 @@ L70:
     addq	%rax, %rax
     addq	%rdx, %rax
     salq	$3, %rax
-    addq	$data.2450, %rax
+    addq	$data2450, %rax
     movzbl	16(%rax), %eax
     shrb	$5, %al
     andl	$1, %eax
@@ -602,7 +601,7 @@ L70:
     addq	%rax, %rax
     addq	%rdx, %rax
     salq	$3, %rax
-    addq	$data.2450 + 8, %rax
+    addq	$data2450 + 8, %rax
     vmovsd	(%rax), %xmm0
     movl	-8(%rbp), %eax
     movslq	%eax, %rdx
@@ -610,7 +609,7 @@ L70:
     addq	%rax, %rax
     addq	%rdx, %rax
     salq	$3, %rax
-    addq	$data.2450, %rax
+    addq	$data2450, %rax
     movq	(%rax), %rax
     movl	%ecx, %edi
     vmovapd	%xmm0, %xmm1
@@ -624,7 +623,7 @@ L69:
     movl	$0, %edi
     call	exit
     .section	.rodata
-data.2450:
+data2450:
     .long	0
     .long	2146959360
     .long	0

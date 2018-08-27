@@ -1,4 +1,3 @@
-    .file	"hugeval.c"
     .text
     .globl	strchr
 strchr:

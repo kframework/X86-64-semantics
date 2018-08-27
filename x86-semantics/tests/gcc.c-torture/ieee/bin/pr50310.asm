@@ -1,4 +1,3 @@
-    .file	"pr50310.c"
     .text
     .globl	strchr
 strchr:
@@ -739,7 +738,7 @@ L138:
     cmovs	%edx, %eax
     sarl	$3, %eax
     cltq
-    movl	masks.2468(,%rax,4), %eax
+    movl	masks2468(,%rax,4), %eax
     notl	%eax
     jmp	L143
 L142:
@@ -749,7 +748,7 @@ L142:
     cmovs	%edx, %eax
     sarl	$3, %eax
     cltq
-    movl	masks.2468(,%rax,4), %eax
+    movl	masks2468(,%rax,4), %eax
 L143:
     movl	-4(%rbp), %edx
     andl	$3, %edx
@@ -777,7 +776,7 @@ L137:
     leave
     ret
     .data
-masks.2468:
+masks2468:
     .long	2
     .long	6
     .long	1

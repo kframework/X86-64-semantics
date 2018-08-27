@@ -1,4 +1,3 @@
-    .file	"fp-cmp-8.c"
     .text
     .globl	strchr
 strchr:
@@ -597,12 +596,12 @@ L114:
     movl	-8(%rbp), %eax
     cltq
     salq	$4, %rax
-    addq	$tests.2513 + 8, %rax
+    addq	$tests2513 + 8, %rax
     movq	(%rax), %rdi
     movl	-8(%rbp), %eax
     cltq
     salq	$4, %rax
-    addq	$tests.2513, %rax
+    addq	$tests2513, %rax
     movq	(%rax), %rsi
     movl	-8(%rbp), %eax
     movslq	%eax, %rcx
@@ -613,14 +612,14 @@ L114:
     addq	%rdx, %rax
     addq	%rax, %rax
     addq	%rcx, %rax
-    movl	data.2501 + 16(,%rax,4), %ecx
+    movl $data2501 + 16(,%rax,4), %ecx
     movl	-12(%rbp), %eax
     movslq	%eax, %rdx
     movq	%rdx, %rax
     salq	$2, %rax
     addq	%rdx, %rax
     salq	$3, %rax
-    addq	$data.2501 + 8, %rax
+    addq	$data2501 + 8, %rax
     vmovsd	(%rax), %xmm0
     movl	-12(%rbp), %eax
     movslq	%eax, %rdx
@@ -628,7 +627,7 @@ L114:
     salq	$2, %rax
     addq	%rdx, %rax
     salq	$3, %rax
-    addq	$data.2501, %rax
+    addq	$data2501, %rax
     movq	(%rax), %rax
     movq	%rdi, %rdx
     movl	%ecx, %edi
@@ -647,7 +646,7 @@ L112:
     movl	$0, %edi
     call	exit
     .section	.rodata
-tests.2513:
+tests2513:
     .quad	test_isunordered
     .quad	test_not_isunordered
     .quad	test_isless
@@ -660,7 +659,7 @@ tests.2513:
     .quad	test_not_isgreaterequal
     .quad	test_islessgreater
     .quad	test_not_islessgreater
-data.2501:
+data2501:
     .long	0
     .long	2146959360
     .long	0

@@ -1,4 +1,3 @@
-    .file	"rbug.c"
     .text
     .globl	strchr
 strchr:

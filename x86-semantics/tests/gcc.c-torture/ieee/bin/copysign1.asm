@@ -1,4 +1,3 @@
-    .file	"copysign1.c"
     .text
     .globl	strchr
 strchr:

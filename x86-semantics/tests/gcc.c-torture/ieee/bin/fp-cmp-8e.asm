@@ -1,4 +1,3 @@
-    .file	"fp-cmp-8e.c"
     .text
     .globl	strchr
 strchr:

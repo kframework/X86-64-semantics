@@ -27,13 +27,16 @@ for my $line (@lines) {
       $line = "    " . $line;
     }
 
-    if($line =~ m/\.type|\.size|\.ident|\.align|\.weak|\.local/) {
+    if($line =~ m/\.type|\.size|\.ident|\.align|\.weak|\.local|\.file/) {
       next;
     }
 
+    # Ignore comments
     if($line =~ m/\#/) {
       next;
     }
+
+    $line =~ s/([a-zA-Z\d]+)\.([a-zA-Z\d]+)/$1$2/g;
 
     if($line =~ m/^\.L(.*)/) {
       print "L". $1. "\n";

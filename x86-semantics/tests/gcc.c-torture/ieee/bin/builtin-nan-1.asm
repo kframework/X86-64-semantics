@@ -1,4 +1,3 @@
-    .file	"builtin-nan-1.c"
     .text
     .globl	strchr
 strchr:

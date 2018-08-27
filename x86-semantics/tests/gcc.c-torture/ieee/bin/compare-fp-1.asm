@@ -1,4 +1,3 @@
-    .file	"compare-fp-1.c"
     .text
     .globl	strchr
 strchr:

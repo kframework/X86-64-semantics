@@ -1,4 +1,3 @@
-    .file	"pr72824.c"
     .text
     .globl	strchr
 strchr:
