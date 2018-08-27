@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 unsigned u=2147483839;float f0=2147483648e0,f1=2147483904e0;
 main()
 {

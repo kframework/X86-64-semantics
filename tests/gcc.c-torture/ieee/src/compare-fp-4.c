@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* Copyright (C) 2004 Free Software Foundation.
 
    Test for correctness of composite floating-point comparisons.

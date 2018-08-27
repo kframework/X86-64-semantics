@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 #include <math.h>
 
 static const double zero =  0.0;

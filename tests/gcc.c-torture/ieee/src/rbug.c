@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 #if defined(__i386__) && defined(__FreeBSD__)
 #include <ieeefp.h>
 #endif

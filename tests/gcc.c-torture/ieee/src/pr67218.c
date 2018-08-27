@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 extern void abort (void) __attribute__ ((noreturn));
 
 double __attribute__ ((noinline, noclone))

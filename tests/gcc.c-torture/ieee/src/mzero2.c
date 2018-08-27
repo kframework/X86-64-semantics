@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* Test IEEE +0/-0 rules */
 
 static double pzero = +0.0;

@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* Tail call optimizations would reverse the order of additions in func().  */
 
 double func (const double *array)

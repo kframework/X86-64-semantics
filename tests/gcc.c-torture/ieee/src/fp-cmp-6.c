@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 
 const double dnan = 1.0/0.0 - 1.0/0.0;
 double x = 1.0;

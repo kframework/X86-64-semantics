@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 #ifndef SIGNAL_SUPPRESS
 #include <signal.h>
 #endif

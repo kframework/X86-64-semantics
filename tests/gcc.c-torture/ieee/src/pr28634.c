@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* PR rtl-optimization/28634.  On targets with delayed branches,
    dbr_schedule could do the next iteration's addition in the
    branch delay slot, then subtract the value again if the branch
