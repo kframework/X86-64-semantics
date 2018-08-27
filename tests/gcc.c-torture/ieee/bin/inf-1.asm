@@ -1,4 +1,3 @@
-    .file	"inf-1.c"
     .text
     .globl	strchr
 strchr:

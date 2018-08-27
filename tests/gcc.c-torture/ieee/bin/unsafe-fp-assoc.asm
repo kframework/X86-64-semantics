@@ -1,4 +1,3 @@
-    .file	"unsafe-fp-assoc.c"
     .text
     .globl	strchr
 strchr:

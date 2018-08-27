@@ -1,4 +1,3 @@
-    .file	"mul-subnormal-single-1.c"
     .text
     .globl	strchr
 strchr:

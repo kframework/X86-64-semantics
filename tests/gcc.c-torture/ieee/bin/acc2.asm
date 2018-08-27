@@ -1,4 +1,3 @@
-    .file	"acc2.c"
     .text
     .globl	strchr
 strchr:

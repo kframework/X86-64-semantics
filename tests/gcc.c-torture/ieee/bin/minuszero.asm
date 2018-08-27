@@ -1,4 +1,3 @@
-    .file	"minuszero.c"
     .text
     .globl	strchr
 strchr:

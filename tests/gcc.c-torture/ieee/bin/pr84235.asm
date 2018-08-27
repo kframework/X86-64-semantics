@@ -1,4 +1,3 @@
-    .file	"pr84235.c"
     .text
     .globl	strchr
 strchr:

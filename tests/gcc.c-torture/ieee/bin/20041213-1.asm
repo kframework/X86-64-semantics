@@ -1,4 +1,3 @@
-    .file	"20041213-1.c"
     .text
     .globl	strchr
 strchr:

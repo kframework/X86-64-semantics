@@ -1,4 +1,3 @@
-    .file	"mzero6.c"
     .text
     .globl	strchr
 strchr:

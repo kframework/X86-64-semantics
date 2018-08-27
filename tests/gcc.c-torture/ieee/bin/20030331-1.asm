@@ -1,4 +1,3 @@
-    .file	"20030331-1.c"
     .text
     .globl	strchr
 strchr:
@@ -286,7 +285,7 @@ rintf:
     vmovss $x(%rip), %xmm1
     vmovss	$LC0(%rip), %xmm0
     vandps	%xmm1, %xmm0, %xmm0
-    vmovss	TWO23.2416(%rip), %xmm1
+    vmovss $TWO232416(%rip), %xmm1
     vucomiss	%xmm0, %xmm1
     jbe	L45
     vmovss $x(%rip), %xmm0
@@ -294,11 +293,11 @@ rintf:
     vucomiss	%xmm1, %xmm0
     jbe	L54
     vmovss $x(%rip), %xmm1
-    vmovss	TWO23.2416(%rip), %xmm0
+    vmovss $TWO232416(%rip), %xmm0
     vaddss	%xmm0, %xmm1, %xmm0
     vmovss	%xmm0, $x(%rip)
     vmovss $x(%rip), %xmm0
-    vmovss	TWO23.2416(%rip), %xmm1
+    vmovss $TWO232416(%rip), %xmm1
     vsubss	%xmm1, %xmm0, %xmm0
     vmovss	%xmm0, $x(%rip)
     jmp	L45
@@ -307,12 +306,12 @@ L54:
     vxorps	%xmm0, %xmm0, %xmm0
     vucomiss	%xmm1, %xmm0
     jbe	L45
-    vmovss	TWO23.2416(%rip), %xmm0
+    vmovss $TWO232416(%rip), %xmm0
     vmovss $x(%rip), %xmm1
     vsubss	%xmm1, %xmm0, %xmm0
     vmovss	%xmm0, $x(%rip)
     vmovss $x(%rip), %xmm0
-    vmovss	TWO23.2416(%rip), %xmm1
+    vmovss $TWO232416(%rip), %xmm1
     vsubss	%xmm1, %xmm0, %xmm0
     vmovss	$LC2(%rip), %xmm1
     vxorps	%xmm1, %xmm0, %xmm0
@@ -340,7 +339,7 @@ L59:
     movl	$0, %edi
     call	exit
     .section	.rodata
-TWO23.2416:
+TWO232416:
     .long	1258291200
 LC0:
     .long	2147483647
