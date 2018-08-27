@@ -444,19 +444,19 @@ _start:
     movabsq	$4617315517961601024, %rax
     movq	%rax, $s1(%rip)
     movabsq	$4618441417868443648, %rax
-    movq	%rax, $s1     +     8(%rip)
+    movq	%rax, $s1      +      8(%rip)
     movabsq	$4617315517961601024, %rax
-    movq	%rax, $s1     +     16(%rip)
+    movq	%rax, $s1      +      16(%rip)
     movabsq	$9221120237041090560, %rax
-    movq	%rax, $s1     +     24(%rip)
+    movq	%rax, $s1      +      24(%rip)
     movabsq	$4618441417868443648, %rax
     movq	%rax, $s2(%rip)
     movabsq	$4617315517961601024, %rax
-    movq	%rax, $s2     +     8(%rip)
+    movq	%rax, $s2      +      8(%rip)
     movabsq	$4617315517961601024, %rax
-    movq	%rax, $s2     +     16(%rip)
+    movq	%rax, $s2      +      16(%rip)
     movabsq	$4617315517961601024, %rax
-    movq	%rax, $s2     +     24(%rip)
+    movq	%rax, $s2      +      24(%rip)
     call	foo
     movl	$0, -4(%rbp)
     jmp	L94

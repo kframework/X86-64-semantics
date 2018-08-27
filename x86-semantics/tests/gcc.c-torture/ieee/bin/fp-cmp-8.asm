@@ -334,7 +334,7 @@ L70:
     addq	%rdx, %rax
     addq	%rax, %rax
     addq	%rcx, %rax
-    movl	data.2330     +     16(,%rax,4), %ecx
+    movl	data.2330      +      16(,%rax,4), %ecx
     movl	-12(%rbp), %eax
     movslq	%eax, %rdx
     movq	%rdx, %rax
