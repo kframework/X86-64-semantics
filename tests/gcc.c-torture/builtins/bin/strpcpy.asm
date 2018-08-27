@@ -98,8 +98,8 @@ main_test:
     movl	$8, -4(%rbp)
     movl	$1684234849, $p(%rip)
     movw	$101, $p + 4(%rip)
-    movl $p + 5, %edx
-    movl $p + 5, %eax
+    movl	$p + 5, %edx
+    movl	$p + 5, %eax
     cmpq	%rax, %rdx
     jne	L9
     movl	$6, %edx
@@ -111,15 +111,15 @@ main_test:
 L9:
     call	abort
 L10:
-    movl $LC3 + 1, %edx
-    movl $p + 16, %eax
+    movl	$LC3 + 1, %edx
+    movl	$p + 16, %eax
     movq	%rdx, %rsi
     movq	%rax, %rdi
     call	stpcpy
-    movl $p + 20, %edx
+    movl	$p + 20, %edx
     cmpq	%rdx, %rax
     jne	L11
-    movl $p + 16, %eax
+    movl	$p + 16, %eax
     movl	$5, %edx
     movl	$LC4, %esi
     movq	%rax, %rdi
@@ -129,10 +129,10 @@ L10:
 L11:
     call	abort
 L12:
-    movl $p + 1, %eax
+    movl	$p + 1, %eax
     movb	$0, (%rax)
     movq	%rax, %rdx
-    movl $p + 1, %eax
+    movl	$p + 1, %eax
     cmpq	%rax, %rdx
     jne	L13
     movl	$6, %edx
@@ -144,11 +144,11 @@ L12:
 L13:
     call	abort
 L14:
-    movl $p + 3, %eax
+    movl	$p + 3, %eax
     movl	$1768449894, (%rax)
     movw	$106, 4(%rax)
     addq	$5, %rax
-    movl $p + 8, %edx
+    movl	$p + 8, %edx
     cmpq	%rdx, %rax
     jne	L15
     movl	$9, %edx
@@ -161,16 +161,16 @@ L15:
     call	abort
 L16:
     addl	$1, -4(%rbp)
-    movl $p + 21, %eax
+    movl	$p + 21, %eax
     movw	$13106, (%rax)
     movb	$0, 2(%rax)
     addq	$2, %rax
-    movl $p + 23, %edx
+    movl	$p + 23, %edx
     cmpq	%rdx, %rax
     jne	L17
     cmpl	$9, -4(%rbp)
     jne	L17
-    movl $p + 19, %eax
+    movl	$p + 19, %eax
     movl	$5, %edx
     movl	$LC7, %esi
     movq	%rax, %rdi
@@ -182,10 +182,10 @@ L17:
 L18:
     movl	$1145258561, $p(%rip)
     movb	$0, $p + 4(%rip)
-    movl $p + 4, %eax
+    movl	$p + 4, %eax
     movl	$4671045, (%rax)
     addq	$3, %rax
-    movl $p + 7, %edx
+    movl	$p + 7, %edx
     cmpq	%rdx, %rax
     jne	L19
     movl	$8, %edx
@@ -199,8 +199,8 @@ L19:
 L20:
     movl	$1684234849, $p(%rip)
     movw	$101, $p + 4(%rip)
-    movl $p + 5, %edx
-    movl $p + 5, %eax
+    movl	$p + 5, %edx
+    movl	$p + 5, %eax
     cmpq	%rax, %rdx
     jne	L21
     movl	$6, %edx
@@ -214,7 +214,7 @@ L21:
 L22:
     movl	$1, $inside_main(%rip)
     movq $s3(%rip), %rax
-    movl $p + 3, %edx
+    movl	$p + 3, %edx
     movq	%rax, %rsi
     movq	%rdx, %rdi
     call	strcpy

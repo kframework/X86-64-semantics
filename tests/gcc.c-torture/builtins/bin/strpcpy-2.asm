@@ -47,7 +47,7 @@ link_error:
     .globl	buf2
     .data
 buf2:
-     .quad buf1 + 256
+    .quad	buf1 + 256
     .comm	buf5,160,32
     .comm	buf7,20,16
     .section	.rodata
@@ -79,7 +79,7 @@ test:
     movb	$0, 16(%rax)
     movq	-24(%rbp), %rax
     addq	$16, %rax
-    movl $buf1 + 16, %edx
+    movl	$buf1 + 16, %edx
     cmpq	%rdx, %rax
     jne	L9
     movl	$17, %edx
@@ -96,7 +96,7 @@ L10:
     movq	%rsi, (%rax)
     movq	-24(%rbp), %rax
     addq	$7, %rax
-    movl $buf1 + 7, %edx
+    movl	$buf1 + 7, %edx
     cmpq	%rdx, %rax
     jne	L11
     movl	$17, %edx
@@ -116,7 +116,7 @@ L12:
     addq	%rdx, %rax
     movw	$120, (%rax)
     addq	$1, %rax
-    movl $buf1 + 5, %edx
+    movl	$buf1 + 5, %edx
     cmpq	%rdx, %rax
     jne	L13
     movl	$17, %edx

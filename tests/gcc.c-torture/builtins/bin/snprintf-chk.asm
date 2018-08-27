@@ -792,7 +792,7 @@ test1:
     call	memcmp
     testl	%eax, %eax
     jne	L105
-    movzbl $buffer + 4(%rip), %eax
+    movzbl	buffer + $4(%rip), %eax
     cmpb	$65, %al
     je	L106
 L105:
@@ -821,7 +821,7 @@ L107:
     call	memcmp
     testl	%eax, %eax
     jne	L108
-    movzbl $buffer + 4(%rip), %eax
+    movzbl	buffer + $4(%rip), %eax
     cmpb	$65, %al
     je	L109
 L108:
@@ -842,7 +842,7 @@ L109:
     call	memcmp
     testl	%eax, %eax
     jne	L110
-    movzbl $buffer + 4(%rip), %eax
+    movzbl	buffer + $4(%rip), %eax
     cmpb	$65, %al
     je	L111
 L110:
@@ -868,7 +868,7 @@ L112:
     call	memcmp
     testl	%eax, %eax
     jne	L113
-    movzbl $buffer + 4(%rip), %eax
+    movzbl	buffer + $4(%rip), %eax
     cmpb	$65, %al
     je	L114
 L113:
@@ -906,7 +906,7 @@ L115:
     call	memcmp
     testl	%eax, %eax
     jne	L116
-    movzbl $buffer + 4(%rip), %eax
+    movzbl	buffer + $4(%rip), %eax
     cmpb	$65, %al
     je	L117
 L116:
@@ -943,7 +943,7 @@ L118:
     call	memcmp
     testl	%eax, %eax
     jne	L119
-    movzbl $buffer + 5(%rip), %eax
+    movzbl	buffer + $5(%rip), %eax
     cmpb	$65, %al
     je	L120
 L119:
@@ -979,7 +979,7 @@ L121:
     call	memcmp
     testl	%eax, %eax
     jne	L122
-    movzbl $buffer + 5(%rip), %eax
+    movzbl	buffer + $5(%rip), %eax
     cmpb	$65, %al
     je	L123
 L122:
@@ -1263,7 +1263,7 @@ L141:
     addq	$17, %rax
 L142:
     movq	%rax, -88(%rbp)
-    movl $s1 + 1, %edx
+    movl	$s1 + 1, %edx
     movq	-88(%rbp), %rax
     movq	%rdx, %rcx
     movl	$LC9, %edx

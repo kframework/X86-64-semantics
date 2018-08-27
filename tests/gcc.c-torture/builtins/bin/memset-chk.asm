@@ -2812,13 +2812,13 @@ L276:
     movq	$-1, %rdx
     movl	-12(%rbp), %eax
     cltq
-    movl $u2 + 1, %edi
+    movl	$u2 + 1, %edi
     movq	%rdx, %rcx
     movq	%rax, %rdx
     movl	$0, %esi
     call	__memset_chk
     movq	%rax, -8(%rbp)
-    movl $u2 + 1, %eax
+    movl	$u2 + 1, %eax
     cmpq	%rax, -8(%rbp)
     je	L273
     call	abort
@@ -2833,11 +2833,11 @@ L273:
     movslq	%eax, %rdx
     movzbl $A(%rip), %eax
     movsbl	%al, %eax
-    movl $u2 + 1, %edi
+    movl	$u2 + 1, %edi
     movl	%eax, %esi
     call	__memset_chk
     movq	%rax, -8(%rbp)
-    movl $u2 + 1, %eax
+    movl	$u2 + 1, %eax
     cmpq	%rax, -8(%rbp)
     je	L274
     call	abort
@@ -2850,13 +2850,13 @@ L274:
     movq	$-1, %rdx
     movl	-12(%rbp), %eax
     cltq
-    movl $u2 + 1, %edi
+    movl	$u2 + 1, %edi
     movq	%rdx, %rcx
     movq	%rax, %rdx
     movl	$66, %esi
     call	__memset_chk
     movq	%rax, -8(%rbp)
-    movl $u2 + 1, %eax
+    movl	$u2 + 1, %eax
     cmpq	%rax, -8(%rbp)
     je	L275
     call	abort
@@ -2878,13 +2878,13 @@ L281:
     movq	$-1, %rdx
     movl	-12(%rbp), %eax
     cltq
-    movl $u2 + 2, %edi
+    movl	$u2 + 2, %edi
     movq	%rdx, %rcx
     movq	%rax, %rdx
     movl	$0, %esi
     call	__memset_chk
     movq	%rax, -8(%rbp)
-    movl $u2 + 2, %eax
+    movl	$u2 + 2, %eax
     cmpq	%rax, -8(%rbp)
     je	L278
     call	abort
@@ -2899,11 +2899,11 @@ L278:
     movslq	%eax, %rdx
     movzbl $A(%rip), %eax
     movsbl	%al, %eax
-    movl $u2 + 2, %edi
+    movl	$u2 + 2, %edi
     movl	%eax, %esi
     call	__memset_chk
     movq	%rax, -8(%rbp)
-    movl $u2 + 2, %eax
+    movl	$u2 + 2, %eax
     cmpq	%rax, -8(%rbp)
     je	L279
     call	abort
@@ -2916,13 +2916,13 @@ L279:
     movq	$-1, %rdx
     movl	-12(%rbp), %eax
     cltq
-    movl $u2 + 2, %edi
+    movl	$u2 + 2, %edi
     movq	%rdx, %rcx
     movq	%rax, %rdx
     movl	$66, %esi
     call	__memset_chk
     movq	%rax, -8(%rbp)
-    movl $u2 + 2, %eax
+    movl	$u2 + 2, %eax
     cmpq	%rax, -8(%rbp)
     je	L280
     call	abort
@@ -2944,13 +2944,13 @@ L286:
     movq	$-1, %rdx
     movl	-12(%rbp), %eax
     cltq
-    movl $u2 + 3, %edi
+    movl	$u2 + 3, %edi
     movq	%rdx, %rcx
     movq	%rax, %rdx
     movl	$0, %esi
     call	__memset_chk
     movq	%rax, -8(%rbp)
-    movl $u2 + 3, %eax
+    movl	$u2 + 3, %eax
     cmpq	%rax, -8(%rbp)
     je	L283
     call	abort
@@ -2965,11 +2965,11 @@ L283:
     movslq	%eax, %rdx
     movzbl $A(%rip), %eax
     movsbl	%al, %eax
-    movl $u2 + 3, %edi
+    movl	$u2 + 3, %edi
     movl	%eax, %esi
     call	__memset_chk
     movq	%rax, -8(%rbp)
-    movl $u2 + 3, %eax
+    movl	$u2 + 3, %eax
     cmpq	%rax, -8(%rbp)
     je	L284
     call	abort
@@ -2982,13 +2982,13 @@ L284:
     movq	$-1, %rdx
     movl	-12(%rbp), %eax
     cltq
-    movl $u2 + 3, %edi
+    movl	$u2 + 3, %edi
     movq	%rdx, %rcx
     movq	%rax, %rdx
     movl	$66, %esi
     call	__memset_chk
     movq	%rax, -8(%rbp)
-    movl $u2 + 3, %eax
+    movl	$u2 + 3, %eax
     cmpq	%rax, -8(%rbp)
     je	L285
     call	abort
@@ -3010,13 +3010,13 @@ L291:
     movq	$-1, %rdx
     movl	-12(%rbp), %eax
     cltq
-    movl $u2 + 4, %edi
+    movl	$u2 + 4, %edi
     movq	%rdx, %rcx
     movq	%rax, %rdx
     movl	$0, %esi
     call	__memset_chk
     movq	%rax, -8(%rbp)
-    movl $u2 + 4, %eax
+    movl	$u2 + 4, %eax
     cmpq	%rax, -8(%rbp)
     je	L288
     call	abort
@@ -3031,11 +3031,11 @@ L288:
     movslq	%eax, %rdx
     movzbl $A(%rip), %eax
     movsbl	%al, %eax
-    movl $u2 + 4, %edi
+    movl	$u2 + 4, %edi
     movl	%eax, %esi
     call	__memset_chk
     movq	%rax, -8(%rbp)
-    movl $u2 + 4, %eax
+    movl	$u2 + 4, %eax
     cmpq	%rax, -8(%rbp)
     je	L289
     call	abort
@@ -3048,13 +3048,13 @@ L289:
     movq	$-1, %rdx
     movl	-12(%rbp), %eax
     cltq
-    movl $u2 + 4, %edi
+    movl	$u2 + 4, %edi
     movq	%rdx, %rcx
     movq	%rax, %rdx
     movl	$66, %esi
     call	__memset_chk
     movq	%rax, -8(%rbp)
-    movl $u2 + 4, %eax
+    movl	$u2 + 4, %eax
     cmpq	%rax, -8(%rbp)
     je	L290
     call	abort
@@ -3076,13 +3076,13 @@ L296:
     movq	$-1, %rdx
     movl	-12(%rbp), %eax
     cltq
-    movl $u2 + 5, %edi
+    movl	$u2 + 5, %edi
     movq	%rdx, %rcx
     movq	%rax, %rdx
     movl	$0, %esi
     call	__memset_chk
     movq	%rax, -8(%rbp)
-    movl $u2 + 5, %eax
+    movl	$u2 + 5, %eax
     cmpq	%rax, -8(%rbp)
     je	L293
     call	abort
@@ -3097,11 +3097,11 @@ L293:
     movslq	%eax, %rdx
     movzbl $A(%rip), %eax
     movsbl	%al, %eax
-    movl $u2 + 5, %edi
+    movl	$u2 + 5, %edi
     movl	%eax, %esi
     call	__memset_chk
     movq	%rax, -8(%rbp)
-    movl $u2 + 5, %eax
+    movl	$u2 + 5, %eax
     cmpq	%rax, -8(%rbp)
     je	L294
     call	abort
@@ -3114,13 +3114,13 @@ L294:
     movq	$-1, %rdx
     movl	-12(%rbp), %eax
     cltq
-    movl $u2 + 5, %edi
+    movl	$u2 + 5, %edi
     movq	%rdx, %rcx
     movq	%rax, %rdx
     movl	$66, %esi
     call	__memset_chk
     movq	%rax, -8(%rbp)
-    movl $u2 + 5, %eax
+    movl	$u2 + 5, %eax
     cmpq	%rax, -8(%rbp)
     je	L295
     call	abort
@@ -3142,13 +3142,13 @@ L301:
     movq	$-1, %rdx
     movl	-12(%rbp), %eax
     cltq
-    movl $u2 + 6, %edi
+    movl	$u2 + 6, %edi
     movq	%rdx, %rcx
     movq	%rax, %rdx
     movl	$0, %esi
     call	__memset_chk
     movq	%rax, -8(%rbp)
-    movl $u2 + 6, %eax
+    movl	$u2 + 6, %eax
     cmpq	%rax, -8(%rbp)
     je	L298
     call	abort
@@ -3163,11 +3163,11 @@ L298:
     movslq	%eax, %rdx
     movzbl $A(%rip), %eax
     movsbl	%al, %eax
-    movl $u2 + 6, %edi
+    movl	$u2 + 6, %edi
     movl	%eax, %esi
     call	__memset_chk
     movq	%rax, -8(%rbp)
-    movl $u2 + 6, %eax
+    movl	$u2 + 6, %eax
     cmpq	%rax, -8(%rbp)
     je	L299
     call	abort
@@ -3180,13 +3180,13 @@ L299:
     movq	$-1, %rdx
     movl	-12(%rbp), %eax
     cltq
-    movl $u2 + 6, %edi
+    movl	$u2 + 6, %edi
     movq	%rdx, %rcx
     movq	%rax, %rdx
     movl	$66, %esi
     call	__memset_chk
     movq	%rax, -8(%rbp)
-    movl $u2 + 6, %eax
+    movl	$u2 + 6, %eax
     cmpq	%rax, -8(%rbp)
     je	L300
     call	abort
@@ -3208,13 +3208,13 @@ L306:
     movq	$-1, %rdx
     movl	-12(%rbp), %eax
     cltq
-    movl $u2 + 7, %edi
+    movl	$u2 + 7, %edi
     movq	%rdx, %rcx
     movq	%rax, %rdx
     movl	$0, %esi
     call	__memset_chk
     movq	%rax, -8(%rbp)
-    movl $u2 + 7, %eax
+    movl	$u2 + 7, %eax
     cmpq	%rax, -8(%rbp)
     je	L303
     call	abort
@@ -3229,11 +3229,11 @@ L303:
     movslq	%eax, %rdx
     movzbl $A(%rip), %eax
     movsbl	%al, %eax
-    movl $u2 + 7, %edi
+    movl	$u2 + 7, %edi
     movl	%eax, %esi
     call	__memset_chk
     movq	%rax, -8(%rbp)
-    movl $u2 + 7, %eax
+    movl	$u2 + 7, %eax
     cmpq	%rax, -8(%rbp)
     je	L304
     call	abort
@@ -3246,13 +3246,13 @@ L304:
     movq	$-1, %rdx
     movl	-12(%rbp), %eax
     cltq
-    movl $u2 + 7, %edi
+    movl	$u2 + 7, %edi
     movq	%rdx, %rcx
     movq	%rax, %rdx
     movl	$66, %esi
     call	__memset_chk
     movq	%rax, -8(%rbp)
-    movl $u2 + 7, %eax
+    movl	$u2 + 7, %eax
     cmpq	%rax, -8(%rbp)
     je	L305
     call	abort

@@ -91,7 +91,7 @@ L8:
     movl	$buf, %edi
     call	strcpy
     movq	%rax, $p(%rip)
-    movl $buf + 16, %edx
+    movl	$buf + 16, %edx
     movq	-8(%rbp), %rax
     movq	%rax, %rsi
     movq	%rdx, %rdi
@@ -103,7 +103,7 @@ main_test:
     pushq	%rbp
     movq	%rsp, %rbp
     call	test
-    movl $buf + 16, %edx
+    movl	$buf + 16, %edx
     cmpq	%rdx, %rax
     jne	L15
     movq $p(%rip), %rax

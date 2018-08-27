@@ -31,74 +31,135 @@ for my $line (@lines) {
       next;
     }
 
-    if($line =~ m/^(.*)\.quad\s+(\S+)\+(\d+)(.*)/) {
+    if($line =~ m/^\.L(.*)/) {
+      print "L". $1. "\n";
+      next;
+    }
+
+    if($line =~ m/^    call/) {
+      $line =~ s/\.//g;
+      print "". $line ."\n";
+      next;
+    }
+
+    if($line =~ m/^    j.*/) {
+      $line =~ s/\.//g;
+      print "". $line ."\n";
+      next;
+    }
+
+    if($line =~ m/^(.*)\+(.*)/g) {
+      $line  = "$1 + $2"; 
+    }
+
+    # Case quad
+    if($line =~ m/\.quad/g) {
+      $line =~ s/\.L/L/g;
+      print "". $line ."\n";
+      next;
+    }
+
+
+    if($line =~ m/(.*)\.L(.*)/) {
+      my $pre = $1;
+      my $post = $2;
+
+      my $text = "";
+      if($pre =~ m/\$/g) {
+        $text = $pre."L". $post;
+      } else {
+        $text = $pre."\$L". $post;
+      }
+
+      #if($text =~ m/(.*)\s+(\S+)\(%rip\)(.*)/) {
+      #  $text = $1. " \$$2(%rip)" . $3;
+      #  #print $1. " \$$2(%rip)" . $3. "\n";
+        #next;
+        #}
+      #if($text =~ m/^(.*)\s+([a-zA-Z]+[0-9]*+)\+(\d+)\(%(\w+)\)(.*)/) {
+      #if($text =~ m/^(.*)\+(.*)/) {
+      # #$text = $1. " \$$2 + $3(%$4)" . $5 . "R1";
+      # $text = "$1 + $2";
+      #
+      # X(%r)
+      #}#
+      # elsif ($text =~ m/(.*)\s+([a-zA-Z]+[0-9]*+)\(%(\w+)\)(.*)/) {
+      #   $text = $1. " \$$2(%$3)" . $4 . "R2";
+      #   #print $1. " \$$2(%rip)" . $3. "\n";
+      #   #next;
+      # }
+
+      #print $1."L". $2. "\n";
+      print "". $text. "\n";
+      next;
+    }
+
+    #print "beyond\n";
+
+    #if($line =~ m/^(.*)\.quad\s+(\S+)\+(\d+)(.*)/) {
+    #  my $pre = $1;
+    #  my $base = $2;
+    #  my $const = $3;
+    #  my $post = $4;
+    #  $base =~ s/\.//g;
+    #  $line = $pre . " .quad $base + $const$post";
+    #  print "$line". "\n";
+    #  next;
+    #}
+
+    # X+4(%rip)
+    #if($line =~ m/^(.*)\s+(\S+)\+(\d+)\(%rip\)(.*)/) {
+    if($line =~ m/^(.*) ([a-zA-Z]+[0-9]*) \+ (\d+)(.*)/) {
       my $pre = $1;
       my $base = $2;
       my $const = $3;
       my $post = $4;
-      $base =~ s/\.//g;
-      $line = $pre . " .quad $base + $const$post";
+
+        $base = "\$". $base;
+      $line = $pre . " $base + $const$post";
       print "$line". "\n";
       next;
     }
 
-    # X+4(%rip)
-    if($line =~ m/^(.*)\s+(\S+)\+(\d+)\(%rip\)(.*)/) {
+    if($line =~ m/^(.*) ([a-zA-Z]+[0-9]*)\(%(\w+)\)(.*)/) {
       my $pre = $1;
       my $base = $2;
-      my $const = $3;
+      my $reg = $3;
       my $post = $4;
-      $base =~ s/\.//g;
-      $base = "\$".$base;
-      $line = $pre . " $base + $const(%rip)$post";
+
+      $base = "\$". $base;
+      $line = $pre . " $base(%$reg)$post";
       print "$line". "\n";
       next;
     }
 
     # X(%rax)
     #if($line =~ m/^(.*)\s+(\w+)(\(%rip|%rax|%rbx|%rcx|%rdx\))(.*)/) {
-    if($line =~ m/^(.*)\s+([a-zA-Z]+[0-9]*)\(%rax\)(.*)/) {
-      my $pre = $1;
-      my $base = $2;
-      #my $reg = $3;
-      my $post = $3;
-      $base =~ s/\.//g;
-      $base = "\$".$base;
-      $line = $pre . " $base(%rax)$post";
-      print "$line". "\n";
-      next;
-    }
+    #if($line =~ m/^(.*)\s+([a-zA-Z]+[0-9]*)\(%rax\)(.*)/) {
+    #  my $pre = $1;
+    #  my $base = $2;
+    #  #my $reg = $3;
+    #  my $post = $3;
+    #  $base =~ s/\.//g;
+    #  $base = "\$".$base;
+    #  $line = $pre . " $base(%rax)$post";
+    #  print "$line". "\n";
+    #  next;
+    #}
 
-    # X+Y
-    if($line =~ m/^(.*)\s+(\S+)\+(\d+)(.*)/) {
-      my $pre = $1;
-      my $base = $2;
-      my $const = $3;
-      my $post = $4;
-      $base =~ s/\.//g;
-      #$base = "\$".$base;
-      $line = $pre . " $base + $const$post";
-      print "$line". "\n";
-      next;
-    }
+    ## X+Y
+    #if($line =~ m/^(.*)\s+(\S+)\+(\d+)(.*)/) {
+    #  my $pre = $1;
+    #  my $base = $2;
+    #  my $const = $3;
+    #  my $post = $4;
+    #  $base =~ s/\.//g;
+    #  #$base = "\$".$base;
+    #  $line = $pre . " $base + $const$post";
+    #  print "$line". "\n";
+    #  next;
+    #}
 
-    if($line =~ m/^\.L(.*)/) {
-      print "L". $1. "\n";
-      next;
-    }
-
-    if($line =~ m/(.*)\.L(.*)/) {
-      my $text = $1."L". $2;
-
-      if($text =~ m/(.*)\s+(\S+)\(%rip\)(.*)/) {
-        $text = $1. " \$$2(%rip)" . $3;
-        #print $1. " \$$2(%rip)" . $3. "\n";
-        #next;
-      }
-      #print $1."L". $2. "\n";
-      print $text. "\n";
-      next;
-    }
 
     if($line =~ m/^#.*/) {
       next;
