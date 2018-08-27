@@ -321,7 +321,7 @@ L70:
     movslq	%ecx, %rcx
     salq	$3, %rcx
     addq	%rcx, %rax
-    movl	data.2330     +     8(,%rax,4), %ecx
+    movl	data.2330      +      8(,%rax,4), %ecx
     movl	-12(%rbp), %eax
     cltq
     salq	$5, %rax

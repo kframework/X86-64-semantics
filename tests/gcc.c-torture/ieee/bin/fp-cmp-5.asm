@@ -213,7 +213,7 @@ L31:
     addq	%rdx, %rax
     addq	%rax, %rax
     addq	%rcx, %rax
-    movl	data.2302     +     16(,%rax,4), %ecx
+    movl	data.2302      +      16(,%rax,4), %ecx
     movl	-12(%rbp), %eax
     movslq	%eax, %rdx
     movq	%rdx, %rax

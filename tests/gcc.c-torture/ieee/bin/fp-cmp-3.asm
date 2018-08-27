@@ -47,7 +47,7 @@ L19:
     movabsq	$-9223372036854775808, %rax
     movl	$16383, %edx
     movq	%rax, $x(%rip)
-    movl	%edx, $x     +     8(%rip)
+    movl	%edx, $x      +      8(%rip)
     fldt $dnan(%rip)
     fldt $x(%rip)
     fucomip	%st(1), %st
