@@ -780,8 +780,8 @@ test1:
     movl	$1, $stpcpy_disallowed(%rip)
     movl	$1684234849, $p(%rip)
     movw	$101, $p + 4(%rip)
-    movl $p + 5, %edx
-    movl $p + 5, %eax
+    movl	$p + 5, %edx
+    movl	$p + 5, %eax
     cmpq	%rax, %rdx
     jne	L105
     movl	$6, %edx
@@ -794,15 +794,15 @@ L105:
     call	abort
 L106:
     movq	$-1, %rdx
-    movl $LC3 + 1, %ecx
-    movl $p + 16, %eax
+    movl	$LC3 + 1, %ecx
+    movl	$p + 16, %eax
     movq	%rcx, %rsi
     movq	%rax, %rdi
     call	__stpcpy_chk
-    movl $p + 20, %edx
+    movl	$p + 20, %edx
     cmpq	%rdx, %rax
     jne	L107
-    movl $p + 16, %eax
+    movl	$p + 16, %eax
     movl	$5, %edx
     movl	$LC4, %esi
     movq	%rax, %rdi
@@ -813,11 +813,11 @@ L107:
     call	abort
 L108:
     movq	$-1, %rdx
-    movl $p + 1, %eax
+    movl	$p + 1, %eax
     movl	$LC5, %esi
     movq	%rax, %rdi
     call	__stpcpy_chk
-    movl $p + 1, %edx
+    movl	$p + 1, %edx
     cmpq	%rdx, %rax
     jne	L109
     movl	$6, %edx
@@ -830,11 +830,11 @@ L109:
     call	abort
 L110:
     movq	$-1, %rdx
-    movl $p + 3, %eax
+    movl	$p + 3, %eax
     movl	$LC7, %esi
     movq	%rax, %rdi
     call	__stpcpy_chk
-    movl $p + 8, %edx
+    movl	$p + 8, %edx
     cmpq	%rdx, %rax
     jne	L111
     movl	$9, %edx
@@ -847,16 +847,16 @@ L111:
     call	abort
 L112:
     addl	$1, -4(%rbp)
-    movl $p + 21, %eax
+    movl	$p + 21, %eax
     movw	$13106, (%rax)
     movb	$0, 2(%rax)
     addq	$2, %rax
-    movl $p + 23, %edx
+    movl	$p + 23, %edx
     cmpq	%rdx, %rax
     jne	L113
     cmpl	$9, -4(%rbp)
     jne	L113
-    movl $p + 19, %eax
+    movl	$p + 19, %eax
     movl	$5, %edx
     movl	$LC9, %esi
     movq	%rax, %rdi
@@ -868,10 +868,10 @@ L113:
 L114:
     movl	$1145258561, $p(%rip)
     movb	$0, $p + 4(%rip)
-    movl $p + 4, %eax
+    movl	$p + 4, %eax
     movl	$4671045, (%rax)
     addq	$3, %rax
-    movl $p + 7, %edx
+    movl	$p + 7, %edx
     cmpq	%rdx, %rax
     jne	L115
     movl	$8, %edx
@@ -885,8 +885,8 @@ L115:
 L116:
     movl	$1684234849, $p(%rip)
     movw	$101, $p + 4(%rip)
-    movl $p + 5, %edx
-    movl $p + 5, %eax
+    movl	$p + 5, %edx
+    movl	$p + 5, %eax
     cmpq	%rax, %rdx
     jne	L117
     movl	$6, %edx
@@ -900,7 +900,7 @@ L117:
 L118:
     movl	$1, $stpcpy_disallowed(%rip)
     movq	$-1, %rdx
-    movl $p + 1, %eax
+    movl	$p + 1, %eax
     movl	$LC11, %esi
     movq	%rax, %rdi
     call	__stpcpy_chk
@@ -925,7 +925,7 @@ L120:
     movq	%rax, %rsi
     movl	$p, %edi
     call	__stpcpy_chk
-    movl $p + 4, %edx
+    movl	$p + 4, %edx
     cmpq	%rdx, %rax
     jne	L121
     movl	$6, %edx
@@ -941,7 +941,7 @@ L122:
     movl	$1, $stpcpy_disallowed(%rip)
     movq	$-1, %rdx
     movq $s3(%rip), %rax
-    movl $p + 2, %ecx
+    movl	$p + 2, %ecx
     movq	%rax, %rsi
     movq	%rcx, %rdi
     call	__stpcpy_chk
@@ -1010,7 +1010,7 @@ L130:
     movq	$-1, %rdx
     movl	-28(%rbp), %eax
     cltq
-    leaq $u2(%rax), %rcx
+    leaq	u2(%rax), %rcx
     movl	-32(%rbp), %eax
     cltq
     addq	$u1, %rax
@@ -1297,7 +1297,7 @@ L160:
 L161:
     movq	%rax, -80(%rbp)
     movq	$-1, %rdx
-    movl $s1 + 1, %ecx
+    movl	$s1 + 1, %ecx
     movq	-80(%rbp), %rax
     movq	%rcx, %rsi
     movq	%rax, %rdi

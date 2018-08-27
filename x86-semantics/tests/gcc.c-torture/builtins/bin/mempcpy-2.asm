@@ -51,7 +51,7 @@ link_error:
     .globl	buf2
     .data
 buf2:
-     .quad buf1 + 256
+    .quad	buf1 + 256
     .comm	buf5,160,32
     .comm	buf7,20,16
     .section	.rodata
@@ -112,7 +112,7 @@ test:
     movl	$LC0, %esi
     movl	$buf1, %edi
     call	mempcpy
-    movl $buf1 + 9, %edx
+    movl	$buf1 + 9, %edx
     cmpq	%rdx, %rax
     jne	L9
     movl	$11, %edx
@@ -128,7 +128,7 @@ L10:
     movl	$LC2, %esi
     movl	$buf1, %edi
     call	mempcpy
-    movl $buf1 + 17, %edx
+    movl	$buf1 + 17, %edx
     cmpq	%rdx, %rax
     jne	L11
     movl	$19, %edx
@@ -145,7 +145,7 @@ L12:
     movw	$17989, 4(%rax)
     addq	$6, %rax
     movq	%rax, %rdx
-    movl $buf1 + 6, %eax
+    movl	$buf1 + 6, %eax
     cmpq	%rax, %rdx
     jne	L13
     movl	$19, %edx
@@ -161,7 +161,7 @@ L14:
     movb	$97, (%rax)
     addq	$1, %rax
     movq	%rax, %rdx
-    movl $buf1 + 1, %eax
+    movl	$buf1 + 1, %eax
     cmpq	%rax, %rdx
     jne	L15
     movl	$19, %edx
@@ -176,13 +176,13 @@ L16:
     addl	$1, -4(%rbp)
     movl	-4(%rbp), %eax
     cltq
-    leaq	LC6(%rax), %rdx
+    leaq	$LC6(%rax), %rdx
     movq	-24(%rbp), %rax
     addq	$2, %rax
     movzwl	(%rdx), %edx
     movw	%dx, (%rax)
     addq	$2, %rax
-    movl $buf1 + 4, %edx
+    movl	$buf1 + 4, %edx
     cmpq	%rdx, %rax
     jne	L17
     movl	$19, %edx
@@ -202,7 +202,7 @@ L18:
     movl	$buf5, %esi
     movq	%rax, %rdi
     call	mempcpy
-    movl $buf1 + 10, %edx
+    movl	$buf1 + 10, %edx
     cmpq	%rdx, %rax
     jne	L19
     movl	$19, %edx
@@ -214,7 +214,7 @@ L18:
 L19:
     call	abort
 L20:
-    movl $buf5 + 1, %edx
+    movl	$buf5 + 1, %edx
     addl	$1, -4(%rbp)
     movl	-4(%rbp), %eax
     cltq
@@ -223,7 +223,7 @@ L20:
     movzbl	(%rdx), %edx
     movb	%dl, (%rax)
     addq	$1, %rax
-    movl $buf1 + 11, %edx
+    movl	$buf1 + 11, %edx
     cmpq	%rdx, %rax
     jne	L21
     movl	$19, %edx
@@ -243,7 +243,7 @@ L22:
     movzwl	(%rdx), %edx
     movw	%dx, (%rax)
     addq	$2, %rax
-    movl $buf1 + 16, %edx
+    movl	$buf1 + 16, %edx
     cmpq	%rdx, %rax
     jne	L23
     movl	$19, %edx
@@ -260,7 +260,7 @@ L24:
     movq	%rdx, (%rax)
     movq	-24(%rbp), %rax
     addq	$8, %rax
-    movl $buf1 + 8, %edx
+    movl	$buf1 + 8, %edx
     cmpq	%rdx, %rax
     jne	L25
     movl	$19, %edx
@@ -277,7 +277,7 @@ L26:
     movl	$buf5, %esi
     movq	%rax, %rdi
     call	mempcpy
-    movl $buf1 + 17, %edx
+    movl	$buf1 + 17, %edx
     cmpq	%rdx, %rax
     jne	L27
     movl	$19, %edx
@@ -290,13 +290,13 @@ L27:
     call	abort
 L28:
     movq	-24(%rbp), %rax
-    movq $LC7(%rip), %rdx
+    movq	$LC7(%rip), %rdx
     movq	%rdx, (%rax)
-    movq $LC7 + 8(%rip), %rdx
+    movq	$LC7 + 8(%rip), %rdx
     movq	%rdx, 8(%rax)
-    movzwl $LC7 + 16(%rip), %edx
+    movzwl	$LC7 + 16(%rip), %edx
     movw	%dx, 16(%rax)
-    movzbl $LC7 + 18(%rip), %edx
+    movzbl	$LC7 + 18(%rip), %edx
     movb	%dl, 18(%rax)
     movl	-44(%rbp), %eax
     addl	$6, %eax
@@ -307,7 +307,7 @@ L28:
     movl	$buf5, %esi
     movq	%rcx, %rdi
     call	mempcpy
-    movl $buf1 + 10, %edx
+    movl	$buf1 + 10, %edx
     cmpq	%rdx, %rax
     jne	L29
     movl	$19, %edx
@@ -322,7 +322,7 @@ L30:
     movl	-44(%rbp), %eax
     addl	$1, %eax
     cltq
-    movl $buf5 + 1, %esi
+    movl	$buf5 + 1, %esi
     addl	$1, -4(%rbp)
     movl	-4(%rbp), %edx
     movslq	%edx, %rdx
@@ -332,7 +332,7 @@ L30:
     movq	%rcx, %rdi
     call	mempcpy
     movq	%rax, %rdx
-    movl $buf1 + 12, %eax
+    movl	$buf1 + 12, %eax
     cmpq	%rax, %rdx
     jne	L31
     movl	$19, %edx
@@ -355,7 +355,7 @@ L32:
     movq	%rax, %rsi
     movq	%rcx, %rdi
     call	mempcpy
-    movl $buf1 + 16, %edx
+    movl	$buf1 + 16, %edx
     cmpq	%rdx, %rax
     jne	L33
     movl	$19, %edx
@@ -449,7 +449,7 @@ L42:
     leal	1(%rax), %edx
     movl	%edx, -4(%rbp)
     cltq
-    leaq	LC6(%rax), %rdx
+    leaq	$LC6(%rax), %rdx
     movq	-32(%rbp), %rax
     addq	$2, %rax
     movzwl	(%rdx), %edx
@@ -492,7 +492,7 @@ L44:
 L45:
     call	abort
 L46:
-    movl $buf7 + 1, %esi
+    movl	$buf7 + 1, %esi
     movq $buf2(%rip), %rcx
     movl	-4(%rbp), %eax
     leal	1(%rax), %edx
@@ -540,13 +540,13 @@ L49:
     call	abort
 L50:
     movq	-32(%rbp), %rax
-    movq $LC7(%rip), %rdx
+    movq	$LC7(%rip), %rdx
     movq	%rdx, (%rax)
-    movq $LC7 + 8(%rip), %rdx
+    movq	$LC7 + 8(%rip), %rdx
     movq	%rdx, 8(%rax)
-    movzwl $LC7 + 16(%rip), %edx
+    movzwl	$LC7 + 16(%rip), %edx
     movw	%dx, 16(%rax)
-    movzbl $LC7 + 18(%rip), %edx
+    movzbl	$LC7 + 18(%rip), %edx
     movb	%dl, 18(%rax)
     movl	-44(%rbp), %eax
     addl	$6, %eax
@@ -575,7 +575,7 @@ L52:
     movl	-44(%rbp), %eax
     addl	$1, %eax
     movslq	%eax, %rdx
-    movl $buf7 + 1, %edi
+    movl	$buf7 + 1, %edi
     movq $buf2(%rip), %rsi
     movl	-4(%rbp), %eax
     leal	1(%rax), %ecx

@@ -371,11 +371,11 @@ main_test:
     xorl	%eax, %eax
     movq $a(%rip), %rax
     movq	%rax, -80(%rbp)
-    movq $a + 8(%rip), %rax
+    movq	a + $8(%rip), %rax
     movq	%rax, -72(%rbp)
-    movq $a + 16(%rip), %rax
+    movq	a + $16(%rip), %rax
     movq	%rax, -64(%rbp)
-    movq $a + 24(%rip), %rax
+    movq	a + $24(%rip), %rax
     movq	%rax, -56(%rbp)
     movq	$0, -48(%rbp)
     movq	$0, -40(%rbp)
@@ -393,7 +393,7 @@ main_test:
     movzbl	-48(%rbp), %eax
     cmpb	$120, %al
     jne	L49
-    movl $x + 32, %ecx
+    movl	$x + 32, %ecx
     leaq	-48(%rbp), %rax
     addq	$1, %rax
     movl	$31, %edx
@@ -425,12 +425,12 @@ L51:
 L52:
     movl $j(%rip), %eax
     cltq
-    movl $y + 6, %ecx
+    movl	$y + 6, %ecx
     movq	%rax, %rdx
     movl	$x, %esi
     movq	%rcx, %rdi
     call	my_memcpy
-    movl $y + 6, %edx
+    movl	$y + 6, %edx
     cmpq	%rdx, %rax
     jne	L53
     movl	$6, %edx
@@ -439,7 +439,7 @@ L52:
     call	memcmp
     testl	%eax, %eax
     jne	L53
-    movl $y + 6, %eax
+    movl	$y + 6, %eax
     movl	$58, %edx
     movq	%rax, %rsi
     movl	$x, %edi
@@ -451,12 +451,12 @@ L53:
 L54:
     movl $k(%rip), %eax
     cltq
-    movl $y + 2, %ecx
+    movl	$y + 2, %ecx
     movq	%rax, %rdx
     movl	$88, %esi
     movq	%rcx, %rdi
     call	my_memset
-    movl $y + 2, %edx
+    movl	$y + 2, %edx
     cmpq	%rdx, %rax
     jne	L55
     movl	$13, %edx
@@ -468,8 +468,8 @@ L54:
 L55:
     call	abort
 L56:
-    movl $y + 2, %ecx
-    movl $y + 1, %eax
+    movl	$y + 2, %ecx
+    movl	$y + 1, %eax
     movl	$6, %edx
     movq	%rcx, %rsi
     movq	%rax, %rdi
@@ -482,7 +482,7 @@ L56:
     je	L57
     call	abort
 L57:
-    movl $y + 4, %eax
+    movl	$y + 4, %eax
     movw	$0, (%rax)
     movl	$13, %edx
     movl	$LC2, %esi

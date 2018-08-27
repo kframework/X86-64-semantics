@@ -244,13 +244,13 @@ L16:
 L17:
     movq $baz(%rip), %rax
     movq	%rax, -368(%rbp)
-    movq $baz + 8(%rip), %rax
+    movq	baz + $8(%rip), %rax
     movq	%rax, -360(%rbp)
-    movq $baz + 16(%rip), %rax
+    movq	baz + $16(%rip), %rax
     movq	%rax, -352(%rbp)
-    movq $baz + 24(%rip), %rax
+    movq	baz + $24(%rip), %rax
     movq	%rax, -344(%rbp)
-    movq $baz + 32(%rip), %rax
+    movq	baz + $32(%rip), %rax
     movq	%rax, -336(%rbp)
     leaq	-368(%rbp), %rax
     movl	$40, %edx
@@ -277,8 +277,8 @@ L19:
 L20:
     movq	$s1, -376(%rbp)
     addq	$1, -376(%rbp)
-    movl $p + 2, %edx
-    movl $p + 2, %eax
+    movl	$p + 2, %edx
+    movl	$p + 2, %eax
     cmpq	%rax, %rdx
     jne	L21
     movl	$6, %edx
@@ -287,16 +287,16 @@ L20:
     call	memcmp
     testl	%eax, %eax
     jne	L21
-    movl $s1 + 1, %eax
+    movl	$s1 + 1, %eax
     cmpq	%rax, -376(%rbp)
     je	L22
 L21:
     call	abort
 L22:
-    movl $p + 3, %eax
+    movl	$p + 3, %eax
     movb	$0, (%rax)
     movq	%rax, %rdx
-    movl $p + 3, %eax
+    movl	$p + 3, %eax
     cmpq	%rax, %rdx
     jne	L23
     movl	$6, %edx
@@ -308,7 +308,7 @@ L22:
 L23:
     call	abort
 L24:
-    movl $p + 2, %eax
+    movl	$p + 2, %eax
     movl	$1768449894, (%rax)
     movl	$7, %edx
     movl	$LC16, %esi
@@ -318,7 +318,7 @@ L24:
     je	L25
     call	abort
 L25:
-    movq $s1 + 1, -376(%rbp)
+    movq	$s1 + 1, -376(%rbp)
     movq	-376(%rbp), %rax
     addq	$1, %rax
     movq	%rax, -376(%rbp)
@@ -328,13 +328,13 @@ L25:
     call	memcmp
     testl	%eax, %eax
     jne	L26
-    movl $s1 + 2, %eax
+    movl	$s1 + 2, %eax
     cmpq	%rax, -376(%rbp)
     je	L27
 L26:
     call	abort
 L27:
-    movl $p + 4, %eax
+    movl	$p + 4, %eax
     movb	$65, (%rax)
     movl	$7, %edx
     movl	$LC17, %esi

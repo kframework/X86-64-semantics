@@ -1043,7 +1043,7 @@ L122:
     movl	%edx, $i(%rip)
     testl	%eax, %eax
     je	L123
-    movl $LC3 + 1, %ecx
+    movl	$LC3 + 1, %ecx
     jmp	L124
 L123:
     movl	$LC4, %ecx
@@ -1312,14 +1312,14 @@ L144:
 L145:
     movq	%rax, -88(%rbp)
     movq	$-1, %rdx
-    movl $s1 + 1, %esi
+    movl	$s1 + 1, %esi
     movq	-88(%rbp), %rax
     movq	%rdx, %rcx
     movl	$3, %edx
     movq	%rax, %rdi
     call	__strncpy_chk
     movq	$-1, %rdx
-    movl $s1 + 1, %esi
+    movl	$s1 + 1, %esi
     movq	-88(%rbp), %rax
     movq	%rdx, %rcx
     movl	$2, %edx

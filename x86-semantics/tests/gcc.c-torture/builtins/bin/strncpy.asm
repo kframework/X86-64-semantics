@@ -450,7 +450,7 @@ L42:
     movl	%edx, $i(%rip)
     testl	%eax, %eax
     je	L43
-    movl $LC5 + 1, %ecx
+    movl	$LC5 + 1, %ecx
     jmp	L44
 L43:
     movl	$LC6, %ecx
