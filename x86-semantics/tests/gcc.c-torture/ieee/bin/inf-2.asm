@@ -1,196 +1,506 @@
+	.file	"inf-2.c"
+	.text
+	.globl	strchr
+	.type	strchr, @function
+strchr:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	movl	%esi, -12(%rbp)
+	nop
+	movq	-8(%rbp), %rax
+	movzbl	(%rax), %eax
+	movl	-12(%rbp), %edx
+	cmpb	%dl, %al
+	je	.L6
+	movq	-8(%rbp), %rax
+	leaq	1(%rax), %rdx
+	movq	%rdx, -8(%rbp)
+	movzbl	(%rax), %eax
+	testb	%al, %al
+	jne	.L3
+	movl	$0, %eax
+	jmp	.L1
+.L3:
+	movq	-8(%rbp), %rax
+	jmp	.L1
+.L6:
+.L1:
+	popq	%rbp
+	ret
+	.size	strchr, .-strchr
+	.globl	strlen
+	.type	strlen, @function
+strlen:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movq	$0, -8(%rbp)
+	jmp	.L8
+.L9:
+	addq	$1, -8(%rbp)
+.L8:
+	movq	-24(%rbp), %rdx
+	movq	-8(%rbp), %rax
+	addq	%rdx, %rax
+	movzbl	(%rax), %eax
+	testb	%al, %al
+	jne	.L9
+	movq	-8(%rbp), %rax
+	popq	%rbp
+	ret
+	.size	strlen, .-strlen
+	.globl	strcpy
+	.type	strcpy, @function
+strcpy:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	-24(%rbp), %rax
+	movq	%rax, -8(%rbp)
+	nop
+.L12:
+	movq	-24(%rbp), %rax
+	leaq	1(%rax), %rdx
+	movq	%rdx, -24(%rbp)
+	movq	-32(%rbp), %rdx
+	leaq	1(%rdx), %rcx
+	movq	%rcx, -32(%rbp)
+	movzbl	(%rdx), %edx
+	movb	%dl, (%rax)
+	movzbl	(%rax), %eax
+	testb	%al, %al
+	jne	.L12
+	movq	-8(%rbp), %rax
+	popq	%rbp
+	ret
+	.size	strcpy, .-strcpy
+	.globl	strcmp
+	.type	strcmp, @function
+strcmp:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	jmp	.L15
+.L17:
+	addq	$1, -8(%rbp)
+	addq	$1, -16(%rbp)
+.L15:
+	movq	-8(%rbp), %rax
+	movzbl	(%rax), %eax
+	testb	%al, %al
+	je	.L16
+	movq	-8(%rbp), %rax
+	movzbl	(%rax), %edx
+	movq	-16(%rbp), %rax
+	movzbl	(%rax), %eax
+	cmpb	%al, %dl
+	je	.L17
+.L16:
+	movq	-8(%rbp), %rax
+	movzbl	(%rax), %eax
+	movzbl	%al, %edx
+	movq	-16(%rbp), %rax
+	movzbl	(%rax), %eax
+	movzbl	%al, %eax
+	subl	%eax, %edx
+	movl	%edx, %eax
+	popq	%rbp
+	ret
+	.size	strcmp, .-strcmp
+	.globl	memcmp
+	.type	memcmp, @function
+memcmp:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	%rdx, -40(%rbp)
+	movq	-24(%rbp), %rax
+	movq	%rax, -16(%rbp)
+	movq	-32(%rbp), %rax
+	movq	%rax, -8(%rbp)
+	jmp	.L20
+.L23:
+	movq	-16(%rbp), %rax
+	movzbl	(%rax), %edx
+	movq	-8(%rbp), %rax
+	movzbl	(%rax), %eax
+	cmpb	%al, %dl
+	je	.L21
+	movq	-16(%rbp), %rax
+	movzbl	(%rax), %eax
+	movzbl	%al, %edx
+	movq	-8(%rbp), %rax
+	movzbl	(%rax), %eax
+	movzbl	%al, %eax
+	subl	%eax, %edx
+	movl	%edx, %eax
+	jmp	.L22
+.L21:
+	addq	$1, -16(%rbp)
+	addq	$1, -8(%rbp)
+.L20:
+	movq	-40(%rbp), %rax
+	leaq	-1(%rax), %rdx
+	movq	%rdx, -40(%rbp)
+	testq	%rax, %rax
+	jne	.L23
+	movl	$0, %eax
+.L22:
+	popq	%rbp
+	ret
+	.size	memcmp, .-memcmp
+	.globl	exit
+	.type	exit, @function
+exit:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movl	%edi, -4(%rbp)
+#APP
+# 41 "src/library/mini_stdlib.h" 1
+	movq $-1, %rax
+	jmp %rax
+	
+# 0 "" 2
+#NO_APP
+	nop
+	popq	%rbp
+	ret
+	.size	exit, .-exit
+	.globl	abort
+	.type	abort, @function
+abort:
+	pushq	%rbp
+	movq	%rsp, %rbp
+#APP
+# 46 "src/library/mini_stdlib.h" 1
+	movq $-1, %rax
+	jmp %rax
+	
+# 0 "" 2
+#NO_APP
+	nop
+	popq	%rbp
+	ret
+	.size	abort, .-abort
+	.globl	memset
+	.type	memset, @function
+memset:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movl	%esi, -28(%rbp)
+	movq	%rdx, -40(%rbp)
+	movq	-24(%rbp), %rax
+	movq	%rax, -8(%rbp)
+	jmp	.L27
+.L28:
+	movq	-8(%rbp), %rax
+	leaq	1(%rax), %rdx
+	movq	%rdx, -8(%rbp)
+	movl	-28(%rbp), %edx
+	movb	%dl, (%rax)
+.L27:
+	movq	-40(%rbp), %rax
+	leaq	-1(%rax), %rdx
+	movq	%rdx, -40(%rbp)
+	testq	%rax, %rax
+	jne	.L28
+	movq	-24(%rbp), %rax
+	popq	%rbp
+	ret
+	.size	memset, .-memset
+	.globl	memcpy
+	.type	memcpy, @function
+memcpy:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	%rdx, -40(%rbp)
+	movq	-24(%rbp), %rax
+	movq	%rax, -16(%rbp)
+	movq	-32(%rbp), %rax
+	movq	%rax, -8(%rbp)
+	jmp	.L31
+.L32:
+	movq	-16(%rbp), %rax
+	leaq	1(%rax), %rdx
+	movq	%rdx, -16(%rbp)
+	movq	-8(%rbp), %rdx
+	leaq	1(%rdx), %rcx
+	movq	%rcx, -8(%rbp)
+	movzbl	(%rdx), %edx
+	movb	%dl, (%rax)
+.L31:
+	movq	-40(%rbp), %rax
+	leaq	-1(%rax), %rdx
+	movq	%rdx, -40(%rbp)
+	testq	%rax, %rax
+	jne	.L32
+	movq	-24(%rbp), %rax
+	popq	%rbp
+	ret
+	.size	memcpy, .-memcpy
+	.globl	malloc
+	.type	malloc, @function
+malloc:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	movl	$1000, %eax
+	popq	%rbp
+	ret
+	.size	malloc, .-malloc
+	.globl	calloc
+	.type	calloc, @function
+calloc:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movl	$1000, %eax
+	popq	%rbp
+	ret
+	.size	calloc, .-calloc
+	.globl	free
+	.type	free, @function
+free:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	nop
+	popq	%rbp
+	ret
+	.size	free, .-free
+	.globl	isprint
+	.type	isprint, @function
+isprint:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movl	%edi, -4(%rbp)
+	cmpl	$96, -4(%rbp)
+	jle	.L40
+	cmpl	$122, -4(%rbp)
+	jg	.L40
+	movl	$1, %eax
+	jmp	.L41
+.L40:
+	cmpl	$64, -4(%rbp)
+	jle	.L42
+	cmpl	$90, -4(%rbp)
+	jg	.L42
+	movl	$1, %eax
+	jmp	.L41
+.L42:
+	cmpl	$47, -4(%rbp)
+	jle	.L43
+	cmpl	$57, -4(%rbp)
+	jg	.L43
+	movl	$1, %eax
+	jmp	.L41
+.L43:
+	movl	$0, %eax
+.L41:
+	popq	%rbp
+	ret
+	.size	isprint, .-isprint
+	.globl	test
+	.type	test, @function
 test:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    subq	$16, %rsp
-    vmovsd	%xmm0, -8(%rbp)
-    vmovsd	%xmm1, -16(%rbp)
-    movq	-8(%rbp), %rax
-    vmovq	%rax, %xmm2
-    vucomisd $LC0(%rip), %xmm2
-    jbe	L18
-    call	abort
-L18:
-    movabsq	$-4503599627370497, %rax
-    vmovq	%rax, %xmm3
-    vucomisd	-8(%rbp), %xmm3
-    jbe	L19
-    call	abort
-L19:
-    movabsq	$-4503599627370497, %rax
-    vmovq	%rax, %xmm4
-    vucomisd	-16(%rbp), %xmm4
-    jbe	L20
-    call	abort
-L20:
-    movq	-16(%rbp), %rax
-    vmovq	%rax, %xmm5
-    vucomisd $LC0(%rip), %xmm5
-    seta	%al
-    xorl	$1, %eax
-    testb	%al, %al
-    je	L8
-    call	abort
-L8:
-    movq	-8(%rbp), %rax
-    vmovq	%rax, %xmm6
-    vucomisd $LC0(%rip), %xmm6
-    jbe	L21
-    call	abort
-L21:
-    movabsq	$-4503599627370497, %rax
-    vmovq	%rax, %xmm7
-    vucomisd	-8(%rbp), %xmm7
-    jbe	L22
-    call	abort
-L22:
-    leave
-    ret
+	pushq	%rbp
+	movq	%rsp, %rbp
+	subq	$16, %rsp
+	vmovsd	%xmm0, -8(%rbp)
+	vmovsd	%xmm1, -16(%rbp)
+	vmovsd	-8(%rbp), %xmm0
+	vmovsd	.LC0(%rip), %xmm1
+	vucomisd	%xmm1, %xmm0
+	jbe	.L61
+	call	abort
+.L61:
+	vmovsd	.LC1(%rip), %xmm0
+	vucomisd	-8(%rbp), %xmm0
+	jbe	.L62
+	call	abort
+.L62:
+	vmovsd	.LC1(%rip), %xmm0
+	vucomisd	-16(%rbp), %xmm0
+	jbe	.L63
+	call	abort
+.L63:
+	vmovsd	-16(%rbp), %xmm0
+	vmovsd	.LC0(%rip), %xmm1
+	vucomisd	%xmm1, %xmm0
+	seta	%al
+	xorl	$1, %eax
+	testb	%al, %al
+	je	.L51
+	call	abort
+.L51:
+	vmovsd	-8(%rbp), %xmm0
+	vmovsd	.LC0(%rip), %xmm1
+	vucomisd	%xmm1, %xmm0
+	jbe	.L64
+	call	abort
+.L64:
+	vmovsd	.LC1(%rip), %xmm0
+	vucomisd	-8(%rbp), %xmm0
+	ja	.L60
+	jmp	.L65
+.L60:
+	call	abort
+.L65:
+	leave
+	ret
+	.size	test, .-test
+	.globl	testf
+	.type	testf, @function
 testf:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    subq	$16, %rsp
-    vmovss	%xmm0, -4(%rbp)
-    vmovss	%xmm1, -8(%rbp)
-    movl	-4(%rbp), %eax
-    vmovd	%eax, %xmm2
-    vucomiss $LC2(%rip), %xmm2
-    jbe	L40
-    call	abort
-L40:
-    movl $LC3(%rip), %eax
-    vmovd	%eax, %xmm3
-    vucomiss	-4(%rbp), %xmm3
-    jbe	L41
-    call	abort
-L41:
-    movl $LC3(%rip), %eax
-    vmovd	%eax, %xmm4
-    vucomiss	-8(%rbp), %xmm4
-    jbe	L42
-    call	abort
-L42:
-    movl	-8(%rbp), %eax
-    vmovd	%eax, %xmm5
-    vucomiss $LC2(%rip), %xmm5
-    seta	%al
-    xorl	$1, %eax
-    testb	%al, %al
-    je	L30
-    call	abort
-L30:
-    movl	-4(%rbp), %eax
-    vmovd	%eax, %xmm6
-    vucomiss $LC2(%rip), %xmm6
-    jbe	L43
-    call	abort
-L43:
-    movl $LC3(%rip), %eax
-    vmovd	%eax, %xmm7
-    vucomiss	-4(%rbp), %xmm7
-    jbe	L44
-    call	abort
-L44:
-    leave
-    ret
+	pushq	%rbp
+	movq	%rsp, %rbp
+	subq	$8, %rsp
+	vmovss	%xmm0, -4(%rbp)
+	vmovss	%xmm1, -8(%rbp)
+	vmovss	-4(%rbp), %xmm0
+	vmovss	.LC2(%rip), %xmm1
+	vucomiss	%xmm1, %xmm0
+	jbe	.L83
+	call	abort
+.L83:
+	vmovss	.LC3(%rip), %xmm0
+	vucomiss	-4(%rbp), %xmm0
+	jbe	.L84
+	call	abort
+.L84:
+	vmovss	.LC3(%rip), %xmm0
+	vucomiss	-8(%rbp), %xmm0
+	jbe	.L85
+	call	abort
+.L85:
+	vmovss	-8(%rbp), %xmm0
+	vmovss	.LC2(%rip), %xmm1
+	vucomiss	%xmm1, %xmm0
+	seta	%al
+	xorl	$1, %eax
+	testb	%al, %al
+	je	.L73
+	call	abort
+.L73:
+	vmovss	-4(%rbp), %xmm0
+	vmovss	.LC2(%rip), %xmm1
+	vucomiss	%xmm1, %xmm0
+	jbe	.L86
+	call	abort
+.L86:
+	vmovss	.LC3(%rip), %xmm0
+	vucomiss	-4(%rbp), %xmm0
+	ja	.L82
+	jmp	.L87
+.L82:
+	call	abort
+.L87:
+	leave
+	ret
+	.size	testf, .-testf
+	.globl	testl
+	.type	testl, @function
 testl:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    fldt	16(%rbp)
-    fldt $LC4(%rip)
-    fxch	%st(1)
-    fucomip	%st(1), %st
-    fstp	%st(0)
-    jbe	L62
-    call	abort
-L62:
-    fldt $LC5(%rip)
-    fldt	16(%rbp)
-    fxch	%st(1)
-    fucomip	%st(1), %st
-    fstp	%st(0)
-    jbe	L63
-    call	abort
-L63:
-    fldt $LC5(%rip)
-    fldt	32(%rbp)
-    fxch	%st(1)
-    fucomip	%st(1), %st
-    fstp	%st(0)
-    jbe	L64
-    call	abort
-L64:
-    fldt	32(%rbp)
-    fldt $LC4(%rip)
-    fxch	%st(1)
-    fucomip	%st(1), %st
-    fstp	%st(0)
-    seta	%al
-    xorl	$1, %eax
-    testb	%al, %al
-    je	L52
-    call	abort
-L52:
-    fldt	16(%rbp)
-    fldt $LC4(%rip)
-    fxch	%st(1)
-    fucomip	%st(1), %st
-    fstp	%st(0)
-    jbe	L65
-    call	abort
-L65:
-    fldt $LC5(%rip)
-    fldt	16(%rbp)
-    fxch	%st(1)
-    fucomip	%st(1), %st
-    fstp	%st(0)
-    jbe	L66
-    call	abort
-L66:
-    popq	%rbp
-    ret
-    .globl _start
-_start:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movabsq	$9218868437227405312, %rdx
-    movabsq	$4629981891913580544, %rax
-    vmovq	%rdx, %xmm1
-    vmovq	%rax, %xmm0
-    call	test
-    vmovss $LC9(%rip), %xmm1
-    vmovss $LC10(%rip), %xmm0
-    call	testf
-    movabsq	$-9223372036854775808, %rax
-    movl	$32767, %edx
-    pushq	%rdx
-    pushq	%rax
-    movabsq	$-8646911284551352320, %rax
-    movl	$16388, %edx
-    pushq	%rdx
-    pushq	%rax
-    call	testl
-    addq	$32, %rsp
-    movl	$0, %eax
-    leave
-    ret
-LC0:
-    .long	4294967295
-    .long	2146435071
-LC2:
-    .long	2139095039
-LC3:
-    .long	4286578687
-LC4:
-    .long	4294967295
-    .long	4294967295
-    .long	32766
-    .long	0
-LC5:
-    .long	4294967295
-    .long	4294967295
-    .long	65534
-    .long	0
-LC9:
-    .long	2139095040
-LC10:
-    .long	1107820544
+	pushq	%rbp
+	movq	%rsp, %rbp
+	subq	$16, %rsp
+	vmovsd	%xmm0, -8(%rbp)
+	vmovsd	%xmm1, -16(%rbp)
+	vmovsd	-8(%rbp), %xmm0
+	vmovsd	.LC0(%rip), %xmm1
+	vucomisd	%xmm1, %xmm0
+	jbe	.L105
+	call	abort
+.L105:
+	vmovsd	.LC1(%rip), %xmm0
+	vucomisd	-8(%rbp), %xmm0
+	jbe	.L106
+	call	abort
+.L106:
+	vmovsd	.LC1(%rip), %xmm0
+	vucomisd	-16(%rbp), %xmm0
+	jbe	.L107
+	call	abort
+.L107:
+	vmovsd	-16(%rbp), %xmm0
+	vmovsd	.LC0(%rip), %xmm1
+	vucomisd	%xmm1, %xmm0
+	seta	%al
+	xorl	$1, %eax
+	testb	%al, %al
+	je	.L95
+	call	abort
+.L95:
+	vmovsd	-8(%rbp), %xmm0
+	vmovsd	.LC0(%rip), %xmm1
+	vucomisd	%xmm1, %xmm0
+	jbe	.L108
+	call	abort
+.L108:
+	vmovsd	.LC1(%rip), %xmm0
+	vucomisd	-8(%rbp), %xmm0
+	ja	.L104
+	jmp	.L109
+.L104:
+	call	abort
+.L109:
+	leave
+	ret
+	.size	testl, .-testl
+	.globl	main
+	.type	main, @function
+main:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	vmovsd	.LC4(%rip), %xmm0
+	movabsq	$4629981891913580544, %rax
+	vmovapd	%xmm0, %xmm1
+	vmovq	%rax, %xmm0
+	call	test
+	vmovss	.LC6(%rip), %xmm1
+	vmovss	.LC7(%rip), %xmm0
+	call	testf
+	vmovsd	.LC4(%rip), %xmm0
+	movabsq	$4629981891913580544, %rax
+	vmovapd	%xmm0, %xmm1
+	vmovq	%rax, %xmm0
+	call	testl
+	movl	$0, %eax
+	popq	%rbp
+	ret
+	.size	main, .-main
+	.section	.rodata
+	.align 8
+.LC0:
+	.long	4294967295
+	.long	2146435071
+	.align 8
+.LC1:
+	.long	4294967295
+	.long	-1048577
+	.align 4
+.LC2:
+	.long	2139095039
+	.align 4
+.LC3:
+	.long	4286578687
+	.align 8
+.LC4:
+	.long	0
+	.long	2146435072
+	.align 4
+.LC6:
+	.long	2139095040
+	.align 4
+.LC7:
+	.long	1107820544
+	.ident	"GCC: (Ubuntu 5.4.0-6ubuntu1~16.04.10) 5.4.0 20160609"
+	.section	.note.GNU-stack,"",@progbits
