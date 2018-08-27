@@ -31,6 +31,10 @@ for my $line (@lines) {
       next;
     }
 
+    if($line =~ m/\#/) {
+      next;
+    }
+
     if($line =~ m/^\.L(.*)/) {
       print "L". $1. "\n";
       next;
