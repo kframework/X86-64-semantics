@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* Like fp-cmp-4.c, but test that the setcc patterns are correct.  */
 
 static int

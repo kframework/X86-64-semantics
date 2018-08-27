@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* Test gcse handling of IEEE 0/-0 rules.  */
 static double zero = 0.0;
 

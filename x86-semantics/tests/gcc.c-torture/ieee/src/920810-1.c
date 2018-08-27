@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 #include <stdio.h>
 double normalize(x)double x;{if(x==0)x=0;return x;}
 main(){char b[9];

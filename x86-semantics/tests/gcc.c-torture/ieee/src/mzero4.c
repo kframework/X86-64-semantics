@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* Copyright (C) 2003  Free Software Foundation.
    by Roger Sayle <roger@eyesopen.com>, derived from mzero3.c
 

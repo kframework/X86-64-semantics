@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 #include <float.h>
 
 long double dfrom = 1.1L;

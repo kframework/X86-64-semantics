@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* PR middle-end/19983 */
 
 typedef __SIZE_TYPE__ size_t;

@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* Check that certain subnormal numbers (formerly known as denormalized
    numbers) are rounded to within 0.5 ulp.  PR other/14354.  */
 

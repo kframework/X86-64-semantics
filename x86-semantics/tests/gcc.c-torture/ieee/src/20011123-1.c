@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 main()
 {
   double db1 = 1.7976931348623157e+308;
