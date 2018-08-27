@@ -1,4 +1,3 @@
-    .file	"pr22237.c"
     .text
     .globl	memcpy
 memcpy:

@@ -1,4 +1,3 @@
-    .file	"20010124-1.c"
     .text
     .globl	f
 f:

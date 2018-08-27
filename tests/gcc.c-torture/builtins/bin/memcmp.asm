@@ -1,4 +1,3 @@
-    .file	"memcmp.c"
     .text
     .globl	memcmp
 memcmp:

@@ -1,4 +1,3 @@
-    .file	"strchr.c"
     .text
     .globl	strchr
 strchr:

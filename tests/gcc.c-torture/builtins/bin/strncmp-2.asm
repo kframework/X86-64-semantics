@@ -1,4 +1,3 @@
-    .file	"strncmp-2.c"
     .text
     .globl	strncmp
 strncmp:

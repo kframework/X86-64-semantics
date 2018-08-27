@@ -1,4 +1,3 @@
-    .file	"strpcpy-2.c"
     .text
     .globl	stpcpy
 stpcpy:
@@ -24,6 +23,68 @@ L2:
     movq	-8(%rbp), %rax
     movb	$0, (%rax)
     movq	-8(%rbp), %rax
+    popq	%rbp
+    ret
+    .globl	memcmp
+memcmp:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq	%rdi, -24(%rbp)
+    movq	%rsi, -32(%rbp)
+    movq	%rdx, -40(%rbp)
+    movq	-24(%rbp), %rax
+    movq	%rax, -16(%rbp)
+    movq	-32(%rbp), %rax
+    movq	%rax, -8(%rbp)
+    jmp	L6
+L9:
+    movq	-16(%rbp), %rax
+    movzbl	(%rax), %edx
+    movq	-8(%rbp), %rax
+    movzbl	(%rax), %eax
+    cmpb	%al, %dl
+    je	L7
+    movq	-16(%rbp), %rax
+    movzbl	(%rax), %eax
+    movzbl	%al, %edx
+    movq	-8(%rbp), %rax
+    movzbl	(%rax), %eax
+    movzbl	%al, %eax
+    subl	%eax, %edx
+    movl	%edx, %eax
+    jmp	L8
+L7:
+    addq	$1, -16(%rbp)
+    addq	$1, -8(%rbp)
+L6:
+    movq	-40(%rbp), %rax
+    leaq	-1(%rax), %rdx
+    movq	%rdx, -40(%rbp)
+    testq	%rax, %rax
+    jne	L9
+    movl	$0, %eax
+L8:
+    popq	%rbp
+    ret
+    .globl	exit
+exit:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movl	%edi, -4(%rbp)
+    movq $-1, %rax
+    jmp %rax
+    
+    nop
+    popq	%rbp
+    ret
+    .globl	abort
+abort:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq $-1, %rax
+    jmp %rax
+    
+    nop
     popq	%rbp
     ret
     .comm	inside_main,4,4
@@ -81,16 +142,16 @@ test:
     addq	$16, %rax
     movl	$buf1 + 16, %edx
     cmpq	%rdx, %rax
-    jne	L9
+    jne	L16
     movl	$17, %edx
     movl	$LC0, %esi
     movl	$buf1, %edi
     call	memcmp
     testl	%eax, %eax
-    je	L10
-L9:
+    je	L17
+L16:
     call	abort
-L10:
+L17:
     movq	-24(%rbp), %rax
     movabsq	$20061986658402881, %rsi
     movq	%rsi, (%rax)
@@ -98,16 +159,16 @@ L10:
     addq	$7, %rax
     movl	$buf1 + 7, %edx
     cmpq	%rdx, %rax
-    jne	L11
+    jne	L18
     movl	$17, %edx
     movl	$LC1, %esi
     movl	$buf1, %edi
     call	memcmp
     testl	%eax, %eax
-    je	L12
-L11:
+    je	L19
+L18:
     call	abort
-L12:
+L19:
     movl	-4(%rbp), %eax
     leal	1(%rax), %edx
     movl	%edx, -4(%rbp)
@@ -118,16 +179,16 @@ L12:
     addq	$1, %rax
     movl	$buf1 + 5, %edx
     cmpq	%rdx, %rax
-    jne	L13
+    jne	L20
     movl	$17, %edx
     movl	$LC2, %esi
     movl	$buf1, %edi
     call	memcmp
     testl	%eax, %eax
-    je	L15
-L13:
+    je	L22
+L20:
     call	abort
-L15:
+L22:
     nop
     leave
     ret

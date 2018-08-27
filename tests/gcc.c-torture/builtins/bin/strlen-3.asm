@@ -1,4 +1,3 @@
-    .file	"strlen-3.c"
     .text
     .globl	strlen
 strlen:
@@ -17,6 +16,27 @@ L2:
     testb	%al, %al
     jne	L3
     movq	-8(%rbp), %rax
+    popq	%rbp
+    ret
+    .globl	exit
+exit:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movl	%edi, -4(%rbp)
+    movq $-1, %rax
+    jmp %rax
+    
+    nop
+    popq	%rbp
+    ret
+    .globl	abort
+abort:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq $-1, %rax
+    jmp %rax
+    
+    nop
     popq	%rbp
     ret
     .comm	inside_main,4,4
@@ -65,14 +85,14 @@ main_test:
     subq	%rax, %rdx
     movq	%rdx, %rax
     cmpq	$7, %rax
-    je	L9
+    je	L11
     call	abort
-L9:
+L11:
     movl $x(%rip), %eax
     cmpl	$7, %eax
-    je	L10
+    je	L12
     call	abort
-L10:
+L12:
     movl	$0, $inside_main(%rip)
     movl $x(%rip), %eax
     leal	1(%rax), %edx
@@ -83,14 +103,14 @@ L10:
     movq	%rax, %rdi
     call	strlen
     cmpq	$5, %rax
-    je	L11
+    je	L13
     call	abort
-L11:
+L13:
     movl $x(%rip), %eax
     cmpl	$8, %eax
-    je	L12
+    je	L14
     call	abort
-L12:
+L14:
     movl	$1, $inside_main(%rip)
     nop
     popq	%rbp

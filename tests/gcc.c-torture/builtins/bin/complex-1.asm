@@ -1,4 +1,3 @@
-    .file	"complex-1.c"
     .text
 conjf:
     pushq	%rbp

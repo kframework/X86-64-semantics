@@ -1,4 +1,3 @@
-    .file	"memchr.c"
     .text
     .globl	memchr
 memchr:
