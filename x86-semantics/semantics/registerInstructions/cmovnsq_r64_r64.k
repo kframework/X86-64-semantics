@@ -5,6 +5,9 @@ module CMOVNSQ-R64-R64
   imports X86-CONFIGURATION
 
   rule <k>
+    execinstr (cmovns R1:R64, R2:R64,  .Operands) => execinstr (cmovnsq R1:R64, R2:R64,  .Operands)
+  ...</k>
+  rule <k>
     execinstr (cmovnsq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>

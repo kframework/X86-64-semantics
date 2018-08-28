@@ -4,6 +4,10 @@ requires "x86-configuration.k"
 module CMOVSW-R16-M16
   imports X86-CONFIGURATION
 
+   rule <k>
+    execinstr (cmovs:Opcode M:Mem, R2:R16,  .Operands) => execinstr (cmovsw:Opcode M:Mem, R2:R16,  .Operands)
+  ...</k>
+
   context execinstr(cmovsw:Opcode HOLE:Mem, R2:R16,  .Operands) [result(MemOffset)]
   
   rule <k>

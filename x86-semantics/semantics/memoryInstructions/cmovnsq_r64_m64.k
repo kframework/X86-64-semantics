@@ -4,6 +4,9 @@ requires "x86-configuration.k"
 module CMOVNSQ-R64-M64
   imports X86-CONFIGURATION
 
+  rule <k>
+    execinstr (cmovns:Opcode M:Mem, R2:R64,  .Operands) => execinstr (cmovnsq:Opcode M:Mem, R2:R64,  .Operands)
+  ...</k>
   context execinstr(cmovnsq:Opcode HOLE:Mem, R2:R64,  .Operands) [result(MemOffset)]
   
   rule <k>

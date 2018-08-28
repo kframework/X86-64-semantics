@@ -4,6 +4,9 @@ requires "x86-configuration.k"
 module CMOVNSW-R16-M16
   imports X86-CONFIGURATION
 
+  rule <k>
+    execinstr (cmovns:Opcode M:Mem, R2:R16,  .Operands) => execinstr (cmovnsw:Opcode M:Mem, R2:R16,  .Operands)
+  ...</k>
   context execinstr(cmovnsw:Opcode HOLE:Mem, R2:R16,  .Operands) [result(MemOffset)]
   
   rule <k>
