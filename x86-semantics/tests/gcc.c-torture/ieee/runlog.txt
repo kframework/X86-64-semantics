@@ -1,0 +1,147 @@
+
+20041213-1
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20041213-1.asm   --output-file Output/20041213-1.kstate 
+cat Output/20041213-1.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfiledHek2  2>&1 &&  mv /tmp/tmpfiledHek2 Output/20041213-1.kstate 
+Passed:[4m[1m[92mOutput/20041213-1.kstate: Pass: krun[0m
+[Warning] Internal: Ignored exception thrown by hook Float2MInt (NaN payload is
+undefined)
+843.87user 68.46system 5:49.12elapsed 261%CPU (0avgtext+0avgdata 12278744maxresident)k
+16inputs+14336outputs (0major+11393690minor)pagefaults 0swaps
+
+fp-cmp-2
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//fp-cmp-2.asm   --output-file Output/fp-cmp-2.kstate 
+cat Output/fp-cmp-2.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileXfBYo  2>&1 &&  mv /tmp/tmpfileXfBYo Output/fp-cmp-2.kstate 
+Failed:[4m[1m[91mOutput/fp-cmp-2.kstate: Non exit status[0m
+835.11user 64.82system 5:50.72elapsed 256%CPU (0avgtext+0avgdata 12543528maxresident)k
+0inputs+14224outputs (0major+13716615minor)pagefaults 0swaps
+
+fp-cmp-1
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//fp-cmp-1.asm   --output-file Output/fp-cmp-1.kstate 
+cat Output/fp-cmp-1.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileiVKlX  2>&1 &&  mv /tmp/tmpfileiVKlX Output/fp-cmp-1.kstate 
+Failed:[4m[1m[91mOutput/fp-cmp-1.kstate: Non exit status[0m
+850.15user 41.37system 5:51.27elapsed 253%CPU (0avgtext+0avgdata 12604960maxresident)k
+16inputs+14288outputs (0major+10277928minor)pagefaults 0swaps
+
+fp-cmp-3
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//fp-cmp-3.asm   --output-file Output/fp-cmp-3.kstate 
+cat Output/fp-cmp-3.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfile9BnKR  2>&1 &&  mv /tmp/tmpfile9BnKR Output/fp-cmp-3.kstate 
+Failed:[4m[1m[91mOutput/fp-cmp-3.kstate: Non exit status[0m
+800.61user 43.08system 5:11.83elapsed 270%CPU (0avgtext+0avgdata 12295052maxresident)k
+0inputs+14152outputs (0major+7525927minor)pagefaults 0swaps
+
+fp-cmp-4l
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//fp-cmp-4l.asm   --output-file Output/fp-cmp-4l.kstate 
+cat Output/fp-cmp-4l.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfile5gTW8  2>&1 &&  mv /tmp/tmpfile5gTW8 Output/fp-cmp-4l.kstate 
+Passed:[4m[1m[92mOutput/fp-cmp-4l.kstate: Pass: krun[0m
+1064.15user 54.56system 6:02.49elapsed 308%CPU (0avgtext+0avgdata 12947456maxresident)k
+0inputs+15000outputs (0major+12657554minor)pagefaults 0swaps
+
+fp-cmp-4f
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//fp-cmp-4f.asm   --output-file Output/fp-cmp-4f.kstate 
+cat Output/fp-cmp-4f.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfile5rVfp  2>&1 &&  mv /tmp/tmpfile5rVfp Output/fp-cmp-4f.kstate 
+Passed:[4m[1m[92mOutput/fp-cmp-4f.kstate: Pass: krun[0m
+1056.91user 51.26system 6:21.12elapsed 290%CPU (0avgtext+0avgdata 13193932maxresident)k
+0inputs+15056outputs (0major+13535931minor)pagefaults 0swaps
+
+fp-cmp-5
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//fp-cmp-5.asm   --output-file Output/fp-cmp-5.kstate 
+cat Output/fp-cmp-5.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilepYI11  2>&1 &&  mv /tmp/tmpfilepYI11 Output/fp-cmp-5.kstate 
+Passed:[4m[1m[92mOutput/fp-cmp-5.kstate: Pass: krun[0m
+1390.64user 144.85system 14:07.87elapsed 181%CPU (0avgtext+0avgdata 12898528maxresident)k
+0inputs+31504outputs (0major+35650910minor)pagefaults 0swaps
+
+copysign1
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//copysign1.asm   --output-file Output/copysign1.kstate 
+cat Output/copysign1.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileDhPCi  2>&1 &&  mv /tmp/tmpfileDhPCi Output/copysign1.kstate 
+Passed:[4m[1m[92mOutput/copysign1.kstate: Pass: krun[0m
+1607.61user 150.46system 15:49.51elapsed 185%CPU (0avgtext+0avgdata 12894804maxresident)k
+24inputs+34904outputs (0major+41617668minor)pagefaults 0swaps
+
+pr50310
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//pr50310.asm   --output-file Output/pr50310.kstate 
+cat Output/pr50310.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfile0T6zf  2>&1 &&  mv /tmp/tmpfile0T6zf Output/pr50310.kstate 
+Failed:[4m[1m[91mOutput/pr50310.kstate: K cell missing[0m
+[Error] Critical: Parser returned a non-zero exit code: 113
+Stdout:
+
+Stderr:
+[Error] Inner Parser: Parse error: unexpected token '('.
+	Source(/home/sdasgup3/Github/binary-decompilation/x86-semantics/tests/gcc.c-torture/ieee/./bin/pr50310.asm)
+	Location(288,14,288,15)
+Command exited with non-zero status 113
+100.48user 5.58system 0:10.70elapsed 990%CPU (0avgtext+0avgdata 1109004maxresident)k
+0inputs+9536outputs (0major+685357minor)pagefaults 0swaps
+
+fp-cmp-4
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//fp-cmp-4.asm   --output-file Output/fp-cmp-4.kstate 
+cat Output/fp-cmp-4.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileoW8ad  2>&1 &&  mv /tmp/tmpfileoW8ad Output/fp-cmp-4.kstate 
+Passed:[4m[1m[92mOutput/fp-cmp-4.kstate: Pass: krun[0m
+1242.04user 54.32system 6:01.67elapsed 358%CPU (0avgtext+0avgdata 12303352maxresident)k
+0inputs+14904outputs (0major+14469873minor)pagefaults 0swaps
+
+mul-subnormal-single-1
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//mul-subnormal-single-1.asm   --output-file Output/mul-subnormal-single-1.kstate 
+cat Output/mul-subnormal-single-1.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileRTMuS  2>&1 &&  mv /tmp/tmpfileRTMuS Output/mul-subnormal-single-1.kstate 
+Passed:[4m[1m[92mOutput/mul-subnormal-single-1.kstate: Pass: krun[0m
+868.54user 41.44system 6:10.74elapsed 245%CPU (0avgtext+0avgdata 12445044maxresident)k
+0inputs+16016outputs (0major+9686684minor)pagefaults 0swaps
+
+mzero2
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//mzero2.asm   --output-file Output/mzero2.kstate 
+cat Output/mzero2.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileNBZbL  2>&1 &&  mv /tmp/tmpfileNBZbL Output/mzero2.kstate 
+Failed:[4m[1m[91mOutput/mzero2.kstate: Non exit status[0m
+[Warning] Internal: Ignored exception thrown by hook Float2MInt (NaN payload is
+undefined)
+1263.08user 97.31system 10:59.72elapsed 206%CPU (0avgtext+0avgdata 12461420maxresident)k
+0inputs+26648outputs (0major+22685188minor)pagefaults 0swaps
+
+fp-cmp-8f
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//fp-cmp-8f.asm   --output-file Output/fp-cmp-8f.kstate 
+cat Output/fp-cmp-8f.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileSitP_  2>&1 &&  mv /tmp/tmpfileSitP_ Output/fp-cmp-8f.kstate 
+Passed:[4m[1m[92mOutput/fp-cmp-8f.kstate: Pass: krun[0m
+2735.60user 395.80system 35:18.39elapsed 147%CPU (0avgtext+0avgdata 14157292maxresident)k
+1203040inputs+72320outputs (146970major+84151169minor)pagefaults 0swaps
+
+fp-cmp-8l
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//fp-cmp-8l.asm   --output-file Output/fp-cmp-8l.kstate 
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 1507328000 bytes for committing reserved memory.
+# An error report file with more information is saved as:
+# /home/sdasgup3/Github/binary-decompilation/x86-semantics/tests/gcc.c-torture/ieee/hs_err_pid17131.log
+cat Output/fp-cmp-8l.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileN0f3M  2>&1 &&  mv /tmp/tmpfileN0f3M Output/fp-cmp-8l.kstate 
+Failed:[4m[1m[91mOutput/fp-cmp-8l.kstate: K cell missing[0m
+Java HotSpot(TM) 64-Bit Server VM warning: INFO: os::commit_memory(0x0000148b35e80000, 1507328000, 0) failed; error='Cannot allocate memory' (errno=12)
+Command exited with non-zero status 1
+3042.10user 427.57system 44:38.51elapsed 129%CPU (0avgtext+0avgdata 13822480maxresident)k
+2031019inputs+19368outputs (245724major+100999672minor)pagefaults 0swaps
+
+fp-cmp-8
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//fp-cmp-8.asm   --output-file Output/fp-cmp-8.kstate 
+cat Output/fp-cmp-8.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileGlCjX  2>&1 &&  mv /tmp/tmpfileGlCjX Output/fp-cmp-8.kstate 
+Passed:[4m[1m[92mOutput/fp-cmp-8.kstate: Pass: krun[0m
+3298.33user 540.84system 47:52.00elapsed 133%CPU (0avgtext+0avgdata 16444804maxresident)k
+6648992inputs+89248outputs (820464major+114011071minor)pagefaults 0swaps
+
+pr38016
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//pr38016.asm   --output-file Output/pr38016.kstate 
+cat Output/pr38016.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileqLb0U  2>&1 &&  mv /tmp/tmpfileqLb0U Output/pr38016.kstate 
+Passed:[4m[1m[92mOutput/pr38016.kstate: Pass: krun[0m
+3384.34user 466.58system 51:35.21elapsed 124%CPU (0avgtext+0avgdata 15022484maxresident)k
+9630123inputs+89352outputs (1190104major+118284496minor)pagefaults 0swaps
