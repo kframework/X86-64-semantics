@@ -1,4 +1,6 @@
 #include<stddef.h>
+#include"mini_string.h"
+#include"mini_stdlib.h"
 
 extern void abort (void);
 extern int inside_main;
@@ -26,14 +28,6 @@ strcspn (const char *s1, const char *s2)
   return p - s1;
 }
 
-char *strchr(const char *s, int c) {
-  while(*s != (char)c) {
-    if(!*s++)
-      return 0;
-    return (char *)s;
-  }
-}
-
 
 size_t strspn(const char *s1, const char *s2)
 {
@@ -42,3 +36,4 @@ size_t strspn(const char *s1, const char *s2)
         ret++;
     return ret;    
 }
+

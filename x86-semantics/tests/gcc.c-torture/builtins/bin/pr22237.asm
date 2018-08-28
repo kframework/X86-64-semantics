@@ -45,6 +45,27 @@ L4:
     movq	-24(%rbp), %rax
     leave
     ret
+    .globl	exit
+exit:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movl	%edi, -4(%rbp)
+    movq $-1, %rax
+    jmp %rax
+    
+    nop
+    popq	%rbp
+    ret
+    .globl	abort
+abort:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq $-1, %rax
+    jmp %rax
+    
+    nop
+    popq	%rbp
+    ret
     .comm	inside_main,4,4
     .globl	main
 .globl _start
@@ -81,9 +102,9 @@ rp:
     movq	(%rax), %rax
     movq	-8(%rbp), %rdx
     xorq	$40, %rdx
-    je	L12
+    je	L14
     call	__stack_chk_fail
-L12:
+L14:
     leave
     ret
 rq:
@@ -97,9 +118,9 @@ rq:
     movq	(%rax), %rax
     movq	-8(%rbp), %rdx
     xorq	$40, %rdx
-    je	L15
+    je	L17
     call	__stack_chk_fail
-L15:
+L17:
     leave
     ret
 pq:
@@ -133,8 +154,8 @@ init:
     movq	%rsp, %rbp
     movq	%rdi, -24(%rbp)
     movl	$0, -4(%rbp)
-    jmp	L19
-L20:
+    jmp	L21
+L22:
     movl	-4(%rbp), %eax
     movl	%eax, %ecx
     movq	-24(%rbp), %rdx
@@ -142,33 +163,33 @@ L20:
     cltq
     movb	%cl, (%rdx,%rax)
     addl	$1, -4(%rbp)
-L19:
+L21:
     cmpl	$7, -4(%rbp)
-    jle	L20
+    jle	L22
     nop
     popq	%rbp
     ret
 check:
     pushq	%rbp
     movq	%rsp, %rbp
-    subq	$32, %rsp
+    subq	$24, %rsp
     movq	%rdi, -24(%rbp)
     movl	$0, -4(%rbp)
-    jmp	L22
-L24:
+    jmp	L24
+L26:
     movq	-24(%rbp), %rdx
     movl	-4(%rbp), %eax
     cltq
     movzbl	(%rdx,%rax), %eax
     movzbl	%al, %eax
     cmpl	-4(%rbp), %eax
-    je	L23
+    je	L25
     call	abort
-L23:
+L25:
     addl	$1, -4(%rbp)
-L22:
+L24:
     cmpl	$7, -4(%rbp)
-    jle	L24
+    jle	L26
     nop
     leave
     ret
