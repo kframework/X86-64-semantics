@@ -310,7 +310,8 @@ L48:
     vucomisd	-8(%rbp), %xmm0
     ja	L49
     vmovsd	-8(%rbp), %xmm0
-    vucomisd	$LC3(%rip), %xmm0
+    vmovsd	$LC3(%rip), %xmm1
+    vucomisd	%xmm1, %xmm0
     setnb	%al
     xorl	$1, %eax
     testb	%al, %al
