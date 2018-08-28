@@ -6,7 +6,7 @@ extern int inside_main;
 typedef __SIZE_TYPE__ size_t;
 
 struct S {
-  char stuff[1024];
+  char stuff[8];
 };
 
 union U {

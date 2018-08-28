@@ -1,5 +1,7 @@
 extern void abort (void);
 extern int inside_main;
+#include"mini_string.h"
+#include"mini_stdlib.h"
 
 __attribute__ ((__noinline__))
 char *
@@ -20,28 +22,4 @@ strpbrk(const char *s1, const char *s2)
   return 0;
 }
 
-char *strchr(const char *s, int c) {
-  while(*s != (char)c) {
-    if(!*s++)
-      return 0;
-    return (char *)s;
-  }
-}
-
-int strcmp(const char* s1, const char* s2)
-{
-    while(*s1 && (*s1==*s2))
-        s1++,s2++;
-    return *(const unsigned char*)s1-*(const unsigned char*)s2;
-}
-
-void exit(int code) {
-   __asm__ ("movq $-1, %rax\n\t"
-            "jmp %rax\n\t");
-}
-
-void abort(void) {
-   __asm__ ("movq $-1, %rax\n\t"
-            "jmp %rax\n\t");
-}
 

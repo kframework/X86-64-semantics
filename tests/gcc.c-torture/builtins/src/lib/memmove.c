@@ -1,5 +1,9 @@
 extern void abort (void);
 extern int inside_main;
+#include<stddef.h>
+#include"mini_stdlib.h"
+#include"mini_string.h"
+
 
 __attribute__ ((__noinline__))
 void *
@@ -30,3 +34,5 @@ bcopy (const void *src, void *dst, __SIZE_TYPE__ n)
 {
   memmove (dst, src, n);
 }
+
+
