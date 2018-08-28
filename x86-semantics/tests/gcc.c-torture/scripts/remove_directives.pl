@@ -45,12 +45,14 @@ for my $line (@lines) {
 
     if($line =~ m/^    call/) {
       $line =~ s/\.//g;
+      $line =~ s/\*//g;
       print "". $line ."\n";
       next;
     }
 
     if($line =~ m/^    j.*/) {
       $line =~ s/\.//g;
+      $line =~ s/\*//g;
       print "". $line ."\n";
       next;
     }
@@ -109,6 +111,19 @@ for my $line (@lines) {
 
       $base = "\$". $base;
       $line = $pre . " $base(%$reg)$post";
+      print "". "$line". "\n";
+      next;
+    }
+
+    if($line =~ m/^(.*)\s+([_a-zA-Z]+[0-9]*)\(,%(\w+),(\d+)\)(.*)/) {
+      my $pre = $1;
+      my $base = $2;
+      my $reg1 = $3;
+      my $reg2 = $4;
+      my $post = $5;
+
+      $base = "\$". $base;
+      $line = $pre . " $base(,%$reg1,$reg2)$post";
       print "". "$line". "\n";
       next;
     }

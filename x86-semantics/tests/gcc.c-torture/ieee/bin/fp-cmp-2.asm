@@ -292,9 +292,6 @@ xleave:
 _start:
     pushq	%rbp
     movq	%rsp, %rbp
-    movl	$xleave, %esi
-    movl	$8, %edi
-    call	signal
     vmovss $fnan(%rip), %xmm0
     vmovss $fnan(%rip), %xmm1
     vucomiss	%xmm1, %xmm0
