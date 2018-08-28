@@ -5,6 +5,11 @@ module SARXL-R32-R32-R32
   imports X86-CONFIGURATION
 
   rule <k>
+    execinstr (sarx R1:R32, R2:R32, R3:R32,  .Operands) => execinstr (sarxl R1:R32, R2:R32, R3:R32,  .Operands)
+  ...</k>
+
+
+  rule <k>
     execinstr (sarxl R1:R32, R2:R32, R3:R32,  .Operands) => .
   ...</k>
     <regstate>

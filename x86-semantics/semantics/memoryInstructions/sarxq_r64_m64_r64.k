@@ -4,6 +4,11 @@ requires "x86-configuration.k"
 module SARXQ-R64-M64-R64
   imports X86-CONFIGURATION
 
+  rule <k>
+    execinstr (sarx:Opcode R1:R64, M:Mem, R3:R64,  .Operands) => execinstr (sarxq:Opcode R1:R64, M, R3:R64,  .Operands)
+  ...</k>
+
+
   context execinstr(sarxq:Opcode R1:R64, HOLE:Mem, R3:R64,  .Operands) [result(MemOffset)]
   
   rule <k>
