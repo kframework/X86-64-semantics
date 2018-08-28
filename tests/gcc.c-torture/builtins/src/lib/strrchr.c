@@ -1,5 +1,7 @@
 extern void abort (void);
 extern int inside_main;
+#include"mini_string.h"
+#include"mini_stdlib.h"
 
 __attribute__ ((__noinline__))
 char *
@@ -30,13 +32,3 @@ rindex (const char *s, int c)
 {
   return strrchr (s, c);
 }
-
-char *strchr(const char *s, int c) {
-  while(*s != (char)c) {
-    if(!*s++)
-      return 0;
-    return (char *)s;
-  }
-}
-
-
