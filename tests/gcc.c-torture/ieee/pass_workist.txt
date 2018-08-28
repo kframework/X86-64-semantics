@@ -40,3 +40,13 @@ inf-3
 inf-2
 mzero5
 rbug
+20041213-1
+fp-cmp-4l
+fp-cmp-4f
+fp-cmp-5
+copysign1
+fp-cmp-4
+mul-subnormal-single-1
+fp-cmp-8f
+fp-cmp-8
+pr38016
