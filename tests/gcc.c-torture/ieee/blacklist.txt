@@ -1,10 +1,2 @@
-bin/20000320-1.asm
-bin/20001122-1.asm
-bin/20010226-1.asm
-bin/20041213-1.asm
-bin/920810-1.asm
-bin/compare-fp-1.asm
-bin/compare-fp-4.asm
-bin/mzero2.asm
-bin/mzero5.asm
-bin/pr50310.asm
+mzero2.asm
+fp-cmp-8l

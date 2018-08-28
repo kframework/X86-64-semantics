@@ -50,3 +50,6 @@ mul-subnormal-single-1
 fp-cmp-8f
 fp-cmp-8
 pr38016
+fp-cmp-2
+fp-cmp-1
+fp-cmp-3

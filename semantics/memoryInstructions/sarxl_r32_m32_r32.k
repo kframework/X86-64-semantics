@@ -4,6 +4,11 @@ requires "x86-configuration.k"
 module SARXL-R32-M32-R32
   imports X86-CONFIGURATION
 
+   rule <k>
+    execinstr (sarx:Opcode R1:R32, M:Mem, R3:R32,  .Operands) => execinstr (sarxl:Opcode R1:R32, M:Mem, R3:R32,  .Operands)
+  ...</k>
+
+
   context execinstr(sarxl:Opcode R1:R32, HOLE:Mem, R3:R32,  .Operands) [result(MemOffset)]
   
   rule <k>
