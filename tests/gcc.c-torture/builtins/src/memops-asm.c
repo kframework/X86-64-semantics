@@ -10,17 +10,17 @@
 
 typedef __SIZE_TYPE__ size_t;
 extern void abort (void);
-extern void *memcpy (void *, const void *, size_t)
-  __asm (ASMNAME ("my_memcpy"));
-extern void bcopy (const void *, void *, size_t)
-  __asm (ASMNAME ("my_bcopy"));
-extern void *memmove (void *, const void *, size_t)
-  __asm (ASMNAME ("my_memmove"));
-extern void *memset (void *, int, size_t)
-  __asm (ASMNAME ("my_memset"));
-extern void bzero (void *, size_t)
-  __asm (ASMNAME ("my_bzero"));
-extern int memcmp (const void *, const void *, size_t);
+//extern void *memcpy (void *, const void *, size_t)
+//  __asm (ASMNAME ("my_memcpy"));
+//extern void bcopy (const void *, void *, size_t)
+//  __asm (ASMNAME ("my_bcopy"));
+//extern void *memmove (void *, const void *, size_t)
+//  __asm (ASMNAME ("my_memmove"));
+//extern void *memset (void *, int, size_t)
+//  __asm (ASMNAME ("my_memset"));
+//extern void bzero (void *, size_t)
+//  __asm (ASMNAME ("my_bzero"));
+//extern int memcmp (const void *, const void *, size_t);
 
 struct A { char c[32]; } a = { "foobar" };
 char x[64] = "foobar", y[64];
