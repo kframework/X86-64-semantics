@@ -1,0 +1,103 @@
+
+mempcpy-2
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//mempcpy-2.asm   --output-file Output/mempcpy-2.kstate 
+cat Output/mempcpy-2.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfile_zY0a  2>&1 &&  mv /tmp/tmpfile_zY0a Output/mempcpy-2.kstate 
+Failed:[4m[1m[91mOutput/mempcpy-2.kstate: Non exit status[0m
+2048.27user 91.24system 7:23.98elapsed 481%CPU (0avgtext+0avgdata 12088640maxresident)k
+0inputs+17096outputs (0major+13345296minor)pagefaults 0swaps
+
+memops-asm
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//memops-asm.asm   --output-file Output/memops-asm.kstate 
+cat Output/memops-asm.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilelxXxI  2>&1 &&  mv /tmp/tmpfilelxXxI Output/memops-asm.kstate 
+Failed:[4m[1m[91mOutput/memops-asm.kstate: Non exit status[0m
+1012.40user 81.37system 7:43.17elapsed 236%CPU (0avgtext+0avgdata 11815136maxresident)k
+0inputs+19696outputs (0major+16087465minor)pagefaults 0swaps
+
+memmove-chk
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//memmove-chk.asm   --output-file Output/memmove-chk.kstate 
+cat Output/memmove-chk.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileqjiHa  2>&1 &&  mv /tmp/tmpfileqjiHa Output/memmove-chk.kstate 
+Failed:[4m[1m[91mOutput/memmove-chk.kstate: K cell missing[0m
+[Error] Critical: Parser returned a non-zero exit code: 137
+Stdout:
+
+Stderr:
+/home/sdasgup3/Github/k5/k-distribution/target/release/k/bin/../lib/k: line 7:
+30328 Killed                  java -Dfile.encoding=UTF-8
+-Djava.awt.headless=true -Xms64m -Xmx4096m -Xss32m -XX:+TieredCompilation
+-Xms64m -Xmx4096m -Xss32m -XX:+TieredCompilation -Xmx32g -ea -cp
+"/home/sdasgup3/Github/k5/k-distribution/target/release/k/lib/java/*"
+org.kframework.main.Main "$@"
+Command exited with non-zero status 113
+7403.04user 188.76system 6:01.42elapsed 2100%CPU (0avgtext+0avgdata 20624840maxresident)k
+65009inputs+10960outputs (378major+18231505minor)pagefaults 0swaps
+
+mempcpy
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//mempcpy.asm   --output-file Output/mempcpy.kstate 
+cat Output/mempcpy.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileQnmc7  2>&1 &&  mv /tmp/tmpfileQnmc7 Output/mempcpy.kstate 
+Failed:[4m[1m[91mOutput/mempcpy.kstate: Non exit status[0m
+1100.79user 193.62system 7:08.57elapsed 302%CPU (0avgtext+0avgdata 13140836maxresident)k
+38520inputs+14704outputs (215major+10448435minor)pagefaults 0swaps
+
+strrchr
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//strrchr.asm   --output-file Output/strrchr.kstate 
+cat Output/strrchr.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileZhCu6  2>&1 &&  mv /tmp/tmpfileZhCu6 Output/strrchr.kstate 
+Failed:[4m[1m[91mOutput/strrchr.kstate: Non exit status[0m
+911.37user 38.66system 7:50.32elapsed 201%CPU (0avgtext+0avgdata 12770604maxresident)k
+2080inputs+17432outputs (0major+7804712minor)pagefaults 0swaps
+
+memcpy-chk
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//memcpy-chk.asm   --output-file Output/memcpy-chk.kstate 
+cat Output/memcpy-chk.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileHE_mH  2>&1 &&  mv /tmp/tmpfileHE_mH Output/memcpy-chk.kstate 
+Failed:[4m[1m[91mOutput/memcpy-chk.kstate: K cell missing[0m
+[Error] Critical: Parser returned a non-zero exit code: 137
+Stdout:
+
+Stderr:
+/home/sdasgup3/Github/k5/k-distribution/target/release/k/bin/../lib/k: line 7:
+36946 Killed                  java -Dfile.encoding=UTF-8
+-Djava.awt.headless=true -Xms64m -Xmx4096m -Xss32m -XX:+TieredCompilation
+-Xms64m -Xmx4096m -Xss32m -XX:+TieredCompilation -Xmx32g -ea -cp
+"/home/sdasgup3/Github/k5/k-distribution/target/release/k/lib/java/*"
+org.kframework.main.Main "$@"
+Command exited with non-zero status 113
+18647.41user 280.42system 14:29.76elapsed 2176%CPU (0avgtext+0avgdata 23937932maxresident)k
+1052961inputs+12664outputs (103107major+34965471minor)pagefaults 0swaps
+
+mempcpy-chk
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//mempcpy-chk.asm   --output-file Output/mempcpy-chk.kstate 
+cat Output/mempcpy-chk.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilebnEFx  2>&1 &&  mv /tmp/tmpfilebnEFx Output/mempcpy-chk.kstate 
+Failed:[4m[1m[91mOutput/mempcpy-chk.kstate: K cell missing[0m
+[Error] Critical: Parser returned a non-zero exit code: 1
+Stdout:
+
+Stderr:
+[Error] Internal: Uncaught exception thrown of type OutOfMemoryError.
+Please rerun your program with the --debug flag to generate a stack trace, and
+file a bug report at https://github.com/kframework/k/issues (Java heap space:
+failed reallocation of scalar replaced objects)
+Command exited with non-zero status 113
+135037.69user 572.79system 1:58:39elapsed 1904%CPU (0avgtext+0avgdata 23996636maxresident)k
+875912inputs+32704outputs (100899major+163120719minor)pagefaults 0swaps
+
+memset-chk
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//memset-chk.asm   --output-file Output/memset-chk.kstate 
+cat Output/memset-chk.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilekKr94  2>&1 &&  mv /tmp/tmpfilekKr94 Output/memset-chk.kstate 
+Failed:[4m[1m[91mOutput/memset-chk.kstate: K cell missing[0m
+[Error] Critical: Parser returned a non-zero exit code: 1
+Stdout:
+
+Stderr:
+[Error] Internal: Uncaught exception thrown of type OutOfMemoryError.
+Please rerun your program with the --debug flag to generate a stack trace, and
+file a bug report at https://github.com/kframework/k/issues (Java heap space)
+Command exited with non-zero status 113
+165015.19user 328.74system 2:11:26elapsed 2096%CPU (0avgtext+0avgdata 24373832maxresident)k
+211112inputs+34616outputs (3685major+161505727minor)pagefaults 0swaps
