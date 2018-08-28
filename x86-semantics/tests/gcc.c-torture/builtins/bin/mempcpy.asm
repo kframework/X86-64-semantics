@@ -305,6 +305,36 @@ L48:
 L46:
     popq	%rbp
     ret
+    .globl	mempcpy
+mempcpy:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq	%rdi, -24(%rbp)
+    movq	%rsi, -32(%rbp)
+    movq	%rdx, -40(%rbp)
+    movq	-32(%rbp), %rax
+    movq	%rax, -16(%rbp)
+    movq	-24(%rbp), %rax
+    movq	%rax, -8(%rbp)
+    jmp	L50
+L51:
+    movq	-8(%rbp), %rax
+    leaq	1(%rax), %rdx
+    movq	%rdx, -8(%rbp)
+    movq	-16(%rbp), %rdx
+    leaq	1(%rdx), %rcx
+    movq	%rcx, -16(%rbp)
+    movzbl	(%rdx), %edx
+    movb	%dl, (%rax)
+L50:
+    movq	-40(%rbp), %rax
+    leaq	-1(%rax), %rdx
+    movq	%rdx, -40(%rbp)
+    testq	%rax, %rax
+    jne	L51
+    movq	-8(%rbp), %rax
+    popq	%rbp
+    ret
     .comm	inside_main,4,4
     .globl	main
 .globl _start
@@ -394,44 +424,9 @@ main_test:
     call	mempcpy
     movl	$p + 6, %edx
     cmpq	%rdx, %rax
-    jne	L53
-    movl	$6, %edx
-    movl	$LC2, %esi
-    movl	$p, %edi
-    call	memcmp
-    testl	%eax, %eax
-    je	L54
-L53:
-    call	abort
-L54:
-    movl	$LC3 + 1, %edx
-    movl	$p + 16, %eax
-    movzwl	(%rdx), %edx
-    movw	%dx, (%rax)
-    addq	$2, %rax
-    movl	$p + 18, %edx
-    cmpq	%rdx, %rax
-    jne	L55
-    movl	$p + 16, %eax
-    movl	$5, %edx
-    movl	$LC4, %esi
-    movq	%rax, %rdi
-    call	memcmp
-    testl	%eax, %eax
-    je	L56
-L55:
-    call	abort
-L56:
-    movl	$p + 1, %eax
-    movl	$1, %edx
-    movl	$LC5, %esi
-    movq	%rax, %rdi
-    call	mempcpy
-    movl	$p + 2, %edx
-    cmpq	%rdx, %rax
     jne	L57
     movl	$6, %edx
-    movl	$LC6, %esi
+    movl	$LC2, %esi
     movl	$p, %edi
     call	memcmp
     testl	%eax, %eax
@@ -439,6 +434,41 @@ L56:
 L57:
     call	abort
 L58:
+    movl	$LC3 + 1, %edx
+    movl	$p + 16, %eax
+    movzwl	(%rdx), %edx
+    movw	%dx, (%rax)
+    addq	$2, %rax
+    movl	$p + 18, %edx
+    cmpq	%rdx, %rax
+    jne	L59
+    movl	$p + 16, %eax
+    movl	$5, %edx
+    movl	$LC4, %esi
+    movq	%rax, %rdi
+    call	memcmp
+    testl	%eax, %eax
+    je	L60
+L59:
+    call	abort
+L60:
+    movl	$p + 1, %eax
+    movl	$1, %edx
+    movl	$LC5, %esi
+    movq	%rax, %rdi
+    call	mempcpy
+    movl	$p + 2, %edx
+    cmpq	%rdx, %rax
+    jne	L61
+    movl	$6, %edx
+    movl	$LC6, %esi
+    movl	$p, %edi
+    call	memcmp
+    testl	%eax, %eax
+    je	L62
+L61:
+    call	abort
+L62:
     movl	$p + 3, %eax
     movl	$4, %edx
     movl	$LC7, %esi
@@ -446,16 +476,16 @@ L58:
     call	mempcpy
     movl	$p + 7, %edx
     cmpq	%rdx, %rax
-    jne	L59
+    jne	L63
     movl	$8, %edx
     movl	$LC8, %esi
     movl	$p, %edi
     call	memcmp
     testl	%eax, %eax
-    je	L60
-L59:
+    je	L64
+L63:
     call	abort
-L60:
+L64:
     movl	$8, -4(%rbp)
     movl	$p + 20, %eax
     movl	$6, %edx
@@ -474,17 +504,17 @@ L60:
     call	mempcpy
     movl	$p + 29, %edx
     cmpq	%rdx, %rax
-    jne	L61
+    jne	L65
     movl	$p + 25, %eax
     movl	$6, %edx
     movl	$LC11, %esi
     movq	%rax, %rdi
     call	memcmp
     testl	%eax, %eax
-    je	L62
-L61:
+    je	L66
+L65:
     call	abort
-L62:
+L66:
     movl	$4, %edx
     movl	$LC12, %esi
     movl	$p, %edi
@@ -495,32 +525,32 @@ L62:
     call	mempcpy
     movl	$p + 8, %edx
     cmpq	%rdx, %rax
-    jne	L63
+    jne	L67
     movl	$8, %edx
     movl	$LC14, %esi
     movl	$p, %edi
     call	memcmp
     testl	%eax, %eax
-    je	L64
-L63:
+    je	L68
+L67:
     call	abort
-L64:
+L68:
     movl	$6, %edx
     movl	$LC2, %esi
     movl	$p, %edi
     call	mempcpy
     movl	$p + 6, %edx
     cmpq	%rdx, %rax
-    jne	L65
+    jne	L69
     movl	$6, %edx
     movl	$LC2, %esi
     movl	$p, %edi
     call	memcmp
     testl	%eax, %eax
-    je	L66
-L65:
+    je	L70
+L69:
     call	abort
-L66:
+L70:
     movl	$1, $inside_main(%rip)
     movq $s3(%rip), %rax
     movl	$p + 5, %edx
@@ -531,9 +561,9 @@ L66:
     movl	$p, %edi
     call	memcmp
     testl	%eax, %eax
-    je	L67
+    je	L71
     call	abort
-L67:
+L71:
     movq $l1(%rip), %rax
     movl	$s1 + 1, %esi
     movl	$p + 6, %ecx
@@ -545,9 +575,9 @@ L67:
     movl	$p, %edi
     call	memcmp
     testl	%eax, %eax
-    je	L69
+    je	L73
     call	abort
-L69:
+L73:
     nop
     leave
     ret
