@@ -1,2 +1,2 @@
-mzero2.asm
+mzero2
 fp-cmp-8l
