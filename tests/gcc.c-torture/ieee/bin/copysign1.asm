@@ -316,8 +316,8 @@ Tf:
     .long	2139095040
     .long	2143289344
     .text
-    .globl	testf
-testf:
+    .globl	xtestf
+xtestf:
     pushq	%rbp
     movq	%rsp, %rbp
     subq	$32, %rsp
@@ -448,8 +448,8 @@ T:
     .long	0
     .long	2146959360
     .text
-    .globl	test
-test:
+    .globl	xtest
+xtest:
     pushq	%rbp
     movq	%rsp, %rbp
     subq	$32, %rsp
@@ -580,8 +580,8 @@ Tl:
     .long	0
     .long	2146959360
     .text
-    .globl	testl
-testl:
+    .globl	xtestl
+xtestl:
     pushq	%rbp
     movq	%rsp, %rbp
     subq	$32, %rsp
@@ -648,9 +648,9 @@ L64:
 _start:
     pushq	%rbp
     movq	%rsp, %rbp
-    call	testf
-    call	test
-    call	testl
+    call	xtestf
+    call	xtest
+    call	xtestl
     movl	$0, %eax
     popq	%rbp
     ret

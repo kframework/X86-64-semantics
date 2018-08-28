@@ -4,6 +4,10 @@ requires "x86-configuration.k"
 module VCVTTSD2SIL-R32-M64
   imports X86-CONFIGURATION
 
+  rule <k>
+    execinstr (vcvttsd2si:Opcode M:Mem, R2:R32,  .Operands) => execinstr (vcvttsd2sil:Opcode M:Mem, R2:R32,  .Operands)
+  ...</k>
+
   context execinstr(vcvttsd2sil:Opcode HOLE:Mem, R2:R32,  .Operands) [result(MemOffset)]
   
   rule <k>

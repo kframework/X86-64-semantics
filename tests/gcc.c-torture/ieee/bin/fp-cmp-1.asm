@@ -283,8 +283,8 @@ x:
     .long	0
     .long	1072693248
     .text
-    .globl	leave
-leave:
+    .globl	xleave
+xleave:
     pushq	%rbp
     movq	%rsp, %rbp
     movl	$0, %edi
@@ -294,7 +294,7 @@ leave:
 _start:
     pushq	%rbp
     movq	%rsp, %rbp
-    movl	$leave, %esi
+    movl	$xleave, %esi
     movl	$8, %edi
     call	signal
     vmovsd $dnan(%rip), %xmm0

@@ -4,6 +4,9 @@ requires "x86-configuration.k"
 module SARW-M16-ONE
   imports X86-CONFIGURATION
 
+  rule <k>
+    execinstr (sarw:Opcode  M:Mem,  .Operands) => execinstr (sarw $0x1, M:Mem,  .Operands)
+  ...</k>
   context execinstr(sarw:Opcode $0x1, HOLE:Mem,  .Operands) [result(MemOffset)]
   
   rule <k>

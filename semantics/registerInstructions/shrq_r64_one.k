@@ -3,6 +3,9 @@ requires "x86-configuration.k"
 
 module SHRQ-R64-ONE
   imports X86-CONFIGURATION
+  rule <k>
+    execinstr (shrq R2:R64,  .Operands) =>  execinstr (shrq $0x1, R2:R64,  .Operands) 
+  ...</k>
 
   rule <k>
     execinstr (shrq $0x1, R2:R64,  .Operands) => .

@@ -273,8 +273,8 @@ L43:
 L41:
     popq	%rbp
     ret
-    .globl	test
-test:
+    .globl	xtest
+xtest:
     pushq	%rbp
     movq	%rsp, %rbp
     subq	$16, %rsp
@@ -320,8 +320,8 @@ L60:
 L65:
     leave
     ret
-    .globl	testf
-testf:
+    .globl	xtestf
+xtestf:
     pushq	%rbp
     movq	%rsp, %rbp
     subq	$8, %rsp
@@ -367,8 +367,8 @@ L82:
 L87:
     leave
     ret
-    .globl	testl
-testl:
+    .globl	xtestl
+xtestl:
     pushq	%rbp
     movq	%rsp, %rbp
     subq	$16, %rsp
@@ -423,15 +423,15 @@ _start:
     movabsq	$4629981891913580544, %rax
     vmovapd	%xmm0, %xmm1
     vmovq	%rax, %xmm0
-    call	test
+    call	xtest
     vmovss	$LC6(%rip), %xmm1
     vmovss	$LC7(%rip), %xmm0
-    call	testf
+    call	xtestf
     vmovsd	$LC4(%rip), %xmm0
     movabsq	$4629981891913580544, %rax
     vmovapd	%xmm0, %xmm1
     vmovq	%rax, %xmm0
-    call	testl
+    call	xtestl
     movl	$0, %eax
     popq	%rbp
     ret

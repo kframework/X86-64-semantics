@@ -21,6 +21,12 @@ module X86-BUILTIN
 
   //rule initBuiltin(stdout) => allocateSTDOUTMemory(4, 0)
 
+  rule <k>
+    execinstr (call sqrt:Builtin,  .Operands) =>  
+      execinstr (sqrtsd %xmm0, %xmm0,  .Operands)
+  ...</k>
+    <functargets> FMap </functargets>
+      requires notBool (sqrt in_keys (FMap))
 
   rule <k>
     execinstr (call malloc:Builtin,  .Operands) =>

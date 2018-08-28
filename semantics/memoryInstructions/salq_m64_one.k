@@ -4,6 +4,10 @@ requires "x86-configuration.k"
 module SALQ-M64-ONE
   imports X86-CONFIGURATION
 
+  rule <k>
+    execinstr (salq:Opcode M:Mem,  .Operands) => execinstr (salq:Opcode $0x1, M,  .Operands)
+  ...</k>
+
   context execinstr(salq:Opcode $0x1, HOLE:Mem,  .Operands) [result(MemOffset)]
   
   rule <k>

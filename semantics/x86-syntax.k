@@ -70,6 +70,7 @@ module X86-SYNTAX
                    | "rewind"  [token]
                    | "malloc"  [token]
                    | "free"  [token]
+                   | "sqrt"  [token]
                    //| "stdout"  [token]
                  //  | "__stack_chk_fail"  [token]
   syntax X86Id ::= Id
@@ -946,6 +947,7 @@ module X86-SYNTAX
                   | "vcvttps2dq"
                   | "vcvttsd2sil"
                   | "vcvttsd2siq"
+                  | "vcvttsd2si"
                   | "vcvttss2sil"
                   | "vcvttss2siq"
                   | "vdivpd"

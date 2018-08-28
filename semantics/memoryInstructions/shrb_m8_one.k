@@ -4,6 +4,9 @@ requires "x86-configuration.k"
 module SHRB-M8-ONE
   imports X86-CONFIGURATION
 
+  rule <k>
+    execinstr (shrb  M:Mem,  .Operands) =>  execinstr (shrb $0x1, M,  .Operands)
+  ...</k>
   context execinstr(shrb:Opcode $0x1, HOLE:Mem,  .Operands) [result(MemOffset)]
   
   rule <k>

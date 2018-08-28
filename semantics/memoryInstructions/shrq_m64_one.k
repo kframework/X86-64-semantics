@@ -4,6 +4,9 @@ requires "x86-configuration.k"
 module SHRQ-M64-ONE
   imports X86-CONFIGURATION
 
+  rule <k>
+    execinstr (shrq  M:Mem,  .Operands) =>  execinstr (shrq $0x1, M,  .Operands)
+  ...</k>
   context execinstr(shrq:Opcode $0x1, HOLE:Mem,  .Operands) [result(MemOffset)]
   
   rule <k>

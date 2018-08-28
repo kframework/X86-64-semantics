@@ -5,6 +5,10 @@ module SARL-R32-ONE
   imports X86-CONFIGURATION
 
   rule <k>
+    execinstr (sarl R2:R32,  .Operands) => execinstr (sarl $0x1, R2:R32,  .Operands)
+  ...</k>
+
+  rule <k>
     execinstr (sarl $0x1, R2:R32,  .Operands) => .
   ...</k>
     <regstate>

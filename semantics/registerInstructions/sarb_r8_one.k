@@ -3,6 +3,9 @@ requires "x86-configuration.k"
 
 module SARB-R8-ONE
   imports X86-CONFIGURATION
+  rule <k>
+    execinstr (sarb R2:R8,  .Operands) => execinstr (sarb $0x1, R2:R8,  .Operands)
+  ...</k>
 
   rule <k>
     execinstr (sarb $0x1, R2:R8,  .Operands) => .

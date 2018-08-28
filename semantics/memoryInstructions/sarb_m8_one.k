@@ -4,6 +4,10 @@ requires "x86-configuration.k"
 module SARB-M8-ONE
   imports X86-CONFIGURATION
 
+  rule <k>
+    execinstr (sarb:Opcode M:Mem,  .Operands) => execinstr (sarb $0x1, M,  .Operands)
+  ...</k>
+
   context execinstr(sarb:Opcode $0x1, HOLE:Mem,  .Operands) [result(MemOffset)]
   
   rule <k>

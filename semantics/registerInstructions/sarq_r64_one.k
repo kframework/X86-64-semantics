@@ -5,6 +5,10 @@ module SARQ-R64-ONE
   imports X86-CONFIGURATION
 
   rule <k>
+    execinstr (sarq R2:R64,  .Operands) => execinstr (sarq $0x1, R2:R64,  .Operands)
+  ...</k>
+
+  rule <k>
     execinstr (sarq $0x1, R2:R64,  .Operands) => .
   ...</k>
     <regstate>

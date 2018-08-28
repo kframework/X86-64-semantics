@@ -5,6 +5,9 @@ module SHRB-R8-ONE
   imports X86-CONFIGURATION
 
   rule <k>
+    execinstr (shrb R2:R8,  .Operands) => execinstr (shrb $0x1, R2:R8,  .Operands)
+  ...</k>
+  rule <k>
     execinstr (shrb $0x1, R2:R8,  .Operands) => .
   ...</k>
     <regstate>

@@ -4,6 +4,9 @@ requires "x86-configuration.k"
 module SHRW-M16-ONE
   imports X86-CONFIGURATION
 
+  rule <k>
+    execinstr (shrw  M:Mem,  .Operands) =>  execinstr (shrw $0x1, M,  .Operands)
+  ...</k>
   context execinstr(shrw:Opcode $0x1, HOLE:Mem,  .Operands) [result(MemOffset)]
   
   rule <k>

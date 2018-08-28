@@ -294,8 +294,8 @@ Zf:
     .long	4286578688
     .long	2143289344
     .text
-    .globl	testf
-testf:
+    .globl	xtestf
+xtestf:
     pushq	%rbp
     movq	%rsp, %rbp
     subq	$64, %rsp
@@ -421,8 +421,8 @@ Z:
     .long	0
     .long	2146959360
     .text
-    .globl	test
-test:
+    .globl	xtest
+xtest:
     pushq	%rbp
     movq	%rsp, %rbp
     subq	$96, %rsp
@@ -548,8 +548,8 @@ Zl:
     .long	0
     .long	2146959360
     .text
-    .globl	testl
-testl:
+    .globl	xtestl
+xtestl:
     pushq	%rbp
     movq	%rsp, %rbp
     subq	$96, %rsp
@@ -643,9 +643,9 @@ L58:
 _start:
     pushq	%rbp
     movq	%rsp, %rbp
-    call	testf
-    call	test
-    call	testl
+    call	xtestf
+    call	xtest
+    call	xtestl
     movl	$0, %eax
     popq	%rbp
     ret

@@ -4,6 +4,10 @@ requires "x86-configuration.k"
 module SALB-M8-ONE
   imports X86-CONFIGURATION
 
+  rule <k>
+    execinstr (salb:Opcode M:Mem,  .Operands) => execinstr (salb:Opcode $0x1, M,  .Operands)
+  ...</k>
+
   context execinstr(salb:Opcode $0x1, HOLE:Mem,  .Operands) [result(MemOffset)]
   
   rule <k>
