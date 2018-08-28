@@ -307,11 +307,13 @@ _start:
     movq	%rax, %rdi
     call	f
     vmovq	%xmm0, %rax
+    vmovsd	$LC2(%rip), %xmm0
     vmovq	%rax, %xmm1
-    vucomisd	$LC2(%rip), %xmm1
+    vucomisd	%xmm0, %xmm1
     jp	L51
+    vmovsd	$LC2(%rip), %xmm0
     vmovq	%rax, %xmm2
-    vucomisd	$LC2(%rip), %xmm2
+    vucomisd	%xmm0, %xmm2
     je	L52
 L51:
     call	abort

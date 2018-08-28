@@ -365,7 +365,7 @@ _start:
     movl	$8, %esi
     movl	$LC11, %edi
     call	check
-    movl	$16, %esi
+    movl	$8, %esi
     movl	$LC12, %edi
     call	check
     movl	$8, %esi
@@ -374,7 +374,7 @@ _start:
     movl	$8, %esi
     movl	$LC14, %edi
     call	check
-    movl	$16, %esi
+    movl	$8, %esi
     movl	$LC15, %edi
     call	check
     movl	$0, %eax
