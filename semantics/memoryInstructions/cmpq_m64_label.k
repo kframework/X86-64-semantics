@@ -14,7 +14,7 @@ module CMPQ-M64-LABEL
   rule <k>
     execinstr (cmpq:Opcode $ L:X86Id + I:Int, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       loadFromMemory( MemOff, 64) ~>
-      execinstr (cmpq $L + I, memOffset( MemOff),  .Operands)
+      execinstr (cmpq $ L + I, memOffset( MemOff),  .Operands)
   ...</k>
     <regstate> RSMap:Map </regstate>
           

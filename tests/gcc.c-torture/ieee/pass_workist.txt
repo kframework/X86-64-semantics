@@ -33,3 +33,10 @@ pr84235
 pr72824
 unsafe-fp-assoc-1
 unsafe-fp-assoc
+compare-fp-2
+copysign2
+minuszero
+inf-3
+inf-2
+mzero5
+rbug
