@@ -5,6 +5,10 @@ module SALB-R8-ONE
   imports X86-CONFIGURATION
 
   rule <k>
+    execinstr (salb R2:R8,  .Operands) => execinstr (salb $0x1, R2:R8,  .Operands)
+  ...</k>
+
+  rule <k>
     execinstr (salb $0x1, R2:R8,  .Operands) => .
   ...</k>
     <regstate>

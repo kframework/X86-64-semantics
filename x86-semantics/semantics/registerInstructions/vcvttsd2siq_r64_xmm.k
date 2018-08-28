@@ -5,6 +5,10 @@ module VCVTTSD2SIQ-R64-XMM
   imports X86-CONFIGURATION
 
   rule <k>
+    execinstr (vcvttsd2si R1:Xmm, R2:R64,  .Operands) => execinstr (vcvttsd2siq R1:Xmm, R2:R64,  .Operands)
+  ...</k>
+
+  rule <k>
     execinstr (vcvttsd2siq R1:Xmm, R2:R64,  .Operands) => .
   ...</k>
     <regstate>

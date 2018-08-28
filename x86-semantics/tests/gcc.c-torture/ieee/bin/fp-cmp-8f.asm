@@ -508,7 +508,7 @@ one_test:
     vmovss	$LC1(%rip), %xmm2
     vmovaps	%xmm0, %xmm1
     vmovd	%edx, %xmm0
-    call	*%rax
+    call	%rax
     vmovss	$LC1(%rip), %xmm1
     vucomiss	%xmm1, %xmm0
     setnp	%al
@@ -528,7 +528,7 @@ L108:
     vmovss	$LC3(%rip), %xmm2
     vmovaps	%xmm0, %xmm1
     vmovd	%edx, %xmm0
-    call	*%rax
+    call	%rax
     vmovss	$LC2(%rip), %xmm1
     vucomiss	%xmm1, %xmm0
     setnp	%al

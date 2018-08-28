@@ -53,7 +53,7 @@ static const struct D##EXT T##EXT[] = {				\
     __builtin_nan##EXT ("") }					\
 };								\
 								\
-void test##EXT (void)						\
+void xtest##EXT (void)						\
 {								\
   int i, n = sizeof (T##EXT) / sizeof (T##EXT[0]);		\
   TYPE r;							\
@@ -71,8 +71,8 @@ TEST(long double, l)
 
 int main()
 {
-  testf();
-  test();
-  testl();
+  xtestf();
+  xtest();
+  xtestl();
   return 0;
 }

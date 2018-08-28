@@ -7,7 +7,7 @@
 double dnan = 1.0/0.0 - 1.0/0.0;
 double x = 1.0;
 
-void leave ()
+void xleave ()
 {
   exit (0);
 }
@@ -20,7 +20,7 @@ main ()
 #ifndef SIGNAL_SUPPRESS
   /* Some machines catches a SIGFPE when a NaN is compared.
      Let this test succeed o such machines.  */
-  signal (SIGFPE, leave);
+  signal (SIGFPE, xleave);
 #endif
   /* NaN is an IEEE unordered operand.  All these test should be false.  */
   if (dnan == dnan)

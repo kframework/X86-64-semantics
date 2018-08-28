@@ -12,7 +12,7 @@ negzero_check (double d)
 }
 
 int
-sub (double d, double e)
+xsub (double d, double e)
 {
   if (d == 0.0 && e == 0.0
       && negzero_check (d) == 0 && negzero_check (e) == 0)
@@ -25,7 +25,7 @@ int
 main (void)
 {
   double minus_zero = -0.0;
-  if (sub (minus_zero, 0))
+  if (xsub (minus_zero, 0))
     abort ();
   return 0;
 }

@@ -5,6 +5,10 @@ module SHRB-RH-ONE
   imports X86-CONFIGURATION
 
   rule <k>
+    execinstr (shrb  R2:Rh,  .Operands) => execinstr (shrb $0x1, R2:Rh,  .Operands)
+  ...</k>
+
+  rule <k>
     execinstr (shrb $0x1, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>

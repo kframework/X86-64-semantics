@@ -5,6 +5,10 @@ module SALL-R32-ONE
   imports X86-CONFIGURATION
 
   rule <k>
+    execinstr (sall R2:R32,  .Operands) => execinstr (sall $0x1, R2:R32,  .Operands)
+  ...</k>
+
+  rule <k>
     execinstr (sall $0x1, R2:R32,  .Operands) => .
   ...</k>
     <regstate>

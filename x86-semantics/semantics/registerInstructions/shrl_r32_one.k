@@ -3,6 +3,9 @@ requires "x86-configuration.k"
 
 module SHRL-R32-ONE
   imports X86-CONFIGURATION
+  rule <k>
+    execinstr (shrl  R2:R32,  .Operands) => execinstr (shrl $0x1, R2:R32,  .Operands)
+  ...</k>
 
   rule <k>
     execinstr (shrl $0x1, R2:R32,  .Operands) => .

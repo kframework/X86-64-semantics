@@ -5,6 +5,10 @@ module SALQ-R64-ONE
   imports X86-CONFIGURATION
 
   rule <k>
+    execinstr (salq R2:R64,  .Operands) => execinstr (salq $0x1, R2:R64,  .Operands)
+  ...</k>
+
+  rule <k>
     execinstr (salq $0x1, R2:R64,  .Operands) => .
   ...</k>
     <regstate>

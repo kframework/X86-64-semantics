@@ -126,5 +126,13 @@ wc ./job_101_600/blacklist.txt ./ieee/blacklist.txt ./builtins/blacklist.txt ./j
       - src/lib/sprintf.c
  - Some constants are reduced in size: src/pr22237.c 256 --> 8
 
-
-
+## Testing gcc.c-torture/ieee
+ - name clash with opcode names
+  - copysign1.c: testl is a function name
+  - copysign2.c: testl is a function name
+  - fp-cmp-1.c: leave is a function name
+  - fp-cmp-2.c: leave is a function name
+  - fp-cmp-3.c: leave is a function name
+  - inf-2.c: testl is a function name
+  - inf-3.c: testl is a function name
+  - mzero5.c: sub is a function name

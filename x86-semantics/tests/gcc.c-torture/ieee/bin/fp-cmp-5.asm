@@ -424,7 +424,7 @@ one_test:
     movq	-32(%rbp), %rax
     vmovapd	%xmm0, %xmm1
     vmovq	%rdx, %xmm0
-    call	*%rax
+    call	%rax
     cmpl	-20(%rbp), %eax
     je	L69
     call	abort
@@ -434,7 +434,7 @@ L69:
     movq	-40(%rbp), %rax
     vmovapd	%xmm0, %xmm1
     vmovq	%rdx, %xmm0
-    call	*%rax
+    call	%rax
     movl	%eax, %edx
     cmpl	$0, -20(%rbp)
     sete	%al

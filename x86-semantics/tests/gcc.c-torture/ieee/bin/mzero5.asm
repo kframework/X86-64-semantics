@@ -301,8 +301,8 @@ L45:
 L47:
     leave
     ret
-    .globl	sub
-sub:
+    .globl	xsub
+xsub:
     pushq	%rbp
     movq	%rsp, %rbp
     subq	$16, %rsp
@@ -348,7 +348,7 @@ _start:
     movq	-8(%rbp), %rax
     vxorpd	%xmm1, %xmm1, %xmm1
     vmovq	%rax, %xmm0
-    call	sub
+    call	xsub
     testl	%eax, %eax
     je	L57
     call	abort

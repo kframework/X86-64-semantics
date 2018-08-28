@@ -5,6 +5,9 @@ module SALB-RH-ONE
   imports X86-CONFIGURATION
 
   rule <k>
+    execinstr (salb  R2:Rh,  .Operands) => execinstr (salb $0x1, R2:Rh,  .Operands)
+  ...</k>
+  rule <k>
     execinstr (salb $0x1, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>

@@ -5,6 +5,10 @@ module VCVTSI2SDL-XMM-XMM-R32
   imports X86-CONFIGURATION
 
   rule <k>
+    execinstr (vcvtsi2sd R1:R32, R2:Xmm, R3:Xmm,  .Operands) => execinstr (vcvtsi2sdl R1:R32, R2:Xmm, R3:Xmm,  .Operands) 
+  ...</k>
+
+  rule <k>
     execinstr (vcvtsi2sdl R1:R32, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>

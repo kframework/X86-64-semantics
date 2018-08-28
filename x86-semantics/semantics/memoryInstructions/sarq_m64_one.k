@@ -4,6 +4,10 @@ requires "x86-configuration.k"
 module SARQ-M64-ONE
   imports X86-CONFIGURATION
 
+  rule <k>
+    execinstr (sarq:Opcode  M:Mem,  .Operands) => execinstr (sarq $0x1, M:Mem,  .Operands)
+  ...</k>
+
   context execinstr(sarq:Opcode $0x1, HOLE:Mem,  .Operands) [result(MemOffset)]
   
   rule <k>

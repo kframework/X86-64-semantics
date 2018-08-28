@@ -42,7 +42,7 @@ static const TYPE Z##EXT[] = {					\
   __builtin_nan##EXT ("")					\
 };								\
 								\
-void test##EXT (void)						\
+void xtest##EXT (void)						\
 {								\
   TYPE r[8];							\
   int i;							\
@@ -65,8 +65,8 @@ TEST(long double, l)
 
 int main()
 {
-  testf();
-  test();
-  testl();
+  xtestf();
+  xtest();
+  xtestl();
   return 0;
 }

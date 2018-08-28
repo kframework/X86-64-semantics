@@ -534,7 +534,7 @@ one_test:
     vmovapd	%xmm1, %xmm2
     vmovapd	%xmm0, %xmm1
     vmovq	%rdx, %xmm0
-    call	*%rax
+    call	%rax
     vmovq	%xmm0, %rax
     vmovsd	$LC1(%rip), %xmm0
     vmovq	%rax, %xmm4
@@ -560,7 +560,7 @@ L108:
     vmovapd	%xmm1, %xmm2
     vmovapd	%xmm0, %xmm1
     vmovq	%rdx, %xmm0
-    call	*%rax
+    call	%rax
     vmovq	%xmm0, %rax
     vmovsd	$LC2(%rip), %xmm0
     vmovq	%rax, %xmm6

@@ -3,6 +3,9 @@ requires "x86-configuration.k"
 
 module SHRL-M32-ONE
   imports X86-CONFIGURATION
+  rule <k>
+    execinstr (shrl  M:Mem,  .Operands) =>  execinstr (shrl $0x1, M,  .Operands)
+  ...</k>
 
   context execinstr(shrl:Opcode $0x1, HOLE:Mem,  .Operands) [result(MemOffset)]
   

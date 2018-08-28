@@ -5,6 +5,10 @@ module SARW-R16-ONE
   imports X86-CONFIGURATION
 
   rule <k>
+    execinstr (sarw R2:R16,  .Operands) => execinstr (sarw $0x1, R2:R16,  .Operands)
+  ...</k>
+
+  rule <k>
     execinstr (sarw $0x1, R2:R16,  .Operands) => .
   ...</k>
     <regstate>

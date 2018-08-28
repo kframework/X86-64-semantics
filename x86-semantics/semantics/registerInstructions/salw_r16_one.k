@@ -5,6 +5,10 @@ module SALW-R16-ONE
   imports X86-CONFIGURATION
 
   rule <k>
+    execinstr (salw R2:R16,  .Operands) => execinstr (salw $0x1, R2:R16,  .Operands)
+  ...</k>
+
+  rule <k>
     execinstr (salw $0x1, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
