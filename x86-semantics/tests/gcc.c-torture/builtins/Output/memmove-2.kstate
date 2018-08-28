@@ -1,33 +1,71 @@
 <generatedTop>
   <k>
-    execinstr ( call memcmp , .Operands ) ~> inforegisters ~> fetch
+    exit_0
   </k>
   <functargets>
-    L3 |-> 64'21
-    L4 |-> 64'13
-    L5 |-> 64'40
-    L6 |-> 64'35
-    L7 |-> 64'27
-    L14 |-> 64'84
-    L15 |-> 64'85
-    L16 |-> 64'98
-    L17 |-> 64'99
-    L18 |-> 64'113
-    L19 |-> 64'114
-    L20 |-> 64'125
-    L21 |-> 64'136
-    L23 |-> 64'147
+    L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
     LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
-    _start |-> 64'58
-    bcopy |-> 64'43
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
     inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
-    link_error |-> 64'66
-    main_test |-> 64'69
-    memmove |-> 64'0
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
     p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
     q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
     stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162
   </functargets>
   <rotargets>
     LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
@@ -42,13 +80,13 @@
     .Map
   </bsstargets>
   <entrypoint>
-    64'58
+    64'310
   </entrypoint>
   <nextLocPc>
-    64'150
+    64'402
   </nextLocPc>
   <lastseenlabel>
-    L23
+    L71
   </lastseenlabel>
   <currentsection>
     "text"
@@ -60,151 +98,403 @@
       iloc ( 64'2 ) |-> storedInstr ( movq %rdi , -24 ( %rbp ) , .Operands )
       iloc ( 64'3 ) |-> storedInstr ( movq %rsi , -32 ( %rbp ) , .Operands )
       iloc ( 64'4 ) |-> storedInstr ( movq %rdx , -40 ( %rbp ) , .Operands )
-      iloc ( 64'5 ) |-> storedInstr ( movq -32 ( %rbp ) , %rax , .Operands )
-      iloc ( 64'6 ) |-> storedInstr ( movq %rax , -8 ( %rbp ) , .Operands )
-      iloc ( 64'7 ) |-> storedInstr ( movq -24 ( %rbp ) , %rax , .Operands )
-      iloc ( 64'8 ) |-> storedInstr ( movq %rax , -16 ( %rbp ) , .Operands )
-      iloc ( 64'9 ) |-> storedInstr ( movq -8 ( %rbp ) , %rax , .Operands )
-      iloc ( 64'10 ) |-> storedInstr ( cmpq -16 ( %rbp ) , %rax , .Operands )
-      iloc ( 64'11 ) |-> storedInstr ( jnb L6 , .Operands )
-      iloc ( 64'12 ) |-> storedInstr ( jmp L3 , .Operands )
-      iloc ( 64'13 ) |-> storedInstr ( movq -16 ( %rbp ) , %rdx , .Operands )
-      iloc ( 64'14 ) |-> storedInstr ( movq -40 ( %rbp ) , %rax , .Operands )
-      iloc ( 64'15 ) |-> storedInstr ( addq %rax , %rdx , .Operands )
-      iloc ( 64'16 ) |-> storedInstr ( movq -8 ( %rbp ) , %rcx , .Operands )
-      iloc ( 64'17 ) |-> storedInstr ( movq -40 ( %rbp ) , %rax , .Operands )
-      iloc ( 64'18 ) |-> storedInstr ( addq %rcx , %rax , .Operands )
-      iloc ( 64'19 ) |-> storedInstr ( movzbl ( %rax ) , %eax , .Operands )
-      iloc ( 64'20 ) |-> storedInstr ( movb %al , ( %rdx ) , .Operands )
-      iloc ( 64'21 ) |-> storedInstr ( movq -40 ( %rbp ) , %rax , .Operands )
-      iloc ( 64'22 ) |-> storedInstr ( leaq -1 ( %rax ) , %rdx , .Operands )
-      iloc ( 64'23 ) |-> storedInstr ( movq %rdx , -40 ( %rbp ) , .Operands )
-      iloc ( 64'24 ) |-> storedInstr ( testq %rax , %rax , .Operands )
-      iloc ( 64'25 ) |-> storedInstr ( jne L4 , .Operands )
-      iloc ( 64'26 ) |-> storedInstr ( jmp L5 , .Operands )
-      iloc ( 64'27 ) |-> storedInstr ( movq -16 ( %rbp ) , %rax , .Operands )
-      iloc ( 64'28 ) |-> storedInstr ( leaq 1 ( %rax ) , %rdx , .Operands )
-      iloc ( 64'29 ) |-> storedInstr ( movq %rdx , -16 ( %rbp ) , .Operands )
-      iloc ( 64'30 ) |-> storedInstr ( movq -8 ( %rbp ) , %rdx , .Operands )
-      iloc ( 64'31 ) |-> storedInstr ( leaq 1 ( %rdx ) , %rcx , .Operands )
-      iloc ( 64'32 ) |-> storedInstr ( movq %rcx , -8 ( %rbp ) , .Operands )
-      iloc ( 64'33 ) |-> storedInstr ( movzbl ( %rdx ) , %edx , .Operands )
-      iloc ( 64'34 ) |-> storedInstr ( movb %dl , ( %rax ) , .Operands )
-      iloc ( 64'35 ) |-> storedInstr ( movq -40 ( %rbp ) , %rax , .Operands )
-      iloc ( 64'36 ) |-> storedInstr ( leaq -1 ( %rax ) , %rdx , .Operands )
-      iloc ( 64'37 ) |-> storedInstr ( movq %rdx , -40 ( %rbp ) , .Operands )
-      iloc ( 64'38 ) |-> storedInstr ( testq %rax , %rax , .Operands )
-      iloc ( 64'39 ) |-> storedInstr ( jne L7 , .Operands )
-      iloc ( 64'40 ) |-> storedInstr ( movq -24 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'5 ) |-> storedInstr ( movq -24 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'6 ) |-> storedInstr ( movq %rax , -16 ( %rbp ) , .Operands )
+      iloc ( 64'7 ) |-> storedInstr ( movq -32 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'8 ) |-> storedInstr ( movq %rax , -8 ( %rbp ) , .Operands )
+      iloc ( 64'9 ) |-> storedInstr ( jmp L2 , .Operands )
+      iloc ( 64'10 ) |-> storedInstr ( movq -16 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'11 ) |-> storedInstr ( movzbl ( %rax ) , %edx , .Operands )
+      iloc ( 64'12 ) |-> storedInstr ( movq -8 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'13 ) |-> storedInstr ( movzbl ( %rax ) , %eax , .Operands )
+      iloc ( 64'14 ) |-> storedInstr ( cmpb %al , %dl , .Operands )
+      iloc ( 64'15 ) |-> storedInstr ( je L3 , .Operands )
+      iloc ( 64'16 ) |-> storedInstr ( movq -16 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'17 ) |-> storedInstr ( movzbl ( %rax ) , %eax , .Operands )
+      iloc ( 64'18 ) |-> storedInstr ( movzbl %al , %edx , .Operands )
+      iloc ( 64'19 ) |-> storedInstr ( movq -8 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'20 ) |-> storedInstr ( movzbl ( %rax ) , %eax , .Operands )
+      iloc ( 64'21 ) |-> storedInstr ( movzbl %al , %eax , .Operands )
+      iloc ( 64'22 ) |-> storedInstr ( subl %eax , %edx , .Operands )
+      iloc ( 64'23 ) |-> storedInstr ( movl %edx , %eax , .Operands )
+      iloc ( 64'24 ) |-> storedInstr ( jmp L4 , .Operands )
+      iloc ( 64'25 ) |-> storedInstr ( addq $ 1 , -16 ( %rbp ) , .Operands )
+      iloc ( 64'26 ) |-> storedInstr ( addq $ 1 , -8 ( %rbp ) , .Operands )
+      iloc ( 64'27 ) |-> storedInstr ( movq -40 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'28 ) |-> storedInstr ( leaq -1 ( %rax ) , %rdx , .Operands )
+      iloc ( 64'29 ) |-> storedInstr ( movq %rdx , -40 ( %rbp ) , .Operands )
+      iloc ( 64'30 ) |-> storedInstr ( testq %rax , %rax , .Operands )
+      iloc ( 64'31 ) |-> storedInstr ( jne L5 , .Operands )
+      iloc ( 64'32 ) |-> storedInstr ( movl $ 0 , %eax , .Operands )
+      iloc ( 64'33 ) |-> storedInstr ( popq %rbp , .Operands )
+      iloc ( 64'34 ) |-> storedInstr ( ret .Operands )
+      iloc ( 64'35 ) |-> storedInstr ( pushq %rbp , .Operands )
+      iloc ( 64'36 ) |-> storedInstr ( movq %rsp , %rbp , .Operands )
+      iloc ( 64'37 ) |-> storedInstr ( movl %edi , -4 ( %rbp ) , .Operands )
+      iloc ( 64'38 ) |-> storedInstr ( movq $ -1 , %rax , .Operands )
+      iloc ( 64'39 ) |-> storedInstr ( jmp %rax , .Operands )
+      iloc ( 64'40 ) |-> storedInstr ( nop .Operands )
       iloc ( 64'41 ) |-> storedInstr ( popq %rbp , .Operands )
       iloc ( 64'42 ) |-> storedInstr ( ret .Operands )
       iloc ( 64'43 ) |-> storedInstr ( pushq %rbp , .Operands )
       iloc ( 64'44 ) |-> storedInstr ( movq %rsp , %rbp , .Operands )
-      iloc ( 64'45 ) |-> storedInstr ( subq $ 24 , %rsp , .Operands )
-      iloc ( 64'46 ) |-> storedInstr ( movq %rdi , -8 ( %rbp ) , .Operands )
-      iloc ( 64'47 ) |-> storedInstr ( movq %rsi , -16 ( %rbp ) , .Operands )
-      iloc ( 64'48 ) |-> storedInstr ( movq %rdx , -24 ( %rbp ) , .Operands )
-      iloc ( 64'49 ) |-> storedInstr ( movq -24 ( %rbp ) , %rdx , .Operands )
-      iloc ( 64'50 ) |-> storedInstr ( movq -8 ( %rbp ) , %rcx , .Operands )
-      iloc ( 64'51 ) |-> storedInstr ( movq -16 ( %rbp ) , %rax , .Operands )
-      iloc ( 64'52 ) |-> storedInstr ( movq %rcx , %rsi , .Operands )
-      iloc ( 64'53 ) |-> storedInstr ( movq %rax , %rdi , .Operands )
-      iloc ( 64'54 ) |-> storedInstr ( call memmove , .Operands )
-      iloc ( 64'55 ) |-> storedInstr ( nop .Operands )
-      iloc ( 64'56 ) |-> storedInstr ( leave .Operands )
-      iloc ( 64'57 ) |-> storedInstr ( ret .Operands )
-      iloc ( 64'58 ) |-> storedInstr ( pushq %rbp , .Operands )
-      iloc ( 64'59 ) |-> storedInstr ( movq %rsp , %rbp , .Operands )
-      iloc ( 64'60 ) |-> storedInstr ( movl $ 1 , $ inside_main ( %rip ) , .Operands )
-      iloc ( 64'61 ) |-> storedInstr ( call main_test , .Operands )
-      iloc ( 64'62 ) |-> storedInstr ( movl $ 0 , $ inside_main ( %rip ) , .Operands )
-      iloc ( 64'63 ) |-> storedInstr ( movl $ 0 , %eax , .Operands )
-      iloc ( 64'64 ) |-> storedInstr ( popq %rbp , .Operands )
-      iloc ( 64'65 ) |-> storedInstr ( ret .Operands )
-      iloc ( 64'66 ) |-> storedInstr ( pushq %rbp , .Operands )
-      iloc ( 64'67 ) |-> storedInstr ( movq %rsp , %rbp , .Operands )
-      iloc ( 64'68 ) |-> storedInstr ( call abort , .Operands )
-      iloc ( 64'69 ) |-> storedInstr ( pushq %rbp , .Operands )
-      iloc ( 64'70 ) |-> storedInstr ( movq %rsp , %rbp , .Operands )
-      iloc ( 64'71 ) |-> storedInstr ( movl $ p + 3 , %edx , .Operands )
-      iloc ( 64'72 ) |-> storedInstr ( movl $ p + 2 , %eax , .Operands )
-      iloc ( 64'73 ) |-> storedInstr ( movzbl ( %rdx ) , %edx , .Operands )
-      iloc ( 64'74 ) |-> storedInstr ( movb %dl , ( %rax ) , .Operands )
-      iloc ( 64'75 ) |-> storedInstr ( movl $ p + 2 , %edx , .Operands )
-      iloc ( 64'76 ) |-> storedInstr ( cmpq %rdx , %rax , .Operands )
-      iloc ( 64'77 ) |-> storedInstr ( jne L14 , .Operands )
-      iloc ( 64'78 ) |-> storedInstr ( movl $ 8 , %edx , .Operands )
-      iloc ( 64'79 ) |-> storedInstr ( movl $ LC0 , %esi , .Operands )
-      iloc ( 64'80 ) |-> storedInstr ( movl $ p , %edi , .Operands )
-      iloc ( 64'81 ) |-> storedInstr ( call memcmp , .Operands )
-      iloc ( 64'82 ) |-> storedInstr ( testl %eax , %eax , .Operands )
-      iloc ( 64'83 ) |-> storedInstr ( je L15 , .Operands )
-      iloc ( 64'84 ) |-> storedInstr ( call abort , .Operands )
-      iloc ( 64'85 ) |-> storedInstr ( movl $ p + 1 , %edx , .Operands )
-      iloc ( 64'86 ) |-> storedInstr ( movl $ p + 1 , %eax , .Operands )
+      iloc ( 64'45 ) |-> storedInstr ( movq $ -1 , %rax , .Operands )
+      iloc ( 64'46 ) |-> storedInstr ( jmp %rax , .Operands )
+      iloc ( 64'47 ) |-> storedInstr ( nop .Operands )
+      iloc ( 64'48 ) |-> storedInstr ( popq %rbp , .Operands )
+      iloc ( 64'49 ) |-> storedInstr ( ret .Operands )
+      iloc ( 64'50 ) |-> storedInstr ( pushq %rbp , .Operands )
+      iloc ( 64'51 ) |-> storedInstr ( movq %rsp , %rbp , .Operands )
+      iloc ( 64'52 ) |-> storedInstr ( movq %rdi , -24 ( %rbp ) , .Operands )
+      iloc ( 64'53 ) |-> storedInstr ( movl %esi , -28 ( %rbp ) , .Operands )
+      iloc ( 64'54 ) |-> storedInstr ( movq %rdx , -40 ( %rbp ) , .Operands )
+      iloc ( 64'55 ) |-> storedInstr ( movq -24 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'56 ) |-> storedInstr ( movq %rax , -8 ( %rbp ) , .Operands )
+      iloc ( 64'57 ) |-> storedInstr ( jmp L9 , .Operands )
+      iloc ( 64'58 ) |-> storedInstr ( movq -8 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'59 ) |-> storedInstr ( leaq 1 ( %rax ) , %rdx , .Operands )
+      iloc ( 64'60 ) |-> storedInstr ( movq %rdx , -8 ( %rbp ) , .Operands )
+      iloc ( 64'61 ) |-> storedInstr ( movl -28 ( %rbp ) , %edx , .Operands )
+      iloc ( 64'62 ) |-> storedInstr ( movb %dl , ( %rax ) , .Operands )
+      iloc ( 64'63 ) |-> storedInstr ( movq -40 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'64 ) |-> storedInstr ( leaq -1 ( %rax ) , %rdx , .Operands )
+      iloc ( 64'65 ) |-> storedInstr ( movq %rdx , -40 ( %rbp ) , .Operands )
+      iloc ( 64'66 ) |-> storedInstr ( testq %rax , %rax , .Operands )
+      iloc ( 64'67 ) |-> storedInstr ( jne L10 , .Operands )
+      iloc ( 64'68 ) |-> storedInstr ( movq -24 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'69 ) |-> storedInstr ( popq %rbp , .Operands )
+      iloc ( 64'70 ) |-> storedInstr ( ret .Operands )
+      iloc ( 64'71 ) |-> storedInstr ( pushq %rbp , .Operands )
+      iloc ( 64'72 ) |-> storedInstr ( movq %rsp , %rbp , .Operands )
+      iloc ( 64'73 ) |-> storedInstr ( movq %rdi , -24 ( %rbp ) , .Operands )
+      iloc ( 64'74 ) |-> storedInstr ( movq %rsi , -32 ( %rbp ) , .Operands )
+      iloc ( 64'75 ) |-> storedInstr ( movq %rdx , -40 ( %rbp ) , .Operands )
+      iloc ( 64'76 ) |-> storedInstr ( movq -24 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'77 ) |-> storedInstr ( movq %rax , -16 ( %rbp ) , .Operands )
+      iloc ( 64'78 ) |-> storedInstr ( movq -32 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'79 ) |-> storedInstr ( movq %rax , -8 ( %rbp ) , .Operands )
+      iloc ( 64'80 ) |-> storedInstr ( jmp L13 , .Operands )
+      iloc ( 64'81 ) |-> storedInstr ( movq -16 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'82 ) |-> storedInstr ( leaq 1 ( %rax ) , %rdx , .Operands )
+      iloc ( 64'83 ) |-> storedInstr ( movq %rdx , -16 ( %rbp ) , .Operands )
+      iloc ( 64'84 ) |-> storedInstr ( movq -8 ( %rbp ) , %rdx , .Operands )
+      iloc ( 64'85 ) |-> storedInstr ( leaq 1 ( %rdx ) , %rcx , .Operands )
+      iloc ( 64'86 ) |-> storedInstr ( movq %rcx , -8 ( %rbp ) , .Operands )
       iloc ( 64'87 ) |-> storedInstr ( movzbl ( %rdx ) , %edx , .Operands )
       iloc ( 64'88 ) |-> storedInstr ( movb %dl , ( %rax ) , .Operands )
-      iloc ( 64'89 ) |-> storedInstr ( movl $ p + 1 , %edx , .Operands )
-      iloc ( 64'90 ) |-> storedInstr ( cmpq %rdx , %rax , .Operands )
-      iloc ( 64'91 ) |-> storedInstr ( jne L16 , .Operands )
-      iloc ( 64'92 ) |-> storedInstr ( movl $ 8 , %edx , .Operands )
-      iloc ( 64'93 ) |-> storedInstr ( movl $ LC0 , %esi , .Operands )
-      iloc ( 64'94 ) |-> storedInstr ( movl $ p , %edi , .Operands )
-      iloc ( 64'95 ) |-> storedInstr ( call memcmp , .Operands )
-      iloc ( 64'96 ) |-> storedInstr ( testl %eax , %eax , .Operands )
-      iloc ( 64'97 ) |-> storedInstr ( je L17 , .Operands )
-      iloc ( 64'98 ) |-> storedInstr ( call abort , .Operands )
-      iloc ( 64'99 ) |-> storedInstr ( movl $ p + 4 , %edx , .Operands )
-      iloc ( 64'100 ) |-> storedInstr ( movq $ q ( %rip ) , %rax , .Operands )
-      iloc ( 64'101 ) |-> storedInstr ( movzbl ( %rdx ) , %edx , .Operands )
-      iloc ( 64'102 ) |-> storedInstr ( movb %dl , ( %rax ) , .Operands )
-      iloc ( 64'103 ) |-> storedInstr ( movq %rax , %rdx , .Operands )
-      iloc ( 64'104 ) |-> storedInstr ( movl $ p + 4 , %eax , .Operands )
-      iloc ( 64'105 ) |-> storedInstr ( cmpq %rax , %rdx , .Operands )
-      iloc ( 64'106 ) |-> storedInstr ( jne L18 , .Operands )
-      iloc ( 64'107 ) |-> storedInstr ( movl $ 8 , %edx , .Operands )
-      iloc ( 64'108 ) |-> storedInstr ( movl $ LC0 , %esi , .Operands )
-      iloc ( 64'109 ) |-> storedInstr ( movl $ p , %edi , .Operands )
-      iloc ( 64'110 ) |-> storedInstr ( call memcmp , .Operands )
-      iloc ( 64'111 ) |-> storedInstr ( testl %eax , %eax , .Operands )
-      iloc ( 64'112 ) |-> storedInstr ( je L19 , .Operands )
-      iloc ( 64'113 ) |-> storedInstr ( call abort , .Operands )
-      iloc ( 64'114 ) |-> storedInstr ( movl $ p + 6 , %edx , .Operands )
-      iloc ( 64'115 ) |-> storedInstr ( movl $ p + 5 , %eax , .Operands )
-      iloc ( 64'116 ) |-> storedInstr ( movzbl ( %rax ) , %eax , .Operands )
-      iloc ( 64'117 ) |-> storedInstr ( movb %al , ( %rdx ) , .Operands )
-      iloc ( 64'118 ) |-> storedInstr ( movl $ 8 , %edx , .Operands )
-      iloc ( 64'119 ) |-> storedInstr ( movl $ LC1 , %esi , .Operands )
-      iloc ( 64'120 ) |-> storedInstr ( movl $ p , %edi , .Operands )
-      iloc ( 64'121 ) |-> storedInstr ( call memcmp , .Operands )
-      iloc ( 64'122 ) |-> storedInstr ( testl %eax , %eax , .Operands )
-      iloc ( 64'123 ) |-> storedInstr ( je L20 , .Operands )
-      iloc ( 64'124 ) |-> storedInstr ( call abort , .Operands )
-      iloc ( 64'125 ) |-> storedInstr ( movl $ p + 1 , %edx , .Operands )
-      iloc ( 64'126 ) |-> storedInstr ( movl $ p + 1 , %eax , .Operands )
-      iloc ( 64'127 ) |-> storedInstr ( movzbl ( %rax ) , %eax , .Operands )
-      iloc ( 64'128 ) |-> storedInstr ( movb %al , ( %rdx ) , .Operands )
-      iloc ( 64'129 ) |-> storedInstr ( movl $ 8 , %edx , .Operands )
-      iloc ( 64'130 ) |-> storedInstr ( movl $ LC1 , %esi , .Operands )
-      iloc ( 64'131 ) |-> storedInstr ( movl $ p , %edi , .Operands )
-      iloc ( 64'132 ) |-> storedInstr ( call memcmp , .Operands )
-      iloc ( 64'133 ) |-> storedInstr ( testl %eax , %eax , .Operands )
-      iloc ( 64'134 ) |-> storedInstr ( je L21 , .Operands )
-      iloc ( 64'135 ) |-> storedInstr ( call abort , .Operands )
-      iloc ( 64'136 ) |-> storedInstr ( movl $ p + 4 , %edx , .Operands )
-      iloc ( 64'137 ) |-> storedInstr ( movq $ q ( %rip ) , %rax , .Operands )
-      iloc ( 64'138 ) |-> storedInstr ( movzbl ( %rax ) , %eax , .Operands )
-      iloc ( 64'139 ) |-> storedInstr ( movb %al , ( %rdx ) , .Operands )
-      iloc ( 64'140 ) |-> storedInstr ( movl $ 8 , %edx , .Operands )
-      iloc ( 64'141 ) |-> storedInstr ( movl $ LC1 , %esi , .Operands )
-      iloc ( 64'142 ) |-> storedInstr ( movl $ p , %edi , .Operands )
-      iloc ( 64'143 ) |-> storedInstr ( call memcmp , .Operands )
-      iloc ( 64'144 ) |-> storedInstr ( testl %eax , %eax , .Operands )
-      iloc ( 64'145 ) |-> storedInstr ( je L23 , .Operands )
-      iloc ( 64'146 ) |-> storedInstr ( call abort , .Operands )
-      iloc ( 64'147 ) |-> storedInstr ( nop .Operands )
-      iloc ( 64'148 ) |-> storedInstr ( popq %rbp , .Operands )
-      iloc ( 64'149 ) |-> storedInstr ( ret .Operands ) )
+      iloc ( 64'89 ) |-> storedInstr ( movq -40 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'90 ) |-> storedInstr ( leaq -1 ( %rax ) , %rdx , .Operands )
+      iloc ( 64'91 ) |-> storedInstr ( movq %rdx , -40 ( %rbp ) , .Operands )
+      iloc ( 64'92 ) |-> storedInstr ( testq %rax , %rax , .Operands )
+      iloc ( 64'93 ) |-> storedInstr ( jne L14 , .Operands )
+      iloc ( 64'94 ) |-> storedInstr ( movq -24 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'95 ) |-> storedInstr ( popq %rbp , .Operands )
+      iloc ( 64'96 ) |-> storedInstr ( ret .Operands )
+      iloc ( 64'97 ) |-> storedInstr ( pushq %rbp , .Operands )
+      iloc ( 64'98 ) |-> storedInstr ( movq %rsp , %rbp , .Operands )
+      iloc ( 64'99 ) |-> storedInstr ( movq %rdi , -8 ( %rbp ) , .Operands )
+      iloc ( 64'100 ) |-> storedInstr ( movl $ 1000 , %eax , .Operands )
+      iloc ( 64'101 ) |-> storedInstr ( popq %rbp , .Operands )
+      iloc ( 64'102 ) |-> storedInstr ( ret .Operands )
+      iloc ( 64'103 ) |-> storedInstr ( pushq %rbp , .Operands )
+      iloc ( 64'104 ) |-> storedInstr ( movq %rsp , %rbp , .Operands )
+      iloc ( 64'105 ) |-> storedInstr ( movq %rdi , -8 ( %rbp ) , .Operands )
+      iloc ( 64'106 ) |-> storedInstr ( movq %rsi , -16 ( %rbp ) , .Operands )
+      iloc ( 64'107 ) |-> storedInstr ( movl $ 1000 , %eax , .Operands )
+      iloc ( 64'108 ) |-> storedInstr ( popq %rbp , .Operands )
+      iloc ( 64'109 ) |-> storedInstr ( ret .Operands )
+      iloc ( 64'110 ) |-> storedInstr ( pushq %rbp , .Operands )
+      iloc ( 64'111 ) |-> storedInstr ( movq %rsp , %rbp , .Operands )
+      iloc ( 64'112 ) |-> storedInstr ( movq %rdi , -8 ( %rbp ) , .Operands )
+      iloc ( 64'113 ) |-> storedInstr ( nop .Operands )
+      iloc ( 64'114 ) |-> storedInstr ( popq %rbp , .Operands )
+      iloc ( 64'115 ) |-> storedInstr ( ret .Operands )
+      iloc ( 64'116 ) |-> storedInstr ( pushq %rbp , .Operands )
+      iloc ( 64'117 ) |-> storedInstr ( movq %rsp , %rbp , .Operands )
+      iloc ( 64'118 ) |-> storedInstr ( movl %edi , -4 ( %rbp ) , .Operands )
+      iloc ( 64'119 ) |-> storedInstr ( cmpl $ 96 , -4 ( %rbp ) , .Operands )
+      iloc ( 64'120 ) |-> storedInstr ( jle L22 , .Operands )
+      iloc ( 64'121 ) |-> storedInstr ( cmpl $ 122 , -4 ( %rbp ) , .Operands )
+      iloc ( 64'122 ) |-> storedInstr ( jg L22 , .Operands )
+      iloc ( 64'123 ) |-> storedInstr ( movl $ 1 , %eax , .Operands )
+      iloc ( 64'124 ) |-> storedInstr ( jmp L23 , .Operands )
+      iloc ( 64'125 ) |-> storedInstr ( cmpl $ 64 , -4 ( %rbp ) , .Operands )
+      iloc ( 64'126 ) |-> storedInstr ( jle L24 , .Operands )
+      iloc ( 64'127 ) |-> storedInstr ( cmpl $ 90 , -4 ( %rbp ) , .Operands )
+      iloc ( 64'128 ) |-> storedInstr ( jg L24 , .Operands )
+      iloc ( 64'129 ) |-> storedInstr ( movl $ 1 , %eax , .Operands )
+      iloc ( 64'130 ) |-> storedInstr ( jmp L23 , .Operands )
+      iloc ( 64'131 ) |-> storedInstr ( cmpl $ 47 , -4 ( %rbp ) , .Operands )
+      iloc ( 64'132 ) |-> storedInstr ( jle L25 , .Operands )
+      iloc ( 64'133 ) |-> storedInstr ( cmpl $ 57 , -4 ( %rbp ) , .Operands )
+      iloc ( 64'134 ) |-> storedInstr ( jg L25 , .Operands )
+      iloc ( 64'135 ) |-> storedInstr ( movl $ 1 , %eax , .Operands )
+      iloc ( 64'136 ) |-> storedInstr ( jmp L23 , .Operands )
+      iloc ( 64'137 ) |-> storedInstr ( movl $ 0 , %eax , .Operands )
+      iloc ( 64'138 ) |-> storedInstr ( popq %rbp , .Operands )
+      iloc ( 64'139 ) |-> storedInstr ( ret .Operands )
+      iloc ( 64'140 ) |-> storedInstr ( pushq %rbp , .Operands )
+      iloc ( 64'141 ) |-> storedInstr ( movq %rsp , %rbp , .Operands )
+      iloc ( 64'142 ) |-> storedInstr ( movq %rdi , -8 ( %rbp ) , .Operands )
+      iloc ( 64'143 ) |-> storedInstr ( movl %esi , -12 ( %rbp ) , .Operands )
+      iloc ( 64'144 ) |-> storedInstr ( nop .Operands )
+      iloc ( 64'145 ) |-> storedInstr ( movq -8 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'146 ) |-> storedInstr ( movzbl ( %rax ) , %eax , .Operands )
+      iloc ( 64'147 ) |-> storedInstr ( movl -12 ( %rbp ) , %edx , .Operands )
+      iloc ( 64'148 ) |-> storedInstr ( cmpb %dl , %al , .Operands )
+      iloc ( 64'149 ) |-> storedInstr ( je L31 , .Operands )
+      iloc ( 64'150 ) |-> storedInstr ( movq -8 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'151 ) |-> storedInstr ( leaq 1 ( %rax ) , %rdx , .Operands )
+      iloc ( 64'152 ) |-> storedInstr ( movq %rdx , -8 ( %rbp ) , .Operands )
+      iloc ( 64'153 ) |-> storedInstr ( movzbl ( %rax ) , %eax , .Operands )
+      iloc ( 64'154 ) |-> storedInstr ( testb %al , %al , .Operands )
+      iloc ( 64'155 ) |-> storedInstr ( jne L28 , .Operands )
+      iloc ( 64'156 ) |-> storedInstr ( movl $ 0 , %eax , .Operands )
+      iloc ( 64'157 ) |-> storedInstr ( jmp L26 , .Operands )
+      iloc ( 64'158 ) |-> storedInstr ( movq -8 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'159 ) |-> storedInstr ( jmp L26 , .Operands )
+      iloc ( 64'160 ) |-> storedInstr ( popq %rbp , .Operands )
+      iloc ( 64'161 ) |-> storedInstr ( ret .Operands )
+      iloc ( 64'162 ) |-> storedInstr ( pushq %rbp , .Operands )
+      iloc ( 64'163 ) |-> storedInstr ( movq %rsp , %rbp , .Operands )
+      iloc ( 64'164 ) |-> storedInstr ( movq %rdi , -24 ( %rbp ) , .Operands )
+      iloc ( 64'165 ) |-> storedInstr ( movq $ 0 , -8 ( %rbp ) , .Operands )
+      iloc ( 64'166 ) |-> storedInstr ( jmp L33 , .Operands )
+      iloc ( 64'167 ) |-> storedInstr ( addq $ 1 , -8 ( %rbp ) , .Operands )
+      iloc ( 64'168 ) |-> storedInstr ( movq -24 ( %rbp ) , %rdx , .Operands )
+      iloc ( 64'169 ) |-> storedInstr ( movq -8 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'170 ) |-> storedInstr ( addq %rdx , %rax , .Operands )
+      iloc ( 64'171 ) |-> storedInstr ( movzbl ( %rax ) , %eax , .Operands )
+      iloc ( 64'172 ) |-> storedInstr ( testb %al , %al , .Operands )
+      iloc ( 64'173 ) |-> storedInstr ( jne L34 , .Operands )
+      iloc ( 64'174 ) |-> storedInstr ( movq -8 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'175 ) |-> storedInstr ( popq %rbp , .Operands )
+      iloc ( 64'176 ) |-> storedInstr ( ret .Operands )
+      iloc ( 64'177 ) |-> storedInstr ( pushq %rbp , .Operands )
+      iloc ( 64'178 ) |-> storedInstr ( movq %rsp , %rbp , .Operands )
+      iloc ( 64'179 ) |-> storedInstr ( movq %rdi , -24 ( %rbp ) , .Operands )
+      iloc ( 64'180 ) |-> storedInstr ( movq %rsi , -32 ( %rbp ) , .Operands )
+      iloc ( 64'181 ) |-> storedInstr ( movq -24 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'182 ) |-> storedInstr ( movq %rax , -8 ( %rbp ) , .Operands )
+      iloc ( 64'183 ) |-> storedInstr ( nop .Operands )
+      iloc ( 64'184 ) |-> storedInstr ( movq -24 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'185 ) |-> storedInstr ( leaq 1 ( %rax ) , %rdx , .Operands )
+      iloc ( 64'186 ) |-> storedInstr ( movq %rdx , -24 ( %rbp ) , .Operands )
+      iloc ( 64'187 ) |-> storedInstr ( movq -32 ( %rbp ) , %rdx , .Operands )
+      iloc ( 64'188 ) |-> storedInstr ( leaq 1 ( %rdx ) , %rcx , .Operands )
+      iloc ( 64'189 ) |-> storedInstr ( movq %rcx , -32 ( %rbp ) , .Operands )
+      iloc ( 64'190 ) |-> storedInstr ( movzbl ( %rdx ) , %edx , .Operands )
+      iloc ( 64'191 ) |-> storedInstr ( movb %dl , ( %rax ) , .Operands )
+      iloc ( 64'192 ) |-> storedInstr ( movzbl ( %rax ) , %eax , .Operands )
+      iloc ( 64'193 ) |-> storedInstr ( testb %al , %al , .Operands )
+      iloc ( 64'194 ) |-> storedInstr ( jne L37 , .Operands )
+      iloc ( 64'195 ) |-> storedInstr ( movq -8 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'196 ) |-> storedInstr ( popq %rbp , .Operands )
+      iloc ( 64'197 ) |-> storedInstr ( ret .Operands )
+      iloc ( 64'198 ) |-> storedInstr ( pushq %rbp , .Operands )
+      iloc ( 64'199 ) |-> storedInstr ( movq %rsp , %rbp , .Operands )
+      iloc ( 64'200 ) |-> storedInstr ( movq %rdi , -8 ( %rbp ) , .Operands )
+      iloc ( 64'201 ) |-> storedInstr ( movq %rsi , -16 ( %rbp ) , .Operands )
+      iloc ( 64'202 ) |-> storedInstr ( jmp L40 , .Operands )
+      iloc ( 64'203 ) |-> storedInstr ( addq $ 1 , -8 ( %rbp ) , .Operands )
+      iloc ( 64'204 ) |-> storedInstr ( addq $ 1 , -16 ( %rbp ) , .Operands )
+      iloc ( 64'205 ) |-> storedInstr ( movq -8 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'206 ) |-> storedInstr ( movzbl ( %rax ) , %eax , .Operands )
+      iloc ( 64'207 ) |-> storedInstr ( testb %al , %al , .Operands )
+      iloc ( 64'208 ) |-> storedInstr ( je L41 , .Operands )
+      iloc ( 64'209 ) |-> storedInstr ( movq -8 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'210 ) |-> storedInstr ( movzbl ( %rax ) , %edx , .Operands )
+      iloc ( 64'211 ) |-> storedInstr ( movq -16 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'212 ) |-> storedInstr ( movzbl ( %rax ) , %eax , .Operands )
+      iloc ( 64'213 ) |-> storedInstr ( cmpb %al , %dl , .Operands )
+      iloc ( 64'214 ) |-> storedInstr ( je L42 , .Operands )
+      iloc ( 64'215 ) |-> storedInstr ( movq -8 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'216 ) |-> storedInstr ( movzbl ( %rax ) , %eax , .Operands )
+      iloc ( 64'217 ) |-> storedInstr ( movzbl %al , %edx , .Operands )
+      iloc ( 64'218 ) |-> storedInstr ( movq -16 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'219 ) |-> storedInstr ( movzbl ( %rax ) , %eax , .Operands )
+      iloc ( 64'220 ) |-> storedInstr ( movzbl %al , %eax , .Operands )
+      iloc ( 64'221 ) |-> storedInstr ( subl %eax , %edx , .Operands )
+      iloc ( 64'222 ) |-> storedInstr ( movl %edx , %eax , .Operands )
+      iloc ( 64'223 ) |-> storedInstr ( popq %rbp , .Operands )
+      iloc ( 64'224 ) |-> storedInstr ( ret .Operands )
+      iloc ( 64'225 ) |-> storedInstr ( pushq %rbp , .Operands )
+      iloc ( 64'226 ) |-> storedInstr ( movq %rsp , %rbp , .Operands )
+      iloc ( 64'227 ) |-> storedInstr ( movq %rdi , -24 ( %rbp ) , .Operands )
+      iloc ( 64'228 ) |-> storedInstr ( movq %rsi , -32 ( %rbp ) , .Operands )
+      iloc ( 64'229 ) |-> storedInstr ( movq -24 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'230 ) |-> storedInstr ( movq %rax , -8 ( %rbp ) , .Operands )
+      iloc ( 64'231 ) |-> storedInstr ( jmp L45 , .Operands )
+      iloc ( 64'232 ) |-> storedInstr ( addq $ 1 , -8 ( %rbp ) , .Operands )
+      iloc ( 64'233 ) |-> storedInstr ( movq -8 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'234 ) |-> storedInstr ( movzbl ( %rax ) , %eax , .Operands )
+      iloc ( 64'235 ) |-> storedInstr ( testb %al , %al , .Operands )
+      iloc ( 64'236 ) |-> storedInstr ( jne L46 , .Operands )
+      iloc ( 64'237 ) |-> storedInstr ( nop .Operands )
+      iloc ( 64'238 ) |-> storedInstr ( movq -8 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'239 ) |-> storedInstr ( leaq 1 ( %rax ) , %rdx , .Operands )
+      iloc ( 64'240 ) |-> storedInstr ( movq %rdx , -8 ( %rbp ) , .Operands )
+      iloc ( 64'241 ) |-> storedInstr ( movq -32 ( %rbp ) , %rdx , .Operands )
+      iloc ( 64'242 ) |-> storedInstr ( leaq 1 ( %rdx ) , %rcx , .Operands )
+      iloc ( 64'243 ) |-> storedInstr ( movq %rcx , -32 ( %rbp ) , .Operands )
+      iloc ( 64'244 ) |-> storedInstr ( movzbl ( %rdx ) , %edx , .Operands )
+      iloc ( 64'245 ) |-> storedInstr ( movb %dl , ( %rax ) , .Operands )
+      iloc ( 64'246 ) |-> storedInstr ( movzbl ( %rax ) , %eax , .Operands )
+      iloc ( 64'247 ) |-> storedInstr ( testb %al , %al , .Operands )
+      iloc ( 64'248 ) |-> storedInstr ( jne L47 , .Operands )
+      iloc ( 64'249 ) |-> storedInstr ( movq -24 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'250 ) |-> storedInstr ( popq %rbp , .Operands )
+      iloc ( 64'251 ) |-> storedInstr ( ret .Operands )
+      iloc ( 64'252 ) |-> storedInstr ( pushq %rbp , .Operands )
+      iloc ( 64'253 ) |-> storedInstr ( movq %rsp , %rbp , .Operands )
+      iloc ( 64'254 ) |-> storedInstr ( movq %rdi , -24 ( %rbp ) , .Operands )
+      iloc ( 64'255 ) |-> storedInstr ( movq %rsi , -32 ( %rbp ) , .Operands )
+      iloc ( 64'256 ) |-> storedInstr ( movq %rdx , -40 ( %rbp ) , .Operands )
+      iloc ( 64'257 ) |-> storedInstr ( movq -32 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'258 ) |-> storedInstr ( movq %rax , -8 ( %rbp ) , .Operands )
+      iloc ( 64'259 ) |-> storedInstr ( movq -24 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'260 ) |-> storedInstr ( movq %rax , -16 ( %rbp ) , .Operands )
+      iloc ( 64'261 ) |-> storedInstr ( movq -8 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'262 ) |-> storedInstr ( cmpq -16 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'263 ) |-> storedInstr ( jnb L54 , .Operands )
+      iloc ( 64'264 ) |-> storedInstr ( jmp L51 , .Operands )
+      iloc ( 64'265 ) |-> storedInstr ( movq -16 ( %rbp ) , %rdx , .Operands )
+      iloc ( 64'266 ) |-> storedInstr ( movq -40 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'267 ) |-> storedInstr ( addq %rax , %rdx , .Operands )
+      iloc ( 64'268 ) |-> storedInstr ( movq -8 ( %rbp ) , %rcx , .Operands )
+      iloc ( 64'269 ) |-> storedInstr ( movq -40 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'270 ) |-> storedInstr ( addq %rcx , %rax , .Operands )
+      iloc ( 64'271 ) |-> storedInstr ( movzbl ( %rax ) , %eax , .Operands )
+      iloc ( 64'272 ) |-> storedInstr ( movb %al , ( %rdx ) , .Operands )
+      iloc ( 64'273 ) |-> storedInstr ( movq -40 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'274 ) |-> storedInstr ( leaq -1 ( %rax ) , %rdx , .Operands )
+      iloc ( 64'275 ) |-> storedInstr ( movq %rdx , -40 ( %rbp ) , .Operands )
+      iloc ( 64'276 ) |-> storedInstr ( testq %rax , %rax , .Operands )
+      iloc ( 64'277 ) |-> storedInstr ( jne L52 , .Operands )
+      iloc ( 64'278 ) |-> storedInstr ( jmp L53 , .Operands )
+      iloc ( 64'279 ) |-> storedInstr ( movq -16 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'280 ) |-> storedInstr ( leaq 1 ( %rax ) , %rdx , .Operands )
+      iloc ( 64'281 ) |-> storedInstr ( movq %rdx , -16 ( %rbp ) , .Operands )
+      iloc ( 64'282 ) |-> storedInstr ( movq -8 ( %rbp ) , %rdx , .Operands )
+      iloc ( 64'283 ) |-> storedInstr ( leaq 1 ( %rdx ) , %rcx , .Operands )
+      iloc ( 64'284 ) |-> storedInstr ( movq %rcx , -8 ( %rbp ) , .Operands )
+      iloc ( 64'285 ) |-> storedInstr ( movzbl ( %rdx ) , %edx , .Operands )
+      iloc ( 64'286 ) |-> storedInstr ( movb %dl , ( %rax ) , .Operands )
+      iloc ( 64'287 ) |-> storedInstr ( movq -40 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'288 ) |-> storedInstr ( leaq -1 ( %rax ) , %rdx , .Operands )
+      iloc ( 64'289 ) |-> storedInstr ( movq %rdx , -40 ( %rbp ) , .Operands )
+      iloc ( 64'290 ) |-> storedInstr ( testq %rax , %rax , .Operands )
+      iloc ( 64'291 ) |-> storedInstr ( jne L55 , .Operands )
+      iloc ( 64'292 ) |-> storedInstr ( movq -24 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'293 ) |-> storedInstr ( popq %rbp , .Operands )
+      iloc ( 64'294 ) |-> storedInstr ( ret .Operands )
+      iloc ( 64'295 ) |-> storedInstr ( pushq %rbp , .Operands )
+      iloc ( 64'296 ) |-> storedInstr ( movq %rsp , %rbp , .Operands )
+      iloc ( 64'297 ) |-> storedInstr ( subq $ 24 , %rsp , .Operands )
+      iloc ( 64'298 ) |-> storedInstr ( movq %rdi , -8 ( %rbp ) , .Operands )
+      iloc ( 64'299 ) |-> storedInstr ( movq %rsi , -16 ( %rbp ) , .Operands )
+      iloc ( 64'300 ) |-> storedInstr ( movq %rdx , -24 ( %rbp ) , .Operands )
+      iloc ( 64'301 ) |-> storedInstr ( movq -24 ( %rbp ) , %rdx , .Operands )
+      iloc ( 64'302 ) |-> storedInstr ( movq -8 ( %rbp ) , %rcx , .Operands )
+      iloc ( 64'303 ) |-> storedInstr ( movq -16 ( %rbp ) , %rax , .Operands )
+      iloc ( 64'304 ) |-> storedInstr ( movq %rcx , %rsi , .Operands )
+      iloc ( 64'305 ) |-> storedInstr ( movq %rax , %rdi , .Operands )
+      iloc ( 64'306 ) |-> storedInstr ( call memmove , .Operands )
+      iloc ( 64'307 ) |-> storedInstr ( nop .Operands )
+      iloc ( 64'308 ) |-> storedInstr ( leave .Operands )
+      iloc ( 64'309 ) |-> storedInstr ( ret .Operands )
+      iloc ( 64'310 ) |-> storedInstr ( pushq %rbp , .Operands )
+      iloc ( 64'311 ) |-> storedInstr ( movq %rsp , %rbp , .Operands )
+      iloc ( 64'312 ) |-> storedInstr ( movl $ 1 , $ inside_main ( %rip ) , .Operands )
+      iloc ( 64'313 ) |-> storedInstr ( call main_test , .Operands )
+      iloc ( 64'314 ) |-> storedInstr ( movl $ 0 , $ inside_main ( %rip ) , .Operands )
+      iloc ( 64'315 ) |-> storedInstr ( movl $ 0 , %eax , .Operands )
+      iloc ( 64'316 ) |-> storedInstr ( popq %rbp , .Operands )
+      iloc ( 64'317 ) |-> storedInstr ( ret .Operands )
+      iloc ( 64'318 ) |-> storedInstr ( pushq %rbp , .Operands )
+      iloc ( 64'319 ) |-> storedInstr ( movq %rsp , %rbp , .Operands )
+      iloc ( 64'320 ) |-> storedInstr ( call abort , .Operands )
+      iloc ( 64'321 ) |-> storedInstr ( pushq %rbp , .Operands )
+      iloc ( 64'322 ) |-> storedInstr ( movq %rsp , %rbp , .Operands )
+      iloc ( 64'323 ) |-> storedInstr ( movl $ p + 3 , %edx , .Operands )
+      iloc ( 64'324 ) |-> storedInstr ( movl $ p + 2 , %eax , .Operands )
+      iloc ( 64'325 ) |-> storedInstr ( movzbl ( %rdx ) , %edx , .Operands )
+      iloc ( 64'326 ) |-> storedInstr ( movb %dl , ( %rax ) , .Operands )
+      iloc ( 64'327 ) |-> storedInstr ( movl $ p + 2 , %edx , .Operands )
+      iloc ( 64'328 ) |-> storedInstr ( cmpq %rdx , %rax , .Operands )
+      iloc ( 64'329 ) |-> storedInstr ( jne L62 , .Operands )
+      iloc ( 64'330 ) |-> storedInstr ( movl $ 8 , %edx , .Operands )
+      iloc ( 64'331 ) |-> storedInstr ( movl $ LC0 , %esi , .Operands )
+      iloc ( 64'332 ) |-> storedInstr ( movl $ p , %edi , .Operands )
+      iloc ( 64'333 ) |-> storedInstr ( call memcmp , .Operands )
+      iloc ( 64'334 ) |-> storedInstr ( testl %eax , %eax , .Operands )
+      iloc ( 64'335 ) |-> storedInstr ( je L63 , .Operands )
+      iloc ( 64'336 ) |-> storedInstr ( call abort , .Operands )
+      iloc ( 64'337 ) |-> storedInstr ( movl $ p + 1 , %edx , .Operands )
+      iloc ( 64'338 ) |-> storedInstr ( movl $ p + 1 , %eax , .Operands )
+      iloc ( 64'339 ) |-> storedInstr ( movzbl ( %rdx ) , %edx , .Operands )
+      iloc ( 64'340 ) |-> storedInstr ( movb %dl , ( %rax ) , .Operands )
+      iloc ( 64'341 ) |-> storedInstr ( movl $ p + 1 , %edx , .Operands )
+      iloc ( 64'342 ) |-> storedInstr ( cmpq %rdx , %rax , .Operands )
+      iloc ( 64'343 ) |-> storedInstr ( jne L64 , .Operands )
+      iloc ( 64'344 ) |-> storedInstr ( movl $ 8 , %edx , .Operands )
+      iloc ( 64'345 ) |-> storedInstr ( movl $ LC0 , %esi , .Operands )
+      iloc ( 64'346 ) |-> storedInstr ( movl $ p , %edi , .Operands )
+      iloc ( 64'347 ) |-> storedInstr ( call memcmp , .Operands )
+      iloc ( 64'348 ) |-> storedInstr ( testl %eax , %eax , .Operands )
+      iloc ( 64'349 ) |-> storedInstr ( je L65 , .Operands )
+      iloc ( 64'350 ) |-> storedInstr ( call abort , .Operands )
+      iloc ( 64'351 ) |-> storedInstr ( movl $ p + 4 , %edx , .Operands )
+      iloc ( 64'352 ) |-> storedInstr ( movq $ q ( %rip ) , %rax , .Operands )
+      iloc ( 64'353 ) |-> storedInstr ( movzbl ( %rdx ) , %edx , .Operands )
+      iloc ( 64'354 ) |-> storedInstr ( movb %dl , ( %rax ) , .Operands )
+      iloc ( 64'355 ) |-> storedInstr ( movq %rax , %rdx , .Operands )
+      iloc ( 64'356 ) |-> storedInstr ( movl $ p + 4 , %eax , .Operands )
+      iloc ( 64'357 ) |-> storedInstr ( cmpq %rax , %rdx , .Operands )
+      iloc ( 64'358 ) |-> storedInstr ( jne L66 , .Operands )
+      iloc ( 64'359 ) |-> storedInstr ( movl $ 8 , %edx , .Operands )
+      iloc ( 64'360 ) |-> storedInstr ( movl $ LC0 , %esi , .Operands )
+      iloc ( 64'361 ) |-> storedInstr ( movl $ p , %edi , .Operands )
+      iloc ( 64'362 ) |-> storedInstr ( call memcmp , .Operands )
+      iloc ( 64'363 ) |-> storedInstr ( testl %eax , %eax , .Operands )
+      iloc ( 64'364 ) |-> storedInstr ( je L67 , .Operands )
+      iloc ( 64'365 ) |-> storedInstr ( call abort , .Operands )
+      iloc ( 64'366 ) |-> storedInstr ( movl $ p + 6 , %edx , .Operands )
+      iloc ( 64'367 ) |-> storedInstr ( movl $ p + 5 , %eax , .Operands )
+      iloc ( 64'368 ) |-> storedInstr ( movzbl ( %rax ) , %eax , .Operands )
+      iloc ( 64'369 ) |-> storedInstr ( movb %al , ( %rdx ) , .Operands )
+      iloc ( 64'370 ) |-> storedInstr ( movl $ 8 , %edx , .Operands )
+      iloc ( 64'371 ) |-> storedInstr ( movl $ LC1 , %esi , .Operands )
+      iloc ( 64'372 ) |-> storedInstr ( movl $ p , %edi , .Operands )
+      iloc ( 64'373 ) |-> storedInstr ( call memcmp , .Operands )
+      iloc ( 64'374 ) |-> storedInstr ( testl %eax , %eax , .Operands )
+      iloc ( 64'375 ) |-> storedInstr ( je L68 , .Operands )
+      iloc ( 64'376 ) |-> storedInstr ( call abort , .Operands )
+      iloc ( 64'377 ) |-> storedInstr ( movl $ p + 1 , %edx , .Operands )
+      iloc ( 64'378 ) |-> storedInstr ( movl $ p + 1 , %eax , .Operands )
+      iloc ( 64'379 ) |-> storedInstr ( movzbl ( %rax ) , %eax , .Operands )
+      iloc ( 64'380 ) |-> storedInstr ( movb %al , ( %rdx ) , .Operands )
+      iloc ( 64'381 ) |-> storedInstr ( movl $ 8 , %edx , .Operands )
+      iloc ( 64'382 ) |-> storedInstr ( movl $ LC1 , %esi , .Operands )
+      iloc ( 64'383 ) |-> storedInstr ( movl $ p , %edi , .Operands )
+      iloc ( 64'384 ) |-> storedInstr ( call memcmp , .Operands )
+      iloc ( 64'385 ) |-> storedInstr ( testl %eax , %eax , .Operands )
+      iloc ( 64'386 ) |-> storedInstr ( je L69 , .Operands )
+      iloc ( 64'387 ) |-> storedInstr ( call abort , .Operands )
+      iloc ( 64'388 ) |-> storedInstr ( movl $ p + 4 , %edx , .Operands )
+      iloc ( 64'389 ) |-> storedInstr ( movq $ q ( %rip ) , %rax , .Operands )
+      iloc ( 64'390 ) |-> storedInstr ( movzbl ( %rax ) , %eax , .Operands )
+      iloc ( 64'391 ) |-> storedInstr ( movb %al , ( %rdx ) , .Operands )
+      iloc ( 64'392 ) |-> storedInstr ( movl $ 8 , %edx , .Operands )
+      iloc ( 64'393 ) |-> storedInstr ( movl $ LC1 , %esi , .Operands )
+      iloc ( 64'394 ) |-> storedInstr ( movl $ p , %edi , .Operands )
+      iloc ( 64'395 ) |-> storedInstr ( call memcmp , .Operands )
+      iloc ( 64'396 ) |-> storedInstr ( testl %eax , %eax , .Operands )
+      iloc ( 64'397 ) |-> storedInstr ( je L71 , .Operands )
+      iloc ( 64'398 ) |-> storedInstr ( call abort , .Operands )
+      iloc ( 64'399 ) |-> storedInstr ( nop .Operands )
+      iloc ( 64'400 ) |-> storedInstr ( popq %rbp , .Operands )
+      iloc ( 64'401 ) |-> storedInstr ( ret .Operands ) )
     </text>
     <stack>
       <memory>
@@ -1148,62 +1438,62 @@
           933 |-> byte ( 0 , 8'0 )
           934 |-> byte ( 0 , 8'0 )
           935 |-> byte ( 0 , 8'0 )
-          936 |-> byte ( 0 , 8'0 )
-          937 |-> byte ( 0 , 8'0 )
-          938 |-> byte ( 0 , 8'0 )
-          939 |-> byte ( 0 , 8'0 )
-          940 |-> byte ( 0 , 8'0 )
-          941 |-> byte ( 0 , 8'0 )
-          942 |-> byte ( 0 , 8'0 )
-          943 |-> byte ( 0 , 8'0 )
-          944 |-> byte ( 0 , 8'0 )
-          945 |-> byte ( 0 , 8'0 )
-          946 |-> byte ( 0 , 8'0 )
-          947 |-> byte ( 0 , 8'0 )
-          948 |-> byte ( 0 , 8'0 )
-          949 |-> byte ( 0 , 8'0 )
-          950 |-> byte ( 0 , 8'0 )
-          951 |-> byte ( 0 , 8'0 )
-          952 |-> byte ( 0 , 8'0 )
-          953 |-> byte ( 0 , 8'0 )
-          954 |-> byte ( 0 , 8'0 )
-          955 |-> byte ( 0 , 8'0 )
-          956 |-> byte ( 0 , 8'0 )
-          957 |-> byte ( 0 , 8'0 )
-          958 |-> byte ( 0 , 8'0 )
-          959 |-> byte ( 0 , 8'0 )
-          960 |-> byte ( 0 , 8'0 )
-          961 |-> byte ( 0 , 8'0 )
-          962 |-> byte ( 0 , 8'0 )
-          963 |-> byte ( 0 , 8'0 )
-          964 |-> byte ( 0 , 8'0 )
-          965 |-> byte ( 0 , 8'0 )
-          966 |-> byte ( 0 , 8'0 )
-          967 |-> byte ( 0 , 8'0 )
-          968 |-> byte ( 0 , 8'0 )
-          969 |-> byte ( 0 , 8'0 )
-          970 |-> byte ( 0 , 8'0 )
-          971 |-> byte ( 0 , 8'0 )
-          972 |-> byte ( 0 , 8'0 )
-          973 |-> byte ( 0 , 8'0 )
-          974 |-> byte ( 0 , 8'0 )
-          975 |-> byte ( 0 , 8'0 )
-          976 |-> byte ( 0 , 8'0 )
-          977 |-> byte ( 0 , 8'0 )
-          978 |-> byte ( 0 , 8'0 )
-          979 |-> byte ( 0 , 8'0 )
-          980 |-> byte ( 0 , 8'0 )
-          981 |-> byte ( 0 , 8'0 )
-          982 |-> byte ( 0 , 8'0 )
-          983 |-> byte ( 0 , 8'0 )
-          984 |-> byte ( 0 , 8'0 )
-          985 |-> byte ( 0 , 8'0 )
-          986 |-> byte ( 0 , 8'0 )
-          987 |-> byte ( 0 , 8'0 )
-          988 |-> byte ( 0 , 8'0 )
-          989 |-> byte ( 0 , 8'0 )
-          990 |-> byte ( 0 , 8'0 )
-          991 |-> byte ( 0 , 8'0 )
+          936 |-> byte ( 0 , 64'7 )
+          937 |-> byte ( 1 , 64'7 )
+          938 |-> byte ( 2 , 64'7 )
+          939 |-> byte ( 3 , 64'7 )
+          940 |-> byte ( 4 , 64'7 )
+          941 |-> byte ( 5 , 64'7 )
+          942 |-> byte ( 6 , 64'7 )
+          943 |-> byte ( 7 , 64'7 )
+          944 |-> byte ( 0 , ptr ( symloc ( 2 , 128 ) , 64'8 ) )
+          945 |-> byte ( 1 , ptr ( symloc ( 2 , 128 ) , 64'8 ) )
+          946 |-> byte ( 2 , ptr ( symloc ( 2 , 128 ) , 64'8 ) )
+          947 |-> byte ( 3 , ptr ( symloc ( 2 , 128 ) , 64'8 ) )
+          948 |-> byte ( 4 , ptr ( symloc ( 2 , 128 ) , 64'8 ) )
+          949 |-> byte ( 5 , ptr ( symloc ( 2 , 128 ) , 64'8 ) )
+          950 |-> byte ( 6 , ptr ( symloc ( 2 , 128 ) , 64'8 ) )
+          951 |-> byte ( 7 , ptr ( symloc ( 2 , 128 ) , 64'8 ) )
+          952 |-> byte ( 0 , ptr ( symloc ( 3 , 128 ) , 64'4 ) )
+          953 |-> byte ( 1 , ptr ( symloc ( 3 , 128 ) , 64'4 ) )
+          954 |-> byte ( 2 , ptr ( symloc ( 3 , 128 ) , 64'4 ) )
+          955 |-> byte ( 3 , ptr ( symloc ( 3 , 128 ) , 64'4 ) )
+          956 |-> byte ( 4 , ptr ( symloc ( 3 , 128 ) , 64'4 ) )
+          957 |-> byte ( 5 , ptr ( symloc ( 3 , 128 ) , 64'4 ) )
+          958 |-> byte ( 6 , ptr ( symloc ( 3 , 128 ) , 64'4 ) )
+          959 |-> byte ( 7 , ptr ( symloc ( 3 , 128 ) , 64'4 ) )
+          960 |-> byte ( 0 , ptr ( symloc ( 3 , 128 ) , 64'4 ) )
+          961 |-> byte ( 1 , ptr ( symloc ( 3 , 128 ) , 64'4 ) )
+          962 |-> byte ( 2 , ptr ( symloc ( 3 , 128 ) , 64'4 ) )
+          963 |-> byte ( 3 , ptr ( symloc ( 3 , 128 ) , 64'4 ) )
+          964 |-> byte ( 4 , ptr ( symloc ( 3 , 128 ) , 64'4 ) )
+          965 |-> byte ( 5 , ptr ( symloc ( 3 , 128 ) , 64'4 ) )
+          966 |-> byte ( 6 , ptr ( symloc ( 3 , 128 ) , 64'4 ) )
+          967 |-> byte ( 7 , ptr ( symloc ( 3 , 128 ) , 64'4 ) )
+          968 |-> byte ( 0 , ptr ( symloc ( 2 , 128 ) , 64'8 ) )
+          969 |-> byte ( 1 , ptr ( symloc ( 2 , 128 ) , 64'8 ) )
+          970 |-> byte ( 2 , ptr ( symloc ( 2 , 128 ) , 64'8 ) )
+          971 |-> byte ( 3 , ptr ( symloc ( 2 , 128 ) , 64'8 ) )
+          972 |-> byte ( 4 , ptr ( symloc ( 2 , 128 ) , 64'8 ) )
+          973 |-> byte ( 5 , ptr ( symloc ( 2 , 128 ) , 64'8 ) )
+          974 |-> byte ( 6 , ptr ( symloc ( 2 , 128 ) , 64'8 ) )
+          975 |-> byte ( 7 , ptr ( symloc ( 2 , 128 ) , 64'8 ) )
+          976 |-> byte ( 0 , ptr ( symloc ( 1 , 128 ) , 64'992 ) )
+          977 |-> byte ( 1 , ptr ( symloc ( 1 , 128 ) , 64'992 ) )
+          978 |-> byte ( 2 , ptr ( symloc ( 1 , 128 ) , 64'992 ) )
+          979 |-> byte ( 3 , ptr ( symloc ( 1 , 128 ) , 64'992 ) )
+          980 |-> byte ( 4 , ptr ( symloc ( 1 , 128 ) , 64'992 ) )
+          981 |-> byte ( 5 , ptr ( symloc ( 1 , 128 ) , 64'992 ) )
+          982 |-> byte ( 6 , ptr ( symloc ( 1 , 128 ) , 64'992 ) )
+          983 |-> byte ( 7 , ptr ( symloc ( 1 , 128 ) , 64'992 ) )
+          984 |-> byte ( 0 , 64'337 )
+          985 |-> byte ( 1 , 64'337 )
+          986 |-> byte ( 2 , 64'337 )
+          987 |-> byte ( 3 , 64'337 )
+          988 |-> byte ( 4 , 64'337 )
+          989 |-> byte ( 5 , 64'337 )
+          990 |-> byte ( 6 , 64'337 )
+          991 |-> byte ( 7 , 64'337 )
           992 |-> byte ( 0 , ptr ( symloc ( 1 , 128 ) , 64'1008 ) )
           993 |-> byte ( 1 , ptr ( symloc ( 1 , 128 ) , 64'1008 ) )
           994 |-> byte ( 2 , ptr ( symloc ( 1 , 128 ) , 64'1008 ) )
@@ -1212,14 +1502,14 @@
           997 |-> byte ( 5 , ptr ( symloc ( 1 , 128 ) , 64'1008 ) )
           998 |-> byte ( 6 , ptr ( symloc ( 1 , 128 ) , 64'1008 ) )
           999 |-> byte ( 7 , ptr ( symloc ( 1 , 128 ) , 64'1008 ) )
-          1000 |-> byte ( 0 , 64'62 )
-          1001 |-> byte ( 1 , 64'62 )
-          1002 |-> byte ( 2 , 64'62 )
-          1003 |-> byte ( 3 , 64'62 )
-          1004 |-> byte ( 4 , 64'62 )
-          1005 |-> byte ( 5 , 64'62 )
-          1006 |-> byte ( 6 , 64'62 )
-          1007 |-> byte ( 7 , 64'62 )
+          1000 |-> byte ( 0 , 64'314 )
+          1001 |-> byte ( 1 , 64'314 )
+          1002 |-> byte ( 2 , 64'314 )
+          1003 |-> byte ( 3 , 64'314 )
+          1004 |-> byte ( 4 , 64'314 )
+          1005 |-> byte ( 5 , 64'314 )
+          1006 |-> byte ( 6 , 64'314 )
+          1007 |-> byte ( 7 , 64'314 )
           1008 |-> byte ( 0 , ptr ( symloc ( 1 , 128 ) , 64'1016 ) )
           1009 |-> byte ( 1 , ptr ( symloc ( 1 , 128 ) , 64'1016 ) )
           1010 |-> byte ( 2 , ptr ( symloc ( 1 , 128 ) , 64'1016 ) )
@@ -4338,7 +4628,7 @@
     </argv>
   </environment>
   <regstate>
-    "AF" |-> ptr ( symloc ( 3 , 128 ) , 1'0 )
+    "AF" |-> undefMInt
     "CF" |-> 1'0
     "DF" |-> 1'0
     "OF" |-> 1'0
@@ -4351,16 +4641,16 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> ptr ( symloc ( 3 , 128 ) , 64'6 )
-    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'992 )
+    "RAX" |-> 64'-1
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
     "RBX" |-> 64'0
     "RCX" |-> 64'0
     "RDI" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
-    "RDX" |-> 64'8
-    "RIP" |-> 64'82
+    "RDX" |-> 64'4294967199
+    "RIP" |-> 64'-1
     "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
-    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'992 )
-    "SF" |-> ptr ( symloc ( 3 , 128 ) , 1'0 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "SF" |-> 1'1
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -4377,7 +4667,7 @@
     "YMM13" |-> 256'0
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
-    "ZF" |-> 1'1
+    "ZF" |-> 1'0
   </regstate>
   <regstatequeue>
     ListItem (
@@ -4400,7 +4690,7 @@
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
-    "RIP" |-> 64'58
+    "RIP" |-> 64'310
     "RSI" |-> 64'0
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'1016 )
     "SF" |-> 1'0
@@ -4421,31 +4711,69 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( L3 |-> 64'21
-    L4 |-> 64'13
-    L5 |-> 64'40
-    L6 |-> 64'35
-    L7 |-> 64'27
-    L14 |-> 64'84
-    L15 |-> 64'85
-    L16 |-> 64'98
-    L17 |-> 64'99
-    L18 |-> 64'113
-    L19 |-> 64'114
-    L20 |-> 64'125
-    L21 |-> 64'136
-    L23 |-> 64'147
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
     LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
-    _start |-> 64'58
-    bcopy |-> 64'43
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
     inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
-    link_error |-> 64'66
-    main_test |-> 64'69
-    memmove |-> 64'0
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
     p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
     q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
-    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 ) )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
     ListItem (
 "AF" |-> 1'0
     "CF" |-> 1'0
@@ -4466,7 +4794,7 @@
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
-    "RIP" |-> 64'59
+    "RIP" |-> 64'311
     "RSI" |-> 64'0
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'1008 )
     "SF" |-> 1'0
@@ -4487,31 +4815,69 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( L3 |-> 64'21
-    L4 |-> 64'13
-    L5 |-> 64'40
-    L6 |-> 64'35
-    L7 |-> 64'27
-    L14 |-> 64'84
-    L15 |-> 64'85
-    L16 |-> 64'98
-    L17 |-> 64'99
-    L18 |-> 64'113
-    L19 |-> 64'114
-    L20 |-> 64'125
-    L21 |-> 64'136
-    L23 |-> 64'147
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
     LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
-    _start |-> 64'58
-    bcopy |-> 64'43
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
     inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
-    link_error |-> 64'66
-    main_test |-> 64'69
-    memmove |-> 64'0
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
     p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
     q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
-    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 ) )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
     ListItem (
 "AF" |-> 1'0
     "CF" |-> 1'0
@@ -4532,7 +4898,7 @@
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
-    "RIP" |-> 64'60
+    "RIP" |-> 64'312
     "RSI" |-> 64'0
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'1008 )
     "SF" |-> 1'0
@@ -4553,31 +4919,69 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( L3 |-> 64'21
-    L4 |-> 64'13
-    L5 |-> 64'40
-    L6 |-> 64'35
-    L7 |-> 64'27
-    L14 |-> 64'84
-    L15 |-> 64'85
-    L16 |-> 64'98
-    L17 |-> 64'99
-    L18 |-> 64'113
-    L19 |-> 64'114
-    L20 |-> 64'125
-    L21 |-> 64'136
-    L23 |-> 64'147
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
     LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
-    _start |-> 64'58
-    bcopy |-> 64'43
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
     inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
-    link_error |-> 64'66
-    main_test |-> 64'69
-    memmove |-> 64'0
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
     p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
     q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
-    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 ) )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
     ListItem (
 "AF" |-> 1'0
     "CF" |-> 1'0
@@ -4598,7 +5002,7 @@
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
-    "RIP" |-> 64'61
+    "RIP" |-> 64'313
     "RSI" |-> 64'0
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'1008 )
     "SF" |-> 1'0
@@ -4619,31 +5023,69 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( L3 |-> 64'21
-    L4 |-> 64'13
-    L5 |-> 64'40
-    L6 |-> 64'35
-    L7 |-> 64'27
-    L14 |-> 64'84
-    L15 |-> 64'85
-    L16 |-> 64'98
-    L17 |-> 64'99
-    L18 |-> 64'113
-    L19 |-> 64'114
-    L20 |-> 64'125
-    L21 |-> 64'136
-    L23 |-> 64'147
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
     LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
-    _start |-> 64'58
-    bcopy |-> 64'43
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
     inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
-    link_error |-> 64'66
-    main_test |-> 64'69
-    memmove |-> 64'0
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
     p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
     q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
-    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 ) )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
     ListItem (
 "AF" |-> 1'0
     "CF" |-> 1'0
@@ -4664,7 +5106,7 @@
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
-    "RIP" |-> 64'69
+    "RIP" |-> 64'321
     "RSI" |-> 64'0
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'1000 )
     "SF" |-> 1'0
@@ -4685,31 +5127,69 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( L3 |-> 64'21
-    L4 |-> 64'13
-    L5 |-> 64'40
-    L6 |-> 64'35
-    L7 |-> 64'27
-    L14 |-> 64'84
-    L15 |-> 64'85
-    L16 |-> 64'98
-    L17 |-> 64'99
-    L18 |-> 64'113
-    L19 |-> 64'114
-    L20 |-> 64'125
-    L21 |-> 64'136
-    L23 |-> 64'147
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
     LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
-    _start |-> 64'58
-    bcopy |-> 64'43
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
     inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
-    link_error |-> 64'66
-    main_test |-> 64'69
-    memmove |-> 64'0
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
     p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
     q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
-    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 ) )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
     ListItem (
 "AF" |-> 1'0
     "CF" |-> 1'0
@@ -4730,7 +5210,7 @@
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
-    "RIP" |-> 64'70
+    "RIP" |-> 64'322
     "RSI" |-> 64'0
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'992 )
     "SF" |-> 1'0
@@ -4751,31 +5231,69 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( L3 |-> 64'21
-    L4 |-> 64'13
-    L5 |-> 64'40
-    L6 |-> 64'35
-    L7 |-> 64'27
-    L14 |-> 64'84
-    L15 |-> 64'85
-    L16 |-> 64'98
-    L17 |-> 64'99
-    L18 |-> 64'113
-    L19 |-> 64'114
-    L20 |-> 64'125
-    L21 |-> 64'136
-    L23 |-> 64'147
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
     LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
-    _start |-> 64'58
-    bcopy |-> 64'43
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
     inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
-    link_error |-> 64'66
-    main_test |-> 64'69
-    memmove |-> 64'0
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
     p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
     q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
-    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 ) )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
     ListItem (
 "AF" |-> 1'0
     "CF" |-> 1'0
@@ -4796,7 +5314,7 @@
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
-    "RIP" |-> 64'71
+    "RIP" |-> 64'323
     "RSI" |-> 64'0
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'992 )
     "SF" |-> 1'0
@@ -4817,31 +5335,69 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( L3 |-> 64'21
-    L4 |-> 64'13
-    L5 |-> 64'40
-    L6 |-> 64'35
-    L7 |-> 64'27
-    L14 |-> 64'84
-    L15 |-> 64'85
-    L16 |-> 64'98
-    L17 |-> 64'99
-    L18 |-> 64'113
-    L19 |-> 64'114
-    L20 |-> 64'125
-    L21 |-> 64'136
-    L23 |-> 64'147
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
     LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
-    _start |-> 64'58
-    bcopy |-> 64'43
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
     inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
-    link_error |-> 64'66
-    main_test |-> 64'69
-    memmove |-> 64'0
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
     p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
     q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
-    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 ) )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
     ListItem (
 "AF" |-> 1'0
     "CF" |-> 1'0
@@ -4862,7 +5418,7 @@
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> ptr ( symloc ( 3 , 128 ) , 64'7 )
-    "RIP" |-> 64'72
+    "RIP" |-> 64'324
     "RSI" |-> 64'0
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'992 )
     "SF" |-> 1'0
@@ -4883,31 +5439,69 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( L3 |-> 64'21
-    L4 |-> 64'13
-    L5 |-> 64'40
-    L6 |-> 64'35
-    L7 |-> 64'27
-    L14 |-> 64'84
-    L15 |-> 64'85
-    L16 |-> 64'98
-    L17 |-> 64'99
-    L18 |-> 64'113
-    L19 |-> 64'114
-    L20 |-> 64'125
-    L21 |-> 64'136
-    L23 |-> 64'147
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
     LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
-    _start |-> 64'58
-    bcopy |-> 64'43
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
     inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
-    link_error |-> 64'66
-    main_test |-> 64'69
-    memmove |-> 64'0
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
     p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
     q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
-    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 ) )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
     ListItem (
 "AF" |-> 1'0
     "CF" |-> 1'0
@@ -4928,7 +5522,7 @@
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> ptr ( symloc ( 3 , 128 ) , 64'7 )
-    "RIP" |-> 64'73
+    "RIP" |-> 64'325
     "RSI" |-> 64'0
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'992 )
     "SF" |-> 1'0
@@ -4949,31 +5543,69 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( L3 |-> 64'21
-    L4 |-> 64'13
-    L5 |-> 64'40
-    L6 |-> 64'35
-    L7 |-> 64'27
-    L14 |-> 64'84
-    L15 |-> 64'85
-    L16 |-> 64'98
-    L17 |-> 64'99
-    L18 |-> 64'113
-    L19 |-> 64'114
-    L20 |-> 64'125
-    L21 |-> 64'136
-    L23 |-> 64'147
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
     LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
-    _start |-> 64'58
-    bcopy |-> 64'43
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
     inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
-    link_error |-> 64'66
-    main_test |-> 64'69
-    memmove |-> 64'0
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
     p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
     q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
-    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 ) )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
     ListItem (
 "AF" |-> 1'0
     "CF" |-> 1'0
@@ -4994,7 +5626,7 @@
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
-    "RIP" |-> 64'74
+    "RIP" |-> 64'326
     "RSI" |-> 64'0
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'992 )
     "SF" |-> 1'0
@@ -5015,31 +5647,69 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( L3 |-> 64'21
-    L4 |-> 64'13
-    L5 |-> 64'40
-    L6 |-> 64'35
-    L7 |-> 64'27
-    L14 |-> 64'84
-    L15 |-> 64'85
-    L16 |-> 64'98
-    L17 |-> 64'99
-    L18 |-> 64'113
-    L19 |-> 64'114
-    L20 |-> 64'125
-    L21 |-> 64'136
-    L23 |-> 64'147
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
     LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
-    _start |-> 64'58
-    bcopy |-> 64'43
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
     inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
-    link_error |-> 64'66
-    main_test |-> 64'69
-    memmove |-> 64'0
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
     p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
     q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
-    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 ) )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
     ListItem (
 "AF" |-> 1'0
     "CF" |-> 1'0
@@ -5060,7 +5730,7 @@
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
-    "RIP" |-> 64'75
+    "RIP" |-> 64'327
     "RSI" |-> 64'0
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'992 )
     "SF" |-> 1'0
@@ -5081,31 +5751,69 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( L3 |-> 64'21
-    L4 |-> 64'13
-    L5 |-> 64'40
-    L6 |-> 64'35
-    L7 |-> 64'27
-    L14 |-> 64'84
-    L15 |-> 64'85
-    L16 |-> 64'98
-    L17 |-> 64'99
-    L18 |-> 64'113
-    L19 |-> 64'114
-    L20 |-> 64'125
-    L21 |-> 64'136
-    L23 |-> 64'147
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
     LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
-    _start |-> 64'58
-    bcopy |-> 64'43
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
     inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
-    link_error |-> 64'66
-    main_test |-> 64'69
-    memmove |-> 64'0
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
     p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
     q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
-    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 ) )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
     ListItem (
 "AF" |-> 1'0
     "CF" |-> 1'0
@@ -5126,7 +5834,7 @@
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> ptr ( symloc ( 3 , 128 ) , 64'6 )
-    "RIP" |-> 64'76
+    "RIP" |-> 64'328
     "RSI" |-> 64'0
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'992 )
     "SF" |-> 1'0
@@ -5147,31 +5855,69 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( L3 |-> 64'21
-    L4 |-> 64'13
-    L5 |-> 64'40
-    L6 |-> 64'35
-    L7 |-> 64'27
-    L14 |-> 64'84
-    L15 |-> 64'85
-    L16 |-> 64'98
-    L17 |-> 64'99
-    L18 |-> 64'113
-    L19 |-> 64'114
-    L20 |-> 64'125
-    L21 |-> 64'136
-    L23 |-> 64'147
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
     LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
-    _start |-> 64'58
-    bcopy |-> 64'43
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
     inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
-    link_error |-> 64'66
-    main_test |-> 64'69
-    memmove |-> 64'0
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
     p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
     q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
-    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 ) )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
     ListItem (
 "AF" |-> ptr ( symloc ( 3 , 128 ) , 1'0 )
     "CF" |-> 1'0
@@ -5192,7 +5938,7 @@
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> ptr ( symloc ( 3 , 128 ) , 64'6 )
-    "RIP" |-> 64'77
+    "RIP" |-> 64'329
     "RSI" |-> 64'0
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'992 )
     "SF" |-> ptr ( symloc ( 3 , 128 ) , 1'0 )
@@ -5213,31 +5959,69 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'1 )
-    ListItem ( L3 |-> 64'21
-    L4 |-> 64'13
-    L5 |-> 64'40
-    L6 |-> 64'35
-    L7 |-> 64'27
-    L14 |-> 64'84
-    L15 |-> 64'85
-    L16 |-> 64'98
-    L17 |-> 64'99
-    L18 |-> 64'113
-    L19 |-> 64'114
-    L20 |-> 64'125
-    L21 |-> 64'136
-    L23 |-> 64'147
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
     LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
-    _start |-> 64'58
-    bcopy |-> 64'43
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
     inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
-    link_error |-> 64'66
-    main_test |-> 64'69
-    memmove |-> 64'0
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
     p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
     q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
-    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 ) )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
     ListItem (
 "AF" |-> ptr ( symloc ( 3 , 128 ) , 1'0 )
     "CF" |-> 1'0
@@ -5258,7 +6042,7 @@
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> ptr ( symloc ( 3 , 128 ) , 64'6 )
-    "RIP" |-> 64'78
+    "RIP" |-> 64'330
     "RSI" |-> 64'0
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'992 )
     "SF" |-> ptr ( symloc ( 3 , 128 ) , 1'0 )
@@ -5279,31 +6063,69 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'1 )
-    ListItem ( L3 |-> 64'21
-    L4 |-> 64'13
-    L5 |-> 64'40
-    L6 |-> 64'35
-    L7 |-> 64'27
-    L14 |-> 64'84
-    L15 |-> 64'85
-    L16 |-> 64'98
-    L17 |-> 64'99
-    L18 |-> 64'113
-    L19 |-> 64'114
-    L20 |-> 64'125
-    L21 |-> 64'136
-    L23 |-> 64'147
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
     LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
-    _start |-> 64'58
-    bcopy |-> 64'43
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
     inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
-    link_error |-> 64'66
-    main_test |-> 64'69
-    memmove |-> 64'0
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
     p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
     q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
-    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 ) )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
     ListItem (
 "AF" |-> ptr ( symloc ( 3 , 128 ) , 1'0 )
     "CF" |-> 1'0
@@ -5324,7 +6146,7 @@
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'8
-    "RIP" |-> 64'79
+    "RIP" |-> 64'331
     "RSI" |-> 64'0
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'992 )
     "SF" |-> ptr ( symloc ( 3 , 128 ) , 1'0 )
@@ -5345,31 +6167,69 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'1 )
-    ListItem ( L3 |-> 64'21
-    L4 |-> 64'13
-    L5 |-> 64'40
-    L6 |-> 64'35
-    L7 |-> 64'27
-    L14 |-> 64'84
-    L15 |-> 64'85
-    L16 |-> 64'98
-    L17 |-> 64'99
-    L18 |-> 64'113
-    L19 |-> 64'114
-    L20 |-> 64'125
-    L21 |-> 64'136
-    L23 |-> 64'147
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
     LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
-    _start |-> 64'58
-    bcopy |-> 64'43
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
     inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
-    link_error |-> 64'66
-    main_test |-> 64'69
-    memmove |-> 64'0
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
     p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
     q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
-    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 ) )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
     ListItem (
 "AF" |-> ptr ( symloc ( 3 , 128 ) , 1'0 )
     "CF" |-> 1'0
@@ -5390,7 +6250,7 @@
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'8
-    "RIP" |-> 64'80
+    "RIP" |-> 64'332
     "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'992 )
     "SF" |-> ptr ( symloc ( 3 , 128 ) , 1'0 )
@@ -5411,31 +6271,69 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'1 )
-    ListItem ( L3 |-> 64'21
-    L4 |-> 64'13
-    L5 |-> 64'40
-    L6 |-> 64'35
-    L7 |-> 64'27
-    L14 |-> 64'84
-    L15 |-> 64'85
-    L16 |-> 64'98
-    L17 |-> 64'99
-    L18 |-> 64'113
-    L19 |-> 64'114
-    L20 |-> 64'125
-    L21 |-> 64'136
-    L23 |-> 64'147
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
     LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
-    _start |-> 64'58
-    bcopy |-> 64'43
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
     inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
-    link_error |-> 64'66
-    main_test |-> 64'69
-    memmove |-> 64'0
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
     p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
     q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
-    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 ) )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
     ListItem (
 "AF" |-> ptr ( symloc ( 3 , 128 ) , 1'0 )
     "CF" |-> 1'0
@@ -5456,7 +6354,7 @@
     "RCX" |-> 64'0
     "RDI" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
     "RDX" |-> 64'8
-    "RIP" |-> 64'81
+    "RIP" |-> 64'333
     "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'992 )
     "SF" |-> ptr ( symloc ( 3 , 128 ) , 1'0 )
@@ -5477,31 +6375,4229 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'1 )
-    ListItem ( L3 |-> 64'21
-    L4 |-> 64'13
-    L5 |-> 64'40
-    L6 |-> 64'35
-    L7 |-> 64'27
-    L14 |-> 64'84
-    L15 |-> 64'85
-    L16 |-> 64'98
-    L17 |-> 64'99
-    L18 |-> 64'113
-    L19 |-> 64'114
-    L20 |-> 64'125
-    L21 |-> 64'136
-    L23 |-> 64'147
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
     LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
-    _start |-> 64'58
-    bcopy |-> 64'43
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
     inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
-    link_error |-> 64'66
-    main_test |-> 64'69
-    memmove |-> 64'0
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
     p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
     q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
-    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 ) )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
+    ListItem (
+"AF" |-> ptr ( symloc ( 3 , 128 ) , 1'0 )
+    "CF" |-> 1'0
+    "DF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'1
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> ptr ( symloc ( 3 , 128 ) , 64'6 )
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'992 )
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RDX" |-> 64'8
+    "RIP" |-> 64'0
+    "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'984 )
+    "SF" |-> ptr ( symloc ( 3 , 128 ) , 1'0 )
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'1 )
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
+    LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
+    inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
+    p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
+    ListItem (
+"AF" |-> ptr ( symloc ( 3 , 128 ) , 1'0 )
+    "CF" |-> 1'0
+    "DF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'1
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> ptr ( symloc ( 3 , 128 ) , 64'6 )
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'992 )
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RDX" |-> 64'8
+    "RIP" |-> 64'1
+    "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "SF" |-> ptr ( symloc ( 3 , 128 ) , 1'0 )
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'1 )
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
+    LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
+    inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
+    p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
+    ListItem (
+"AF" |-> ptr ( symloc ( 3 , 128 ) , 1'0 )
+    "CF" |-> 1'0
+    "DF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'1
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> ptr ( symloc ( 3 , 128 ) , 64'6 )
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RDX" |-> 64'8
+    "RIP" |-> 64'2
+    "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "SF" |-> ptr ( symloc ( 3 , 128 ) , 1'0 )
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'1 )
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
+    LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
+    inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
+    p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
+    ListItem (
+"AF" |-> ptr ( symloc ( 3 , 128 ) , 1'0 )
+    "CF" |-> 1'0
+    "DF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'1
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> ptr ( symloc ( 3 , 128 ) , 64'6 )
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RDX" |-> 64'8
+    "RIP" |-> 64'3
+    "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "SF" |-> ptr ( symloc ( 3 , 128 ) , 1'0 )
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'1 )
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
+    LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
+    inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
+    p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
+    ListItem (
+"AF" |-> ptr ( symloc ( 3 , 128 ) , 1'0 )
+    "CF" |-> 1'0
+    "DF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'1
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> ptr ( symloc ( 3 , 128 ) , 64'6 )
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RDX" |-> 64'8
+    "RIP" |-> 64'4
+    "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "SF" |-> ptr ( symloc ( 3 , 128 ) , 1'0 )
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'1 )
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
+    LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
+    inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
+    p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
+    ListItem (
+"AF" |-> ptr ( symloc ( 3 , 128 ) , 1'0 )
+    "CF" |-> 1'0
+    "DF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'1
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> ptr ( symloc ( 3 , 128 ) , 64'6 )
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RDX" |-> 64'8
+    "RIP" |-> 64'5
+    "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "SF" |-> ptr ( symloc ( 3 , 128 ) , 1'0 )
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'1 )
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
+    LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
+    inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
+    p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
+    ListItem (
+"AF" |-> ptr ( symloc ( 3 , 128 ) , 1'0 )
+    "CF" |-> 1'0
+    "DF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'1
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RDX" |-> 64'8
+    "RIP" |-> 64'6
+    "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "SF" |-> ptr ( symloc ( 3 , 128 ) , 1'0 )
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'1 )
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
+    LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
+    inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
+    p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
+    ListItem (
+"AF" |-> ptr ( symloc ( 3 , 128 ) , 1'0 )
+    "CF" |-> 1'0
+    "DF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'1
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RDX" |-> 64'8
+    "RIP" |-> 64'7
+    "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "SF" |-> ptr ( symloc ( 3 , 128 ) , 1'0 )
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'1 )
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
+    LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
+    inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
+    p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
+    ListItem (
+"AF" |-> ptr ( symloc ( 3 , 128 ) , 1'0 )
+    "CF" |-> 1'0
+    "DF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'1
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RDX" |-> 64'8
+    "RIP" |-> 64'8
+    "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "SF" |-> ptr ( symloc ( 3 , 128 ) , 1'0 )
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'1 )
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
+    LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
+    inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
+    p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
+    ListItem (
+"AF" |-> ptr ( symloc ( 3 , 128 ) , 1'0 )
+    "CF" |-> 1'0
+    "DF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'1
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RDX" |-> 64'8
+    "RIP" |-> 64'9
+    "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "SF" |-> ptr ( symloc ( 3 , 128 ) , 1'0 )
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'1 )
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
+    LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
+    inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
+    p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
+    ListItem (
+"AF" |-> ptr ( symloc ( 3 , 128 ) , 1'0 )
+    "CF" |-> 1'0
+    "DF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'1
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RDX" |-> 64'8
+    "RIP" |-> 64'27
+    "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "SF" |-> ptr ( symloc ( 3 , 128 ) , 1'0 )
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'1 )
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
+    LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
+    inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
+    p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
+    ListItem (
+"AF" |-> ptr ( symloc ( 3 , 128 ) , 1'0 )
+    "CF" |-> 1'0
+    "DF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'1
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> 64'8
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RDX" |-> 64'8
+    "RIP" |-> 64'28
+    "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "SF" |-> ptr ( symloc ( 3 , 128 ) , 1'0 )
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'1 )
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
+    LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
+    inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
+    p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
+    ListItem (
+"AF" |-> ptr ( symloc ( 3 , 128 ) , 1'0 )
+    "CF" |-> 1'0
+    "DF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'1
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> 64'8
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RDX" |-> 64'7
+    "RIP" |-> 64'29
+    "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "SF" |-> ptr ( symloc ( 3 , 128 ) , 1'0 )
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'1 )
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
+    LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
+    inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
+    p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
+    ListItem (
+"AF" |-> ptr ( symloc ( 3 , 128 ) , 1'0 )
+    "CF" |-> 1'0
+    "DF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'1
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> 64'8
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RDX" |-> 64'7
+    "RIP" |-> 64'30
+    "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "SF" |-> ptr ( symloc ( 3 , 128 ) , 1'0 )
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'1 )
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
+    LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
+    inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
+    p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
+    ListItem (
+"AF" |-> undefMInt
+    "CF" |-> 1'0
+    "DF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'0
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> 64'8
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RDX" |-> 64'7
+    "RIP" |-> 64'31
+    "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "SF" |-> 1'0
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'0 )
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
+    LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
+    inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
+    p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
+    ListItem (
+"AF" |-> undefMInt
+    "CF" |-> 1'0
+    "DF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'0
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> 64'8
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RDX" |-> 64'7
+    "RIP" |-> 64'10
+    "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "SF" |-> 1'0
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'0 )
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
+    LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
+    inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
+    p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
+    ListItem (
+"AF" |-> undefMInt
+    "CF" |-> 1'0
+    "DF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'0
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RDX" |-> 64'7
+    "RIP" |-> 64'11
+    "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "SF" |-> 1'0
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'0 )
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
+    LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
+    inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
+    p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
+    ListItem (
+"AF" |-> undefMInt
+    "CF" |-> 1'0
+    "DF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'0
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RDX" |-> 64'0
+    "RIP" |-> 64'12
+    "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "SF" |-> 1'0
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'0 )
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
+    LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
+    inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
+    p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
+    ListItem (
+"AF" |-> undefMInt
+    "CF" |-> 1'0
+    "DF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'0
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RDX" |-> 64'0
+    "RIP" |-> 64'13
+    "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "SF" |-> 1'0
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'0 )
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
+    LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
+    inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
+    p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
+    ListItem (
+"AF" |-> undefMInt
+    "CF" |-> 1'0
+    "DF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'0
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> 64'97
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RDX" |-> 64'0
+    "RIP" |-> 64'14
+    "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "SF" |-> 1'0
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'0 )
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
+    LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
+    inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
+    p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
+    ListItem (
+"AF" |-> 1'1
+    "CF" |-> 1'1
+    "DF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'1
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> 64'97
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RDX" |-> 64'0
+    "RIP" |-> 64'15
+    "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "SF" |-> 1'1
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'0 )
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
+    LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
+    inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
+    p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
+    ListItem (
+"AF" |-> 1'1
+    "CF" |-> 1'1
+    "DF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'1
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> 64'97
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RDX" |-> 64'0
+    "RIP" |-> 64'16
+    "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "SF" |-> 1'1
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'0 )
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
+    LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
+    inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
+    p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
+    ListItem (
+"AF" |-> 1'1
+    "CF" |-> 1'1
+    "DF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'1
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RDX" |-> 64'0
+    "RIP" |-> 64'17
+    "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "SF" |-> 1'1
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'0 )
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
+    LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
+    inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
+    p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
+    ListItem (
+"AF" |-> 1'1
+    "CF" |-> 1'1
+    "DF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'1
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> 64'0
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RDX" |-> 64'0
+    "RIP" |-> 64'18
+    "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "SF" |-> 1'1
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'0 )
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
+    LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
+    inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
+    p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
+    ListItem (
+"AF" |-> 1'1
+    "CF" |-> 1'1
+    "DF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'1
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> 64'0
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RDX" |-> 64'0
+    "RIP" |-> 64'19
+    "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "SF" |-> 1'1
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'0 )
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
+    LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
+    inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
+    p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
+    ListItem (
+"AF" |-> 1'1
+    "CF" |-> 1'1
+    "DF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'1
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RDX" |-> 64'0
+    "RIP" |-> 64'20
+    "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "SF" |-> 1'1
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'0 )
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
+    LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
+    inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
+    p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
+    ListItem (
+"AF" |-> 1'1
+    "CF" |-> 1'1
+    "DF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'1
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> 64'97
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RDX" |-> 64'0
+    "RIP" |-> 64'21
+    "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "SF" |-> 1'1
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'0 )
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
+    LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
+    inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
+    p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
+    ListItem (
+"AF" |-> 1'1
+    "CF" |-> 1'1
+    "DF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'1
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> 64'97
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RDX" |-> 64'0
+    "RIP" |-> 64'22
+    "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "SF" |-> 1'1
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'0 )
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
+    LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
+    inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
+    p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
+    ListItem (
+"AF" |-> 1'1
+    "CF" |-> 1'1
+    "DF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'1
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> 64'97
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RDX" |-> 64'4294967199
+    "RIP" |-> 64'23
+    "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "SF" |-> 1'1
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'0 )
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
+    LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
+    inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
+    p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
+    ListItem (
+"AF" |-> 1'1
+    "CF" |-> 1'1
+    "DF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'1
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> 64'4294967199
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RDX" |-> 64'4294967199
+    "RIP" |-> 64'24
+    "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "SF" |-> 1'1
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'0 )
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
+    LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
+    inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
+    p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
+    ListItem (
+"AF" |-> 1'1
+    "CF" |-> 1'1
+    "DF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'1
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> 64'4294967199
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RDX" |-> 64'4294967199
+    "RIP" |-> 64'33
+    "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "SF" |-> 1'1
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'0 )
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
+    LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
+    inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
+    p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
+    ListItem (
+"AF" |-> 1'1
+    "CF" |-> 1'1
+    "DF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'1
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> 64'4294967199
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'992 )
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RDX" |-> 64'4294967199
+    "RIP" |-> 64'34
+    "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'984 )
+    "SF" |-> 1'1
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'0 )
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
+    LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
+    inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
+    p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
+    ListItem (
+"AF" |-> 1'1
+    "CF" |-> 1'1
+    "DF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'1
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> 64'4294967199
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'992 )
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RDX" |-> 64'4294967199
+    "RIP" |-> 64'334
+    "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'992 )
+    "SF" |-> 1'1
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'0 )
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
+    LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
+    inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
+    p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
+    ListItem (
+"AF" |-> undefMInt
+    "CF" |-> 1'0
+    "DF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'1
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> 64'4294967199
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'992 )
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RDX" |-> 64'4294967199
+    "RIP" |-> 64'335
+    "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'992 )
+    "SF" |-> 1'1
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'0 )
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
+    LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
+    inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
+    p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
+    ListItem (
+"AF" |-> undefMInt
+    "CF" |-> 1'0
+    "DF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'1
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> 64'4294967199
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'992 )
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RDX" |-> 64'4294967199
+    "RIP" |-> 64'336
+    "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'992 )
+    "SF" |-> 1'1
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'0 )
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
+    LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
+    inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
+    p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
+    ListItem (
+"AF" |-> undefMInt
+    "CF" |-> 1'0
+    "DF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'1
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> 64'4294967199
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'992 )
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RDX" |-> 64'4294967199
+    "RIP" |-> 64'43
+    "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'984 )
+    "SF" |-> 1'1
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'0 )
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
+    LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
+    inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
+    p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
+    ListItem (
+"AF" |-> undefMInt
+    "CF" |-> 1'0
+    "DF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'1
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> 64'4294967199
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'992 )
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RDX" |-> 64'4294967199
+    "RIP" |-> 64'44
+    "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "SF" |-> 1'1
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'0 )
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
+    LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
+    inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
+    p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
+    ListItem (
+"AF" |-> undefMInt
+    "CF" |-> 1'0
+    "DF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'1
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> 64'4294967199
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RDX" |-> 64'4294967199
+    "RIP" |-> 64'45
+    "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "SF" |-> 1'1
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'0 )
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
+    LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
+    inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
+    p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
+    ListItem (
+"AF" |-> undefMInt
+    "CF" |-> 1'0
+    "DF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'1
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> 64'-1
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RDX" |-> 64'4294967199
+    "RIP" |-> 64'46
+    "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "SF" |-> 1'1
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'0 )
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
+    LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
+    inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
+    p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
+    ListItem (
+"AF" |-> undefMInt
+    "CF" |-> 1'0
+    "DF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'1
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> 64'-1
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    "RDX" |-> 64'4294967199
+    "RIP" |-> 64'-1
+    "RSI" |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'976 )
+    "SF" |-> 1'1
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'0 )
+    ListItem ( L2 |-> 64'27
+    L3 |-> 64'25
+    L4 |-> 64'33
+    L5 |-> 64'10
+    L9 |-> 64'63
+    L10 |-> 64'58
+    L13 |-> 64'89
+    L14 |-> 64'81
+    L22 |-> 64'125
+    L23 |-> 64'138
+    L24 |-> 64'131
+    L25 |-> 64'137
+    L26 |-> 64'160
+    L28 |-> 64'158
+    L31 |-> 64'160
+    L33 |-> 64'168
+    L34 |-> 64'167
+    L37 |-> 64'184
+    L40 |-> 64'205
+    L41 |-> 64'215
+    L42 |-> 64'203
+    L45 |-> 64'233
+    L46 |-> 64'232
+    L47 |-> 64'238
+    L51 |-> 64'273
+    L52 |-> 64'265
+    L53 |-> 64'292
+    L54 |-> 64'287
+    L55 |-> 64'279
+    L62 |-> 64'336
+    L63 |-> 64'337
+    L64 |-> 64'350
+    L65 |-> 64'351
+    L66 |-> 64'365
+    L67 |-> 64'366
+    L68 |-> 64'377
+    L69 |-> 64'388
+    L71 |-> 64'399
+    LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
+    LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'16 )
+    _start |-> 64'310
+    abort |-> 64'43
+    bcopy |-> 64'295
+    calloc |-> 64'103
+    exit |-> 64'35
+    free |-> 64'110
+    inside_main |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
+    isprint |-> 64'116
+    link_error |-> 64'318
+    main_test |-> 64'321
+    malloc |-> 64'97
+    memcmp |-> 64'0
+    memcpy |-> 64'71
+    memmove |-> 64'252
+    memset |-> 64'50
+    p |-> ptr ( symloc ( 3 , 128 ) , 64'4 )
+    q |-> ptr ( symloc ( 3 , 128 ) , 64'28 )
+    stdout |-> ptr ( symloc ( 5 , 0 ) , 64'1 )
+    strcat |-> 64'225
+    strchr |-> 64'140
+    strcmp |-> 64'198
+    strcpy |-> 64'177
+    strlen |-> 64'162 )
   </regstatequeue>
   <formatcountint>
     0
