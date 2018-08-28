@@ -5,6 +5,9 @@ module CMOVSW-R16-R16
   imports X86-CONFIGURATION
 
   rule <k>
+    execinstr (cmovs R1:R16, R2:R16,  .Operands) => execinstr (cmovsw R1:R16, R2:R16,  .Operands)
+  ...</k>
+  rule <k>
     execinstr (cmovsw R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>

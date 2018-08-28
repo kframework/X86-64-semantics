@@ -5,6 +5,10 @@ module CMOVSL-R32-R32
   imports X86-CONFIGURATION
 
   rule <k>
+    execinstr (cmovs R1:R32, R2:R32,  .Operands) => execinstr (cmovsl R1:R32, R2:R32,  .Operands)
+  ...</k>
+
+  rule <k>
     execinstr (cmovsl R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>

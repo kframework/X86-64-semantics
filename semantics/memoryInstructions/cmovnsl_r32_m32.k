@@ -4,6 +4,10 @@ requires "x86-configuration.k"
 module CMOVNSL-R32-M32
   imports X86-CONFIGURATION
 
+  rule <k>
+    execinstr (cmovns:Opcode M:Mem, R2:R32,  .Operands) => execinstr (cmovnsl:Opcode M:Mem, R2:R32,  .Operands)
+  ...</k>
+
   context execinstr(cmovnsl:Opcode HOLE:Mem, R2:R32,  .Operands) [result(MemOffset)]
   
   rule <k>
