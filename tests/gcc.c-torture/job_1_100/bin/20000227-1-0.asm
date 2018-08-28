@@ -276,10 +276,10 @@ L41:
     .section	.rodata
 f:
     .string	""
-    .string	"\377"
+    .string	"377"
 g:
     .string	""
-    .string	"\377"
+    .string	"377"
     .text
     .globl	main
 .globl _start
