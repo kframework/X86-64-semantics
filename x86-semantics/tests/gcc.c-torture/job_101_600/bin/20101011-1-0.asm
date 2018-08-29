@@ -93,9 +93,49 @@ L12:
     ret
     .cfi_endproc
 LFE2:
+    .globl	strcmp
+strcmp:
+LFB3:
+    .cfi_startproc
+    pushq	%rbp
+    .cfi_def_cfa_offset 16
+    .cfi_offset 6, -16
+    movq	%rsp, %rbp
+    .cfi_def_cfa_register 6
+    movq	%rdi, -8(%rbp)
+    movq	%rsi, -16(%rbp)
+    jmp	L15
+L17:
+    addq	$1, -8(%rbp)
+    addq	$1, -16(%rbp)
+L15:
+    movq	-8(%rbp), %rax
+    movzbl	(%rax), %eax
+    testb	%al, %al
+    je	L16
+    movq	-8(%rbp), %rax
+    movzbl	(%rax), %edx
+    movq	-16(%rbp), %rax
+    movzbl	(%rax), %eax
+    cmpb	%al, %dl
+    je	L17
+L16:
+    movq	-8(%rbp), %rax
+    movzbl	(%rax), %eax
+    movzbl	%al, %edx
+    movq	-16(%rbp), %rax
+    movzbl	(%rax), %eax
+    movzbl	%al, %eax
+    subl	%eax, %edx
+    movl	%edx, %eax
+    popq	%rbp
+    .cfi_def_cfa 7, 8
+    ret
+    .cfi_endproc
+LFE3:
     .globl	memcmp
 memcmp:
-LFB3:
+LFB4:
     .cfi_startproc
     pushq	%rbp
     .cfi_def_cfa_offset 16
@@ -109,14 +149,14 @@ LFB3:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L15
-L18:
+    jmp	L20
+L23:
     movq	-16(%rbp), %rax
     movzbl	(%rax), %edx
     movq	-8(%rbp), %rax
     movzbl	(%rax), %eax
     cmpb	%al, %dl
-    je	L16
+    je	L21
     movq	-16(%rbp), %rax
     movzbl	(%rax), %eax
     movzbl	%al, %edx
@@ -125,44 +165,25 @@ L18:
     movzbl	%al, %eax
     subl	%eax, %edx
     movl	%edx, %eax
-    jmp	L17
-L16:
+    jmp	L22
+L21:
     addq	$1, -16(%rbp)
     addq	$1, -8(%rbp)
-L15:
+L20:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L18
+    jne	L23
     movl	$0, %eax
-L17:
-    popq	%rbp
-    .cfi_def_cfa 7, 8
-    ret
-    .cfi_endproc
-LFE3:
-    .globl	exit
-exit:
-LFB4:
-    .cfi_startproc
-    pushq	%rbp
-    .cfi_def_cfa_offset 16
-    .cfi_offset 6, -16
-    movq	%rsp, %rbp
-    .cfi_def_cfa_register 6
-    movl	%edi, -4(%rbp)
-    movq $-1, %rax
-    jmp %rax
-    
-    nop
+L22:
     popq	%rbp
     .cfi_def_cfa 7, 8
     ret
     .cfi_endproc
 LFE4:
-    .globl	abort
-abort:
+    .globl	__stack_chk_fail
+__stack_chk_fail:
 LFB5:
     .cfi_startproc
     pushq	%rbp
@@ -179,9 +200,46 @@ LFB5:
     ret
     .cfi_endproc
 LFE5:
+    .globl	exit
+exit:
+LFB6:
+    .cfi_startproc
+    pushq	%rbp
+    .cfi_def_cfa_offset 16
+    .cfi_offset 6, -16
+    movq	%rsp, %rbp
+    .cfi_def_cfa_register 6
+    movl	%edi, -4(%rbp)
+    movq $-1, %rax
+    jmp %rax
+    
+    nop
+    popq	%rbp
+    .cfi_def_cfa 7, 8
+    ret
+    .cfi_endproc
+LFE6:
+    .globl	abort
+abort:
+LFB7:
+    .cfi_startproc
+    pushq	%rbp
+    .cfi_def_cfa_offset 16
+    .cfi_offset 6, -16
+    movq	%rsp, %rbp
+    .cfi_def_cfa_register 6
+    movq $-1, %rax
+    jmp %rax
+    
+    nop
+    popq	%rbp
+    .cfi_def_cfa 7, 8
+    ret
+    .cfi_endproc
+LFE7:
     .globl	memset
 memset:
-LFB6:
+LFB8:
     .cfi_startproc
     pushq	%rbp
     .cfi_def_cfa_offset 16
@@ -193,28 +251,28 @@ LFB6:
     movq	%rdx, -40(%rbp)
     movq	-24(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L22
-L23:
+    jmp	L28
+L29:
     movq	-8(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -8(%rbp)
     movl	-28(%rbp), %edx
     movb	%dl, (%rax)
-L22:
+L28:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L23
+    jne	L29
     movq	-24(%rbp), %rax
     popq	%rbp
     .cfi_def_cfa 7, 8
     ret
     .cfi_endproc
-LFE6:
+LFE8:
     .globl	memcpy
 memcpy:
-LFB7:
+LFB9:
     .cfi_startproc
     pushq	%rbp
     .cfi_def_cfa_offset 16
@@ -228,8 +286,8 @@ LFB7:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L26
-L27:
+    jmp	L32
+L33:
     movq	-16(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -16(%rbp)
@@ -238,21 +296,21 @@ L27:
     movq	%rcx, -8(%rbp)
     movzbl	(%rdx), %edx
     movb	%dl, (%rax)
-L26:
+L32:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L27
+    jne	L33
     movq	-24(%rbp), %rax
     popq	%rbp
     .cfi_def_cfa 7, 8
     ret
     .cfi_endproc
-LFE7:
+LFE9:
     .globl	malloc
 malloc:
-LFB8:
+LFB10:
     .cfi_startproc
     pushq	%rbp
     .cfi_def_cfa_offset 16
@@ -265,10 +323,10 @@ LFB8:
     .cfi_def_cfa 7, 8
     ret
     .cfi_endproc
-LFE8:
+LFE10:
     .globl	calloc
 calloc:
-LFB9:
+LFB11:
     .cfi_startproc
     pushq	%rbp
     .cfi_def_cfa_offset 16
@@ -282,10 +340,10 @@ LFB9:
     .cfi_def_cfa 7, 8
     ret
     .cfi_endproc
-LFE9:
+LFE11:
     .globl	free
 free:
-LFB10:
+LFB12:
     .cfi_startproc
     pushq	%rbp
     .cfi_def_cfa_offset 16
@@ -298,10 +356,10 @@ LFB10:
     .cfi_def_cfa 7, 8
     ret
     .cfi_endproc
-LFE10:
+LFE12:
     .globl	isprint
 isprint:
-LFB11:
+LFB13:
     .cfi_startproc
     pushq	%rbp
     .cfi_def_cfa_offset 16
@@ -310,36 +368,36 @@ LFB11:
     .cfi_def_cfa_register 6
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L35
+    jle	L41
     cmpl	$122, -4(%rbp)
-    jg	L35
+    jg	L41
     movl	$1, %eax
-    jmp	L36
-L35:
+    jmp	L42
+L41:
     cmpl	$64, -4(%rbp)
-    jle	L37
+    jle	L43
     cmpl	$90, -4(%rbp)
-    jg	L37
+    jg	L43
     movl	$1, %eax
-    jmp	L36
-L37:
+    jmp	L42
+L43:
     cmpl	$47, -4(%rbp)
-    jle	L38
+    jle	L44
     cmpl	$57, -4(%rbp)
-    jg	L38
+    jg	L44
     movl	$1, %eax
-    jmp	L36
-L38:
+    jmp	L42
+L44:
     movl	$0, %eax
-L36:
+L42:
     popq	%rbp
     .cfi_def_cfa 7, 8
     ret
     .cfi_endproc
-LFE11:
+LFE13:
     .globl	sigfpe
 sigfpe:
-LFB12:
+LFB14:
     .cfi_startproc
     pushq	%rbp
     .cfi_def_cfa_offset 16
@@ -351,28 +409,25 @@ LFB12:
     movl	$0, %edi
     call	exit
     .cfi_endproc
-LFE12:
+LFE14:
     .comm	i,4,4
     .comm	j,4,4
     .comm	k,4,4
     .globl	main
 .globl _start
 _start:
-LFB13:
+LFB15:
     .cfi_startproc
     pushq	%rbp
     .cfi_def_cfa_offset 16
     .cfi_offset 6, -16
     movq	%rsp, %rbp
     .cfi_def_cfa_register 6
-    movl	$sigfpe, %esi
-    movl	$8, %edi
-    call	signal
-    movl $i(%rip), %eax
-    movl $j(%rip), %ecx
+    movl	i(%rip), %eax
+    movl	j(%rip), %ecx
     cltd
     idivl	%ecx
-    movl	%eax, $k(%rip)
+    movl	%eax, k(%rip)
     call	abort
     .cfi_endproc
-LFE13:
+LFE15:

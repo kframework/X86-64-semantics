@@ -14,10 +14,10 @@ print_longlong(x,buf)
 {
   unsigned long l;
   l= (x >> 32) & 0xffffffff;
-  if (l != 0)
-    sprintf(buf,"%lx%08.lx",l,((unsigned long)x & 0xffffffff));
-  else
-    sprintf(buf,"%lx",((unsigned long)x & 0xffffffff));
+  //if (l != 0)
+  //  sprintf(buf,"%lx%08.lx",l,((unsigned long)x & 0xffffffff));
+  //else
+  //  sprintf(buf,"%lx",((unsigned long)x & 0xffffffff));
 }
 
 main(){char buf[100];

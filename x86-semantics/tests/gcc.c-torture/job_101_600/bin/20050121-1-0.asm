@@ -69,6 +69,38 @@ L12:
     movq	-8(%rbp), %rax
     popq	%rbp
     ret
+    .globl	strcmp
+strcmp:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq	%rdi, -8(%rbp)
+    movq	%rsi, -16(%rbp)
+    jmp	L15
+L17:
+    addq	$1, -8(%rbp)
+    addq	$1, -16(%rbp)
+L15:
+    movq	-8(%rbp), %rax
+    movzbl	(%rax), %eax
+    testb	%al, %al
+    je	L16
+    movq	-8(%rbp), %rax
+    movzbl	(%rax), %edx
+    movq	-16(%rbp), %rax
+    movzbl	(%rax), %eax
+    cmpb	%al, %dl
+    je	L17
+L16:
+    movq	-8(%rbp), %rax
+    movzbl	(%rax), %eax
+    movzbl	%al, %edx
+    movq	-16(%rbp), %rax
+    movzbl	(%rax), %eax
+    movzbl	%al, %eax
+    subl	%eax, %edx
+    movl	%edx, %eax
+    popq	%rbp
+    ret
     .globl	memcmp
 memcmp:
     pushq	%rbp
@@ -80,14 +112,14 @@ memcmp:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L15
-L18:
+    jmp	L20
+L23:
     movq	-16(%rbp), %rax
     movzbl	(%rax), %edx
     movq	-8(%rbp), %rax
     movzbl	(%rax), %eax
     cmpb	%al, %dl
-    je	L16
+    je	L21
     movq	-16(%rbp), %rax
     movzbl	(%rax), %eax
     movzbl	%al, %edx
@@ -96,18 +128,28 @@ L18:
     movzbl	%al, %eax
     subl	%eax, %edx
     movl	%edx, %eax
-    jmp	L17
-L16:
+    jmp	L22
+L21:
     addq	$1, -16(%rbp)
     addq	$1, -8(%rbp)
-L15:
+L20:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L18
+    jne	L23
     movl	$0, %eax
-L17:
+L22:
+    popq	%rbp
+    ret
+    .globl	__stack_chk_fail
+__stack_chk_fail:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq $-1, %rax
+    jmp %rax
+    
+    nop
     popq	%rbp
     ret
     .globl	exit
@@ -140,19 +182,19 @@ memset:
     movq	%rdx, -40(%rbp)
     movq	-24(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L22
-L23:
+    jmp	L28
+L29:
     movq	-8(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -8(%rbp)
     movl	-28(%rbp), %edx
     movb	%dl, (%rax)
-L22:
+L28:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L23
+    jne	L29
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -167,8 +209,8 @@ memcpy:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L26
-L27:
+    jmp	L32
+L33:
     movq	-16(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -16(%rbp)
@@ -177,12 +219,12 @@ L27:
     movq	%rcx, -8(%rbp)
     movzbl	(%rdx), %edx
     movb	%dl, (%rax)
-L26:
+L32:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L27
+    jne	L33
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -217,28 +259,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L35
+    jle	L41
     cmpl	$122, -4(%rbp)
-    jg	L35
+    jg	L41
     movl	$1, %eax
-    jmp	L36
-L35:
+    jmp	L42
+L41:
     cmpl	$64, -4(%rbp)
-    jle	L37
+    jle	L43
     cmpl	$90, -4(%rbp)
-    jg	L37
+    jg	L43
     movl	$1, %eax
-    jmp	L36
-L37:
+    jmp	L42
+L43:
     cmpl	$47, -4(%rbp)
-    jle	L38
+    jle	L44
     cmpl	$57, -4(%rbp)
-    jg	L38
+    jg	L44
     movl	$1, %eax
-    jmp	L36
-L38:
+    jmp	L42
+L44:
     movl	$0, %eax
-L36:
+L42:
     popq	%rbp
     ret
     .globl	foo_float
@@ -390,8 +432,8 @@ foo_ldouble_t:
     fstpt	-16(%rbp)
     fldt	-64(%rbp)
     fldt	-48(%rbp)
-    flds	$LC0(%rip)
-    flds	$LC0(%rip)
+    flds	LC0(%rip)
+    flds	LC0(%rip)
     fstp	%st(0)
     fstp	%st(0)
     fxch	%st(1)
@@ -405,8 +447,8 @@ bar_ldouble_t:
     movq	%rdi, -8(%rbp)
     movl	$5, %edi
     call	foo_ldouble_t
-    flds	$LC0(%rip)
-    flds	$LC0(%rip)
+    flds	LC0(%rip)
+    flds	LC0(%rip)
     fstp	%st(0)
     fstp	%st(0)
     fstp	%st(1)
@@ -423,8 +465,8 @@ baz_ldouble_t:
     movq	%rdi, -8(%rbp)
     movl	$5, %edi
     call	foo_ldouble_t
-    flds	$LC0(%rip)
-    flds	$LC0(%rip)
+    flds	LC0(%rip)
+    flds	LC0(%rip)
     fstp	%st(0)
     fstp	%st(0)
     fstp	%st(0)
@@ -766,186 +808,186 @@ _start:
     movq	%rax, %rdi
     call	bar_float
     vmovss	-32(%rbp), %xmm0
-    vucomiss	$LC2(%rip), %xmm0
-    jp	L96
-    vucomiss	$LC2(%rip), %xmm0
-    je	L102
-L96:
-    call	abort
+    vucomiss	LC2(%rip), %xmm0
+    jp	L102
+    vucomiss	LC2(%rip), %xmm0
+    je	L108
 L102:
+    call	abort
+L108:
     vxorps	%xmm0, %xmm0, %xmm0
     vmovss	%xmm0, -32(%rbp)
     leaq	-32(%rbp), %rax
     movq	%rax, %rdi
     call	baz_float
     vmovss	-32(%rbp), %xmm0
-    vucomiss	$LC3(%rip), %xmm0
-    jp	L97
-    vucomiss	$LC3(%rip), %xmm0
-    je	L103
-L97:
-    call	abort
+    vucomiss	LC3(%rip), %xmm0
+    jp	L103
+    vucomiss	LC3(%rip), %xmm0
+    je	L109
 L103:
+    call	abort
+L109:
     vxorpd	%xmm0, %xmm0, %xmm0
     vmovsd	%xmm0, -32(%rbp)
     leaq	-32(%rbp), %rax
     movq	%rax, %rdi
     call	bar_double
     vmovsd	-32(%rbp), %xmm0
-    vucomisd	$LC5(%rip), %xmm0
-    jp	L98
-    vucomisd	$LC5(%rip), %xmm0
-    je	L104
-L98:
-    call	abort
+    vucomisd	LC5(%rip), %xmm0
+    jp	L104
+    vucomisd	LC5(%rip), %xmm0
+    je	L110
 L104:
+    call	abort
+L110:
     vxorpd	%xmm0, %xmm0, %xmm0
     vmovsd	%xmm0, -32(%rbp)
     leaq	-32(%rbp), %rax
     movq	%rax, %rdi
     call	baz_double
     vmovsd	-32(%rbp), %xmm0
-    vucomisd	$LC6(%rip), %xmm0
-    jp	L99
-    vucomisd	$LC6(%rip), %xmm0
-    je	L105
-L99:
-    call	abort
+    vucomisd	LC6(%rip), %xmm0
+    jp	L105
+    vucomisd	LC6(%rip), %xmm0
+    je	L111
 L105:
+    call	abort
+L111:
     fldz
     fstpt	-32(%rbp)
     leaq	-32(%rbp), %rax
     movq	%rax, %rdi
     call	bar_ldouble_t
     fldt	-32(%rbp)
-    fldt	$LC8(%rip)
+    fldt	LC8(%rip)
     fucomip	%st(1), %st
-    jp	L108
-    fldt	$LC8(%rip)
+    jp	L114
+    fldt	LC8(%rip)
     fucomip	%st(1), %st
     fstp	%st(0)
-    je	L106
-    jmp	L100
-L108:
+    je	L112
+    jmp	L106
+L114:
     fstp	%st(0)
-L100:
-    call	abort
 L106:
+    call	abort
+L112:
     fldz
     fstpt	-32(%rbp)
     leaq	-32(%rbp), %rax
     movq	%rax, %rdi
     call	baz_ldouble_t
     fldt	-32(%rbp)
-    fldt	$LC9(%rip)
+    fldt	LC9(%rip)
     fucomip	%st(1), %st
-    jp	L109
-    fldt	$LC9(%rip)
+    jp	L115
+    fldt	LC9(%rip)
     fucomip	%st(1), %st
     fstp	%st(0)
-    je	L107
-    jmp	L101
-L109:
+    je	L113
+    jmp	L107
+L115:
     fstp	%st(0)
-L101:
-    call	abort
 L107:
+    call	abort
+L113:
     movb	$0, -32(%rbp)
     leaq	-32(%rbp), %rax
     movq	%rax, %rdi
     call	bar_char
     movzbl	-32(%rbp), %eax
     cmpb	$6, %al
-    je	L84
+    je	L90
     call	abort
-L84:
+L90:
     movb	$0, -32(%rbp)
     leaq	-32(%rbp), %rax
     movq	%rax, %rdi
     call	baz_char
     movzbl	-32(%rbp), %eax
     cmpb	$4, %al
-    je	L85
+    je	L91
     call	abort
-L85:
+L91:
     movw	$0, -32(%rbp)
     leaq	-32(%rbp), %rax
     movq	%rax, %rdi
     call	bar_short
     movzwl	-32(%rbp), %eax
     cmpw	$6, %ax
-    je	L86
+    je	L92
     call	abort
-L86:
+L92:
     movw	$0, -32(%rbp)
     leaq	-32(%rbp), %rax
     movq	%rax, %rdi
     call	baz_short
     movzwl	-32(%rbp), %eax
     cmpw	$4, %ax
-    je	L87
+    je	L93
     call	abort
-L87:
+L93:
     movl	$0, -32(%rbp)
     leaq	-32(%rbp), %rax
     movq	%rax, %rdi
     call	bar_int
     movl	-32(%rbp), %eax
     cmpl	$6, %eax
-    je	L88
+    je	L94
     call	abort
-L88:
+L94:
     movl	$0, -32(%rbp)
     leaq	-32(%rbp), %rax
     movq	%rax, %rdi
     call	baz_int
     movl	-32(%rbp), %eax
     cmpl	$4, %eax
-    je	L89
+    je	L95
     call	abort
-L89:
+L95:
     movq	$0, -32(%rbp)
     leaq	-32(%rbp), %rax
     movq	%rax, %rdi
     call	bar_long
     movq	-32(%rbp), %rax
     cmpq	$6, %rax
-    je	L90
+    je	L96
     call	abort
-L90:
+L96:
     movq	$0, -32(%rbp)
     leaq	-32(%rbp), %rax
     movq	%rax, %rdi
     call	baz_long
     movq	-32(%rbp), %rax
     cmpq	$4, %rax
-    je	L91
+    je	L97
     call	abort
-L91:
+L97:
     movq	$0, -32(%rbp)
     leaq	-32(%rbp), %rax
     movq	%rax, %rdi
     call	bar_llong
     movq	-32(%rbp), %rax
     cmpq	$6, %rax
-    je	L92
+    je	L98
     call	abort
-L92:
+L98:
     movq	$0, -32(%rbp)
     leaq	-32(%rbp), %rax
     movq	%rax, %rdi
     call	baz_llong
     movq	-32(%rbp), %rax
     cmpq	$4, %rax
-    je	L93
+    je	L99
     call	abort
-L93:
+L99:
     movl	$0, %eax
     movq	-8(%rbp), %rdx
     xorq	$40, %rdx
-    je	L95
+    je	L101
     call	__stack_chk_fail
-L95:
+L101:
     leave
     ret
     .section	.rodata

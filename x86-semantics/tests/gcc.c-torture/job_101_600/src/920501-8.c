@@ -25,9 +25,9 @@ va (int a, double b, int c, ...)
   o = va_arg (ap, int);
   p = va_arg (ap, int);
 
-  sprintf (buf,
-	   "%d,%f,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d",
-	   a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p);
+  //sprintf (buf,
+	//   "%d,%f,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d",
+	//   a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p);
   va_end (ap);
 }
 

@@ -20,7 +20,7 @@ int first(char *buf, char *fmt, ...)
     if (fmt[pos] == 'i')
       {
 	number = va_arg(args, int);
-	sprintf(bp, "%d", number);
+	//sprintf(bp, "%d", number);
 	bp += strlen(bp);
       }
     else
@@ -43,7 +43,7 @@ struct spurious second(char *buf,char *fmt, ...)
     if (fmt[pos] == 'i')
       {
 	number = va_arg(args, int);
-	sprintf(bp, "%d", number);
+	//sprintf(bp, "%d", number);
 	bp += strlen(bp);
       }
     else

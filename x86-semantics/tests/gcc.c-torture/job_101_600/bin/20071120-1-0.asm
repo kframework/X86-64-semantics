@@ -69,6 +69,38 @@ L12:
     movq	-8(%rbp), %rax
     popq	%rbp
     ret
+    .globl	strcmp
+strcmp:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq	%rdi, -8(%rbp)
+    movq	%rsi, -16(%rbp)
+    jmp	L15
+L17:
+    addq	$1, -8(%rbp)
+    addq	$1, -16(%rbp)
+L15:
+    movq	-8(%rbp), %rax
+    movzbl	(%rax), %eax
+    testb	%al, %al
+    je	L16
+    movq	-8(%rbp), %rax
+    movzbl	(%rax), %edx
+    movq	-16(%rbp), %rax
+    movzbl	(%rax), %eax
+    cmpb	%al, %dl
+    je	L17
+L16:
+    movq	-8(%rbp), %rax
+    movzbl	(%rax), %eax
+    movzbl	%al, %edx
+    movq	-16(%rbp), %rax
+    movzbl	(%rax), %eax
+    movzbl	%al, %eax
+    subl	%eax, %edx
+    movl	%edx, %eax
+    popq	%rbp
+    ret
     .globl	memcmp
 memcmp:
     pushq	%rbp
@@ -80,14 +112,14 @@ memcmp:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L15
-L18:
+    jmp	L20
+L23:
     movq	-16(%rbp), %rax
     movzbl	(%rax), %edx
     movq	-8(%rbp), %rax
     movzbl	(%rax), %eax
     cmpb	%al, %dl
-    je	L16
+    je	L21
     movq	-16(%rbp), %rax
     movzbl	(%rax), %eax
     movzbl	%al, %edx
@@ -96,18 +128,28 @@ L18:
     movzbl	%al, %eax
     subl	%eax, %edx
     movl	%edx, %eax
-    jmp	L17
-L16:
+    jmp	L22
+L21:
     addq	$1, -16(%rbp)
     addq	$1, -8(%rbp)
-L15:
+L20:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L18
+    jne	L23
     movl	$0, %eax
-L17:
+L22:
+    popq	%rbp
+    ret
+    .globl	__stack_chk_fail
+__stack_chk_fail:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq $-1, %rax
+    jmp %rax
+    
+    nop
     popq	%rbp
     ret
     .globl	exit
@@ -140,19 +182,19 @@ memset:
     movq	%rdx, -40(%rbp)
     movq	-24(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L22
-L23:
+    jmp	L28
+L29:
     movq	-8(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -8(%rbp)
     movl	-28(%rbp), %edx
     movb	%dl, (%rax)
-L22:
+L28:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L23
+    jne	L29
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -167,8 +209,8 @@ memcpy:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L26
-L27:
+    jmp	L32
+L33:
     movq	-16(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -16(%rbp)
@@ -177,12 +219,12 @@ L27:
     movq	%rcx, -8(%rbp)
     movzbl	(%rdx), %edx
     movb	%dl, (%rax)
-L26:
+L32:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L27
+    jne	L33
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -217,28 +259,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L35
+    jle	L41
     cmpl	$122, -4(%rbp)
-    jg	L35
+    jg	L41
     movl	$1, %eax
-    jmp	L36
-L35:
+    jmp	L42
+L41:
     cmpl	$64, -4(%rbp)
-    jle	L37
+    jle	L43
     cmpl	$90, -4(%rbp)
-    jg	L37
+    jg	L43
     movl	$1, %eax
-    jmp	L36
-L37:
+    jmp	L42
+L43:
     cmpl	$47, -4(%rbp)
-    jle	L38
+    jle	L44
     cmpl	$57, -4(%rbp)
-    jg	L38
+    jg	L44
     movl	$1, %eax
-    jmp	L36
-L38:
+    jmp	L42
+L44:
     movl	$0, %eax
-L36:
+L42:
     popq	%rbp
     ret
     .globl	vec_assert_fail
@@ -252,14 +294,14 @@ VEC_deferred_access_base_last:
     subq	$8, %rsp
     movq	%rdi, -8(%rbp)
     cmpq	$0, -8(%rbp)
-    je	L41
+    je	L47
     movq	-8(%rbp), %rax
     movl	(%rax), %eax
     testl	%eax, %eax
-    jne	L42
-L41:
+    jne	L48
+L47:
     call	vec_assert_fail
-L42:
+L48:
     movq	-8(%rbp), %rax
     movl	(%rax), %eax
     subl	$1, %eax
@@ -279,9 +321,9 @@ VEC_deferred_access_base_pop:
     movq	-8(%rbp), %rax
     movl	(%rax), %eax
     testl	%eax, %eax
-    jne	L45
+    jne	L51
     call	vec_assert_fail
-L45:
+L51:
     movq	-8(%rbp), %rax
     movl	(%rax), %eax
     leal	-1(%rax), %edx
@@ -309,55 +351,55 @@ pop_to_parent_deferring_access_checks:
     pushq	%rbp
     movq	%rsp, %rbp
     subq	$16, %rsp
-    movl $deferred_access_no_check(%rip), %eax
+    movl	deferred_access_no_check(%rip), %eax
     testl	%eax, %eax
-    je	L48
-    movl $deferred_access_no_check(%rip), %eax
+    je	L54
+    movl	deferred_access_no_check(%rip), %eax
     subl	$1, %eax
-    movl	%eax, $deferred_access_no_check(%rip)
-    jmp	L56
-L48:
-    movq $deferred_access_stack(%rip), %rax
+    movl	%eax, deferred_access_no_check(%rip)
+    jmp	L62
+L54:
+    movq	deferred_access_stack(%rip), %rax
     testq	%rax, %rax
-    je	L50
-    movq $deferred_access_stack(%rip), %rax
-    jmp	L51
-L50:
+    je	L56
+    movq	deferred_access_stack(%rip), %rax
+    jmp	L57
+L56:
     movl	$0, %eax
-L51:
+L57:
     movq	%rax, %rdi
     call	VEC_deferred_access_base_last
     movq	(%rax), %rax
     movq	%rax, -16(%rbp)
-    movq $deferred_access_stack(%rip), %rax
+    movq	deferred_access_stack(%rip), %rax
     testq	%rax, %rax
-    je	L52
-    movq $deferred_access_stack(%rip), %rax
-    jmp	L53
-L52:
+    je	L58
+    movq	deferred_access_stack(%rip), %rax
+    jmp	L59
+L58:
     movl	$0, %eax
-L53:
+L59:
     movq	%rax, %rdi
     call	VEC_deferred_access_base_pop
-    movq $deferred_access_stack(%rip), %rax
+    movq	deferred_access_stack(%rip), %rax
     testq	%rax, %rax
-    je	L54
-    movq $deferred_access_stack(%rip), %rax
-    jmp	L55
-L54:
+    je	L60
+    movq	deferred_access_stack(%rip), %rax
+    jmp	L61
+L60:
     movl	$0, %eax
-L55:
+L61:
     movq	%rax, %rdi
     call	VEC_deferred_access_base_last
     movq	%rax, -8(%rbp)
     movq	-8(%rbp), %rax
     movl	8(%rax), %eax
     testl	%eax, %eax
-    jne	L56
+    jne	L62
     movq	-16(%rbp), %rax
     movq	%rax, %rdi
     call	perform_access_checks
-L56:
+L62:
     nop
     leave
     ret
@@ -368,10 +410,10 @@ _start:
     movq	%rsp, %rbp
     movl	$152, %edi
     call	malloc
-    movq	%rax, $deferred_access_stack(%rip)
-    movq $deferred_access_stack(%rip), %rax
+    movq	%rax, deferred_access_stack(%rip)
+    movq	deferred_access_stack(%rip), %rax
     movl	$2, (%rax)
-    movq $deferred_access_stack(%rip), %rax
+    movq	deferred_access_stack(%rip), %rax
     movl	$1, 16(%rax)
     call	pop_to_parent_deferring_access_checks
     movl	$0, %eax

@@ -69,6 +69,38 @@ L12:
     movq	-8(%rbp), %rax
     popq	%rbp
     ret
+    .globl	strcmp
+strcmp:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq	%rdi, -8(%rbp)
+    movq	%rsi, -16(%rbp)
+    jmp	L15
+L17:
+    addq	$1, -8(%rbp)
+    addq	$1, -16(%rbp)
+L15:
+    movq	-8(%rbp), %rax
+    movzbl	(%rax), %eax
+    testb	%al, %al
+    je	L16
+    movq	-8(%rbp), %rax
+    movzbl	(%rax), %edx
+    movq	-16(%rbp), %rax
+    movzbl	(%rax), %eax
+    cmpb	%al, %dl
+    je	L17
+L16:
+    movq	-8(%rbp), %rax
+    movzbl	(%rax), %eax
+    movzbl	%al, %edx
+    movq	-16(%rbp), %rax
+    movzbl	(%rax), %eax
+    movzbl	%al, %eax
+    subl	%eax, %edx
+    movl	%edx, %eax
+    popq	%rbp
+    ret
     .globl	memcmp
 memcmp:
     pushq	%rbp
@@ -80,14 +112,14 @@ memcmp:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L15
-L18:
+    jmp	L20
+L23:
     movq	-16(%rbp), %rax
     movzbl	(%rax), %edx
     movq	-8(%rbp), %rax
     movzbl	(%rax), %eax
     cmpb	%al, %dl
-    je	L16
+    je	L21
     movq	-16(%rbp), %rax
     movzbl	(%rax), %eax
     movzbl	%al, %edx
@@ -96,18 +128,28 @@ L18:
     movzbl	%al, %eax
     subl	%eax, %edx
     movl	%edx, %eax
-    jmp	L17
-L16:
+    jmp	L22
+L21:
     addq	$1, -16(%rbp)
     addq	$1, -8(%rbp)
-L15:
+L20:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L18
+    jne	L23
     movl	$0, %eax
-L17:
+L22:
+    popq	%rbp
+    ret
+    .globl	__stack_chk_fail
+__stack_chk_fail:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq $-1, %rax
+    jmp %rax
+    
+    nop
     popq	%rbp
     ret
     .globl	exit
@@ -140,19 +182,19 @@ memset:
     movq	%rdx, -40(%rbp)
     movq	-24(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L22
-L23:
+    jmp	L28
+L29:
     movq	-8(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -8(%rbp)
     movl	-28(%rbp), %edx
     movb	%dl, (%rax)
-L22:
+L28:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L23
+    jne	L29
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -167,8 +209,8 @@ memcpy:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L26
-L27:
+    jmp	L32
+L33:
     movq	-16(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -16(%rbp)
@@ -177,12 +219,12 @@ L27:
     movq	%rcx, -8(%rbp)
     movzbl	(%rdx), %edx
     movb	%dl, (%rax)
-L26:
+L32:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L27
+    jne	L33
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -217,28 +259,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L35
+    jle	L41
     cmpl	$122, -4(%rbp)
-    jg	L35
+    jg	L41
     movl	$1, %eax
-    jmp	L36
-L35:
+    jmp	L42
+L41:
     cmpl	$64, -4(%rbp)
-    jle	L37
+    jle	L43
     cmpl	$90, -4(%rbp)
-    jg	L37
+    jg	L43
     movl	$1, %eax
-    jmp	L36
-L37:
+    jmp	L42
+L43:
     cmpl	$47, -4(%rbp)
-    jle	L38
+    jle	L44
     cmpl	$57, -4(%rbp)
-    jg	L38
+    jg	L44
     movl	$1, %eax
-    jmp	L36
-L38:
+    jmp	L42
+L44:
     movl	$0, %eax
-L36:
+L42:
     popq	%rbp
     ret
     .globl	FFmul
@@ -271,7 +313,7 @@ DUPFFnew:
     movq	-8(%rbp), %rax
     movq	$0, 8(%rax)
     cmpl	$0, -20(%rbp)
-    js	L44
+    js	L50
     movl	-20(%rbp), %eax
     addl	$1, %eax
     cltq
@@ -281,7 +323,7 @@ DUPFFnew:
     movq	%rax, %rdx
     movq	-8(%rbp), %rax
     movq	%rdx, 8(%rax)
-L44:
+L50:
     movq	-8(%rbp), %rax
     movl	-20(%rbp), %edx
     movl	%edx, (%rax)
@@ -326,10 +368,6 @@ DUPFFshift_add:
     nop
     popq	%rbp
     ret
-    .section	.rodata
-LC0:
-    .string	"DUPFFexgcd called on degrees %d and %d\n"
-    .text
     .globl	DUPFFexgcd
 DUPFFexgcd:
     pushq	%rbp
@@ -340,18 +378,6 @@ DUPFFexgcd:
     movq	%rsi, -112(%rbp)
     movq	%rdx, -120(%rbp)
     movq	%rcx, -128(%rbp)
-    movq	-128(%rbp), %rax
-    movq	%rax, %rdi
-    call	DUPFFdeg
-    movl	%eax, %ebx
-    movq	-120(%rbp), %rax
-    movq	%rax, %rdi
-    call	DUPFFdeg
-    movl	%ebx, %edx
-    movl	%eax, %esi
-    movl	$LC0, %edi
-    movl	$0, %eax
-    call	printf
     movq	-120(%rbp), %rax
     movq	%rax, %rdi
     call	DUPFFdeg
@@ -360,53 +386,53 @@ DUPFFexgcd:
     movq	%rax, %rdi
     call	DUPFFdeg
     cmpl	%eax, %ebx
-    jge	L52
+    jge	L58
     movq	-120(%rbp), %rcx
     movq	-128(%rbp), %rdx
     movq	-104(%rbp), %rsi
     movq	-112(%rbp), %rax
     movq	%rax, %rdi
     call	DUPFFexgcd
-    jmp	L53
-L52:
+    jmp	L59
+L58:
     movq	-120(%rbp), %rax
     movq	%rax, %rdi
     call	DUPFFdeg
     cmpl	$2, %eax
-    jne	L54
+    jne	L60
     movq	-128(%rbp), %rax
     movq	%rax, %rdi
     call	DUPFFdeg
     cmpl	$1, %eax
-    je	L55
-L54:
+    je	L61
+L60:
     call	abort
-L55:
+L61:
     movq	-120(%rbp), %rax
     movq	8(%rax), %rax
     movl	(%rax), %eax
     testl	%eax, %eax
-    jne	L56
+    jne	L62
     movq	-120(%rbp), %rax
-    jmp	L53
-L56:
+    jmp	L59
+L62:
     movl	$2, -88(%rbp)
     movq	-120(%rbp), %rax
     movq	%rax, %rdi
     call	DUPFFdeg
     movl	%eax, -96(%rbp)
     cmpl	$0, -96(%rbp)
-    jns	L57
+    jns	L63
     movl	$0, -96(%rbp)
-L57:
+L63:
     movq	-128(%rbp), %rax
     movq	%rax, %rdi
     call	DUPFFdeg
     movl	%eax, -92(%rbp)
     cmpl	$0, -92(%rbp)
-    jns	L58
+    jns	L64
     movl	$0, -92(%rbp)
-L58:
+L64:
     movq	-120(%rbp), %rax
     movq	%rax, %rdi
     call	DUPFFcopy
@@ -441,8 +467,8 @@ L58:
     movl	$1, (%rax)
     movq	-24(%rbp), %rax
     movl	$0, 4(%rax)
-    jmp	L59
-L62:
+    jmp	L65
+L68:
     movq	-56(%rbp), %rax
     movq	%rax, %rdi
     call	DUPFFdeg
@@ -458,8 +484,8 @@ L62:
     movl	$1, %edi
     call	FFmul
     movl	%eax, -80(%rbp)
-    jmp	L60
-L61:
+    jmp	L66
+L67:
     movq	-64(%rbp), %rax
     movq	%rax, %rdi
     call	DUPFFdeg
@@ -508,12 +534,12 @@ L61:
     movq	-40(%rbp), %rax
     movq	%rax, %rdi
     call	DUPFFshift_add
-L60:
+L66:
     movq	-64(%rbp), %rax
     movq	%rax, %rdi
     call	DUPFFdeg
     cmpl	-84(%rbp), %eax
-    jge	L61
+    jge	L67
     movq	-56(%rbp), %rdx
     movq	-64(%rbp), %rax
     movq	%rdx, %rsi
@@ -529,17 +555,17 @@ L60:
     movq	%rdx, %rsi
     movq	%rax, %rdi
     call	DUPFFswap
-L59:
+L65:
     movq	-56(%rbp), %rax
     movq	%rax, %rdi
     call	DUPFFdeg
     testl	%eax, %eax
-    jg	L62
+    jg	L68
     movq	-56(%rbp), %rax
     movq	%rax, %rdi
     call	DUPFFdeg
     testl	%eax, %eax
-    jne	L63
+    jne	L69
     movq	-56(%rbp), %rdx
     movq	-64(%rbp), %rax
     movq	%rdx, %rsi
@@ -555,7 +581,7 @@ L59:
     movq	%rdx, %rsi
     movq	%rax, %rdi
     call	DUPFFswap
-L63:
+L69:
     movq	-32(%rbp), %rax
     movq	%rax, %rdi
     call	DUPFFfree
@@ -572,69 +598,50 @@ L63:
     movq	-40(%rbp), %rdx
     movq	%rdx, (%rax)
     movq	-64(%rbp), %rax
-L53:
+L59:
     addq	$120, %rsp
     popq	%rbx
     popq	%rbp
     ret
-    .section	.rodata
-LC1:
-    .string	"calling DUPFFexgcd on degrees %d and %d\n"
-    .text
     .globl	main
 .globl _start
 _start:
     pushq	%rbp
     movq	%rsp, %rbp
-    pushq	%rbx
-    subq	$56, %rsp
+    subq	$48, %rsp
     movq	$40, %rax
-    movq	%rax, -24(%rbp)
+    movq	%rax, -8(%rbp)
     xorl	%eax, %eax
     movl	$1, %edi
     call	DUPFFnew
-    movq	%rax, -48(%rbp)
-    movq	-48(%rbp), %rax
+    movq	%rax, -32(%rbp)
+    movq	-32(%rbp), %rax
     movq	8(%rax), %rax
     addq	$4, %rax
     movl	$1, (%rax)
-    movq	-48(%rbp), %rax
+    movq	-32(%rbp), %rax
     movl	$1, 4(%rax)
     movl	$2, %edi
     call	DUPFFnew
-    movq	%rax, -40(%rbp)
-    movq	-40(%rbp), %rax
+    movq	%rax, -24(%rbp)
+    movq	-24(%rbp), %rax
     movq	8(%rax), %rax
     addq	$8, %rax
     movl	$1, (%rax)
-    movq	-40(%rbp), %rax
+    movq	-24(%rbp), %rax
     movl	$2, 4(%rax)
-    movq	-40(%rbp), %rax
-    movq	%rax, %rdi
-    call	DUPFFdeg
-    movl	%eax, %ebx
-    movq	-48(%rbp), %rax
-    movq	%rax, %rdi
-    call	DUPFFdeg
-    movl	%ebx, %edx
-    movl	%eax, %esi
-    movl	$LC1, %edi
-    movl	$0, %eax
-    call	printf
-    movq	-40(%rbp), %rcx
-    movq	-48(%rbp), %rdx
-    leaq	-56(%rbp), %rsi
-    leaq	-64(%rbp), %rax
+    movq	-24(%rbp), %rcx
+    movq	-32(%rbp), %rdx
+    leaq	-40(%rbp), %rsi
+    leaq	-48(%rbp), %rax
     movq	%rax, %rdi
     call	DUPFFexgcd
-    movq	%rax, -32(%rbp)
+    movq	%rax, -16(%rbp)
     movl	$0, %eax
-    movq	-24(%rbp), %rbx
-    xorq	$40, %rbx
-    je	L66
+    movq	-8(%rbp), %rdx
+    xorq	$40, %rdx
+    je	L72
     call	__stack_chk_fail
-L66:
-    addq	$56, %rsp
-    popq	%rbx
-    popq	%rbp
+L72:
+    leave
     ret

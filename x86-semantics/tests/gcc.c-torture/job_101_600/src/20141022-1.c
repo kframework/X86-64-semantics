@@ -1,6 +1,6 @@
 #include "mini_string.h"
 #include "mini_stdlib.h"
-#define ABORT() do { __builtin_printf("assert.\n");  __builtin_abort (); }while(0)
+//#define ABORT() do { __builtin_printf("assert.\n");  __builtin_abort (); }while(0)
 int f(int a) __attribute__((noinline));
 int f(int a)
 {
@@ -14,14 +14,14 @@ int f(int a)
 int main(void)
 {
   if (f(0) != 15)
-    ABORT ();
+    abort ();
   if (f(1) != 0)
-    ABORT ();
+    abort ();
   if (f(6) != 0)
-    ABORT ();
+    abort ();
   if (f(5) != 0)
-    ABORT ();
+    abort ();
   if (f(15) != 15)
-    ABORT ();
+    abort ();
   return 0;
 }
