@@ -458,6 +458,7 @@ module X86-SYNTAX
                   | "cmovgel"
                   | "cmovgeq"
                   | "cmovgew"
+                  | "cmovge"
                   | "cmovgl"
                   | "cmovgq"
                   | "cmovgw"
