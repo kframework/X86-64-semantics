@@ -349,183 +349,183 @@ L57:
 _start:
     pushq	%rbp
     movq	%rsp, %rbp
-    vmovsd $pzero(%rip), %xmm1
-    vmovsd $pzero(%rip), %xmm0
+    vmovsd	pzero(%rip), %xmm1
+    vmovsd	pzero(%rip), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm3
     vmovq	%xmm3, %rax
     vmovq	%rax, %xmm0
     call	expect
-    vmovsd $pzero(%rip), %xmm2
-    vmovsd $pzero(%rip), %xmm1
-    vmovsd $nzero(%rip), %xmm0
+    vmovsd	pzero(%rip), %xmm2
+    vmovsd	pzero(%rip), %xmm1
+    vmovsd	nzero(%rip), %xmm0
     vaddsd	%xmm0, %xmm1, %xmm4
     vmovq	%xmm4, %rax
     vmovapd	%xmm2, %xmm1
     vmovq	%rax, %xmm0
     call	expect
-    vmovsd $pzero(%rip), %xmm2
-    vmovsd $nzero(%rip), %xmm1
-    vmovsd $pzero(%rip), %xmm0
+    vmovsd	pzero(%rip), %xmm2
+    vmovsd	nzero(%rip), %xmm1
+    vmovsd	pzero(%rip), %xmm0
     vaddsd	%xmm0, %xmm1, %xmm5
     vmovq	%xmm5, %rax
     vmovapd	%xmm2, %xmm1
     vmovq	%rax, %xmm0
     call	expect
-    vmovsd $nzero(%rip), %xmm1
-    vmovsd $nzero(%rip), %xmm0
+    vmovsd	nzero(%rip), %xmm1
+    vmovsd	nzero(%rip), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm6
     vmovq	%xmm6, %rax
     vmovq	%rax, %xmm0
     call	expect
-    vmovsd $pzero(%rip), %xmm2
-    vmovsd $pzero(%rip), %xmm0
-    vmovsd $pzero(%rip), %xmm1
+    vmovsd	pzero(%rip), %xmm2
+    vmovsd	pzero(%rip), %xmm0
+    vmovsd	pzero(%rip), %xmm1
     vsubsd	%xmm1, %xmm0, %xmm7
     vmovq	%xmm7, %rax
     vmovapd	%xmm2, %xmm1
     vmovq	%rax, %xmm0
     call	expect
-    vmovsd $pzero(%rip), %xmm2
-    vmovsd $pzero(%rip), %xmm0
-    vmovsd $nzero(%rip), %xmm1
+    vmovsd	pzero(%rip), %xmm2
+    vmovsd	pzero(%rip), %xmm0
+    vmovsd	nzero(%rip), %xmm1
     vsubsd	%xmm1, %xmm0, %xmm3
     vmovq	%xmm3, %rax
     vmovapd	%xmm2, %xmm1
     vmovq	%rax, %xmm0
     call	expect
-    vmovsd $nzero(%rip), %xmm2
-    vmovsd $nzero(%rip), %xmm0
-    vmovsd $pzero(%rip), %xmm1
+    vmovsd	nzero(%rip), %xmm2
+    vmovsd	nzero(%rip), %xmm0
+    vmovsd	pzero(%rip), %xmm1
     vsubsd	%xmm1, %xmm0, %xmm4
     vmovq	%xmm4, %rax
     vmovapd	%xmm2, %xmm1
     vmovq	%rax, %xmm0
     call	expect
-    vmovsd $pzero(%rip), %xmm2
-    vmovsd $nzero(%rip), %xmm0
-    vmovsd $nzero(%rip), %xmm1
+    vmovsd	pzero(%rip), %xmm2
+    vmovsd	nzero(%rip), %xmm0
+    vmovsd	nzero(%rip), %xmm1
     vsubsd	%xmm1, %xmm0, %xmm5
     vmovq	%xmm5, %rax
     vmovapd	%xmm2, %xmm1
     vmovq	%rax, %xmm0
     call	expect
-    vmovsd $pzero(%rip), %xmm2
-    vmovsd $pzero(%rip), %xmm1
-    vmovsd $pzero(%rip), %xmm0
+    vmovsd	pzero(%rip), %xmm2
+    vmovsd	pzero(%rip), %xmm1
+    vmovsd	pzero(%rip), %xmm0
     vmulsd	%xmm0, %xmm1, %xmm6
     vmovq	%xmm6, %rax
     vmovapd	%xmm2, %xmm1
     vmovq	%rax, %xmm0
     call	expect
-    vmovsd $nzero(%rip), %xmm2
-    vmovsd $pzero(%rip), %xmm1
-    vmovsd $nzero(%rip), %xmm0
+    vmovsd	nzero(%rip), %xmm2
+    vmovsd	pzero(%rip), %xmm1
+    vmovsd	nzero(%rip), %xmm0
     vmulsd	%xmm0, %xmm1, %xmm7
     vmovq	%xmm7, %rax
     vmovapd	%xmm2, %xmm1
     vmovq	%rax, %xmm0
     call	expect
-    vmovsd $nzero(%rip), %xmm2
-    vmovsd $nzero(%rip), %xmm1
-    vmovsd $pzero(%rip), %xmm0
+    vmovsd	nzero(%rip), %xmm2
+    vmovsd	nzero(%rip), %xmm1
+    vmovsd	pzero(%rip), %xmm0
     vmulsd	%xmm0, %xmm1, %xmm3
     vmovq	%xmm3, %rax
     vmovapd	%xmm2, %xmm1
     vmovq	%rax, %xmm0
     call	expect
-    vmovsd $pzero(%rip), %xmm2
-    vmovsd $nzero(%rip), %xmm1
-    vmovsd $nzero(%rip), %xmm0
+    vmovsd	pzero(%rip), %xmm2
+    vmovsd	nzero(%rip), %xmm1
+    vmovsd	nzero(%rip), %xmm0
     vmulsd	%xmm0, %xmm1, %xmm4
     vmovq	%xmm4, %rax
     vmovapd	%xmm2, %xmm1
     vmovq	%rax, %xmm0
     call	expect
-    vmovsd $pzero(%rip), %xmm0
-    movq $pzero(%rip), %rax
+    vmovsd	pzero(%rip), %xmm0
+    movq	pzero(%rip), %rax
     vmovapd	%xmm0, %xmm1
     vmovq	%rax, %xmm0
     call	expect
-    vmovsd $nzero(%rip), %xmm2
-    vmovsd $pzero(%rip), %xmm1
-    vmovsd	$LC0(%rip), %xmm0
+    vmovsd	nzero(%rip), %xmm2
+    vmovsd	pzero(%rip), %xmm1
+    vmovsd	LC0(%rip), %xmm0
     vxorpd	%xmm0, %xmm1, %xmm1
     vmovq	%xmm1, %rax
     vmovapd	%xmm2, %xmm1
     vmovq	%rax, %xmm0
     call	expect
-    vmovsd $nzero(%rip), %xmm0
-    movq $nzero(%rip), %rax
+    vmovsd	nzero(%rip), %xmm0
+    movq	nzero(%rip), %rax
     vmovapd	%xmm0, %xmm1
     vmovq	%rax, %xmm0
     call	expect
-    vmovsd $pzero(%rip), %xmm2
-    vmovsd $nzero(%rip), %xmm1
-    vmovsd	$LC0(%rip), %xmm0
+    vmovsd	pzero(%rip), %xmm2
+    vmovsd	nzero(%rip), %xmm1
+    vmovsd	LC0(%rip), %xmm0
     vxorpd	%xmm0, %xmm1, %xmm1
     vmovq	%xmm1, %rax
     vmovapd	%xmm2, %xmm1
     vmovq	%rax, %xmm0
     call	expect
-    vmovsd $nan(%rip), %xmm2
-    vmovsd $pzero(%rip), %xmm0
-    vmovsd $pzero(%rip), %xmm1
+    vmovsd	nan(%rip), %xmm2
+    vmovsd	pzero(%rip), %xmm0
+    vmovsd	pzero(%rip), %xmm1
     vdivsd	%xmm1, %xmm0, %xmm5
     vmovq	%xmm5, %rax
     vmovapd	%xmm2, %xmm1
     vmovq	%rax, %xmm0
     call	expect
-    vmovsd $nan(%rip), %xmm2
-    vmovsd $pzero(%rip), %xmm0
-    vmovsd $nzero(%rip), %xmm1
+    vmovsd	nan(%rip), %xmm2
+    vmovsd	pzero(%rip), %xmm0
+    vmovsd	nzero(%rip), %xmm1
     vdivsd	%xmm1, %xmm0, %xmm6
     vmovq	%xmm6, %rax
     vmovapd	%xmm2, %xmm1
     vmovq	%rax, %xmm0
     call	expect
-    vmovsd $nan(%rip), %xmm2
-    vmovsd $nzero(%rip), %xmm0
-    vmovsd $pzero(%rip), %xmm1
+    vmovsd	nan(%rip), %xmm2
+    vmovsd	nzero(%rip), %xmm0
+    vmovsd	pzero(%rip), %xmm1
     vdivsd	%xmm1, %xmm0, %xmm7
     vmovq	%xmm7, %rax
     vmovapd	%xmm2, %xmm1
     vmovq	%rax, %xmm0
     call	expect
-    vmovsd $nan(%rip), %xmm2
-    vmovsd $nzero(%rip), %xmm0
-    vmovsd $nzero(%rip), %xmm1
+    vmovsd	nan(%rip), %xmm2
+    vmovsd	nzero(%rip), %xmm0
+    vmovsd	nzero(%rip), %xmm1
     vdivsd	%xmm1, %xmm0, %xmm3
     vmovq	%xmm3, %rax
     vmovapd	%xmm2, %xmm1
     vmovq	%rax, %xmm0
     call	expect
-    vmovsd $pinf(%rip), %xmm2
-    vmovsd $pzero(%rip), %xmm1
-    vmovsd	$LC1(%rip), %xmm0
+    vmovsd	pinf(%rip), %xmm2
+    vmovsd	pzero(%rip), %xmm1
+    vmovsd	LC1(%rip), %xmm0
     vdivsd	%xmm1, %xmm0, %xmm4
     vmovq	%xmm4, %rax
     vmovapd	%xmm2, %xmm1
     vmovq	%rax, %xmm0
     call	expect
-    vmovsd $ninf(%rip), %xmm2
-    vmovsd $pzero(%rip), %xmm1
-    vmovsd	$LC2(%rip), %xmm0
+    vmovsd	ninf(%rip), %xmm2
+    vmovsd	pzero(%rip), %xmm1
+    vmovsd	LC2(%rip), %xmm0
     vdivsd	%xmm1, %xmm0, %xmm5
     vmovq	%xmm5, %rax
     vmovapd	%xmm2, %xmm1
     vmovq	%rax, %xmm0
     call	expect
-    vmovsd $ninf(%rip), %xmm2
-    vmovsd $nzero(%rip), %xmm1
-    vmovsd	$LC1(%rip), %xmm0
+    vmovsd	ninf(%rip), %xmm2
+    vmovsd	nzero(%rip), %xmm1
+    vmovsd	LC1(%rip), %xmm0
     vdivsd	%xmm1, %xmm0, %xmm6
     vmovq	%xmm6, %rax
     vmovapd	%xmm2, %xmm1
     vmovq	%rax, %xmm0
     call	expect
-    vmovsd $pinf(%rip), %xmm2
-    vmovsd $nzero(%rip), %xmm1
-    vmovsd	$LC2(%rip), %xmm0
+    vmovsd	pinf(%rip), %xmm2
+    vmovsd	nzero(%rip), %xmm1
+    vmovsd	LC2(%rip), %xmm0
     vdivsd	%xmm1, %xmm0, %xmm7
     vmovq	%xmm7, %rax
     vmovapd	%xmm2, %xmm1

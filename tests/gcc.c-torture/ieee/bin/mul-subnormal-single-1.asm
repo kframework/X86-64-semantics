@@ -328,7 +328,7 @@ tstmul:
     call	f2u
     cmpl	-28(%rbp), %eax
     je	L51
-    movl	$0, $ok(%rip)
+    movl	$0, ok(%rip)
 L51:
     nop
     leave
@@ -409,7 +409,7 @@ L54:
 L53:
     cmpl	$2, -4(%rbp)
     jbe	L54
-    movl $ok(%rip), %eax
+    movl	ok(%rip), %eax
     testl	%eax, %eax
     jne	L55
     call	abort

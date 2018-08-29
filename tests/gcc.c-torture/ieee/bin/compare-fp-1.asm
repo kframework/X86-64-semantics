@@ -1082,311 +1082,311 @@ L263:
 _start:
     pushq	%rbp
     movq	%rsp, %rbp
-    vmovss	$LC0(%rip), %xmm0
-    vmovss	%xmm0, $pinf(%rip)
-    vmovss	$LC1(%rip), %xmm0
-    vmovss	%xmm0, $ninf(%rip)
-    vmovss	$LC2(%rip), %xmm0
-    vmovss	%xmm0, $NaN(%rip)
-    vmovss $pinf(%rip), %xmm0
-    movl $ninf(%rip), %eax
+    vmovss	LC0(%rip), %xmm0
+    vmovss	%xmm0, pinf(%rip)
+    vmovss	LC1(%rip), %xmm0
+    vmovss	%xmm0, ninf(%rip)
+    vmovss	LC2(%rip), %xmm0
+    vmovss	%xmm0, NaN(%rip)
+    vmovss	pinf(%rip), %xmm0
+    movl	ninf(%rip), %eax
     movl	$0, %edi
     vmovaps	%xmm0, %xmm1
     vmovd	%eax, %xmm0
     call	iuneq
-    vmovss $NaN(%rip), %xmm0
-    movl $NaN(%rip), %eax
+    vmovss	NaN(%rip), %xmm0
+    movl	NaN(%rip), %eax
     movl	$1, %edi
     vmovaps	%xmm0, %xmm1
     vmovd	%eax, %xmm0
     call	iuneq
-    vmovss $ninf(%rip), %xmm0
-    movl $pinf(%rip), %eax
+    vmovss	ninf(%rip), %xmm0
+    movl	pinf(%rip), %eax
     movl	$0, %edi
     vmovaps	%xmm0, %xmm1
     vmovd	%eax, %xmm0
     call	iuneq
     movl	$0, %edi
-    vmovss	$LC3(%rip), %xmm1
-    vmovss	$LC4(%rip), %xmm0
+    vmovss	LC3(%rip), %xmm1
+    vmovss	LC4(%rip), %xmm0
     call	iuneq
     movl	$1, %edi
-    vmovss	$LC5(%rip), %xmm1
-    vmovss	$LC5(%rip), %xmm0
+    vmovss	LC5(%rip), %xmm1
+    vmovss	LC5(%rip), %xmm0
     call	iuneq
     movl	$0, %edi
-    vmovss	$LC6(%rip), %xmm1
-    vmovss	$LC7(%rip), %xmm0
+    vmovss	LC6(%rip), %xmm1
+    vmovss	LC7(%rip), %xmm0
     call	iuneq
     movl	$0, %edi
-    vmovss	$LC3(%rip), %xmm1
-    vmovss	$LC4(%rip), %xmm0
+    vmovss	LC3(%rip), %xmm1
+    vmovss	LC4(%rip), %xmm0
     call	ieq
     movl	$1, %edi
-    vmovss	$LC5(%rip), %xmm1
-    vmovss	$LC5(%rip), %xmm0
+    vmovss	LC5(%rip), %xmm1
+    vmovss	LC5(%rip), %xmm0
     call	ieq
     movl	$0, %edi
-    vmovss	$LC6(%rip), %xmm1
-    vmovss	$LC7(%rip), %xmm0
+    vmovss	LC6(%rip), %xmm1
+    vmovss	LC7(%rip), %xmm0
     call	ieq
-    vmovss $pinf(%rip), %xmm0
-    movl $ninf(%rip), %eax
+    vmovss	pinf(%rip), %xmm0
+    movl	ninf(%rip), %eax
     movl	$1, %edi
     vmovaps	%xmm0, %xmm1
     vmovd	%eax, %xmm0
     call	iltgt
-    vmovss $NaN(%rip), %xmm0
-    movl $NaN(%rip), %eax
+    vmovss	NaN(%rip), %xmm0
+    movl	NaN(%rip), %eax
     movl	$0, %edi
     vmovaps	%xmm0, %xmm1
     vmovd	%eax, %xmm0
     call	iltgt
-    vmovss $ninf(%rip), %xmm0
-    movl $pinf(%rip), %eax
+    vmovss	ninf(%rip), %xmm0
+    movl	pinf(%rip), %eax
     movl	$1, %edi
     vmovaps	%xmm0, %xmm1
     vmovd	%eax, %xmm0
     call	iltgt
     movl	$1, %edi
-    vmovss	$LC3(%rip), %xmm1
-    vmovss	$LC4(%rip), %xmm0
+    vmovss	LC3(%rip), %xmm1
+    vmovss	LC4(%rip), %xmm0
     call	iltgt
     movl	$0, %edi
-    vmovss	$LC5(%rip), %xmm1
-    vmovss	$LC5(%rip), %xmm0
+    vmovss	LC5(%rip), %xmm1
+    vmovss	LC5(%rip), %xmm0
     call	iltgt
     movl	$1, %edi
-    vmovss	$LC6(%rip), %xmm1
-    vmovss	$LC7(%rip), %xmm0
+    vmovss	LC6(%rip), %xmm1
+    vmovss	LC7(%rip), %xmm0
     call	iltgt
     movl	$1, %edi
-    vmovss	$LC3(%rip), %xmm1
-    vmovss	$LC4(%rip), %xmm0
+    vmovss	LC3(%rip), %xmm1
+    vmovss	LC4(%rip), %xmm0
     call	ine
     movl	$0, %edi
-    vmovss	$LC5(%rip), %xmm1
-    vmovss	$LC5(%rip), %xmm0
+    vmovss	LC5(%rip), %xmm1
+    vmovss	LC5(%rip), %xmm0
     call	ine
     movl	$1, %edi
-    vmovss	$LC6(%rip), %xmm1
-    vmovss	$LC7(%rip), %xmm0
+    vmovss	LC6(%rip), %xmm1
+    vmovss	LC7(%rip), %xmm0
     call	ine
-    vmovss $ninf(%rip), %xmm0
-    movl $NaN(%rip), %eax
+    vmovss	ninf(%rip), %xmm0
+    movl	NaN(%rip), %eax
     movl	$1, %edi
     vmovaps	%xmm0, %xmm1
     vmovd	%eax, %xmm0
     call	iunlt
-    vmovss $NaN(%rip), %xmm0
-    movl $pinf(%rip), %eax
+    vmovss	NaN(%rip), %xmm0
+    movl	pinf(%rip), %eax
     movl	$1, %edi
     vmovaps	%xmm0, %xmm1
     vmovd	%eax, %xmm0
     call	iunlt
-    vmovss $ninf(%rip), %xmm0
-    movl $pinf(%rip), %eax
+    vmovss	ninf(%rip), %xmm0
+    movl	pinf(%rip), %eax
     movl	$0, %edi
     vmovaps	%xmm0, %xmm1
     vmovd	%eax, %xmm0
     call	iunlt
-    vmovss $pinf(%rip), %xmm0
-    movl $pinf(%rip), %eax
+    vmovss	pinf(%rip), %xmm0
+    movl	pinf(%rip), %eax
     movl	$0, %edi
     vmovaps	%xmm0, %xmm1
     vmovd	%eax, %xmm0
     call	iunlt
-    vmovss $ninf(%rip), %xmm0
-    movl $ninf(%rip), %eax
+    vmovss	ninf(%rip), %xmm0
+    movl	ninf(%rip), %eax
     movl	$0, %edi
     vmovaps	%xmm0, %xmm1
     vmovd	%eax, %xmm0
     call	iunlt
     movl	$1, %edi
-    vmovss	$LC3(%rip), %xmm1
-    vmovss	$LC4(%rip), %xmm0
+    vmovss	LC3(%rip), %xmm1
+    vmovss	LC4(%rip), %xmm0
     call	iunlt
     movl	$0, %edi
-    vmovss	$LC5(%rip), %xmm1
-    vmovss	$LC5(%rip), %xmm0
+    vmovss	LC5(%rip), %xmm1
+    vmovss	LC5(%rip), %xmm0
     call	iunlt
     movl	$0, %edi
-    vmovss	$LC6(%rip), %xmm1
-    vmovss	$LC7(%rip), %xmm0
+    vmovss	LC6(%rip), %xmm1
+    vmovss	LC7(%rip), %xmm0
     call	iunlt
     movl	$1, %edi
-    vmovss	$LC3(%rip), %xmm1
-    vmovss	$LC4(%rip), %xmm0
+    vmovss	LC3(%rip), %xmm1
+    vmovss	LC4(%rip), %xmm0
     call	ilt
     movl	$0, %edi
-    vmovss	$LC5(%rip), %xmm1
-    vmovss	$LC5(%rip), %xmm0
+    vmovss	LC5(%rip), %xmm1
+    vmovss	LC5(%rip), %xmm0
     call	ilt
     movl	$0, %edi
-    vmovss	$LC6(%rip), %xmm1
-    vmovss	$LC7(%rip), %xmm0
+    vmovss	LC6(%rip), %xmm1
+    vmovss	LC7(%rip), %xmm0
     call	ilt
-    vmovss $ninf(%rip), %xmm0
-    movl $NaN(%rip), %eax
+    vmovss	ninf(%rip), %xmm0
+    movl	NaN(%rip), %eax
     movl	$1, %edi
     vmovaps	%xmm0, %xmm1
     vmovd	%eax, %xmm0
     call	iunle
-    vmovss $NaN(%rip), %xmm0
-    movl $pinf(%rip), %eax
+    vmovss	NaN(%rip), %xmm0
+    movl	pinf(%rip), %eax
     movl	$1, %edi
     vmovaps	%xmm0, %xmm1
     vmovd	%eax, %xmm0
     call	iunle
-    vmovss $ninf(%rip), %xmm0
-    movl $pinf(%rip), %eax
+    vmovss	ninf(%rip), %xmm0
+    movl	pinf(%rip), %eax
     movl	$0, %edi
     vmovaps	%xmm0, %xmm1
     vmovd	%eax, %xmm0
     call	iunle
-    vmovss $pinf(%rip), %xmm0
-    movl $pinf(%rip), %eax
+    vmovss	pinf(%rip), %xmm0
+    movl	pinf(%rip), %eax
     movl	$1, %edi
     vmovaps	%xmm0, %xmm1
     vmovd	%eax, %xmm0
     call	iunle
-    vmovss $ninf(%rip), %xmm0
-    movl $ninf(%rip), %eax
+    vmovss	ninf(%rip), %xmm0
+    movl	ninf(%rip), %eax
     movl	$1, %edi
     vmovaps	%xmm0, %xmm1
     vmovd	%eax, %xmm0
     call	iunle
     movl	$1, %edi
-    vmovss	$LC3(%rip), %xmm1
-    vmovss	$LC4(%rip), %xmm0
+    vmovss	LC3(%rip), %xmm1
+    vmovss	LC4(%rip), %xmm0
     call	iunle
     movl	$1, %edi
-    vmovss	$LC5(%rip), %xmm1
-    vmovss	$LC5(%rip), %xmm0
+    vmovss	LC5(%rip), %xmm1
+    vmovss	LC5(%rip), %xmm0
     call	iunle
     movl	$0, %edi
-    vmovss	$LC6(%rip), %xmm1
-    vmovss	$LC7(%rip), %xmm0
+    vmovss	LC6(%rip), %xmm1
+    vmovss	LC7(%rip), %xmm0
     call	iunle
     movl	$1, %edi
-    vmovss	$LC3(%rip), %xmm1
-    vmovss	$LC4(%rip), %xmm0
+    vmovss	LC3(%rip), %xmm1
+    vmovss	LC4(%rip), %xmm0
     call	ile
     movl	$1, %edi
-    vmovss	$LC5(%rip), %xmm1
-    vmovss	$LC5(%rip), %xmm0
+    vmovss	LC5(%rip), %xmm1
+    vmovss	LC5(%rip), %xmm0
     call	ile
     movl	$0, %edi
-    vmovss	$LC6(%rip), %xmm1
-    vmovss	$LC7(%rip), %xmm0
+    vmovss	LC6(%rip), %xmm1
+    vmovss	LC7(%rip), %xmm0
     call	ile
-    vmovss $ninf(%rip), %xmm0
-    movl $NaN(%rip), %eax
+    vmovss	ninf(%rip), %xmm0
+    movl	NaN(%rip), %eax
     movl	$1, %edi
     vmovaps	%xmm0, %xmm1
     vmovd	%eax, %xmm0
     call	iungt
-    vmovss $NaN(%rip), %xmm0
-    movl $pinf(%rip), %eax
+    vmovss	NaN(%rip), %xmm0
+    movl	pinf(%rip), %eax
     movl	$1, %edi
     vmovaps	%xmm0, %xmm1
     vmovd	%eax, %xmm0
     call	iungt
-    vmovss $ninf(%rip), %xmm0
-    movl $pinf(%rip), %eax
+    vmovss	ninf(%rip), %xmm0
+    movl	pinf(%rip), %eax
     movl	$1, %edi
     vmovaps	%xmm0, %xmm1
     vmovd	%eax, %xmm0
     call	iungt
-    vmovss $pinf(%rip), %xmm0
-    movl $pinf(%rip), %eax
+    vmovss	pinf(%rip), %xmm0
+    movl	pinf(%rip), %eax
     movl	$0, %edi
     vmovaps	%xmm0, %xmm1
     vmovd	%eax, %xmm0
     call	iungt
-    vmovss $ninf(%rip), %xmm0
-    movl $ninf(%rip), %eax
+    vmovss	ninf(%rip), %xmm0
+    movl	ninf(%rip), %eax
     movl	$0, %edi
     vmovaps	%xmm0, %xmm1
     vmovd	%eax, %xmm0
     call	iungt
     movl	$0, %edi
-    vmovss	$LC3(%rip), %xmm1
-    vmovss	$LC4(%rip), %xmm0
+    vmovss	LC3(%rip), %xmm1
+    vmovss	LC4(%rip), %xmm0
     call	iungt
     movl	$0, %edi
-    vmovss	$LC5(%rip), %xmm1
-    vmovss	$LC5(%rip), %xmm0
+    vmovss	LC5(%rip), %xmm1
+    vmovss	LC5(%rip), %xmm0
     call	iungt
     movl	$1, %edi
-    vmovss	$LC6(%rip), %xmm1
-    vmovss	$LC7(%rip), %xmm0
+    vmovss	LC6(%rip), %xmm1
+    vmovss	LC7(%rip), %xmm0
     call	iungt
     movl	$0, %edi
-    vmovss	$LC3(%rip), %xmm1
-    vmovss	$LC4(%rip), %xmm0
+    vmovss	LC3(%rip), %xmm1
+    vmovss	LC4(%rip), %xmm0
     call	igt
     movl	$0, %edi
-    vmovss	$LC5(%rip), %xmm1
-    vmovss	$LC5(%rip), %xmm0
+    vmovss	LC5(%rip), %xmm1
+    vmovss	LC5(%rip), %xmm0
     call	igt
     movl	$1, %edi
-    vmovss	$LC6(%rip), %xmm1
-    vmovss	$LC7(%rip), %xmm0
+    vmovss	LC6(%rip), %xmm1
+    vmovss	LC7(%rip), %xmm0
     call	igt
-    vmovss $ninf(%rip), %xmm0
-    movl $NaN(%rip), %eax
+    vmovss	ninf(%rip), %xmm0
+    movl	NaN(%rip), %eax
     movl	$1, %edi
     vmovaps	%xmm0, %xmm1
     vmovd	%eax, %xmm0
     call	iunge
-    vmovss $NaN(%rip), %xmm0
-    movl $pinf(%rip), %eax
+    vmovss	NaN(%rip), %xmm0
+    movl	pinf(%rip), %eax
     movl	$1, %edi
     vmovaps	%xmm0, %xmm1
     vmovd	%eax, %xmm0
     call	iunge
-    vmovss $pinf(%rip), %xmm0
-    movl $ninf(%rip), %eax
+    vmovss	pinf(%rip), %xmm0
+    movl	ninf(%rip), %eax
     movl	$0, %edi
     vmovaps	%xmm0, %xmm1
     vmovd	%eax, %xmm0
     call	iunge
-    vmovss $pinf(%rip), %xmm0
-    movl $pinf(%rip), %eax
+    vmovss	pinf(%rip), %xmm0
+    movl	pinf(%rip), %eax
     movl	$1, %edi
     vmovaps	%xmm0, %xmm1
     vmovd	%eax, %xmm0
     call	iunge
-    vmovss $ninf(%rip), %xmm0
-    movl $ninf(%rip), %eax
+    vmovss	ninf(%rip), %xmm0
+    movl	ninf(%rip), %eax
     movl	$1, %edi
     vmovaps	%xmm0, %xmm1
     vmovd	%eax, %xmm0
     call	iunge
     movl	$0, %edi
-    vmovss	$LC3(%rip), %xmm1
-    vmovss	$LC4(%rip), %xmm0
+    vmovss	LC3(%rip), %xmm1
+    vmovss	LC4(%rip), %xmm0
     call	iunge
     movl	$1, %edi
-    vmovss	$LC5(%rip), %xmm1
-    vmovss	$LC5(%rip), %xmm0
+    vmovss	LC5(%rip), %xmm1
+    vmovss	LC5(%rip), %xmm0
     call	iunge
     movl	$1, %edi
-    vmovss	$LC6(%rip), %xmm1
-    vmovss	$LC7(%rip), %xmm0
+    vmovss	LC6(%rip), %xmm1
+    vmovss	LC7(%rip), %xmm0
     call	iunge
     movl	$0, %edi
-    vmovss	$LC3(%rip), %xmm1
-    vmovss	$LC4(%rip), %xmm0
+    vmovss	LC3(%rip), %xmm1
+    vmovss	LC4(%rip), %xmm0
     call	ige
     movl	$1, %edi
-    vmovss	$LC5(%rip), %xmm1
-    vmovss	$LC5(%rip), %xmm0
+    vmovss	LC5(%rip), %xmm1
+    vmovss	LC5(%rip), %xmm0
     call	ige
     movl	$1, %edi
-    vmovss	$LC6(%rip), %xmm1
-    vmovss	$LC7(%rip), %xmm0
+    vmovss	LC6(%rip), %xmm1
+    vmovss	LC7(%rip), %xmm0
     call	ige
     movl	$0, %eax
     popq	%rbp

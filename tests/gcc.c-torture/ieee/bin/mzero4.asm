@@ -351,17 +351,17 @@ _start:
     vxorpd	%xmm1, %xmm1, %xmm1
     vxorpd	%xmm0, %xmm0, %xmm0
     call	expectd
-    vmovsd	$LC1(%rip), %xmm0
+    vmovsd	LC1(%rip), %xmm0
     movabsq	$-9223372036854775808, %rax
     vmovapd	%xmm0, %xmm1
     vmovq	%rax, %xmm0
     call	expectd
-    vmovsd	$LC1(%rip), %xmm0
+    vmovsd	LC1(%rip), %xmm0
     movabsq	$-9223372036854775808, %rax
     vmovapd	%xmm0, %xmm1
     vmovq	%rax, %xmm0
     call	expectd
-    vmovsd	$LC1(%rip), %xmm0
+    vmovsd	LC1(%rip), %xmm0
     movabsq	$-9223372036854775808, %rax
     vmovapd	%xmm0, %xmm1
     vmovq	%rax, %xmm0
@@ -375,14 +375,14 @@ _start:
     vxorps	%xmm1, %xmm1, %xmm1
     vxorps	%xmm0, %xmm0, %xmm0
     call	expectf
-    vmovss	$LC3(%rip), %xmm1
-    vmovss	$LC3(%rip), %xmm0
+    vmovss	LC3(%rip), %xmm1
+    vmovss	LC3(%rip), %xmm0
     call	expectf
-    vmovss	$LC3(%rip), %xmm1
-    vmovss	$LC3(%rip), %xmm0
+    vmovss	LC3(%rip), %xmm1
+    vmovss	LC3(%rip), %xmm0
     call	expectf
-    vmovss	$LC3(%rip), %xmm1
-    vmovss	$LC3(%rip), %xmm0
+    vmovss	LC3(%rip), %xmm1
+    vmovss	LC3(%rip), %xmm0
     call	expectf
     movl	$0, %eax
     popq	%rbp

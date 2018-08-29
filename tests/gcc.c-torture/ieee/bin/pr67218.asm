@@ -318,11 +318,11 @@ _start:
     movl	$1, %edi
     call	foo
     vmovq	%xmm0, %rax
-    vmovsd	$LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm0
     vmovq	%rax, %xmm1
     vucomisd	%xmm0, %xmm1
     jp	L53
-    vmovsd	$LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm0
     vmovq	%rax, %xmm2
     vucomisd	%xmm0, %xmm2
     je	L54

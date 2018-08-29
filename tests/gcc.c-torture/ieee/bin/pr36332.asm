@@ -289,7 +289,7 @@ foo:
     movq	%rsp, %rbp
     vmovsd	%xmm0, -8(%rbp)
     vmovsd	-8(%rbp), %xmm0
-    vmovsd	$LC0(%rip), %xmm1
+    vmovsd	LC0(%rip), %xmm1
     vucomisd	%xmm1, %xmm0
     seta	%al
     movzbl	%al, %eax

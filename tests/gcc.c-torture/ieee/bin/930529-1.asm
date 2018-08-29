@@ -292,7 +292,7 @@ _start:
     movq	$40, %rax
     movq	%rax, -8(%rbp)
     xorl	%eax, %eax
-    vmovsd	$LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm0
     vmovsd	%xmm0, -16(%rbp)
     movzbl	-16(%rbp), %eax
     cmpb	$-110, %al

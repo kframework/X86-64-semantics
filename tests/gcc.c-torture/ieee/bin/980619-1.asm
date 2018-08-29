@@ -289,23 +289,23 @@ _start:
     pushq	%rbp
     movq	%rsp, %rbp
     subq	$16, %rsp
-    vmovss	$LC0(%rip), %xmm0
+    vmovss	LC0(%rip), %xmm0
     vmovss	%xmm0, -12(%rbp)
     movl	$0, -8(%rbp)
 L49:
     vmovss	-12(%rbp), %xmm1
-    vmovss	$LC0(%rip), %xmm0
+    vmovss	LC0(%rip), %xmm0
     vaddss	%xmm0, %xmm1, %xmm0
     vmovss	%xmm0, -4(%rbp)
-    vmovss	$LC0(%rip), %xmm0
+    vmovss	LC0(%rip), %xmm0
     vucomiss	-4(%rbp), %xmm0
     jp	L46
-    vmovss	$LC0(%rip), %xmm0
+    vmovss	LC0(%rip), %xmm0
     vucomiss	-4(%rbp), %xmm0
     je	L51
 L46:
     vmovss	-12(%rbp), %xmm0
-    vmovss	$LC1(%rip), %xmm1
+    vmovss	LC1(%rip), %xmm1
     vdivss	%xmm1, %xmm0, %xmm0
     vmovss	%xmm0, -12(%rbp)
     addl	$1, -8(%rbp)

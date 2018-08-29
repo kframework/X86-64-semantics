@@ -304,10 +304,10 @@ func:
     movzbl	%al, %eax
     testq	%rax, %rax
     je	L54
-    vmovsd	$LC0(%rip), %xmm1
+    vmovsd	LC0(%rip), %xmm1
     vmovsd	-40(%rbp), %xmm0
     vsubsd	%xmm1, %xmm0, %xmm0
-    vmovsd	$LC0(%rip), %xmm1
+    vmovsd	LC0(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm2
     vmovapd	%xmm2, %xmm7
     vucomisd	-40(%rbp), %xmm2
@@ -319,17 +319,17 @@ L51:
     call	abort
 L53:
     vmovsd	-40(%rbp), %xmm0
-    vmovsd	$LC1(%rip), %xmm1
+    vmovsd	LC1(%rip), %xmm1
     vsubsd	%xmm1, %xmm0, %xmm5
-    vmovsd	$LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm0
     vsubsd	%xmm0, %xmm5, %xmm0
-    vmovsd	$LC0(%rip), %xmm1
+    vmovsd	LC0(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm3
     vmovapd	%xmm3, %xmm7
-    vmovsd	$LC0(%rip), %xmm1
+    vmovsd	LC0(%rip), %xmm1
     vmovsd	-40(%rbp), %xmm0
     vsubsd	%xmm1, %xmm0, %xmm0
-    vmovsd	$LC0(%rip), %xmm1
+    vmovsd	LC0(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
     vucomisd	%xmm3, %xmm0
     jp	L54

@@ -304,10 +304,10 @@ ninf:
 _start:
     pushq	%rbp
     movq	%rsp, %rbp
-    vmovsd	$LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm0
     vxorpd	%xmm1, %xmm1, %xmm1
     vdivsd	%xmm1, %xmm0, %xmm0
-    vmovsd	$LC2(%rip), %xmm1
+    vmovsd	LC2(%rip), %xmm1
     vucomisd	%xmm1, %xmm0
     jp	L52
     vucomisd	%xmm1, %xmm0
@@ -315,10 +315,10 @@ _start:
 L52:
     call	abort
 L54:
-    vmovsd	$LC3(%rip), %xmm0
+    vmovsd	LC3(%rip), %xmm0
     vxorpd	%xmm1, %xmm1, %xmm1
     vdivsd	%xmm1, %xmm0, %xmm0
-    vmovsd	$LC4(%rip), %xmm1
+    vmovsd	LC4(%rip), %xmm1
     vucomisd	%xmm1, %xmm0
     jp	L53
     vucomisd	%xmm1, %xmm0
@@ -326,8 +326,8 @@ L54:
 L53:
     call	abort
 L55:
-    vmovsd	$LC2(%rip), %xmm0
-    vmovsd	$LC5(%rip), %xmm1
+    vmovsd	LC2(%rip), %xmm0
+    vmovsd	LC5(%rip), %xmm1
     vucomisd	%xmm1, %xmm0
     seta	%al
     xorl	$1, %eax
@@ -335,8 +335,8 @@ L55:
     je	L50
     call	abort
 L50:
-    vmovsd	$LC4(%rip), %xmm1
-    vmovsd	$LC6(%rip), %xmm0
+    vmovsd	LC4(%rip), %xmm1
+    vmovsd	LC6(%rip), %xmm0
     vucomisd	%xmm1, %xmm0
     seta	%al
     xorl	$1, %eax

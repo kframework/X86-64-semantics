@@ -291,7 +291,7 @@ f1:
     movq	$40, %rax
     movq	%rax, -8(%rbp)
     xorl	%eax, %eax
-    vmovsd	$LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm0
     vmovsd	%xmm0, -16(%rbp)
     movq	-16(%rbp), %rax
     movq	%rax, -24(%rbp)
@@ -337,10 +337,10 @@ _start:
     call	f1
     movq	%rax, -48(%rbp)
     vmovsd	-48(%rbp), %xmm0
-    vmovsd	$LC0(%rip), %xmm1
+    vmovsd	LC0(%rip), %xmm1
     vucomisd	%xmm1, %xmm0
     jp	L58
-    vmovsd	$LC0(%rip), %xmm1
+    vmovsd	LC0(%rip), %xmm1
     vucomisd	%xmm1, %xmm0
     je	L59
 L58:
@@ -355,7 +355,7 @@ L59:
     je	L54
     call	abort
 L54:
-    vmovsd	$LC1(%rip), %xmm0
+    vmovsd	LC1(%rip), %xmm0
     vmovsd	%xmm0, -40(%rbp)
     vmovsd	-40(%rbp), %xmm0
     vmovsd	%xmm0, -24(%rbp)

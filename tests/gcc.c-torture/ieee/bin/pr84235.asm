@@ -289,7 +289,7 @@ _start:
     pushq	%rbp
     movq	%rsp, %rbp
     subq	$16, %rsp
-    vmovsd	$LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm0
     vxorpd	%xmm1, %xmm1, %xmm1
     vdivsd	%xmm1, %xmm0, %xmm0
     vmovsd	%xmm0, -8(%rbp)
