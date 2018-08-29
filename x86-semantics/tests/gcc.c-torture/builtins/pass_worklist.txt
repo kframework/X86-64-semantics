@@ -41,3 +41,6 @@ strspn
 strstr
 strstr-asm
 strcat
+mempcpy-2
+mempcpy
+strrchr
