@@ -14,6 +14,7 @@ use utils;
 
 my $help       = "";
 my $file       = "";
+my $diff       = "";
 my $baseDir = "/home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics";
 my $regDir = $baseDir . "/registerInstructions/";
 my $immDir = $baseDir . "/immediateInstructions/";
@@ -24,6 +25,7 @@ my $target   = $baseDir . "/underTestInstructions/";
 
 GetOptions(
     "help"         => \$help,
+    "diff"         => \$diff,
     "file:s"       => \$file,
 ) or die("Error in command line arguments\n");
 
@@ -37,6 +39,20 @@ my @lines   = <$fp>;
 
 for my $line (@lines) {
   chomp $line;
-  print "Updating $line\n";
-  execute("cp $regDir/$line $immDir/$line $memDir/$line $sysDir/$line $target 1> /dev/null 2>&1");
+  
+  if("" ne $diff) {
+    print "Diffing $line\n";
+    if(-e "$regDir/$line") {
+      execute("diff $regDir/$line $target/$line");
+    } elsif(-e "$memDir/$line") {
+      execute("diff $memDir/$line $target/$line");
+    } elsif(-e "$immDir/$line") {
+      execute("diff $immDir/$line $target/$line");
+    } else {
+      execute("diff $sysDir/$line $target/$line");
+    }
+  } else {
+    print "Updating $line\n";
+    execute("cp $regDir/$line $immDir/$line $memDir/$line $sysDir/$line $target 1> /dev/null 2>&1");
+  }
 }
