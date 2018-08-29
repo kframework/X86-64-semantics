@@ -3,6 +3,10 @@ requires "x86-configuration.k"
 
 module CMOVLEQ-R64-M64
   imports X86-CONFIGURATION
+  rule <k>
+    execinstr (cmovle:Opcode M:Mem, R2:R64,  .Operands) =>  execinstr (cmovleq:Opcode M:Mem, R2:R64,  .Operands)
+  ...</k>
+
 
   context execinstr(cmovleq:Opcode HOLE:Mem, R2:R64,  .Operands) [result(MemOffset)]
   

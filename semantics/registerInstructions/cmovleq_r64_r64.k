@@ -3,6 +3,9 @@ requires "x86-configuration.k"
 
 module CMOVLEQ-R64-R64
   imports X86-CONFIGURATION
+  rule <k>
+    execinstr (cmovle R1:R64, R2:R64,  .Operands) => execinstr (cmovleq R1:R64, R2:R64,  .Operands)
+  ...</k>
 
   rule <k>
     execinstr (cmovleq R1:R64, R2:R64,  .Operands) => .

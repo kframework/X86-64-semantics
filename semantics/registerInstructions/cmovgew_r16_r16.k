@@ -4,6 +4,10 @@ requires "x86-configuration.k"
 module CMOVGEW-R16-R16
   imports X86-CONFIGURATION
 
+   rule <k>
+    execinstr (cmovge R1:R16, R2:R16,  .Operands) => execinstr (cmovgew R1:R16, R2:R16,  .Operands)
+  ...</k>
+
   rule <k>
     execinstr (cmovgew R1:R16, R2:R16,  .Operands) => .
   ...</k>
