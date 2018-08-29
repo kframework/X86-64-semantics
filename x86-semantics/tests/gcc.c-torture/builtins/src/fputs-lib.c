@@ -1,15 +1,10 @@
 #include <stdio.h>
 #include <stddef.h>
+#include "mini_stdlib.h"
+#include "mini_string.h"
 extern void abort (void);
 extern int inside_main;
 extern size_t strlen(const char *);
-
-size_t strlen(const char *s) {
-    size_t i;
-    for (i = 0; s[i] != '\0'; i++) ;
-    return i;
-}
-
 
 int
 fputs(const char *string, FILE *stream)
@@ -30,3 +25,5 @@ fputs_unlocked(const char *string, FILE *stream)
 {
   return fputs (string, stream);
 }
+
+

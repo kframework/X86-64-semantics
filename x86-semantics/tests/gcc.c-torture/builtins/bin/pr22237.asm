@@ -66,15 +66,25 @@ abort:
     nop
     popq	%rbp
     ret
+    .globl	__stack_chk_fail
+__stack_chk_fail:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq $-1, %rax
+    jmp %rax
+    
+    nop
+    popq	%rbp
+    ret
     .comm	inside_main,4,4
     .globl	main
 .globl _start
 _start:
     pushq	%rbp
     movq	%rsp, %rbp
-    movl	$1, $inside_main(%rip)
+    movl	$1, inside_main(%rip)
     call	main_test
-    movl	$0, $inside_main(%rip)
+    movl	$0, inside_main(%rip)
     movl	$0, %eax
     popq	%rbp
     ret
@@ -98,13 +108,13 @@ rp:
     movq	$40, %rax
     movq	%rax, -8(%rbp)
     xorl	%eax, %eax
-    movq $p(%rip), %rax
+    movq	p(%rip), %rax
     movq	(%rax), %rax
     movq	-8(%rbp), %rdx
     xorq	$40, %rdx
-    je	L14
+    je	L15
     call	__stack_chk_fail
-L14:
+L15:
     leave
     ret
 rq:
@@ -114,13 +124,13 @@ rq:
     movq	$40, %rax
     movq	%rax, -8(%rbp)
     xorl	%eax, %eax
-    movq $q(%rip), %rax
+    movq	q(%rip), %rax
     movq	(%rax), %rax
     movq	-8(%rbp), %rdx
     xorq	$40, %rdx
-    je	L17
+    je	L18
     call	__stack_chk_fail
-L17:
+L18:
     leave
     ret
 pq:
@@ -128,7 +138,7 @@ pq:
     movq	%rsp, %rbp
     pushq	%rbx
     subq	$8, %rsp
-    movq $p(%rip), %rbx
+    movq	p(%rip), %rbx
     call	rq
     movq	%rax, (%rbx)
     nop
@@ -141,7 +151,7 @@ qp:
     movq	%rsp, %rbp
     pushq	%rbx
     subq	$8, %rsp
-    movq $q(%rip), %rbx
+    movq	q(%rip), %rbx
     call	rp
     movq	%rax, (%rbx)
     nop
@@ -154,8 +164,8 @@ init:
     movq	%rsp, %rbp
     movq	%rdi, -24(%rbp)
     movl	$0, -4(%rbp)
-    jmp	L21
-L22:
+    jmp	L22
+L23:
     movl	-4(%rbp), %eax
     movl	%eax, %ecx
     movq	-24(%rbp), %rdx
@@ -163,9 +173,9 @@ L22:
     cltq
     movb	%cl, (%rdx,%rax)
     addl	$1, -4(%rbp)
-L21:
+L22:
     cmpl	$7, -4(%rbp)
-    jle	L22
+    jle	L23
     nop
     popq	%rbp
     ret
@@ -175,21 +185,21 @@ check:
     subq	$24, %rsp
     movq	%rdi, -24(%rbp)
     movl	$0, -4(%rbp)
-    jmp	L24
-L26:
+    jmp	L25
+L27:
     movq	-24(%rbp), %rdx
     movl	-4(%rbp), %eax
     cltq
     movzbl	(%rdx,%rax), %eax
     movzbl	%al, %eax
     cmpl	-4(%rbp), %eax
-    je	L25
+    je	L26
     call	abort
-L25:
+L26:
     addl	$1, -4(%rbp)
-L24:
+L25:
     cmpl	$7, -4(%rbp)
-    jle	L26
+    jle	L27
     nop
     leave
     ret
@@ -197,26 +207,26 @@ L24:
 main_test:
     pushq	%rbp
     movq	%rsp, %rbp
-    movq $v0(%rip), %rax
-    movq	%rax, $v(%rip)
-    movl $v0 + 8(%rip), %eax
-    movl	%eax, $v + 8(%rip)
-    movq $p(%rip), %rax
+    movq	v0(%rip), %rax
+    movq	%rax, v(%rip)
+    movl	v0 + 8(%rip), %eax
+    movl	%eax, v + 8(%rip)
+    movq	p(%rip), %rax
     movq	%rax, %rdi
     call	init
     call	qp
-    movq $q(%rip), %rax
+    movq	q(%rip), %rax
     movq	%rax, %rdi
     call	check
-    movq $v0(%rip), %rax
-    movq	%rax, $v(%rip)
-    movl $v0 + 8(%rip), %eax
-    movl	%eax, $v + 8(%rip)
-    movq $q(%rip), %rax
+    movq	v0(%rip), %rax
+    movq	%rax, v(%rip)
+    movl	v0 + 8(%rip), %eax
+    movl	%eax, v + 8(%rip)
+    movq	q(%rip), %rax
     movq	%rax, %rdi
     call	init
     call	pq
-    movq $p(%rip), %rax
+    movq	p(%rip), %rax
     movq	%rax, %rdi
     call	check
     movl	$0, %edi

@@ -1,3 +1,5 @@
+#include "mini_stdlib.h"
+#include "mini_string.h"
 //#include <stdio.h>
 //#include <stdarg.h>
 //extern void abort (void);
@@ -36,3 +38,4 @@
 //  va_end (ap);
 //  return r;
 //}
+

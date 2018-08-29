@@ -1,5 +1,7 @@
 extern int inside_main;
 extern void abort (void);
+#include "mini_stdlib.h"
+#include "mini_string.h"
 #ifdef __OPTIMIZE__
 #define ABORT_INSIDE_MAIN do { if (inside_main) abort (); } while (0)
 #else

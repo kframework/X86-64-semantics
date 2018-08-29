@@ -41,15 +41,35 @@ L5:
 L6:
     popq	%rbp
     ret
+    .globl	abort
+abort:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq $-1, %rax
+    jmp %rax
+    
+    nop
+    popq	%rbp
+    ret
+    .globl	__stack_chk_fail
+__stack_chk_fail:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq $-1, %rax
+    jmp %rax
+    
+    nop
+    popq	%rbp
+    ret
     .comm	inside_main,4,4
     .globl	main
 .globl _start
 _start:
     pushq	%rbp
     movq	%rsp, %rbp
-    movl	$1, $inside_main(%rip)
+    movl	$1, inside_main(%rip)
     call	main_test
-    movl	$0, $inside_main(%rip)
+    movl	$0, inside_main(%rip)
     movl	$0, %eax
     popq	%rbp
     ret
@@ -76,9 +96,9 @@ main_test:
     addq	$3, %rax
     movzbl	(%rax), %eax
     cmpb	%al, %dl
-    je	L11
+    je	L13
     call	abort
-L11:
+L13:
     leaq	-16(%rbp), %rax
     movzbl	(%rax), %eax
     movzbl	%al, %edx
@@ -89,9 +109,9 @@ L11:
     subl	%eax, %edx
     movl	%edx, %eax
     testl	%eax, %eax
-    js	L12
+    js	L14
     call	abort
-L12:
+L14:
     leaq	-16(%rbp), %rax
     addq	$2, %rax
     movzbl	(%rax), %eax
@@ -102,14 +122,14 @@ L12:
     subl	%eax, %edx
     movl	%edx, %eax
     testl	%eax, %eax
-    jg	L15
+    jg	L17
     call	abort
-L15:
+L17:
     nop
     movq	-8(%rbp), %rax
     xorq	$40, %rax
-    je	L14
+    je	L16
     call	__stack_chk_fail
-L14:
+L16:
     leave
     ret

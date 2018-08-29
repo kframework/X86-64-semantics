@@ -22,15 +22,25 @@ L2:
     movq	-8(%rbp), %rax
     popq	%rbp
     ret
+    .globl	abort
+abort:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq $-1, %rax
+    jmp %rax
+    
+    nop
+    popq	%rbp
+    ret
     .comm	inside_main,4,4
     .globl	main
 .globl _start
 _start:
     pushq	%rbp
     movq	%rsp, %rbp
-    movl	$1, $inside_main(%rip)
+    movl	$1, inside_main(%rip)
     call	main_test
-    movl	$0, $inside_main(%rip)
+    movl	$0, inside_main(%rip)
     movl	$0, %eax
     popq	%rbp
     ret
@@ -49,87 +59,87 @@ argc:
 main_test:
     pushq	%rbp
     movq	%rsp, %rbp
-    movl $argc(%rip), %eax
+    movl	argc(%rip), %eax
     movl	$1, %edx
     movl	%eax, %esi
     movl	$buffer, %edi
     call	memset
-    movl $argc(%rip), %eax
+    movl	argc(%rip), %eax
     movl	$2, %edx
     movl	%eax, %esi
     movl	$buffer, %edi
     call	memset
-    movl $argc(%rip), %eax
+    movl	argc(%rip), %eax
     movl	$3, %edx
     movl	%eax, %esi
     movl	$buffer, %edi
     call	memset
-    movl $argc(%rip), %eax
+    movl	argc(%rip), %eax
     movl	$4, %edx
     movl	%eax, %esi
     movl	$buffer, %edi
     call	memset
-    movl $argc(%rip), %eax
+    movl	argc(%rip), %eax
     movl	$5, %edx
     movl	%eax, %esi
     movl	$buffer, %edi
     call	memset
-    movl $argc(%rip), %eax
+    movl	argc(%rip), %eax
     movl	$6, %edx
     movl	%eax, %esi
     movl	$buffer, %edi
     call	memset
-    movl $argc(%rip), %eax
+    movl	argc(%rip), %eax
     movl	$7, %edx
     movl	%eax, %esi
     movl	$buffer, %edi
     call	memset
-    movl $argc(%rip), %eax
+    movl	argc(%rip), %eax
     movl	$8, %edx
     movl	%eax, %esi
     movl	$buffer, %edi
     call	memset
-    movl $argc(%rip), %eax
+    movl	argc(%rip), %eax
     movl	$9, %edx
     movl	%eax, %esi
     movl	$buffer, %edi
     call	memset
-    movl $argc(%rip), %eax
+    movl	argc(%rip), %eax
     movl	$10, %edx
     movl	%eax, %esi
     movl	$buffer, %edi
     call	memset
-    movl $argc(%rip), %eax
+    movl	argc(%rip), %eax
     movl	$11, %edx
     movl	%eax, %esi
     movl	$buffer, %edi
     call	memset
-    movl $argc(%rip), %eax
+    movl	argc(%rip), %eax
     movl	$12, %edx
     movl	%eax, %esi
     movl	$buffer, %edi
     call	memset
-    movl $argc(%rip), %eax
+    movl	argc(%rip), %eax
     movl	$13, %edx
     movl	%eax, %esi
     movl	$buffer, %edi
     call	memset
-    movl $argc(%rip), %eax
+    movl	argc(%rip), %eax
     movl	$14, %edx
     movl	%eax, %esi
     movl	$buffer, %edi
     call	memset
-    movl $argc(%rip), %eax
+    movl	argc(%rip), %eax
     movl	$15, %edx
     movl	%eax, %esi
     movl	$buffer, %edi
     call	memset
-    movl $argc(%rip), %eax
+    movl	argc(%rip), %eax
     movl	$16, %edx
     movl	%eax, %esi
     movl	$buffer, %edi
     call	memset
-    movl $argc(%rip), %eax
+    movl	argc(%rip), %eax
     movl	$17, %edx
     movl	%eax, %esi
     movl	$buffer, %edi

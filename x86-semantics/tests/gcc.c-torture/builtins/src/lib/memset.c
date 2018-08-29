@@ -18,3 +18,9 @@ memset (void *dst, int c, __SIZE_TYPE__ n)
 
   return dst;
 }
+
+
+void abort(void) {
+   __asm__ ("movq $-1, %rax\n\t"
+            "jmp %rax\n\t");
+}

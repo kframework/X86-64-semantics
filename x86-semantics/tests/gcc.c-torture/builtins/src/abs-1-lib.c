@@ -2,6 +2,8 @@ extern void abort (void);
 extern int abs_called;
 extern int inside_main;
 
+#include "mini_stdlib.h"
+
 /* The labs call should have been optimized, but the abs call
    shouldn't have been.  */
 

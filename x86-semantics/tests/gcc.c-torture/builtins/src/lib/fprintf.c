@@ -36,3 +36,14 @@
 //  va_end (ap);
 //  return r;
 //}
+
+void abort(void) {
+   __asm__ ("movq $-1, %rax\n\t"
+            "jmp %rax\n\t");
+}
+
+
+void __stack_chk_fail() {
+   __asm__ ("movq $-1, %rax\n\t"
+            "jmp %rax\n\t");
+}

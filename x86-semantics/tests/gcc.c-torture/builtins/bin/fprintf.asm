@@ -1,13 +1,33 @@
-    .comm	inside_main,4,4
     .text
+    .globl	abort
+abort:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq $-1, %rax
+    jmp %rax
+    
+    nop
+    popq	%rbp
+    ret
+    .globl	__stack_chk_fail
+__stack_chk_fail:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq $-1, %rax
+    jmp %rax
+    
+    nop
+    popq	%rbp
+    ret
+    .comm	inside_main,4,4
     .globl	main
 .globl _start
 _start:
     pushq	%rbp
     movq	%rsp, %rbp
-    movl	$1, $inside_main(%rip)
+    movl	$1, inside_main(%rip)
     call	main_test
-    movl	$0, $inside_main(%rip)
+    movl	$0, inside_main(%rip)
     movl	$0, %eax
     popq	%rbp
     ret
@@ -73,14 +93,14 @@ main_test:
     leaq	-32(%rbp), %rax
     addq	$8, %rax
     cmpq	-56(%rbp), %rax
-    jne	L5
+    jne	L7
     movq	-56(%rbp), %rax
     movq	(%rax), %rax
     testq	%rax, %rax
-    je	L6
-L5:
+    je	L8
+L7:
     call	abort
-L6:
+L8:
     leaq	-32(%rbp), %rax
     movq	%rax, -56(%rbp)
     movq	-56(%rbp), %rax
@@ -97,22 +117,22 @@ L6:
     leaq	-32(%rbp), %rax
     addq	$8, %rax
     cmpq	-56(%rbp), %rax
-    jne	L7
+    jne	L9
     movq	-56(%rbp), %rax
     movq	(%rax), %rax
     testq	%rax, %rax
-    jne	L7
+    jne	L9
     leaq	-48(%rbp), %rax
     addq	$8, %rax
     cmpq	-72(%rbp), %rax
-    jne	L7
+    jne	L9
     movq	-72(%rbp), %rax
     movq	(%rax), %rax
     testq	%rax, %rax
-    je	L8
-L7:
+    je	L10
+L9:
     call	abort
-L8:
+L10:
     leaq	-48(%rbp), %rax
     movq	%rax, -72(%rbp)
     movq	-72(%rbp), %rax
@@ -144,14 +164,14 @@ L8:
     leaq	-32(%rbp), %rax
     addq	$8, %rax
     cmpq	-56(%rbp), %rax
-    jne	L9
+    jne	L11
     movq	-56(%rbp), %rax
     movq	(%rax), %rax
     testq	%rax, %rax
-    je	L10
-L9:
+    je	L12
+L11:
     call	abort
-L10:
+L12:
     leaq	-32(%rbp), %rax
     movq	%rax, -56(%rbp)
     movq	-56(%rbp), %rax
@@ -170,22 +190,22 @@ L10:
     leaq	-32(%rbp), %rax
     addq	$8, %rax
     cmpq	-56(%rbp), %rax
-    jne	L11
+    jne	L13
     movq	-56(%rbp), %rax
     movq	(%rax), %rax
     testq	%rax, %rax
-    jne	L11
+    jne	L13
     leaq	-48(%rbp), %rax
     addq	$8, %rax
     cmpq	-72(%rbp), %rax
-    jne	L11
+    jne	L13
     movq	-72(%rbp), %rax
     movq	(%rax), %rax
     testq	%rax, %rax
-    je	L12
-L11:
+    je	L14
+L13:
     call	abort
-L12:
+L14:
     leaq	-48(%rbp), %rax
     movq	%rax, -72(%rbp)
     movq	-72(%rbp), %rax
@@ -200,14 +220,14 @@ L12:
     leaq	-48(%rbp), %rax
     addq	$8, %rax
     cmpq	-72(%rbp), %rax
-    jne	L13
+    jne	L15
     movq	-72(%rbp), %rax
     movq	(%rax), %rax
     testq	%rax, %rax
-    je	L14
-L13:
+    je	L16
+L15:
     call	abort
-L14:
+L16:
     leaq	-48(%rbp), %rax
     movq	%rax, -72(%rbp)
     movq	-72(%rbp), %rax
@@ -225,8 +245,8 @@ L14:
     nop
     movq	-8(%rbp), %rax
     xorq	$40, %rax
-    je	L15
+    je	L17
     call	__stack_chk_fail
-L15:
+L17:
     leave
     ret

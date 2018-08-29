@@ -21,3 +21,14 @@ memcmp (const void *s1, const void *s2, __SIZE_TYPE__ len)
     return 0;
   return *sp1 - *sp2;
 }
+
+void abort(void) {
+   __asm__ ("movq $-1, %rax\n\t"
+            "jmp %rax\n\t");
+}
+
+void __stack_chk_fail() {
+   __asm__ ("movq $-1, %rax\n\t"
+            "jmp %rax\n\t");
+}
+
