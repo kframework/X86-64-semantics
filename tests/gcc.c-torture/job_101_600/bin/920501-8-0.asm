@@ -566,6 +566,7 @@ LC1:
 _start:
     pushq	%rbp
     movq	%rsp, %rbp
+    movabsq	$4607182418800017408, %rax
     subq	$8, %rsp
     pushq	$15
     pushq	$14
@@ -581,7 +582,7 @@ _start:
     movl	$4, %ecx
     movl	$3, %edx
     movl	$2, %esi
-    vmovsd	LC0(%rip), %xmm0
+    vmovq	%rax, %xmm0
     movl	$1, %edi
     movl	$1, %eax
     call	va
@@ -595,7 +596,3 @@ _start:
 L75:
     movl	$0, %edi
     call	exit
-    .section	.rodata
-LC0:
-    .long	0
-    .long	1072693248

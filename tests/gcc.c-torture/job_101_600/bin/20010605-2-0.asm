@@ -288,53 +288,51 @@ L42:
 _start:
     pushq	%rbp
     movq	%rsp, %rbp
-    subq	$112, %rsp
-    vmovsd	-104(%rbp), %xmm0
-    vmovsd	%xmm0, -40(%rbp)
+    subq	$80, %rsp
+    vmovsd	-72(%rbp), %xmm0
+    vmovsd	%xmm0, -24(%rbp)
     vmovsd	LC0(%rip), %xmm0
-    vmovsd	%xmm0, -48(%rbp)
+    vmovsd	%xmm0, -32(%rbp)
     vmovsd	LC0(%rip), %xmm0
-    vmovsd	%xmm0, -96(%rbp)
-    vmovsd	-96(%rbp), %xmm0
-    vmovsd	%xmm0, -48(%rbp)
+    vmovsd	%xmm0, -64(%rbp)
+    vmovsd	-64(%rbp), %xmm0
+    vmovsd	%xmm0, -32(%rbp)
     vmovsd	LC1(%rip), %xmm0
-    vmovsd	%xmm0, -40(%rbp)
-    movq	-48(%rbp), %rax
-    vmovsd	-40(%rbp), %xmm1
+    vmovsd	%xmm0, -24(%rbp)
+    movq	-32(%rbp), %rax
+    vmovsd	-24(%rbp), %xmm1
     vmovq	%rax, %xmm0
     movl	$2, %eax
     call	foo
-    vmovss	-112(%rbp), %xmm0
-    vmovss	%xmm0, -84(%rbp)
+    vmovss	-80(%rbp), %xmm0
+    vmovss	%xmm0, -36(%rbp)
     vmovss	LC2(%rip), %xmm0
-    vmovss	%xmm0, -88(%rbp)
+    vmovss	%xmm0, -40(%rbp)
     vmovss	LC2(%rip), %xmm0
-    vmovss	%xmm0, -108(%rbp)
-    vmovss	-108(%rbp), %xmm0
-    vmovss	%xmm0, -88(%rbp)
+    vmovss	%xmm0, -76(%rbp)
+    vmovss	-76(%rbp), %xmm0
+    vmovss	%xmm0, -40(%rbp)
     vmovss	LC3(%rip), %xmm0
-    vmovss	%xmm0, -84(%rbp)
-    movq	-88(%rbp), %rax
+    vmovss	%xmm0, -36(%rbp)
+    movq	-40(%rbp), %rax
     vmovq	%rax, %xmm0
     movl	$1, %eax
     call	bar
-    fldt	-80(%rbp)
-    fstpt	-16(%rbp)
-    fldt	LC4(%rip)
-    fstpt	-32(%rbp)
-    fldt	LC4(%rip)
-    fstpt	-64(%rbp)
-    fldt	-64(%rbp)
-    fstpt	-32(%rbp)
-    fldt	LC5(%rip)
-    fstpt	-16(%rbp)
-    pushq	-8(%rbp)
-    pushq	-16(%rbp)
-    pushq	-24(%rbp)
-    pushq	-32(%rbp)
-    movl	$0, %eax
+    vmovsd	-56(%rbp), %xmm0
+    vmovsd	%xmm0, -8(%rbp)
+    vmovsd	LC4(%rip), %xmm0
+    vmovsd	%xmm0, -16(%rbp)
+    vmovsd	LC4(%rip), %xmm0
+    vmovsd	%xmm0, -48(%rbp)
+    vmovsd	-48(%rbp), %xmm0
+    vmovsd	%xmm0, -16(%rbp)
+    vmovsd	LC5(%rip), %xmm0
+    vmovsd	%xmm0, -8(%rbp)
+    movq	-16(%rbp), %rax
+    vmovsd	-8(%rbp), %xmm1
+    vmovq	%rax, %xmm0
+    movl	$2, %eax
     call	baz
-    addq	$32, %rsp
     movl	$0, %edi
     call	exit
     .globl	foo
@@ -356,9 +354,11 @@ foo:
     vucomisd	%xmm1, %xmm0
     jne	L47
     vmovsd	-8(%rbp), %xmm0
-    vucomisd	LC1(%rip), %xmm0
+    vmovsd	LC1(%rip), %xmm1
+    vucomisd	%xmm1, %xmm0
     jp	L47
-    vucomisd	LC1(%rip), %xmm0
+    vmovsd	LC1(%rip), %xmm1
+    vucomisd	%xmm1, %xmm0
     jne	L47
     jmp	L50
 L47:
@@ -378,14 +378,18 @@ bar:
     vmovss	%xmm1, -16(%rbp)
     vmovss	%xmm0, -12(%rbp)
     vmovss	-16(%rbp), %xmm0
-    vucomiss	LC2(%rip), %xmm0
+    vmovss	LC2(%rip), %xmm1
+    vucomiss	%xmm1, %xmm0
     jp	L52
-    vucomiss	LC2(%rip), %xmm0
+    vmovss	LC2(%rip), %xmm1
+    vucomiss	%xmm1, %xmm0
     jne	L52
     vmovss	-12(%rbp), %xmm0
-    vucomiss	LC3(%rip), %xmm0
+    vmovss	LC3(%rip), %xmm1
+    vucomiss	%xmm1, %xmm0
     jp	L52
-    vucomiss	LC3(%rip), %xmm0
+    vmovss	LC3(%rip), %xmm1
+    vucomiss	%xmm1, %xmm0
     jne	L52
     jmp	L55
 L52:
@@ -397,32 +401,32 @@ L55:
 baz:
     pushq	%rbp
     movq	%rsp, %rbp
-    fldt	16(%rbp)
-    fldt	LC4(%rip)
-    fucomip	%st(1), %st
-    jp	L61
-    fldt	LC4(%rip)
-    fucomip	%st(1), %st
-    fstp	%st(0)
+    subq	$16, %rsp
+    vmovq	%xmm0, %rax
+    vmovq	%xmm1, %rdx
+    vmovq	%rax, %xmm1
+    vmovq	%rdx, %xmm0
+    vmovsd	%xmm1, -16(%rbp)
+    vmovsd	%xmm0, -8(%rbp)
+    vmovsd	-16(%rbp), %xmm0
+    vmovsd	LC4(%rip), %xmm1
+    vucomisd	%xmm1, %xmm0
+    jp	L57
+    vmovsd	LC4(%rip), %xmm1
+    vucomisd	%xmm1, %xmm0
     jne	L57
-    fldt	32(%rbp)
-    fldt	LC5(%rip)
-    fucomip	%st(1), %st
-    jp	L62
-    fldt	LC5(%rip)
-    fucomip	%st(1), %st
-    fstp	%st(0)
+    vmovsd	-8(%rbp), %xmm0
+    vmovsd	LC5(%rip), %xmm1
+    vucomisd	%xmm1, %xmm0
+    jp	L57
+    vmovsd	LC5(%rip), %xmm1
+    vucomisd	%xmm1, %xmm0
     jne	L57
     jmp	L60
-L61:
-    fstp	%st(0)
-    jmp	L57
-L62:
-    fstp	%st(0)
 L57:
     call	abort
 L60:
-    popq	%rbp
+    leave
     ret
     .section	.rodata
 LC0:
@@ -437,11 +441,7 @@ LC3:
     .long	1082130432
 LC4:
     .long	0
-    .long	2684354560
-    .long	16385
-    .long	0
+    .long	1075052544
 LC5:
     .long	0
-    .long	3221225472
-    .long	16385
-    .long	0
+    .long	1075314688

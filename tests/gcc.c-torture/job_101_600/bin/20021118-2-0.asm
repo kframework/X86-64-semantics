@@ -359,11 +359,11 @@ f1:
     movq	%rsp, %rbp
     subq	$8, %rsp
     vmovsd	%xmm0, -8(%rbp)
-    vmovsd	-8(%rbp), %xmm0
-    vucomisd	LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm0
+    vucomisd	-8(%rbp), %xmm0
     jp	L50
-    vmovsd	-8(%rbp), %xmm0
-    vucomisd	LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm0
+    vucomisd	-8(%rbp), %xmm0
     jne	L50
     jmp	L51
 L50:
@@ -378,17 +378,17 @@ f2:
     subq	$8, %rsp
     vmovss	%xmm0, -4(%rbp)
     vmovss	%xmm1, -8(%rbp)
-    vmovss	-4(%rbp), %xmm0
-    vucomiss	LC2(%rip), %xmm0
+    vmovss	LC2(%rip), %xmm0
+    vucomiss	-4(%rbp), %xmm0
     jp	L53
-    vmovss	-4(%rbp), %xmm0
-    vucomiss	LC2(%rip), %xmm0
+    vmovss	LC2(%rip), %xmm0
+    vucomiss	-4(%rbp), %xmm0
     jne	L53
-    vmovss	-8(%rbp), %xmm0
-    vucomiss	LC1(%rip), %xmm0
+    vmovss	LC1(%rip), %xmm0
+    vucomiss	-8(%rbp), %xmm0
     jp	L53
-    vmovss	-8(%rbp), %xmm0
-    vucomiss	LC1(%rip), %xmm0
+    vmovss	LC1(%rip), %xmm0
+    vucomiss	-8(%rbp), %xmm0
     jne	L53
     jmp	L56
 L53:
@@ -402,11 +402,11 @@ f3:
     movq	%rsp, %rbp
     subq	$8, %rsp
     vmovss	%xmm0, -4(%rbp)
-    vmovss	-4(%rbp), %xmm0
-    vucomiss	LC3(%rip), %xmm0
+    vmovss	LC3(%rip), %xmm0
+    vucomiss	-4(%rbp), %xmm0
     jp	L60
-    vmovss	-4(%rbp), %xmm0
-    vucomiss	LC3(%rip), %xmm0
+    vmovss	LC3(%rip), %xmm0
+    vucomiss	-4(%rbp), %xmm0
     jne	L60
     jmp	L61
 L60:
@@ -443,15 +443,19 @@ _start:
     movq	%rax, %rdi
     call	t2
     vmovss	-32(%rbp), %xmm0
-    vucomiss	LC5(%rip), %xmm0
+    vmovss	LC5(%rip), %xmm1
+    vucomiss	%xmm1, %xmm0
     jp	L67
-    vucomiss	LC5(%rip), %xmm0
+    vmovss	LC5(%rip), %xmm1
+    vucomiss	%xmm1, %xmm0
     je	L63
 L67:
     vmovss	-28(%rbp), %xmm0
-    vucomiss	LC6(%rip), %xmm0
+    vmovss	LC6(%rip), %xmm1
+    vucomiss	%xmm1, %xmm0
     jp	L68
-    vucomiss	LC6(%rip), %xmm0
+    vmovss	LC6(%rip), %xmm1
+    vucomiss	%xmm1, %xmm0
     je	L63
 L68:
     call	abort

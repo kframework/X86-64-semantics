@@ -349,19 +349,25 @@ L51:
     call	abort
 L52:
     vmovss	v(%rip), %xmm0
-    vucomiss	LC1(%rip), %xmm0
+    vmovss	LC1(%rip), %xmm1
+    vucomiss	%xmm1, %xmm0
     jp	L53
-    vucomiss	LC1(%rip), %xmm0
+    vmovss	LC1(%rip), %xmm1
+    vucomiss	%xmm1, %xmm0
     jne	L53
     vmovss	v + 4(%rip), %xmm0
-    vucomiss	LC2(%rip), %xmm0
+    vmovss	LC2(%rip), %xmm1
+    vucomiss	%xmm1, %xmm0
     jp	L53
-    vucomiss	LC2(%rip), %xmm0
+    vmovss	LC2(%rip), %xmm1
+    vucomiss	%xmm1, %xmm0
     jne	L53
     vmovss	v + 8(%rip), %xmm0
-    vucomiss	LC3(%rip), %xmm0
+    vmovss	LC3(%rip), %xmm1
+    vucomiss	%xmm1, %xmm0
     jp	L53
-    vucomiss	LC3(%rip), %xmm0
+    vmovss	LC3(%rip), %xmm1
+    vucomiss	%xmm1, %xmm0
     jne	L53
     vmovss	v + 12(%rip), %xmm0
     vxorps	%xmm1, %xmm1, %xmm1

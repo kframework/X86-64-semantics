@@ -327,14 +327,18 @@ _start:
     call	test1
     movq	%rax, -16(%rbp)
     vmovss	-16(%rbp), %xmm0
-    vucomiss	LC0(%rip), %xmm0
+    vmovss	LC0(%rip), %xmm1
+    vucomiss	%xmm1, %xmm0
     jp	L52
-    vucomiss	LC0(%rip), %xmm0
+    vmovss	LC0(%rip), %xmm1
+    vucomiss	%xmm1, %xmm0
     jne	L52
     vmovss	-12(%rbp), %xmm0
-    vucomiss	LC0(%rip), %xmm0
+    vmovss	LC0(%rip), %xmm1
+    vucomiss	%xmm1, %xmm0
     jp	L52
-    vucomiss	LC0(%rip), %xmm0
+    vmovss	LC0(%rip), %xmm1
+    vucomiss	%xmm1, %xmm0
     je	L62
 L52:
     call	abort
@@ -348,14 +352,18 @@ L62:
     call	test2
     movq	%rax, -16(%rbp)
     vmovss	-16(%rbp), %xmm0
-    vucomiss	LC1(%rip), %xmm0
+    vmovss	LC1(%rip), %xmm1
+    vucomiss	%xmm1, %xmm0
     jp	L55
-    vucomiss	LC1(%rip), %xmm0
+    vmovss	LC1(%rip), %xmm1
+    vucomiss	%xmm1, %xmm0
     jne	L55
     vmovss	-12(%rbp), %xmm0
-    vucomiss	LC1(%rip), %xmm0
+    vmovss	LC1(%rip), %xmm1
+    vucomiss	%xmm1, %xmm0
     jp	L55
-    vucomiss	LC1(%rip), %xmm0
+    vmovss	LC1(%rip), %xmm1
+    vucomiss	%xmm1, %xmm0
     je	L63
 L55:
     call	abort

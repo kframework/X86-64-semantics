@@ -288,16 +288,19 @@ ll_to_ld:
     pushq	%rbp
     movq	%rsp, %rbp
     movq	%rdi, -8(%rbp)
-    fildq	-8(%rbp)
+    vxorpd	%xmm0, %xmm0, %xmm0
+    vcvtsi2sdq	-8(%rbp), %xmm0, %xmm0
+    vmovq	%xmm0, %rax
+    vmovq	%rax, %xmm0
     popq	%rbp
     ret
     .globl	ld_to_ll
 ld_to_ll:
     pushq	%rbp
     movq	%rsp, %rbp
-    fldt	16(%rbp)
-    fisttpq	-8(%rbp)
-    movq	-8(%rbp), %rax
+    vmovsd	%xmm0, -8(%rbp)
+    vmovsd	-8(%rbp), %xmm0
+    vcvttsd2siq	%xmm0, %rax
     popq	%rbp
     ret
     .globl	main
@@ -307,24 +310,21 @@ _start:
     movq	%rsp, %rbp
     movl	$10, %edi
     call	ll_to_ld
-    fldt	LC1(%rip)
-    fucomip	%st(1), %st
-    jp	L55
-    fldt	LC1(%rip)
-    fucomip	%st(1), %st
-    fstp	%st(0)
+    vmovq	%xmm0, %rax
+    vmovsd	LC0(%rip), %xmm0
+    vmovq	%rax, %xmm1
+    vucomisd	%xmm0, %xmm1
+    jp	L53
+    vmovsd	LC0(%rip), %xmm0
+    vmovq	%rax, %xmm2
+    vucomisd	%xmm0, %xmm2
     je	L54
-    jmp	L53
-L55:
-    fstp	%st(0)
 L53:
     call	abort
 L54:
-    fldt	LC1(%rip)
-    leaq	-16(%rsp), %rsp
-    fstpt	(%rsp)
+    movabsq	$4621819117588971520, %rax
+    vmovq	%rax, %xmm0
     call	ld_to_ll
-    addq	$16, %rsp
     cmpq	$10, %rax
     je	L52
     call	abort
@@ -332,8 +332,6 @@ L52:
     movl	$0, %edi
     call	exit
     .section	.rodata
-LC1:
+LC0:
     .long	0
-    .long	2684354560
-    .long	16386
-    .long	0
+    .long	1076101120

@@ -326,24 +326,25 @@ _start:
     vmovss	%xmm0, -4(%rbp)
     movl	$0, %eax
     call	f
-    vmovss	-12(%rbp), %xmm0
-    vucomiss	LC3(%rip), %xmm0
+    vmovss	LC3(%rip), %xmm0
+    vucomiss	-12(%rbp), %xmm0
     jp	L48
-    vmovss	-12(%rbp), %xmm0
-    vucomiss	LC3(%rip), %xmm0
+    vmovss	LC3(%rip), %xmm0
+    vucomiss	-12(%rbp), %xmm0
     jne	L48
     vcvtss2sd	-4(%rbp), %xmm0, %xmm0
     vmovsd	LC4(%rip), %xmm1
     vucomisd	%xmm0, %xmm1
     ja	L48
     vcvtss2sd	-4(%rbp), %xmm0, %xmm0
-    vucomisd	LC5(%rip), %xmm0
+    vmovsd	LC5(%rip), %xmm1
+    vucomisd	%xmm1, %xmm0
     ja	L48
-    vmovss	-8(%rbp), %xmm0
-    vucomiss	LC6(%rip), %xmm0
+    vmovss	LC6(%rip), %xmm0
+    vucomiss	-8(%rbp), %xmm0
     jp	L48
-    vmovss	-8(%rbp), %xmm0
-    vucomiss	LC6(%rip), %xmm0
+    vmovss	LC6(%rip), %xmm0
+    vucomiss	-8(%rbp), %xmm0
     je	L51
 L48:
     call	abort

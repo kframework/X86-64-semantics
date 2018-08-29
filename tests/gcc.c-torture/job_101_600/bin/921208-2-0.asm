@@ -309,8 +309,9 @@ L48:
     vmulsd	%xmm1, %xmm0, %xmm0
     vmovsd	LC2(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
+    movabsq	$4607182418800017408, %rax
     vmovapd	%xmm0, %xmm1
-    vmovsd	LC2(%rip), %xmm0
+    vmovq	%rax, %xmm0
     movl	$2, %eax
     call	g
     vxorpd	%xmm0, %xmm0, %xmm0

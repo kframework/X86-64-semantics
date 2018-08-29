@@ -390,11 +390,11 @@ L56:
     vxorpd	%xmm0, %xmm0, %xmm0
     vucomisd	-24(%rbp), %xmm0
     jne	L52
-    vmovsd	-16(%rbp), %xmm0
-    vucomisd	LC2(%rip), %xmm0
+    vmovsd	LC2(%rip), %xmm0
+    vucomisd	-16(%rbp), %xmm0
     jp	L52
-    vmovsd	-16(%rbp), %xmm0
-    vucomisd	LC2(%rip), %xmm0
+    vmovsd	LC2(%rip), %xmm0
+    vucomisd	-16(%rbp), %xmm0
     jne	L52
     vxorpd	%xmm0, %xmm0, %xmm0
     vucomisd	-8(%rbp), %xmm0
