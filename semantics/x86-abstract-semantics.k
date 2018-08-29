@@ -21,7 +21,10 @@ module X86-ABSTRACT-SEMANTICS
   rule negMInt(PV:PointerVal) => ptr (getMemLoc(PV), negMInt(getMIntVal(PV)))
 
   //lshrMInt
-  rule lshrMInt(PV:PointerVal, I:Int) => ptr (getMemLoc(PV), lshrMInt(getMIntVal(PV)))
+  rule lshrMInt(PV:PointerVal, I:Int) => ptr (getMemLoc(PV), lshrMInt(getMIntVal(PV), I))
+
+  //shlMInt
+  rule shlMInt(PV:PointerVal, I:Int) => ptr (getMemLoc(PV), shlMInt(getMIntVal(PV), I))
 
   // Arithmetic
   //rule addMInt(ptr(L:MemLoc, MI1:MInt), ptr(L:MemLoc, MI2:MInt)) => 
