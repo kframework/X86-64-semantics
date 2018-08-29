@@ -52,7 +52,7 @@ int
 fail (char *msg)
 {
   fail_count++;
-  fprintf (stderr, "Test failed: %s\n", msg);
+  //fprintf (stderr, "Test failed: %s\n", msg);
 }
 
 int

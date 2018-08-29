@@ -1,3 +1,4 @@
+#include <stddef.h>
 #define my_sizeof(type) (char *)(&type+1)-(char*)(&type)
 #undef __builtin_memcpy
 #define __builtin_memcpy(dst, src, len) memcpy (dst, src, len)
@@ -36,6 +37,13 @@ int memcmp(const void* s1, const void* s2,size_t n)
             p1++,p2++;
     return 0;
 }
+
+void __stack_chk_fail() {
+   __asm__ ("movq $-1, %rax\n\t"
+            "jmp %rax\n\t");
+}
+
+
 
 void exit(int code) {
    __asm__ ("movq $-1, %rax\n\t"

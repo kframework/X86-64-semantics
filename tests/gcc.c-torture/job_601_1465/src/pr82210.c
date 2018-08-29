@@ -1,5 +1,6 @@
 /* PR c/82210 */
 /* { dg-require-effective-target alloca } */
+#include "mini_stdlib.h"
 
 void
 foo (int size)

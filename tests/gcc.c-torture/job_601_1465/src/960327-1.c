@@ -19,7 +19,7 @@ f ()
 
   while (*--sp == '0')
     ;
-  sprintf (sp + 1, "X");
+  //sprintf (sp + 1, "X");
 
   if (s[12] != 'X')
     abort ();

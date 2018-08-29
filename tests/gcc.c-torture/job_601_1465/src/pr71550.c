@@ -13,8 +13,8 @@ main ()
   for (; a; a--)
     {
       int i;
-      if (h && i)
-	__builtin_printf ("%d%d", c, f);
+//      if (h && i)
+//	__builtin_printf ("%d%d", c, f);
       i = 0;
       for (; i < 2; i++)
 	if (g)

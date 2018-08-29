@@ -1,5 +1,6 @@
 /* { dg-do run }  */
 /* { dg-options "-O2" } */
+#include "mini_stdlib.h"
 
 __attribute__ ((noinline))
 double direct(int x, ...)
