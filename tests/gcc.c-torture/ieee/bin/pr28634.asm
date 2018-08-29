@@ -142,6 +142,16 @@ L20:
 L22:
     popq	%rbp
     ret
+    .globl	__stack_chk_fail
+__stack_chk_fail:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq $-1, %rax
+    jmp %rax
+    
+    nop
+    popq	%rbp
+    ret
     .globl	exit
 exit:
     pushq	%rbp
@@ -172,19 +182,19 @@ memset:
     movq	%rdx, -40(%rbp)
     movq	-24(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L27
-L28:
+    jmp	L28
+L29:
     movq	-8(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -8(%rbp)
     movl	-28(%rbp), %edx
     movb	%dl, (%rax)
-L27:
+L28:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L28
+    jne	L29
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -199,8 +209,8 @@ memcpy:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L31
-L32:
+    jmp	L32
+L33:
     movq	-16(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -16(%rbp)
@@ -209,12 +219,12 @@ L32:
     movq	%rcx, -8(%rbp)
     movzbl	(%rdx), %edx
     movb	%dl, (%rax)
-L31:
+L32:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L32
+    jne	L33
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -249,28 +259,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L40
+    jle	L41
     cmpl	$122, -4(%rbp)
-    jg	L40
+    jg	L41
     movl	$1, %eax
-    jmp	L41
-L40:
+    jmp	L42
+L41:
     cmpl	$64, -4(%rbp)
-    jle	L42
-    cmpl	$90, -4(%rbp)
-    jg	L42
-    movl	$1, %eax
-    jmp	L41
-L42:
-    cmpl	$47, -4(%rbp)
     jle	L43
-    cmpl	$57, -4(%rbp)
+    cmpl	$90, -4(%rbp)
     jg	L43
     movl	$1, %eax
-    jmp	L41
+    jmp	L42
 L43:
+    cmpl	$47, -4(%rbp)
+    jle	L44
+    cmpl	$57, -4(%rbp)
+    jg	L44
+    movl	$1, %eax
+    jmp	L42
+L44:
     movl	$0, %eax
-L41:
+L42:
     popq	%rbp
     ret
     .globl	x
@@ -288,28 +298,28 @@ y:
 _start:
     pushq	%rbp
     movq	%rsp, %rbp
-    jmp	L45
-L46:
+    jmp	L46
+L47:
     vmovsd $y(%rip), %xmm1
     vmovsd $x(%rip), %xmm0
     vaddsd	%xmm0, %xmm1, %xmm0
     vmovsd	%xmm0, $y(%rip)
-L45:
+L46:
     vmovsd $y(%rip), %xmm0
     vxorpd	%xmm1, %xmm1, %xmm1
     vucomisd	%xmm1, %xmm0
-    ja	L46
+    ja	L47
     vmovsd $x(%rip), %xmm1
     vmovsd	$LC1(%rip), %xmm0
     vaddsd	%xmm0, %xmm1, %xmm0
     vmovsd $y(%rip), %xmm1
     vucomisd	%xmm1, %xmm0
-    jp	L49
+    jp	L50
     vucomisd	%xmm1, %xmm0
-    je	L50
-L49:
-    call	abort
+    je	L51
 L50:
+    call	abort
+L51:
     movl	$0, %edi
     call	exit
     .section	.rodata

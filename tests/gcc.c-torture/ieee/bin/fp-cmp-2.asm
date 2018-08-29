@@ -142,6 +142,16 @@ L20:
 L22:
     popq	%rbp
     ret
+    .globl	__stack_chk_fail
+__stack_chk_fail:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq $-1, %rax
+    jmp %rax
+    
+    nop
+    popq	%rbp
+    ret
     .globl	exit
 exit:
     pushq	%rbp
@@ -172,19 +182,19 @@ memset:
     movq	%rdx, -40(%rbp)
     movq	-24(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L27
-L28:
+    jmp	L28
+L29:
     movq	-8(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -8(%rbp)
     movl	-28(%rbp), %edx
     movb	%dl, (%rax)
-L27:
+L28:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L28
+    jne	L29
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -199,8 +209,8 @@ memcpy:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L31
-L32:
+    jmp	L32
+L33:
     movq	-16(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -16(%rbp)
@@ -209,12 +219,12 @@ L32:
     movq	%rcx, -8(%rbp)
     movzbl	(%rdx), %edx
     movb	%dl, (%rax)
-L31:
+L32:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L32
+    jne	L33
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -249,28 +259,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L40
+    jle	L41
     cmpl	$122, -4(%rbp)
-    jg	L40
+    jg	L41
     movl	$1, %eax
-    jmp	L41
-L40:
+    jmp	L42
+L41:
     cmpl	$64, -4(%rbp)
-    jle	L42
-    cmpl	$90, -4(%rbp)
-    jg	L42
-    movl	$1, %eax
-    jmp	L41
-L42:
-    cmpl	$47, -4(%rbp)
     jle	L43
-    cmpl	$57, -4(%rbp)
+    cmpl	$90, -4(%rbp)
     jg	L43
     movl	$1, %eax
-    jmp	L41
+    jmp	L42
 L43:
+    cmpl	$47, -4(%rbp)
+    jle	L44
+    cmpl	$57, -4(%rbp)
+    jg	L44
+    movl	$1, %eax
+    jmp	L42
+L44:
     movl	$0, %eax
-L41:
+L42:
     popq	%rbp
     ret
     .globl	fnan
@@ -295,44 +305,38 @@ _start:
     vmovss $fnan(%rip), %xmm0
     vmovss $fnan(%rip), %xmm1
     vucomiss	%xmm1, %xmm0
-    jp	L46
+    jp	L47
     vucomiss	%xmm1, %xmm0
-    jne	L46
+    jne	L47
     call	abort
-L46:
+L47:
     vmovss $fnan(%rip), %xmm0
     vmovss $x(%rip), %xmm1
     vucomiss	%xmm1, %xmm0
-    jp	L62
+    jp	L63
     vucomiss	%xmm1, %xmm0
-    je	L68
-L62:
+    je	L69
+L63:
     vmovss	$LC0(%rip), %xmm0
     vmovss	%xmm0, $x(%rip)
     vmovss $fnan(%rip), %xmm1
     vmovss $x(%rip), %xmm0
     vucomiss	%xmm1, %xmm0
-    ja	L63
-    jmp	L69
-L68:
-    call	abort
-L63:
-    call	abort
+    ja	L64
+    jmp	L70
 L69:
-    vmovss $fnan(%rip), %xmm0
-    vmovss $x(%rip), %xmm1
-    vucomiss	%xmm1, %xmm0
-    jbe	L70
+    call	abort
+L64:
     call	abort
 L70:
-    vmovss $fnan(%rip), %xmm1
-    vmovss $x(%rip), %xmm0
-    vucomiss	%xmm1, %xmm0
-    jb	L71
-    call	abort
-L71:
     vmovss $fnan(%rip), %xmm0
     vmovss $x(%rip), %xmm1
+    vucomiss	%xmm1, %xmm0
+    jbe	L71
+    call	abort
+L71:
+    vmovss $fnan(%rip), %xmm1
+    vmovss $x(%rip), %xmm0
     vucomiss	%xmm1, %xmm0
     jb	L72
     call	abort
@@ -340,11 +344,17 @@ L72:
     vmovss $fnan(%rip), %xmm0
     vmovss $x(%rip), %xmm1
     vucomiss	%xmm1, %xmm0
-    jp	L59
-    vucomiss	%xmm1, %xmm0
-    jne	L59
+    jb	L73
     call	abort
-L59:
+L73:
+    vmovss $fnan(%rip), %xmm0
+    vmovss $x(%rip), %xmm1
+    vucomiss	%xmm1, %xmm0
+    jp	L60
+    vucomiss	%xmm1, %xmm0
+    jne	L60
+    call	abort
+L60:
     movl	$0, %edi
     call	exit
     .section	.rodata

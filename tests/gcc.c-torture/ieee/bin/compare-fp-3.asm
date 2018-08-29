@@ -142,6 +142,16 @@ L20:
 L22:
     popq	%rbp
     ret
+    .globl	__stack_chk_fail
+__stack_chk_fail:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq $-1, %rax
+    jmp %rax
+    
+    nop
+    popq	%rbp
+    ret
     .globl	exit
 exit:
     pushq	%rbp
@@ -172,19 +182,19 @@ memset:
     movq	%rdx, -40(%rbp)
     movq	-24(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L27
-L28:
+    jmp	L28
+L29:
     movq	-8(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -8(%rbp)
     movl	-28(%rbp), %edx
     movb	%dl, (%rax)
-L27:
+L28:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L28
+    jne	L29
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -199,8 +209,8 @@ memcpy:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L31
-L32:
+    jmp	L32
+L33:
     movq	-16(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -16(%rbp)
@@ -209,12 +219,12 @@ L32:
     movq	%rcx, -8(%rbp)
     movzbl	(%rdx), %edx
     movb	%dl, (%rax)
-L31:
+L32:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L32
+    jne	L33
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -249,28 +259,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L40
+    jle	L41
     cmpl	$122, -4(%rbp)
-    jg	L40
+    jg	L41
     movl	$1, %eax
-    jmp	L41
-L40:
+    jmp	L42
+L41:
     cmpl	$64, -4(%rbp)
-    jle	L42
-    cmpl	$90, -4(%rbp)
-    jg	L42
-    movl	$1, %eax
-    jmp	L41
-L42:
-    cmpl	$47, -4(%rbp)
     jle	L43
-    cmpl	$57, -4(%rbp)
+    cmpl	$90, -4(%rbp)
     jg	L43
     movl	$1, %eax
-    jmp	L41
+    jmp	L42
 L43:
+    cmpl	$47, -4(%rbp)
+    jle	L44
+    cmpl	$57, -4(%rbp)
+    jg	L44
+    movl	$1, %eax
+    jmp	L42
+L44:
     movl	$0, %eax
-L41:
+L42:
     popq	%rbp
     ret
     .globl	test1
@@ -282,23 +292,23 @@ test1:
     vmovss	%xmm1, -8(%rbp)
     vmovss	-4(%rbp), %xmm0
     vucomiss	-8(%rbp), %xmm0
+    jp	L51
+    vmovss	-4(%rbp), %xmm0
+    vucomiss	-8(%rbp), %xmm0
+    je	L49
+    jmp	L51
+L49:
+    vmovss	-4(%rbp), %xmm0
+    vucomiss	-8(%rbp), %xmm0
     jp	L50
     vmovss	-4(%rbp), %xmm0
     vucomiss	-8(%rbp), %xmm0
-    je	L48
-    jmp	L50
-L48:
-    vmovss	-4(%rbp), %xmm0
-    vucomiss	-8(%rbp), %xmm0
-    jp	L49
-    vmovss	-4(%rbp), %xmm0
-    vucomiss	-8(%rbp), %xmm0
-    jne	L49
-    jmp	L50
-L49:
+    jne	L50
+    jmp	L51
+L50:
     movl	$0, %eax
     call	link_error0
-L50:
+L51:
     nop
     leave
     ret
@@ -311,17 +321,17 @@ test2:
     vmovss	%xmm1, -8(%rbp)
     vmovss	-8(%rbp), %xmm0
     vucomiss	-4(%rbp), %xmm0
-    ja	L55
-    jmp	L57
-L55:
+    ja	L56
+    jmp	L58
+L56:
     vmovss	-4(%rbp), %xmm0
     vucomiss	-8(%rbp), %xmm0
-    ja	L56
-    jmp	L57
-L56:
+    ja	L57
+    jmp	L58
+L57:
     movl	$0, %eax
     call	link_error0
-L57:
+L58:
     nop
     leave
     ret
@@ -334,17 +344,17 @@ test3:
     vmovss	%xmm1, -8(%rbp)
     vmovss	-8(%rbp), %xmm0
     vucomiss	-4(%rbp), %xmm0
-    ja	L62
-    jmp	L64
-L62:
+    ja	L63
+    jmp	L65
+L63:
     vmovss	-4(%rbp), %xmm0
     vucomiss	-8(%rbp), %xmm0
-    ja	L63
-    jmp	L64
-L63:
+    ja	L64
+    jmp	L65
+L64:
     movl	$0, %eax
     call	link_error0
-L64:
+L65:
     nop
     leave
     ret
@@ -357,20 +367,20 @@ test4:
     vmovss	%xmm1, -8(%rbp)
     vmovss	-4(%rbp), %xmm0
     vucomiss	-8(%rbp), %xmm0
-    jp	L68
-    vmovss	-4(%rbp), %xmm0
-    vucomiss	-8(%rbp), %xmm0
-    je	L69
-L68:
-    vmovss	-4(%rbp), %xmm0
-    vucomiss	-8(%rbp), %xmm0
     jp	L69
     vmovss	-4(%rbp), %xmm0
     vucomiss	-8(%rbp), %xmm0
-    jne	L69
+    je	L70
+L69:
+    vmovss	-4(%rbp), %xmm0
+    vucomiss	-8(%rbp), %xmm0
+    jp	L70
+    vmovss	-4(%rbp), %xmm0
+    vucomiss	-8(%rbp), %xmm0
+    jne	L70
     movl	$0, %eax
     call	link_error1
-L69:
+L70:
     nop
     leave
     ret
@@ -383,16 +393,16 @@ test5:
     vmovss	%xmm1, -8(%rbp)
     vmovss	-4(%rbp), %xmm0
     vucomiss	-8(%rbp), %xmm0
-    jp	L72
+    jp	L73
     vmovss	-4(%rbp), %xmm0
     vucomiss	-8(%rbp), %xmm0
-    jnb	L72
+    jnb	L73
     vmovss	-8(%rbp), %xmm0
     vucomiss	-4(%rbp), %xmm0
-    ja	L72
+    ja	L73
     movl	$0, %eax
     call	link_error1
-L72:
+L73:
     nop
     leave
     ret
@@ -405,16 +415,16 @@ test6:
     vmovss	%xmm1, -8(%rbp)
     vmovss	-8(%rbp), %xmm0
     vucomiss	-4(%rbp), %xmm0
-    jp	L75
+    jp	L76
     vmovss	-8(%rbp), %xmm0
     vucomiss	-4(%rbp), %xmm0
-    jnb	L75
+    jnb	L76
     vmovss	-4(%rbp), %xmm0
     vucomiss	-8(%rbp), %xmm0
-    ja	L75
+    ja	L76
     movl	$0, %eax
     call	link_error1
-L75:
+L76:
     nop
     leave
     ret
@@ -427,13 +437,13 @@ test7:
     vmovss	%xmm1, -8(%rbp)
     vmovss	-4(%rbp), %xmm0
     vucomiss	-8(%rbp), %xmm0
-    jp	L78
+    jp	L79
     vmovss	-4(%rbp), %xmm0
     vucomiss	-8(%rbp), %xmm0
-    jnp	L78
+    jnp	L79
     movl	$0, %eax
     call	link_error1
-L78:
+L79:
     nop
     leave
     ret

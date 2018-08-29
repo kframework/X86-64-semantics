@@ -5,6 +5,9 @@ module VCVTSI2SSQ-XMM-XMM-R64
   imports X86-CONFIGURATION
 
   rule <k>
+    execinstr (vcvtsi2ss R1:R64, R2:Xmm, R3:Xmm,  .Operands) => execinstr (vcvtsi2ssq R1:R64, R2:Xmm, R3:Xmm,  .Operands) 
+  ...</k>
+  rule <k>
     execinstr (vcvtsi2ssq R1:R64, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
