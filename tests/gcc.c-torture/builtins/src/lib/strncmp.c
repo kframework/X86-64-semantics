@@ -25,3 +25,19 @@ strncmp(const char *s1, const char *s2, size_t n)
     }
   return c1 - c2;
 }
+
+void __stack_chk_fail() {
+   __asm__ ("movq $-1, %rax\n\t"
+            "jmp %rax\n\t");
+}
+
+
+void exit(int code) {
+   __asm__ ("movq $-1, %rax\n\t"
+            "jmp %rax\n\t");
+}
+
+void abort(void) {
+   __asm__ ("movq $-1, %rax\n\t"
+            "jmp %rax\n\t");
+}

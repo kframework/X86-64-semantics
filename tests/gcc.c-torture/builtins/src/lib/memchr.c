@@ -1,6 +1,8 @@
 extern void abort(void);
 extern int inside_main;
 
+#include "mini_stdlib.h"
+
 __attribute__ ((__noinline__))
 void *
 memchr (const void *s, int c, __SIZE_TYPE__ n)

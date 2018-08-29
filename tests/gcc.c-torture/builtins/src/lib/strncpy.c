@@ -47,3 +47,18 @@ int memcmp(const void* s1, const void* s2,size_t n)
     return 0;
 }
 
+void __stack_chk_fail() {
+   __asm__ ("movq $-1, %rax\n\t"
+            "jmp %rax\n\t");
+}
+
+
+void exit(int code) {
+   __asm__ ("movq $-1, %rax\n\t"
+            "jmp %rax\n\t");
+}
+
+void abort(void) {
+   __asm__ ("movq $-1, %rax\n\t"
+            "jmp %rax\n\t");
+}

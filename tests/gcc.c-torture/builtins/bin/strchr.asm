@@ -40,15 +40,46 @@ index:
     call	strchr
     leave
     ret
+    .globl	__stack_chk_fail
+__stack_chk_fail:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq $-1, %rax
+    jmp %rax
+    
+    nop
+    popq	%rbp
+    ret
+    .globl	exit
+exit:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movl	%edi, -4(%rbp)
+    movq $-1, %rax
+    jmp %rax
+    
+    nop
+    popq	%rbp
+    ret
+    .globl	abort
+abort:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq $-1, %rax
+    jmp %rax
+    
+    nop
+    popq	%rbp
+    ret
     .comm	inside_main,4,4
     .globl	main
 .globl _start
 _start:
     pushq	%rbp
     movq	%rsp, %rbp
-    movl	$1, $inside_main(%rip)
+    movl	$1, inside_main(%rip)
     call	main_test
-    movl	$0, $inside_main(%rip)
+    movl	$0, inside_main(%rip)
     movl	$0, %eax
     popq	%rbp
     ret
@@ -72,40 +103,6 @@ main_test:
     movq	%rax, %rdi
     call	strchr
     testq	%rax, %rax
-    je	L12
-    call	abort
-L12:
-    movq	-8(%rbp), %rax
-    movl	$111, %esi
-    movq	%rax, %rdi
-    call	strchr
-    movq	%rax, %rdx
-    movq	-8(%rbp), %rax
-    addq	$4, %rax
-    cmpq	%rax, %rdx
-    je	L13
-    call	abort
-L13:
-    movq	-8(%rbp), %rax
-    addq	$5, %rax
-    movl	$111, %esi
-    movq	%rax, %rdi
-    call	strchr
-    movq	%rax, %rdx
-    movq	-8(%rbp), %rax
-    addq	$7, %rax
-    cmpq	%rax, %rdx
-    je	L14
-    call	abort
-L14:
-    movq	-8(%rbp), %rax
-    movl	$0, %esi
-    movq	%rax, %rdi
-    call	strchr
-    movq	%rax, %rdx
-    movq	-8(%rbp), %rax
-    addq	$11, %rax
-    cmpq	%rax, %rdx
     je	L15
     call	abort
 L15:
@@ -121,6 +118,40 @@ L15:
     call	abort
 L16:
     movq	-8(%rbp), %rax
+    addq	$5, %rax
+    movl	$111, %esi
+    movq	%rax, %rdi
+    call	strchr
+    movq	%rax, %rdx
+    movq	-8(%rbp), %rax
+    addq	$7, %rax
+    cmpq	%rax, %rdx
+    je	L17
+    call	abort
+L17:
+    movq	-8(%rbp), %rax
+    movl	$0, %esi
+    movq	%rax, %rdi
+    call	strchr
+    movq	%rax, %rdx
+    movq	-8(%rbp), %rax
+    addq	$11, %rax
+    cmpq	%rax, %rdx
+    je	L18
+    call	abort
+L18:
+    movq	-8(%rbp), %rax
+    movl	$111, %esi
+    movq	%rax, %rdi
+    call	strchr
+    movq	%rax, %rdx
+    movq	-8(%rbp), %rax
+    addq	$4, %rax
+    cmpq	%rax, %rdx
+    je	L19
+    call	abort
+L19:
+    movq	-8(%rbp), %rax
     movl	$111, %esi
     movq	%rax, %rdi
     call	index
@@ -128,9 +159,9 @@ L16:
     movq	-8(%rbp), %rax
     addq	$4, %rax
     cmpq	%rax, %rdx
-    je	L18
+    je	L21
     call	abort
-L18:
+L21:
     nop
     leave
     ret

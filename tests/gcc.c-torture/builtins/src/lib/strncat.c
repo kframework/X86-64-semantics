@@ -85,3 +85,13 @@ int strcmp(const char* s1, const char* s2)
     return *(const unsigned char*)s1-*(const unsigned char*)s2;
 }
 
+
+void abort(void) {
+   __asm__ ("movq $-1, %rax\n\t"
+            "jmp %rax\n\t");
+}
+
+void __stack_chk_fail() {
+   __asm__ ("movq $-1, %rax\n\t"
+            "jmp %rax\n\t");
+}

@@ -33,7 +33,7 @@ memcpy:
     movq	%rdi, -24(%rbp)
     movq	%rsi, -32(%rbp)
     movq	%rdx, -40(%rbp)
-    movl $inside_main(%rip), %eax
+    movl	inside_main(%rip), %eax
     testl	%eax, %eax
     je	L6
     movq	-24(%rbp), %rax
@@ -83,15 +83,35 @@ L10:
 L9:
     leave
     ret
+    .globl	__stack_chk_fail
+__stack_chk_fail:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq $-1, %rax
+    jmp %rax
+    
+    nop
+    popq	%rbp
+    ret
+    .globl	abort
+abort:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq $-1, %rax
+    jmp %rax
+    
+    nop
+    popq	%rbp
+    ret
     .comm	inside_main,4,4
     .globl	main
 .globl _start
 _start:
     pushq	%rbp
     movq	%rsp, %rbp
-    movl	$1, $inside_main(%rip)
+    movl	$1, inside_main(%rip)
     call	main_test
-    movl	$0, $inside_main(%rip)
+    movl	$0, inside_main(%rip)
     movl	$0, %eax
     popq	%rbp
     ret
@@ -123,8 +143,8 @@ main_test:
     nop
     movq	-8(%rbp), %rax
     xorq	$40, %rax
-    je	L16
+    je	L18
     call	__stack_chk_fail
-L16:
+L18:
     leave
     ret

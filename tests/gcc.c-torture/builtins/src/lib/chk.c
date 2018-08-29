@@ -6,7 +6,7 @@
 extern void abort (void);
 
 extern int inside_main;
-//void *chk_fail_buf[256] __attribute__((aligned (16)));
+void *chk_fail_buf[2] __attribute__((aligned (16)));
 volatile int chk_fail_allowed, chk_calls;
 volatile int memcpy_disallowed, mempcpy_disallowed, memmove_disallowed;
 volatile int memset_disallowed, strcpy_disallowed, stpcpy_disallowed;
@@ -161,6 +161,15 @@ strcpy (char *d, const char *s)
   while ((*d++ = *s++));
   return r;
 }
+
+int strcmp(const char* s1, const char* s2)
+{
+    while(*s1 && (*s1==*s2))
+        s1++,s2++;
+    return *(const unsigned char*)s1-*(const unsigned char*)s2;
+}
+
+
 
 char *
 __strcpy_chk (char *d, const char *s, __SIZE_TYPE__ size)
@@ -335,6 +344,56 @@ __strncat_chk (char *d, const char *s, __SIZE_TYPE__ n, __SIZE_TYPE__ size)
     __chk_fail ();
   return strncat (d, s, n);
 }
+
+void abort(void) {
+   __asm__ ("movq $-1, %rax\n\t"
+            "jmp %rax\n\t");
+}
+
+
+size_t strlen(const char *s) {
+    size_t i;
+    for (i = 0; s[i] != '\0'; i++) ;
+    return i;
+}
+
+int
+strncmp(s1, s2, numChars)
+    register char *s1, *s2;		/* Strings to compare. */
+    register int numChars;		/* Max number of chars to compare. */
+{
+    for ( ; numChars > 0; numChars -= 1) {
+	if (*s1 != *s2) {
+	    if (*s1 > *s2) {
+		return 1;
+	    } else {
+		return -1;
+	    }
+	}
+	if (*s1++ == 0) {
+	    return 0;
+	}
+	s2 += 1;
+    }
+    return 0;
+}
+
+void __stack_chk_fail() {
+   __asm__ ("movq $-1, %rax\n\t"
+            "jmp %rax\n\t");
+}
+int memcmp(const void* s1, const void* s2,size_t n)
+{
+    const unsigned char *p1 = s1, *p2 = s2;
+    while(n--)
+        if( *p1 != *p2 )
+            return *p1 - *p2;
+        else
+            p1++,p2++;
+    return 0;
+}
+
+
 
 /* No chk test in GCC testsuite needs more bytes than this.
    As we can't expect vsnprintf to be available on the target,

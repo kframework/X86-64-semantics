@@ -4,6 +4,21 @@ typedef __SIZE_TYPE__ size_t;
 
 #define TEST_ABORT if (inside_main) abort()
 
+void __stack_chk_fail() {
+   __asm__ ("movq $-1, %rax\n\t"
+            "jmp %rax\n\t");
+}
+
+
+void exit(int code) {
+   __asm__ ("movq $-1, %rax\n\t"
+            "jmp %rax\n\t");
+}
+
+void abort(void) {
+   __asm__ ("movq $-1, %rax\n\t"
+            "jmp %rax\n\t");
+}
 int memcmp(const void* s1, const void* s2,size_t n)
 {
     const unsigned char *p1 = s1, *p2 = s2;

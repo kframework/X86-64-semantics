@@ -1,6 +1,5 @@
 /* Verify that structure return doesn't invoke memcpy on 
    overlapping objects.  */
-
 extern void abort (void);
 extern int inside_main;
 typedef __SIZE_TYPE__ size_t;
@@ -48,3 +47,15 @@ void *memcpy(void *a, const void *b, size_t len)
       return a;
     }
 }
+
+void __stack_chk_fail() {
+   __asm__ ("movq $-1, %rax\n\t"
+            "jmp %rax\n\t");
+}
+
+
+void abort(void) {
+   __asm__ ("movq $-1, %rax\n\t"
+            "jmp %rax\n\t");
+}
+
