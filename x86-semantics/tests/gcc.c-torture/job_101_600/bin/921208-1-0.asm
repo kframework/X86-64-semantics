@@ -319,11 +319,13 @@ _start:
     movl	$f, %edi
     call	Int
     vmovq	%xmm0, %rax
+    vmovsd	LC1(%rip), %xmm0
     vmovq	%rax, %xmm1
-    vucomisd	LC1(%rip), %xmm1
+    vucomisd	%xmm0, %xmm1
     jp	L52
+    vmovsd	LC1(%rip), %xmm0
     vmovq	%rax, %xmm2
-    vucomisd	LC1(%rip), %xmm2
+    vucomisd	%xmm0, %xmm2
     je	L53
 L52:
     call	abort

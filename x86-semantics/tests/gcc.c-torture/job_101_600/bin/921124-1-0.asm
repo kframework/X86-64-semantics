@@ -311,11 +311,11 @@ g:
     vmovsd	LC0(%rip), %xmm0
     vucomisd	-24(%rbp), %xmm0
     jne	L48
-    vmovsd	-32(%rbp), %xmm0
-    vucomisd	LC1(%rip), %xmm0
+    vmovsd	LC1(%rip), %xmm0
+    vucomisd	-32(%rbp), %xmm0
     jp	L48
-    vmovsd	-32(%rbp), %xmm0
-    vucomisd	LC1(%rip), %xmm0
+    vmovsd	LC1(%rip), %xmm0
+    vucomisd	-32(%rbp), %xmm0
     jne	L48
     cmpl	$3, -36(%rbp)
     jne	L48
@@ -350,11 +350,12 @@ _start:
     movl	$3, %edi
     movl	$3, %eax
     call	f
-    vmovsd	LC1(%rip), %xmm0
-    movl	%ebx, %ecx
     movl	%eax, %edx
+    vmovsd	LC1(%rip), %xmm0
+    movabsq	$4607182418800017408, %rax
+    movl	%ebx, %ecx
     vmovapd	%xmm0, %xmm1
-    vmovsd	LC0(%rip), %xmm0
+    vmovq	%rax, %xmm0
     movl	$LC3, %esi
     movl	$LC3, %edi
     movl	$2, %eax

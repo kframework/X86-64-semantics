@@ -289,21 +289,17 @@ _start:
     pushq	%rbp
     movq	%rsp, %rbp
     subq	$16, %rsp
-    fldt	LC0(%rip)
-    fstpt	-16(%rbp)
-    fldt	-16(%rbp)
-    fldt	LC1(%rip)
-    fmulp	%st, %st(1)
-    fstpt	-16(%rbp)
-    fldt	-16(%rbp)
-    fldt	LC2(%rip)
-    fucomip	%st(1), %st
-    fstp	%st(0)
+    vmovsd	LC0(%rip), %xmm0
+    vmovsd	%xmm0, -8(%rbp)
+    vmovsd	-8(%rbp), %xmm1
+    vmovsd	LC1(%rip), %xmm0
+    vmulsd	%xmm0, %xmm1, %xmm0
+    vmovsd	%xmm0, -8(%rbp)
+    vmovsd	LC2(%rip), %xmm0
+    vucomisd	-8(%rbp), %xmm0
     jp	L48
-    fldt	-16(%rbp)
-    fldt	LC2(%rip)
-    fucomip	%st(1), %st
-    fstp	%st(0)
+    vmovsd	LC2(%rip), %xmm0
+    vucomisd	-8(%rbp), %xmm0
     je	L49
 L48:
     call	abort
@@ -313,16 +309,10 @@ L49:
     .section	.rodata
 LC0:
     .long	0
-    .long	2147483648
-    .long	15883
-    .long	0
+    .long	548405248
 LC1:
     .long	0
-    .long	2147483648
-    .long	15861
-    .long	0
+    .long	525336576
 LC2:
     .long	0
-    .long	2147483648
-    .long	15361
-    .long	0
+    .long	1048576

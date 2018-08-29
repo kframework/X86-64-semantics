@@ -310,7 +310,8 @@ L49:
 _start:
     pushq	%rbp
     movq	%rsp, %rbp
-    vmovsd	LC2(%rip), %xmm0
+    movabsq	$4607182418800017408, %rax
+    vmovq	%rax, %xmm0
     call	foo
     movl	$0, %eax
     popq	%rbp
@@ -326,6 +327,3 @@ LC0:
     .long	2147483647
     .long	0
     .long	0
-LC2:
-    .long	0
-    .long	1072693248

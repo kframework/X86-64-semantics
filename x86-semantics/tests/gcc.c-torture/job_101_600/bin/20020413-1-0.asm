@@ -287,79 +287,65 @@ L42:
 test:
     pushq	%rbp
     movq	%rsp, %rbp
-    subq	$48, %rsp
-    movq	%rdi, -40(%rbp)
-    fld1
-    fstpt	-16(%rbp)
-    movl	$0, -20(%rbp)
-    fldz
-    fldt	16(%rbp)
-    fxch	%st(1)
-    fucomip	%st(1), %st
-    fstp	%st(0)
+    subq	$32, %rsp
+    vmovsd	%xmm0, -24(%rbp)
+    movq	%rdi, -32(%rbp)
+    vmovsd	LC0(%rip), %xmm0
+    vmovsd	%xmm0, -8(%rbp)
+    movl	$0, -12(%rbp)
+    vxorpd	%xmm0, %xmm0, %xmm0
+    vucomisd	-24(%rbp), %xmm0
     jbe	L46
-    fldt	16(%rbp)
-    fchs
-    fstpt	16(%rbp)
+    vmovsd	-24(%rbp), %xmm1
+    vmovsd	LC2(%rip), %xmm0
+    vxorpd	%xmm1, %xmm0, %xmm0
+    vmovsd	%xmm0, -24(%rbp)
 L46:
-    fldt	16(%rbp)
-    fldt	-16(%rbp)
-    fxch	%st(1)
-    fucomip	%st(1), %st
-    fstp	%st(0)
+    vmovsd	-24(%rbp), %xmm0
+    vucomisd	-8(%rbp), %xmm0
     jb	L59
     jmp	L50
 L51:
-    fldt	-16(%rbp)
-    fadd	%st(0), %st
-    fstpt	-16(%rbp)
-    movl	-20(%rbp), %eax
+    vmovsd	-8(%rbp), %xmm0
+    vaddsd	%xmm0, %xmm0, %xmm0
+    vmovsd	%xmm0, -8(%rbp)
+    movl	-12(%rbp), %eax
     leal	1(%rax), %edx
-    movl	%edx, -20(%rbp)
+    movl	%edx, -12(%rbp)
     cmpl	$9, %eax
     jle	L50
     call	abort
 L50:
-    fldt	16(%rbp)
-    fldt	-16(%rbp)
-    fxch	%st(1)
-    fucomip	%st(1), %st
-    fstp	%st(0)
+    vmovsd	-24(%rbp), %xmm0
+    vucomisd	-8(%rbp), %xmm0
     ja	L51
     jmp	L52
 L59:
-    fldt	16(%rbp)
-    fldz
-    fucomip	%st(1), %st
-    fstp	%st(0)
+    vxorpd	%xmm0, %xmm0, %xmm0
+    vucomisd	-24(%rbp), %xmm0
     jp	L54
-    fldt	16(%rbp)
-    fldz
-    fucomip	%st(1), %st
-    fstp	%st(0)
+    vxorpd	%xmm0, %xmm0, %xmm0
+    vucomisd	-24(%rbp), %xmm0
     je	L52
     jmp	L54
 L55:
-    fldt	-16(%rbp)
-    fldt	LC2(%rip)
-    fdivrp	%st, %st(1)
-    fstpt	-16(%rbp)
-    movl	-20(%rbp), %eax
+    vmovsd	-8(%rbp), %xmm0
+    vmovsd	LC3(%rip), %xmm1
+    vdivsd	%xmm1, %xmm0, %xmm0
+    vmovsd	%xmm0, -8(%rbp)
+    movl	-12(%rbp), %eax
     leal	1(%rax), %edx
-    movl	%edx, -20(%rbp)
+    movl	%edx, -12(%rbp)
     cmpl	$9, %eax
     jle	L54
     call	abort
 L54:
-    fldt	-16(%rbp)
-    fldt	16(%rbp)
-    fxch	%st(1)
-    fucomip	%st(1), %st
-    fstp	%st(0)
+    vmovsd	-8(%rbp), %xmm0
+    vucomisd	-24(%rbp), %xmm0
     ja	L55
 L52:
-    movq	-40(%rbp), %rax
-    movl	-20(%rbp), %edx
+    movq	-32(%rbp), %rax
+    movl	-12(%rbp), %edx
     movl	%edx, (%rax)
     nop
     leave
@@ -373,59 +359,37 @@ _start:
     movq	$40, %rax
     movq	%rax, -8(%rbp)
     xorl	%eax, %eax
-    leaq	-12(%rbp), %rax
-    fldt	LC4(%rip)
-    leaq	-16(%rsp), %rsp
-    fstpt	(%rsp)
-    movq	%rax, %rdi
+    leaq	-12(%rbp), %rdx
+    movabsq	$4613937818241073152, %rax
+    movq	%rdx, %rdi
+    vmovq	%rax, %xmm0
     call	test
-    addq	$16, %rsp
-    leaq	-12(%rbp), %rax
-    fldt	LC5(%rip)
-    leaq	-16(%rsp), %rsp
-    fstpt	(%rsp)
-    movq	%rax, %rdi
+    leaq	-12(%rbp), %rdx
+    movabsq	$4615063718147915776, %rax
+    movq	%rdx, %rdi
+    vmovq	%rax, %xmm0
     call	test
-    addq	$16, %rsp
-    leaq	-12(%rbp), %rax
-    fldt	LC6(%rip)
-    leaq	-16(%rsp), %rsp
-    fstpt	(%rsp)
-    movq	%rax, %rdi
+    leaq	-12(%rbp), %rdx
+    movabsq	$4616189618054758400, %rax
+    movq	%rdx, %rdi
+    vmovq	%rax, %xmm0
     call	test
-    addq	$16, %rsp
-    leaq	-12(%rbp), %rax
-    fldt	LC7(%rip)
-    leaq	-16(%rsp), %rsp
-    fstpt	(%rsp)
-    movq	%rax, %rdi
+    leaq	-12(%rbp), %rdx
+    movabsq	$4617315517961601024, %rax
+    movq	%rdx, %rdi
+    vmovq	%rax, %xmm0
     call	test
-    addq	$16, %rsp
     movl	$0, %edi
     call	exit
     .section	.rodata
+LC0:
+    .long	0
+    .long	1072693248
 LC2:
     .long	0
-    .long	2147483648
-    .long	16384
+    .long	-2147483648
     .long	0
-LC4:
     .long	0
-    .long	3221225472
-    .long	16384
+LC3:
     .long	0
-LC5:
-    .long	0
-    .long	3758096384
-    .long	16384
-    .long	0
-LC6:
-    .long	0
-    .long	2147483648
-    .long	16385
-    .long	0
-LC7:
-    .long	0
-    .long	2684354560
-    .long	16385
-    .long	0
+    .long	1073741824

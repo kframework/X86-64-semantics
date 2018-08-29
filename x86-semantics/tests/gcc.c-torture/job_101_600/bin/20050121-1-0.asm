@@ -411,49 +411,45 @@ baz_double:
 foo_ldouble_t:
     pushq	%rbp
     movq	%rsp, %rbp
-    movl	%edi, -68(%rbp)
-    movl	-68(%rbp), %eax
+    movl	%edi, -36(%rbp)
+    movl	-36(%rbp), %eax
     addl	$1, %eax
-    movl	%eax, -72(%rbp)
-    fildl	-72(%rbp)
-    fstpt	-64(%rbp)
-    fldt	-48(%rbp)
-    fldt	-64(%rbp)
-    fstpt	-32(%rbp)
-    fstpt	-16(%rbp)
-    movl	-68(%rbp), %eax
+    vxorpd	%xmm0, %xmm0, %xmm0
+    vcvtsi2sd	%eax, %xmm0, %xmm0
+    vmovsd	%xmm0, -32(%rbp)
+    vmovsd	-24(%rbp), %xmm0
+    vmovsd	-32(%rbp), %xmm1
+    vmovsd	%xmm1, -16(%rbp)
+    vmovsd	%xmm0, -8(%rbp)
+    movl	-36(%rbp), %eax
     subl	$1, %eax
-    movl	%eax, -72(%rbp)
-    fildl	-72(%rbp)
-    fstpt	-48(%rbp)
-    fldt	-48(%rbp)
-    fldt	-64(%rbp)
-    fstpt	-32(%rbp)
-    fstpt	-16(%rbp)
-    fldt	-64(%rbp)
-    fldt	-48(%rbp)
-    flds	LC0(%rip)
-    flds	LC0(%rip)
-    fstp	%st(0)
-    fstp	%st(0)
-    fxch	%st(1)
+    vxorpd	%xmm0, %xmm0, %xmm0
+    vcvtsi2sd	%eax, %xmm0, %xmm0
+    vmovsd	%xmm0, -24(%rbp)
+    vmovsd	-24(%rbp), %xmm0
+    vmovsd	-32(%rbp), %xmm1
+    vmovsd	%xmm1, -16(%rbp)
+    vmovsd	%xmm0, -8(%rbp)
+    vmovsd	-32(%rbp), %xmm1
+    vmovsd	-24(%rbp), %xmm0
+    vmovq	%xmm1, %rax
+    vmovq	%xmm0, %rdx
+    vmovq	%rax, %xmm0
+    vmovq	%rdx, %xmm1
     popq	%rbp
     ret
     .globl	bar_ldouble_t
 bar_ldouble_t:
     pushq	%rbp
     movq	%rsp, %rbp
-    subq	$16, %rsp
+    subq	$8, %rsp
     movq	%rdi, -8(%rbp)
     movl	$5, %edi
     call	foo_ldouble_t
-    flds	LC0(%rip)
-    flds	LC0(%rip)
-    fstp	%st(0)
-    fstp	%st(0)
-    fstp	%st(1)
+    vmovq	%xmm0, %rax
+    vmovq	%rax, %xmm0
     movq	-8(%rbp), %rax
-    fstpt	(%rax)
+    vmovsd	%xmm0, (%rax)
     nop
     leave
     ret
@@ -461,17 +457,14 @@ bar_ldouble_t:
 baz_ldouble_t:
     pushq	%rbp
     movq	%rsp, %rbp
-    subq	$16, %rsp
+    subq	$8, %rsp
     movq	%rdi, -8(%rbp)
     movl	$5, %edi
     call	foo_ldouble_t
-    flds	LC0(%rip)
-    flds	LC0(%rip)
-    fstp	%st(0)
-    fstp	%st(0)
-    fstp	%st(0)
+    vmovq	%xmm1, %rax
+    vmovq	%rax, %xmm0
     movq	-8(%rbp), %rax
-    fstpt	(%rax)
+    vmovsd	%xmm0, (%rax)
     nop
     leave
     ret
@@ -798,186 +791,186 @@ baz_llong:
 _start:
     pushq	%rbp
     movq	%rsp, %rbp
-    subq	$32, %rsp
+    subq	$16, %rsp
     movq	$40, %rax
     movq	%rax, -8(%rbp)
     xorl	%eax, %eax
     vxorps	%xmm0, %xmm0, %xmm0
-    vmovss	%xmm0, -32(%rbp)
-    leaq	-32(%rbp), %rax
+    vmovss	%xmm0, -16(%rbp)
+    leaq	-16(%rbp), %rax
     movq	%rax, %rdi
     call	bar_float
-    vmovss	-32(%rbp), %xmm0
-    vucomiss	LC2(%rip), %xmm0
+    vmovss	-16(%rbp), %xmm0
+    vmovss	LC1(%rip), %xmm1
+    vucomiss	%xmm1, %xmm0
     jp	L102
-    vucomiss	LC2(%rip), %xmm0
+    vmovss	LC1(%rip), %xmm1
+    vucomiss	%xmm1, %xmm0
     je	L108
 L102:
     call	abort
 L108:
     vxorps	%xmm0, %xmm0, %xmm0
-    vmovss	%xmm0, -32(%rbp)
-    leaq	-32(%rbp), %rax
+    vmovss	%xmm0, -16(%rbp)
+    leaq	-16(%rbp), %rax
     movq	%rax, %rdi
     call	baz_float
-    vmovss	-32(%rbp), %xmm0
-    vucomiss	LC3(%rip), %xmm0
+    vmovss	-16(%rbp), %xmm0
+    vmovss	LC2(%rip), %xmm1
+    vucomiss	%xmm1, %xmm0
     jp	L103
-    vucomiss	LC3(%rip), %xmm0
+    vmovss	LC2(%rip), %xmm1
+    vucomiss	%xmm1, %xmm0
     je	L109
 L103:
     call	abort
 L109:
     vxorpd	%xmm0, %xmm0, %xmm0
-    vmovsd	%xmm0, -32(%rbp)
-    leaq	-32(%rbp), %rax
+    vmovsd	%xmm0, -16(%rbp)
+    leaq	-16(%rbp), %rax
     movq	%rax, %rdi
     call	bar_double
-    vmovsd	-32(%rbp), %xmm0
-    vucomisd	LC5(%rip), %xmm0
+    vmovsd	-16(%rbp), %xmm0
+    vmovsd	LC4(%rip), %xmm1
+    vucomisd	%xmm1, %xmm0
     jp	L104
-    vucomisd	LC5(%rip), %xmm0
+    vmovsd	LC4(%rip), %xmm1
+    vucomisd	%xmm1, %xmm0
     je	L110
 L104:
     call	abort
 L110:
     vxorpd	%xmm0, %xmm0, %xmm0
-    vmovsd	%xmm0, -32(%rbp)
-    leaq	-32(%rbp), %rax
+    vmovsd	%xmm0, -16(%rbp)
+    leaq	-16(%rbp), %rax
     movq	%rax, %rdi
     call	baz_double
-    vmovsd	-32(%rbp), %xmm0
-    vucomisd	LC6(%rip), %xmm0
+    vmovsd	-16(%rbp), %xmm0
+    vmovsd	LC5(%rip), %xmm1
+    vucomisd	%xmm1, %xmm0
     jp	L105
-    vucomisd	LC6(%rip), %xmm0
+    vmovsd	LC5(%rip), %xmm1
+    vucomisd	%xmm1, %xmm0
     je	L111
 L105:
     call	abort
 L111:
-    fldz
-    fstpt	-32(%rbp)
-    leaq	-32(%rbp), %rax
+    vxorpd	%xmm0, %xmm0, %xmm0
+    vmovsd	%xmm0, -16(%rbp)
+    leaq	-16(%rbp), %rax
     movq	%rax, %rdi
     call	bar_ldouble_t
-    fldt	-32(%rbp)
-    fldt	LC8(%rip)
-    fucomip	%st(1), %st
-    jp	L114
-    fldt	LC8(%rip)
-    fucomip	%st(1), %st
-    fstp	%st(0)
+    vmovsd	-16(%rbp), %xmm0
+    vmovsd	LC4(%rip), %xmm1
+    vucomisd	%xmm1, %xmm0
+    jp	L106
+    vmovsd	LC4(%rip), %xmm1
+    vucomisd	%xmm1, %xmm0
     je	L112
-    jmp	L106
-L114:
-    fstp	%st(0)
 L106:
     call	abort
 L112:
-    fldz
-    fstpt	-32(%rbp)
-    leaq	-32(%rbp), %rax
+    vxorpd	%xmm0, %xmm0, %xmm0
+    vmovsd	%xmm0, -16(%rbp)
+    leaq	-16(%rbp), %rax
     movq	%rax, %rdi
     call	baz_ldouble_t
-    fldt	-32(%rbp)
-    fldt	LC9(%rip)
-    fucomip	%st(1), %st
-    jp	L115
-    fldt	LC9(%rip)
-    fucomip	%st(1), %st
-    fstp	%st(0)
+    vmovsd	-16(%rbp), %xmm0
+    vmovsd	LC5(%rip), %xmm1
+    vucomisd	%xmm1, %xmm0
+    jp	L107
+    vmovsd	LC5(%rip), %xmm1
+    vucomisd	%xmm1, %xmm0
     je	L113
-    jmp	L107
-L115:
-    fstp	%st(0)
 L107:
     call	abort
 L113:
-    movb	$0, -32(%rbp)
-    leaq	-32(%rbp), %rax
+    movb	$0, -16(%rbp)
+    leaq	-16(%rbp), %rax
     movq	%rax, %rdi
     call	bar_char
-    movzbl	-32(%rbp), %eax
+    movzbl	-16(%rbp), %eax
     cmpb	$6, %al
     je	L90
     call	abort
 L90:
-    movb	$0, -32(%rbp)
-    leaq	-32(%rbp), %rax
+    movb	$0, -16(%rbp)
+    leaq	-16(%rbp), %rax
     movq	%rax, %rdi
     call	baz_char
-    movzbl	-32(%rbp), %eax
+    movzbl	-16(%rbp), %eax
     cmpb	$4, %al
     je	L91
     call	abort
 L91:
-    movw	$0, -32(%rbp)
-    leaq	-32(%rbp), %rax
+    movw	$0, -16(%rbp)
+    leaq	-16(%rbp), %rax
     movq	%rax, %rdi
     call	bar_short
-    movzwl	-32(%rbp), %eax
+    movzwl	-16(%rbp), %eax
     cmpw	$6, %ax
     je	L92
     call	abort
 L92:
-    movw	$0, -32(%rbp)
-    leaq	-32(%rbp), %rax
+    movw	$0, -16(%rbp)
+    leaq	-16(%rbp), %rax
     movq	%rax, %rdi
     call	baz_short
-    movzwl	-32(%rbp), %eax
+    movzwl	-16(%rbp), %eax
     cmpw	$4, %ax
     je	L93
     call	abort
 L93:
-    movl	$0, -32(%rbp)
-    leaq	-32(%rbp), %rax
+    movl	$0, -16(%rbp)
+    leaq	-16(%rbp), %rax
     movq	%rax, %rdi
     call	bar_int
-    movl	-32(%rbp), %eax
+    movl	-16(%rbp), %eax
     cmpl	$6, %eax
     je	L94
     call	abort
 L94:
-    movl	$0, -32(%rbp)
-    leaq	-32(%rbp), %rax
+    movl	$0, -16(%rbp)
+    leaq	-16(%rbp), %rax
     movq	%rax, %rdi
     call	baz_int
-    movl	-32(%rbp), %eax
+    movl	-16(%rbp), %eax
     cmpl	$4, %eax
     je	L95
     call	abort
 L95:
-    movq	$0, -32(%rbp)
-    leaq	-32(%rbp), %rax
+    movq	$0, -16(%rbp)
+    leaq	-16(%rbp), %rax
     movq	%rax, %rdi
     call	bar_long
-    movq	-32(%rbp), %rax
+    movq	-16(%rbp), %rax
     cmpq	$6, %rax
     je	L96
     call	abort
 L96:
-    movq	$0, -32(%rbp)
-    leaq	-32(%rbp), %rax
+    movq	$0, -16(%rbp)
+    leaq	-16(%rbp), %rax
     movq	%rax, %rdi
     call	baz_long
-    movq	-32(%rbp), %rax
+    movq	-16(%rbp), %rax
     cmpq	$4, %rax
     je	L97
     call	abort
 L97:
-    movq	$0, -32(%rbp)
-    leaq	-32(%rbp), %rax
+    movq	$0, -16(%rbp)
+    leaq	-16(%rbp), %rax
     movq	%rax, %rdi
     call	bar_llong
-    movq	-32(%rbp), %rax
+    movq	-16(%rbp), %rax
     cmpq	$6, %rax
     je	L98
     call	abort
 L98:
-    movq	$0, -32(%rbp)
-    leaq	-32(%rbp), %rax
+    movq	$0, -16(%rbp)
+    leaq	-16(%rbp), %rax
     movq	%rax, %rdi
     call	baz_llong
-    movq	-32(%rbp), %rax
+    movq	-16(%rbp), %rax
     cmpq	$4, %rax
     je	L99
     call	abort
@@ -991,25 +984,13 @@ L101:
     leave
     ret
     .section	.rodata
-LC0:
-    .long	2143289344
-LC2:
+LC1:
     .long	1086324736
-LC3:
+LC2:
     .long	1082130432
-LC5:
+LC4:
     .long	0
     .long	1075314688
-LC6:
+LC5:
     .long	0
     .long	1074790400
-LC8:
-    .long	0
-    .long	3221225472
-    .long	16385
-    .long	0
-LC9:
-    .long	0
-    .long	2147483648
-    .long	16385
-    .long	0

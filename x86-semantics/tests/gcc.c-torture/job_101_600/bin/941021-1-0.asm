@@ -311,9 +311,11 @@ _start:
     movl	$1, %eax
     call	f
     vmovsd	glob_dbl(%rip), %xmm0
-    vucomisd	LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm1
+    vucomisd	%xmm1, %xmm0
     jp	L50
-    vucomisd	LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm1
+    vucomisd	%xmm1, %xmm0
     je	L51
 L50:
     call	abort

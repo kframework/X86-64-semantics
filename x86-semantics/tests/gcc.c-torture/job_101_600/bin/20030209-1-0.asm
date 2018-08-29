@@ -303,9 +303,11 @@ _start:
     vmovsd	LC0(%rip), %xmm0
     vmovsd	%xmm0, (%rax)
     vmovsd	x + 79200(%rip), %xmm0
-    vucomisd	LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm1
+    vucomisd	%xmm1, %xmm0
     jp	L48
-    vucomisd	LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm1
+    vucomisd	%xmm1, %xmm0
     je	L49
 L48:
     call	abort

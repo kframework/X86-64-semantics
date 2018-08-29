@@ -287,18 +287,19 @@ L42:
 foo:
     pushq	%rbp
     movq	%rsp, %rbp
-    fldt	16(%rbp)
-    fstpl	-8(%rbp)
+    vmovsd	%xmm0, -8(%rbp)
     vmovsd	-8(%rbp), %xmm0
     vmovmskpd	%xmm0, %eax
     andl	$1, %eax
     testl	%eax, %eax
     je	L46
-    fldpi
+    vmovsd	LC0(%rip), %xmm0
     jmp	L48
 L46:
-    fldz
+    vxorpd	%xmm0, %xmm0, %xmm0
 L48:
+    vmovq	%xmm0, %rax
+    vmovq	%rax, %xmm0
     popq	%rbp
     ret
     .globl	main
@@ -306,25 +307,25 @@ L48:
 _start:
     pushq	%rbp
     movq	%rsp, %rbp
-    fld1
-    fchs
-    leaq	-16(%rsp), %rsp
-    fstpt	(%rsp)
+    movabsq	$-4616189618054758400, %rax
+    vmovq	%rax, %xmm0
     call	foo
-    addq	$16, %rsp
-    fldpi
-    fucomip	%st(1), %st
-    jp	L55
-    fldpi
-    fucomip	%st(1), %st
-    fstp	%st(0)
+    vmovq	%xmm0, %rax
+    vmovsd	LC0(%rip), %xmm0
+    vmovq	%rax, %xmm1
+    vucomisd	%xmm0, %xmm1
+    jp	L53
+    vmovsd	LC0(%rip), %xmm0
+    vmovq	%rax, %xmm2
+    vucomisd	%xmm0, %xmm2
     je	L54
-    jmp	L53
-L55:
-    fstp	%st(0)
 L53:
     call	abort
 L54:
     movl	$0, %eax
-    leave
+    popq	%rbp
     ret
+    .section	.rodata
+LC0:
+    .long	1413754136
+    .long	1074340347

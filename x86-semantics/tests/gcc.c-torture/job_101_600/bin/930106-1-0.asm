@@ -332,9 +332,11 @@ _start:
     call	f
     vxorpd	%xmm0, %xmm0, %xmm0
     vcvtsi2sd	%eax, %xmm0, %xmm0
-    vucomisd	LC1(%rip), %xmm0
+    vmovsd	LC1(%rip), %xmm1
+    vucomisd	%xmm1, %xmm0
     jp	L53
-    vucomisd	LC1(%rip), %xmm0
+    vmovsd	LC1(%rip), %xmm1
+    vucomisd	%xmm1, %xmm0
     je	L54
 L53:
     call	abort

@@ -290,11 +290,11 @@ fp:
     subq	$16, %rsp
     vmovsd	%xmm0, -8(%rbp)
     movl	%edi, -12(%rbp)
-    vmovsd	-8(%rbp), %xmm0
-    vucomisd	LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm0
+    vucomisd	-8(%rbp), %xmm0
     jp	L46
-    vmovsd	-8(%rbp), %xmm0
-    vucomisd	LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm0
+    vucomisd	-8(%rbp), %xmm0
     jne	L46
     cmpl	$11, -12(%rbp)
     je	L47

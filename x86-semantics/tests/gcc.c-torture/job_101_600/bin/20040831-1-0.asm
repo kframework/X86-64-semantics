@@ -292,10 +292,12 @@ _start:
     vmovsd	LC0(%rip), %xmm0
     vmovsd	%xmm0, -16(%rbp)
     vmovsd	-16(%rbp), %xmm0
-    vucomisd	LC1(%rip), %xmm0
+    vmovsd	LC1(%rip), %xmm1
+    vucomisd	%xmm1, %xmm0
     jbe	L53
     vmovsd	-16(%rbp), %xmm0
-    vucomisd	LC2(%rip), %xmm0
+    vmovsd	LC2(%rip), %xmm1
+    vucomisd	%xmm1, %xmm0
     jnb	L48
     vmovsd	-16(%rbp), %xmm0
     vcvttsd2siq	%xmm0, %rax
