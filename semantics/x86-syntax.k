@@ -99,6 +99,7 @@ module X86-SYNTAX
                             | ".comm" X86Id "," Int "," Int 
                             | ".zero" Int 
                             | ".byte" Int 
+                            | ".value" Int 
                             //| ".zero" Int 
  // syntax SectionName ::= ".rodata"   [token]
 
@@ -118,6 +119,8 @@ module X86-SYNTAX
                        | MemOffset
                        | X86Id 
                        | Builtin
+                       //| "$" X86Id
+                       //| "$" X86Id "+" Int
                        | "$" X86Id
                        | "$" X86Id "+" Int
 
@@ -139,32 +142,47 @@ module X86-SYNTAX
   syntax Imm ::= "$" Int
                | HexConstant
   syntax Mem ::=  "(" Rip ")"
-               | "$" X86Id "(" Rip ")"
-               | "$" X86Id "+" Int "(" Rip ")"
+               //| "$" X86Id "(" Rip ")"
+               //| "$" X86Id "+" Int "(" Rip ")"
+               | X86Id "(" Rip ")"
+               | X86Id "+" Int "(" Rip ")"
                //------------------------------------
                | "(" R64 ")"
                | Offset "(" R64 ")"
-               | "$" X86Id "(" R64 ")"
-               | "$" X86Id "+" Int "(" R64 ")"
+               //| "$" X86Id "(" R64 ")"
+               //| "$" X86Id "+" Int "(" R64 ")"
+               | X86Id "(" R64 ")"
+               | X86Id "+" Int "(" R64 ")"
                //------------------------------------
                | "(" "," R64 "," Scale ")"
                | "(" "," R64 ")"
                | Offset "(" "," R64 "," Scale ")"
                | Offset "(" "," R64 ")"
-               | "$" X86Id "(" "," R64 "," Scale ")"
-               | "$" X86Id "(" "," R64 ")"
-               | "$" X86Id "+" Int "(" "," R64 "," Scale ")"
-               | "$" X86Id "+" Int "(" "," R64 ")"
+               //| "$" X86Id "(" "," R64 "," Scale ")"
+               //| "$" X86Id "(" "," R64 ")"
+               //| "$" X86Id "+" Int "(" "," R64 "," Scale ")"
+               //| "$" X86Id "+" Int "(" "," R64 ")"
+               | X86Id "(" "," R64 "," Scale ")"
+               | X86Id "(" "," R64 ")"
+               | X86Id "+" Int "(" "," R64 "," Scale ")"
+               | X86Id "+" Int "(" "," R64 ")"
                //------------------------------------
                | "(" R64 "," R64 "," Scale ")"
                | "(" R64 "," R64 ")"
                | Offset "(" R64 "," R64 "," Scale ")"
                | Offset "(" R64 "," R64 ")"
-               | "$" X86Id "(" R64 "," R64 "," Scale ")"
-               | "$" X86Id "(" R64 "," R64 ")"
-               | "$" X86Id "+" Int "(" R64 "," R64 "," Scale ")"
-               | "$" X86Id "+" Int "(" R64 "," R64 ")"
+               //| "$" X86Id "(" R64 "," R64 "," Scale ")"
+               //| "$" X86Id "(" R64 "," R64 ")"
+               //| "$" X86Id "+" Int "(" R64 "," R64 "," Scale ")"
+               //| "$" X86Id "+" Int "(" R64 "," R64 ")"
+               | X86Id "(" R64 "," R64 "," Scale ")"
+               | X86Id "(" R64 "," R64 ")"
+               | X86Id "+" Int "(" R64 "," R64 "," Scale ")"
+               | X86Id "+" Int "(" R64 "," R64 ")"
                //------------------------------------
+
+
+
 //               | Offset "(" Rip ")"
 //               | "$" X86Id "(" R32 ")"
 //               | "$" X86Id "+" Int "(" R32 ")"
@@ -952,6 +970,7 @@ module X86-SYNTAX
                   | "vcvtsi2sdq"
                   | "vcvtsi2ssl"
                   | "vcvtsi2ssq"
+                  | "vcvtsi2ss"
                   | "vcvtss2sd"
                   | "vcvtss2sil"
                   | "vcvtss2siq"
@@ -962,6 +981,7 @@ module X86-SYNTAX
                   | "vcvttsd2si"
                   | "vcvttss2sil"
                   | "vcvttss2siq"
+                  | "vcvttss2si"
                   | "vdivpd"
                   | "vdivps"
                   | "vdivsd"

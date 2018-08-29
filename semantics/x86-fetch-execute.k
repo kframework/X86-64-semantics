@@ -8,8 +8,10 @@ module X86-FETCH-EXECUTE
   */
   rule
     <k> fetch => execinstr(OpC OpR) ~> inforegisters ~> fetch ... </k>
-      <text>code(iloc(PC) |-> storedInstr(OpC OpR) _:Map) </text>
-      <regstate>... "RIP" |-> ( PC => addMInt(PC,  mi(64, 1)))  ...</regstate>
+      //<text>code(iloc(PC) |-> storedInstr(OpC OpR) _:Map) </text>
+      <text>code(PV:PointerVal |-> storedInstr(OpC OpR) _:Map) </text>
+      //<regstate>... "RIP" |-> ( PC => addMInt(PC,  mi(64, 1)))  ...</regstate>
+      <regstate>... "RIP" |-> ( PV => addMInt(PV,  ptr(getMemLoc(PV), mi(64, 1))))  ...</regstate>
 
   /*@ 
     After execution of last instrcution, no more fecthes. 
@@ -20,19 +22,21 @@ module X86-FETCH-EXECUTE
     <k> fetch => .  ... </k>
       <text> code (CMap) </text>
       <regstate> RSMap </regstate>
-        requires notBool iloc( {RSMap["RIP"]}:>MInt ) in_keys ( CMap )
+        //requires notBool iloc( {RSMap["RIP"]}:>MInt ) in_keys ( CMap )
+        requires notBool  {RSMap["RIP"]}:>PointerVal  in_keys ( CMap )
 
   /*@
     inforegisters prints all the register states for debug purposes.
   */
   rule
     <k> inforegisters => . ... </k>
-      <regstatequeue> ... .List => ListItem(RSMap) ListItem(FMap) </regstatequeue>
-      // <itracer> ... .List => ListItem(CMap[iloc( {RSMap["RIP"]}:>MInt )]) </itracer>
+      //<regstatequeue> ... .List => ListItem(RSMap) ListItem(FMap) </regstatequeue>
+      <regstatequeue> ... .List => ListItem(RSMap) </regstatequeue>
       <regstate> RSMap </regstate>
       <functargets> FMap:Map </functargets>
       <text> code (CMap) </text>
-        requires  iloc( {RSMap["RIP"]}:>MInt ) in_keys ( CMap )
+        //requires  iloc( {RSMap["RIP"]}:>MInt ) in_keys ( CMap )
+        requires  {RSMap["RIP"]}:>PointerVal  in_keys ( CMap )
 
   rule
     <k> inforegisters => . ... </k>
@@ -40,7 +44,8 @@ module X86-FETCH-EXECUTE
       <text> code (CMap) </text>
       <regstate> RSMap </regstate>
       <functargets> FMap:Map </functargets>
-        requires notBool iloc( {RSMap["RIP"]}:>MInt ) in_keys ( CMap )
+        //requires notBool iloc( {RSMap["RIP"]}:>MInt ) in_keys ( CMap )
+        requires notBool {RSMap["RIP"]}:>PointerVal  in_keys ( CMap )
 
   /*@
     Final Exit.
