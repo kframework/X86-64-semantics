@@ -305,34 +305,34 @@ _start:
     pushq	%rbp
     movq	%rsp, %rbp
     subq	$16, %rsp
-    vmovsd $nzerod(%rip), %xmm2
+    vmovsd	nzerod(%rip), %xmm2
     vmovsd	%xmm2, -8(%rbp)
-    movq $zerod(%rip), %rax
+    movq	zerod(%rip), %rax
     vmovq	%rax, %xmm0
     call	negd
     vmovq	%xmm0, %rax
     vmovsd	-8(%rbp), %xmm1
     vmovq	%rax, %xmm0
     call	expectd
-    vmovss $nzerof(%rip), %xmm3
+    vmovss	nzerof(%rip), %xmm3
     vmovss	%xmm3, -8(%rbp)
-    movl $zerof(%rip), %eax
+    movl	zerof(%rip), %eax
     vmovd	%eax, %xmm0
     call	negf
     vmovss	-8(%rbp), %xmm1
     call	expectf
-    vmovsd $zerod(%rip), %xmm4
+    vmovsd	zerod(%rip), %xmm4
     vmovsd	%xmm4, -8(%rbp)
-    movq $nzerod(%rip), %rax
+    movq	nzerod(%rip), %rax
     vmovq	%rax, %xmm0
     call	negd
     vmovq	%xmm0, %rax
     vmovsd	-8(%rbp), %xmm1
     vmovq	%rax, %xmm0
     call	expectd
-    vmovss $zerof(%rip), %xmm5
+    vmovss	zerof(%rip), %xmm5
     vmovss	%xmm5, -8(%rbp)
-    movl $nzerof(%rip), %eax
+    movl	nzerof(%rip), %eax
     vmovd	%eax, %xmm0
     call	negf
     vmovss	-8(%rbp), %xmm1
@@ -399,7 +399,7 @@ negd:
     movq	%rsp, %rbp
     vmovsd	%xmm0, -8(%rbp)
     vmovsd	-8(%rbp), %xmm1
-    vmovsd	$LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm0
     vxorpd	%xmm1, %xmm0, %xmm0
     vmovq	%xmm0, %rax
     vmovq	%rax, %xmm0
@@ -411,7 +411,7 @@ negf:
     movq	%rsp, %rbp
     vmovss	%xmm0, -4(%rbp)
     vmovss	-4(%rbp), %xmm1
-    vmovss	$LC1(%rip), %xmm0
+    vmovss	LC1(%rip), %xmm0
     vxorps	%xmm1, %xmm0, %xmm0
     popq	%rbp
     ret

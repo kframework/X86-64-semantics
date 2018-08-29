@@ -347,7 +347,7 @@ _start:
     vmovq	%xmm0, %rax
     movq	%rax, -8(%rbp)
     vmovsd	-8(%rbp), %xmm0
-    vmovsd	$LC0(%rip), %xmm1
+    vmovsd	LC0(%rip), %xmm1
     vucomisd	%xmm1, %xmm0
     jnb	L54
     vmovsd	-8(%rbp), %xmm0
@@ -356,7 +356,7 @@ _start:
     jmp	L55
 L54:
     vmovsd	-8(%rbp), %xmm0
-    vmovsd	$LC0(%rip), %xmm1
+    vmovsd	LC0(%rip), %xmm1
     vsubsd	%xmm1, %xmm0, %xmm0
     vcvttsd2siq	%xmm0, %rax
     movq	%rax, -16(%rbp)
@@ -378,7 +378,7 @@ L56:
     vcvtss2sd	%xmm0, %xmm2, %xmm2
     vmovsd	%xmm2, -8(%rbp)
     vmovsd	-8(%rbp), %xmm0
-    vmovsd	$LC0(%rip), %xmm1
+    vmovsd	LC0(%rip), %xmm1
     vucomisd	%xmm1, %xmm0
     jnb	L57
     vmovsd	-8(%rbp), %xmm0
@@ -387,7 +387,7 @@ L56:
     jmp	L58
 L57:
     vmovsd	-8(%rbp), %xmm0
-    vmovsd	$LC0(%rip), %xmm1
+    vmovsd	LC0(%rip), %xmm1
     vsubsd	%xmm1, %xmm0, %xmm0
     vcvttsd2siq	%xmm0, %rax
     movq	%rax, -16(%rbp)

@@ -292,10 +292,10 @@ func:
     movq	-24(%rbp), %rax
     vmovsd	(%rax), %xmm0
     vmovsd	%xmm0, -8(%rbp)
-    vmovsd	$LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm0
     vucomisd	-8(%rbp), %xmm0
     jp	L46
-    vmovsd	$LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm0
     vucomisd	-8(%rbp), %xmm0
     jne	L46
     vmovsd	-8(%rbp), %xmm0
@@ -322,23 +322,23 @@ _start:
     movq	$40, %rax
     movq	%rax, -8(%rbp)
     xorl	%eax, %eax
-    vmovsd	$LC1(%rip), %xmm0
+    vmovsd	LC1(%rip), %xmm0
     vmovsd	%xmm0, -48(%rbp)
-    vmovsd	$LC2(%rip), %xmm0
+    vmovsd	LC2(%rip), %xmm0
     vmovsd	%xmm0, -40(%rbp)
-    vmovsd	$LC3(%rip), %xmm0
+    vmovsd	LC3(%rip), %xmm0
     vmovsd	%xmm0, -32(%rbp)
-    vmovsd	$LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm0
     vmovsd	%xmm0, -24(%rbp)
     leaq	-48(%rbp), %rax
     movq	%rax, %rdi
     call	func
     vmovq	%xmm0, %rax
-    vmovsd	$LC1(%rip), %xmm0
+    vmovsd	LC1(%rip), %xmm0
     vmovq	%rax, %xmm1
     vucomisd	%xmm0, %xmm1
     jp	L54
-    vmovsd	$LC1(%rip), %xmm0
+    vmovsd	LC1(%rip), %xmm0
     vmovq	%rax, %xmm2
     vucomisd	%xmm0, %xmm2
     je	L55

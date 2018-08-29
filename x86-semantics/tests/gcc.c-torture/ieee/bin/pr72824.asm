@@ -315,19 +315,19 @@ _start:
     movq	%rax, -8(%rbp)
     xorl	%eax, %eax
     leaq	-144(%rbp), %rax
-    vmovss	$LC0(%rip), %xmm0
+    vmovss	LC0(%rip), %xmm0
     movq	%rax, %rdi
     call	foo
     vmovss	-132(%rbp), %xmm2
-    vmovss	$LC1(%rip), %xmm0
-    vmovss	$LC2(%rip), %xmm1
+    vmovss	LC1(%rip), %xmm0
+    vmovss	LC2(%rip), %xmm1
     vandps	%xmm1, %xmm2, %xmm2
     vorps	%xmm0, %xmm2, %xmm2
     vmovaps	%xmm2, %xmm0
-    vmovss	$LC3(%rip), %xmm1
+    vmovss	LC3(%rip), %xmm1
     vucomiss	%xmm1, %xmm0
     jp	L53
-    vmovss	$LC3(%rip), %xmm1
+    vmovss	LC3(%rip), %xmm1
     vucomiss	%xmm1, %xmm0
     je	L54
 L53:

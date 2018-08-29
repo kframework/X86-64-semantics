@@ -297,16 +297,16 @@ c:
     movq	%rdi, -8(%rbp)
     movl	%esi, -12(%rbp)
     movq	-8(%rbp), %rax
-    movq	%rax, $ud(%rip)
-    vmovsd $ud(%rip), %xmm0
+    movq	%rax, ud(%rip)
+    vmovsd	ud(%rip), %xmm0
     vcvtsd2ss	%xmm0, %xmm0, %xmm0
-    vmovss	%xmm0, $uf(%rip)
-    movl $uf(%rip), %eax
+    vmovss	%xmm0, uf(%rip)
+    movl	uf(%rip), %eax
     cmpl	-12(%rbp), %eax
     je	L47
-    movl $failed(%rip), %eax
+    movl	failed(%rip), %eax
     addl	$1, %eax
-    movl	%eax, $failed(%rip)
+    movl	%eax, failed(%rip)
 L47:
     nop
     popq	%rbp
@@ -379,7 +379,7 @@ _start:
     movl	$8388611, %esi
     movabsq	$4039728867093512193, %rdi
     call	c
-    movl $failed(%rip), %eax
+    movl	failed(%rip), %eax
     testl	%eax, %eax
     je	L49
     call	abort

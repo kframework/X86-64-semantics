@@ -488,7 +488,7 @@ L76:
     addq	%rdx, %rax
     addq	%rax, %rax
     addq	%rcx, %rax
-    movl $data2475 + 16(,%rax,4), %ecx
+    movl	data2475 + 16(,%rax,4), %ecx
     movl	-12(%rbp), %eax
     movslq	%eax, %rdx
     movq	%rdx, %rax

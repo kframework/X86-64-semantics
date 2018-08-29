@@ -288,9 +288,9 @@ L42:
 foo:
     pushq	%rbp
     movq	%rsp, %rbp
-    movl $once(%rip), %eax
+    movl	once(%rip), %eax
     leal	1(%rax), %edx
-    movl	%edx, $once(%rip)
+    movl	%edx, once(%rip)
     testl	%eax, %eax
     je	L46
     call	abort
@@ -313,7 +313,7 @@ _start:
     vmovq	%rax, %xmm0
     call	sqrt
     vmovq	%xmm0, %rax
-    movq	%rax, $x(%rip)
+    movq	%rax, x(%rip)
     movl	$0, %eax
     popq	%rbp
     ret

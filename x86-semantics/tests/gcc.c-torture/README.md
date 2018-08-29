@@ -136,3 +136,7 @@ wc ./job_101_600/blacklist.txt ./ieee/blacklist.txt ./builtins/blacklist.txt ./j
   - inf-2.c: testl is a function name
   - inf-3.c: testl is a function name
   - mzero5.c: sub is a function name
+
+## Testing gcc.c-torture/ieee
+ - .quad L47 before L47 is defined
+  - 20010106-1.c

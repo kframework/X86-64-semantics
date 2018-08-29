@@ -304,25 +304,25 @@ xleave:
 _start:
     pushq	%rbp
     movq	%rsp, %rbp
-    vmovsd $dnan(%rip), %xmm0
-    vmovsd $dnan(%rip), %xmm1
+    vmovsd	dnan(%rip), %xmm0
+    vmovsd	dnan(%rip), %xmm1
     vucomisd	%xmm1, %xmm0
     jp	L47
     vucomisd	%xmm1, %xmm0
     jne	L47
     call	abort
 L47:
-    vmovsd $dnan(%rip), %xmm0
-    vmovsd $x(%rip), %xmm1
+    vmovsd	dnan(%rip), %xmm0
+    vmovsd	x(%rip), %xmm1
     vucomisd	%xmm1, %xmm0
     jp	L63
     vucomisd	%xmm1, %xmm0
     je	L69
 L63:
-    vmovsd	$LC0(%rip), %xmm0
-    vmovsd	%xmm0, $x(%rip)
-    vmovsd $dnan(%rip), %xmm1
-    vmovsd $x(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm0
+    vmovsd	%xmm0, x(%rip)
+    vmovsd	dnan(%rip), %xmm1
+    vmovsd	x(%rip), %xmm0
     vucomisd	%xmm1, %xmm0
     ja	L64
     jmp	L70
@@ -331,26 +331,26 @@ L69:
 L64:
     call	abort
 L70:
-    vmovsd $dnan(%rip), %xmm0
-    vmovsd $x(%rip), %xmm1
+    vmovsd	dnan(%rip), %xmm0
+    vmovsd	x(%rip), %xmm1
     vucomisd	%xmm1, %xmm0
     jbe	L71
     call	abort
 L71:
-    vmovsd $dnan(%rip), %xmm1
-    vmovsd $x(%rip), %xmm0
+    vmovsd	dnan(%rip), %xmm1
+    vmovsd	x(%rip), %xmm0
     vucomisd	%xmm1, %xmm0
     jb	L72
     call	abort
 L72:
-    vmovsd $dnan(%rip), %xmm0
-    vmovsd $x(%rip), %xmm1
+    vmovsd	dnan(%rip), %xmm0
+    vmovsd	x(%rip), %xmm1
     vucomisd	%xmm1, %xmm0
     jb	L73
     call	abort
 L73:
-    vmovsd $dnan(%rip), %xmm0
-    vmovsd $x(%rip), %xmm1
+    vmovsd	dnan(%rip), %xmm0
+    vmovsd	x(%rip), %xmm1
     vucomisd	%xmm1, %xmm0
     jp	L60
     vucomisd	%xmm1, %xmm0

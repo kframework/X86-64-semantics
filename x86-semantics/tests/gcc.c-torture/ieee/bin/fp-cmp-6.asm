@@ -299,53 +299,53 @@ x:
 _start:
     pushq	%rbp
     movq	%rsp, %rbp
-    vmovsd	$LC0(%rip), %xmm0
-    vmovsd	$LC0(%rip), %xmm1
+    vmovsd	LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm1
     vucomisd	%xmm1, %xmm0
     jp	L46
     vucomisd	%xmm1, %xmm0
     jne	L46
     call	link_error
 L46:
-    vmovsd	$LC0(%rip), %xmm0
-    vmovsd $x(%rip), %xmm1
+    vmovsd	LC0(%rip), %xmm0
+    vmovsd	x(%rip), %xmm1
     vucomisd	%xmm1, %xmm0
     jp	L62
     vucomisd	%xmm1, %xmm0
     je	L68
 L62:
-    vmovsd	$LC1(%rip), %xmm0
-    vmovsd	%xmm0, $x(%rip)
+    vmovsd	LC1(%rip), %xmm0
+    vmovsd	%xmm0, x(%rip)
     jmp	L50
 L68:
     call	link_error
 L50:
-    vmovsd	$LC0(%rip), %xmm1
-    vmovsd $x(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm1
+    vmovsd	x(%rip), %xmm0
     vucomisd	%xmm1, %xmm0
     jbe	L51
     call	link_error
 L51:
-    vmovsd	$LC0(%rip), %xmm0
-    vmovsd $x(%rip), %xmm1
+    vmovsd	LC0(%rip), %xmm0
+    vmovsd	x(%rip), %xmm1
     vucomisd	%xmm1, %xmm0
     jbe	L53
     call	link_error
 L53:
-    vmovsd	$LC0(%rip), %xmm1
-    vmovsd $x(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm1
+    vmovsd	x(%rip), %xmm0
     vucomisd	%xmm1, %xmm0
     jb	L55
     call	link_error
 L55:
-    vmovsd	$LC0(%rip), %xmm0
-    vmovsd $x(%rip), %xmm1
+    vmovsd	LC0(%rip), %xmm0
+    vmovsd	x(%rip), %xmm1
     vucomisd	%xmm1, %xmm0
     jb	L57
     call	link_error
 L57:
-    vmovsd	$LC0(%rip), %xmm0
-    vmovsd $x(%rip), %xmm1
+    vmovsd	LC0(%rip), %xmm0
+    vmovsd	x(%rip), %xmm1
     vucomisd	%xmm1, %xmm0
     jp	L59
     vucomisd	%xmm1, %xmm0

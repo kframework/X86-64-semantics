@@ -300,19 +300,19 @@ _start:
     movq	%rsp, %rbp
     jmp	L46
 L47:
-    vmovsd $y(%rip), %xmm1
-    vmovsd $x(%rip), %xmm0
+    vmovsd	y(%rip), %xmm1
+    vmovsd	x(%rip), %xmm0
     vaddsd	%xmm0, %xmm1, %xmm0
-    vmovsd	%xmm0, $y(%rip)
+    vmovsd	%xmm0, y(%rip)
 L46:
-    vmovsd $y(%rip), %xmm0
+    vmovsd	y(%rip), %xmm0
     vxorpd	%xmm1, %xmm1, %xmm1
     vucomisd	%xmm1, %xmm0
     ja	L47
-    vmovsd $x(%rip), %xmm1
-    vmovsd	$LC1(%rip), %xmm0
+    vmovsd	x(%rip), %xmm1
+    vmovsd	LC1(%rip), %xmm0
     vaddsd	%xmm0, %xmm1, %xmm0
-    vmovsd $y(%rip), %xmm1
+    vmovsd	y(%rip), %xmm1
     vucomisd	%xmm1, %xmm0
     jp	L50
     vucomisd	%xmm1, %xmm0

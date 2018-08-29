@@ -319,16 +319,16 @@ _start:
     vmovq	%rax, %xmm0
     call	func
     vmovq	%xmm0, %rax
-    vmovsd	$LC1(%rip), %xmm0
-    vmovsd	$LC2(%rip), %xmm1
+    vmovsd	LC1(%rip), %xmm0
+    vmovsd	LC2(%rip), %xmm1
     vmovq	%rax, %xmm2
     vandpd	%xmm1, %xmm2, %xmm2
     vorpd	%xmm0, %xmm2, %xmm2
     vmovapd	%xmm2, %xmm0
-    vmovsd	$LC3(%rip), %xmm1
+    vmovsd	LC3(%rip), %xmm1
     vucomisd	%xmm1, %xmm0
     jp	L51
-    vmovsd	$LC3(%rip), %xmm1
+    vmovsd	LC3(%rip), %xmm1
     vucomisd	%xmm1, %xmm0
     je	L52
 L51:

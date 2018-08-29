@@ -291,8 +291,8 @@ cf:
     vmovss	%xmm1, -8(%rbp)
     vmovss	-4(%rbp), %xmm2
     vmovss	-8(%rbp), %xmm3
-    vmovss	$LC0(%rip), %xmm0
-    vmovss	$LC1(%rip), %xmm1
+    vmovss	LC0(%rip), %xmm0
+    vmovss	LC1(%rip), %xmm1
     vmovaps	%xmm3, %xmm4
     vandps	%xmm1, %xmm4, %xmm4
     vandps	%xmm2, %xmm0, %xmm0
@@ -397,8 +397,8 @@ c:
     vmovsd	%xmm1, -16(%rbp)
     vmovsd	-8(%rbp), %xmm2
     vmovsd	-16(%rbp), %xmm3
-    vmovsd	$LC2(%rip), %xmm0
-    vmovsd	$LC3(%rip), %xmm1
+    vmovsd	LC2(%rip), %xmm0
+    vmovsd	LC3(%rip), %xmm1
     vmovapd	%xmm3, %xmm4
     vandpd	%xmm1, %xmm4, %xmm4
     vandpd	%xmm2, %xmm0, %xmm0
@@ -529,8 +529,8 @@ cl:
     vmovsd	%xmm1, -16(%rbp)
     vmovsd	-8(%rbp), %xmm2
     vmovsd	-16(%rbp), %xmm3
-    vmovsd	$LC2(%rip), %xmm0
-    vmovsd	$LC3(%rip), %xmm1
+    vmovsd	LC2(%rip), %xmm0
+    vmovsd	LC3(%rip), %xmm1
     vmovapd	%xmm3, %xmm4
     vandpd	%xmm1, %xmm4, %xmm4
     vandpd	%xmm2, %xmm0, %xmm0

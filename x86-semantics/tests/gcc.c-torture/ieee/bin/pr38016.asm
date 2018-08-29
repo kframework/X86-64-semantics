@@ -535,8 +535,8 @@ one_test:
     movl	%edi, -20(%rbp)
     movq	%rsi, -32(%rbp)
     movq	%rdx, -40(%rbp)
-    vmovsd	$LC0(%rip), %xmm2
-    vmovsd	$LC1(%rip), %xmm1
+    vmovsd	LC0(%rip), %xmm2
+    vmovsd	LC1(%rip), %xmm1
     vmovsd	-16(%rbp), %xmm0
     movq	-8(%rbp), %rdx
     movq	-32(%rbp), %rax
@@ -546,12 +546,12 @@ one_test:
     vmovq	%rdx, %xmm0
     call	%rax
     vmovq	%xmm0, %rax
-    vmovsd	$LC1(%rip), %xmm0
+    vmovsd	LC1(%rip), %xmm0
     vmovq	%rax, %xmm4
     vucomisd	%xmm0, %xmm4
     setnp	%dl
     movl	$0, %ecx
-    vmovsd	$LC1(%rip), %xmm0
+    vmovsd	LC1(%rip), %xmm0
     vmovq	%rax, %xmm5
     vucomisd	%xmm0, %xmm5
     movl	%ecx, %eax
@@ -561,8 +561,8 @@ one_test:
     je	L109
     call	abort
 L109:
-    vmovsd	$LC2(%rip), %xmm2
-    vmovsd	$LC3(%rip), %xmm1
+    vmovsd	LC2(%rip), %xmm2
+    vmovsd	LC3(%rip), %xmm1
     vmovsd	-16(%rbp), %xmm0
     movq	-8(%rbp), %rdx
     movq	-40(%rbp), %rax
@@ -572,12 +572,12 @@ L109:
     vmovq	%rdx, %xmm0
     call	%rax
     vmovq	%xmm0, %rax
-    vmovsd	$LC2(%rip), %xmm0
+    vmovsd	LC2(%rip), %xmm0
     vmovq	%rax, %xmm6
     vucomisd	%xmm0, %xmm6
     setnp	%dl
     movl	$0, %ecx
-    vmovsd	$LC2(%rip), %xmm0
+    vmovsd	LC2(%rip), %xmm0
     vmovq	%rax, %xmm7
     vucomisd	%xmm0, %xmm7
     movl	%ecx, %eax
@@ -622,7 +622,7 @@ L115:
     addq	%rdx, %rax
     addq	%rax, %rax
     addq	%rcx, %rax
-    movl $data2503 + 16(,%rax,4), %ecx
+    movl	data2503 + 16(,%rax,4), %ecx
     movl	-12(%rbp), %eax
     movslq	%eax, %rdx
     movq	%rdx, %rax

@@ -291,23 +291,23 @@ xtest:
     vmovsd	%xmm0, -8(%rbp)
     vmovsd	%xmm1, -16(%rbp)
     vmovsd	-8(%rbp), %xmm0
-    vmovsd	$LC0(%rip), %xmm1
+    vmovsd	LC0(%rip), %xmm1
     vucomisd	%xmm1, %xmm0
     jbe	L62
     call	abort
 L62:
-    vmovsd	$LC1(%rip), %xmm0
+    vmovsd	LC1(%rip), %xmm0
     vucomisd	-8(%rbp), %xmm0
     jbe	L63
     call	abort
 L63:
-    vmovsd	$LC1(%rip), %xmm0
+    vmovsd	LC1(%rip), %xmm0
     vucomisd	-16(%rbp), %xmm0
     jbe	L64
     call	abort
 L64:
     vmovsd	-16(%rbp), %xmm0
-    vmovsd	$LC0(%rip), %xmm1
+    vmovsd	LC0(%rip), %xmm1
     vucomisd	%xmm1, %xmm0
     seta	%al
     xorl	$1, %eax
@@ -316,12 +316,12 @@ L64:
     call	abort
 L52:
     vmovsd	-8(%rbp), %xmm0
-    vmovsd	$LC0(%rip), %xmm1
+    vmovsd	LC0(%rip), %xmm1
     vucomisd	%xmm1, %xmm0
     jbe	L65
     call	abort
 L65:
-    vmovsd	$LC1(%rip), %xmm0
+    vmovsd	LC1(%rip), %xmm0
     vucomisd	-8(%rbp), %xmm0
     ja	L61
     jmp	L66
@@ -338,23 +338,23 @@ xtestf:
     vmovss	%xmm0, -4(%rbp)
     vmovss	%xmm1, -8(%rbp)
     vmovss	-4(%rbp), %xmm0
-    vmovss	$LC2(%rip), %xmm1
+    vmovss	LC2(%rip), %xmm1
     vucomiss	%xmm1, %xmm0
     jbe	L84
     call	abort
 L84:
-    vmovss	$LC3(%rip), %xmm0
+    vmovss	LC3(%rip), %xmm0
     vucomiss	-4(%rbp), %xmm0
     jbe	L85
     call	abort
 L85:
-    vmovss	$LC3(%rip), %xmm0
+    vmovss	LC3(%rip), %xmm0
     vucomiss	-8(%rbp), %xmm0
     jbe	L86
     call	abort
 L86:
     vmovss	-8(%rbp), %xmm0
-    vmovss	$LC2(%rip), %xmm1
+    vmovss	LC2(%rip), %xmm1
     vucomiss	%xmm1, %xmm0
     seta	%al
     xorl	$1, %eax
@@ -363,12 +363,12 @@ L86:
     call	abort
 L74:
     vmovss	-4(%rbp), %xmm0
-    vmovss	$LC2(%rip), %xmm1
+    vmovss	LC2(%rip), %xmm1
     vucomiss	%xmm1, %xmm0
     jbe	L87
     call	abort
 L87:
-    vmovss	$LC3(%rip), %xmm0
+    vmovss	LC3(%rip), %xmm0
     vucomiss	-4(%rbp), %xmm0
     ja	L83
     jmp	L88
@@ -385,23 +385,23 @@ xtestl:
     vmovsd	%xmm0, -8(%rbp)
     vmovsd	%xmm1, -16(%rbp)
     vmovsd	-8(%rbp), %xmm0
-    vmovsd	$LC0(%rip), %xmm1
+    vmovsd	LC0(%rip), %xmm1
     vucomisd	%xmm1, %xmm0
     jbe	L106
     call	abort
 L106:
-    vmovsd	$LC1(%rip), %xmm0
+    vmovsd	LC1(%rip), %xmm0
     vucomisd	-8(%rbp), %xmm0
     jbe	L107
     call	abort
 L107:
-    vmovsd	$LC1(%rip), %xmm0
+    vmovsd	LC1(%rip), %xmm0
     vucomisd	-16(%rbp), %xmm0
     jbe	L108
     call	abort
 L108:
     vmovsd	-16(%rbp), %xmm0
-    vmovsd	$LC0(%rip), %xmm1
+    vmovsd	LC0(%rip), %xmm1
     vucomisd	%xmm1, %xmm0
     seta	%al
     xorl	$1, %eax
@@ -410,12 +410,12 @@ L108:
     call	abort
 L96:
     vmovsd	-8(%rbp), %xmm0
-    vmovsd	$LC0(%rip), %xmm1
+    vmovsd	LC0(%rip), %xmm1
     vucomisd	%xmm1, %xmm0
     jbe	L109
     call	abort
 L109:
-    vmovsd	$LC1(%rip), %xmm0
+    vmovsd	LC1(%rip), %xmm0
     vucomisd	-8(%rbp), %xmm0
     ja	L105
     jmp	L110
@@ -429,15 +429,15 @@ L110:
 _start:
     pushq	%rbp
     movq	%rsp, %rbp
-    vmovsd	$LC4(%rip), %xmm0
+    vmovsd	LC4(%rip), %xmm0
     movabsq	$4629981891913580544, %rax
     vmovapd	%xmm0, %xmm1
     vmovq	%rax, %xmm0
     call	xtest
-    vmovss	$LC6(%rip), %xmm1
-    vmovss	$LC7(%rip), %xmm0
+    vmovss	LC6(%rip), %xmm1
+    vmovss	LC7(%rip), %xmm0
     call	xtestf
-    vmovsd	$LC4(%rip), %xmm0
+    vmovsd	LC4(%rip), %xmm0
     movabsq	$4629981891913580544, %rax
     vmovapd	%xmm0, %xmm1
     vmovq	%rax, %xmm0

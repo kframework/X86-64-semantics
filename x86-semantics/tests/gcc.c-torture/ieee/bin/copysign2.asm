@@ -312,52 +312,52 @@ xtestf:
     movq	$40, %rax
     movq	%rax, -8(%rbp)
     xorl	%eax, %eax
-    vmovss $Yf(%rip), %xmm2
-    vmovss	$LC0(%rip), %xmm0
-    vmovss	$LC1(%rip), %xmm1
+    vmovss	Yf(%rip), %xmm2
+    vmovss	LC0(%rip), %xmm0
+    vmovss	LC1(%rip), %xmm1
     vandps	%xmm1, %xmm2, %xmm2
     vorps	%xmm0, %xmm2, %xmm2
     vmovaps	%xmm2, %xmm0
     vmovss	%xmm0, -48(%rbp)
-    vmovss $Yf + 4(%rip), %xmm2
-    vmovss	$LC0(%rip), %xmm0
-    vmovss	$LC1(%rip), %xmm1
+    vmovss	Yf + 4(%rip), %xmm2
+    vmovss	LC0(%rip), %xmm0
+    vmovss	LC1(%rip), %xmm1
     vandps	%xmm1, %xmm2, %xmm2
     vorps	%xmm0, %xmm2, %xmm2
     vmovaps	%xmm2, %xmm0
     vmovss	%xmm0, -44(%rbp)
-    vmovss $Yf + 8(%rip), %xmm2
-    vmovss	$LC0(%rip), %xmm0
-    vmovss	$LC1(%rip), %xmm1
+    vmovss	Yf + 8(%rip), %xmm2
+    vmovss	LC0(%rip), %xmm0
+    vmovss	LC1(%rip), %xmm1
     vandps	%xmm1, %xmm2, %xmm2
     vorps	%xmm0, %xmm2, %xmm2
     vmovaps	%xmm2, %xmm0
     vmovss	%xmm0, -40(%rbp)
-    vmovss $Yf + 12(%rip), %xmm1
-    vmovss	$LC1(%rip), %xmm0
+    vmovss	Yf + 12(%rip), %xmm1
+    vmovss	LC1(%rip), %xmm0
     vandps	%xmm0, %xmm1, %xmm1
     vmovaps	%xmm1, %xmm0
     vmovss	%xmm0, -36(%rbp)
-    vmovss $Yf + 16(%rip), %xmm1
-    vmovss	$LC1(%rip), %xmm0
+    vmovss	Yf + 16(%rip), %xmm1
+    vmovss	LC1(%rip), %xmm0
     vandps	%xmm0, %xmm1, %xmm1
     vmovaps	%xmm1, %xmm0
     vmovss	%xmm0, -32(%rbp)
-    vmovss $Yf + 20(%rip), %xmm1
-    vmovss	$LC1(%rip), %xmm0
+    vmovss	Yf + 20(%rip), %xmm1
+    vmovss	LC1(%rip), %xmm0
     vandps	%xmm0, %xmm1, %xmm1
     vmovaps	%xmm1, %xmm0
     vmovss	%xmm0, -28(%rbp)
-    vmovss $Yf + 24(%rip), %xmm2
-    vmovss	$LC2(%rip), %xmm0
-    vmovss	$LC1(%rip), %xmm1
+    vmovss	Yf + 24(%rip), %xmm2
+    vmovss	LC2(%rip), %xmm0
+    vmovss	LC1(%rip), %xmm1
     vandps	%xmm1, %xmm2, %xmm2
     vorps	%xmm0, %xmm2, %xmm2
     vmovaps	%xmm2, %xmm0
     vmovss	%xmm0, -24(%rbp)
-    vmovss $Yf + 28(%rip), %xmm2
-    vmovss	$LC3(%rip), %xmm0
-    vmovss	$LC1(%rip), %xmm1
+    vmovss	Yf + 28(%rip), %xmm2
+    vmovss	LC3(%rip), %xmm0
+    vmovss	LC1(%rip), %xmm1
     vandps	%xmm1, %xmm2, %xmm2
     vorps	%xmm0, %xmm2, %xmm2
     vmovaps	%xmm2, %xmm0
@@ -368,7 +368,7 @@ L48:
     movl	-52(%rbp), %eax
     cltq
     salq	$2, %rax
-    leaq $Zf(%rax), %rcx
+    leaq	Zf(%rax), %rcx
     movl	-52(%rbp), %eax
     cltq
     leaq	0(,%rax,4), %rdx
@@ -439,52 +439,52 @@ xtest:
     movq	$40, %rax
     movq	%rax, -8(%rbp)
     xorl	%eax, %eax
-    vmovsd $Y(%rip), %xmm2
-    vmovsd	$LC4(%rip), %xmm0
-    vmovsd	$LC5(%rip), %xmm1
+    vmovsd	Y(%rip), %xmm2
+    vmovsd	LC4(%rip), %xmm0
+    vmovsd	LC5(%rip), %xmm1
     vandpd	%xmm1, %xmm2, %xmm2
     vorpd	%xmm0, %xmm2, %xmm2
     vmovapd	%xmm2, %xmm0
     vmovsd	%xmm0, -80(%rbp)
-    vmovsd $Y + 8(%rip), %xmm2
-    vmovsd	$LC4(%rip), %xmm0
-    vmovsd	$LC5(%rip), %xmm1
+    vmovsd	Y + 8(%rip), %xmm2
+    vmovsd	LC4(%rip), %xmm0
+    vmovsd	LC5(%rip), %xmm1
     vandpd	%xmm1, %xmm2, %xmm2
     vorpd	%xmm0, %xmm2, %xmm2
     vmovapd	%xmm2, %xmm0
     vmovsd	%xmm0, -72(%rbp)
-    vmovsd $Y + 16(%rip), %xmm2
-    vmovsd	$LC4(%rip), %xmm0
-    vmovsd	$LC5(%rip), %xmm1
+    vmovsd	Y + 16(%rip), %xmm2
+    vmovsd	LC4(%rip), %xmm0
+    vmovsd	LC5(%rip), %xmm1
     vandpd	%xmm1, %xmm2, %xmm2
     vorpd	%xmm0, %xmm2, %xmm2
     vmovapd	%xmm2, %xmm0
     vmovsd	%xmm0, -64(%rbp)
-    vmovsd $Y + 24(%rip), %xmm1
-    vmovsd	$LC5(%rip), %xmm0
+    vmovsd	Y + 24(%rip), %xmm1
+    vmovsd	LC5(%rip), %xmm0
     vandpd	%xmm0, %xmm1, %xmm1
     vmovapd	%xmm1, %xmm0
     vmovsd	%xmm0, -56(%rbp)
-    vmovsd $Y + 32(%rip), %xmm1
-    vmovsd	$LC5(%rip), %xmm0
+    vmovsd	Y + 32(%rip), %xmm1
+    vmovsd	LC5(%rip), %xmm0
     vandpd	%xmm0, %xmm1, %xmm1
     vmovapd	%xmm1, %xmm0
     vmovsd	%xmm0, -48(%rbp)
-    vmovsd $Y + 40(%rip), %xmm1
-    vmovsd	$LC5(%rip), %xmm0
+    vmovsd	Y + 40(%rip), %xmm1
+    vmovsd	LC5(%rip), %xmm0
     vandpd	%xmm0, %xmm1, %xmm1
     vmovapd	%xmm1, %xmm0
     vmovsd	%xmm0, -40(%rbp)
-    vmovsd $Y + 48(%rip), %xmm2
-    vmovsd	$LC6(%rip), %xmm0
-    vmovsd	$LC5(%rip), %xmm1
+    vmovsd	Y + 48(%rip), %xmm2
+    vmovsd	LC6(%rip), %xmm0
+    vmovsd	LC5(%rip), %xmm1
     vandpd	%xmm1, %xmm2, %xmm2
     vorpd	%xmm0, %xmm2, %xmm2
     vmovapd	%xmm2, %xmm0
     vmovsd	%xmm0, -32(%rbp)
-    vmovsd $Y + 56(%rip), %xmm2
-    vmovsd	$LC7(%rip), %xmm0
-    vmovsd	$LC5(%rip), %xmm1
+    vmovsd	Y + 56(%rip), %xmm2
+    vmovsd	LC7(%rip), %xmm0
+    vmovsd	LC5(%rip), %xmm1
     vandpd	%xmm1, %xmm2, %xmm2
     vorpd	%xmm0, %xmm2, %xmm2
     vmovapd	%xmm2, %xmm0
@@ -495,7 +495,7 @@ L53:
     movl	-84(%rbp), %eax
     cltq
     salq	$3, %rax
-    leaq $Z(%rax), %rcx
+    leaq	Z(%rax), %rcx
     movl	-84(%rbp), %eax
     cltq
     leaq	0(,%rax,8), %rdx
@@ -566,52 +566,52 @@ xtestl:
     movq	$40, %rax
     movq	%rax, -8(%rbp)
     xorl	%eax, %eax
-    vmovsd $Yl(%rip), %xmm2
-    vmovsd	$LC4(%rip), %xmm0
-    vmovsd	$LC5(%rip), %xmm1
+    vmovsd	Yl(%rip), %xmm2
+    vmovsd	LC4(%rip), %xmm0
+    vmovsd	LC5(%rip), %xmm1
     vandpd	%xmm1, %xmm2, %xmm2
     vorpd	%xmm0, %xmm2, %xmm2
     vmovapd	%xmm2, %xmm0
     vmovsd	%xmm0, -80(%rbp)
-    vmovsd $Yl + 8(%rip), %xmm2
-    vmovsd	$LC4(%rip), %xmm0
-    vmovsd	$LC5(%rip), %xmm1
+    vmovsd	Yl + 8(%rip), %xmm2
+    vmovsd	LC4(%rip), %xmm0
+    vmovsd	LC5(%rip), %xmm1
     vandpd	%xmm1, %xmm2, %xmm2
     vorpd	%xmm0, %xmm2, %xmm2
     vmovapd	%xmm2, %xmm0
     vmovsd	%xmm0, -72(%rbp)
-    vmovsd $Yl + 16(%rip), %xmm2
-    vmovsd	$LC4(%rip), %xmm0
-    vmovsd	$LC5(%rip), %xmm1
+    vmovsd	Yl + 16(%rip), %xmm2
+    vmovsd	LC4(%rip), %xmm0
+    vmovsd	LC5(%rip), %xmm1
     vandpd	%xmm1, %xmm2, %xmm2
     vorpd	%xmm0, %xmm2, %xmm2
     vmovapd	%xmm2, %xmm0
     vmovsd	%xmm0, -64(%rbp)
-    vmovsd $Yl + 24(%rip), %xmm1
-    vmovsd	$LC5(%rip), %xmm0
+    vmovsd	Yl + 24(%rip), %xmm1
+    vmovsd	LC5(%rip), %xmm0
     vandpd	%xmm0, %xmm1, %xmm1
     vmovapd	%xmm1, %xmm0
     vmovsd	%xmm0, -56(%rbp)
-    vmovsd $Yl + 32(%rip), %xmm1
-    vmovsd	$LC5(%rip), %xmm0
+    vmovsd	Yl + 32(%rip), %xmm1
+    vmovsd	LC5(%rip), %xmm0
     vandpd	%xmm0, %xmm1, %xmm1
     vmovapd	%xmm1, %xmm0
     vmovsd	%xmm0, -48(%rbp)
-    vmovsd $Yl + 40(%rip), %xmm1
-    vmovsd	$LC5(%rip), %xmm0
+    vmovsd	Yl + 40(%rip), %xmm1
+    vmovsd	LC5(%rip), %xmm0
     vandpd	%xmm0, %xmm1, %xmm1
     vmovapd	%xmm1, %xmm0
     vmovsd	%xmm0, -40(%rbp)
-    vmovsd $Yl + 48(%rip), %xmm2
-    vmovsd	$LC6(%rip), %xmm0
-    vmovsd	$LC5(%rip), %xmm1
+    vmovsd	Yl + 48(%rip), %xmm2
+    vmovsd	LC6(%rip), %xmm0
+    vmovsd	LC5(%rip), %xmm1
     vandpd	%xmm1, %xmm2, %xmm2
     vorpd	%xmm0, %xmm2, %xmm2
     vmovapd	%xmm2, %xmm0
     vmovsd	%xmm0, -32(%rbp)
-    vmovsd $Yl + 56(%rip), %xmm2
-    vmovsd	$LC7(%rip), %xmm0
-    vmovsd	$LC5(%rip), %xmm1
+    vmovsd	Yl + 56(%rip), %xmm2
+    vmovsd	LC7(%rip), %xmm0
+    vmovsd	LC5(%rip), %xmm1
     vandpd	%xmm1, %xmm2, %xmm2
     vorpd	%xmm0, %xmm2, %xmm2
     vmovapd	%xmm2, %xmm0
@@ -622,7 +622,7 @@ L58:
     movl	-84(%rbp), %eax
     cltq
     salq	$3, %rax
-    leaq $Zl(%rax), %rcx
+    leaq	Zl(%rax), %rcx
     movl	-84(%rbp), %eax
     cltq
     leaq	0(,%rax,8), %rdx

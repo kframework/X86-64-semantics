@@ -297,30 +297,30 @@ dfrom:
 _start:
     pushq	%rbp
     movq	%rsp, %rbp
-    vmovsd $dfrom(%rip), %xmm0
-    vmovsd	$LC0(%rip), %xmm1
+    vmovsd	dfrom(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm1
     vdivsd	%xmm1, %xmm0, %xmm0
-    vmovsd	%xmm0, $m1(%rip)
-    vmovsd $m1(%rip), %xmm1
-    vmovsd	$LC1(%rip), %xmm0
+    vmovsd	%xmm0, m1(%rip)
+    vmovsd	m1(%rip), %xmm1
+    vmovsd	LC1(%rip), %xmm0
     vmulsd	%xmm0, %xmm1, %xmm0
-    vmovsd	%xmm0, $m2(%rip)
-    vmovsd $m2(%rip), %xmm0
-    vmovsd	$LC2(%rip), %xmm1
+    vmovsd	%xmm0, m2(%rip)
+    vmovsd	m2(%rip), %xmm0
+    vmovsd	LC2(%rip), %xmm1
     vucomisd	%xmm1, %xmm0
     jnb	L46
     vcvttsd2siq	%xmm0, %rax
     jmp	L47
 L46:
-    vmovsd	$LC2(%rip), %xmm1
+    vmovsd	LC2(%rip), %xmm1
     vsubsd	%xmm1, %xmm0, %xmm0
     vcvttsd2siq	%xmm0, %rax
     movabsq	$-9223372036854775808, %rdx
     xorq	%rdx, %rax
 L47:
     movl	%eax, %eax
-    movq	%rax, $mant_long(%rip)
-    movq $mant_long(%rip), %rdx
+    movq	%rax, mant_long(%rip)
+    movq	mant_long(%rip), %rdx
     movl	$2362232012, %eax
     cmpq	%rax, %rdx
     jne	L48

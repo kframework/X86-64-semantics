@@ -289,20 +289,20 @@ rintf:
     movq	%rsp, %rbp
     vmovss	%xmm0, -4(%rbp)
     vmovss	-4(%rbp), %xmm1
-    vmovss	$LC0(%rip), %xmm0
+    vmovss	LC0(%rip), %xmm0
     vandps	%xmm1, %xmm0, %xmm0
-    vmovss $TWO232418(%rip), %xmm1
+    vmovss	TWO232418(%rip), %xmm1
     vucomiss	%xmm0, %xmm1
     jbe	L46
     vmovss	-4(%rbp), %xmm0
     vxorps	%xmm1, %xmm1, %xmm1
     vucomiss	%xmm1, %xmm0
     jbe	L55
-    vmovss $TWO232418(%rip), %xmm0
+    vmovss	TWO232418(%rip), %xmm0
     vmovss	-4(%rbp), %xmm1
     vaddss	%xmm0, %xmm1, %xmm0
     vmovss	%xmm0, -4(%rbp)
-    vmovss $TWO232418(%rip), %xmm1
+    vmovss	TWO232418(%rip), %xmm1
     vmovss	-4(%rbp), %xmm0
     vsubss	%xmm1, %xmm0, %xmm0
     vmovss	%xmm0, -4(%rbp)
@@ -311,13 +311,13 @@ L55:
     vxorps	%xmm0, %xmm0, %xmm0
     vucomiss	-4(%rbp), %xmm0
     jbe	L46
-    vmovss $TWO232418(%rip), %xmm0
+    vmovss	TWO232418(%rip), %xmm0
     vsubss	-4(%rbp), %xmm0, %xmm0
     vmovss	%xmm0, -4(%rbp)
-    vmovss $TWO232418(%rip), %xmm1
+    vmovss	TWO232418(%rip), %xmm1
     vmovss	-4(%rbp), %xmm0
     vsubss	%xmm1, %xmm0, %xmm0
-    vmovss	$LC2(%rip), %xmm1
+    vmovss	LC2(%rip), %xmm1
     vxorps	%xmm1, %xmm0, %xmm0
     vmovss	%xmm0, -4(%rbp)
 L46:
@@ -329,12 +329,12 @@ L46:
 _start:
     pushq	%rbp
     movq	%rsp, %rbp
-    vmovss	$LC3(%rip), %xmm0
+    vmovss	LC3(%rip), %xmm0
     call	rintf
-    vmovss	$LC4(%rip), %xmm1
+    vmovss	LC4(%rip), %xmm1
     vucomiss	%xmm1, %xmm0
     jp	L59
-    vmovss	$LC4(%rip), %xmm1
+    vmovss	LC4(%rip), %xmm1
     vucomiss	%xmm1, %xmm0
     je	L60
 L59:

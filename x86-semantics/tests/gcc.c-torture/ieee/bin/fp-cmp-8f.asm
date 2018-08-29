@@ -514,16 +514,16 @@ one_test:
     vmovss	-8(%rbp), %xmm0
     movl	-4(%rbp), %edx
     movq	-24(%rbp), %rax
-    vmovss	$LC0(%rip), %xmm3
-    vmovss	$LC1(%rip), %xmm2
+    vmovss	LC0(%rip), %xmm3
+    vmovss	LC1(%rip), %xmm2
     vmovaps	%xmm0, %xmm1
     vmovd	%edx, %xmm0
     call	%rax
-    vmovss	$LC1(%rip), %xmm1
+    vmovss	LC1(%rip), %xmm1
     vucomiss	%xmm1, %xmm0
     setnp	%al
     movl	$0, %edx
-    vmovss	$LC1(%rip), %xmm1
+    vmovss	LC1(%rip), %xmm1
     vucomiss	%xmm1, %xmm0
     cmovne	%edx, %eax
     movzbl	%al, %eax
@@ -534,16 +534,16 @@ L109:
     vmovss	-8(%rbp), %xmm0
     movl	-4(%rbp), %edx
     movq	-32(%rbp), %rax
-    vmovss	$LC2(%rip), %xmm3
-    vmovss	$LC3(%rip), %xmm2
+    vmovss	LC2(%rip), %xmm3
+    vmovss	LC3(%rip), %xmm2
     vmovaps	%xmm0, %xmm1
     vmovd	%edx, %xmm0
     call	%rax
-    vmovss	$LC2(%rip), %xmm1
+    vmovss	LC2(%rip), %xmm1
     vucomiss	%xmm1, %xmm0
     setnp	%al
     movl	$0, %edx
-    vmovss	$LC2(%rip), %xmm1
+    vmovss	LC2(%rip), %xmm1
     vucomiss	%xmm1, %xmm0
     cmovne	%edx, %eax
     movzbl	%al, %eax
@@ -583,7 +583,7 @@ L115:
     movslq	%ecx, %rcx
     salq	$3, %rcx
     addq	%rcx, %rax
-    movl $data2503 + 8(,%rax,4), %ecx
+    movl	data2503 + 8(,%rax,4), %ecx
     movl	-12(%rbp), %eax
     cltq
     salq	$5, %rax

@@ -302,25 +302,25 @@ xleave:
 _start:
     pushq	%rbp
     movq	%rsp, %rbp
-    vmovss $fnan(%rip), %xmm0
-    vmovss $fnan(%rip), %xmm1
+    vmovss	fnan(%rip), %xmm0
+    vmovss	fnan(%rip), %xmm1
     vucomiss	%xmm1, %xmm0
     jp	L47
     vucomiss	%xmm1, %xmm0
     jne	L47
     call	abort
 L47:
-    vmovss $fnan(%rip), %xmm0
-    vmovss $x(%rip), %xmm1
+    vmovss	fnan(%rip), %xmm0
+    vmovss	x(%rip), %xmm1
     vucomiss	%xmm1, %xmm0
     jp	L63
     vucomiss	%xmm1, %xmm0
     je	L69
 L63:
-    vmovss	$LC0(%rip), %xmm0
-    vmovss	%xmm0, $x(%rip)
-    vmovss $fnan(%rip), %xmm1
-    vmovss $x(%rip), %xmm0
+    vmovss	LC0(%rip), %xmm0
+    vmovss	%xmm0, x(%rip)
+    vmovss	fnan(%rip), %xmm1
+    vmovss	x(%rip), %xmm0
     vucomiss	%xmm1, %xmm0
     ja	L64
     jmp	L70
@@ -329,26 +329,26 @@ L69:
 L64:
     call	abort
 L70:
-    vmovss $fnan(%rip), %xmm0
-    vmovss $x(%rip), %xmm1
+    vmovss	fnan(%rip), %xmm0
+    vmovss	x(%rip), %xmm1
     vucomiss	%xmm1, %xmm0
     jbe	L71
     call	abort
 L71:
-    vmovss $fnan(%rip), %xmm1
-    vmovss $x(%rip), %xmm0
+    vmovss	fnan(%rip), %xmm1
+    vmovss	x(%rip), %xmm0
     vucomiss	%xmm1, %xmm0
     jb	L72
     call	abort
 L72:
-    vmovss $fnan(%rip), %xmm0
-    vmovss $x(%rip), %xmm1
+    vmovss	fnan(%rip), %xmm0
+    vmovss	x(%rip), %xmm1
     vucomiss	%xmm1, %xmm0
     jb	L73
     call	abort
 L73:
-    vmovss $fnan(%rip), %xmm0
-    vmovss $x(%rip), %xmm1
+    vmovss	fnan(%rip), %xmm0
+    vmovss	x(%rip), %xmm1
     vucomiss	%xmm1, %xmm0
     jp	L60
     vucomiss	%xmm1, %xmm0

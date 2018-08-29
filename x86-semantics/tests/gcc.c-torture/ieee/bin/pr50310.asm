@@ -295,23 +295,23 @@ foo:
 L49:
     movl	-4(%rbp), %eax
     cltq
-    vmovsd $s1(,%rax,8), %xmm0
+    vmovsd	s1(,%rax,8), %xmm0
     movl	-4(%rbp), %eax
     cltq
-    vmovsd $s2(,%rax,8), %xmm1
+    vmovsd	s2(,%rax,8), %xmm1
     vucomisd	%xmm1, %xmm0
     setbe	%al
     xorl	$1, %eax
     testb	%al, %al
     je	L47
-    vmovsd	$LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm0
     jmp	L48
 L47:
     vxorpd	%xmm0, %xmm0, %xmm0
 L48:
     movl	-4(%rbp), %eax
     cltq
-    vmovsd	%xmm0, $s3(,%rax,8)
+    vmovsd	%xmm0, s3(,%rax,8)
     addl	$1, -4(%rbp)
 L46:
     cmpl	$3, -4(%rbp)
@@ -323,19 +323,19 @@ L54:
     leal	4(%rax), %edx
     movl	-4(%rbp), %eax
     cltq
-    vmovsd $s1(,%rax,8), %xmm0
+    vmovsd	s1(,%rax,8), %xmm0
     movl	-4(%rbp), %eax
     cltq
-    vmovsd $s2(,%rax,8), %xmm1
+    vmovsd	s2(,%rax,8), %xmm1
     vucomisd	%xmm1, %xmm0
     ja	L128
-    vmovsd	$LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm0
     jmp	L53
 L128:
     vxorpd	%xmm0, %xmm0, %xmm0
 L53:
     movslq	%edx, %rax
-    vmovsd	%xmm0, $s3(,%rax,8)
+    vmovsd	%xmm0, s3(,%rax,8)
     addl	$1, -4(%rbp)
 L50:
     cmpl	$3, -4(%rbp)
@@ -347,22 +347,22 @@ L58:
     leal	8(%rax), %edx
     movl	-4(%rbp), %eax
     cltq
-    vmovsd $s1(,%rax,8), %xmm0
+    vmovsd	s1(,%rax,8), %xmm0
     movl	-4(%rbp), %eax
     cltq
-    vmovsd $s2(,%rax,8), %xmm1
+    vmovsd	s2(,%rax,8), %xmm1
     vucomisd	%xmm1, %xmm0
     setb	%al
     xorl	$1, %eax
     testb	%al, %al
     je	L56
-    vmovsd	$LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm0
     jmp	L57
 L56:
     vxorpd	%xmm0, %xmm0, %xmm0
 L57:
     movslq	%edx, %rax
-    vmovsd	%xmm0, $s3(,%rax,8)
+    vmovsd	%xmm0, s3(,%rax,8)
     addl	$1, -4(%rbp)
 L55:
     cmpl	$3, -4(%rbp)
@@ -374,19 +374,19 @@ L63:
     leal	12(%rax), %edx
     movl	-4(%rbp), %eax
     cltq
-    vmovsd $s1(,%rax,8), %xmm0
+    vmovsd	s1(,%rax,8), %xmm0
     movl	-4(%rbp), %eax
     cltq
-    vmovsd $s2(,%rax,8), %xmm1
+    vmovsd	s2(,%rax,8), %xmm1
     vucomisd	%xmm1, %xmm0
     jnb	L129
-    vmovsd	$LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm0
     jmp	L62
 L129:
     vxorpd	%xmm0, %xmm0, %xmm0
 L62:
     movslq	%edx, %rax
-    vmovsd	%xmm0, $s3(,%rax,8)
+    vmovsd	%xmm0, s3(,%rax,8)
     addl	$1, -4(%rbp)
 L59:
     cmpl	$3, -4(%rbp)
@@ -398,22 +398,22 @@ L67:
     leal	16(%rax), %edx
     movl	-4(%rbp), %eax
     cltq
-    vmovsd $s1(,%rax,8), %xmm1
+    vmovsd	s1(,%rax,8), %xmm1
     movl	-4(%rbp), %eax
     cltq
-    vmovsd $s2(,%rax,8), %xmm0
+    vmovsd	s2(,%rax,8), %xmm0
     vucomisd	%xmm1, %xmm0
     setbe	%al
     xorl	$1, %eax
     testb	%al, %al
     je	L65
-    vmovsd	$LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm0
     jmp	L66
 L65:
     vxorpd	%xmm0, %xmm0, %xmm0
 L66:
     movslq	%edx, %rax
-    vmovsd	%xmm0, $s3(,%rax,8)
+    vmovsd	%xmm0, s3(,%rax,8)
     addl	$1, -4(%rbp)
 L64:
     cmpl	$3, -4(%rbp)
@@ -425,19 +425,19 @@ L72:
     leal	20(%rax), %edx
     movl	-4(%rbp), %eax
     cltq
-    vmovsd $s1(,%rax,8), %xmm1
+    vmovsd	s1(,%rax,8), %xmm1
     movl	-4(%rbp), %eax
     cltq
-    vmovsd $s2(,%rax,8), %xmm0
+    vmovsd	s2(,%rax,8), %xmm0
     vucomisd	%xmm1, %xmm0
     ja	L130
-    vmovsd	$LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm0
     jmp	L71
 L130:
     vxorpd	%xmm0, %xmm0, %xmm0
 L71:
     movslq	%edx, %rax
-    vmovsd	%xmm0, $s3(,%rax,8)
+    vmovsd	%xmm0, s3(,%rax,8)
     addl	$1, -4(%rbp)
 L68:
     cmpl	$3, -4(%rbp)
@@ -449,22 +449,22 @@ L76:
     leal	24(%rax), %edx
     movl	-4(%rbp), %eax
     cltq
-    vmovsd $s1(,%rax,8), %xmm1
+    vmovsd	s1(,%rax,8), %xmm1
     movl	-4(%rbp), %eax
     cltq
-    vmovsd $s2(,%rax,8), %xmm0
+    vmovsd	s2(,%rax,8), %xmm0
     vucomisd	%xmm1, %xmm0
     setb	%al
     xorl	$1, %eax
     testb	%al, %al
     je	L74
-    vmovsd	$LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm0
     jmp	L75
 L74:
     vxorpd	%xmm0, %xmm0, %xmm0
 L75:
     movslq	%edx, %rax
-    vmovsd	%xmm0, $s3(,%rax,8)
+    vmovsd	%xmm0, s3(,%rax,8)
     addl	$1, -4(%rbp)
 L73:
     cmpl	$3, -4(%rbp)
@@ -476,19 +476,19 @@ L81:
     leal	28(%rax), %edx
     movl	-4(%rbp), %eax
     cltq
-    vmovsd $s1(,%rax,8), %xmm1
+    vmovsd	s1(,%rax,8), %xmm1
     movl	-4(%rbp), %eax
     cltq
-    vmovsd $s2(,%rax,8), %xmm0
+    vmovsd	s2(,%rax,8), %xmm0
     vucomisd	%xmm1, %xmm0
     jnb	L131
-    vmovsd	$LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm0
     jmp	L80
 L131:
     vxorpd	%xmm0, %xmm0, %xmm0
 L80:
     movslq	%edx, %rax
-    vmovsd	%xmm0, $s3(,%rax,8)
+    vmovsd	%xmm0, s3(,%rax,8)
     addl	$1, -4(%rbp)
 L77:
     cmpl	$3, -4(%rbp)
@@ -500,22 +500,22 @@ L85:
     leal	32(%rax), %edx
     movl	-4(%rbp), %eax
     cltq
-    vmovsd $s1(,%rax,8), %xmm0
+    vmovsd	s1(,%rax,8), %xmm0
     movl	-4(%rbp), %eax
     cltq
-    vmovsd $s2(,%rax,8), %xmm1
+    vmovsd	s2(,%rax,8), %xmm1
     vucomisd	%xmm1, %xmm0
     sete	%al
     xorl	$1, %eax
     testb	%al, %al
     je	L83
-    vmovsd	$LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm0
     jmp	L84
 L83:
     vxorpd	%xmm0, %xmm0, %xmm0
 L84:
     movslq	%edx, %rax
-    vmovsd	%xmm0, $s3(,%rax,8)
+    vmovsd	%xmm0, s3(,%rax,8)
     addl	$1, -4(%rbp)
 L82:
     cmpl	$3, -4(%rbp)
@@ -527,19 +527,19 @@ L90:
     leal	36(%rax), %edx
     movl	-4(%rbp), %eax
     cltq
-    vmovsd $s1(,%rax,8), %xmm0
+    vmovsd	s1(,%rax,8), %xmm0
     movl	-4(%rbp), %eax
     cltq
-    vmovsd $s2(,%rax,8), %xmm1
+    vmovsd	s2(,%rax,8), %xmm1
     vucomisd	%xmm1, %xmm0
     jne	L132
-    vmovsd	$LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm0
     jmp	L89
 L132:
     vxorpd	%xmm0, %xmm0, %xmm0
 L89:
     movslq	%edx, %rax
-    vmovsd	%xmm0, $s3(,%rax,8)
+    vmovsd	%xmm0, s3(,%rax,8)
     addl	$1, -4(%rbp)
 L86:
     cmpl	$3, -4(%rbp)
@@ -551,19 +551,19 @@ L94:
     leal	40(%rax), %edx
     movl	-4(%rbp), %eax
     cltq
-    vmovsd $s1(,%rax,8), %xmm0
+    vmovsd	s1(,%rax,8), %xmm0
     movl	-4(%rbp), %eax
     cltq
-    vmovsd $s2(,%rax,8), %xmm1
+    vmovsd	s2(,%rax,8), %xmm1
     vucomisd	%xmm1, %xmm0
     jnp	L92
-    vmovsd	$LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm0
     jmp	L93
 L92:
     vxorpd	%xmm0, %xmm0, %xmm0
 L93:
     movslq	%edx, %rax
-    vmovsd	%xmm0, $s3(,%rax,8)
+    vmovsd	%xmm0, s3(,%rax,8)
     addl	$1, -4(%rbp)
 L91:
     cmpl	$3, -4(%rbp)
@@ -575,19 +575,19 @@ L98:
     leal	44(%rax), %edx
     movl	-4(%rbp), %eax
     cltq
-    vmovsd $s1(,%rax,8), %xmm0
+    vmovsd	s1(,%rax,8), %xmm0
     movl	-4(%rbp), %eax
     cltq
-    vmovsd $s2(,%rax,8), %xmm1
+    vmovsd	s2(,%rax,8), %xmm1
     vucomisd	%xmm1, %xmm0
     jp	L96
-    vmovsd	$LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm0
     jmp	L97
 L96:
     vxorpd	%xmm0, %xmm0, %xmm0
 L97:
     movslq	%edx, %rax
-    vmovsd	%xmm0, $s3(,%rax,8)
+    vmovsd	%xmm0, s3(,%rax,8)
     addl	$1, -4(%rbp)
 L95:
     cmpl	$3, -4(%rbp)
@@ -599,19 +599,19 @@ L103:
     leal	48(%rax), %edx
     movl	-4(%rbp), %eax
     cltq
-    vmovsd $s1(,%rax,8), %xmm0
+    vmovsd	s1(,%rax,8), %xmm0
     movl	-4(%rbp), %eax
     cltq
-    vmovsd $s2(,%rax,8), %xmm1
+    vmovsd	s2(,%rax,8), %xmm1
     vucomisd	%xmm1, %xmm0
     jbe	L133
-    vmovsd	$LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm0
     jmp	L102
 L133:
     vxorpd	%xmm0, %xmm0, %xmm0
 L102:
     movslq	%edx, %rax
-    vmovsd	%xmm0, $s3(,%rax,8)
+    vmovsd	%xmm0, s3(,%rax,8)
     addl	$1, -4(%rbp)
 L99:
     cmpl	$3, -4(%rbp)
@@ -623,19 +623,19 @@ L108:
     leal	52(%rax), %edx
     movl	-4(%rbp), %eax
     cltq
-    vmovsd $s1(,%rax,8), %xmm1
+    vmovsd	s1(,%rax,8), %xmm1
     movl	-4(%rbp), %eax
     cltq
-    vmovsd $s2(,%rax,8), %xmm0
+    vmovsd	s2(,%rax,8), %xmm0
     vucomisd	%xmm1, %xmm0
     jb	L134
-    vmovsd	$LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm0
     jmp	L107
 L134:
     vxorpd	%xmm0, %xmm0, %xmm0
 L107:
     movslq	%edx, %rax
-    vmovsd	%xmm0, $s3(,%rax,8)
+    vmovsd	%xmm0, s3(,%rax,8)
     addl	$1, -4(%rbp)
 L104:
     cmpl	$3, -4(%rbp)
@@ -647,19 +647,19 @@ L113:
     leal	56(%rax), %edx
     movl	-4(%rbp), %eax
     cltq
-    vmovsd $s1(,%rax,8), %xmm1
+    vmovsd	s1(,%rax,8), %xmm1
     movl	-4(%rbp), %eax
     cltq
-    vmovsd $s2(,%rax,8), %xmm0
+    vmovsd	s2(,%rax,8), %xmm0
     vucomisd	%xmm1, %xmm0
     jbe	L135
-    vmovsd	$LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm0
     jmp	L112
 L135:
     vxorpd	%xmm0, %xmm0, %xmm0
 L112:
     movslq	%edx, %rax
-    vmovsd	%xmm0, $s3(,%rax,8)
+    vmovsd	%xmm0, s3(,%rax,8)
     addl	$1, -4(%rbp)
 L109:
     cmpl	$3, -4(%rbp)
@@ -671,19 +671,19 @@ L118:
     leal	60(%rax), %edx
     movl	-4(%rbp), %eax
     cltq
-    vmovsd $s1(,%rax,8), %xmm0
+    vmovsd	s1(,%rax,8), %xmm0
     movl	-4(%rbp), %eax
     cltq
-    vmovsd $s2(,%rax,8), %xmm1
+    vmovsd	s2(,%rax,8), %xmm1
     vucomisd	%xmm1, %xmm0
     jb	L136
-    vmovsd	$LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm0
     jmp	L117
 L136:
     vxorpd	%xmm0, %xmm0, %xmm0
 L117:
     movslq	%edx, %rax
-    vmovsd	%xmm0, $s3(,%rax,8)
+    vmovsd	%xmm0, s3(,%rax,8)
     addl	$1, -4(%rbp)
 L114:
     cmpl	$3, -4(%rbp)
@@ -697,22 +697,22 @@ _start:
     pushq	%rbp
     movq	%rsp, %rbp
     subq	$16, %rsp
-    vmovsd	$LC2(%rip), %xmm0
-    vmovsd	%xmm0, $s1(%rip)
-    vmovsd	$LC3(%rip), %xmm0
-    vmovsd	%xmm0, $s1 + 8(%rip)
-    vmovsd	$LC2(%rip), %xmm0
-    vmovsd	%xmm0, $s1 + 16(%rip)
-    vmovsd	$LC4(%rip), %xmm0
-    vmovsd	%xmm0, $s1 + 24(%rip)
-    vmovsd	$LC3(%rip), %xmm0
-    vmovsd	%xmm0, $s2(%rip)
-    vmovsd	$LC2(%rip), %xmm0
-    vmovsd	%xmm0, $s2 + 8(%rip)
-    vmovsd	$LC2(%rip), %xmm0
-    vmovsd	%xmm0, $s2 + 16(%rip)
-    vmovsd	$LC2(%rip), %xmm0
-    vmovsd	%xmm0, $s2 + 24(%rip)
+    vmovsd	LC2(%rip), %xmm0
+    vmovsd	%xmm0, s1(%rip)
+    vmovsd	LC3(%rip), %xmm0
+    vmovsd	%xmm0, s1 + 8(%rip)
+    vmovsd	LC2(%rip), %xmm0
+    vmovsd	%xmm0, s1 + 16(%rip)
+    vmovsd	LC4(%rip), %xmm0
+    vmovsd	%xmm0, s1 + 24(%rip)
+    vmovsd	LC3(%rip), %xmm0
+    vmovsd	%xmm0, s2(%rip)
+    vmovsd	LC2(%rip), %xmm0
+    vmovsd	%xmm0, s2 + 8(%rip)
+    vmovsd	LC2(%rip), %xmm0
+    vmovsd	%xmm0, s2 + 16(%rip)
+    vmovsd	LC2(%rip), %xmm0
+    vmovsd	%xmm0, s2 + 24(%rip)
     call	foo
     movl	$0, -4(%rbp)
     jmp	L138
@@ -725,7 +725,7 @@ L148:
     jne	L139
     movl	-4(%rbp), %eax
     cltq
-    vmovsd $s3(,%rax,8), %xmm0
+    vmovsd	s3(,%rax,8), %xmm0
     vxorpd	%xmm1, %xmm1, %xmm1
     vucomisd	%xmm1, %xmm0
     jp	L150
@@ -737,7 +737,7 @@ L150:
 L139:
     movl	-4(%rbp), %eax
     cltq
-    vmovsd $s3(,%rax,8), %xmm1
+    vmovsd	s3(,%rax,8), %xmm1
     movl	-4(%rbp), %eax
     andl	$4, %eax
     testl	%eax, %eax
@@ -748,7 +748,7 @@ L139:
     cmovs	%edx, %eax
     sarl	$3, %eax
     cltq
-    movl $masks2470(,%rax,4), %eax
+    movl	masks2470(,%rax,4), %eax
     notl	%eax
     jmp	L144
 L143:
@@ -758,7 +758,7 @@ L143:
     cmovs	%edx, %eax
     sarl	$3, %eax
     cltq
-    movl $masks2470(,%rax,4), %eax
+    movl	masks2470(,%rax,4), %eax
 L144:
     movl	-4(%rbp), %edx
     andl	$3, %edx
@@ -766,7 +766,7 @@ L144:
     andl	$1, %eax
     testl	%eax, %eax
     je	L145
-    vmovsd	$LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm0
     jmp	L146
 L145:
     vxorpd	%xmm0, %xmm0, %xmm0

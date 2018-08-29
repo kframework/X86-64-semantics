@@ -293,11 +293,11 @@ foo:
     pushq	%rbp
     movq	%rsp, %rbp
     vmovsd	%xmm0, -8(%rbp)
-    vmovsd	$LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm0
     vmulsd	-8(%rbp), %xmm0, %xmm0
-    vmovsd	$LC0(%rip), %xmm1
+    vmovsd	LC0(%rip), %xmm1
     vmulsd	%xmm1, %xmm0, %xmm0
-    vmovsd	$LC0(%rip), %xmm1
+    vmovsd	LC0(%rip), %xmm1
     vmulsd	%xmm1, %xmm0, %xmm0
     vmovq	%xmm0, %rax
     vmovq	%rax, %xmm0

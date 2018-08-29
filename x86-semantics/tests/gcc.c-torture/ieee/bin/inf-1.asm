@@ -289,17 +289,17 @@ _start:
     pushq	%rbp
     movq	%rsp, %rbp
     subq	$48, %rsp
-    vmovss	$LC0(%rip), %xmm0
+    vmovss	LC0(%rip), %xmm0
     vmovss	%xmm0, -40(%rbp)
-    vmovsd	$LC1(%rip), %xmm0
+    vmovsd	LC1(%rip), %xmm0
     vmovsd	%xmm0, -32(%rbp)
-    vmovsd	$LC1(%rip), %xmm0
+    vmovsd	LC1(%rip), %xmm0
     vmovsd	%xmm0, -24(%rbp)
-    vmovss	$LC0(%rip), %xmm0
+    vmovss	LC0(%rip), %xmm0
     vmovss	%xmm0, -36(%rbp)
-    vmovsd	$LC1(%rip), %xmm0
+    vmovsd	LC1(%rip), %xmm0
     vmovsd	%xmm0, -16(%rbp)
-    vmovsd	$LC1(%rip), %xmm0
+    vmovsd	LC1(%rip), %xmm0
     vmovsd	%xmm0, -8(%rbp)
     vmovss	-40(%rbp), %xmm0
     vaddss	%xmm0, %xmm0, %xmm0

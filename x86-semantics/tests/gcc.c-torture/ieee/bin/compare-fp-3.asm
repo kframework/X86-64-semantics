@@ -500,11 +500,11 @@ _start:
     vxorps	%xmm1, %xmm1, %xmm1
     vxorps	%xmm0, %xmm0, %xmm0
     call	all_tests
-    vmovss	$LC1(%rip), %xmm1
-    vmovss	$LC2(%rip), %xmm0
+    vmovss	LC1(%rip), %xmm1
+    vmovss	LC2(%rip), %xmm0
     call	all_tests
-    vmovss	$LC3(%rip), %xmm1
-    vmovss	$LC4(%rip), %xmm0
+    vmovss	LC3(%rip), %xmm1
+    vmovss	LC4(%rip), %xmm0
     call	all_tests
     movl	$0, %eax
     popq	%rbp

@@ -294,37 +294,37 @@ _start:
     movq	$40, %rax
     movq	%rax, -8(%rbp)
     xorl	%eax, %eax
-    vmovsd	$LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm0
     vmovsd	%xmm0, -24(%rbp)
     leaq	-32(%rbp), %rax
-    movq	%rax, $p(%rip)
+    movq	%rax, p(%rip)
 L46:
     vmovsd	-24(%rbp), %xmm0
     vmovsd	%xmm0, -16(%rbp)
     vmovsd	-16(%rbp), %xmm1
-    vmovsd	$LC1(%rip), %xmm0
+    vmovsd	LC1(%rip), %xmm0
     vmulsd	%xmm0, %xmm1, %xmm0
     vmovsd	%xmm0, -24(%rbp)
     vmovsd	-24(%rbp), %xmm1
-    vmovsd	$LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm0
     vaddsd	%xmm0, %xmm1, %xmm0
     vmovsd	%xmm0, -32(%rbp)
     vmovsd	-32(%rbp), %xmm0
-    vmovsd	$LC0(%rip), %xmm1
+    vmovsd	LC0(%rip), %xmm1
     vucomisd	%xmm1, %xmm0
     jp	L46
-    vmovsd	$LC0(%rip), %xmm1
+    vmovsd	LC0(%rip), %xmm1
     vucomisd	%xmm1, %xmm0
     jne	L46
     vmovsd	-16(%rbp), %xmm1
-    vmovsd	$LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm0
     vaddsd	%xmm0, %xmm1, %xmm0
-    vmovsd	%xmm0, $a(%rip)
-    vmovsd $a(%rip), %xmm0
-    vmovsd	$LC0(%rip), %xmm1
+    vmovsd	%xmm0, a(%rip)
+    vmovsd	a(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm1
     vucomisd	%xmm1, %xmm0
     jp	L47
-    vmovsd	$LC0(%rip), %xmm1
+    vmovsd	LC0(%rip), %xmm1
     vucomisd	%xmm1, %xmm0
     jne	L47
     call	abort

@@ -310,7 +310,7 @@ L48:
 _start:
     pushq	%rbp
     movq	%rsp, %rbp
-    vmovsd	$LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm0
     movabsq	$4608533498688228557, %rax
     vmovapd	%xmm0, %xmm1
     vmovq	%rax, %xmm0

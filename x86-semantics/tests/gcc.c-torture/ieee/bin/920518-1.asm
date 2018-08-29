@@ -300,7 +300,7 @@ _start:
     pushq	%rbp
     movq	%rsp, %rbp
     subq	$16, %rsp
-    movl $u(%rip), %eax
+    movl	u(%rip), %eax
     movl	%eax, %eax
     testq	%rax, %rax
     js	L46
@@ -317,7 +317,7 @@ L46:
     vaddss	%xmm0, %xmm0, %xmm0
 L47:
     vmovss	%xmm0, -4(%rbp)
-    vmovss $f0(%rip), %xmm0
+    vmovss	f0(%rip), %xmm0
     vucomiss	-4(%rbp), %xmm0
     jp	L48
     vucomiss	-4(%rbp), %xmm0
