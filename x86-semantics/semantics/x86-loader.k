@@ -435,6 +435,79 @@ module X86-LOADER
     </database>
     <currentsection> SectionName:String </currentsection>
       requires  LabelId in_keys (DMap) andBool SectionName ==String "data" andBool SectionName =/=String "bss"
+
+  // .value I in .rodata section
+  rule <k> .value I:Int  =>  
+    storeToMemory(
+        mi(16,I),
+        ptr(L, NextOffset), 
+        16)
+  ...</k>
+    <functargets> FMap:Map => FMap[LabelId <- ptr(L, NextOffset)] </functargets>
+    <rotargets> ROMap:Map => ROMap[LabelId <- ptr(L, NextOffset)] </rotargets>
+    <lastseenlabel> LabelId:X86Id </lastseenlabel>
+    <robase> 
+      roBaseInfo(
+          L:MemLoc, 
+          BaseOffset:MInt, 
+          NextOffset:MInt => addMInt(NextOffset, mi(addrSize, 4))) 
+    </robase>
+    <currentsection> SectionName:String </currentsection>
+      requires notBool LabelId in_keys (ROMap) andBool SectionName ==String "rodata" andBool SectionName =/=String "bss"
+
+  rule <k> .value I:Int  =>  
+    storeToMemory(
+        mi(16,I),
+        ptr(L, NextOffset), 
+        16)
+  ...</k>
+    <rotargets> ROMap:Map  </rotargets>
+    <lastseenlabel> LabelId:X86Id </lastseenlabel>
+    <robase> 
+      roBaseInfo(
+          L:MemLoc, 
+          BaseOffset:MInt, 
+          NextOffset:MInt => addMInt(NextOffset, mi(addrSize, 4))) 
+    </robase>
+    <currentsection> SectionName:String </currentsection>
+      requires  LabelId in_keys (ROMap) andBool SectionName ==String "rodata" andBool SectionName =/=String "bss"
+
+  // .value I in .data section
+  rule <k> .value I:Int  =>  
+    storeToMemory(
+        mi(16,I),
+        ptr(L, NextOffset), 
+        16)
+  ...</k>
+    <functargets> FMap:Map => FMap[LabelId <- ptr(L, NextOffset)] </functargets>
+    <datatargets> DMap:Map => DMap[LabelId <- ptr(L, NextOffset)] </datatargets>
+    <lastseenlabel> LabelId:X86Id </lastseenlabel>
+    <database> 
+      dataBaseInfo(
+          L:MemLoc, 
+          BaseOffset:MInt, 
+          NextOffset:MInt => addMInt(NextOffset, mi(addrSize, 4))) 
+    </database>
+    <currentsection> SectionName:String </currentsection>
+      requires notBool LabelId in_keys (DMap) andBool SectionName ==String "data" andBool SectionName =/=String "bss"
+
+  rule <k> .value I:Int  =>  
+    storeToMemory(
+        mi(16,I),
+        ptr(L, NextOffset), 
+        16)
+  ...</k>
+    <datatargets> DMap:Map  </datatargets>
+    <lastseenlabel> LabelId:X86Id </lastseenlabel>
+    <database> 
+      dataBaseInfo(
+          L:MemLoc, 
+          BaseOffset:MInt, 
+          NextOffset:MInt => addMInt(NextOffset, mi(addrSize, 4))) 
+    </database>
+    <currentsection> SectionName:String </currentsection>
+      requires  LabelId in_keys (DMap) andBool SectionName ==String "data" andBool SectionName =/=String "bss"
+
   /*@
     Populate RO data
   */
@@ -476,7 +549,7 @@ module X86-LOADER
     Record the PC corresponding to labels. 
   */  
   rule <k> (LabelId:X86Id:):Label => . ...</k>
-        <functargets> FMap:Map => FMap[LabelId <- L] </functargets>
+        <functargets> FMap:Map => FMap[LabelId <- ptr(symloc(-1, 0), L)] </functargets>
         <nextLocPc> L </nextLocPc>
         <lastseenlabel> _:K => LabelId </lastseenlabel>
 
@@ -486,7 +559,8 @@ module X86-LOADER
     avoid on instructions like .section ...
   */
   rule  <k> OpC:Opcode OpR:Operands => . ...</k>
-        <text> code(M:Map => M[iloc(L) <- storedInstr(OpC OpR)])</text>
+        //<text> code(M:Map => M[iloc(L) <- storedInstr(OpC OpR)])</text>
+        <text> code(M:Map => M[ ptr(symloc(-1, 0), L) <- storedInstr(OpC OpR)])</text>
         <nextLocPc> L:MInt => addMInt(L, mi(64, 1)) </nextLocPc>
 
   rule  <k>.Instructions => .K ...</k>

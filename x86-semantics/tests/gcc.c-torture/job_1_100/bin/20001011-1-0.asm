@@ -304,7 +304,7 @@ foo:
 _start:
     pushq	%rbp
     movq	%rsp, %rbp
-    movl	$__FUNCTION__.2423, %edi
+    movl	$__FUNCTION__2423, %edi
     call	foo
     testl	%eax, %eax
     je	L48
@@ -314,5 +314,5 @@ L48:
     popq	%rbp
     ret
     .section	.rodata
-__FUNCTION__.2423:
+__FUNCTION__2423:
     .string	"main"

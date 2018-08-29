@@ -20,6 +20,9 @@ module X86-ABSTRACT-SEMANTICS
   //negMInt
   rule negMInt(PV:PointerVal) => ptr (getMemLoc(PV), negMInt(getMIntVal(PV)))
 
+  //lshrMInt
+  rule lshrMInt(PV:PointerVal, I:Int) => ptr (getMemLoc(PV), lshrMInt(getMIntVal(PV)))
+
   // Arithmetic
   //rule addMInt(ptr(L:MemLoc, MI1:MInt), ptr(L:MemLoc, MI2:MInt)) => 
   //  ptr(L, addMInt(MI1, MI2))
@@ -118,8 +121,8 @@ module X86-ABSTRACT-SEMANTICS
   */
 
   // rip
-  rule <k> $ L:X86Id (%rip) => $ L:X86Id + 0 (%rip) ...</k>
-  rule <k> $ L:X86Id + I:Int (%rip) => 
+  rule <k>  L:X86Id (%rip) =>  L:X86Id + 0 (%rip) ...</k>
+  rule <k>  L:X86Id + I:Int (%rip) => 
     memOffset( ptr(getMemLoc(LoadAddr), addMInt( getMIntVal(LoadAddr), mi(bitwidthMInt(LoadAddr), I))))
   ...</k>
       <regstate> RSMap </regstate>
@@ -132,8 +135,8 @@ module X86-ABSTRACT-SEMANTICS
   ...</k>
       <regstate> RSMap </regstate>
 
-  rule <k> $ L:X86Id (R1:R64):Mem => $ L:X86Id + 0 (R1:R64):Mem ...</k>
-  rule <k> $ L:X86Id + I:Int (R1:R64):Mem => 
+  rule <k>  L:X86Id (R1:R64):Mem =>  L:X86Id + 0 (R1:R64):Mem ...</k>
+  rule <k>  L:X86Id + I:Int (R1:R64):Mem => 
     memOffset( addMInt(addMInt(LoadAddr, mi(bitwidthMInt(LoadAddr), I)), addMInt(getRegisterValue(R1, RSMap), mulMInt(mi(64, 0), mi(64, 1)))))
   ...</k>
       <regstate> RSMap </regstate>
@@ -149,9 +152,9 @@ module X86-ABSTRACT-SEMANTICS
   ...</k>
       <regstate> RSMap </regstate>
 
-  rule <k> $ L:X86Id (, R2:R64):Mem         => $ L + 0  (, R2, 1) ...</k>
-  rule <k> $ L:X86Id ( , R2:R64, S:Int):Mem => $ L + 0  (, R2, S) ...</k>
-  rule <k> $ L:X86Id + I:Int (, R2:R64, S:Int):Mem => 
+  rule <k>  L:X86Id (, R2:R64):Mem         =>  L + 0  (, R2, 1) ...</k>
+  rule <k>  L:X86Id ( , R2:R64, S:Int):Mem =>  L + 0  (, R2, S) ...</k>
+  rule <k>  L:X86Id + I:Int (, R2:R64, S:Int):Mem => 
     memOffset( addMInt(
           addMInt(LoadAddr, mi(bitwidthMInt(LoadAddr), I)), 
           addMInt(mi(64, 0), mulMInt(getRegisterValue(R2, RSMap), mi(64, S)))))
@@ -168,9 +171,9 @@ module X86-ABSTRACT-SEMANTICS
   ...</k>
       <regstate> RSMap </regstate>
 
-  rule <k> $ L:X86Id (R1:R64, R2:R64):Mem           => $ L + 0 (R1, R2, 1) ...</k>
-  rule <k> $ L:X86Id (R1:R64, R2:R64, S:Int):Mem    => $ L + 0 (R1, R2, S) ...</k>
-  rule <k> $ L:X86Id + I:Int (R1:R64, R2:R64, S:Int):Mem => 
+  rule <k>  L:X86Id (R1:R64, R2:R64):Mem           =>  L + 0 (R1, R2, 1) ...</k>
+  rule <k>  L:X86Id (R1:R64, R2:R64, S:Int):Mem    =>  L + 0 (R1, R2, S) ...</k>
+  rule <k>  L:X86Id + I:Int (R1:R64, R2:R64, S:Int):Mem => 
     memOffset( addMInt(
           addMInt(LoadAddr, mi(bitwidthMInt(LoadAddr), I)), 
           addMInt(getRegisterValue(R1, RSMap), mulMInt(getRegisterValue(R2, RSMap), mi(64, S)))))

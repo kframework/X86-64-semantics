@@ -26,8 +26,9 @@ module X86-ASBTRACT-SYNTAX
   /*@
     Sorts of config cell entities
   */  
-  syntax CodeInMemory ::= code(/*iloc(MInt) -> storeInstr(Instruction)*/ Map)
-  syntax Int ::= iloc(MInt)
+  syntax CodeInMemory ::= code(/*PointerVal -> storeInstr(Instruction)*/ Map)
+  //syntax CodeInMemory ::= code(/*iloc(MInt) -> storeInstr(Instruction)*/ Map)
+  //syntax Int ::= iloc(MInt)
   syntax StackBaseInfo ::= stackBaseInfo(/*MemLoc, Intial Offset*/ K, K)
   syntax ROBaseInfo ::= roBaseInfo(/*MemLoc, Intial Offset, Next location*/ K, K, K)
   syntax DataBaseInfo ::= dataBaseInfo(/*MemLoc, Intial Offset, Next location*/ K, K, K)
