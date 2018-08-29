@@ -185,6 +185,31 @@ L24:
 L25:
     popq	%rbp
     ret
+    .globl	strrchr
+strrchr:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq	%rdi, -24(%rbp)
+    movl	%esi, -28(%rbp)
+    movq	$0, -8(%rbp)
+L29:
+    movq	-24(%rbp), %rax
+    movzbl	(%rax), %eax
+    movl	-28(%rbp), %edx
+    cmpb	%dl, %al
+    jne	L28
+    movq	-24(%rbp), %rax
+    movq	%rax, -8(%rbp)
+L28:
+    movq	-24(%rbp), %rax
+    leaq	1(%rax), %rdx
+    movq	%rdx, -24(%rbp)
+    movzbl	(%rax), %eax
+    testb	%al, %al
+    jne	L29
+    movq	-8(%rbp), %rax
+    popq	%rbp
+    ret
     .globl	memcmp
 memcmp:
     pushq	%rbp
@@ -196,14 +221,14 @@ memcmp:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L28
-L31:
+    jmp	L32
+L35:
     movq	-16(%rbp), %rax
     movzbl	(%rax), %edx
     movq	-8(%rbp), %rax
     movzbl	(%rax), %eax
     cmpb	%al, %dl
-    je	L29
+    je	L33
     movq	-16(%rbp), %rax
     movzbl	(%rax), %eax
     movzbl	%al, %edx
@@ -212,18 +237,18 @@ L31:
     movzbl	%al, %eax
     subl	%eax, %edx
     movl	%edx, %eax
-    jmp	L30
-L29:
+    jmp	L34
+L33:
     addq	$1, -16(%rbp)
     addq	$1, -8(%rbp)
-L28:
+L32:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L31
+    jne	L35
     movl	$0, %eax
-L30:
+L34:
     popq	%rbp
     ret
     .globl	__stack_chk_fail
@@ -266,19 +291,19 @@ memset:
     movq	%rdx, -40(%rbp)
     movq	-24(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L36
-L37:
+    jmp	L40
+L41:
     movq	-8(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -8(%rbp)
     movl	-28(%rbp), %edx
     movb	%dl, (%rax)
-L36:
+L40:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L37
+    jne	L41
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -293,8 +318,8 @@ memcpy:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L40
-L41:
+    jmp	L44
+L45:
     movq	-16(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -16(%rbp)
@@ -303,12 +328,12 @@ L41:
     movq	%rcx, -8(%rbp)
     movzbl	(%rdx), %edx
     movb	%dl, (%rax)
-L40:
+L44:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L41
+    jne	L45
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -343,28 +368,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L49
+    jle	L53
     cmpl	$122, -4(%rbp)
-    jg	L49
+    jg	L53
     movl	$1, %eax
-    jmp	L50
-L49:
+    jmp	L54
+L53:
     cmpl	$64, -4(%rbp)
-    jle	L51
+    jle	L55
     cmpl	$90, -4(%rbp)
-    jg	L51
+    jg	L55
     movl	$1, %eax
-    jmp	L50
-L51:
+    jmp	L54
+L55:
     cmpl	$47, -4(%rbp)
-    jle	L52
+    jle	L56
     cmpl	$57, -4(%rbp)
-    jg	L52
+    jg	L56
     movl	$1, %eax
-    jmp	L50
-L52:
+    jmp	L54
+L56:
     movl	$0, %eax
-L50:
+L54:
     popq	%rbp
     ret
     .globl	foo
@@ -377,78 +402,74 @@ foo:
     movsbl	-20(%rbp), %eax
     addl	$62, %eax
     cmpl	$160, %eax
-    ja	L54
+    ja	L58
     movl	%eax, %eax
-    movq	L56(,%rax,8), %rax
+    movq	L60(,%rax,8), %rax
     jmp	%rax
     .section	.rodata
-L56:
-    .quad	L55
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L57
-    .quad	L58
+L60:
     .quad	L59
-    .quad	L60
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
     .quad	L61
     .quad	L62
     .quad	L63
@@ -478,179 +499,183 @@ L56:
     .quad	L87
     .quad	L88
     .quad	L89
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
-    .quad	L54
     .quad	L90
+    .quad	L91
+    .quad	L92
+    .quad	L93
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L58
+    .quad	L94
     .text
-L57:
-    movl	$1, -4(%rbp)
-    jmp	L54
-L58:
-    movl	$7, -4(%rbp)
-    jmp	L54
-L59:
-    movl	$2, -4(%rbp)
-    jmp	L54
-L60:
-    movl	$19, -4(%rbp)
-    jmp	L54
 L61:
-    movl	$5, -4(%rbp)
-    jmp	L54
+    movl	$1, -4(%rbp)
+    jmp	L58
 L62:
-    movl	$17, -4(%rbp)
-    jmp	L54
+    movl	$7, -4(%rbp)
+    jmp	L58
 L63:
-    movl	$31, -4(%rbp)
-    jmp	L54
+    movl	$2, -4(%rbp)
+    jmp	L58
 L64:
-    movl	$8, -4(%rbp)
-    jmp	L54
+    movl	$19, -4(%rbp)
+    jmp	L58
 L65:
-    movl	$28, -4(%rbp)
-    jmp	L54
+    movl	$5, -4(%rbp)
+    jmp	L58
 L66:
-    movl	$16, -4(%rbp)
-    jmp	L54
+    movl	$17, -4(%rbp)
+    jmp	L58
 L67:
     movl	$31, -4(%rbp)
-    jmp	L54
+    jmp	L58
 L68:
-    movl	$12, -4(%rbp)
-    jmp	L54
-L69:
-    movl	$15, -4(%rbp)
-    jmp	L54
-L70:
-    movl	$111, -4(%rbp)
-    jmp	L54
-L71:
-    movl	$17, -4(%rbp)
-    jmp	L54
-L72:
-    movl	$10, -4(%rbp)
-    jmp	L54
-L73:
-    movl	$31, -4(%rbp)
-    jmp	L54
-L74:
-    movl	$7, -4(%rbp)
-    jmp	L54
-L75:
-    movl	$2, -4(%rbp)
-    jmp	L54
-L76:
-    movl	$19, -4(%rbp)
-    jmp	L54
-L77:
-    movl	$5, -4(%rbp)
-    jmp	L54
-L78:
-    movl	$107, -4(%rbp)
-    jmp	L54
-L79:
-    movl	$31, -4(%rbp)
-    jmp	L54
-L80:
     movl	$8, -4(%rbp)
-    jmp	L54
-L81:
+    jmp	L58
+L69:
     movl	$28, -4(%rbp)
-    jmp	L54
+    jmp	L58
+L70:
+    movl	$16, -4(%rbp)
+    jmp	L58
+L71:
+    movl	$31, -4(%rbp)
+    jmp	L58
+L72:
+    movl	$12, -4(%rbp)
+    jmp	L58
+L73:
+    movl	$15, -4(%rbp)
+    jmp	L58
+L74:
+    movl	$111, -4(%rbp)
+    jmp	L58
+L75:
+    movl	$17, -4(%rbp)
+    jmp	L58
+L76:
+    movl	$10, -4(%rbp)
+    jmp	L58
+L77:
+    movl	$31, -4(%rbp)
+    jmp	L58
+L78:
+    movl	$7, -4(%rbp)
+    jmp	L58
+L79:
+    movl	$2, -4(%rbp)
+    jmp	L58
+L80:
+    movl	$19, -4(%rbp)
+    jmp	L58
+L81:
+    movl	$5, -4(%rbp)
+    jmp	L58
 L82:
-    movl	$106, -4(%rbp)
-    jmp	L54
+    movl	$107, -4(%rbp)
+    jmp	L58
 L83:
     movl	$31, -4(%rbp)
-    jmp	L54
+    jmp	L58
 L84:
-    movl	$102, -4(%rbp)
-    jmp	L54
+    movl	$8, -4(%rbp)
+    jmp	L58
 L85:
-    movl	$105, -4(%rbp)
-    jmp	L54
+    movl	$28, -4(%rbp)
+    jmp	L58
 L86:
-    movl	$111, -4(%rbp)
-    jmp	L54
+    movl	$106, -4(%rbp)
+    jmp	L58
 L87:
-    movl	$17, -4(%rbp)
-    jmp	L54
-L88:
-    movl	$10, -4(%rbp)
-    jmp	L54
-L89:
     movl	$31, -4(%rbp)
-    jmp	L54
+    jmp	L58
+L88:
+    movl	$102, -4(%rbp)
+    jmp	L58
+L89:
+    movl	$105, -4(%rbp)
+    jmp	L58
 L90:
+    movl	$111, -4(%rbp)
+    jmp	L58
+L91:
+    movl	$17, -4(%rbp)
+    jmp	L58
+L92:
+    movl	$10, -4(%rbp)
+    jmp	L58
+L93:
+    movl	$31, -4(%rbp)
+    jmp	L58
+L94:
     movl	$18, -4(%rbp)
-    jmp	L54
-L55:
+    jmp	L58
+L59:
     movl	$19, -4(%rbp)
     nop
-L54:
+L58:
     movl	-4(%rbp), %eax
     popq	%rbp
     ret
@@ -662,48 +687,48 @@ _start:
     movl	$98, %edi
     call	foo
     cmpl	$18, %eax
-    jne	L93
+    jne	L97
     movl	$97, %edi
     call	foo
     testl	%eax, %eax
-    jne	L93
+    jne	L97
     movl	$99, %edi
     call	foo
     testl	%eax, %eax
-    je	L94
-L93:
-    call	abort
-L94:
-    movl	$-62, %edi
-    call	foo
-    cmpl	$19, %eax
-    jne	L95
-    movl	$-63, %edi
-    call	foo
-    testl	%eax, %eax
-    jne	L95
-    movl	$-61, %edi
-    call	foo
-    testl	%eax, %eax
-    je	L96
-L95:
-    call	abort
-L96:
-    movl	$28, %edi
-    call	foo
-    cmpl	$105, %eax
-    jne	L97
-    movl	$27, %edi
-    call	foo
-    cmpl	$102, %eax
-    jne	L97
-    movl	$29, %edi
-    call	foo
-    cmpl	$111, %eax
     je	L98
 L97:
     call	abort
 L98:
+    movl	$-62, %edi
+    call	foo
+    cmpl	$19, %eax
+    jne	L99
+    movl	$-63, %edi
+    call	foo
+    testl	%eax, %eax
+    jne	L99
+    movl	$-61, %edi
+    call	foo
+    testl	%eax, %eax
+    je	L100
+L99:
+    call	abort
+L100:
+    movl	$28, %edi
+    call	foo
+    cmpl	$105, %eax
+    jne	L101
+    movl	$27, %edi
+    call	foo
+    cmpl	$102, %eax
+    jne	L101
+    movl	$29, %edi
+    call	foo
+    cmpl	$111, %eax
+    je	L102
+L101:
+    call	abort
+L102:
     movl	$0, %eax
     popq	%rbp
     ret

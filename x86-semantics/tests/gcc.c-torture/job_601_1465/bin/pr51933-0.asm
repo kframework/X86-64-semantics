@@ -185,6 +185,31 @@ L24:
 L25:
     popq	%rbp
     ret
+    .globl	strrchr
+strrchr:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq	%rdi, -24(%rbp)
+    movl	%esi, -28(%rbp)
+    movq	$0, -8(%rbp)
+L29:
+    movq	-24(%rbp), %rax
+    movzbl	(%rax), %eax
+    movl	-28(%rbp), %edx
+    cmpb	%dl, %al
+    jne	L28
+    movq	-24(%rbp), %rax
+    movq	%rax, -8(%rbp)
+L28:
+    movq	-24(%rbp), %rax
+    leaq	1(%rax), %rdx
+    movq	%rdx, -24(%rbp)
+    movzbl	(%rax), %eax
+    testb	%al, %al
+    jne	L29
+    movq	-8(%rbp), %rax
+    popq	%rbp
+    ret
     .globl	memcmp
 memcmp:
     pushq	%rbp
@@ -196,14 +221,14 @@ memcmp:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L28
-L31:
+    jmp	L32
+L35:
     movq	-16(%rbp), %rax
     movzbl	(%rax), %edx
     movq	-8(%rbp), %rax
     movzbl	(%rax), %eax
     cmpb	%al, %dl
-    je	L29
+    je	L33
     movq	-16(%rbp), %rax
     movzbl	(%rax), %eax
     movzbl	%al, %edx
@@ -212,18 +237,18 @@ L31:
     movzbl	%al, %eax
     subl	%eax, %edx
     movl	%edx, %eax
-    jmp	L30
-L29:
+    jmp	L34
+L33:
     addq	$1, -16(%rbp)
     addq	$1, -8(%rbp)
-L28:
+L32:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L31
+    jne	L35
     movl	$0, %eax
-L30:
+L34:
     popq	%rbp
     ret
     .globl	__stack_chk_fail
@@ -266,19 +291,19 @@ memset:
     movq	%rdx, -40(%rbp)
     movq	-24(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L36
-L37:
+    jmp	L40
+L41:
     movq	-8(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -8(%rbp)
     movl	-28(%rbp), %edx
     movb	%dl, (%rax)
-L36:
+L40:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L37
+    jne	L41
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -293,8 +318,8 @@ memcpy:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L40
-L41:
+    jmp	L44
+L45:
     movq	-16(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -16(%rbp)
@@ -303,12 +328,12 @@ L41:
     movq	%rcx, -8(%rbp)
     movzbl	(%rdx), %edx
     movb	%dl, (%rax)
-L40:
+L44:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L41
+    jne	L45
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -343,28 +368,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L49
+    jle	L53
     cmpl	$122, -4(%rbp)
-    jg	L49
+    jg	L53
     movl	$1, %eax
-    jmp	L50
-L49:
+    jmp	L54
+L53:
     cmpl	$64, -4(%rbp)
-    jle	L51
+    jle	L55
     cmpl	$90, -4(%rbp)
-    jg	L51
+    jg	L55
     movl	$1, %eax
-    jmp	L50
-L51:
+    jmp	L54
+L55:
     cmpl	$47, -4(%rbp)
-    jle	L52
+    jle	L56
     cmpl	$57, -4(%rbp)
-    jg	L52
+    jg	L56
     movl	$1, %eax
-    jmp	L50
-L52:
+    jmp	L54
+L56:
     movl	$0, %eax
-L50:
+L54:
     popq	%rbp
     ret
     .comm	v1,1,1
@@ -387,12 +412,12 @@ bar:
     movq	%rdx, -40(%rbp)
     movzbl	v1(%rip), %eax
     testb	%al, %al
-    jne	L55
+    jne	L59
     call	foo
-L55:
-    movl	$0, -4(%rbp)
-    jmp	L56
 L59:
+    movl	$0, -4(%rbp)
+    jmp	L60
+L63:
     movl	-4(%rbp), %eax
     cltq
     leaq	(%rax,%rax), %rdx
@@ -405,23 +430,23 @@ L59:
     movq	-40(%rbp), %rax
     addq	%rax, %rdx
     cmpw	$255, -6(%rbp)
-    ja	L57
+    ja	L61
     movzwl	-6(%rbp), %eax
     cltq
     movzbl	v2(%rax), %eax
-    jmp	L58
-L57:
+    jmp	L62
+L61:
     movzwl	-6(%rbp), %eax
     movzbl	%al, %eax
     cltq
     movzbl	v3(%rax), %eax
-L58:
+L62:
     movb	%al, (%rdx)
     addl	$1, -4(%rbp)
-L56:
+L60:
     movl	-4(%rbp), %eax
     cmpl	-20(%rbp), %eax
-    jl	L59
+    jl	L63
     movl	-20(%rbp), %eax
     movslq	%eax, %rdx
     movq	-40(%rbp), %rax
@@ -449,8 +474,8 @@ _start:
     movq	%rax, -24(%rbp)
     movw	$113, -16(%rbp)
     movl	$0, -116(%rbp)
-    jmp	L62
-L63:
+    jmp	L66
+L67:
     movl	-116(%rbp), %eax
     movl	%eax, %edx
     movl	-116(%rbp), %eax
@@ -462,12 +487,12 @@ L63:
     cltq
     movb	%dl, v3(%rax)
     addl	$1, -116(%rbp)
-L62:
+L66:
     cmpl	$255, -116(%rbp)
-    jle	L63
+    jle	L67
     movl	$0, -116(%rbp)
-    jmp	L64
-L65:
+    jmp	L68
+L69:
     movl	-116(%rbp), %eax
     cltq
     movzbl	-32(%rbp,%rax), %eax
@@ -476,9 +501,9 @@ L65:
     cltq
     movw	%dx, -112(%rbp,%rax,2)
     addl	$1, -116(%rbp)
-L64:
+L68:
     cmpl	$17, -116(%rbp)
-    jle	L65
+    jle	L69
     movzwl	-102(%rbp), %eax
     orb	$6, %ah
     movw	%ax, -102(%rbp)
@@ -498,22 +523,22 @@ L64:
     movl	$17, %edi
     call	bar
     cmpl	$17, %eax
-    jne	L66
+    jne	L70
     leaq	-64(%rbp), %rax
     movl	$18, %edx
     movl	$LC0, %esi
     movq	%rax, %rdi
     call	memcmp
     testl	%eax, %eax
-    je	L67
-L66:
+    je	L71
+L70:
     call	abort
-L67:
+L71:
     movl	$0, %eax
     movq	-8(%rbp), %rcx
     xorq	$40, %rcx
-    je	L69
+    je	L73
     call	__stack_chk_fail
-L69:
+L73:
     leave
     ret

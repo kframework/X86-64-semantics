@@ -185,6 +185,31 @@ L24:
 L25:
     popq	%rbp
     ret
+    .globl	strrchr
+strrchr:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq	%rdi, -24(%rbp)
+    movl	%esi, -28(%rbp)
+    movq	$0, -8(%rbp)
+L29:
+    movq	-24(%rbp), %rax
+    movzbl	(%rax), %eax
+    movl	-28(%rbp), %edx
+    cmpb	%dl, %al
+    jne	L28
+    movq	-24(%rbp), %rax
+    movq	%rax, -8(%rbp)
+L28:
+    movq	-24(%rbp), %rax
+    leaq	1(%rax), %rdx
+    movq	%rdx, -24(%rbp)
+    movzbl	(%rax), %eax
+    testb	%al, %al
+    jne	L29
+    movq	-8(%rbp), %rax
+    popq	%rbp
+    ret
     .globl	memcmp
 memcmp:
     pushq	%rbp
@@ -196,14 +221,14 @@ memcmp:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L28
-L31:
+    jmp	L32
+L35:
     movq	-16(%rbp), %rax
     movzbl	(%rax), %edx
     movq	-8(%rbp), %rax
     movzbl	(%rax), %eax
     cmpb	%al, %dl
-    je	L29
+    je	L33
     movq	-16(%rbp), %rax
     movzbl	(%rax), %eax
     movzbl	%al, %edx
@@ -212,18 +237,18 @@ L31:
     movzbl	%al, %eax
     subl	%eax, %edx
     movl	%edx, %eax
-    jmp	L30
-L29:
+    jmp	L34
+L33:
     addq	$1, -16(%rbp)
     addq	$1, -8(%rbp)
-L28:
+L32:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L31
+    jne	L35
     movl	$0, %eax
-L30:
+L34:
     popq	%rbp
     ret
     .globl	__stack_chk_fail
@@ -266,19 +291,19 @@ memset:
     movq	%rdx, -40(%rbp)
     movq	-24(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L36
-L37:
+    jmp	L40
+L41:
     movq	-8(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -8(%rbp)
     movl	-28(%rbp), %edx
     movb	%dl, (%rax)
-L36:
+L40:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L37
+    jne	L41
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -293,8 +318,8 @@ memcpy:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L40
-L41:
+    jmp	L44
+L45:
     movq	-16(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -16(%rbp)
@@ -303,12 +328,12 @@ L41:
     movq	%rcx, -8(%rbp)
     movzbl	(%rdx), %edx
     movb	%dl, (%rax)
-L40:
+L44:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L41
+    jne	L45
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -343,28 +368,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L49
+    jle	L53
     cmpl	$122, -4(%rbp)
-    jg	L49
+    jg	L53
     movl	$1, %eax
-    jmp	L50
-L49:
+    jmp	L54
+L53:
     cmpl	$64, -4(%rbp)
-    jle	L51
+    jle	L55
     cmpl	$90, -4(%rbp)
-    jg	L51
+    jg	L55
     movl	$1, %eax
-    jmp	L50
-L51:
+    jmp	L54
+L55:
     cmpl	$47, -4(%rbp)
-    jle	L52
+    jle	L56
     cmpl	$57, -4(%rbp)
-    jg	L52
+    jg	L56
     movl	$1, %eax
-    jmp	L50
-L52:
+    jmp	L54
+L56:
     movl	$0, %eax
-L50:
+L54:
     popq	%rbp
     ret
     .comm	err,4,4
@@ -427,18 +452,20 @@ test_float:
     vmovsd	LC3(%rip), %xmm2
     vucomisd	%xmm2, %xmm1
     cmove	%eax, %edx
-    vucomisd	LC4(%rip), %xmm0
+    vmovsd	LC4(%rip), %xmm1
+    vucomisd	%xmm1, %xmm0
     setp	%al
     movl	$1, %ecx
-    vucomisd	LC4(%rip), %xmm0
+    vmovsd	LC4(%rip), %xmm1
+    vucomisd	%xmm1, %xmm0
     cmovne	%ecx, %eax
     orl	%edx, %eax
     cmpb	$1, %al
-    jne	L57
+    jne	L61
     movl	err(%rip), %eax
     addl	$1, %eax
     movl	%eax, err(%rip)
-L57:
+L61:
     nop
     leave
     ret
@@ -500,20 +527,20 @@ test_double:
     vmovsd	LC3(%rip), %xmm0
     vucomisd	-48(%rbp), %xmm0
     cmove	%eax, %edx
-    vmovsd	-40(%rbp), %xmm0
-    vucomisd	LC4(%rip), %xmm0
+    vmovsd	LC4(%rip), %xmm0
+    vucomisd	-40(%rbp), %xmm0
     setp	%al
     movl	$1, %ecx
-    vmovsd	-40(%rbp), %xmm0
-    vucomisd	LC4(%rip), %xmm0
+    vmovsd	LC4(%rip), %xmm0
+    vucomisd	-40(%rbp), %xmm0
     cmovne	%ecx, %eax
     orl	%edx, %eax
     cmpb	$1, %al
-    jne	L62
+    jne	L66
     movl	err(%rip), %eax
     addl	$1, %eax
     movl	%eax, err(%rip)
-L62:
+L66:
     nop
     leave
     ret
@@ -521,80 +548,74 @@ L62:
 ctest_long_double:
     pushq	%rbp
     movq	%rsp, %rbp
-    fldt	16(%rbp)
-    fstpt	-80(%rbp)
-    fldt	32(%rbp)
-    fstpt	-64(%rbp)
-    fldt	-64(%rbp)
-    fchs
-    fstpt	-48(%rbp)
-    fldt	-48(%rbp)
-    fldt	-80(%rbp)
-    fstpt	-32(%rbp)
-    fstpt	-16(%rbp)
-    fldt	-80(%rbp)
-    fldt	-48(%rbp)
-    flds	LC7(%rip)
-    flds	LC7(%rip)
-    fstp	%st(0)
-    fstp	%st(0)
-    fxch	%st(1)
+    vmovq	%xmm0, %rax
+    vmovq	%xmm1, %rdx
+    vmovq	%rax, %xmm1
+    vmovq	%rdx, %xmm0
+    vmovsd	%xmm1, -64(%rbp)
+    vmovsd	%xmm0, -56(%rbp)
+    vmovsd	-64(%rbp), %xmm0
+    vmovsd	%xmm0, -40(%rbp)
+    vmovsd	-56(%rbp), %xmm0
+    vmovsd	%xmm0, -32(%rbp)
+    vmovsd	-32(%rbp), %xmm1
+    vmovsd	LC5(%rip), %xmm0
+    vxorpd	%xmm1, %xmm0, %xmm0
+    vmovsd	%xmm0, -24(%rbp)
+    vmovsd	-24(%rbp), %xmm0
+    vmovsd	-40(%rbp), %xmm1
+    vmovsd	%xmm1, -16(%rbp)
+    vmovsd	%xmm0, -8(%rbp)
+    vmovsd	-40(%rbp), %xmm1
+    vmovsd	-24(%rbp), %xmm0
+    vmovq	%xmm1, %rax
+    vmovq	%xmm0, %rdx
+    vmovq	%rax, %xmm0
+    vmovq	%rdx, %xmm1
     popq	%rbp
     ret
     .globl	test_long_double
 test_long_double:
     pushq	%rbp
     movq	%rsp, %rbp
-    subq	$96, %rsp
-    fld1
-    fstpt	-64(%rbp)
-    fldt	LC9(%rip)
-    fstpt	-48(%rbp)
-    pushq	-40(%rbp)
-    pushq	-48(%rbp)
-    pushq	-56(%rbp)
-    pushq	-64(%rbp)
+    subq	$48, %rsp
+    vmovsd	LC3(%rip), %xmm0
+    vmovsd	%xmm0, -32(%rbp)
+    vmovsd	LC6(%rip), %xmm0
+    vmovsd	%xmm0, -24(%rbp)
+    movq	-32(%rbp), %rax
+    vmovsd	-24(%rbp), %xmm1
+    vmovq	%rax, %xmm0
     call	ctest_long_double
-    addq	$32, %rsp
-    flds	LC7(%rip)
-    flds	LC7(%rip)
-    fstp	%st(0)
-    fstp	%st(0)
-    fstpt	-32(%rbp)
-    fstpt	-16(%rbp)
-    fldt	-32(%rbp)
-    fstpt	-96(%rbp)
-    fldt	-16(%rbp)
-    fstpt	-80(%rbp)
-    fldt	-96(%rbp)
-    fld1
-    fucomip	%st(1), %st
-    fstp	%st(0)
+    vmovq	%xmm0, %rax
+    vmovapd	%xmm1, %xmm0
+    movq	%rax, -16(%rbp)
+    vmovsd	%xmm0, -8(%rbp)
+    vmovsd	-16(%rbp), %xmm0
+    vmovsd	%xmm0, -48(%rbp)
+    vmovsd	-8(%rbp), %xmm0
+    vmovsd	%xmm0, -40(%rbp)
+    vmovsd	LC3(%rip), %xmm0
+    vucomisd	-48(%rbp), %xmm0
     setp	%al
-    fldt	-96(%rbp)
     movl	$1, %edx
-    fld1
-    fucomip	%st(1), %st
-    fstp	%st(0)
+    vmovsd	LC3(%rip), %xmm0
+    vucomisd	-48(%rbp), %xmm0
     cmove	%eax, %edx
-    fldt	-80(%rbp)
-    fldt	LC10(%rip)
-    fucomip	%st(1), %st
-    fstp	%st(0)
+    vmovsd	LC4(%rip), %xmm0
+    vucomisd	-40(%rbp), %xmm0
     setp	%al
-    fldt	-80(%rbp)
     movl	$1, %ecx
-    fldt	LC10(%rip)
-    fucomip	%st(1), %st
-    fstp	%st(0)
+    vmovsd	LC4(%rip), %xmm0
+    vucomisd	-40(%rbp), %xmm0
     cmovne	%ecx, %eax
     orl	%edx, %eax
     cmpb	$1, %al
-    jne	L67
+    jne	L71
     movl	err(%rip), %eax
     addl	$1, %eax
     movl	%eax, err(%rip)
-L67:
+L71:
     nop
     leave
     ret
@@ -667,18 +688,20 @@ test_int:
     vmovsd	LC3(%rip), %xmm2
     vucomisd	%xmm2, %xmm1
     cmove	%eax, %edx
-    vucomisd	LC4(%rip), %xmm0
+    vmovsd	LC4(%rip), %xmm1
+    vucomisd	%xmm1, %xmm0
     setp	%al
     movl	$1, %ecx
-    vucomisd	LC4(%rip), %xmm0
+    vmovsd	LC4(%rip), %xmm1
+    vucomisd	%xmm1, %xmm0
     cmovne	%ecx, %eax
     orl	%edx, %eax
     cmpb	$1, %al
-    jne	L72
+    jne	L76
     movl	err(%rip), %eax
     addl	$1, %eax
     movl	%eax, err(%rip)
-L72:
+L76:
     nop
     leave
     ret
@@ -743,18 +766,20 @@ test_long_int:
     vmovsd	LC3(%rip), %xmm2
     vucomisd	%xmm2, %xmm1
     cmove	%eax, %edx
-    vucomisd	LC4(%rip), %xmm0
+    vmovsd	LC4(%rip), %xmm1
+    vucomisd	%xmm1, %xmm0
     setp	%al
     movl	$1, %ecx
-    vucomisd	LC4(%rip), %xmm0
+    vmovsd	LC4(%rip), %xmm1
+    vucomisd	%xmm1, %xmm0
     cmovne	%ecx, %eax
     orl	%edx, %eax
     cmpb	$1, %al
-    jne	L77
+    jne	L81
     movl	err(%rip), %eax
     addl	$1, %eax
     movl	%eax, err(%rip)
-L77:
+L81:
     nop
     addq	$48, %rsp
     popq	%rbx
@@ -773,9 +798,9 @@ _start:
     call	test_long_int
     movl	err(%rip), %eax
     testl	%eax, %eax
-    je	L79
+    je	L83
     call	abort
-L79:
+L83:
     movl	$0, %eax
     popq	%rbp
     ret
@@ -803,15 +828,3 @@ LC5:
 LC6:
     .long	0
     .long	1073741824
-LC7:
-    .long	2143289344
-LC9:
-    .long	0
-    .long	2147483648
-    .long	16384
-    .long	0
-LC10:
-    .long	0
-    .long	2147483648
-    .long	49152
-    .long	0

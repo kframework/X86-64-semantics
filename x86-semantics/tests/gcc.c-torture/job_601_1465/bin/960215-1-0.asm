@@ -185,6 +185,31 @@ L24:
 L25:
     popq	%rbp
     ret
+    .globl	strrchr
+strrchr:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq	%rdi, -24(%rbp)
+    movl	%esi, -28(%rbp)
+    movq	$0, -8(%rbp)
+L29:
+    movq	-24(%rbp), %rax
+    movzbl	(%rax), %eax
+    movl	-28(%rbp), %edx
+    cmpb	%dl, %al
+    jne	L28
+    movq	-24(%rbp), %rax
+    movq	%rax, -8(%rbp)
+L28:
+    movq	-24(%rbp), %rax
+    leaq	1(%rax), %rdx
+    movq	%rdx, -24(%rbp)
+    movzbl	(%rax), %eax
+    testb	%al, %al
+    jne	L29
+    movq	-8(%rbp), %rax
+    popq	%rbp
+    ret
     .globl	memcmp
 memcmp:
     pushq	%rbp
@@ -196,14 +221,14 @@ memcmp:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L28
-L31:
+    jmp	L32
+L35:
     movq	-16(%rbp), %rax
     movzbl	(%rax), %edx
     movq	-8(%rbp), %rax
     movzbl	(%rax), %eax
     cmpb	%al, %dl
-    je	L29
+    je	L33
     movq	-16(%rbp), %rax
     movzbl	(%rax), %eax
     movzbl	%al, %edx
@@ -212,18 +237,18 @@ L31:
     movzbl	%al, %eax
     subl	%eax, %edx
     movl	%edx, %eax
-    jmp	L30
-L29:
+    jmp	L34
+L33:
     addq	$1, -16(%rbp)
     addq	$1, -8(%rbp)
-L28:
+L32:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L31
+    jne	L35
     movl	$0, %eax
-L30:
+L34:
     popq	%rbp
     ret
     .globl	__stack_chk_fail
@@ -266,19 +291,19 @@ memset:
     movq	%rdx, -40(%rbp)
     movq	-24(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L36
-L37:
+    jmp	L40
+L41:
     movq	-8(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -8(%rbp)
     movl	-28(%rbp), %edx
     movb	%dl, (%rax)
-L36:
+L40:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L37
+    jne	L41
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -293,8 +318,8 @@ memcpy:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L40
-L41:
+    jmp	L44
+L45:
     movq	-16(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -16(%rbp)
@@ -303,12 +328,12 @@ L41:
     movq	%rcx, -8(%rbp)
     movzbl	(%rdx), %edx
     movb	%dl, (%rax)
-L40:
+L44:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L41
+    jne	L45
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -343,165 +368,149 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L49
+    jle	L53
     cmpl	$122, -4(%rbp)
-    jg	L49
+    jg	L53
     movl	$1, %eax
-    jmp	L50
-L49:
+    jmp	L54
+L53:
     cmpl	$64, -4(%rbp)
-    jle	L51
+    jle	L55
     cmpl	$90, -4(%rbp)
-    jg	L51
+    jg	L55
     movl	$1, %eax
-    jmp	L50
-L51:
+    jmp	L54
+L55:
     cmpl	$47, -4(%rbp)
-    jle	L52
+    jle	L56
     cmpl	$57, -4(%rbp)
-    jg	L52
+    jg	L56
     movl	$1, %eax
-    jmp	L50
-L52:
+    jmp	L54
+L56:
     movl	$0, %eax
-L50:
+L54:
     popq	%rbp
     ret
     .globl	C
     .data
 C:
     .long	0
-    .long	2147483648
-    .long	16384
-    .long	0
+    .long	1073741824
     .globl	U
 U:
     .long	0
-    .long	2147483648
-    .long	16383
-    .long	0
+    .long	1072693248
     .globl	Y2
 Y2:
     .long	0
-    .long	3221225472
-    .long	16384
-    .long	0
+    .long	1074266112
     .globl	Y1
 Y1:
     .long	0
-    .long	2147483648
-    .long	16383
-    .long	0
-    .comm	X,16,16
-    .comm	Y,16,16
-    .comm	Z,16,16
-    .comm	T,16,16
-    .comm	R,16,16
-    .comm	S,16,16
+    .long	1072693248
+    .comm	X,8,8
+    .comm	Y,8,8
+    .comm	Z,8,8
+    .comm	T,8,8
+    .comm	R,8,8
+    .comm	S,8,8
     .text
     .globl	main
 .globl _start
 _start:
     pushq	%rbp
     movq	%rsp, %rbp
-    fldt	C(%rip)
-    fldt	U(%rip)
-    faddp	%st, %st(1)
-    fldt	Y2(%rip)
-    fmulp	%st, %st(1)
-    fstpt	X(%rip)
-    fldt	C(%rip)
-    fldt	U(%rip)
-    fsubrp	%st, %st(1)
-    fldt	U(%rip)
-    fsubrp	%st, %st(1)
-    fstpt	Y(%rip)
-    fldt	C(%rip)
-    fldt	U(%rip)
-    faddp	%st, %st(1)
-    fldt	U(%rip)
-    faddp	%st, %st(1)
-    fstpt	Z(%rip)
-    fldt	C(%rip)
-    fldt	U(%rip)
-    fsubrp	%st, %st(1)
-    fldt	Y1(%rip)
-    fmulp	%st, %st(1)
-    fstpt	T(%rip)
-    fldt	X(%rip)
-    fldt	Z(%rip)
-    fldt	U(%rip)
-    faddp	%st, %st(1)
-    fsubrp	%st, %st(1)
-    fstpt	X(%rip)
-    fldt	Y(%rip)
-    fldt	Y1(%rip)
-    fmulp	%st, %st(1)
-    fstpt	R(%rip)
-    fldt	Z(%rip)
-    fldt	Y2(%rip)
-    fmulp	%st, %st(1)
-    fstpt	S(%rip)
-    fldt	T(%rip)
-    fldt	Y(%rip)
-    fsubrp	%st, %st(1)
-    fstpt	T(%rip)
-    fldt	U(%rip)
-    fldt	Y(%rip)
-    fsubrp	%st, %st(1)
-    fldt	R(%rip)
-    faddp	%st, %st(1)
-    fstpt	Y(%rip)
-    fldt	S(%rip)
-    fldt	Z(%rip)
-    fldt	U(%rip)
-    faddp	%st, %st(1)
-    fldt	U(%rip)
-    faddp	%st, %st(1)
-    fsubrp	%st, %st(1)
-    fstpt	Z(%rip)
-    fldt	Y2(%rip)
-    fldt	U(%rip)
-    faddp	%st, %st(1)
-    fldt	Y1(%rip)
-    fmulp	%st, %st(1)
-    fstpt	R(%rip)
-    fldt	Y2(%rip)
-    fldt	Y1(%rip)
-    fmulp	%st, %st(1)
-    fstpt	Y1(%rip)
-    fldt	R(%rip)
-    fldt	Y2(%rip)
-    fsubrp	%st, %st(1)
-    fstpt	R(%rip)
-    fldt	Y1(%rip)
-    fldt	LC0(%rip)
-    fsubrp	%st, %st(1)
-    fstpt	Y1(%rip)
-    fldt	Z(%rip)
-    fldt	LC1(%rip)
-    fucomip	%st(1), %st
-    jp	L58
-    fldt	LC1(%rip)
-    fucomip	%st(1), %st
-    fstp	%st(0)
-    je	L57
-    jmp	L56
-L58:
-    fstp	%st(0)
-L56:
+    vmovsd	C(%rip), %xmm1
+    vmovsd	U(%rip), %xmm0
+    vaddsd	%xmm0, %xmm1, %xmm0
+    vmovsd	Y2(%rip), %xmm1
+    vmulsd	%xmm1, %xmm0, %xmm0
+    vmovsd	%xmm0, X(%rip)
+    vmovsd	C(%rip), %xmm0
+    vmovsd	U(%rip), %xmm1
+    vsubsd	%xmm1, %xmm0, %xmm0
+    vmovsd	U(%rip), %xmm1
+    vsubsd	%xmm1, %xmm0, %xmm0
+    vmovsd	%xmm0, Y(%rip)
+    vmovsd	C(%rip), %xmm1
+    vmovsd	U(%rip), %xmm0
+    vaddsd	%xmm0, %xmm1, %xmm0
+    vmovsd	U(%rip), %xmm1
+    vaddsd	%xmm1, %xmm0, %xmm0
+    vmovsd	%xmm0, Z(%rip)
+    vmovsd	C(%rip), %xmm0
+    vmovsd	U(%rip), %xmm1
+    vsubsd	%xmm1, %xmm0, %xmm0
+    vmovsd	Y1(%rip), %xmm1
+    vmulsd	%xmm1, %xmm0, %xmm0
+    vmovsd	%xmm0, T(%rip)
+    vmovsd	X(%rip), %xmm1
+    vmovsd	Z(%rip), %xmm2
+    vmovsd	U(%rip), %xmm0
+    vaddsd	%xmm0, %xmm2, %xmm0
+    vsubsd	%xmm0, %xmm1, %xmm0
+    vmovsd	%xmm0, X(%rip)
+    vmovsd	Y(%rip), %xmm1
+    vmovsd	Y1(%rip), %xmm0
+    vmulsd	%xmm0, %xmm1, %xmm0
+    vmovsd	%xmm0, R(%rip)
+    vmovsd	Z(%rip), %xmm1
+    vmovsd	Y2(%rip), %xmm0
+    vmulsd	%xmm0, %xmm1, %xmm0
+    vmovsd	%xmm0, S(%rip)
+    vmovsd	T(%rip), %xmm0
+    vmovsd	Y(%rip), %xmm1
+    vsubsd	%xmm1, %xmm0, %xmm0
+    vmovsd	%xmm0, T(%rip)
+    vmovsd	U(%rip), %xmm0
+    vmovsd	Y(%rip), %xmm1
+    vsubsd	%xmm1, %xmm0, %xmm0
+    vmovsd	R(%rip), %xmm1
+    vaddsd	%xmm1, %xmm0, %xmm0
+    vmovsd	%xmm0, Y(%rip)
+    vmovsd	S(%rip), %xmm1
+    vmovsd	Z(%rip), %xmm2
+    vmovsd	U(%rip), %xmm0
+    vaddsd	%xmm0, %xmm2, %xmm0
+    vmovsd	U(%rip), %xmm2
+    vaddsd	%xmm2, %xmm0, %xmm0
+    vsubsd	%xmm0, %xmm1, %xmm0
+    vmovsd	%xmm0, Z(%rip)
+    vmovsd	Y2(%rip), %xmm1
+    vmovsd	U(%rip), %xmm0
+    vaddsd	%xmm0, %xmm1, %xmm0
+    vmovsd	Y1(%rip), %xmm1
+    vmulsd	%xmm1, %xmm0, %xmm0
+    vmovsd	%xmm0, R(%rip)
+    vmovsd	Y2(%rip), %xmm1
+    vmovsd	Y1(%rip), %xmm0
+    vmulsd	%xmm0, %xmm1, %xmm0
+    vmovsd	%xmm0, Y1(%rip)
+    vmovsd	R(%rip), %xmm0
+    vmovsd	Y2(%rip), %xmm1
+    vsubsd	%xmm1, %xmm0, %xmm0
+    vmovsd	%xmm0, R(%rip)
+    vmovsd	Y1(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm1
+    vsubsd	%xmm1, %xmm0, %xmm0
+    vmovsd	%xmm0, Y1(%rip)
+    vmovsd	Z(%rip), %xmm0
+    vmovsd	LC1(%rip), %xmm1
+    vucomisd	%xmm1, %xmm0
+    jp	L60
+    vmovsd	LC1(%rip), %xmm1
+    vucomisd	%xmm1, %xmm0
+    je	L61
+L60:
     call	abort
-L57:
+L61:
     movl	$0, %edi
     call	exit
     .section	.rodata
 LC0:
     .long	0
-    .long	2147483648
-    .long	16382
-    .long	0
+    .long	1071644672
 LC1:
     .long	0
-    .long	3221225472
-    .long	16385
-    .long	0
+    .long	1075314688

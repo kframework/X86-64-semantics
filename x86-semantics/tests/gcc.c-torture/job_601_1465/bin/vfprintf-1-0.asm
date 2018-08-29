@@ -185,6 +185,31 @@ L24:
 L25:
     popq	%rbp
     ret
+    .globl	strrchr
+strrchr:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq	%rdi, -24(%rbp)
+    movl	%esi, -28(%rbp)
+    movq	$0, -8(%rbp)
+L29:
+    movq	-24(%rbp), %rax
+    movzbl	(%rax), %eax
+    movl	-28(%rbp), %edx
+    cmpb	%dl, %al
+    jne	L28
+    movq	-24(%rbp), %rax
+    movq	%rax, -8(%rbp)
+L28:
+    movq	-24(%rbp), %rax
+    leaq	1(%rax), %rdx
+    movq	%rdx, -24(%rbp)
+    movzbl	(%rax), %eax
+    testb	%al, %al
+    jne	L29
+    movq	-8(%rbp), %rax
+    popq	%rbp
+    ret
     .globl	memcmp
 memcmp:
     pushq	%rbp
@@ -196,14 +221,14 @@ memcmp:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L28
-L31:
+    jmp	L32
+L35:
     movq	-16(%rbp), %rax
     movzbl	(%rax), %edx
     movq	-8(%rbp), %rax
     movzbl	(%rax), %eax
     cmpb	%al, %dl
-    je	L29
+    je	L33
     movq	-16(%rbp), %rax
     movzbl	(%rax), %eax
     movzbl	%al, %edx
@@ -212,18 +237,18 @@ L31:
     movzbl	%al, %eax
     subl	%eax, %edx
     movl	%edx, %eax
-    jmp	L30
-L29:
+    jmp	L34
+L33:
     addq	$1, -16(%rbp)
     addq	$1, -8(%rbp)
-L28:
+L32:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L31
+    jne	L35
     movl	$0, %eax
-L30:
+L34:
     popq	%rbp
     ret
     .globl	__stack_chk_fail
@@ -266,19 +291,19 @@ memset:
     movq	%rdx, -40(%rbp)
     movq	-24(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L36
-L37:
+    jmp	L40
+L41:
     movq	-8(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -8(%rbp)
     movl	-28(%rbp), %edx
     movb	%dl, (%rax)
-L36:
+L40:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L37
+    jne	L41
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -293,8 +318,8 @@ memcpy:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L40
-L41:
+    jmp	L44
+L45:
     movq	-16(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -16(%rbp)
@@ -303,12 +328,12 @@ L41:
     movq	%rcx, -8(%rbp)
     movzbl	(%rdx), %edx
     movb	%dl, (%rax)
-L40:
+L44:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L41
+    jne	L45
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -343,28 +368,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L49
+    jle	L53
     cmpl	$122, -4(%rbp)
-    jg	L49
+    jg	L53
     movl	$1, %eax
-    jmp	L50
-L49:
+    jmp	L54
+L53:
     cmpl	$64, -4(%rbp)
-    jle	L51
+    jle	L55
     cmpl	$90, -4(%rbp)
-    jg	L51
+    jg	L55
     movl	$1, %eax
-    jmp	L50
-L51:
+    jmp	L54
+L55:
     cmpl	$47, -4(%rbp)
-    jle	L52
+    jle	L56
     cmpl	$57, -4(%rbp)
-    jg	L52
+    jg	L56
     movl	$1, %eax
-    jmp	L50
-L52:
+    jmp	L54
+L56:
     movl	$0, %eax
-L50:
+L54:
     popq	%rbp
     ret
     .section	.rodata
@@ -397,7 +422,7 @@ inner:
     movq	%r8, -144(%rbp)
     movq	%r9, -136(%rbp)
     testb	%al, %al
-    je	L54
+    je	L58
     vmovaps	%xmm0, -128(%rbp)
     vmovaps	%xmm1, -112(%rbp)
     vmovaps	%xmm2, -96(%rbp)
@@ -406,7 +431,7 @@ inner:
     vmovaps	%xmm5, -48(%rbp)
     vmovaps	%xmm6, -32(%rbp)
     vmovaps	%xmm7, -16(%rbp)
-L54:
+L58:
     movq	$40, %rax
     movq	%rax, -184(%rbp)
     xorl	%eax, %eax
@@ -423,25 +448,25 @@ L54:
     leaq	-176(%rbp), %rax
     movq	%rax, -192(%rbp)
     cmpl	$10, -244(%rbp)
-    ja	L55
+    ja	L59
     movl	-244(%rbp), %eax
-    movq	L57(,%rax,8), %rax
+    movq	L61(,%rax,8), %rax
     jmp	%rax
     .section	.rodata
-L57:
-    .quad	L56
-    .quad	L58
-    .quad	L59
+L61:
     .quad	L60
-    .quad	L61
     .quad	L62
     .quad	L63
     .quad	L64
     .quad	L65
     .quad	L66
     .quad	L67
+    .quad	L68
+    .quad	L69
+    .quad	L70
+    .quad	L71
     .text
-L56:
+L60:
     movq	$stdout, %rax
     movq	%rax, %rcx
     movl	$5, %edx
@@ -454,12 +479,12 @@ L56:
     movq	%rax, %rdi
     call	vfprintf
     cmpl	$5, %eax
-    je	L81
+    je	L85
     leaq	-233(%rbp), %rax
     movq	%rax, %r10
-    call	abort3473
-    jmp	L81
-L58:
+    call	abort3487
+    jmp	L85
+L62:
     movq	$stdout, %rax
     movq	%rax, %rcx
     movl	$6, %edx
@@ -472,12 +497,12 @@ L58:
     movq	%rax, %rdi
     call	vfprintf
     cmpl	$6, %eax
-    je	L82
+    je	L86
     leaq	-233(%rbp), %rax
     movq	%rax, %r10
-    call	abort3473
-    jmp	L82
-L59:
+    call	abort3487
+    jmp	L86
+L63:
     movq	$stdout, %rax
     movq	%rax, %rsi
     movl	$97, %edi
@@ -488,24 +513,24 @@ L59:
     movq	%rax, %rdi
     call	vfprintf
     cmpl	$1, %eax
-    je	L83
+    je	L87
     leaq	-233(%rbp), %rax
     movq	%rax, %r10
-    call	abort3473
-    jmp	L83
-L60:
+    call	abort3487
+    jmp	L87
+L64:
     movq	$stdout, %rax
     leaq	-208(%rbp), %rdx
     movl	$LC3, %esi
     movq	%rax, %rdi
     call	vfprintf
     testl	%eax, %eax
-    je	L84
+    je	L88
     leaq	-233(%rbp), %rax
     movq	%rax, %r10
-    call	abort3473
-    jmp	L84
-L61:
+    call	abort3487
+    jmp	L88
+L65:
     movq	$stdout, %rax
     leaq	-232(%rbp), %rdx
     movl	$LC4, %esi
@@ -517,12 +542,12 @@ L61:
     movq	%rax, %rdi
     call	vfprintf
     cmpl	$5, %eax
-    je	L85
+    je	L89
     leaq	-233(%rbp), %rax
     movq	%rax, %r10
-    call	abort3473
-    jmp	L85
-L62:
+    call	abort3487
+    jmp	L89
+L66:
     movq	$stdout, %rax
     leaq	-232(%rbp), %rdx
     movl	$LC4, %esi
@@ -534,12 +559,12 @@ L62:
     movq	%rax, %rdi
     call	vfprintf
     cmpl	$6, %eax
-    je	L86
+    je	L90
     leaq	-233(%rbp), %rax
     movq	%rax, %r10
-    call	abort3473
-    jmp	L86
-L63:
+    call	abort3487
+    jmp	L90
+L67:
     movq	$stdout, %rax
     leaq	-232(%rbp), %rdx
     movl	$LC4, %esi
@@ -551,12 +576,12 @@ L63:
     movq	%rax, %rdi
     call	vfprintf
     cmpl	$1, %eax
-    je	L87
+    je	L91
     leaq	-233(%rbp), %rax
     movq	%rax, %r10
-    call	abort3473
-    jmp	L87
-L64:
+    call	abort3487
+    jmp	L91
+L68:
     movq	$stdout, %rax
     leaq	-232(%rbp), %rdx
     movl	$LC4, %esi
@@ -568,12 +593,12 @@ L64:
     movq	%rax, %rdi
     call	vfprintf
     testl	%eax, %eax
-    je	L88
+    je	L92
     leaq	-233(%rbp), %rax
     movq	%rax, %r10
-    call	abort3473
-    jmp	L88
-L65:
+    call	abort3487
+    jmp	L92
+L69:
     movq	$stdout, %rax
     leaq	-232(%rbp), %rdx
     movl	$LC5, %esi
@@ -585,12 +610,12 @@ L65:
     movq	%rax, %rdi
     call	vfprintf
     cmpl	$1, %eax
-    je	L89
+    je	L93
     leaq	-233(%rbp), %rax
     movq	%rax, %r10
-    call	abort3473
-    jmp	L89
-L66:
+    call	abort3487
+    jmp	L93
+L70:
     movq	$stdout, %rax
     leaq	-232(%rbp), %rdx
     movl	$LC6, %esi
@@ -602,12 +627,12 @@ L66:
     movq	%rax, %rdi
     call	vfprintf
     cmpl	$7, %eax
-    je	L90
+    je	L94
     leaq	-233(%rbp), %rax
     movq	%rax, %r10
-    call	abort3473
-    jmp	L90
-L67:
+    call	abort3487
+    jmp	L94
+L71:
     movq	$stdout, %rax
     leaq	-232(%rbp), %rdx
     movl	$LC7, %esi
@@ -619,58 +644,58 @@ L67:
     movq	%rax, %rdi
     call	vfprintf
     cmpl	$2, %eax
-    je	L91
+    je	L95
     leaq	-233(%rbp), %rax
     movq	%rax, %r10
-    call	abort3473
-    jmp	L91
-L55:
+    call	abort3487
+    jmp	L95
+L59:
     leaq	-233(%rbp), %rax
     movq	%rax, %r10
-    call	abort3473
-    jmp	L69
-L81:
-    nop
-    jmp	L69
-L82:
-    nop
-    jmp	L69
-L83:
-    nop
-    jmp	L69
-L84:
-    nop
-    jmp	L69
+    call	abort3487
+    jmp	L73
 L85:
     nop
-    jmp	L69
+    jmp	L73
 L86:
     nop
-    jmp	L69
+    jmp	L73
 L87:
     nop
-    jmp	L69
+    jmp	L73
 L88:
     nop
-    jmp	L69
+    jmp	L73
 L89:
     nop
-    jmp	L69
+    jmp	L73
 L90:
     nop
-    jmp	L69
+    jmp	L73
 L91:
     nop
-L69:
+    jmp	L73
+L92:
+    nop
+    jmp	L73
+L93:
+    nop
+    jmp	L73
+L94:
+    nop
+    jmp	L73
+L95:
+    nop
+L73:
     nop
     movq	-184(%rbp), %rax
     xorq	$40, %rax
-    je	L80
+    je	L84
     call	__stack_chk_fail
-L80:
+L84:
     leave
     ret
-abort3473:
+abort3487:
     pushq	%rbp
     movq	%rsp, %rbp
     movq	%r10, -8(%rbp)
@@ -732,8 +757,8 @@ _start:
     movl	$0, %eax
     movq	-8(%rbp), %rdx
     xorq	$40, %rdx
-    je	L95
+    je	L99
     call	__stack_chk_fail
-L95:
+L99:
     leave
     ret

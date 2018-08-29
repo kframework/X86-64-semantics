@@ -263,6 +263,44 @@ L27:
     popq	%rbx
     popq	%rbp
     ret
+    .globl	strrchr
+strrchr:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    pushq	%rbx
+    subq	$40, %rsp
+    movq	%rdi, -40(%rbp)
+    movl	%esi, -44(%rbp)
+    movq	8(%rbp), %rax
+    movq	%rax, %rsi
+    movl	$strrchr, %edi
+    call	__cyg_profile_func_enter
+    movq	$0, -24(%rbp)
+L32:
+    movq	-40(%rbp), %rax
+    movzbl	(%rax), %eax
+    movl	-44(%rbp), %edx
+    cmpb	%dl, %al
+    jne	L31
+    movq	-40(%rbp), %rax
+    movq	%rax, -24(%rbp)
+L31:
+    movq	-40(%rbp), %rax
+    leaq	1(%rax), %rdx
+    movq	%rdx, -40(%rbp)
+    movzbl	(%rax), %eax
+    testb	%al, %al
+    jne	L32
+    movq	-24(%rbp), %rbx
+    movq	8(%rbp), %rax
+    movq	%rax, %rsi
+    movl	$strrchr, %edi
+    call	__cyg_profile_func_exit
+    movq	%rbx, %rax
+    addq	$40, %rsp
+    popq	%rbx
+    popq	%rbp
+    ret
     .globl	memcmp
 memcmp:
     pushq	%rbp
@@ -280,14 +318,14 @@ memcmp:
     movq	%rax, -32(%rbp)
     movq	-48(%rbp), %rax
     movq	%rax, -24(%rbp)
-    jmp	L31
-L34:
+    jmp	L35
+L38:
     movq	-32(%rbp), %rax
     movzbl	(%rax), %edx
     movq	-24(%rbp), %rax
     movzbl	(%rax), %eax
     cmpb	%al, %dl
-    je	L32
+    je	L36
     movq	-32(%rbp), %rax
     movzbl	(%rax), %eax
     movzbl	%al, %edx
@@ -296,18 +334,18 @@ L34:
     movzbl	%al, %eax
     movl	%edx, %ebx
     subl	%eax, %ebx
-    jmp	L33
-L32:
+    jmp	L37
+L36:
     addq	$1, -32(%rbp)
     addq	$1, -24(%rbp)
-L31:
+L35:
     movq	-56(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -56(%rbp)
     testq	%rax, %rax
-    jne	L34
+    jne	L38
     movl	$0, %ebx
-L33:
+L37:
     movq	8(%rbp), %rax
     movq	%rax, %rsi
     movl	$memcmp, %edi
@@ -388,19 +426,19 @@ memset:
     call	__cyg_profile_func_enter
     movq	-40(%rbp), %rax
     movq	%rax, -24(%rbp)
-    jmp	L40
-L41:
+    jmp	L44
+L45:
     movq	-24(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -24(%rbp)
     movl	-44(%rbp), %edx
     movb	%dl, (%rax)
-L40:
+L44:
     movq	-56(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -56(%rbp)
     testq	%rax, %rax
-    jne	L41
+    jne	L45
     movq	-40(%rbp), %rbx
     movq	8(%rbp), %rax
     movq	%rax, %rsi
@@ -428,8 +466,8 @@ memcpy:
     movq	%rax, -32(%rbp)
     movq	-48(%rbp), %rax
     movq	%rax, -24(%rbp)
-    jmp	L44
-L45:
+    jmp	L48
+L49:
     movq	-32(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -32(%rbp)
@@ -438,12 +476,12 @@ L45:
     movq	%rcx, -24(%rbp)
     movzbl	(%rdx), %edx
     movb	%dl, (%rax)
-L44:
+L48:
     movq	-56(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -56(%rbp)
     testq	%rax, %rax
-    jne	L45
+    jne	L49
     movq	-40(%rbp), %rbx
     movq	8(%rbp), %rax
     movq	%rax, %rsi
@@ -526,28 +564,28 @@ isprint:
     movl	$isprint, %edi
     call	__cyg_profile_func_enter
     cmpl	$96, -20(%rbp)
-    jle	L53
+    jle	L57
     cmpl	$122, -20(%rbp)
-    jg	L53
+    jg	L57
     movl	$1, %ebx
-    jmp	L54
-L53:
+    jmp	L58
+L57:
     cmpl	$64, -20(%rbp)
-    jle	L55
+    jle	L59
     cmpl	$90, -20(%rbp)
-    jg	L55
+    jg	L59
     movl	$1, %ebx
-    jmp	L54
-L55:
+    jmp	L58
+L59:
     cmpl	$47, -20(%rbp)
-    jle	L56
+    jle	L60
     cmpl	$57, -20(%rbp)
-    jg	L56
+    jg	L60
     movl	$1, %ebx
-    jmp	L54
-L56:
+    jmp	L58
+L60:
     movl	$0, %ebx
-L54:
+L58:
     movq	8(%rbp), %rax
     movq	%rax, %rsi
     movl	$isprint, %edi
@@ -571,9 +609,9 @@ foo:
     call	__cyg_profile_func_enter
     movq	last_fn_entered(%rip), %rax
     cmpq	$foo, %rax
-    je	L59
+    je	L63
     call	abort
-L59:
+L63:
     movq	8(%rbp), %rax
     movq	%rax, %rsi
     movl	$foo, %edi
@@ -590,39 +628,39 @@ foo2:
     call	__cyg_profile_func_enter
     movl	entry_calls(%rip), %eax
     cmpl	$1, %eax
-    jne	L61
+    jne	L65
     movl	exit_calls(%rip), %eax
     testl	%eax, %eax
-    je	L62
-L61:
+    je	L66
+L65:
     call	abort
-L62:
+L66:
     movq	last_fn_entered(%rip), %rax
     cmpq	$foo2, %rax
-    je	L63
+    je	L67
     call	abort
-L63:
+L67:
     movl	$0, %eax
     call	foo
     movl	entry_calls(%rip), %eax
     cmpl	$2, %eax
-    jne	L64
+    jne	L68
     movl	exit_calls(%rip), %eax
     cmpl	$1, %eax
-    je	L65
-L64:
+    je	L69
+L68:
     call	abort
-L65:
+L69:
     movq	last_fn_entered(%rip), %rax
     cmpq	$foo, %rax
-    je	L66
+    je	L70
     call	abort
-L66:
+L70:
     movq	last_fn_exited(%rip), %rax
     cmpq	$foo, %rax
-    je	L67
+    je	L71
     call	abort
-L67:
+L71:
     movq	8(%rbp), %rax
     movq	%rax, %rsi
     movl	$foo2, %edi
@@ -636,30 +674,9 @@ nfoo:
     movq	%rsp, %rbp
     movl	entry_calls(%rip), %eax
     cmpl	$2, %eax
-    jne	L69
-    movl	exit_calls(%rip), %eax
-    cmpl	$2, %eax
-    je	L70
-L69:
-    call	abort
-L70:
-    movq	last_fn_entered(%rip), %rax
-    cmpq	$foo, %rax
-    je	L71
-    call	abort
-L71:
-    movq	last_fn_exited(%rip), %rax
-    cmpq	$foo2, %rax
-    je	L72
-    call	abort
-L72:
-    movl	$0, %eax
-    call	foo
-    movl	entry_calls(%rip), %eax
-    cmpl	$3, %eax
     jne	L73
     movl	exit_calls(%rip), %eax
-    cmpl	$3, %eax
+    cmpl	$2, %eax
     je	L74
 L73:
     call	abort
@@ -670,10 +687,31 @@ L74:
     call	abort
 L75:
     movq	last_fn_exited(%rip), %rax
-    cmpq	$foo, %rax
-    je	L77
+    cmpq	$foo2, %rax
+    je	L76
     call	abort
+L76:
+    movl	$0, %eax
+    call	foo
+    movl	entry_calls(%rip), %eax
+    cmpl	$3, %eax
+    jne	L77
+    movl	exit_calls(%rip), %eax
+    cmpl	$3, %eax
+    je	L78
 L77:
+    call	abort
+L78:
+    movq	last_fn_entered(%rip), %rax
+    cmpq	$foo, %rax
+    je	L79
+    call	abort
+L79:
+    movq	last_fn_exited(%rip), %rax
+    cmpq	$foo, %rax
+    je	L81
+    call	abort
+L81:
     nop
     popq	%rbp
     ret
@@ -684,40 +722,20 @@ _start:
     movq	%rsp, %rbp
     movl	entry_calls(%rip), %eax
     testl	%eax, %eax
-    jne	L79
+    jne	L83
     movl	exit_calls(%rip), %eax
     testl	%eax, %eax
-    je	L80
-L79:
+    je	L84
+L83:
     call	abort
-L80:
+L84:
     movl	$0, %eax
     call	foo2
     movl	entry_calls(%rip), %eax
     cmpl	$2, %eax
-    jne	L81
-    movl	exit_calls(%rip), %eax
-    cmpl	$2, %eax
-    je	L82
-L81:
-    call	abort
-L82:
-    movq	last_fn_entered(%rip), %rax
-    cmpq	$foo, %rax
-    je	L83
-    call	abort
-L83:
-    movq	last_fn_exited(%rip), %rax
-    cmpq	$foo2, %rax
-    je	L84
-    call	abort
-L84:
-    call	nfoo
-    movl	entry_calls(%rip), %eax
-    cmpl	$3, %eax
     jne	L85
     movl	exit_calls(%rip), %eax
-    cmpl	$3, %eax
+    cmpl	$2, %eax
     je	L86
 L85:
     call	abort
@@ -727,6 +745,26 @@ L86:
     je	L87
     call	abort
 L87:
+    movq	last_fn_exited(%rip), %rax
+    cmpq	$foo2, %rax
+    je	L88
+    call	abort
+L88:
+    call	nfoo
+    movl	entry_calls(%rip), %eax
+    cmpl	$3, %eax
+    jne	L89
+    movl	exit_calls(%rip), %eax
+    cmpl	$3, %eax
+    je	L90
+L89:
+    call	abort
+L90:
+    movq	last_fn_entered(%rip), %rax
+    cmpq	$foo, %rax
+    je	L91
+    call	abort
+L91:
     movl	$0, %eax
     popq	%rbp
     ret
