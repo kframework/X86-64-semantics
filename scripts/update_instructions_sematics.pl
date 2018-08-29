@@ -41,15 +41,15 @@ for my $line (@lines) {
   chomp $line;
   
   if("" ne $diff) {
-    print "Diffing $line\n";
+    #print "Diffing $line\n";
     if(-e "$regDir/$line") {
-      execute("diff $regDir/$line $target/$line");
+      execute("diff $regDir/$line $target/$line", 1);
     } elsif(-e "$memDir/$line") {
-      execute("diff $memDir/$line $target/$line");
+      execute("diff $memDir/$line $target/$line", 1);
     } elsif(-e "$immDir/$line") {
-      execute("diff $immDir/$line $target/$line");
+      execute("diff $immDir/$line $target/$line", 1);
     } else {
-      execute("diff $sysDir/$line $target/$line");
+      execute("diff $sysDir/$line $target/$line", 1);
     }
   } else {
     print "Updating $line\n";
