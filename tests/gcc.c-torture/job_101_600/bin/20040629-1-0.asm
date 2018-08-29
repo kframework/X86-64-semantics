@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .comm	b,4,4
@@ -3311,9 +3294,9 @@ _start:
     call	fn1_1
     call	ret1
     cmpl	$54, %eax
-    je	L226
+    je	L222
     call	abort
-L226:
+L222:
     movzbl	b(%rip), %eax
     andl	$-64, %eax
     orl	$51, %eax
@@ -3322,9 +3305,9 @@ L226:
     call	fn2_1
     call	ret2
     cmpl	$887, %eax
-    je	L227
+    je	L223
     call	abort
-L227:
+L223:
     movl	b(%rip), %eax
     andl	$-131009, %eax
     orb	$159, %ah
@@ -3333,9 +3316,9 @@ L227:
     call	fn3_1
     call	ret3
     cmpl	$11789, %eax
-    je	L228
+    je	L224
     call	abort
-L228:
+L224:
     movl	b(%rip), %eax
     andl	$-131009, %eax
     orl	$35712, %eax
@@ -3344,9 +3327,9 @@ L228:
     call	fn4_1
     call	ret4
     cmpl	$13, %eax
-    je	L229
+    je	L225
     call	abort
-L229:
+L225:
     movzbl	c(%rip), %eax
     andl	$-32, %eax
     orl	$21, %eax
@@ -3355,9 +3338,9 @@ L229:
     call	fn5_1
     call	ret5
     testl	%eax, %eax
-    je	L230
+    je	L226
     call	abort
-L230:
+L226:
     movzbl	c(%rip), %eax
     orl	$32, %eax
     movb	%al, c(%rip)
@@ -3365,9 +3348,9 @@ L230:
     call	fn6_1
     call	ret6
     cmpl	$33818583, %eax
-    je	L231
+    je	L227
     call	abort
-L231:
+L227:
     movl	c(%rip), %eax
     andl	$63, %eax
     orl	$-2147483648, %eax
@@ -3376,25 +3359,25 @@ L231:
     call	fn7_1
     call	ret7
     cmpl	$27525, %eax
-    je	L232
+    je	L228
     call	abort
-L232:
+L228:
     movw	$26812, d(%rip)
     movl	$17, %edi
     call	fn8_1
     call	ret8
     cmpl	$173, %eax
-    je	L233
+    je	L229
     call	abort
-L233:
+L229:
     movb	$-100, d + 2(%rip)
     movl	$199, %edi
     call	fn9_1
     call	ret9
     cmpl	$130, %eax
-    je	L234
+    je	L230
     call	abort
-L234:
+L230:
     movb	$-69, d + 3(%rip)
     movzbl	b(%rip), %eax
     andl	$-64, %eax
@@ -3426,9 +3409,9 @@ L234:
     call	fn1_2
     call	ret1
     cmpl	$52, %eax
-    je	L235
+    je	L231
     call	abort
-L235:
+L231:
     movzbl	b(%rip), %eax
     andl	$-64, %eax
     orl	$51, %eax
@@ -3437,9 +3420,9 @@ L235:
     call	fn2_2
     call	ret2
     cmpl	$637, %eax
-    je	L236
+    je	L232
     call	abort
-L236:
+L232:
     movl	b(%rip), %eax
     andl	$-131009, %eax
     orb	$159, %ah
@@ -3448,9 +3431,9 @@ L236:
     call	fn3_2
     call	ret3
     cmpl	$31279, %eax
-    je	L237
+    je	L233
     call	abort
-L237:
+L233:
     movl	b(%rip), %eax
     andl	$-131009, %eax
     orl	$35712, %eax
@@ -3459,9 +3442,9 @@ L237:
     call	fn4_2
     call	ret4
     cmpl	$22, %eax
-    je	L238
+    je	L234
     call	abort
-L238:
+L234:
     movzbl	c(%rip), %eax
     andl	$-32, %eax
     orl	$21, %eax
@@ -3470,9 +3453,9 @@ L238:
     call	fn5_2
     call	ret5
     testl	%eax, %eax
-    je	L239
+    je	L235
     call	abort
-L239:
+L235:
     movzbl	c(%rip), %eax
     orl	$32, %eax
     movb	%al, c(%rip)
@@ -3480,9 +3463,9 @@ L239:
     call	fn6_2
     call	ret6
     cmpl	$33554433, %eax
-    je	L240
+    je	L236
     call	abort
-L240:
+L236:
     movl	c(%rip), %eax
     andl	$63, %eax
     orl	$-2147483648, %eax
@@ -3491,25 +3474,25 @@ L240:
     call	fn7_2
     call	ret7
     cmpl	$26813, %eax
-    je	L241
+    je	L237
     call	abort
-L241:
+L237:
     movw	$26812, d(%rip)
     movl	$17, %edi
     call	fn8_2
     call	ret8
     cmpl	$157, %eax
-    je	L242
+    je	L238
     call	abort
-L242:
+L238:
     movb	$-100, d + 2(%rip)
     movl	$199, %edi
     call	fn9_2
     call	ret9
     cmpl	$188, %eax
-    je	L243
+    je	L239
     call	abort
-L243:
+L239:
     movb	$-69, d + 3(%rip)
     movzbl	b(%rip), %eax
     andl	$-64, %eax
@@ -3541,9 +3524,9 @@ L243:
     call	fn1_3
     call	ret1
     cmpl	$52, %eax
-    je	L244
+    je	L240
     call	abort
-L244:
+L240:
     movzbl	b(%rip), %eax
     andl	$-64, %eax
     orl	$51, %eax
@@ -3552,9 +3535,9 @@ L244:
     call	fn2_3
     call	ret2
     cmpl	$637, %eax
-    je	L245
+    je	L241
     call	abort
-L245:
+L241:
     movl	b(%rip), %eax
     andl	$-131009, %eax
     orb	$159, %ah
@@ -3563,9 +3546,9 @@ L245:
     call	fn3_3
     call	ret3
     cmpl	$31279, %eax
-    je	L246
+    je	L242
     call	abort
-L246:
+L242:
     movl	b(%rip), %eax
     andl	$-131009, %eax
     orl	$35712, %eax
@@ -3574,9 +3557,9 @@ L246:
     call	fn4_3
     call	ret4
     cmpl	$22, %eax
-    je	L247
+    je	L243
     call	abort
-L247:
+L243:
     movzbl	c(%rip), %eax
     andl	$-32, %eax
     orl	$21, %eax
@@ -3585,9 +3568,9 @@ L247:
     call	fn5_3
     call	ret5
     testl	%eax, %eax
-    je	L248
+    je	L244
     call	abort
-L248:
+L244:
     movzbl	c(%rip), %eax
     orl	$32, %eax
     movb	%al, c(%rip)
@@ -3595,9 +3578,9 @@ L248:
     call	fn6_3
     call	ret6
     cmpl	$33554433, %eax
-    je	L249
+    je	L245
     call	abort
-L249:
+L245:
     movl	c(%rip), %eax
     andl	$63, %eax
     orl	$-2147483648, %eax
@@ -3606,25 +3589,25 @@ L249:
     call	fn7_3
     call	ret7
     cmpl	$26813, %eax
-    je	L250
+    je	L246
     call	abort
-L250:
+L246:
     movw	$26812, d(%rip)
     movl	$17, %edi
     call	fn8_3
     call	ret8
     cmpl	$157, %eax
-    je	L251
+    je	L247
     call	abort
-L251:
+L247:
     movb	$-100, d + 2(%rip)
     movl	$199, %edi
     call	fn9_3
     call	ret9
     cmpl	$188, %eax
-    je	L252
+    je	L248
     call	abort
-L252:
+L248:
     movb	$-69, d + 3(%rip)
     movzbl	b(%rip), %eax
     andl	$-64, %eax
@@ -3656,9 +3639,9 @@ L252:
     call	fn1_4
     call	ret1
     cmpl	$48, %eax
-    je	L253
+    je	L249
     call	abort
-L253:
+L249:
     movzbl	b(%rip), %eax
     andl	$-64, %eax
     orl	$51, %eax
@@ -3667,9 +3650,9 @@ L253:
     call	fn2_4
     call	ret2
     cmpl	$385, %eax
-    je	L254
+    je	L250
     call	abort
-L254:
+L250:
     movl	b(%rip), %eax
     andl	$-131009, %eax
     orb	$159, %ah
@@ -3678,9 +3661,9 @@ L254:
     call	fn3_4
     call	ret3
     cmpl	$17999, %eax
-    je	L255
+    je	L251
     call	abort
-L255:
+L251:
     movl	b(%rip), %eax
     andl	$-131009, %eax
     orl	$35712, %eax
@@ -3689,9 +3672,9 @@ L255:
     call	fn4_4
     call	ret4
     cmpl	$29, %eax
-    je	L256
+    je	L252
     call	abort
-L256:
+L252:
     movzbl	c(%rip), %eax
     andl	$-32, %eax
     orl	$21, %eax
@@ -3700,9 +3683,9 @@ L256:
     call	fn5_4
     call	ret5
     testl	%eax, %eax
-    je	L257
+    je	L253
     call	abort
-L257:
+L253:
     movzbl	c(%rip), %eax
     orl	$32, %eax
     movb	%al, c(%rip)
@@ -3710,9 +3693,9 @@ L257:
     call	fn6_4
     call	ret6
     cmpl	$33290281, %eax
-    je	L258
+    je	L254
     call	abort
-L258:
+L254:
     movl	c(%rip), %eax
     andl	$63, %eax
     orl	$-2147483648, %eax
@@ -3721,25 +3704,25 @@ L258:
     call	fn7_4
     call	ret7
     cmpl	$26099, %eax
-    je	L259
+    je	L255
     call	abort
-L259:
+L255:
     movw	$26812, d(%rip)
     movl	$17, %edi
     call	fn8_4
     call	ret8
     cmpl	$139, %eax
-    je	L260
+    je	L256
     call	abort
-L260:
+L256:
     movb	$-100, d + 2(%rip)
     movl	$199, %edi
     call	fn9_4
     call	ret9
     cmpl	$244, %eax
-    je	L261
+    je	L257
     call	abort
-L261:
+L257:
     movb	$-69, d + 3(%rip)
     movzbl	b(%rip), %eax
     andl	$-64, %eax
@@ -3771,9 +3754,9 @@ L261:
     call	fn1_5
     call	ret1
     cmpl	$50, %eax
-    je	L262
+    je	L258
     call	abort
-L262:
+L258:
     movzbl	b(%rip), %eax
     andl	$-64, %eax
     orl	$51, %eax
@@ -3782,9 +3765,9 @@ L262:
     call	fn2_5
     call	ret2
     cmpl	$635, %eax
-    je	L263
+    je	L259
     call	abort
-L263:
+L259:
     movl	b(%rip), %eax
     andl	$-131009, %eax
     orb	$159, %ah
@@ -3793,9 +3776,9 @@ L263:
     call	fn3_5
     call	ret3
     cmpl	$31277, %eax
-    je	L264
+    je	L260
     call	abort
-L264:
+L260:
     movl	b(%rip), %eax
     andl	$-131009, %eax
     orl	$35712, %eax
@@ -3804,9 +3787,9 @@ L264:
     call	fn4_5
     call	ret4
     cmpl	$20, %eax
-    je	L265
+    je	L261
     call	abort
-L265:
+L261:
     movzbl	c(%rip), %eax
     andl	$-32, %eax
     orl	$21, %eax
@@ -3815,9 +3798,9 @@ L265:
     call	fn5_5
     call	ret5
     testl	%eax, %eax
-    je	L266
+    je	L262
     call	abort
-L266:
+L262:
     movzbl	c(%rip), %eax
     orl	$32, %eax
     movb	%al, c(%rip)
@@ -3825,9 +3808,9 @@ L266:
     call	fn6_5
     call	ret6
     cmpl	$33554431, %eax
-    je	L267
+    je	L263
     call	abort
-L267:
+L263:
     movl	c(%rip), %eax
     andl	$63, %eax
     orl	$-2147483648, %eax
@@ -3836,25 +3819,25 @@ L267:
     call	fn7_5
     call	ret7
     cmpl	$26811, %eax
-    je	L268
+    je	L264
     call	abort
-L268:
+L264:
     movw	$26812, d(%rip)
     movl	$17, %edi
     call	fn8_5
     call	ret8
     cmpl	$155, %eax
-    je	L269
+    je	L265
     call	abort
-L269:
+L265:
     movb	$-100, d + 2(%rip)
     movl	$199, %edi
     call	fn9_5
     call	ret9
     cmpl	$186, %eax
-    je	L270
+    je	L266
     call	abort
-L270:
+L266:
     movb	$-69, d + 3(%rip)
     movzbl	b(%rip), %eax
     andl	$-64, %eax
@@ -3886,9 +3869,9 @@ L270:
     call	fn1_6
     call	ret1
     cmpl	$50, %eax
-    je	L271
+    je	L267
     call	abort
-L271:
+L267:
     movzbl	b(%rip), %eax
     andl	$-64, %eax
     orl	$51, %eax
@@ -3897,9 +3880,9 @@ L271:
     call	fn2_6
     call	ret2
     cmpl	$635, %eax
-    je	L272
+    je	L268
     call	abort
-L272:
+L268:
     movl	b(%rip), %eax
     andl	$-131009, %eax
     orb	$159, %ah
@@ -3908,9 +3891,9 @@ L272:
     call	fn3_6
     call	ret3
     cmpl	$31277, %eax
-    je	L273
+    je	L269
     call	abort
-L273:
+L269:
     movl	b(%rip), %eax
     andl	$-131009, %eax
     orl	$35712, %eax
@@ -3919,9 +3902,9 @@ L273:
     call	fn4_6
     call	ret4
     cmpl	$20, %eax
-    je	L274
+    je	L270
     call	abort
-L274:
+L270:
     movzbl	c(%rip), %eax
     andl	$-32, %eax
     orl	$21, %eax
@@ -3930,9 +3913,9 @@ L274:
     call	fn5_6
     call	ret5
     testl	%eax, %eax
-    je	L275
+    je	L271
     call	abort
-L275:
+L271:
     movzbl	c(%rip), %eax
     orl	$32, %eax
     movb	%al, c(%rip)
@@ -3940,9 +3923,9 @@ L275:
     call	fn6_6
     call	ret6
     cmpl	$33554431, %eax
-    je	L276
+    je	L272
     call	abort
-L276:
+L272:
     movl	c(%rip), %eax
     andl	$63, %eax
     orl	$-2147483648, %eax
@@ -3951,25 +3934,25 @@ L276:
     call	fn7_6
     call	ret7
     cmpl	$26811, %eax
-    je	L277
+    je	L273
     call	abort
-L277:
+L273:
     movw	$26812, d(%rip)
     movl	$17, %edi
     call	fn8_6
     call	ret8
     cmpl	$155, %eax
-    je	L278
+    je	L274
     call	abort
-L278:
+L274:
     movb	$-100, d + 2(%rip)
     movl	$199, %edi
     call	fn9_6
     call	ret9
     cmpl	$186, %eax
-    je	L279
+    je	L275
     call	abort
-L279:
+L275:
     movb	$-69, d + 3(%rip)
     movzbl	b(%rip), %eax
     andl	$-64, %eax
@@ -4001,9 +3984,9 @@ L279:
     call	fn1_7
     call	ret1
     cmpl	$3, %eax
-    je	L280
+    je	L276
     call	abort
-L280:
+L276:
     movzbl	b(%rip), %eax
     andl	$-64, %eax
     orl	$51, %eax
@@ -4012,9 +3995,9 @@ L280:
     call	fn2_7
     call	ret2
     cmpl	$120, %eax
-    je	L281
+    je	L277
     call	abort
-L281:
+L277:
     movl	b(%rip), %eax
     andl	$-131009, %eax
     orb	$159, %ah
@@ -4023,9 +4006,9 @@ L281:
     call	fn3_7
     call	ret3
     cmpl	$12814, %eax
-    je	L282
+    je	L278
     call	abort
-L282:
+L278:
     movl	b(%rip), %eax
     andl	$-131009, %eax
     orl	$35712, %eax
@@ -4034,9 +4017,9 @@ L282:
     call	fn4_7
     call	ret4
     cmpl	$16, %eax
-    je	L283
+    je	L279
     call	abort
-L283:
+L279:
     movzbl	c(%rip), %eax
     andl	$-32, %eax
     orl	$21, %eax
@@ -4045,9 +4028,9 @@ L283:
     call	fn5_7
     call	ret5
     cmpl	$1, %eax
-    je	L284
+    je	L280
     call	abort
-L284:
+L280:
     movzbl	c(%rip), %eax
     orl	$32, %eax
     movb	%al, c(%rip)
@@ -4055,9 +4038,9 @@ L284:
     call	fn6_7
     call	ret6
     testl	%eax, %eax
-    je	L285
+    je	L281
     call	abort
-L285:
+L281:
     movl	c(%rip), %eax
     andl	$63, %eax
     orl	$-2147483648, %eax
@@ -4066,25 +4049,25 @@ L285:
     call	fn7_7
     call	ret7
     cmpl	$136, %eax
-    je	L286
+    je	L282
     call	abort
-L286:
+L282:
     movw	$26812, d(%rip)
     movl	$17, %edi
     call	fn8_7
     call	ret8
     cmpl	$16, %eax
-    je	L287
+    je	L283
     call	abort
-L287:
+L283:
     movb	$-100, d + 2(%rip)
     movl	$199, %edi
     call	fn9_7
     call	ret9
     cmpl	$131, %eax
-    je	L288
+    je	L284
     call	abort
-L288:
+L284:
     movb	$-69, d + 3(%rip)
     movzbl	b(%rip), %eax
     andl	$-64, %eax
@@ -4116,9 +4099,9 @@ L288:
     call	fn1_8
     call	ret1
     cmpl	$51, %eax
-    je	L289
+    je	L285
     call	abort
-L289:
+L285:
     movzbl	b(%rip), %eax
     andl	$-64, %eax
     orl	$51, %eax
@@ -4127,9 +4110,9 @@ L289:
     call	fn2_8
     call	ret2
     cmpl	$767, %eax
-    je	L290
+    je	L286
     call	abort
-L290:
+L286:
     movl	b(%rip), %eax
     andl	$-131009, %eax
     orb	$159, %ah
@@ -4138,9 +4121,9 @@ L290:
     call	fn3_8
     call	ret3
     cmpl	$31743, %eax
-    je	L291
+    je	L287
     call	abort
-L291:
+L287:
     movl	b(%rip), %eax
     andl	$-131009, %eax
     orl	$35712, %eax
@@ -4149,9 +4132,9 @@ L291:
     call	fn4_8
     call	ret4
     cmpl	$29, %eax
-    je	L292
+    je	L288
     call	abort
-L292:
+L288:
     movzbl	c(%rip), %eax
     andl	$-32, %eax
     orl	$21, %eax
@@ -4160,9 +4143,9 @@ L292:
     call	fn5_8
     call	ret5
     cmpl	$1, %eax
-    je	L293
+    je	L289
     call	abort
-L293:
+L289:
     movzbl	c(%rip), %eax
     orl	$32, %eax
     movb	%al, c(%rip)
@@ -4170,9 +4153,9 @@ L293:
     call	fn6_8
     call	ret6
     cmpl	$33818583, %eax
-    je	L294
+    je	L290
     call	abort
-L294:
+L290:
     movl	c(%rip), %eax
     andl	$63, %eax
     orl	$-2147483648, %eax
@@ -4181,25 +4164,25 @@ L294:
     call	fn7_8
     call	ret7
     cmpl	$27389, %eax
-    je	L295
+    je	L291
     call	abort
-L295:
+L291:
     movw	$26812, d(%rip)
     movl	$17, %edi
     call	fn8_8
     call	ret8
     cmpl	$157, %eax
-    je	L296
+    je	L292
     call	abort
-L296:
+L292:
     movb	$-100, d + 2(%rip)
     movl	$199, %edi
     call	fn9_8
     call	ret9
     cmpl	$255, %eax
-    je	L297
+    je	L293
     call	abort
-L297:
+L293:
     movb	$-69, d + 3(%rip)
     movzbl	b(%rip), %eax
     andl	$-64, %eax
@@ -4231,9 +4214,9 @@ L297:
     call	fn1_9
     call	ret1
     cmpl	$48, %eax
-    je	L298
+    je	L294
     call	abort
-L298:
+L294:
     movzbl	b(%rip), %eax
     andl	$-64, %eax
     orl	$51, %eax
@@ -4242,9 +4225,9 @@ L298:
     call	fn2_9
     call	ret2
     cmpl	$647, %eax
-    je	L299
+    je	L295
     call	abort
-L299:
+L295:
     movl	b(%rip), %eax
     andl	$-131009, %eax
     orb	$159, %ah
@@ -4253,9 +4236,9 @@ L299:
     call	fn3_9
     call	ret3
     cmpl	$18929, %eax
-    je	L300
+    je	L296
     call	abort
-L300:
+L296:
     movl	b(%rip), %eax
     andl	$-131009, %eax
     orl	$35712, %eax
@@ -4264,9 +4247,9 @@ L300:
     call	fn4_9
     call	ret4
     cmpl	$13, %eax
-    je	L301
+    je	L297
     call	abort
-L301:
+L297:
     movzbl	c(%rip), %eax
     andl	$-32, %eax
     orl	$21, %eax
@@ -4275,9 +4258,9 @@ L301:
     call	fn5_9
     call	ret5
     testl	%eax, %eax
-    je	L302
+    je	L298
     call	abort
-L302:
+L298:
     movzbl	c(%rip), %eax
     orl	$32, %eax
     movb	%al, c(%rip)
@@ -4285,9 +4268,9 @@ L302:
     call	fn6_9
     call	ret6
     cmpl	$33818583, %eax
-    je	L303
+    je	L299
     call	abort
-L303:
+L299:
     movl	c(%rip), %eax
     andl	$63, %eax
     orl	$-2147483648, %eax
@@ -4296,25 +4279,25 @@ L303:
     call	fn7_9
     call	ret7
     cmpl	$27253, %eax
-    je	L304
+    je	L300
     call	abort
-L304:
+L300:
     movw	$26812, d(%rip)
     movl	$17, %edi
     call	fn8_9
     call	ret8
     cmpl	$141, %eax
-    je	L305
+    je	L301
     call	abort
-L305:
+L301:
     movb	$-100, d + 2(%rip)
     movl	$199, %edi
     call	fn9_9
     call	ret9
     cmpl	$124, %eax
-    je	L306
+    je	L302
     call	abort
-L306:
+L302:
     movb	$-69, d + 3(%rip)
     movzbl	b(%rip), %eax
     andl	$-64, %eax
@@ -4346,9 +4329,9 @@ L306:
     call	fn1_a
     call	ret1
     cmpl	$17, %eax
-    je	L307
+    je	L303
     call	abort
-L307:
+L303:
     movzbl	b(%rip), %eax
     andl	$-64, %eax
     orl	$51, %eax
@@ -4357,9 +4340,9 @@ L307:
     call	fn2_a
     call	ret2
     cmpl	$2, %eax
-    je	L308
+    je	L304
     call	abort
-L308:
+L304:
     movl	b(%rip), %eax
     andl	$-131009, %eax
     orb	$159, %ah
@@ -4368,9 +4351,9 @@ L308:
     call	fn3_a
     call	ret3
     cmpl	$2, %eax
-    je	L309
+    je	L305
     call	abort
-L309:
+L305:
     movl	b(%rip), %eax
     andl	$-131009, %eax
     orl	$35712, %eax
@@ -4379,9 +4362,9 @@ L309:
     call	fn4_a
     call	ret4
     testl	%eax, %eax
-    je	L310
+    je	L306
     call	abort
-L310:
+L306:
     movzbl	c(%rip), %eax
     andl	$-32, %eax
     orl	$21, %eax
@@ -4390,9 +4373,9 @@ L310:
     call	fn5_a
     call	ret5
     cmpl	$1, %eax
-    je	L311
+    je	L307
     call	abort
-L311:
+L307:
     movzbl	c(%rip), %eax
     orl	$32, %eax
     movb	%al, c(%rip)
@@ -4400,9 +4383,9 @@ L311:
     call	fn6_a
     call	ret6
     cmpl	$127, %eax
-    je	L312
+    je	L308
     call	abort
-L312:
+L308:
     movl	c(%rip), %eax
     andl	$63, %eax
     orl	$-2147483648, %eax
@@ -4411,25 +4394,25 @@ L312:
     call	fn7_a
     call	ret7
     cmpl	$37, %eax
-    je	L313
+    je	L309
     call	abort
-L313:
+L309:
     movw	$26812, d(%rip)
     movl	$17, %edi
     call	fn8_a
     call	ret8
     cmpl	$9, %eax
-    je	L314
+    je	L310
     call	abort
-L314:
+L310:
     movb	$-100, d + 2(%rip)
     movl	$199, %edi
     call	fn9_a
     call	ret9
     testl	%eax, %eax
-    je	L315
+    je	L311
     call	abort
-L315:
+L311:
     movb	$-69, d + 3(%rip)
     movzbl	b(%rip), %eax
     andl	$-64, %eax
@@ -4461,9 +4444,9 @@ L315:
     call	fn1_b
     call	ret1
     testl	%eax, %eax
-    je	L316
+    je	L312
     call	abort
-L316:
+L312:
     movzbl	b(%rip), %eax
     andl	$-64, %eax
     orl	$51, %eax
@@ -4472,9 +4455,9 @@ L316:
     call	fn2_b
     call	ret2
     cmpl	$134, %eax
-    je	L317
+    je	L313
     call	abort
-L317:
+L313:
     movl	b(%rip), %eax
     andl	$-131009, %eax
     orb	$159, %ah
@@ -4483,9 +4466,9 @@ L317:
     call	fn3_b
     call	ret3
     cmpl	$4720, %eax
-    je	L318
+    je	L314
     call	abort
-L318:
+L314:
     movl	b(%rip), %eax
     andl	$-131009, %eax
     orl	$35712, %eax
@@ -4494,9 +4477,9 @@ L318:
     call	fn4_b
     call	ret4
     cmpl	$21, %eax
-    je	L319
+    je	L315
     call	abort
-L319:
+L315:
     movzbl	c(%rip), %eax
     andl	$-32, %eax
     orl	$21, %eax
@@ -4505,9 +4488,9 @@ L319:
     call	fn5_b
     call	ret5
     testl	%eax, %eax
-    je	L320
+    je	L316
     call	abort
-L320:
+L316:
     movzbl	c(%rip), %eax
     orl	$32, %eax
     movb	%al, c(%rip)
@@ -4515,9 +4498,9 @@ L320:
     call	fn6_b
     call	ret6
     cmpl	$7255, %eax
-    je	L321
+    je	L317
     call	abort
-L321:
+L317:
     movl	c(%rip), %eax
     andl	$63, %eax
     orl	$-2147483648, %eax
@@ -4526,25 +4509,25 @@ L321:
     call	fn7_b
     call	ret7
     cmpl	$431, %eax
-    je	L322
+    je	L318
     call	abort
-L322:
+L318:
     movw	$26812, d(%rip)
     movl	$17, %edi
     call	fn8_b
     call	ret8
     cmpl	$3, %eax
-    je	L323
+    je	L319
     call	abort
-L323:
+L319:
     movb	$-100, d + 2(%rip)
     movl	$199, %edi
     call	fn9_b
     call	ret9
     cmpl	$187, %eax
-    je	L324
+    je	L320
     call	abort
-L324:
+L320:
     movb	$-69, d + 3(%rip)
     movzbl	b(%rip), %eax
     andl	$-64, %eax
@@ -4576,9 +4559,9 @@ L324:
     call	fn1_c
     call	ret1
     cmpl	$54, %eax
-    je	L325
+    je	L321
     call	abort
-L325:
+L321:
     movzbl	b(%rip), %eax
     andl	$-64, %eax
     orl	$51, %eax
@@ -4587,9 +4570,9 @@ L325:
     call	fn2_c
     call	ret2
     cmpl	$639, %eax
-    je	L326
+    je	L322
     call	abort
-L326:
+L322:
     movl	b(%rip), %eax
     andl	$-131009, %eax
     orb	$159, %ah
@@ -4598,9 +4581,9 @@ L326:
     call	fn3_c
     call	ret3
     cmpl	$31281, %eax
-    je	L327
+    je	L323
     call	abort
-L327:
+L323:
     movl	b(%rip), %eax
     andl	$-131009, %eax
     orl	$35712, %eax
@@ -4609,9 +4592,9 @@ L327:
     call	fn4_c
     call	ret4
     cmpl	$24, %eax
-    je	L328
+    je	L324
     call	abort
-L328:
+L324:
     movzbl	c(%rip), %eax
     andl	$-32, %eax
     orl	$21, %eax
@@ -4620,9 +4603,9 @@ L328:
     call	fn5_c
     call	ret5
     testl	%eax, %eax
-    je	L329
+    je	L325
     call	abort
-L329:
+L325:
     movzbl	c(%rip), %eax
     orl	$32, %eax
     movb	%al, c(%rip)
@@ -4630,9 +4613,9 @@ L329:
     call	fn6_c
     call	ret6
     cmpl	$33554435, %eax
-    je	L330
+    je	L326
     call	abort
-L330:
+L326:
     movl	c(%rip), %eax
     andl	$63, %eax
     orl	$-2147483648, %eax
@@ -4641,25 +4624,25 @@ L330:
     call	fn7_c
     call	ret7
     cmpl	$26815, %eax
-    je	L331
+    je	L327
     call	abort
-L331:
+L327:
     movw	$26812, d(%rip)
     movl	$17, %edi
     call	fn8_c
     call	ret8
     cmpl	$159, %eax
-    je	L332
+    je	L328
     call	abort
-L332:
+L328:
     movb	$-100, d + 2(%rip)
     movl	$199, %edi
     call	fn9_c
     call	ret9
     cmpl	$190, %eax
-    je	L333
+    je	L329
     call	abort
-L333:
+L329:
     movb	$-69, d + 3(%rip)
     movzbl	b(%rip), %eax
     andl	$-64, %eax
@@ -4691,9 +4674,9 @@ L333:
     call	fn1_d
     call	ret1
     cmpl	$44, %eax
-    je	L334
+    je	L330
     call	abort
-L334:
+L330:
     movzbl	b(%rip), %eax
     andl	$-64, %eax
     orl	$51, %eax
@@ -4702,9 +4685,9 @@ L334:
     call	fn2_d
     call	ret2
     cmpl	$629, %eax
-    je	L335
+    je	L331
     call	abort
-L335:
+L331:
     movl	b(%rip), %eax
     andl	$-131009, %eax
     orb	$159, %ah
@@ -4713,9 +4696,9 @@ L335:
     call	fn3_d
     call	ret3
     cmpl	$31271, %eax
-    je	L336
+    je	L332
     call	abort
-L336:
+L332:
     movl	b(%rip), %eax
     andl	$-131009, %eax
     orl	$35712, %eax
@@ -4724,9 +4707,9 @@ L336:
     call	fn4_d
     call	ret4
     cmpl	$14, %eax
-    je	L337
+    je	L333
     call	abort
-L337:
+L333:
     movzbl	c(%rip), %eax
     andl	$-32, %eax
     orl	$21, %eax
@@ -4735,9 +4718,9 @@ L337:
     call	fn5_d
     call	ret5
     testl	%eax, %eax
-    je	L338
+    je	L334
     call	abort
-L338:
+L334:
     movzbl	c(%rip), %eax
     orl	$32, %eax
     movb	%al, c(%rip)
@@ -4745,9 +4728,9 @@ L338:
     call	fn6_d
     call	ret6
     cmpl	$33554425, %eax
-    je	L339
+    je	L335
     call	abort
-L339:
+L335:
     movl	c(%rip), %eax
     andl	$63, %eax
     orl	$-2147483648, %eax
@@ -4756,25 +4739,25 @@ L339:
     call	fn7_d
     call	ret7
     cmpl	$26805, %eax
-    je	L340
+    je	L336
     call	abort
-L340:
+L336:
     movw	$26812, d(%rip)
     movl	$17, %edi
     call	fn8_d
     call	ret8
     cmpl	$149, %eax
-    je	L341
+    je	L337
     call	abort
-L341:
+L337:
     movb	$-100, d + 2(%rip)
     movl	$199, %edi
     call	fn9_d
     call	ret9
     cmpl	$180, %eax
-    je	L342
+    je	L338
     call	abort
-L342:
+L338:
     movb	$-69, d + 3(%rip)
     movzbl	b(%rip), %eax
     andl	$-64, %eax
@@ -4806,9 +4789,9 @@ L342:
     call	fn1_e
     call	ret1
     cmpl	$17, %eax
-    je	L343
+    je	L339
     call	abort
-L343:
+L339:
     movzbl	b(%rip), %eax
     andl	$-64, %eax
     orl	$51, %eax
@@ -4817,9 +4800,9 @@ L343:
     call	fn2_e
     call	ret2
     cmpl	$20, %eax
-    je	L344
+    je	L340
     call	abort
-L344:
+L340:
     movl	b(%rip), %eax
     andl	$-131009, %eax
     orb	$159, %ah
@@ -4828,9 +4811,9 @@ L344:
     call	fn3_e
     call	ret3
     cmpl	$4, %eax
-    je	L345
+    je	L341
     call	abort
-L345:
+L341:
     movl	b(%rip), %eax
     andl	$-131009, %eax
     orl	$35712, %eax
@@ -4839,9 +4822,9 @@ L345:
     call	fn4_e
     call	ret4
     cmpl	$21, %eax
-    je	L346
+    je	L342
     call	abort
-L346:
+L342:
     movzbl	c(%rip), %eax
     andl	$-32, %eax
     orl	$21, %eax
@@ -4850,9 +4833,9 @@ L346:
     call	fn5_e
     call	ret5
     cmpl	$1, %eax
-    je	L347
+    je	L343
     call	abort
-L347:
+L343:
     movzbl	c(%rip), %eax
     orl	$32, %eax
     movb	%al, c(%rip)
@@ -4860,9 +4843,9 @@ L347:
     call	fn6_e
     call	ret6
     testl	%eax, %eax
-    je	L348
+    je	L344
     call	abort
-L348:
+L344:
     movl	c(%rip), %eax
     andl	$63, %eax
     orl	$-2147483648, %eax
@@ -4871,25 +4854,25 @@ L348:
     call	fn7_e
     call	ret7
     cmpl	$20, %eax
-    je	L349
+    je	L345
     call	abort
-L349:
+L345:
     movw	$26812, d(%rip)
     movl	$17, %edi
     call	fn8_e
     call	ret8
     cmpl	$20, %eax
-    je	L350
+    je	L346
     call	abort
-L350:
+L346:
     movb	$-100, d + 2(%rip)
     movl	$199, %edi
     call	fn9_e
     call	ret9
     cmpl	$17, %eax
-    je	L351
+    je	L347
     call	abort
-L351:
+L347:
     movb	$-69, d + 3(%rip)
     movzbl	b(%rip), %eax
     andl	$-64, %eax
@@ -4921,9 +4904,9 @@ L351:
     call	fn1_f
     call	ret1
     cmpl	$51, %eax
-    je	L352
+    je	L348
     call	abort
-L352:
+L348:
     movzbl	b(%rip), %eax
     andl	$-64, %eax
     orl	$51, %eax
@@ -4932,9 +4915,9 @@ L352:
     call	fn2_f
     call	ret2
     cmpl	$639, %eax
-    je	L353
+    je	L349
     call	abort
-L353:
+L349:
     movl	b(%rip), %eax
     andl	$-131009, %eax
     orb	$159, %ah
@@ -4943,9 +4926,9 @@ L353:
     call	fn3_f
     call	ret3
     cmpl	$31295, %eax
-    je	L354
+    je	L350
     call	abort
-L354:
+L350:
     movl	b(%rip), %eax
     andl	$-131009, %eax
     orl	$35712, %eax
@@ -4954,9 +4937,9 @@ L354:
     call	fn4_f
     call	ret4
     cmpl	$23, %eax
-    je	L355
+    je	L351
     call	abort
-L355:
+L351:
     movzbl	c(%rip), %eax
     andl	$-32, %eax
     orl	$21, %eax
@@ -4965,9 +4948,9 @@ L355:
     call	fn5_f
     call	ret5
     cmpl	$1, %eax
-    je	L356
+    je	L352
     call	abort
-L356:
+L352:
     movzbl	c(%rip), %eax
     orl	$32, %eax
     movb	%al, c(%rip)
@@ -4975,9 +4958,9 @@ L356:
     call	fn6_f
     call	ret6
     cmpl	$33554451, %eax
-    je	L357
+    je	L353
     call	abort
-L357:
+L353:
     movl	c(%rip), %eax
     andl	$63, %eax
     orl	$-2147483648, %eax
@@ -4986,25 +4969,25 @@ L357:
     call	fn7_f
     call	ret7
     cmpl	$26815, %eax
-    je	L358
+    je	L354
     call	abort
-L358:
+L354:
     movw	$26812, d(%rip)
     movl	$17, %edi
     call	fn8_f
     call	ret8
     cmpl	$159, %eax
-    je	L359
+    je	L355
     call	abort
-L359:
+L355:
     movb	$-100, d + 2(%rip)
     movl	$199, %edi
     call	fn9_f
     call	ret9
     cmpl	$187, %eax
-    je	L360
+    je	L356
     call	abort
-L360:
+L356:
     movb	$-69, d + 3(%rip)
     movzbl	b(%rip), %eax
     andl	$-64, %eax
@@ -5036,9 +5019,9 @@ L360:
     call	fn1_g
     call	ret1
     cmpl	$22, %eax
-    je	L361
+    je	L357
     call	abort
-L361:
+L357:
     movzbl	b(%rip), %eax
     andl	$-64, %eax
     orl	$51, %eax
@@ -5047,9 +5030,9 @@ L361:
     call	fn2_g
     call	ret2
     cmpl	$601, %eax
-    je	L362
+    je	L358
     call	abort
-L362:
+L358:
     movl	b(%rip), %eax
     andl	$-131009, %eax
     orb	$159, %ah
@@ -5058,9 +5041,9 @@ L362:
     call	fn3_g
     call	ret3
     cmpl	$31243, %eax
-    je	L363
+    je	L359
     call	abort
-L363:
+L359:
     movl	b(%rip), %eax
     andl	$-131009, %eax
     orl	$35712, %eax
@@ -5069,9 +5052,9 @@ L363:
     call	fn4_g
     call	ret4
     cmpl	$16, %eax
-    je	L364
+    je	L360
     call	abort
-L364:
+L360:
     movzbl	c(%rip), %eax
     andl	$-32, %eax
     orl	$21, %eax
@@ -5080,9 +5063,9 @@ L364:
     call	fn5_g
     call	ret5
     testl	%eax, %eax
-    je	L365
+    je	L361
     call	abort
-L365:
+L361:
     movzbl	c(%rip), %eax
     orl	$32, %eax
     movb	%al, c(%rip)
@@ -5090,9 +5073,9 @@ L365:
     call	fn6_g
     call	ret6
     cmpl	$33554469, %eax
-    je	L366
+    je	L362
     call	abort
-L366:
+L362:
     movl	c(%rip), %eax
     andl	$63, %eax
     orl	$-2147483648, %eax
@@ -5101,25 +5084,25 @@ L366:
     call	fn7_g
     call	ret7
     cmpl	$26777, %eax
-    je	L367
+    je	L363
     call	abort
-L367:
+L363:
     movw	$26812, d(%rip)
     movl	$17, %edi
     call	fn8_g
     call	ret8
     cmpl	$185, %eax
-    je	L368
+    je	L364
     call	abort
-L368:
+L364:
     movb	$-100, d + 2(%rip)
     movl	$199, %edi
     call	fn9_g
     call	ret9
     cmpl	$158, %eax
-    je	L369
+    je	L365
     call	abort
-L369:
+L365:
     movb	$-69, d + 3(%rip)
     movzbl	b(%rip), %eax
     andl	$-64, %eax
@@ -5151,9 +5134,9 @@ L369:
     call	fn1_h
     call	ret1
     cmpl	$3, %eax
-    je	L370
+    je	L366
     call	abort
-L370:
+L366:
     movzbl	b(%rip), %eax
     andl	$-64, %eax
     orl	$51, %eax
@@ -5162,9 +5145,9 @@ L370:
     call	fn2_h
     call	ret2
     cmpl	$37, %eax
-    je	L371
+    je	L367
     call	abort
-L371:
+L367:
     movl	b(%rip), %eax
     andl	$-131009, %eax
     orb	$159, %ah
@@ -5173,9 +5156,9 @@ L371:
     call	fn3_h
     call	ret3
     cmpl	$1839, %eax
-    je	L372
+    je	L368
     call	abort
-L372:
+L368:
     movl	b(%rip), %eax
     andl	$-131009, %eax
     orl	$35712, %eax
@@ -5184,9 +5167,9 @@ L372:
     call	fn4_h
     call	ret4
     cmpl	$1, %eax
-    je	L373
+    je	L369
     call	abort
-L373:
+L369:
     movzbl	c(%rip), %eax
     andl	$-32, %eax
     orl	$21, %eax
@@ -5195,9 +5178,9 @@ L373:
     call	fn5_h
     call	ret5
     testl	%eax, %eax
-    je	L374
+    je	L370
     call	abort
-L374:
+L370:
     movzbl	c(%rip), %eax
     orl	$32, %eax
     movb	%al, c(%rip)
@@ -5205,9 +5188,9 @@ L374:
     call	fn6_h
     call	ret6
     cmpl	$1973790, %eax
-    je	L375
+    je	L371
     call	abort
-L375:
+L371:
     movl	c(%rip), %eax
     andl	$63, %eax
     orl	$-2147483648, %eax
@@ -5216,25 +5199,25 @@ L375:
     call	fn7_h
     call	ret7
     cmpl	$1577, %eax
-    je	L376
+    je	L372
     call	abort
-L376:
+L372:
     movw	$26812, d(%rip)
     movl	$17, %edi
     call	fn8_h
     call	ret8
     cmpl	$9, %eax
-    je	L377
+    je	L373
     call	abort
-L377:
+L373:
     movb	$-100, d + 2(%rip)
     movl	$199, %edi
     call	fn9_h
     call	ret9
     cmpl	$11, %eax
-    je	L378
+    je	L374
     call	abort
-L378:
+L374:
     movb	$-69, d + 3(%rip)
     movzbl	b(%rip), %eax
     andl	$-64, %eax
@@ -5266,9 +5249,9 @@ L378:
     call	fn1_i
     call	ret1
     cmpl	$13, %eax
-    je	L379
+    je	L375
     call	abort
-L379:
+L375:
     movzbl	b(%rip), %eax
     andl	$-64, %eax
     orl	$51, %eax
@@ -5277,9 +5260,9 @@ L379:
     call	fn2_i
     call	ret2
     cmpl	$9, %eax
-    je	L380
+    je	L376
     call	abort
-L380:
+L376:
     movl	b(%rip), %eax
     andl	$-131009, %eax
     orb	$159, %ah
@@ -5288,9 +5271,9 @@ L380:
     call	fn3_i
     call	ret3
     cmpl	$4, %eax
-    je	L381
+    je	L377
     call	abort
-L381:
+L377:
     movl	b(%rip), %eax
     andl	$-131009, %eax
     orl	$35712, %eax
@@ -5299,9 +5282,9 @@ L381:
     call	fn4_i
     call	ret4
     cmpl	$2, %eax
-    je	L382
+    je	L378
     call	abort
-L382:
+L378:
     movzbl	c(%rip), %eax
     andl	$-32, %eax
     orl	$21, %eax
@@ -5310,9 +5293,9 @@ L382:
     call	fn5_i
     call	ret5
     cmpl	$1, %eax
-    je	L383
+    je	L379
     call	abort
-L383:
+L379:
     movzbl	c(%rip), %eax
     orl	$32, %eax
     movb	%al, c(%rip)
@@ -5320,9 +5303,9 @@ L383:
     call	fn6_i
     call	ret6
     cmpl	$14, %eax
-    je	L384
+    je	L380
     call	abort
-L384:
+L380:
     movl	c(%rip), %eax
     andl	$63, %eax
     orl	$-2147483648, %eax
@@ -5331,25 +5314,25 @@ L384:
     call	fn7_i
     call	ret7
     cmpl	$3, %eax
-    je	L385
+    je	L381
     call	abort
-L385:
+L381:
     movw	$26812, d(%rip)
     movl	$17, %edi
     call	fn8_i
     call	ret8
     cmpl	$4, %eax
-    je	L386
+    je	L382
     call	abort
-L386:
+L382:
     movb	$-100, d + 2(%rip)
     movl	$199, %edi
     call	fn9_i
     call	ret9
     cmpl	$16, %eax
-    je	L387
+    je	L383
     call	abort
-L387:
+L383:
     movb	$-69, d + 3(%rip)
     movl	$0, %eax
     popq	%rbp

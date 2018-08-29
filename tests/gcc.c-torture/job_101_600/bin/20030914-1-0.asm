@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .globl	f
@@ -290,8 +273,8 @@ f:
     movl	%edi, -20(%rbp)
     vmovsd	%xmm0, -32(%rbp)
     movl	$0, -4(%rbp)
-    jmp	L46
-L47:
+    jmp	L42
+L43:
     movl	-4(%rbp), %eax
     cltq
     movl	16(%rbp,%rax,4), %eax
@@ -301,9 +284,9 @@ L47:
     vaddsd	%xmm0, %xmm1, %xmm0
     vmovsd	%xmm0, -32(%rbp)
     addl	$1, -4(%rbp)
-L46:
+L42:
     cmpl	$15, -4(%rbp)
-    jle	L47
+    jle	L43
     vmovsd	-32(%rbp), %xmm0
     vmovq	%xmm0, %rax
     vmovq	%rax, %xmm0
@@ -319,17 +302,17 @@ _start:
     movq	%rax, -8(%rbp)
     xorl	%eax, %eax
     movl	$0, -84(%rbp)
-    jmp	L50
-L51:
+    jmp	L46
+L47:
     movl	-84(%rbp), %eax
     leal	1(%rax), %edx
     movl	-84(%rbp), %eax
     cltq
     movl	%edx, -80(%rbp,%rax,4)
     addl	$1, -84(%rbp)
-L50:
+L46:
     cmpl	$15, -84(%rbp)
-    jle	L51
+    jle	L47
     movabsq	$4666723172467343360, %rax
     pushq	-24(%rbp)
     pushq	-32(%rbp)
@@ -347,14 +330,14 @@ L50:
     vmovsd	LC1(%rip), %xmm0
     vmovq	%rax, %xmm1
     vucomisd	%xmm0, %xmm1
-    jp	L55
+    jp	L51
     vmovsd	LC1(%rip), %xmm0
     vmovq	%rax, %xmm2
     vucomisd	%xmm0, %xmm2
-    je	L56
-L55:
+    je	L52
+L51:
     call	abort
-L56:
+L52:
     movl	$0, %edi
     call	exit
     .section	.rodata

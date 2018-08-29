@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .globl	FFmul
@@ -305,7 +288,7 @@ DUPFFdeg:
 DUPFFnew:
     pushq	%rbp
     movq	%rsp, %rbp
-    subq	$24, %rsp
+    subq	$32, %rsp
     movl	%edi, -20(%rbp)
     movl	$16, %edi
     call	malloc
@@ -313,7 +296,7 @@ DUPFFnew:
     movq	-8(%rbp), %rax
     movq	$0, 8(%rax)
     cmpl	$0, -20(%rbp)
-    js	L50
+    js	L46
     movl	-20(%rbp), %eax
     addl	$1, %eax
     cltq
@@ -323,7 +306,7 @@ DUPFFnew:
     movq	%rax, %rdx
     movq	-8(%rbp), %rax
     movq	%rdx, 8(%rax)
-L50:
+L46:
     movq	-8(%rbp), %rax
     movl	-20(%rbp), %edx
     movl	%edx, (%rax)
@@ -386,53 +369,53 @@ DUPFFexgcd:
     movq	%rax, %rdi
     call	DUPFFdeg
     cmpl	%eax, %ebx
-    jge	L58
+    jge	L54
     movq	-120(%rbp), %rcx
     movq	-128(%rbp), %rdx
     movq	-104(%rbp), %rsi
     movq	-112(%rbp), %rax
     movq	%rax, %rdi
     call	DUPFFexgcd
-    jmp	L59
-L58:
+    jmp	L55
+L54:
     movq	-120(%rbp), %rax
     movq	%rax, %rdi
     call	DUPFFdeg
     cmpl	$2, %eax
-    jne	L60
+    jne	L56
     movq	-128(%rbp), %rax
     movq	%rax, %rdi
     call	DUPFFdeg
     cmpl	$1, %eax
-    je	L61
-L60:
+    je	L57
+L56:
     call	abort
-L61:
+L57:
     movq	-120(%rbp), %rax
     movq	8(%rax), %rax
     movl	(%rax), %eax
     testl	%eax, %eax
-    jne	L62
+    jne	L58
     movq	-120(%rbp), %rax
-    jmp	L59
-L62:
+    jmp	L55
+L58:
     movl	$2, -88(%rbp)
     movq	-120(%rbp), %rax
     movq	%rax, %rdi
     call	DUPFFdeg
     movl	%eax, -96(%rbp)
     cmpl	$0, -96(%rbp)
-    jns	L63
+    jns	L59
     movl	$0, -96(%rbp)
-L63:
+L59:
     movq	-128(%rbp), %rax
     movq	%rax, %rdi
     call	DUPFFdeg
     movl	%eax, -92(%rbp)
     cmpl	$0, -92(%rbp)
-    jns	L64
+    jns	L60
     movl	$0, -92(%rbp)
-L64:
+L60:
     movq	-120(%rbp), %rax
     movq	%rax, %rdi
     call	DUPFFcopy
@@ -467,8 +450,8 @@ L64:
     movl	$1, (%rax)
     movq	-24(%rbp), %rax
     movl	$0, 4(%rax)
-    jmp	L65
-L68:
+    jmp	L61
+L64:
     movq	-56(%rbp), %rax
     movq	%rax, %rdi
     call	DUPFFdeg
@@ -484,8 +467,8 @@ L68:
     movl	$1, %edi
     call	FFmul
     movl	%eax, -80(%rbp)
-    jmp	L66
-L67:
+    jmp	L62
+L63:
     movq	-64(%rbp), %rax
     movq	%rax, %rdi
     call	DUPFFdeg
@@ -534,12 +517,38 @@ L67:
     movq	-40(%rbp), %rax
     movq	%rax, %rdi
     call	DUPFFshift_add
-L66:
+L62:
     movq	-64(%rbp), %rax
     movq	%rax, %rdi
     call	DUPFFdeg
     cmpl	-84(%rbp), %eax
-    jge	L67
+    jge	L63
+    movq	-56(%rbp), %rdx
+    movq	-64(%rbp), %rax
+    movq	%rdx, %rsi
+    movq	%rax, %rdi
+    call	DUPFFswap
+    movq	-32(%rbp), %rdx
+    movq	-48(%rbp), %rax
+    movq	%rdx, %rsi
+    movq	%rax, %rdi
+    call	DUPFFswap
+    movq	-24(%rbp), %rdx
+    movq	-40(%rbp), %rax
+    movq	%rdx, %rsi
+    movq	%rax, %rdi
+    call	DUPFFswap
+L61:
+    movq	-56(%rbp), %rax
+    movq	%rax, %rdi
+    call	DUPFFdeg
+    testl	%eax, %eax
+    jg	L64
+    movq	-56(%rbp), %rax
+    movq	%rax, %rdi
+    call	DUPFFdeg
+    testl	%eax, %eax
+    jne	L65
     movq	-56(%rbp), %rdx
     movq	-64(%rbp), %rax
     movq	%rdx, %rsi
@@ -556,32 +565,6 @@ L66:
     movq	%rax, %rdi
     call	DUPFFswap
 L65:
-    movq	-56(%rbp), %rax
-    movq	%rax, %rdi
-    call	DUPFFdeg
-    testl	%eax, %eax
-    jg	L68
-    movq	-56(%rbp), %rax
-    movq	%rax, %rdi
-    call	DUPFFdeg
-    testl	%eax, %eax
-    jne	L69
-    movq	-56(%rbp), %rdx
-    movq	-64(%rbp), %rax
-    movq	%rdx, %rsi
-    movq	%rax, %rdi
-    call	DUPFFswap
-    movq	-32(%rbp), %rdx
-    movq	-48(%rbp), %rax
-    movq	%rdx, %rsi
-    movq	%rax, %rdi
-    call	DUPFFswap
-    movq	-24(%rbp), %rdx
-    movq	-40(%rbp), %rax
-    movq	%rdx, %rsi
-    movq	%rax, %rdi
-    call	DUPFFswap
-L69:
     movq	-32(%rbp), %rax
     movq	%rax, %rdi
     call	DUPFFfree
@@ -598,7 +581,7 @@ L69:
     movq	-40(%rbp), %rdx
     movq	%rdx, (%rax)
     movq	-64(%rbp), %rax
-L59:
+L55:
     addq	$120, %rsp
     popq	%rbx
     popq	%rbp
@@ -640,8 +623,8 @@ _start:
     movl	$0, %eax
     movq	-8(%rbp), %rdx
     xorq	$40, %rdx
-    je	L72
+    je	L68
     call	__stack_chk_fail
-L72:
+L68:
     leave
     ret

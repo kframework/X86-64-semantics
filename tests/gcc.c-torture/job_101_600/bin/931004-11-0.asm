@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .globl	f
@@ -295,53 +278,53 @@ f:
     movq	%r8, -40(%rbp)
     movzbl	-16(%rbp), %eax
     cmpb	$10, %al
+    je	L42
+    call	abort
+L42:
+    movzbl	-15(%rbp), %eax
+    cmpb	$20, %al
+    je	L43
+    call	abort
+L43:
+    movzbl	-14(%rbp), %eax
+    cmpb	$30, %al
+    je	L44
+    call	abort
+L44:
+    movzbl	-24(%rbp), %eax
+    cmpb	$11, %al
+    je	L45
+    call	abort
+L45:
+    movzbl	-23(%rbp), %eax
+    cmpb	$21, %al
     je	L46
     call	abort
 L46:
-    movzbl	-15(%rbp), %eax
-    cmpb	$20, %al
+    movzbl	-22(%rbp), %eax
+    cmpb	$31, %al
     je	L47
     call	abort
 L47:
-    movzbl	-14(%rbp), %eax
-    cmpb	$30, %al
+    movzbl	-32(%rbp), %eax
+    cmpb	$12, %al
     je	L48
     call	abort
 L48:
-    movzbl	-24(%rbp), %eax
-    cmpb	$11, %al
+    movzbl	-31(%rbp), %eax
+    cmpb	$22, %al
     je	L49
     call	abort
 L49:
-    movzbl	-23(%rbp), %eax
-    cmpb	$21, %al
+    movzbl	-30(%rbp), %eax
+    cmpb	$32, %al
     je	L50
     call	abort
 L50:
-    movzbl	-22(%rbp), %eax
-    cmpb	$31, %al
+    cmpq	$123, -40(%rbp)
     je	L51
     call	abort
 L51:
-    movzbl	-32(%rbp), %eax
-    cmpb	$12, %al
-    je	L52
-    call	abort
-L52:
-    movzbl	-31(%rbp), %eax
-    cmpb	$22, %al
-    je	L53
-    call	abort
-L53:
-    movzbl	-30(%rbp), %eax
-    cmpb	$32, %al
-    je	L54
-    call	abort
-L54:
-    cmpq	$123, -40(%rbp)
-    je	L55
-    call	abort
-L55:
     nop
     leave
     ret

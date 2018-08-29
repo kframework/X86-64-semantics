@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .globl	w
@@ -301,19 +284,19 @@ f1:
     vmovss	%xmm1, -8(%rbp)
     vxorps	%xmm0, %xmm0, %xmm0
     vucomiss	-4(%rbp), %xmm0
-    jp	L47
+    jp	L43
     vxorps	%xmm0, %xmm0, %xmm0
     vucomiss	-4(%rbp), %xmm0
-    jne	L47
+    jne	L43
     vxorps	%xmm0, %xmm0, %xmm0
     vucomiss	-8(%rbp), %xmm0
-    jp	L47
+    jp	L43
     vxorps	%xmm0, %xmm0, %xmm0
     vucomiss	-8(%rbp), %xmm0
-    je	L50
-L47:
+    je	L46
+L43:
     call	abort
-L50:
+L46:
     nop
     leave
     ret
@@ -326,19 +309,19 @@ f2:
     vmovss	%xmm1, -8(%rbp)
     vmovss	LC1(%rip), %xmm0
     vucomiss	-4(%rbp), %xmm0
-    jp	L52
+    jp	L48
     vmovss	LC1(%rip), %xmm0
     vucomiss	-4(%rbp), %xmm0
-    jne	L52
+    jne	L48
     vmovss	LC1(%rip), %xmm0
     vucomiss	-8(%rbp), %xmm0
-    jp	L52
+    jp	L48
     vmovss	LC1(%rip), %xmm0
     vucomiss	-8(%rbp), %xmm0
-    je	L55
-L52:
+    je	L51
+L48:
     call	abort
-L55:
+L51:
     nop
     leave
     ret
@@ -379,7 +362,7 @@ gitter:
     vmovss	%xmm0, -65556(%rbp)
     vxorps	%xmm0, %xmm0, %xmm0
     vucomiss	-65556(%rbp), %xmm0
-    jb	L57
+    jb	L53
     vmovss	-65576(%rbp), %xmm0
     movl	-65556(%rbp), %eax
     vmovaps	%xmm0, %xmm1
@@ -390,7 +373,7 @@ gitter:
     vmovsd	LC2(%rip), %xmm2
     vmulsd	%xmm2, %xmm0, %xmm0
     vucomisd	%xmm1, %xmm0
-    jb	L57
+    jb	L53
     vmovss	-65576(%rbp), %xmm0
     movl	-65556(%rbp), %eax
     vmovaps	%xmm0, %xmm1
@@ -399,13 +382,13 @@ gitter:
     movq	-65592(%rbp), %rax
     vmovss	LC1(%rip), %xmm0
     vmovss	%xmm0, (%rax)
-L57:
+L53:
     nop
     movq	-8(%rbp), %rdx
     xorq	$40, %rdx
-    je	L60
+    je	L56
     call	__stack_chk_fail
-L60:
+L56:
     leave
     ret
     .globl	pos

@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .globl	sreal_compare
@@ -294,39 +277,39 @@ sreal_compare:
     movq	-16(%rbp), %rax
     movl	4(%rax), %eax
     cmpl	%eax, %edx
-    jle	L46
+    jle	L42
     movl	$1, %eax
-    jmp	L47
-L46:
+    jmp	L43
+L42:
     movq	-8(%rbp), %rax
     movl	4(%rax), %edx
     movq	-16(%rbp), %rax
     movl	4(%rax), %eax
     cmpl	%eax, %edx
-    jge	L48
+    jge	L44
     movl	$-1, %eax
-    jmp	L47
-L48:
+    jmp	L43
+L44:
     movq	-8(%rbp), %rax
     movl	(%rax), %edx
     movq	-16(%rbp), %rax
     movl	(%rax), %eax
     cmpl	%eax, %edx
-    jbe	L49
+    jbe	L45
     movl	$1, %eax
-    jmp	L47
-L49:
+    jmp	L43
+L45:
     movq	-8(%rbp), %rax
     movl	(%rax), %edx
     movq	-16(%rbp), %rax
     movl	(%rax), %eax
     cmpl	%eax, %edx
-    jnb	L50
+    jnb	L46
     movl	$-1, %eax
-    jmp	L47
-L50:
+    jmp	L43
+L46:
     movl	$0, %eax
-L47:
+L43:
     popq	%rbp
     ret
     .globl	a
@@ -348,14 +331,14 @@ _start:
     movq	%rsp, %rbp
     subq	$16, %rsp
     movl	$0, -8(%rbp)
-    jmp	L52
-L58:
+    jmp	L48
+L54:
     movl	$0, -4(%rbp)
-    jmp	L53
-L57:
+    jmp	L49
+L53:
     movl	-8(%rbp), %eax
     cmpl	-4(%rbp), %eax
-    jge	L54
+    jge	L50
     movl	-4(%rbp), %eax
     cltq
     salq	$3, %rax
@@ -368,12 +351,12 @@ L57:
     movq	%rax, %rdi
     call	sreal_compare
     cmpl	$-1, %eax
-    je	L54
+    je	L50
     call	abort
-L54:
+L50:
     movl	-8(%rbp), %eax
     cmpl	-4(%rbp), %eax
-    jne	L55
+    jne	L51
     movl	-4(%rbp), %eax
     cltq
     salq	$3, %rax
@@ -386,12 +369,12 @@ L54:
     movq	%rax, %rdi
     call	sreal_compare
     testl	%eax, %eax
-    je	L55
+    je	L51
     call	abort
-L55:
+L51:
     movl	-8(%rbp), %eax
     cmpl	-4(%rbp), %eax
-    jle	L56
+    jle	L52
     movl	-4(%rbp), %eax
     cltq
     salq	$3, %rax
@@ -404,17 +387,17 @@ L55:
     movq	%rax, %rdi
     call	sreal_compare
     cmpl	$1, %eax
-    je	L56
+    je	L52
     call	abort
-L56:
-    addl	$1, -4(%rbp)
-L53:
-    cmpl	$2, -4(%rbp)
-    jle	L57
-    addl	$1, -8(%rbp)
 L52:
+    addl	$1, -4(%rbp)
+L49:
+    cmpl	$2, -4(%rbp)
+    jle	L53
+    addl	$1, -8(%rbp)
+L48:
     cmpl	$3, -8(%rbp)
-    jle	L58
+    jle	L54
     movl	$0, %eax
     leave
     ret

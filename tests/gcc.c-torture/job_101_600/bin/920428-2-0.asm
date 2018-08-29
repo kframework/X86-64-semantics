@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,31 +242,31 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
-f2415:
+f2408:
     pushq	%rbp
     movq	%rsp, %rbp
     subq	$16, %rsp
@@ -291,12 +274,12 @@ f2415:
     movq	%r10, %rax
     movq	%r10, -16(%rbp)
     cmpl	$2, -4(%rbp)
-    jne	L46
-    movl	$L47, %edx
+    jne	L42
+    movl	$L43, %edx
     movq	(%rax), %rbp
     movq	8(%rax), %rsp
     jmp	%rdx
-L46:
+L42:
     movl	$0, %eax
     leave
     ret
@@ -318,23 +301,23 @@ s:
     movq	%rax, -56(%rbp)
     xorl	%eax, %eax
     cmpl	$0, -84(%rbp)
-    jle	L50
+    jle	L46
     movl	-84(%rbp), %eax
     leaq	-80(%rbp), %rdx
     movq	%rdx, %r10
     movl	%eax, %edi
-    call	f2415
-    jmp	L51
-L47:
+    call	f2408
+    jmp	L47
+L43:
     leaq	48(%rbp), %rbp
-L50:
+L46:
     movl	$1, %eax
-L51:
+L47:
     movq	-56(%rbp), %rcx
     xorq	$40, %rcx
-    je	L52
+    je	L48
     call	__stack_chk_fail
-L52:
+L48:
     addq	$56, %rsp
     popq	%rbx
     popq	%r12
@@ -351,22 +334,22 @@ x:
     movl	$0, %eax
     call	s
     cmpl	$1, %eax
-    jne	L54
+    jne	L50
     movl	$1, %edi
     movl	$0, %eax
     call	s
     testl	%eax, %eax
-    jne	L54
+    jne	L50
     movl	$2, %edi
     movl	$0, %eax
     call	s
     cmpl	$1, %eax
-    jne	L54
+    jne	L50
     movl	$1, %eax
-    jmp	L55
-L54:
+    jmp	L51
+L50:
     movl	$0, %eax
-L55:
+L51:
     popq	%rbp
     ret
     .globl	main
@@ -377,8 +360,8 @@ _start:
     movl	$0, %eax
     call	x
     cmpl	$1, %eax
-    je	L58
+    je	L54
     call	abort
-L58:
+L54:
     movl	$0, %edi
     call	exit

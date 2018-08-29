@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .globl	test1
@@ -336,30 +319,30 @@ _start:
     xorl	%eax, %eax
     call	test1
     testl	%eax, %eax
-    je	L56
+    je	L52
     call	abort
-L56:
+L52:
     movq	LC0(%rip), %rax
     movq	%rax, -32(%rbp)
     movq	-32(%rbp), %rax
     vmovq	%rax, %xmm0
     call	test2
     cmpl	$2, %eax
-    je	L57
+    je	L53
     call	abort
-L57:
+L53:
     call	test3
     vmovq	%xmm0, %rax
     movq	%rax, -16(%rbp)
     movl	-16(%rbp), %eax
     testl	%eax, %eax
-    jne	L58
+    jne	L54
     movl	-12(%rbp), %eax
     testl	%eax, %eax
-    je	L59
-L58:
+    je	L55
+L54:
     call	abort
-L59:
+L55:
     movl	$262148, -52(%rbp)
     movl	-52(%rbp), %eax
     movl	%eax, %edi
@@ -368,9 +351,9 @@ L59:
     movq	%rax, -48(%rbp)
     movq	-48(%rbp), %rax
     cmpq	$262148, %rax
-    je	L60
+    je	L56
     call	abort
-L60:
+L56:
     movq	LC1(%rip), %rax
     movq	%rax, -24(%rbp)
     movq	-24(%rbp), %rax
@@ -380,19 +363,19 @@ L60:
     movq	%rax, -16(%rbp)
     movl	-16(%rbp), %eax
     cmpl	$6, %eax
-    jne	L61
+    jne	L57
     movl	-12(%rbp), %eax
     cmpl	$6, %eax
-    je	L62
-L61:
+    je	L58
+L57:
     call	abort
-L62:
+L58:
     movl	$0, %eax
     movq	-8(%rbp), %rdx
     xorq	$40, %rdx
-    je	L64
+    je	L60
     call	__stack_chk_fail
-L64:
+L60:
     leave
     ret
     .section	.rodata

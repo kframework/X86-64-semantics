@@ -126,23 +126,6 @@ L14:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -157,28 +140,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L23
+    jle	L19
     cmpl	$122, -4(%rbp)
-    jg	L23
+    jg	L19
     movl	$1, %eax
-    jmp	L24
-L23:
+    jmp	L20
+L19:
     cmpl	$64, -4(%rbp)
-    jle	L25
+    jle	L21
     cmpl	$90, -4(%rbp)
-    jg	L25
+    jg	L21
     movl	$1, %eax
-    jmp	L24
-L25:
+    jmp	L20
+L21:
     cmpl	$47, -4(%rbp)
-    jle	L26
+    jle	L22
     cmpl	$57, -4(%rbp)
-    jg	L26
+    jg	L22
     movl	$1, %eax
-    jmp	L24
-L26:
+    jmp	L20
+L22:
     movl	$0, %eax
-L24:
+L20:
     popq	%rbp
     ret
     .globl	strchr
@@ -192,20 +175,20 @@ strchr:
     movzbl	(%rax), %eax
     movl	-12(%rbp), %edx
     cmpb	%dl, %al
-    je	L32
+    je	L28
     movq	-8(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -8(%rbp)
     movzbl	(%rax), %eax
     testb	%al, %al
-    jne	L29
+    jne	L25
     movl	$0, %eax
-    jmp	L27
-L29:
+    jmp	L23
+L25:
     movq	-8(%rbp), %rax
-    jmp	L27
-L32:
-L27:
+    jmp	L23
+L28:
+L23:
     popq	%rbp
     ret
     .globl	strlen
@@ -214,16 +197,16 @@ strlen:
     movq	%rsp, %rbp
     movq	%rdi, -24(%rbp)
     movq	$0, -8(%rbp)
-    jmp	L34
-L35:
+    jmp	L30
+L31:
     addq	$1, -8(%rbp)
-L34:
+L30:
     movq	-24(%rbp), %rdx
     movq	-8(%rbp), %rax
     addq	%rdx, %rax
     movzbl	(%rax), %eax
     testb	%al, %al
-    jne	L35
+    jne	L31
     movq	-8(%rbp), %rax
     popq	%rbp
     ret
@@ -236,7 +219,7 @@ strcpy:
     movq	-24(%rbp), %rax
     movq	%rax, -8(%rbp)
     nop
-L38:
+L34:
     movq	-24(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -24(%rbp)
@@ -247,7 +230,7 @@ L38:
     movb	%dl, (%rax)
     movzbl	(%rax), %eax
     testb	%al, %al
-    jne	L38
+    jne	L34
     movq	-8(%rbp), %rax
     popq	%rbp
     ret
@@ -257,22 +240,22 @@ strcmp:
     movq	%rsp, %rbp
     movq	%rdi, -8(%rbp)
     movq	%rsi, -16(%rbp)
-    jmp	L41
-L43:
+    jmp	L37
+L39:
     addq	$1, -8(%rbp)
     addq	$1, -16(%rbp)
-L41:
+L37:
     movq	-8(%rbp), %rax
     movzbl	(%rax), %eax
     testb	%al, %al
-    je	L42
+    je	L38
     movq	-8(%rbp), %rax
     movzbl	(%rax), %edx
     movq	-16(%rbp), %rax
     movzbl	(%rax), %eax
     cmpb	%al, %dl
-    je	L43
-L42:
+    je	L39
+L38:
     movq	-8(%rbp), %rax
     movzbl	(%rax), %eax
     movzbl	%al, %edx

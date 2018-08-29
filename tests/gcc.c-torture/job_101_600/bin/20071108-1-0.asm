@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,35 +242,35 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .globl	foo
 foo:
     pushq	%rbp
     movq	%rsp, %rbp
-    movl	$s2421, %eax
+    movl	$s2414, %eax
     popq	%rbp
     ret
     .globl	bar
@@ -310,7 +293,7 @@ test:
     call	foo
     movq	%rax, -40(%rbp)
     cmpq	$0, -40(%rbp)
-    jne	L50
+    jne	L46
     leaq	-32(%rbp), %rax
     movq	%rax, -40(%rbp)
     movq	-40(%rbp), %rax
@@ -318,7 +301,7 @@ test:
     movl	$0, %esi
     movq	%rax, %rdi
     call	memset
-L50:
+L46:
     movq	-40(%rbp), %rax
     movq	-56(%rbp), %rdx
     movq	%rdx, (%rax)
@@ -327,15 +310,15 @@ L50:
     movq	%rdx, 8(%rax)
     leaq	-32(%rbp), %rax
     cmpq	%rax, -40(%rbp)
-    jne	L51
+    jne	L47
     movq	$0, -40(%rbp)
-L51:
+L47:
     movq	-40(%rbp), %rax
     movq	-8(%rbp), %rcx
     xorq	$40, %rcx
-    je	L53
+    je	L49
     call	__stack_chk_fail
-L53:
+L49:
     leave
     ret
     .globl	main
@@ -354,34 +337,34 @@ _start:
     call	test
     movq	%rax, -16(%rbp)
     cmpq	$0, -16(%rbp)
-    je	L55
+    je	L51
     movq	-16(%rbp), %rax
     movq	(%rax), %rdx
     leaq	-24(%rbp), %rax
     cmpq	%rax, %rdx
-    jne	L55
+    jne	L51
     movq	-16(%rbp), %rax
     movq	8(%rax), %rdx
     leaq	-20(%rbp), %rax
     cmpq	%rax, %rdx
-    jne	L55
+    jne	L51
     movq	-16(%rbp), %rax
     movzbl	16(%rax), %eax
     testb	%al, %al
-    jne	L55
+    jne	L51
     movq	-16(%rbp), %rax
     movzbl	17(%rax), %eax
     testb	%al, %al
-    je	L56
-L55:
+    je	L52
+L51:
     call	abort
-L56:
+L52:
     movl	$0, %eax
     movq	-8(%rbp), %rcx
     xorq	$40, %rcx
-    je	L58
+    je	L54
     call	__stack_chk_fail
-L58:
+L54:
     leave
     ret
-    .comm	s2421,24,16
+    .comm	s2414,24,16

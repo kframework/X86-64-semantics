@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .globl	a
@@ -312,14 +295,14 @@ foo:
     movl	%esi, -8(%rbp)
     movl	%edx, -12(%rbp)
     cmpl	$245, -4(%rbp)
-    jne	L46
+    jne	L42
     cmpl	$36, -8(%rbp)
-    jne	L46
+    jne	L42
     cmpl	$444, -12(%rbp)
-    je	L48
-L46:
+    je	L44
+L42:
     call	abort
-L48:
+L44:
     nop
     leave
     ret
@@ -334,33 +317,33 @@ _start:
     movl	$0, -12(%rbp)
     movq	a(%rip), %rax
     movq	%rax, -8(%rbp)
-    jmp	L50
-L54:
+    jmp	L46
+L50:
     movq	c(%rip), %rax
     cmpq	%rax, -8(%rbp)
-    jnb	L51
+    jnb	L47
     addl	$1, -20(%rbp)
-    jmp	L52
-L51:
+    jmp	L48
+L47:
     movq	d(%rip), %rax
     cmpq	%rax, -8(%rbp)
-    jb	L53
+    jb	L49
     movq	e(%rip), %rax
     cmpq	%rax, -8(%rbp)
-    jnb	L53
+    jnb	L49
     addl	$1, -12(%rbp)
-    jmp	L52
-L53:
+    jmp	L48
+L49:
     movq	f(%rip), %rax
     cmpq	%rax, -8(%rbp)
-    jnb	L52
+    jnb	L48
     addl	$1, -16(%rbp)
-L52:
+L48:
     addq	$4096, -8(%rbp)
-L50:
+L46:
     movq	b(%rip), %rax
     cmpq	%rax, -8(%rbp)
-    jb	L54
+    jb	L50
     movl	-20(%rbp), %edx
     movl	-12(%rbp), %ecx
     movl	-16(%rbp), %eax

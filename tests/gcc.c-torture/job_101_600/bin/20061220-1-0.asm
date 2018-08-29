@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,31 +242,31 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
-nested2417:
+nested2410:
     pushq	%rbp
     movq	%rsp, %rbp
     subq	$32, %rsp
@@ -297,9 +280,9 @@ nested2417:
     nop
     movq	-8(%rbp), %rax
     xorq	$40, %rax
-    je	L46
+    je	L42
     call	__stack_chk_fail
-L46:
+L42:
     leave
     ret
     .globl	foo
@@ -314,7 +297,7 @@ foo:
     movl	%eax, -16(%rbp)
     leaq	-16(%rbp), %rax
     movq	%rax, %r10
-    call	nested2417
+    call	nested2410
     movl	-16(%rbp), %eax
     movl	-16(%rbp), %eax
     movl	-16(%rbp), %eax
@@ -322,12 +305,12 @@ foo:
     movl	-16(%rbp), %eax
     movq	-8(%rbp), %rdx
     xorq	$40, %rdx
-    je	L49
+    je	L45
     call	__stack_chk_fail
-L49:
+L45:
     leave
     ret
-nested2424:
+nested2417:
     pushq	%rbp
     movq	%rsp, %rbp
     subq	$32, %rsp
@@ -346,9 +329,9 @@ nested2424:
     nop
     movq	-8(%rbp), %rax
     xorq	$40, %rax
-    je	L51
+    je	L47
     call	__stack_chk_fail
-L51:
+L47:
     leave
     ret
     .globl	bar
@@ -363,16 +346,16 @@ bar:
     movl	%eax, -16(%rbp)
     leaq	-16(%rbp), %rax
     movq	%rax, %r10
-    call	nested2424
+    call	nested2417
     movl	-16(%rbp), %eax
     movq	-8(%rbp), %rdx
     xorq	$40, %rdx
-    je	L54
+    je	L50
     call	__stack_chk_fail
-L54:
+L50:
     leave
     ret
-nested22434:
+nested22427:
     pushq	%rbp
     movq	%rsp, %rbp
     subq	$32, %rsp
@@ -400,12 +383,12 @@ nested22434:
     nop
     movq	-8(%rbp), %rax
     xorq	$40, %rax
-    je	L56
+    je	L52
     call	__stack_chk_fail
-L56:
+L52:
     leave
     ret
-nested2431:
+nested2424:
     pushq	%rbp
     movq	%rsp, %rbp
     subq	$32, %rsp
@@ -417,16 +400,16 @@ nested2431:
     movq	%rax, -16(%rbp)
     leaq	-16(%rbp), %rax
     movq	%rax, %r10
-    call	nested22434
+    call	nested22427
     leaq	-16(%rbp), %rax
     movq	%rax, %r10
-    call	nested22434
+    call	nested22427
     nop
     movq	-8(%rbp), %rax
     xorq	$40, %rax
-    je	L58
+    je	L54
     call	__stack_chk_fail
-L58:
+L54:
     leave
     ret
     .globl	baz
@@ -441,13 +424,13 @@ baz:
     movl	%eax, -16(%rbp)
     leaq	-16(%rbp), %rax
     movq	%rax, %r10
-    call	nested2431
+    call	nested2424
     movl	-16(%rbp), %eax
     movq	-8(%rbp), %rdx
     xorq	$40, %rdx
-    je	L61
+    je	L57
     call	__stack_chk_fail
-L61:
+L57:
     leave
     ret
     .globl	main
@@ -457,16 +440,16 @@ _start:
     movq	%rsp, %rbp
     call	foo
     cmpl	$254, %eax
-    jne	L63
+    jne	L59
     call	bar
     cmpl	$4, %eax
-    jne	L63
+    jne	L59
     call	baz
     cmpl	$8, %eax
-    je	L64
-L63:
+    je	L60
+L59:
     call	abort
-L64:
+L60:
     movl	$0, %eax
     popq	%rbp
     ret

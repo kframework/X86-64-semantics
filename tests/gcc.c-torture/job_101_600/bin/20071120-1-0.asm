@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .globl	vec_assert_fail
@@ -294,14 +277,14 @@ VEC_deferred_access_base_last:
     subq	$8, %rsp
     movq	%rdi, -8(%rbp)
     cmpq	$0, -8(%rbp)
-    je	L47
+    je	L43
     movq	-8(%rbp), %rax
     movl	(%rax), %eax
     testl	%eax, %eax
-    jne	L48
-L47:
+    jne	L44
+L43:
     call	vec_assert_fail
-L48:
+L44:
     movq	-8(%rbp), %rax
     movl	(%rax), %eax
     subl	$1, %eax
@@ -321,9 +304,9 @@ VEC_deferred_access_base_pop:
     movq	-8(%rbp), %rax
     movl	(%rax), %eax
     testl	%eax, %eax
-    jne	L51
+    jne	L47
     call	vec_assert_fail
-L51:
+L47:
     movq	-8(%rbp), %rax
     movl	(%rax), %eax
     leal	-1(%rax), %edx
@@ -353,12 +336,34 @@ pop_to_parent_deferring_access_checks:
     subq	$16, %rsp
     movl	deferred_access_no_check(%rip), %eax
     testl	%eax, %eax
-    je	L54
+    je	L50
     movl	deferred_access_no_check(%rip), %eax
     subl	$1, %eax
     movl	%eax, deferred_access_no_check(%rip)
-    jmp	L62
+    jmp	L58
+L50:
+    movq	deferred_access_stack(%rip), %rax
+    testq	%rax, %rax
+    je	L52
+    movq	deferred_access_stack(%rip), %rax
+    jmp	L53
+L52:
+    movl	$0, %eax
+L53:
+    movq	%rax, %rdi
+    call	VEC_deferred_access_base_last
+    movq	(%rax), %rax
+    movq	%rax, -16(%rbp)
+    movq	deferred_access_stack(%rip), %rax
+    testq	%rax, %rax
+    je	L54
+    movq	deferred_access_stack(%rip), %rax
+    jmp	L55
 L54:
+    movl	$0, %eax
+L55:
+    movq	%rax, %rdi
+    call	VEC_deferred_access_base_pop
     movq	deferred_access_stack(%rip), %rax
     testq	%rax, %rax
     je	L56
@@ -369,37 +374,15 @@ L56:
 L57:
     movq	%rax, %rdi
     call	VEC_deferred_access_base_last
-    movq	(%rax), %rax
-    movq	%rax, -16(%rbp)
-    movq	deferred_access_stack(%rip), %rax
-    testq	%rax, %rax
-    je	L58
-    movq	deferred_access_stack(%rip), %rax
-    jmp	L59
-L58:
-    movl	$0, %eax
-L59:
-    movq	%rax, %rdi
-    call	VEC_deferred_access_base_pop
-    movq	deferred_access_stack(%rip), %rax
-    testq	%rax, %rax
-    je	L60
-    movq	deferred_access_stack(%rip), %rax
-    jmp	L61
-L60:
-    movl	$0, %eax
-L61:
-    movq	%rax, %rdi
-    call	VEC_deferred_access_base_last
     movq	%rax, -8(%rbp)
     movq	-8(%rbp), %rax
     movl	8(%rax), %eax
     testl	%eax, %eax
-    jne	L62
+    jne	L58
     movq	-16(%rbp), %rax
     movq	%rax, %rdi
     call	perform_access_checks
-L62:
+L58:
     nop
     leave
     ret

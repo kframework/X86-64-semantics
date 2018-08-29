@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .globl	dd
@@ -301,16 +284,16 @@ _start:
     movq	%rsp, %rbp
     subq	$16, %rsp
     movl	$-3, -4(%rbp)
-    jmp	L48
-L57:
+    jmp	L44
+L53:
     movl	-4(%rbp), %eax
     movl	$1, %esi
     movl	%eax, %edi
     call	dd
     cmpl	-4(%rbp), %eax
-    je	L49
+    je	L45
     call	abort
-L49:
+L45:
     movl	-4(%rbp), %eax
     movl	$2, %esi
     movl	%eax, %edi
@@ -322,9 +305,9 @@ L49:
     addl	%edx, %eax
     sarl	%eax
     cmpl	%eax, %ecx
-    je	L50
+    je	L46
     call	abort
-L50:
+L46:
     movl	-4(%rbp), %eax
     movl	$3, %esi
     movl	%eax, %edi
@@ -334,6 +317,75 @@ L50:
     movl	$1431655766, %edx
     movl	%ecx, %eax
     imull	%edx
+    movl	%ecx, %eax
+    sarl	$31, %eax
+    subl	%eax, %edx
+    movl	%edx, %eax
+    cmpl	%eax, %esi
+    je	L47
+    call	abort
+L47:
+    movl	-4(%rbp), %eax
+    movl	$4, %esi
+    movl	%eax, %edi
+    call	dd
+    movl	%eax, %ecx
+    movl	-4(%rbp), %eax
+    leal	3(%rax), %edx
+    testl	%eax, %eax
+    cmovs	%edx, %eax
+    sarl	$2, %eax
+    cmpl	%eax, %ecx
+    je	L48
+    call	abort
+L48:
+    movl	-4(%rbp), %eax
+    movl	$5, %esi
+    movl	%eax, %edi
+    call	dd
+    movl	%eax, %esi
+    movl	-4(%rbp), %ecx
+    movl	$1717986919, %edx
+    movl	%ecx, %eax
+    imull	%edx
+    sarl	%edx
+    movl	%ecx, %eax
+    sarl	$31, %eax
+    subl	%eax, %edx
+    movl	%edx, %eax
+    cmpl	%eax, %esi
+    je	L49
+    call	abort
+L49:
+    movl	-4(%rbp), %eax
+    movl	$6, %esi
+    movl	%eax, %edi
+    call	dd
+    movl	%eax, %esi
+    movl	-4(%rbp), %ecx
+    movl	$715827883, %edx
+    movl	%ecx, %eax
+    imull	%edx
+    movl	%ecx, %eax
+    sarl	$31, %eax
+    subl	%eax, %edx
+    movl	%edx, %eax
+    cmpl	%eax, %esi
+    je	L50
+    call	abort
+L50:
+    movl	-4(%rbp), %eax
+    movl	$7, %esi
+    movl	%eax, %edi
+    call	dd
+    movl	%eax, %esi
+    movl	-4(%rbp), %ecx
+    movl	$-1840700269, %edx
+    movl	%ecx, %eax
+    imull	%edx
+    leal	(%rdx,%rcx), %eax
+    sarl	$2, %eax
+    movl	%eax, %edx
     movl	%ecx, %eax
     sarl	$31, %eax
     subl	%eax, %edx
@@ -343,75 +395,6 @@ L50:
     call	abort
 L51:
     movl	-4(%rbp), %eax
-    movl	$4, %esi
-    movl	%eax, %edi
-    call	dd
-    movl	%eax, %ecx
-    movl	-4(%rbp), %eax
-    leal	3(%rax), %edx
-    testl	%eax, %eax
-    cmovs	%edx, %eax
-    sarl	$2, %eax
-    cmpl	%eax, %ecx
-    je	L52
-    call	abort
-L52:
-    movl	-4(%rbp), %eax
-    movl	$5, %esi
-    movl	%eax, %edi
-    call	dd
-    movl	%eax, %esi
-    movl	-4(%rbp), %ecx
-    movl	$1717986919, %edx
-    movl	%ecx, %eax
-    imull	%edx
-    sarl	%edx
-    movl	%ecx, %eax
-    sarl	$31, %eax
-    subl	%eax, %edx
-    movl	%edx, %eax
-    cmpl	%eax, %esi
-    je	L53
-    call	abort
-L53:
-    movl	-4(%rbp), %eax
-    movl	$6, %esi
-    movl	%eax, %edi
-    call	dd
-    movl	%eax, %esi
-    movl	-4(%rbp), %ecx
-    movl	$715827883, %edx
-    movl	%ecx, %eax
-    imull	%edx
-    movl	%ecx, %eax
-    sarl	$31, %eax
-    subl	%eax, %edx
-    movl	%edx, %eax
-    cmpl	%eax, %esi
-    je	L54
-    call	abort
-L54:
-    movl	-4(%rbp), %eax
-    movl	$7, %esi
-    movl	%eax, %edi
-    call	dd
-    movl	%eax, %esi
-    movl	-4(%rbp), %ecx
-    movl	$-1840700269, %edx
-    movl	%ecx, %eax
-    imull	%edx
-    leal	(%rdx,%rcx), %eax
-    sarl	$2, %eax
-    movl	%eax, %edx
-    movl	%ecx, %eax
-    sarl	$31, %eax
-    subl	%eax, %edx
-    movl	%edx, %eax
-    cmpl	%eax, %esi
-    je	L55
-    call	abort
-L55:
-    movl	-4(%rbp), %eax
     movl	$8, %esi
     movl	%eax, %edi
     call	dd
@@ -422,24 +405,24 @@ L55:
     cmovs	%edx, %eax
     sarl	$3, %eax
     cmpl	%eax, %ecx
-    je	L56
+    je	L52
     call	abort
-L56:
+L52:
     addl	$1, -4(%rbp)
-L48:
+L44:
     cmpl	$3, -4(%rbp)
-    jle	L57
+    jle	L53
     movl	$2147483644, -4(%rbp)
-    jmp	L58
-L67:
+    jmp	L54
+L63:
     movl	-4(%rbp), %eax
     movl	$1, %esi
     movl	%eax, %edi
     call	dd
     cmpl	-4(%rbp), %eax
-    je	L59
+    je	L55
     call	abort
-L59:
+L55:
     movl	-4(%rbp), %eax
     movl	$2, %esi
     movl	%eax, %edi
@@ -451,9 +434,9 @@ L59:
     addl	%edx, %eax
     sarl	%eax
     cmpl	%eax, %ecx
-    je	L60
+    je	L56
     call	abort
-L60:
+L56:
     movl	-4(%rbp), %eax
     movl	$3, %esi
     movl	%eax, %edi
@@ -468,9 +451,9 @@ L60:
     subl	%eax, %edx
     movl	%edx, %eax
     cmpl	%eax, %esi
-    je	L61
+    je	L57
     call	abort
-L61:
+L57:
     movl	-4(%rbp), %eax
     movl	$4, %esi
     movl	%eax, %edi
@@ -482,9 +465,9 @@ L61:
     cmovs	%edx, %eax
     sarl	$2, %eax
     cmpl	%eax, %ecx
-    je	L62
+    je	L58
     call	abort
-L62:
+L58:
     movl	-4(%rbp), %eax
     movl	$5, %esi
     movl	%eax, %edi
@@ -500,9 +483,9 @@ L62:
     subl	%eax, %edx
     movl	%edx, %eax
     cmpl	%eax, %esi
-    je	L63
+    je	L59
     call	abort
-L63:
+L59:
     movl	-4(%rbp), %eax
     movl	$6, %esi
     movl	%eax, %edi
@@ -517,9 +500,9 @@ L63:
     subl	%eax, %edx
     movl	%edx, %eax
     cmpl	%eax, %esi
-    je	L64
+    je	L60
     call	abort
-L64:
+L60:
     movl	-4(%rbp), %eax
     movl	$7, %esi
     movl	%eax, %edi
@@ -537,9 +520,9 @@ L64:
     subl	%eax, %edx
     movl	%edx, %eax
     cmpl	%eax, %esi
-    je	L65
+    je	L61
     call	abort
-L65:
+L61:
     movl	-4(%rbp), %eax
     movl	$8, %esi
     movl	%eax, %edi
@@ -551,13 +534,13 @@ L65:
     cmovs	%edx, %eax
     sarl	$3, %eax
     cmpl	%eax, %ecx
-    je	L66
+    je	L62
     call	abort
-L66:
+L62:
     addl	$1, -4(%rbp)
-L58:
+L54:
     movl	-4(%rbp), %eax
     cmpl	$-2147483646, %eax
-    jbe	L67
+    jbe	L63
     movl	$0, %edi
     call	exit

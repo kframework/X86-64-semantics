@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .globl	c
@@ -324,9 +307,9 @@ _start:
     shlx	%eax, %edx, %eax
     orl	%ecx, %eax
     cmpl	$835, %eax
-    je	L46
+    je	L42
     call	abort
-L46:
+L42:
     movzbl	c(%rip), %eax
     sarb	$4, %al
     movsbl	%al, %eax
@@ -335,9 +318,9 @@ L46:
     sall	$4, %edx
     orl	%edx, %eax
     cmpl	$835, %eax
-    je	L47
+    je	L43
     call	abort
-L47:
+L43:
     movzwl	s(%rip), %eax
     movswl	%ax, %edx
     movl	shift1(%rip), %eax
@@ -351,9 +334,9 @@ L47:
     shlx	%eax, %edx, %eax
     orl	%ecx, %eax
     cmpl	$19087651, %eax
-    je	L48
+    je	L44
     call	abort
-L48:
+L44:
     movzwl	s(%rip), %eax
     sarw	$4, %ax
     cwtl
@@ -362,9 +345,9 @@ L48:
     sall	$12, %edx
     orl	%edx, %eax
     cmpl	$19087651, %eax
-    je	L49
+    je	L45
     call	abort
-L49:
+L45:
     movl	i(%rip), %edx
     movl	shift1(%rip), %eax
     sarx	%eax, %edx, %ecx
@@ -376,9 +359,9 @@ L49:
     shlx	%eax, %edx, %eax
     orl	%ecx, %eax
     cmpl	$1073742115, %eax
-    je	L50
+    je	L46
     call	abort
-L50:
+L46:
     movl	i(%rip), %eax
     sarl	$4, %eax
     movl	%eax, %edx
@@ -386,63 +369,63 @@ L50:
     sall	$28, %eax
     orl	%edx, %eax
     cmpl	$1073742115, %eax
+    je	L47
+    call	abort
+L47:
+    movq	l(%rip), %rdx
+    movl	shift1(%rip), %eax
+    sarx	%rax, %rdx, %rcx
+    movq	l(%rip), %rdx
+    movl	shift1(%rip), %eax
+    movl	$64, %esi
+    subl	%eax, %esi
+    movl	%esi, %eax
+    shlx	%rax, %rdx, %rax
+    orq	%rax, %rcx
+    movq	%rcx, %rdx
+    movabsq	$-9223372036835687065, %rax
+    cmpq	%rax, %rdx
+    je	L48
+    call	abort
+L48:
+    movq	l(%rip), %rax
+    sarq	$4, %rax
+    movq	%rax, %rdx
+    movq	l(%rip), %rax
+    salq	$60, %rax
+    orq	%rax, %rdx
+    movabsq	$-9223372036835687065, %rax
+    cmpq	%rax, %rdx
+    je	L49
+    call	abort
+L49:
+    movq	ll(%rip), %rdx
+    movl	shift1(%rip), %eax
+    sarx	%rax, %rdx, %rcx
+    movq	ll(%rip), %rdx
+    movl	shift1(%rip), %eax
+    movl	$64, %esi
+    subl	%eax, %esi
+    movl	%esi, %eax
+    shlx	%rax, %rdx, %rax
+    orq	%rax, %rcx
+    movq	%rcx, %rdx
+    movabsq	$5124095577148911, %rax
+    cmpq	%rax, %rdx
+    je	L50
+    call	abort
+L50:
+    movq	ll(%rip), %rax
+    sarq	$4, %rax
+    movq	%rax, %rdx
+    movq	ll(%rip), %rax
+    salq	$60, %rax
+    orq	%rax, %rdx
+    movabsq	$5124095577148911, %rax
+    cmpq	%rax, %rdx
     je	L51
     call	abort
 L51:
-    movq	l(%rip), %rdx
-    movl	shift1(%rip), %eax
-    sarx	%rax, %rdx, %rcx
-    movq	l(%rip), %rdx
-    movl	shift1(%rip), %eax
-    movl	$64, %esi
-    subl	%eax, %esi
-    movl	%esi, %eax
-    shlx	%rax, %rdx, %rax
-    orq	%rax, %rcx
-    movq	%rcx, %rdx
-    movabsq	$-9223372036835687065, %rax
-    cmpq	%rax, %rdx
-    je	L52
-    call	abort
-L52:
-    movq	l(%rip), %rax
-    sarq	$4, %rax
-    movq	%rax, %rdx
-    movq	l(%rip), %rax
-    salq	$60, %rax
-    orq	%rax, %rdx
-    movabsq	$-9223372036835687065, %rax
-    cmpq	%rax, %rdx
-    je	L53
-    call	abort
-L53:
-    movq	ll(%rip), %rdx
-    movl	shift1(%rip), %eax
-    sarx	%rax, %rdx, %rcx
-    movq	ll(%rip), %rdx
-    movl	shift1(%rip), %eax
-    movl	$64, %esi
-    subl	%eax, %esi
-    movl	%esi, %eax
-    shlx	%rax, %rdx, %rax
-    orq	%rax, %rcx
-    movq	%rcx, %rdx
-    movabsq	$5124095577148911, %rax
-    cmpq	%rax, %rdx
-    je	L54
-    call	abort
-L54:
-    movq	ll(%rip), %rax
-    sarq	$4, %rax
-    movq	%rax, %rdx
-    movq	ll(%rip), %rax
-    salq	$60, %rax
-    orq	%rax, %rdx
-    movabsq	$5124095577148911, %rax
-    cmpq	%rax, %rdx
-    je	L55
-    call	abort
-L55:
     movq	ll(%rip), %rdx
     movl	shift2(%rip), %eax
     sarx	%rax, %rdx, %rcx
@@ -456,9 +439,9 @@ L55:
     movq	%rcx, %rdx
     movabsq	$1311768467750121216, %rax
     cmpq	%rax, %rdx
-    je	L56
+    je	L52
     call	abort
-L56:
+L52:
     movq	ll(%rip), %rax
     sarq	$60, %rax
     movq	%rax, %rdx
@@ -467,9 +450,9 @@ L56:
     orq	%rax, %rdx
     movabsq	$1311768467750121216, %rax
     cmpq	%rax, %rdx
-    je	L57
+    je	L53
     call	abort
-L57:
+L53:
     movzbl	c(%rip), %eax
     movsbl	%al, %edx
     movl	shift1(%rip), %eax
@@ -483,9 +466,9 @@ L57:
     sarx	%eax, %edx, %eax
     orl	%ecx, %eax
     cmpl	$835, %eax
-    je	L58
+    je	L54
     call	abort
-L58:
+L54:
     movzbl	c(%rip), %eax
     movsbl	%al, %eax
     sall	$4, %eax
@@ -495,9 +478,9 @@ L58:
     movsbl	%al, %eax
     orl	%edx, %eax
     cmpl	$835, %eax
-    je	L59
+    je	L55
     call	abort
-L59:
+L55:
     movzwl	s(%rip), %eax
     movswl	%ax, %edx
     movl	shift1(%rip), %eax
@@ -511,9 +494,9 @@ L59:
     sarx	%eax, %edx, %eax
     orl	%ecx, %eax
     cmpl	$74561, %eax
-    je	L60
+    je	L56
     call	abort
-L60:
+L56:
     movzwl	s(%rip), %eax
     cwtl
     sall	$4, %eax
@@ -523,9 +506,9 @@ L60:
     cwtl
     orl	%edx, %eax
     cmpl	$74561, %eax
-    je	L61
+    je	L57
     call	abort
-L61:
+L57:
     movl	i(%rip), %edx
     movl	shift1(%rip), %eax
     shlx	%eax, %edx, %ecx
@@ -537,9 +520,9 @@ L61:
     sarx	%eax, %edx, %eax
     orl	%ecx, %eax
     cmpl	$74560, %eax
-    je	L62
+    je	L58
     call	abort
-L62:
+L58:
     movl	i(%rip), %eax
     sall	$4, %eax
     movl	%eax, %edx
@@ -547,63 +530,63 @@ L62:
     sarl	$28, %eax
     orl	%edx, %eax
     cmpl	$74560, %eax
+    je	L59
+    call	abort
+L59:
+    movq	l(%rip), %rdx
+    movl	shift1(%rip), %eax
+    shlx	%rax, %rdx, %rcx
+    movq	l(%rip), %rdx
+    movl	shift1(%rip), %eax
+    movl	$64, %esi
+    subl	%eax, %esi
+    movl	%esi, %eax
+    sarx	%rax, %rdx, %rax
+    orq	%rax, %rcx
+    movq	%rcx, %rdx
+    movabsq	$4886718336, %rax
+    cmpq	%rax, %rdx
+    je	L60
+    call	abort
+L60:
+    movq	l(%rip), %rax
+    salq	$4, %rax
+    movq	%rax, %rdx
+    movq	l(%rip), %rax
+    sarq	$60, %rax
+    orq	%rax, %rdx
+    movabsq	$4886718336, %rax
+    cmpq	%rax, %rdx
+    je	L61
+    call	abort
+L61:
+    movq	ll(%rip), %rdx
+    movl	shift1(%rip), %eax
+    shlx	%rax, %rdx, %rcx
+    movq	ll(%rip), %rdx
+    movl	shift1(%rip), %eax
+    movl	$64, %esi
+    subl	%eax, %esi
+    movl	%esi, %eax
+    sarx	%rax, %rdx, %rax
+    orq	%rax, %rcx
+    movq	%rcx, %rdx
+    movabsq	$1311768467750121216, %rax
+    cmpq	%rax, %rdx
+    je	L62
+    call	abort
+L62:
+    movq	ll(%rip), %rax
+    salq	$4, %rax
+    movq	%rax, %rdx
+    movq	ll(%rip), %rax
+    sarq	$60, %rax
+    orq	%rax, %rdx
+    movabsq	$1311768467750121216, %rax
+    cmpq	%rax, %rdx
     je	L63
     call	abort
 L63:
-    movq	l(%rip), %rdx
-    movl	shift1(%rip), %eax
-    shlx	%rax, %rdx, %rcx
-    movq	l(%rip), %rdx
-    movl	shift1(%rip), %eax
-    movl	$64, %esi
-    subl	%eax, %esi
-    movl	%esi, %eax
-    sarx	%rax, %rdx, %rax
-    orq	%rax, %rcx
-    movq	%rcx, %rdx
-    movabsq	$4886718336, %rax
-    cmpq	%rax, %rdx
-    je	L64
-    call	abort
-L64:
-    movq	l(%rip), %rax
-    salq	$4, %rax
-    movq	%rax, %rdx
-    movq	l(%rip), %rax
-    sarq	$60, %rax
-    orq	%rax, %rdx
-    movabsq	$4886718336, %rax
-    cmpq	%rax, %rdx
-    je	L65
-    call	abort
-L65:
-    movq	ll(%rip), %rdx
-    movl	shift1(%rip), %eax
-    shlx	%rax, %rdx, %rcx
-    movq	ll(%rip), %rdx
-    movl	shift1(%rip), %eax
-    movl	$64, %esi
-    subl	%eax, %esi
-    movl	%esi, %eax
-    sarx	%rax, %rdx, %rax
-    orq	%rax, %rcx
-    movq	%rcx, %rdx
-    movabsq	$1311768467750121216, %rax
-    cmpq	%rax, %rdx
-    je	L66
-    call	abort
-L66:
-    movq	ll(%rip), %rax
-    salq	$4, %rax
-    movq	%rax, %rdx
-    movq	ll(%rip), %rax
-    sarq	$60, %rax
-    orq	%rax, %rdx
-    movabsq	$1311768467750121216, %rax
-    cmpq	%rax, %rdx
-    je	L67
-    call	abort
-L67:
     movq	ll(%rip), %rdx
     movl	shift2(%rip), %eax
     shlx	%rax, %rdx, %rcx
@@ -617,9 +600,9 @@ L67:
     movq	%rcx, %rdx
     movabsq	$5124095577148911, %rax
     cmpq	%rax, %rdx
-    je	L68
+    je	L64
     call	abort
-L68:
+L64:
     movq	ll(%rip), %rax
     salq	$60, %rax
     movq	%rax, %rdx
@@ -628,8 +611,8 @@ L68:
     orq	%rax, %rdx
     movabsq	$5124095577148911, %rax
     cmpq	%rax, %rdx
-    je	L69
+    je	L65
     call	abort
-L69:
+L65:
     movl	$0, %edi
     call	exit

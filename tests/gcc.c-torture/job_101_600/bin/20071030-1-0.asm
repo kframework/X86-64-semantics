@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .globl	CalcPing
@@ -292,39 +275,39 @@ CalcPing:
     movq	-32(%rbp), %rax
     movl	(%rax), %eax
     cmpl	$1, %eax
-    jne	L46
+    jne	L42
     movq	-32(%rbp), %rax
     movl	4(%rax), %eax
-    jmp	L47
-L46:
+    jmp	L43
+L42:
     vxorps	%xmm0, %xmm0, %xmm0
     vmovss	%xmm0, -20(%rbp)
     movl	$0, -16(%rbp)
     movq	-32(%rbp), %rax
     leaq	8(%rax), %rbx
     movl	$0, -12(%rbp)
-    jmp	L48
-L51:
+    jmp	L44
+L47:
     vmovss	8(%rbx), %xmm0
     vxorps	%xmm1, %xmm1, %xmm1
     vucomiss	%xmm1, %xmm0
-    jbe	L49
+    jbe	L45
     vmovss	8(%rbx), %xmm0
     vmovss	-20(%rbp), %xmm1
     vaddss	%xmm0, %xmm1, %xmm0
     vmovss	%xmm0, -20(%rbp)
     addl	$1, -16(%rbp)
-L49:
+L45:
     addl	$1, -12(%rbp)
     addq	$32, %rbx
-L48:
+L44:
     cmpl	$63, -12(%rbp)
-    jle	L51
+    jle	L47
     cmpl	$0, -16(%rbp)
-    jne	L52
+    jne	L48
     movl	$9999, %eax
-    jmp	L47
-L52:
+    jmp	L43
+L48:
     vxorps	%xmm0, %xmm0, %xmm0
     vcvtsi2ss	-16(%rbp), %xmm0, %xmm0
     vmovss	-20(%rbp), %xmm1
@@ -334,7 +317,7 @@ L52:
     vmovss	LC1(%rip), %xmm0
     vmulss	%xmm0, %xmm1, %xmm0
     vcvttss2si	%xmm0, %eax
-L47:
+L43:
     popq	%rbx
     popq	%rbp
     ret
@@ -358,15 +341,15 @@ _start:
     movq	%rax, %rdi
     call	CalcPing
     cmpl	$1000, %eax
-    je	L55
+    je	L51
     call	abort
-L55:
+L51:
     movl	$0, %eax
     movq	-8(%rbp), %rcx
     xorq	$40, %rcx
-    je	L57
+    je	L53
     call	__stack_chk_fail
-L57:
+L53:
     leave
     ret
     .section	.rodata

@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .section	.rodata
@@ -355,7 +338,7 @@ bfd_openw_with_cleanup:
     movq	%rdi, -8(%rbp)
     movq	%rsi, -16(%rbp)
     movq	%rdx, -24(%rbp)
-    movl	$foo_bfd2467, %eax
+    movl	$foo_bfd2460, %eax
     popq	%rbp
     ret
 bfd_make_section_anyway:
@@ -363,7 +346,7 @@ bfd_make_section_anyway:
     movq	%rsp, %rbp
     movq	%rdi, -8(%rbp)
     movq	%rsi, -16(%rbp)
-    movl	$foo_section2472, %eax
+    movl	$foo_section2465, %eax
     popq	%rbp
     ret
 bfd_set_section_size:
@@ -394,9 +377,9 @@ bfd_set_section_contents:
     movq	%rcx, -32(%rbp)
     movq	%r8, -40(%rbp)
     cmpq	$514703087, -40(%rbp)
-    je	L54
+    je	L50
     call	abort
-L54:
+L50:
     nop
     leave
     ret
@@ -418,5 +401,5 @@ _start:
     call	dump_bfd_file
     movl	$0, %edi
     call	exit
-    .comm	foo_bfd2467,4,4
-    .comm	foo_section2472,32,32
+    .comm	foo_bfd2460,4,4
+    .comm	foo_section2465,32,32

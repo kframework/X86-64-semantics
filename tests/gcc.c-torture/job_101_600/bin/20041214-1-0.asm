@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .section	.rodata
@@ -300,24 +283,47 @@ g:
     movq	-16(%rbp), %rax
     movzbl	(%rax), %eax
     testb	%al, %al
-    je	L62
-L46:
+    je	L58
+L42:
     addq	$1, -16(%rbp)
     movq	-16(%rbp), %rax
     movzbl	(%rax), %eax
     movb	%al, -17(%rbp)
-    movq	step0_jumps2433 + 16(%rip), %rax
-    jmp	L48
-L49:
+    movq	step0_jumps2426 + 16(%rip), %rax
+    jmp	L44
+L45:
     addq	$1, -16(%rbp)
     movq	-56(%rbp), %rax
     movl	(%rax), %eax
     cmpl	$48, %eax
-    jnb	L50
-    jmp	L61
-L48:
+    jnb	L46
+    jmp	L57
+L44:
     jmp	%rax
-L61:
+L57:
+    movq	-56(%rbp), %rax
+    movl	(%rax), %eax
+    leal	8(%rax), %edx
+    movq	-56(%rbp), %rax
+    movl	%edx, (%rax)
+    jmp	L48
+L46:
+    movq	-56(%rbp), %rax
+    movq	8(%rax), %rax
+    leaq	8(%rax), %rdx
+    movq	-56(%rbp), %rax
+    movq	%rdx, 8(%rax)
+L48:
+    movq	-16(%rbp), %rax
+    movzbl	(%rax), %eax
+    movb	%al, -17(%rbp)
+    movq	step0_jumps2426 + 16(%rip), %rax
+    jmp	L44
+L49:
+    movq	-56(%rbp), %rax
+    movl	(%rax), %eax
+    cmpl	$48, %eax
+    jnb	L50
     movq	-56(%rbp), %rax
     movl	(%rax), %eax
     leal	8(%rax), %edx
@@ -330,35 +336,12 @@ L50:
     leaq	8(%rax), %rdx
     movq	-56(%rbp), %rax
     movq	%rdx, 8(%rax)
-L52:
-    movq	-16(%rbp), %rax
-    movzbl	(%rax), %eax
-    movb	%al, -17(%rbp)
-    movq	step0_jumps2433 + 16(%rip), %rax
-    jmp	L48
+    jmp	L52
 L53:
     movq	-56(%rbp), %rax
     movl	(%rax), %eax
     cmpl	$48, %eax
     jnb	L54
-    movq	-56(%rbp), %rax
-    movl	(%rax), %eax
-    leal	8(%rax), %edx
-    movq	-56(%rbp), %rax
-    movl	%edx, (%rax)
-    jmp	L56
-L54:
-    movq	-56(%rbp), %rax
-    movq	8(%rax), %rax
-    leaq	8(%rax), %rdx
-    movq	-56(%rbp), %rax
-    movq	%rdx, 8(%rax)
-    jmp	L56
-L57:
-    movq	-56(%rbp), %rax
-    movl	(%rax), %eax
-    cmpl	$48, %eax
-    jnb	L58
     movq	-56(%rbp), %rax
     movq	16(%rax), %rdx
     movq	-56(%rbp), %rax
@@ -370,14 +353,14 @@ L57:
     leal	8(%rdx), %ecx
     movq	-56(%rbp), %rdx
     movl	%ecx, (%rdx)
-    jmp	L59
-L58:
+    jmp	L55
+L54:
     movq	-56(%rbp), %rax
     movq	8(%rax), %rax
     leaq	8(%rax), %rcx
     movq	-56(%rbp), %rdx
     movq	%rcx, 8(%rdx)
-L59:
+L55:
     movq	(%rax), %rax
     movq	%rax, -8(%rbp)
     movq	-8(%rbp), %rdx
@@ -385,16 +368,16 @@ L59:
     movq	%rdx, %rsi
     movq	%rax, %rdi
     call	strcpy
-L56:
+L52:
     addq	$1, -16(%rbp)
     movq	-16(%rbp), %rax
     movzbl	(%rax), %eax
     testb	%al, %al
-    jne	L46
-    jmp	L47
-L62:
+    jne	L42
+    jmp	L43
+L58:
     nop
-L47:
+L43:
     movl	$0, %eax
     leave
     ret
@@ -410,7 +393,7 @@ f:
     movq	%r8, -144(%rbp)
     movq	%r9, -136(%rbp)
     testb	%al, %al
-    je	L64
+    je	L60
     vmovaps	%xmm0, -128(%rbp)
     vmovaps	%xmm1, -112(%rbp)
     vmovaps	%xmm2, -96(%rbp)
@@ -419,7 +402,7 @@ f:
     vmovaps	%xmm5, -48(%rbp)
     vmovaps	%xmm6, -32(%rbp)
     vmovaps	%xmm7, -16(%rbp)
-L64:
+L60:
     movq	$40, %rax
     movq	%rax, -184(%rbp)
     xorl	%eax, %eax
@@ -438,9 +421,9 @@ L64:
     nop
     movq	-184(%rbp), %rax
     xorq	$40, %rax
-    je	L65
+    je	L61
     call	__stack_chk_fail
-L65:
+L61:
     leave
     ret
     .section	.rodata
@@ -470,19 +453,19 @@ _start:
     movq	%rax, %rdi
     call	strcmp
     testl	%eax, %eax
-    je	L67
+    je	L63
     call	abort
-L67:
+L63:
     movl	$0, %eax
     movq	-8(%rbp), %rdx
     xorq	$40, %rdx
-    je	L69
+    je	L65
     call	__stack_chk_fail
-L69:
+L65:
     leave
     ret
     .data
-step0_jumps2433:
+step0_jumps2426:
+    .quad	L45
     .quad	L49
     .quad	L53
-    .quad	L57

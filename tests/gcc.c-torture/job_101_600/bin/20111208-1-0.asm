@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .comm	a,4,4
@@ -317,8 +300,8 @@ pack_unpack:
     movq	-64(%rbp), %rax
     addq	%rdx, %rax
     movq	%rax, -24(%rbp)
-    jmp	L47
-L54:
+    jmp	L43
+L50:
     movq	-64(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -64(%rbp)
@@ -326,24 +309,24 @@ L54:
     movb	%al, -37(%rbp)
     movsbl	-37(%rbp), %eax
     cmpl	$108, %eax
-    je	L48
+    je	L44
     cmpl	$115, %eax
-    je	L49
-    jmp	L47
-L49:
+    je	L45
+    jmp	L43
+L45:
     movl	$2, -36(%rbp)
-    jmp	L50
-L48:
+    jmp	L46
+L44:
     movl	$4, -36(%rbp)
     nop
-L50:
+L46:
     movl	-36(%rbp), %eax
     cmpl	$2, %eax
-    je	L52
+    je	L48
     cmpl	$4, %eax
-    je	L53
-    jmp	L51
-L52:
+    je	L49
+    jmp	L47
+L48:
     movq	-56(%rbp), %rax
     movzwl	(%rax), %eax
     movw	%ax, -16(%rbp)
@@ -352,8 +335,8 @@ L52:
     cwtl
     movl	%eax, %edi
     call	do_something
-    jmp	L51
-L53:
+    jmp	L47
+L49:
     movq	-56(%rbp), %rax
     movl	(%rax), %eax
     movl	%eax, -16(%rbp)
@@ -362,20 +345,20 @@ L53:
     movl	%eax, %edi
     call	do_something
     nop
-L51:
-    nop
 L47:
+    nop
+L43:
     movq	-64(%rbp), %rax
     cmpq	-24(%rbp), %rax
-    jb	L54
+    jb	L50
     movq	-56(%rbp), %rax
     movzbl	(%rax), %eax
     movsbl	%al, %eax
     movq	-8(%rbp), %rcx
     xorq	$40, %rcx
-    je	L56
+    je	L52
     call	__stack_chk_fail
-L56:
+L52:
     leave
     ret
     .section	.rodata
@@ -395,9 +378,9 @@ _start:
     call	pack_unpack
     movl	%eax, -4(%rbp)
     cmpl	$0, -4(%rbp)
-    je	L58
+    je	L54
     call	abort
-L58:
+L54:
     movl	$0, %eax
     leave
     ret

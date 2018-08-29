@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .data
@@ -314,11 +297,11 @@ f1:
     movq	i(%rip), %rax
     movl	-32(%rbp), %edx
     movl	%edx, 4(%rax)
-L46:
+L42:
     call	f0
     movq	test_t1(%rip), %rax
     testq	%rax, %rax
-    jne	L46
+    jne	L42
     movw	$8, -32(%rbp)
     movzwl	-32(%rbp), %eax
     movw	%ax, -48(%rbp)
@@ -331,7 +314,7 @@ L46:
     call	test
     movl	m(%rip), %eax
     testl	%eax, %eax
-    je	L47
+    je	L43
     movl	test_length(%rip), %eax
     imull	$2170, %eax, %eax
     cltq
@@ -345,12 +328,12 @@ L46:
     subq	-24(%rbp), %rax
     andl	$2147483647, %eax
     cmpq	$1000, %rax
-    jbe	L47
+    jbe	L43
     call	f0
-L47:
+L43:
     movl	d(%rip), %eax
     testl	%eax, %eax
-    je	L48
+    je	L44
     movl	test_length(%rip), %eax
     imull	$2170, %eax, %eax
     cltq
@@ -364,9 +347,9 @@ L47:
     subq	-8(%rbp), %rax
     andl	$2147483647, %eax
     cmpq	$1000, %rax
-    jbe	L48
+    jbe	L44
     call	f0
-L48:
+L44:
     cmpl	$0, -28(%rbp)
     setne	%al
     movzbl	%al, %eax
@@ -395,14 +378,14 @@ test:
     movq	-8(%rbp), %rax
     movzwl	(%rax), %eax
     cmpw	$8, %ax
-    jne	L53
+    jne	L49
     movq	-8(%rbp), %rax
     movzwl	4(%rax), %eax
     cmpw	$8, %ax
-    je	L54
-L53:
+    je	L50
+L49:
     call	abort
-L54:
+L50:
     movl	$0, %edi
     call	exit
     .globl	f0
@@ -412,23 +395,23 @@ f0:
     subq	$16, %rsp
     movq	i(%rip), %rax
     movq	%rax, -8(%rbp)
-    movl	washere2457(%rip), %eax
+    movl	washere2450(%rip), %eax
     leal	1(%rax), %edx
-    movl	%edx, washere2457(%rip)
+    movl	%edx, washere2450(%rip)
     testl	%eax, %eax
-    jne	L56
+    jne	L52
     movq	-8(%rbp), %rax
     movzwl	(%rax), %eax
     cmpw	$32, %ax
-    jne	L56
+    jne	L52
     movq	-8(%rbp), %rax
     movzwl	4(%rax), %eax
     cmpw	$32, %ax
-    je	L58
-L56:
+    je	L54
+L52:
     call	abort
-L58:
+L54:
     nop
     leave
     ret
-    .comm	washere2457,4,4
+    .comm	washere2450,4,4

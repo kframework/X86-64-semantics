@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .globl	log_compare
@@ -302,12 +285,12 @@ __db_txnlist_lsnadd:
     movq	%rdx, -56(%rbp)
     movl	%ecx, -40(%rbp)
     movl	$0, -24(%rbp)
-    jmp	L48
-L54:
+    jmp	L44
+L50:
     addl	$1, -36(%rbp)
     movl	$0, -20(%rbp)
-    jmp	L49
-L51:
+    jmp	L45
+L47:
     movq	-48(%rbp), %rax
     movq	32(%rax), %rax
     movl	-20(%rbp), %edx
@@ -325,7 +308,7 @@ L51:
     movq	%rax, %rdi
     call	log_compare
     testl	%eax, %eax
-    jns	L50
+    jns	L46
     movq	-48(%rbp), %rax
     movq	32(%rax), %rax
     movl	-20(%rbp), %edx
@@ -358,28 +341,28 @@ L51:
     addq	%rax, %rdx
     movq	-16(%rbp), %rax
     movq	%rax, (%rdx)
-L50:
+L46:
     addl	$1, -20(%rbp)
-L49:
+L45:
     movq	-48(%rbp), %rax
     movl	24(%rax), %eax
     subl	$1, %eax
     cmpl	-20(%rbp), %eax
-    jg	L51
+    jg	L47
     addl	$1, -24(%rbp)
-L48:
+L44:
     movl	-40(%rbp), %eax
     andl	$1, %eax
     testl	%eax, %eax
-    je	L52
+    je	L48
     movq	-48(%rbp), %rax
     movl	24(%rax), %eax
-    jmp	L53
-L52:
+    jmp	L49
+L48:
     movl	$1, %eax
-L53:
+L49:
     cmpl	-24(%rbp), %eax
-    jg	L54
+    jg	L50
     movq	-48(%rbp), %rax
     movq	32(%rax), %rdx
     movq	-56(%rbp), %rax
@@ -407,9 +390,9 @@ _start:
     movl	$0, %edi
     call	__db_txnlist_lsnadd
     cmpl	$1, %eax
-    je	L57
+    je	L53
     call	abort
-L57:
+L53:
     leaq	-368(%rbp), %rdx
     leaq	-352(%rbp), %rax
     movl	$1, %ecx
@@ -417,8 +400,8 @@ L57:
     movl	$0, %edi
     call	__db_txnlist_lsnadd
     cmpl	$31, %eax
-    je	L58
+    je	L54
     call	abort
-L58:
+L54:
     movl	$0, %edi
     call	exit

@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .globl	a1
@@ -313,74 +296,74 @@ _start:
     movq	%rsp, %rbp
     movzbl	a1(%rip), %eax
     cmpb	$52, %al
-    je	L46
+    je	L42
     call	abort
-L46:
+L42:
     movq	a1 + 8(%rip), %rax
     movzbl	(%rax), %eax
     cmpb	$54, %al
-    je	L47
+    je	L43
     call	abort
-L47:
+L43:
     movq	a1 + 8(%rip), %rax
     addq	$1, %rax
     movzbl	(%rax), %eax
     cmpb	$50, %al
-    je	L48
+    je	L44
     call	abort
-L48:
+L44:
     movq	a1 + 8(%rip), %rax
     addq	$2, %rax
     movzbl	(%rax), %eax
     testb	%al, %al
+    je	L45
+    call	abort
+L45:
+    movzbl	a2(%rip), %eax
+    cmpb	$118, %al
+    je	L46
+    call	abort
+L46:
+    movzbl	a2 + 1(%rip), %eax
+    cmpb	$99, %al
+    je	L47
+    call	abort
+L47:
+    movzbl	a2 + 2(%rip), %eax
+    cmpb	$113, %al
+    je	L48
+    call	abort
+L48:
+    movzbl	a3(%rip), %eax
+    cmpb	$111, %al
     je	L49
     call	abort
 L49:
-    movzbl	a2(%rip), %eax
-    cmpb	$118, %al
+    movzbl	a3 + 1(%rip), %eax
+    cmpb	$119, %al
     je	L50
     call	abort
 L50:
-    movzbl	a2 + 1(%rip), %eax
-    cmpb	$99, %al
+    movzbl	a3 + 2(%rip), %eax
+    cmpb	$120, %al
     je	L51
     call	abort
 L51:
-    movzbl	a2 + 2(%rip), %eax
-    cmpb	$113, %al
+    movzbl	a4(%rip), %eax
+    cmpb	$57, %al
     je	L52
     call	abort
 L52:
-    movzbl	a3(%rip), %eax
-    cmpb	$111, %al
+    movzbl	a4 + 1(%rip), %eax
+    cmpb	$101, %al
     je	L53
     call	abort
 L53:
-    movzbl	a3 + 1(%rip), %eax
-    cmpb	$119, %al
+    movzbl	a4 + 2(%rip), %eax
+    cmpb	$98, %al
     je	L54
     call	abort
 L54:
-    movzbl	a3 + 2(%rip), %eax
-    cmpb	$120, %al
-    je	L55
-    call	abort
-L55:
-    movzbl	a4(%rip), %eax
-    cmpb	$57, %al
-    je	L56
-    call	abort
-L56:
-    movzbl	a4 + 1(%rip), %eax
-    cmpb	$101, %al
-    je	L57
-    call	abort
-L57:
-    movzbl	a4 + 2(%rip), %eax
-    cmpb	$98, %al
-    je	L58
-    call	abort
-L58:
     movl	$0, %eax
     popq	%rbp
     ret

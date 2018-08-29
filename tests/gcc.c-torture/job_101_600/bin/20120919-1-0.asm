@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .globl	vd
@@ -308,10 +291,10 @@ init:
     movq	%rdi, -8(%rbp)
     movq	%rsi, -16(%rbp)
     cmpq	$0, -8(%rbp)
-    jne	L47
+    jne	L43
     movq	-16(%rbp), %rax
     movl	$0, (%rax)
-L47:
+L43:
     nop
     popq	%rbp
     ret
@@ -332,10 +315,10 @@ _start:
     movq	%rdx, %rsi
     movq	%rax, %rdi
     call	init
-    jmp	L49
-L53:
+    jmp	L45
+L49:
     cmpl	$0, -6152(%rbp)
-    jne	L50
+    jne	L46
     movq	pd(%rip), %rax
     movl	-6152(%rbp), %edx
     movslq	%edx, %rdx
@@ -344,7 +327,7 @@ L53:
     vmovsd	(%rax), %xmm0
     vxorpd	%xmm1, %xmm1, %xmm1
     vucomisd	%xmm1, %xmm0
-    jbe	L51
+    jbe	L47
     movq	pi(%rip), %rax
     movl	-6152(%rbp), %edx
     movslq	%edx, %rdx
@@ -352,7 +335,7 @@ L53:
     addq	%rdx, %rax
     movl	(%rax), %eax
     testl	%eax, %eax
-    jle	L51
+    jle	L47
     movq	pi(%rip), %rax
     movl	-6152(%rbp), %edx
     movslq	%edx, %rdx
@@ -360,7 +343,7 @@ L53:
     addq	%rdx, %rax
     movl	(%rax), %eax
     addl	%eax, -6148(%rbp)
-L51:
+L47:
     movq	pd(%rip), %rax
     movl	-6152(%rbp), %edx
     movslq	%edx, %rdx
@@ -375,21 +358,21 @@ L51:
     vxorpd	%xmm0, %xmm0, %xmm0
     vcvtsi2sd	%edx, %xmm0, %xmm0
     vmovsd	%xmm0, (%rax)
-L50:
+L46:
     addl	$1, -6152(%rbp)
-L49:
+L45:
     movl	-6156(%rbp), %eax
     cmpl	%eax, -6152(%rbp)
-    jl	L53
+    jl	L49
     cmpl	$1234567890, -6148(%rbp)
-    je	L54
+    je	L50
     call	abort
-L54:
+L50:
     movl	$0, %eax
     movq	-8(%rbp), %rsi
     xorq	$40, %rsi
-    je	L56
+    je	L52
     call	__stack_chk_fail
-L56:
+L52:
     leave
     ret

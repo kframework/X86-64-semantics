@@ -308,42 +308,9 @@ L32:
     ret
     .cfi_endproc
 LFE9:
-    .globl	malloc
-malloc:
-LFB10:
-    .cfi_startproc
-    pushq	%rbp
-    .cfi_def_cfa_offset 16
-    .cfi_offset 6, -16
-    movq	%rsp, %rbp
-    .cfi_def_cfa_register 6
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    .cfi_def_cfa 7, 8
-    ret
-    .cfi_endproc
-LFE10:
-    .globl	calloc
-calloc:
-LFB11:
-    .cfi_startproc
-    pushq	%rbp
-    .cfi_def_cfa_offset 16
-    .cfi_offset 6, -16
-    movq	%rsp, %rbp
-    .cfi_def_cfa_register 6
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    .cfi_def_cfa 7, 8
-    ret
-    .cfi_endproc
-LFE11:
     .globl	free
 free:
-LFB12:
+LFB10:
     .cfi_startproc
     pushq	%rbp
     .cfi_def_cfa_offset 16
@@ -356,10 +323,10 @@ LFB12:
     .cfi_def_cfa 7, 8
     ret
     .cfi_endproc
-LFE12:
+LFE10:
     .globl	isprint
 isprint:
-LFB13:
+LFB11:
     .cfi_startproc
     pushq	%rbp
     .cfi_def_cfa_offset 16
@@ -368,36 +335,36 @@ LFB13:
     .cfi_def_cfa_register 6
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     .cfi_def_cfa 7, 8
     ret
     .cfi_endproc
-LFE13:
+LFE11:
     .globl	sigfpe
 sigfpe:
-LFB14:
+LFB12:
     .cfi_startproc
     pushq	%rbp
     .cfi_def_cfa_offset 16
@@ -409,14 +376,14 @@ LFB14:
     movl	$0, %edi
     call	exit
     .cfi_endproc
-LFE14:
+LFE12:
     .comm	i,4,4
     .comm	j,4,4
     .comm	k,4,4
     .globl	main
 .globl _start
 _start:
-LFB15:
+LFB13:
     .cfi_startproc
     pushq	%rbp
     .cfi_def_cfa_offset 16
@@ -430,4 +397,4 @@ LFB15:
     movl	%eax, k(%rip)
     call	abort
     .cfi_endproc
-LFE15:
+LFE13:

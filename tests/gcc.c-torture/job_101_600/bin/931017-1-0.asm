@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .comm	v,4,4
@@ -307,9 +290,9 @@ h2:
     subq	$8, %rsp
     movq	%rdi, -8(%rbp)
     cmpq	$v, -8(%rbp)
-    je	L49
+    je	L45
     call	abort
-L49:
+L45:
     movl	$0, %eax
     leave
     ret
@@ -319,38 +302,38 @@ g:
     movq	%rsp, %rbp
     subq	$24, %rsp
     movq	%rdi, -24(%rbp)
-L55:
+L51:
     movl	$0, %eax
     call	h1
     movl	%eax, -8(%rbp)
     cmpl	$-1, -8(%rbp)
-    jne	L52
+    jne	L48
     movl	$0, %eax
-    jmp	L53
-L52:
+    jmp	L49
+L48:
     cmpl	$1, -8(%rbp)
-    jne	L54
+    jne	L50
     movl	$0, %eax
     call	h1
-L54:
+L50:
     cmpl	$1, -8(%rbp)
-    je	L55
-L56:
+    je	L51
+L52:
     movl	$v, %edi
     movl	$0, %eax
     call	h2
     movl	%eax, -4(%rbp)
     cmpl	$5, -8(%rbp)
-    je	L56
+    je	L52
     cmpl	$2, -8(%rbp)
-    je	L57
+    je	L53
     movl	-4(%rbp), %eax
-    jmp	L53
-L57:
+    jmp	L49
+L53:
     movq	-24(%rbp), %rax
     movb	$97, (%rax)
     movl	$0, %eax
-L53:
+L49:
     leave
     ret
     .globl	f
@@ -368,8 +351,8 @@ f:
     nop
     movq	-8(%rbp), %rdx
     xorq	$40, %rdx
-    je	L59
+    je	L55
     call	__stack_chk_fail
-L59:
+L55:
     leave
     ret
