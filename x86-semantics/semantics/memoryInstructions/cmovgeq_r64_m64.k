@@ -4,6 +4,11 @@ requires "x86-configuration.k"
 module CMOVGEQ-R64-M64
   imports X86-CONFIGURATION
 
+   rule <k>
+    execinstr (cmovge:Opcode M:Mem, R2:R64,  .Operands) => execinstr (cmovgeq:Opcode M:Mem, R2:R64,  .Operands) 
+  ...</k>
+
+
   context execinstr(cmovgeq:Opcode HOLE:Mem, R2:R64,  .Operands) [result(MemOffset)]
   
   rule <k>

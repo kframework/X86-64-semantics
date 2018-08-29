@@ -4,6 +4,10 @@ requires "x86-configuration.k"
 module CMOVLEL-R32-M32
   imports X86-CONFIGURATION
 
+  rule <k>
+    execinstr (cmovle:Opcode M:Mem, R2:R32,  .Operands) =>  execinstr (cmovlel:Opcode M:Mem, R2:R32,  .Operands)
+  ...</k>
+
   context execinstr(cmovlel:Opcode HOLE:Mem, R2:R32,  .Operands) [result(MemOffset)]
   
   rule <k>

@@ -3,6 +3,9 @@ requires "x86-configuration.k"
 
 module SHLXL-R32-R32-R32
   imports X86-CONFIGURATION
+  rule <k>
+    execinstr (shlx R1:R32, R2:R32, R3:R32,  .Operands) => execinstr (shlxl R1:R32, R2:R32, R3:R32,  .Operands)
+  ...</k>
 
   rule <k>
     execinstr (shlxl R1:R32, R2:R32, R3:R32,  .Operands) => .

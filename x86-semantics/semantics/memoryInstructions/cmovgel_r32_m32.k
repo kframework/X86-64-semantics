@@ -3,6 +3,10 @@ requires "x86-configuration.k"
 
 module CMOVGEL-R32-M32
   imports X86-CONFIGURATION
+   rule <k>
+    execinstr (cmovge:Opcode M:Mem, R2:R32,  .Operands) => execinstr (cmovgel:Opcode M:Mem, R2:R32,  .Operands)
+  ...</k>
+
 
   context execinstr(cmovgel:Opcode HOLE:Mem, R2:R32,  .Operands) [result(MemOffset)]
   
