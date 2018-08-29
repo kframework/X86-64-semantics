@@ -87,6 +87,7 @@ sub populate {
   execute("rm  $target/cmpw_*imm8*"       , $doit);
   execute("rm  $target/addl_*imm8*"       , $doit);
   execute("rm  $target/addw_*imm8*"       , $doit);
+  execute("rm  $target/andw_*imm8*"       , $doit);
   execute("rm  $target/orw_*imm8*"       , $doit);
   execute("rm  $target/xorw_*imm8*"       , $doit);
   execute("rm  $target/imulw_*imm8*"       , $doit);

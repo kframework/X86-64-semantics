@@ -531,7 +531,7 @@ module X86-LOADER
 
   rule <k> .string S:String  =>  
     storeToMemory(
-        createMIntMapFromString(S +String Int2String(0)), 
+        createMIntMapFromString(S +String "\x00"), 
         ptr(L, NextOffset), 
         (lengthString(S) +Int 1) *Int 8)
   ...</k>
@@ -545,6 +545,40 @@ module X86-LOADER
     </robase>
       requires  LabelId in_keys (ROMap)
 
+  // .ascii S
+  rule <k> .ascii S:String  =>  
+    storeToMemory(
+        createMIntMapFromString(S), 
+        ptr(L, NextOffset), 
+        (lengthString(S)) *Int 8)
+  ...</k>
+    <functargets> FMap:Map => FMap[LabelId <- ptr(L, NextOffset)] </functargets>
+    <rotargets> ROMap:Map => ROMap[LabelId <- ptr(L, NextOffset)] </rotargets>
+    <lastseenlabel> LabelId:X86Id </lastseenlabel>
+    <robase> 
+      roBaseInfo(
+          L:MemLoc, 
+          BaseOffset:MInt, 
+          NextOffset:MInt => addMInt(NextOffset, mi(addrSize, lengthString(S) +Int 1))) 
+    </robase>
+      requires notBool LabelId in_keys (ROMap)
+
+  rule <k> .ascii S:String  =>  
+    storeToMemory(
+        createMIntMapFromString(S), 
+        ptr(L, NextOffset), 
+        (lengthString(S)) *Int 8)
+  ...</k>
+    <rotargets> ROMap:Map  </rotargets>
+    <lastseenlabel> LabelId:X86Id </lastseenlabel>
+    <robase> 
+      roBaseInfo(
+          L:MemLoc, 
+          BaseOffset:MInt, 
+          NextOffset:MInt => addMInt(NextOffset, mi(addrSize, lengthString(S) +Int 1))) 
+    </robase>
+      requires  LabelId in_keys (ROMap)
+  
   /*@
     Record the PC corresponding to labels. 
   */  

@@ -92,6 +92,7 @@ module X86-SYNTAX
                             | ".file" String 
                             | ".globl" X86Id 
                             | ".string" String 
+                            | ".ascii" String 
                             | ".long" Int 
                             | ".quad" Int 
                             | ".quad" X86Id
