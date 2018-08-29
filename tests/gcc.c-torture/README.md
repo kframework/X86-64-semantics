@@ -29,7 +29,7 @@ cat src_worklist.txt | parallel    "sed -i '1 i\#include \"{}-lib.c\"' src/{}.c"
 
 # Generate Binaries
 ```
-source cmd_worklist.txt; cat bin_worklist.txt | parallel "../scripts/remove_directives.pl --file bin/{}.asm > bin/{}.tmp; mv bin/{}.tmp bin/{}.asm"
+source cmd_worklist.txt; cat bin_worklist.txt | parallel "../scripts/remove_directives.pl --file bin/{}.asm > bin/{}.tmp; mv bin/{}.tmp bin/{}.asm" |& tee runlog.txt
 ```
 
 # collect the instructions semantics
