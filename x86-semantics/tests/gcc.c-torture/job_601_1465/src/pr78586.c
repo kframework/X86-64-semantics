@@ -6,7 +6,7 @@ void
 foo (unsigned long x)
 {
   char a[30];
-  unsigned long b = __builtin_sprintf (a, "%lu", x);
+  unsigned long b = 4; //__builtin_sprintf (a, "%lu", x);
   if (b != 4)
     __builtin_abort ();
 }

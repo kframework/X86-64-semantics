@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 #ifdef DEBUG
-#define abort() printf ("error, line %d\n", __LINE__)
+//#define abort() printf ("error, line %d\n", __LINE__)
 #endif
 
 int count;
@@ -65,7 +65,7 @@ main ()
     abort ();
 
 #ifdef DEBUG
-  printf ("Done.\n");
+  //printf ("Done.\n");
 #endif
   exit (0);
 }
