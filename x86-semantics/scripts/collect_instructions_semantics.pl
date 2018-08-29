@@ -86,8 +86,14 @@ sub populate {
   execute("rm  $target/cmpq_*imm8*"       , $doit);
   execute("rm  $target/cmpw_*imm8*"       , $doit);
   execute("rm  $target/addl_*imm8*"       , $doit);
+  execute("rm  $target/addw_*imm8*"       , $doit);
+  execute("rm  $target/orw_*imm8*"       , $doit);
+  execute("rm  $target/xorw_*imm8*"       , $doit);
+  execute("rm  $target/imulw_*imm8*"       , $doit);
   execute("rm  $target/subl_*imm8*");
+  execute("rm  $target/subw_*imm8*");
   execute("rm  $target/addq_*imm8*"       , $doit);
+  execute("rm  $target/adcq_*imm8*"       , $doit);
   execute("rm  $target/andq_*imm8*"       , $doit);
   execute("rm  $target/andl_*imm8*"       , $doit);
   execute("rm  $target/leaq_*m16*"        , $doit);
