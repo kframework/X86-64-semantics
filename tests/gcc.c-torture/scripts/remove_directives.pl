@@ -36,7 +36,7 @@ for my $line (@lines) {
       next;
     }
 
-    $line =~ s/([a-zA-Z\d]+)\.([a-zA-Z\d]+)/$1$2/g;
+    $line =~ s/([\_a-zA-Z\d]+)\.([\_a-zA-Z\d]+)/$1$2/g;
 
     if($line =~ m/^\.L(.*)/) {
       print "L". $1. "\n";
@@ -58,8 +58,8 @@ for my $line (@lines) {
     }
 
     if($line =~ m/(.*)stdout\(%rip\)(.*)/) {
-      #print $1. "\$stdout" . $2. "\n";
-      print $1. "stdout" . $2. "\n";
+      print $1. "\$stdout" . $2. "\n";
+      #print $1. "stdout" . $2. "\n";
       next;
     }
 
