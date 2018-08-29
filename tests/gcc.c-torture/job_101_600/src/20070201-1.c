@@ -8,7 +8,7 @@ extern void abort (void);
 char *
 foo (char *buf, char *p)
 {
-  sprintf (buf, "abcde", p++);
+  //sprintf (buf, "abcde", p++);
   return p;
 }
 

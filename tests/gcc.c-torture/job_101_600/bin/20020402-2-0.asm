@@ -69,6 +69,38 @@ L12:
     movq	-8(%rbp), %rax
     popq	%rbp
     ret
+    .globl	strcmp
+strcmp:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq	%rdi, -8(%rbp)
+    movq	%rsi, -16(%rbp)
+    jmp	L15
+L17:
+    addq	$1, -8(%rbp)
+    addq	$1, -16(%rbp)
+L15:
+    movq	-8(%rbp), %rax
+    movzbl	(%rax), %eax
+    testb	%al, %al
+    je	L16
+    movq	-8(%rbp), %rax
+    movzbl	(%rax), %edx
+    movq	-16(%rbp), %rax
+    movzbl	(%rax), %eax
+    cmpb	%al, %dl
+    je	L17
+L16:
+    movq	-8(%rbp), %rax
+    movzbl	(%rax), %eax
+    movzbl	%al, %edx
+    movq	-16(%rbp), %rax
+    movzbl	(%rax), %eax
+    movzbl	%al, %eax
+    subl	%eax, %edx
+    movl	%edx, %eax
+    popq	%rbp
+    ret
     .globl	memcmp
 memcmp:
     pushq	%rbp
@@ -80,14 +112,14 @@ memcmp:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L15
-L18:
+    jmp	L20
+L23:
     movq	-16(%rbp), %rax
     movzbl	(%rax), %edx
     movq	-8(%rbp), %rax
     movzbl	(%rax), %eax
     cmpb	%al, %dl
-    je	L16
+    je	L21
     movq	-16(%rbp), %rax
     movzbl	(%rax), %eax
     movzbl	%al, %edx
@@ -96,18 +128,28 @@ L18:
     movzbl	%al, %eax
     subl	%eax, %edx
     movl	%edx, %eax
-    jmp	L17
-L16:
+    jmp	L22
+L21:
     addq	$1, -16(%rbp)
     addq	$1, -8(%rbp)
-L15:
+L20:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L18
+    jne	L23
     movl	$0, %eax
-L17:
+L22:
+    popq	%rbp
+    ret
+    .globl	__stack_chk_fail
+__stack_chk_fail:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq $-1, %rax
+    jmp %rax
+    
+    nop
     popq	%rbp
     ret
     .globl	exit
@@ -140,19 +182,19 @@ memset:
     movq	%rdx, -40(%rbp)
     movq	-24(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L22
-L23:
+    jmp	L28
+L29:
     movq	-8(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -8(%rbp)
     movl	-28(%rbp), %edx
     movb	%dl, (%rax)
-L22:
+L28:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L23
+    jne	L29
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -167,8 +209,8 @@ memcpy:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L26
-L27:
+    jmp	L32
+L33:
     movq	-16(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -16(%rbp)
@@ -177,12 +219,12 @@ L27:
     movq	%rcx, -8(%rbp)
     movzbl	(%rdx), %edx
     movb	%dl, (%rax)
-L26:
+L32:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L27
+    jne	L33
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -217,28 +259,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L35
+    jle	L41
     cmpl	$122, -4(%rbp)
-    jg	L35
+    jg	L41
     movl	$1, %eax
-    jmp	L36
-L35:
+    jmp	L42
+L41:
     cmpl	$64, -4(%rbp)
-    jle	L37
+    jle	L43
     cmpl	$90, -4(%rbp)
-    jg	L37
+    jg	L43
     movl	$1, %eax
-    jmp	L36
-L37:
+    jmp	L42
+L43:
     cmpl	$47, -4(%rbp)
-    jle	L38
+    jle	L44
     cmpl	$57, -4(%rbp)
-    jg	L38
+    jg	L44
     movl	$1, %eax
-    jmp	L36
-L38:
+    jmp	L42
+L44:
     movl	$0, %eax
-L36:
+L42:
     popq	%rbp
     ret
     .comm	Local1,8,8
@@ -281,42 +323,42 @@ setStatPointers:
     movq	$5, 16(%rax)
     movq	-24(%rbp), %rax
     addq	$24, %rax
-    movq	%rax, $Local1(%rip)
+    movq	%rax, Local1(%rip)
     movq	-24(%rbp), %rax
     addq	$32, %rax
-    movq	%rax, $Local2(%rip)
+    movq	%rax, Local2(%rip)
     movq	-24(%rbp), %rax
     addq	$40, %rax
-    movq	%rax, $Local3(%rip)
+    movq	%rax, Local3(%rip)
     movq	-24(%rbp), %rax
     addq	$48, %rax
-    movq	%rax, $RDbf1(%rip)
+    movq	%rax, RDbf1(%rip)
     movq	-24(%rbp), %rax
     addq	$56, %rax
-    movq	%rax, $RDbf2(%rip)
+    movq	%rax, RDbf2(%rip)
     movq	-24(%rbp), %rax
     addq	$64, %rax
-    movq	%rax, $RDbf3(%rip)
-    movq $RDbf3(%rip), %rax
+    movq	%rax, RDbf3(%rip)
+    movq	RDbf3(%rip), %rax
     movq	$1, (%rax)
     movq	-24(%rbp), %rax
     addq	$304, %rax
-    movq	%rax, $IntVc1(%rip)
+    movq	%rax, IntVc1(%rip)
     movq	-24(%rbp), %rax
     addq	$312, %rax
-    movq	%rax, $IntVc2(%rip)
+    movq	%rax, IntVc2(%rip)
     movq	-24(%rbp), %rax
     addq	$320, %rax
-    movq	%rax, $IntCode3(%rip)
+    movq	%rax, IntCode3(%rip)
     movq	-24(%rbp), %rax
     addq	$328, %rax
-    movq	%rax, $IntCode4(%rip)
+    movq	%rax, IntCode4(%rip)
     movq	-24(%rbp), %rax
     addq	$336, %rax
-    movq	%rax, $IntCode5(%rip)
+    movq	%rax, IntCode5(%rip)
     movq	-24(%rbp), %rax
     addq	$344, %rax
-    movq	%rax, $IntCode6(%rip)
+    movq	%rax, IntCode6(%rip)
     movq	$Workspace, -8(%rbp)
     movq	-24(%rbp), %rax
     leaq	352(%rax), %rdx
@@ -364,40 +406,40 @@ setStatPointers:
     movq	%rdx, 80(%rax)
     movq	-24(%rbp), %rax
     addq	$208, %rax
-    movq	%rax, $Lom1(%rip)
+    movq	%rax, Lom1(%rip)
     movq	-24(%rbp), %rax
     addq	$216, %rax
-    movq	%rax, $Lom2(%rip)
+    movq	%rax, Lom2(%rip)
     movq	-24(%rbp), %rax
     addq	$224, %rax
-    movq	%rax, $Lom3(%rip)
+    movq	%rax, Lom3(%rip)
     movq	-24(%rbp), %rax
     addq	$232, %rax
-    movq	%rax, $Lom4(%rip)
+    movq	%rax, Lom4(%rip)
     movq	-24(%rbp), %rax
     addq	$240, %rax
-    movq	%rax, $Lom5(%rip)
+    movq	%rax, Lom5(%rip)
     movq	-24(%rbp), %rax
     addq	$248, %rax
-    movq	%rax, $Lom6(%rip)
+    movq	%rax, Lom6(%rip)
     movq	-24(%rbp), %rax
     addq	$256, %rax
-    movq	%rax, $Lom7(%rip)
+    movq	%rax, Lom7(%rip)
     movq	-24(%rbp), %rax
     addq	$264, %rax
-    movq	%rax, $Lom8(%rip)
+    movq	%rax, Lom8(%rip)
     movq	-24(%rbp), %rax
     addq	$272, %rax
-    movq	%rax, $Lom9(%rip)
+    movq	%rax, Lom9(%rip)
     movq	-24(%rbp), %rax
     addq	$280, %rax
-    movq	%rax, $Lom10(%rip)
+    movq	%rax, Lom10(%rip)
     movq	-24(%rbp), %rax
     addq	$288, %rax
-    movq	%rax, $RDbf11(%rip)
+    movq	%rax, RDbf11(%rip)
     movq	-24(%rbp), %rax
     addq	$296, %rax
-    movq	%rax, $RDbf12(%rip)
+    movq	%rax, RDbf12(%rip)
     nop
     popq	%rbp
     ret

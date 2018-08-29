@@ -69,6 +69,38 @@ L12:
     movq	-8(%rbp), %rax
     popq	%rbp
     ret
+    .globl	strcmp
+strcmp:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq	%rdi, -8(%rbp)
+    movq	%rsi, -16(%rbp)
+    jmp	L15
+L17:
+    addq	$1, -8(%rbp)
+    addq	$1, -16(%rbp)
+L15:
+    movq	-8(%rbp), %rax
+    movzbl	(%rax), %eax
+    testb	%al, %al
+    je	L16
+    movq	-8(%rbp), %rax
+    movzbl	(%rax), %edx
+    movq	-16(%rbp), %rax
+    movzbl	(%rax), %eax
+    cmpb	%al, %dl
+    je	L17
+L16:
+    movq	-8(%rbp), %rax
+    movzbl	(%rax), %eax
+    movzbl	%al, %edx
+    movq	-16(%rbp), %rax
+    movzbl	(%rax), %eax
+    movzbl	%al, %eax
+    subl	%eax, %edx
+    movl	%edx, %eax
+    popq	%rbp
+    ret
     .globl	memcmp
 memcmp:
     pushq	%rbp
@@ -80,14 +112,14 @@ memcmp:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L15
-L18:
+    jmp	L20
+L23:
     movq	-16(%rbp), %rax
     movzbl	(%rax), %edx
     movq	-8(%rbp), %rax
     movzbl	(%rax), %eax
     cmpb	%al, %dl
-    je	L16
+    je	L21
     movq	-16(%rbp), %rax
     movzbl	(%rax), %eax
     movzbl	%al, %edx
@@ -96,18 +128,28 @@ L18:
     movzbl	%al, %eax
     subl	%eax, %edx
     movl	%edx, %eax
-    jmp	L17
-L16:
+    jmp	L22
+L21:
     addq	$1, -16(%rbp)
     addq	$1, -8(%rbp)
-L15:
+L20:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L18
+    jne	L23
     movl	$0, %eax
-L17:
+L22:
+    popq	%rbp
+    ret
+    .globl	__stack_chk_fail
+__stack_chk_fail:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq $-1, %rax
+    jmp %rax
+    
+    nop
     popq	%rbp
     ret
     .globl	exit
@@ -140,19 +182,19 @@ memset:
     movq	%rdx, -40(%rbp)
     movq	-24(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L22
-L23:
+    jmp	L28
+L29:
     movq	-8(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -8(%rbp)
     movl	-28(%rbp), %edx
     movb	%dl, (%rax)
-L22:
+L28:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L23
+    jne	L29
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -167,8 +209,8 @@ memcpy:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L26
-L27:
+    jmp	L32
+L33:
     movq	-16(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -16(%rbp)
@@ -177,12 +219,12 @@ L27:
     movq	%rcx, -8(%rbp)
     movzbl	(%rdx), %edx
     movb	%dl, (%rax)
-L26:
+L32:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L27
+    jne	L33
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -217,28 +259,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L35
+    jle	L41
     cmpl	$122, -4(%rbp)
-    jg	L35
+    jg	L41
     movl	$1, %eax
-    jmp	L36
-L35:
+    jmp	L42
+L41:
     cmpl	$64, -4(%rbp)
-    jle	L37
+    jle	L43
     cmpl	$90, -4(%rbp)
-    jg	L37
+    jg	L43
     movl	$1, %eax
-    jmp	L36
-L37:
+    jmp	L42
+L43:
     cmpl	$47, -4(%rbp)
-    jle	L38
+    jle	L44
     cmpl	$57, -4(%rbp)
-    jg	L38
+    jg	L44
     movl	$1, %eax
-    jmp	L36
-L38:
+    jmp	L42
+L44:
     movl	$0, %eax
-L36:
+L42:
     popq	%rbp
     ret
     .globl	f3
@@ -250,9 +292,9 @@ f3:
     movq	-8(%rbp), %rax
     andl	$7, %eax
     cmpq	$5, %rax
-    jbe	L41
+    jbe	L47
     call	abort
-L41:
+L47:
     nop
     leave
     ret
@@ -265,9 +307,9 @@ f4:
     movq	-8(%rbp), %rax
     andl	$15, %eax
     cmpq	$9, %rax
-    jbe	L44
+    jbe	L50
     call	abort
-L44:
+L50:
     nop
     leave
     ret
@@ -280,9 +322,9 @@ f5:
     movq	-8(%rbp), %rax
     andl	$31, %eax
     cmpq	$17, %rax
-    jbe	L47
+    jbe	L53
     call	abort
-L47:
+L53:
     nop
     leave
     ret
@@ -295,9 +337,9 @@ f6:
     movq	-8(%rbp), %rax
     andl	$63, %eax
     cmpq	$33, %rax
-    jbe	L50
+    jbe	L56
     call	abort
-L50:
+L56:
     nop
     leave
     ret
@@ -310,9 +352,9 @@ f7:
     movq	-8(%rbp), %rax
     andl	$127, %eax
     cmpq	$65, %rax
-    jbe	L53
+    jbe	L59
     call	abort
-L53:
+L59:
     nop
     leave
     ret
@@ -325,9 +367,9 @@ f8:
     movq	-8(%rbp), %rax
     movzbl	%al, %eax
     cmpq	$129, %rax
-    jbe	L56
+    jbe	L62
     call	abort
-L56:
+L62:
     nop
     leave
     ret
@@ -340,9 +382,9 @@ f9:
     movq	-8(%rbp), %rax
     andl	$511, %eax
     cmpq	$257, %rax
-    jbe	L59
+    jbe	L65
     call	abort
-L59:
+L65:
     nop
     leave
     ret
@@ -355,9 +397,9 @@ f10:
     movq	-8(%rbp), %rax
     andl	$1023, %eax
     cmpq	$513, %rax
-    jbe	L62
+    jbe	L68
     call	abort
-L62:
+L68:
     nop
     leave
     ret
@@ -370,9 +412,9 @@ f11:
     movq	-8(%rbp), %rax
     andl	$2047, %eax
     cmpq	$1025, %rax
-    jbe	L65
+    jbe	L71
     call	abort
-L65:
+L71:
     nop
     leave
     ret
@@ -385,9 +427,9 @@ f12:
     movq	-8(%rbp), %rax
     andl	$4095, %eax
     cmpq	$2049, %rax
-    jbe	L68
+    jbe	L74
     call	abort
-L68:
+L74:
     nop
     leave
     ret
@@ -400,9 +442,9 @@ f13:
     movq	-8(%rbp), %rax
     andl	$8191, %eax
     cmpq	$4097, %rax
-    jbe	L71
+    jbe	L77
     call	abort
-L71:
+L77:
     nop
     leave
     ret
@@ -415,9 +457,9 @@ f14:
     movq	-8(%rbp), %rax
     andl	$16383, %eax
     cmpq	$8193, %rax
-    jbe	L74
+    jbe	L80
     call	abort
-L74:
+L80:
     nop
     leave
     ret
@@ -430,9 +472,9 @@ f15:
     movq	-8(%rbp), %rax
     andl	$32767, %eax
     cmpq	$16385, %rax
-    jbe	L77
+    jbe	L83
     call	abort
-L77:
+L83:
     nop
     leave
     ret
@@ -445,9 +487,9 @@ f16:
     movq	-8(%rbp), %rax
     movzwl	%ax, %eax
     cmpq	$32769, %rax
-    jbe	L80
+    jbe	L86
     call	abort
-L80:
+L86:
     nop
     leave
     ret
@@ -460,9 +502,9 @@ f17:
     movq	-8(%rbp), %rax
     andl	$131071, %eax
     cmpq	$65537, %rax
-    jbe	L83
+    jbe	L89
     call	abort
-L83:
+L89:
     nop
     leave
     ret
@@ -475,9 +517,9 @@ f18:
     movq	-8(%rbp), %rax
     andl	$262143, %eax
     cmpq	$131073, %rax
-    jbe	L86
+    jbe	L92
     call	abort
-L86:
+L92:
     nop
     leave
     ret
@@ -490,9 +532,9 @@ f19:
     movq	-8(%rbp), %rax
     andl	$524287, %eax
     cmpq	$262145, %rax
-    jbe	L89
+    jbe	L95
     call	abort
-L89:
+L95:
     nop
     leave
     ret
@@ -505,9 +547,9 @@ f20:
     movq	-8(%rbp), %rax
     andl	$1048575, %eax
     cmpq	$524289, %rax
-    jbe	L92
+    jbe	L98
     call	abort
-L92:
+L98:
     nop
     leave
     ret
@@ -520,9 +562,9 @@ f21:
     movq	-8(%rbp), %rax
     andl	$2097151, %eax
     cmpq	$1048577, %rax
-    jbe	L95
+    jbe	L101
     call	abort
-L95:
+L101:
     nop
     leave
     ret
@@ -535,9 +577,9 @@ f22:
     movq	-8(%rbp), %rax
     andl	$4194303, %eax
     cmpq	$2097153, %rax
-    jbe	L98
+    jbe	L104
     call	abort
-L98:
+L104:
     nop
     leave
     ret
@@ -550,9 +592,9 @@ f23:
     movq	-8(%rbp), %rax
     andl	$8388607, %eax
     cmpq	$4194305, %rax
-    jbe	L101
+    jbe	L107
     call	abort
-L101:
+L107:
     nop
     leave
     ret
@@ -565,9 +607,9 @@ f24:
     movq	-8(%rbp), %rax
     andl	$16777215, %eax
     cmpq	$8388609, %rax
-    jbe	L104
+    jbe	L110
     call	abort
-L104:
+L110:
     nop
     leave
     ret
@@ -580,9 +622,9 @@ f25:
     movq	-8(%rbp), %rax
     andl	$33554431, %eax
     cmpq	$16777217, %rax
-    jbe	L107
+    jbe	L113
     call	abort
-L107:
+L113:
     nop
     leave
     ret
@@ -595,9 +637,9 @@ f26:
     movq	-8(%rbp), %rax
     andl	$67108863, %eax
     cmpq	$33554433, %rax
-    jbe	L110
+    jbe	L116
     call	abort
-L110:
+L116:
     nop
     leave
     ret
@@ -610,9 +652,9 @@ f27:
     movq	-8(%rbp), %rax
     andl	$134217727, %eax
     cmpq	$67108865, %rax
-    jbe	L113
+    jbe	L119
     call	abort
-L113:
+L119:
     nop
     leave
     ret
@@ -625,9 +667,9 @@ f28:
     movq	-8(%rbp), %rax
     andl	$268435455, %eax
     cmpq	$134217729, %rax
-    jbe	L116
+    jbe	L122
     call	abort
-L116:
+L122:
     nop
     leave
     ret
@@ -640,9 +682,9 @@ f29:
     movq	-8(%rbp), %rax
     andl	$536870911, %eax
     cmpq	$268435457, %rax
-    jbe	L119
+    jbe	L125
     call	abort
-L119:
+L125:
     nop
     leave
     ret
@@ -655,9 +697,9 @@ f30:
     movq	-8(%rbp), %rax
     andl	$1073741823, %eax
     cmpq	$536870913, %rax
-    jbe	L122
+    jbe	L128
     call	abort
-L122:
+L128:
     nop
     leave
     ret
@@ -670,9 +712,9 @@ f31:
     movq	-8(%rbp), %rax
     andl	$2147483647, %eax
     cmpq	$1073741825, %rax
-    jbe	L125
+    jbe	L131
     call	abort
-L125:
+L131:
     nop
     leave
     ret

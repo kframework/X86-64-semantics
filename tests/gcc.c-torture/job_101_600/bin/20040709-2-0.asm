@@ -69,6 +69,38 @@ L12:
     movq	-8(%rbp), %rax
     popq	%rbp
     ret
+    .globl	strcmp
+strcmp:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq	%rdi, -8(%rbp)
+    movq	%rsi, -16(%rbp)
+    jmp	L15
+L17:
+    addq	$1, -8(%rbp)
+    addq	$1, -16(%rbp)
+L15:
+    movq	-8(%rbp), %rax
+    movzbl	(%rax), %eax
+    testb	%al, %al
+    je	L16
+    movq	-8(%rbp), %rax
+    movzbl	(%rax), %edx
+    movq	-16(%rbp), %rax
+    movzbl	(%rax), %eax
+    cmpb	%al, %dl
+    je	L17
+L16:
+    movq	-8(%rbp), %rax
+    movzbl	(%rax), %eax
+    movzbl	%al, %edx
+    movq	-16(%rbp), %rax
+    movzbl	(%rax), %eax
+    movzbl	%al, %eax
+    subl	%eax, %edx
+    movl	%edx, %eax
+    popq	%rbp
+    ret
     .globl	memcmp
 memcmp:
     pushq	%rbp
@@ -80,14 +112,14 @@ memcmp:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L15
-L18:
+    jmp	L20
+L23:
     movq	-16(%rbp), %rax
     movzbl	(%rax), %edx
     movq	-8(%rbp), %rax
     movzbl	(%rax), %eax
     cmpb	%al, %dl
-    je	L16
+    je	L21
     movq	-16(%rbp), %rax
     movzbl	(%rax), %eax
     movzbl	%al, %edx
@@ -96,18 +128,28 @@ L18:
     movzbl	%al, %eax
     subl	%eax, %edx
     movl	%edx, %eax
-    jmp	L17
-L16:
+    jmp	L22
+L21:
     addq	$1, -16(%rbp)
     addq	$1, -8(%rbp)
-L15:
+L20:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L18
+    jne	L23
     movl	$0, %eax
-L17:
+L22:
+    popq	%rbp
+    ret
+    .globl	__stack_chk_fail
+__stack_chk_fail:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq $-1, %rax
+    jmp %rax
+    
+    nop
     popq	%rbp
     ret
     .globl	exit
@@ -140,19 +182,19 @@ memset:
     movq	%rdx, -40(%rbp)
     movq	-24(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L22
-L23:
+    jmp	L28
+L29:
     movq	-8(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -8(%rbp)
     movl	-28(%rbp), %edx
     movb	%dl, (%rax)
-L22:
+L28:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L23
+    jne	L29
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -167,8 +209,8 @@ memcpy:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L26
-L27:
+    jmp	L32
+L33:
     movq	-16(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -16(%rbp)
@@ -177,12 +219,12 @@ L27:
     movq	%rcx, -8(%rbp)
     movzbl	(%rdx), %edx
     movb	%dl, (%rax)
-L26:
+L32:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L27
+    jne	L33
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -217,41 +259,41 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L35
+    jle	L41
     cmpl	$122, -4(%rbp)
-    jg	L35
+    jg	L41
     movl	$1, %eax
-    jmp	L36
-L35:
+    jmp	L42
+L41:
     cmpl	$64, -4(%rbp)
-    jle	L37
+    jle	L43
     cmpl	$90, -4(%rbp)
-    jg	L37
+    jg	L43
     movl	$1, %eax
-    jmp	L36
-L37:
+    jmp	L42
+L43:
     cmpl	$47, -4(%rbp)
-    jle	L38
+    jle	L44
     cmpl	$57, -4(%rbp)
-    jg	L38
+    jg	L44
     movl	$1, %eax
-    jmp	L36
-L38:
+    jmp	L42
+L44:
     movl	$0, %eax
-L36:
+L42:
     popq	%rbp
     ret
     .globl	myrnd
 myrnd:
     pushq	%rbp
     movq	%rsp, %rbp
-    movl $s2409(%rip), %eax
+    movl	s2418(%rip), %eax
     imull	$1103515245, %eax, %eax
-    movl	%eax, $s2409(%rip)
-    movl $s2409(%rip), %eax
+    movl	%eax, s2418(%rip)
+    movl	s2418(%rip), %eax
     addl	$12345, %eax
-    movl	%eax, $s2409(%rip)
-    movl $s2409(%rip), %eax
+    movl	%eax, s2418(%rip)
+    movl	s2418(%rip), %eax
     shrl	$16, %eax
     andl	$2047, %eax
     popq	%rbp
@@ -271,7 +313,7 @@ fn1A:
     movq	%rsp, %rbp
     subq	$32, %rsp
     movl	%edi, -20(%rbp)
-    movzwl $sA(%rip), %eax
+    movzwl	sA(%rip), %eax
     movw	%ax, -16(%rbp)
     movzwl	-16(%rbp), %eax
     shrw	$5, %ax
@@ -299,7 +341,7 @@ fn2A:
     pushq	%rbp
     movq	%rsp, %rbp
     movl	%edi, -20(%rbp)
-    movzwl $sA(%rip), %eax
+    movzwl	sA(%rip), %eax
     movw	%ax, -16(%rbp)
     movzwl	-16(%rbp), %eax
     shrw	$5, %ax
@@ -347,10 +389,10 @@ fn2A:
 retitA:
     pushq	%rbp
     movq	%rsp, %rbp
-    movzbl $sA(%rip), %eax
+    movzbl	sA(%rip), %eax
     shrb	$5, %al
     movzbl	%al, %eax
-    movzbl $sA + 1(%rip), %edx
+    movzbl	sA + 1(%rip), %edx
     salq	$3, %rdx
     orq	%rdx, %rax
     movzwl	%ax, %eax
@@ -362,10 +404,10 @@ fn3A:
     movq	%rsp, %rbp
     subq	$8, %rsp
     movl	%edi, -4(%rbp)
-    movzbl $sA(%rip), %eax
+    movzbl	sA(%rip), %eax
     shrb	$5, %al
     movzbl	%al, %eax
-    movzbl $sA + 1(%rip), %edx
+    movzbl	sA + 1(%rip), %edx
     salq	$3, %rdx
     orq	%rdx, %rax
     movl	%eax, %edx
@@ -376,17 +418,17 @@ fn3A:
     andl	$7, %edx
     movl	%edx, %ecx
     sall	$5, %ecx
-    movzbl $sA(%rip), %edx
+    movzbl	sA(%rip), %edx
     andl	$31, %edx
     orl	%ecx, %edx
-    movb	%dl, $sA(%rip)
+    movb	%dl, sA(%rip)
     shrw	$3, %ax
     movzwl	%ax, %eax
     movzbl	%al, %edx
-    movzbl $sA + 1(%rip), %eax
+    movzbl	sA + 1(%rip), %eax
     andl	$0, %eax
     orl	%edx, %eax
-    movb	%al, $sA + 1(%rip)
+    movb	%al, sA + 1(%rip)
     call	retitA
     leave
     ret
@@ -398,28 +440,28 @@ testA:
     subq	$40, %rsp
     movq	$sA, -24(%rbp)
     movl	$0, -44(%rbp)
-    jmp	L52
-L53:
+    jmp	L58
+L59:
     movq	-24(%rbp), %rbx
     leaq	1(%rbx), %rax
     movq	%rax, -24(%rbp)
     call	myrnd
     movb	%al, (%rbx)
     addl	$1, -44(%rbp)
-L52:
+L58:
     movl	-44(%rbp), %eax
     cmpl	$1, %eax
-    jbe	L53
-    movzbl $sA(%rip), %eax
+    jbe	L59
+    movzbl	sA(%rip), %eax
     orl	$-32, %eax
-    movb	%al, $sA(%rip)
-    movzbl $sA + 1(%rip), %eax
+    movb	%al, sA(%rip)
+    movzbl	sA + 1(%rip), %eax
     orl	$-1, %eax
-    movb	%al, $sA + 1(%rip)
-    movzbl $sA(%rip), %eax
+    movb	%al, sA + 1(%rip)
+    movzbl	sA(%rip), %eax
     shrb	$5, %al
     movzbl	%al, %eax
-    movzbl $sA + 1(%rip), %edx
+    movzbl	sA + 1(%rip), %edx
     salq	$3, %rdx
     orq	%rdx, %rax
     movzwl	%ax, %eax
@@ -434,18 +476,18 @@ L52:
     andl	$7, %edx
     movl	%edx, %ecx
     sall	$5, %ecx
-    movzbl $sA(%rip), %edx
+    movzbl	sA(%rip), %edx
     andl	$31, %edx
     orl	%ecx, %edx
-    movb	%dl, $sA(%rip)
+    movb	%dl, sA(%rip)
     shrw	$3, %ax
     movzwl	%ax, %eax
     movzbl	%al, %edx
-    movzbl $sA + 1(%rip), %eax
+    movzbl	sA + 1(%rip), %eax
     andl	$0, %eax
     orl	%edx, %eax
-    movb	%al, $sA + 1(%rip)
-    movzwl $sA(%rip), %eax
+    movb	%al, sA + 1(%rip)
+    movzwl	sA(%rip), %eax
     movw	%ax, -48(%rbp)
     movl	-32(%rbp), %eax
     movl	%eax, %edi
@@ -454,48 +496,48 @@ L52:
     movzbl	-48(%rbp), %eax
     andl	$1, %eax
     movl	%eax, %edx
-    movzbl $sA(%rip), %eax
+    movzbl	sA(%rip), %eax
     andl	$1, %eax
     cmpb	%al, %dl
-    jne	L54
+    jne	L60
     movzbl	-48(%rbp), %eax
     shrb	$2, %al
     movl	%eax, %edx
     andl	$7, %edx
-    movzbl $sA(%rip), %eax
+    movzbl	sA(%rip), %eax
     shrb	$2, %al
     andl	$7, %eax
     cmpb	%al, %dl
-    jne	L54
+    jne	L60
     movzwl	-48(%rbp), %eax
     shrw	$5, %ax
     movl	%eax, %ecx
-    movzbl $sA(%rip), %eax
+    movzbl	sA(%rip), %eax
     shrb	$5, %al
     movzbl	%al, %eax
-    movzbl $sA + 1(%rip), %edx
+    movzbl	sA + 1(%rip), %edx
     salq	$3, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L54
+    jne	L60
     movzbl	-48(%rbp), %eax
     shrb	%al
     movl	%eax, %edx
     andl	$1, %edx
-    movzbl $sA(%rip), %eax
+    movzbl	sA(%rip), %eax
     shrb	%al
     andl	$1, %eax
     cmpb	%al, %dl
-    jne	L54
+    jne	L60
     movl	-36(%rbp), %edx
     movl	-32(%rbp), %eax
     addl	%edx, %eax
     andl	-40(%rbp), %eax
     cmpl	-28(%rbp), %eax
-    je	L55
-L54:
+    je	L61
+L60:
     call	abort
-L55:
+L61:
     call	myrnd
     movl	%eax, -36(%rbp)
     call	myrnd
@@ -506,18 +548,18 @@ L55:
     andl	$7, %edx
     movl	%edx, %ecx
     sall	$5, %ecx
-    movzbl $sA(%rip), %edx
+    movzbl	sA(%rip), %edx
     andl	$31, %edx
     orl	%ecx, %edx
-    movb	%dl, $sA(%rip)
+    movb	%dl, sA(%rip)
     shrw	$3, %ax
     movzwl	%ax, %eax
     movzbl	%al, %edx
-    movzbl $sA + 1(%rip), %eax
+    movzbl	sA + 1(%rip), %eax
     andl	$0, %eax
     orl	%edx, %eax
-    movb	%al, $sA + 1(%rip)
-    movzwl $sA(%rip), %eax
+    movb	%al, sA + 1(%rip)
+    movzwl	sA(%rip), %eax
     movw	%ax, -48(%rbp)
     movl	-32(%rbp), %eax
     movl	%eax, %edi
@@ -526,39 +568,39 @@ L55:
     movzbl	-48(%rbp), %eax
     andl	$1, %eax
     movl	%eax, %edx
-    movzbl $sA(%rip), %eax
+    movzbl	sA(%rip), %eax
     andl	$1, %eax
     cmpb	%al, %dl
-    jne	L56
+    jne	L62
     movzbl	-48(%rbp), %eax
     shrb	$2, %al
     movl	%eax, %edx
     andl	$7, %edx
-    movzbl $sA(%rip), %eax
+    movzbl	sA(%rip), %eax
     shrb	$2, %al
     andl	$7, %eax
     cmpb	%al, %dl
-    jne	L56
+    jne	L62
     movzwl	-48(%rbp), %eax
     shrw	$5, %ax
     movl	%eax, %ecx
-    movzbl $sA(%rip), %eax
+    movzbl	sA(%rip), %eax
     shrb	$5, %al
     movzbl	%al, %eax
-    movzbl $sA + 1(%rip), %edx
+    movzbl	sA + 1(%rip), %edx
     salq	$3, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L56
+    jne	L62
     movzbl	-48(%rbp), %eax
     shrb	%al
     movl	%eax, %edx
     andl	$1, %edx
-    movzbl $sA(%rip), %eax
+    movzbl	sA(%rip), %eax
     shrb	%al
     andl	$1, %eax
     cmpb	%al, %dl
-    jne	L56
+    jne	L62
     movl	-36(%rbp), %edx
     movl	-32(%rbp), %eax
     addl	%edx, %eax
@@ -576,10 +618,10 @@ L55:
     subl	%edx, %eax
     andl	-40(%rbp), %eax
     cmpl	-28(%rbp), %eax
-    je	L57
-L56:
+    je	L63
+L62:
     call	abort
-L57:
+L63:
     call	myrnd
     movl	%eax, -36(%rbp)
     call	myrnd
@@ -590,18 +632,18 @@ L57:
     andl	$7, %edx
     movl	%edx, %ecx
     sall	$5, %ecx
-    movzbl $sA(%rip), %edx
+    movzbl	sA(%rip), %edx
     andl	$31, %edx
     orl	%ecx, %edx
-    movb	%dl, $sA(%rip)
+    movb	%dl, sA(%rip)
     shrw	$3, %ax
     movzwl	%ax, %eax
     movzbl	%al, %edx
-    movzbl $sA + 1(%rip), %eax
+    movzbl	sA + 1(%rip), %eax
     andl	$0, %eax
     orl	%edx, %eax
-    movb	%al, $sA + 1(%rip)
-    movzwl $sA(%rip), %eax
+    movb	%al, sA + 1(%rip)
+    movzwl	sA(%rip), %eax
     movw	%ax, -48(%rbp)
     movl	-32(%rbp), %eax
     movl	%eax, %edi
@@ -610,46 +652,46 @@ L57:
     movzbl	-48(%rbp), %eax
     andl	$1, %eax
     movl	%eax, %edx
-    movzbl $sA(%rip), %eax
+    movzbl	sA(%rip), %eax
     andl	$1, %eax
     cmpb	%al, %dl
-    jne	L58
+    jne	L64
     movzbl	-48(%rbp), %eax
     shrb	$2, %al
     movl	%eax, %edx
     andl	$7, %edx
-    movzbl $sA(%rip), %eax
+    movzbl	sA(%rip), %eax
     shrb	$2, %al
     andl	$7, %eax
     cmpb	%al, %dl
-    jne	L58
-    movzbl $sA(%rip), %eax
+    jne	L64
+    movzbl	sA(%rip), %eax
     shrb	$5, %al
     movzbl	%al, %eax
-    movzbl $sA + 1(%rip), %edx
+    movzbl	sA + 1(%rip), %edx
     salq	$3, %rdx
     orq	%rdx, %rax
     movzwl	%ax, %eax
     cmpl	-28(%rbp), %eax
-    jne	L58
+    jne	L64
     movzbl	-48(%rbp), %eax
     shrb	%al
     movl	%eax, %edx
     andl	$1, %edx
-    movzbl $sA(%rip), %eax
+    movzbl	sA(%rip), %eax
     shrb	%al
     andl	$1, %eax
     cmpb	%al, %dl
-    jne	L58
+    jne	L64
     movl	-36(%rbp), %edx
     movl	-32(%rbp), %eax
     addl	%edx, %eax
     andl	-40(%rbp), %eax
     cmpl	-28(%rbp), %eax
-    je	L60
-L58:
+    je	L66
+L64:
     call	abort
-L60:
+L66:
     nop
     addq	$40, %rsp
     popq	%rbx
@@ -678,9 +720,9 @@ fn1B:
     movq	$40, %rax
     movq	%rax, -8(%rbp)
     xorl	%eax, %eax
-    movl $sB(%rip), %eax
+    movl	sB(%rip), %eax
     movl	%eax, -16(%rbp)
-    movzwl $sB + 4(%rip), %eax
+    movzwl	sB + 4(%rip), %eax
     movw	%ax, -12(%rbp)
     movzwl	-16(%rbp), %eax
     shrw	$5, %ax
@@ -709,9 +751,9 @@ fn1B:
     movzwl	%ax, %eax
     movq	-8(%rbp), %rsi
     xorq	$40, %rsi
-    je	L65
+    je	L71
     call	__stack_chk_fail
-L65:
+L71:
     leave
     ret
     .globl	fn2B
@@ -719,9 +761,9 @@ fn2B:
     pushq	%rbp
     movq	%rsp, %rbp
     movl	%edi, -20(%rbp)
-    movl $sB(%rip), %eax
+    movl	sB(%rip), %eax
     movl	%eax, -16(%rbp)
-    movzwl $sB + 4(%rip), %eax
+    movzwl	sB + 4(%rip), %eax
     movw	%ax, -12(%rbp)
     movzwl	-16(%rbp), %eax
     shrw	$5, %ax
@@ -769,10 +811,10 @@ fn2B:
 retitB:
     pushq	%rbp
     movq	%rsp, %rbp
-    movzbl $sB(%rip), %eax
+    movzbl	sB(%rip), %eax
     shrb	$5, %al
     movzbl	%al, %eax
-    movzbl $sB + 1(%rip), %edx
+    movzbl	sB + 1(%rip), %edx
     salq	$3, %rdx
     orq	%rdx, %rax
     movzwl	%ax, %eax
@@ -784,10 +826,10 @@ fn3B:
     movq	%rsp, %rbp
     subq	$8, %rsp
     movl	%edi, -4(%rbp)
-    movzbl $sB(%rip), %eax
+    movzbl	sB(%rip), %eax
     shrb	$5, %al
     movzbl	%al, %eax
-    movzbl $sB + 1(%rip), %edx
+    movzbl	sB + 1(%rip), %edx
     salq	$3, %rdx
     orq	%rdx, %rax
     movl	%eax, %edx
@@ -798,17 +840,17 @@ fn3B:
     andl	$7, %edx
     movl	%edx, %ecx
     sall	$5, %ecx
-    movzbl $sB(%rip), %edx
+    movzbl	sB(%rip), %edx
     andl	$31, %edx
     orl	%ecx, %edx
-    movb	%dl, $sB(%rip)
+    movb	%dl, sB(%rip)
     shrw	$3, %ax
     movzwl	%ax, %eax
     movzbl	%al, %edx
-    movzbl $sB + 1(%rip), %eax
+    movzbl	sB + 1(%rip), %eax
     andl	$0, %eax
     orl	%edx, %eax
-    movb	%al, $sB + 1(%rip)
+    movb	%al, sB + 1(%rip)
     call	retitB
     leave
     ret
@@ -820,28 +862,28 @@ testB:
     subq	$56, %rsp
     movq	$sB, -24(%rbp)
     movl	$0, -52(%rbp)
-    jmp	L73
-L74:
+    jmp	L79
+L80:
     movq	-24(%rbp), %rbx
     leaq	1(%rbx), %rax
     movq	%rax, -24(%rbp)
     call	myrnd
     movb	%al, (%rbx)
     addl	$1, -52(%rbp)
-L73:
+L79:
     movl	-52(%rbp), %eax
     cmpl	$5, %eax
-    jbe	L74
-    movzbl $sB(%rip), %eax
+    jbe	L80
+    movzbl	sB(%rip), %eax
     orl	$-32, %eax
-    movb	%al, $sB(%rip)
-    movzbl $sB + 1(%rip), %eax
+    movb	%al, sB(%rip)
+    movzbl	sB + 1(%rip), %eax
     orl	$-1, %eax
-    movb	%al, $sB + 1(%rip)
-    movzbl $sB(%rip), %eax
+    movb	%al, sB + 1(%rip)
+    movzbl	sB(%rip), %eax
     shrb	$5, %al
     movzbl	%al, %eax
-    movzbl $sB + 1(%rip), %edx
+    movzbl	sB + 1(%rip), %edx
     salq	$3, %rdx
     orq	%rdx, %rax
     movzwl	%ax, %eax
@@ -856,20 +898,20 @@ L73:
     andl	$7, %edx
     movl	%edx, %ecx
     sall	$5, %ecx
-    movzbl $sB(%rip), %edx
+    movzbl	sB(%rip), %edx
     andl	$31, %edx
     orl	%ecx, %edx
-    movb	%dl, $sB(%rip)
+    movb	%dl, sB(%rip)
     shrw	$3, %ax
     movzwl	%ax, %eax
     movzbl	%al, %edx
-    movzbl $sB + 1(%rip), %eax
+    movzbl	sB + 1(%rip), %eax
     andl	$0, %eax
     orl	%edx, %eax
-    movb	%al, $sB + 1(%rip)
-    movl $sB(%rip), %eax
+    movb	%al, sB + 1(%rip)
+    movl	sB(%rip), %eax
     movl	%eax, -32(%rbp)
-    movzwl $sB + 4(%rip), %eax
+    movzwl	sB + 4(%rip), %eax
     movw	%ax, -28(%rbp)
     movl	-40(%rbp), %eax
     movl	%eax, %edi
@@ -878,43 +920,43 @@ L73:
     movzbl	-32(%rbp), %eax
     andl	$15, %eax
     movl	%eax, %edx
-    movzbl $sB(%rip), %eax
+    movzbl	sB(%rip), %eax
     andl	$15, %eax
     cmpb	%al, %dl
-    jne	L75
+    jne	L81
     movzbl	-32(%rbp), %eax
     shrb	$4, %al
     movl	%eax, %edx
     andl	$1, %edx
-    movzbl $sB(%rip), %eax
+    movzbl	sB(%rip), %eax
     shrb	$4, %al
     andl	$1, %eax
     cmpb	%al, %dl
-    jne	L75
+    jne	L81
     movzwl	-32(%rbp), %eax
     shrw	$5, %ax
     movl	%eax, %ecx
-    movzbl $sB(%rip), %eax
+    movzbl	sB(%rip), %eax
     shrb	$5, %al
     movzbl	%al, %eax
-    movzbl $sB + 1(%rip), %edx
+    movzbl	sB + 1(%rip), %edx
     salq	$3, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L75
+    jne	L81
     movl	-30(%rbp), %edx
-    movl $sB + 2(%rip), %eax
+    movl	sB + 2(%rip), %eax
     cmpl	%eax, %edx
-    jne	L75
+    jne	L81
     movl	-44(%rbp), %edx
     movl	-40(%rbp), %eax
     addl	%edx, %eax
     andl	-48(%rbp), %eax
     cmpl	-36(%rbp), %eax
-    je	L76
-L75:
+    je	L82
+L81:
     call	abort
-L76:
+L82:
     call	myrnd
     movl	%eax, -44(%rbp)
     call	myrnd
@@ -925,20 +967,20 @@ L76:
     andl	$7, %edx
     movl	%edx, %ecx
     sall	$5, %ecx
-    movzbl $sB(%rip), %edx
+    movzbl	sB(%rip), %edx
     andl	$31, %edx
     orl	%ecx, %edx
-    movb	%dl, $sB(%rip)
+    movb	%dl, sB(%rip)
     shrw	$3, %ax
     movzwl	%ax, %eax
     movzbl	%al, %edx
-    movzbl $sB + 1(%rip), %eax
+    movzbl	sB + 1(%rip), %eax
     andl	$0, %eax
     orl	%edx, %eax
-    movb	%al, $sB + 1(%rip)
-    movl $sB(%rip), %eax
+    movb	%al, sB + 1(%rip)
+    movl	sB(%rip), %eax
     movl	%eax, -32(%rbp)
-    movzwl $sB + 4(%rip), %eax
+    movzwl	sB + 4(%rip), %eax
     movw	%ax, -28(%rbp)
     movl	-40(%rbp), %eax
     movl	%eax, %edi
@@ -947,34 +989,34 @@ L76:
     movzbl	-32(%rbp), %eax
     andl	$15, %eax
     movl	%eax, %edx
-    movzbl $sB(%rip), %eax
+    movzbl	sB(%rip), %eax
     andl	$15, %eax
     cmpb	%al, %dl
-    jne	L77
+    jne	L83
     movzbl	-32(%rbp), %eax
     shrb	$4, %al
     movl	%eax, %edx
     andl	$1, %edx
-    movzbl $sB(%rip), %eax
+    movzbl	sB(%rip), %eax
     shrb	$4, %al
     andl	$1, %eax
     cmpb	%al, %dl
-    jne	L77
+    jne	L83
     movzwl	-32(%rbp), %eax
     shrw	$5, %ax
     movl	%eax, %ecx
-    movzbl $sB(%rip), %eax
+    movzbl	sB(%rip), %eax
     shrb	$5, %al
     movzbl	%al, %eax
-    movzbl $sB + 1(%rip), %edx
+    movzbl	sB + 1(%rip), %edx
     salq	$3, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L77
+    jne	L83
     movl	-30(%rbp), %edx
-    movl $sB + 2(%rip), %eax
+    movl	sB + 2(%rip), %eax
     cmpl	%eax, %edx
-    jne	L77
+    jne	L83
     movl	-44(%rbp), %edx
     movl	-40(%rbp), %eax
     addl	%edx, %eax
@@ -992,10 +1034,10 @@ L76:
     subl	%edx, %eax
     andl	-48(%rbp), %eax
     cmpl	-36(%rbp), %eax
-    je	L78
-L77:
+    je	L84
+L83:
     call	abort
-L78:
+L84:
     call	myrnd
     movl	%eax, -44(%rbp)
     call	myrnd
@@ -1006,20 +1048,20 @@ L78:
     andl	$7, %edx
     movl	%edx, %ecx
     sall	$5, %ecx
-    movzbl $sB(%rip), %edx
+    movzbl	sB(%rip), %edx
     andl	$31, %edx
     orl	%ecx, %edx
-    movb	%dl, $sB(%rip)
+    movb	%dl, sB(%rip)
     shrw	$3, %ax
     movzwl	%ax, %eax
     movzbl	%al, %edx
-    movzbl $sB + 1(%rip), %eax
+    movzbl	sB + 1(%rip), %eax
     andl	$0, %eax
     orl	%edx, %eax
-    movb	%al, $sB + 1(%rip)
-    movl $sB(%rip), %eax
+    movb	%al, sB + 1(%rip)
+    movl	sB(%rip), %eax
     movl	%eax, -32(%rbp)
-    movzwl $sB + 4(%rip), %eax
+    movzwl	sB + 4(%rip), %eax
     movw	%ax, -28(%rbp)
     movl	-40(%rbp), %eax
     movl	%eax, %edi
@@ -1028,41 +1070,41 @@ L78:
     movzbl	-32(%rbp), %eax
     andl	$15, %eax
     movl	%eax, %edx
-    movzbl $sB(%rip), %eax
+    movzbl	sB(%rip), %eax
     andl	$15, %eax
     cmpb	%al, %dl
-    jne	L79
+    jne	L85
     movzbl	-32(%rbp), %eax
     shrb	$4, %al
     movl	%eax, %edx
     andl	$1, %edx
-    movzbl $sB(%rip), %eax
+    movzbl	sB(%rip), %eax
     shrb	$4, %al
     andl	$1, %eax
     cmpb	%al, %dl
-    jne	L79
-    movzbl $sB(%rip), %eax
+    jne	L85
+    movzbl	sB(%rip), %eax
     shrb	$5, %al
     movzbl	%al, %eax
-    movzbl $sB + 1(%rip), %edx
+    movzbl	sB + 1(%rip), %edx
     salq	$3, %rdx
     orq	%rdx, %rax
     movzwl	%ax, %eax
     cmpl	-36(%rbp), %eax
-    jne	L79
+    jne	L85
     movl	-30(%rbp), %edx
-    movl $sB + 2(%rip), %eax
+    movl	sB + 2(%rip), %eax
     cmpl	%eax, %edx
-    jne	L79
+    jne	L85
     movl	-44(%rbp), %edx
     movl	-40(%rbp), %eax
     addl	%edx, %eax
     andl	-48(%rbp), %eax
     cmpl	-36(%rbp), %eax
-    je	L81
-L79:
+    je	L87
+L85:
     call	abort
-L81:
+L87:
     nop
     addq	$56, %rsp
     popq	%rbx
@@ -1119,9 +1161,9 @@ fn1C:
     movq	%rsp, %rbp
     subq	$24, %rsp
     movl	%edi, -20(%rbp)
-    movl $sC(%rip), %eax
+    movl	sC(%rip), %eax
     movl	%eax, -16(%rbp)
-    movzwl $sC + 4(%rip), %eax
+    movzwl	sC + 4(%rip), %eax
     movw	%ax, -12(%rbp)
     movzwl	-12(%rbp), %eax
     shrw	$5, %ax
@@ -1165,9 +1207,9 @@ fn2C:
     pushq	%rbp
     movq	%rsp, %rbp
     movl	%edi, -20(%rbp)
-    movl $sC(%rip), %eax
+    movl	sC(%rip), %eax
     movl	%eax, -16(%rbp)
-    movzwl $sC + 4(%rip), %eax
+    movzwl	sC + 4(%rip), %eax
     movw	%ax, -12(%rbp)
     movzwl	-12(%rbp), %eax
     shrw	$5, %ax
@@ -1215,10 +1257,10 @@ fn2C:
 retitC:
     pushq	%rbp
     movq	%rsp, %rbp
-    movzbl $sC + 4(%rip), %eax
+    movzbl	sC + 4(%rip), %eax
     shrb	$5, %al
     movzbl	%al, %eax
-    movzbl $sC + 5(%rip), %edx
+    movzbl	sC + 5(%rip), %edx
     salq	$3, %rdx
     orq	%rdx, %rax
     movzwl	%ax, %eax
@@ -1230,10 +1272,10 @@ fn3C:
     movq	%rsp, %rbp
     subq	$8, %rsp
     movl	%edi, -4(%rbp)
-    movzbl $sC + 4(%rip), %eax
+    movzbl	sC + 4(%rip), %eax
     shrb	$5, %al
     movzbl	%al, %eax
-    movzbl $sC + 5(%rip), %edx
+    movzbl	sC + 5(%rip), %edx
     salq	$3, %rdx
     orq	%rdx, %rax
     movl	%eax, %edx
@@ -1244,17 +1286,17 @@ fn3C:
     andl	$7, %edx
     movl	%edx, %ecx
     sall	$5, %ecx
-    movzbl $sC + 4(%rip), %edx
+    movzbl	sC + 4(%rip), %edx
     andl	$31, %edx
     orl	%ecx, %edx
-    movb	%dl, $sC + 4(%rip)
+    movb	%dl, sC + 4(%rip)
     shrw	$3, %ax
     movzwl	%ax, %eax
     movzbl	%al, %edx
-    movzbl $sC + 5(%rip), %eax
+    movzbl	sC + 5(%rip), %eax
     andl	$0, %eax
     orl	%edx, %eax
-    movb	%al, $sC + 5(%rip)
+    movb	%al, sC + 5(%rip)
     call	retitC
     leave
     ret
@@ -1266,28 +1308,28 @@ testC:
     subq	$48, %rsp
     movq	$sC, -16(%rbp)
     movl	$0, -44(%rbp)
-    jmp	L93
-L94:
+    jmp	L99
+L100:
     movq	-16(%rbp), %rbx
     leaq	1(%rbx), %rax
     movq	%rax, -16(%rbp)
     call	myrnd
     movb	%al, (%rbx)
     addl	$1, -44(%rbp)
-L93:
+L99:
     movl	-44(%rbp), %eax
     cmpl	$5, %eax
-    jbe	L94
-    movzbl $sC + 4(%rip), %eax
+    jbe	L100
+    movzbl	sC + 4(%rip), %eax
     orl	$-32, %eax
-    movb	%al, $sC + 4(%rip)
-    movzbl $sC + 5(%rip), %eax
+    movb	%al, sC + 4(%rip)
+    movzbl	sC + 5(%rip), %eax
     orl	$-1, %eax
-    movb	%al, $sC + 5(%rip)
-    movzbl $sC + 4(%rip), %eax
+    movb	%al, sC + 5(%rip)
+    movzbl	sC + 4(%rip), %eax
     shrb	$5, %al
     movzbl	%al, %eax
-    movzbl $sC + 5(%rip), %edx
+    movzbl	sC + 5(%rip), %edx
     salq	$3, %rdx
     orq	%rdx, %rax
     movzwl	%ax, %eax
@@ -1302,20 +1344,20 @@ L93:
     andl	$7, %edx
     movl	%edx, %ecx
     sall	$5, %ecx
-    movzbl $sC + 4(%rip), %edx
+    movzbl	sC + 4(%rip), %edx
     andl	$31, %edx
     orl	%ecx, %edx
-    movb	%dl, $sC + 4(%rip)
+    movb	%dl, sC + 4(%rip)
     shrw	$3, %ax
     movzwl	%ax, %eax
     movzbl	%al, %edx
-    movzbl $sC + 5(%rip), %eax
+    movzbl	sC + 5(%rip), %eax
     andl	$0, %eax
     orl	%edx, %eax
-    movb	%al, $sC + 5(%rip)
-    movl $sC(%rip), %eax
+    movb	%al, sC + 5(%rip)
+    movl	sC(%rip), %eax
     movl	%eax, -24(%rbp)
-    movzwl $sC + 4(%rip), %eax
+    movzwl	sC + 4(%rip), %eax
     movw	%ax, -20(%rbp)
     movl	-32(%rbp), %eax
     movl	%eax, %edi
@@ -1324,43 +1366,43 @@ L93:
     movzbl	-20(%rbp), %eax
     andl	$15, %eax
     movl	%eax, %edx
-    movzbl $sC + 4(%rip), %eax
+    movzbl	sC + 4(%rip), %eax
     andl	$15, %eax
     cmpb	%al, %dl
-    jne	L95
+    jne	L101
     movzbl	-20(%rbp), %eax
     shrb	$4, %al
     movl	%eax, %edx
     andl	$1, %edx
-    movzbl $sC + 4(%rip), %eax
+    movzbl	sC + 4(%rip), %eax
     shrb	$4, %al
     andl	$1, %eax
     cmpb	%al, %dl
-    jne	L95
+    jne	L101
     movzwl	-20(%rbp), %eax
     shrw	$5, %ax
     movl	%eax, %ecx
-    movzbl $sC + 4(%rip), %eax
+    movzbl	sC + 4(%rip), %eax
     shrb	$5, %al
     movzbl	%al, %eax
-    movzbl $sC + 5(%rip), %edx
+    movzbl	sC + 5(%rip), %edx
     salq	$3, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L95
+    jne	L101
     movl	-24(%rbp), %edx
-    movl $sC(%rip), %eax
+    movl	sC(%rip), %eax
     cmpl	%eax, %edx
-    jne	L95
+    jne	L101
     movl	-36(%rbp), %edx
     movl	-32(%rbp), %eax
     addl	%edx, %eax
     andl	-40(%rbp), %eax
     cmpl	-28(%rbp), %eax
-    je	L96
-L95:
+    je	L102
+L101:
     call	abort
-L96:
+L102:
     call	myrnd
     movl	%eax, -36(%rbp)
     call	myrnd
@@ -1371,20 +1413,20 @@ L96:
     andl	$7, %edx
     movl	%edx, %ecx
     sall	$5, %ecx
-    movzbl $sC + 4(%rip), %edx
+    movzbl	sC + 4(%rip), %edx
     andl	$31, %edx
     orl	%ecx, %edx
-    movb	%dl, $sC + 4(%rip)
+    movb	%dl, sC + 4(%rip)
     shrw	$3, %ax
     movzwl	%ax, %eax
     movzbl	%al, %edx
-    movzbl $sC + 5(%rip), %eax
+    movzbl	sC + 5(%rip), %eax
     andl	$0, %eax
     orl	%edx, %eax
-    movb	%al, $sC + 5(%rip)
-    movl $sC(%rip), %eax
+    movb	%al, sC + 5(%rip)
+    movl	sC(%rip), %eax
     movl	%eax, -24(%rbp)
-    movzwl $sC + 4(%rip), %eax
+    movzwl	sC + 4(%rip), %eax
     movw	%ax, -20(%rbp)
     movl	-32(%rbp), %eax
     movl	%eax, %edi
@@ -1393,34 +1435,34 @@ L96:
     movzbl	-20(%rbp), %eax
     andl	$15, %eax
     movl	%eax, %edx
-    movzbl $sC + 4(%rip), %eax
+    movzbl	sC + 4(%rip), %eax
     andl	$15, %eax
     cmpb	%al, %dl
-    jne	L97
+    jne	L103
     movzbl	-20(%rbp), %eax
     shrb	$4, %al
     movl	%eax, %edx
     andl	$1, %edx
-    movzbl $sC + 4(%rip), %eax
+    movzbl	sC + 4(%rip), %eax
     shrb	$4, %al
     andl	$1, %eax
     cmpb	%al, %dl
-    jne	L97
+    jne	L103
     movzwl	-20(%rbp), %eax
     shrw	$5, %ax
     movl	%eax, %ecx
-    movzbl $sC + 4(%rip), %eax
+    movzbl	sC + 4(%rip), %eax
     shrb	$5, %al
     movzbl	%al, %eax
-    movzbl $sC + 5(%rip), %edx
+    movzbl	sC + 5(%rip), %edx
     salq	$3, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L97
+    jne	L103
     movl	-24(%rbp), %edx
-    movl $sC(%rip), %eax
+    movl	sC(%rip), %eax
     cmpl	%eax, %edx
-    jne	L97
+    jne	L103
     movl	-36(%rbp), %edx
     movl	-32(%rbp), %eax
     addl	%edx, %eax
@@ -1438,10 +1480,10 @@ L96:
     subl	%edx, %eax
     andl	-40(%rbp), %eax
     cmpl	-28(%rbp), %eax
-    je	L98
-L97:
+    je	L104
+L103:
     call	abort
-L98:
+L104:
     call	myrnd
     movl	%eax, -36(%rbp)
     call	myrnd
@@ -1452,20 +1494,20 @@ L98:
     andl	$7, %edx
     movl	%edx, %ecx
     sall	$5, %ecx
-    movzbl $sC + 4(%rip), %edx
+    movzbl	sC + 4(%rip), %edx
     andl	$31, %edx
     orl	%ecx, %edx
-    movb	%dl, $sC + 4(%rip)
+    movb	%dl, sC + 4(%rip)
     shrw	$3, %ax
     movzwl	%ax, %eax
     movzbl	%al, %edx
-    movzbl $sC + 5(%rip), %eax
+    movzbl	sC + 5(%rip), %eax
     andl	$0, %eax
     orl	%edx, %eax
-    movb	%al, $sC + 5(%rip)
-    movl $sC(%rip), %eax
+    movb	%al, sC + 5(%rip)
+    movl	sC(%rip), %eax
     movl	%eax, -24(%rbp)
-    movzwl $sC + 4(%rip), %eax
+    movzwl	sC + 4(%rip), %eax
     movw	%ax, -20(%rbp)
     movl	-32(%rbp), %eax
     movl	%eax, %edi
@@ -1474,41 +1516,41 @@ L98:
     movzbl	-20(%rbp), %eax
     andl	$15, %eax
     movl	%eax, %edx
-    movzbl $sC + 4(%rip), %eax
+    movzbl	sC + 4(%rip), %eax
     andl	$15, %eax
     cmpb	%al, %dl
-    jne	L99
+    jne	L105
     movzbl	-20(%rbp), %eax
     shrb	$4, %al
     movl	%eax, %edx
     andl	$1, %edx
-    movzbl $sC + 4(%rip), %eax
+    movzbl	sC + 4(%rip), %eax
     shrb	$4, %al
     andl	$1, %eax
     cmpb	%al, %dl
-    jne	L99
-    movzbl $sC + 4(%rip), %eax
+    jne	L105
+    movzbl	sC + 4(%rip), %eax
     shrb	$5, %al
     movzbl	%al, %eax
-    movzbl $sC + 5(%rip), %edx
+    movzbl	sC + 5(%rip), %edx
     salq	$3, %rdx
     orq	%rdx, %rax
     movzwl	%ax, %eax
     cmpl	-28(%rbp), %eax
-    jne	L99
+    jne	L105
     movl	-24(%rbp), %edx
-    movl $sC(%rip), %eax
+    movl	sC(%rip), %eax
     cmpl	%eax, %edx
-    jne	L99
+    jne	L105
     movl	-36(%rbp), %edx
     movl	-32(%rbp), %eax
     addl	%edx, %eax
     andl	-40(%rbp), %eax
     cmpl	-28(%rbp), %eax
-    je	L101
-L99:
+    je	L107
+L105:
     call	abort
-L101:
+L107:
     nop
     addq	$48, %rsp
     popq	%rbx
@@ -1529,7 +1571,7 @@ fn1D:
     movq	%rsp, %rbp
     subq	$32, %rsp
     movl	%edi, -20(%rbp)
-    movq $sD(%rip), %rax
+    movq	sD(%rip), %rax
     movq	%rax, -16(%rbp)
     movl	-12(%rbp), %eax
     shrl	$3, %eax
@@ -1555,7 +1597,7 @@ fn2D:
     pushq	%rbp
     movq	%rsp, %rbp
     movl	%edi, -20(%rbp)
-    movq $sD(%rip), %rax
+    movq	sD(%rip), %rax
     movq	%rax, -16(%rbp)
     movl	-12(%rbp), %eax
     shrl	$3, %eax
@@ -1600,16 +1642,16 @@ fn2D:
 retitD:
     pushq	%rbp
     movq	%rsp, %rbp
-    movzbl $sD + 4(%rip), %eax
+    movzbl	sD + 4(%rip), %eax
     shrb	$3, %al
     movzbl	%al, %eax
-    movzbl $sD + 5(%rip), %edx
+    movzbl	sD + 5(%rip), %edx
     salq	$5, %rdx
     orq	%rax, %rdx
-    movzbl $sD + 6(%rip), %eax
+    movzbl	sD + 6(%rip), %eax
     salq	$13, %rax
     orq	%rax, %rdx
-    movzbl $sD + 7(%rip), %eax
+    movzbl	sD + 7(%rip), %eax
     salq	$21, %rax
     orq	%rdx, %rax
     popq	%rbp
@@ -1620,16 +1662,16 @@ fn3D:
     movq	%rsp, %rbp
     subq	$8, %rsp
     movl	%edi, -4(%rbp)
-    movzbl $sD + 4(%rip), %eax
+    movzbl	sD + 4(%rip), %eax
     shrb	$3, %al
     movzbl	%al, %eax
-    movzbl $sD + 5(%rip), %edx
+    movzbl	sD + 5(%rip), %edx
     salq	$5, %rdx
     orq	%rax, %rdx
-    movzbl $sD + 6(%rip), %eax
+    movzbl	sD + 6(%rip), %eax
     salq	$13, %rax
     orq	%rax, %rdx
-    movzbl $sD + 7(%rip), %eax
+    movzbl	sD + 7(%rip), %eax
     salq	$21, %rax
     orq	%rdx, %rax
     movl	%eax, %edx
@@ -1639,33 +1681,33 @@ fn3D:
     movl	%eax, %edx
     andl	$31, %edx
     leal	0(,%rdx,8), %ecx
-    movzbl $sD + 4(%rip), %edx
+    movzbl	sD + 4(%rip), %edx
     andl	$7, %edx
     orl	%ecx, %edx
-    movb	%dl, $sD + 4(%rip)
+    movb	%dl, sD + 4(%rip)
     movl	%eax, %edx
     shrl	$5, %edx
     movl	%edx, %edx
     movzbl	%dl, %ecx
-    movzbl $sD + 5(%rip), %edx
+    movzbl	sD + 5(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sD + 5(%rip)
+    movb	%dl, sD + 5(%rip)
     movl	%eax, %edx
     shrl	$13, %edx
     movl	%edx, %edx
     movzbl	%dl, %ecx
-    movzbl $sD + 6(%rip), %edx
+    movzbl	sD + 6(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sD + 6(%rip)
+    movb	%dl, sD + 6(%rip)
     shrl	$21, %eax
     movl	%eax, %eax
     movzbl	%al, %edx
-    movzbl $sD + 7(%rip), %eax
+    movzbl	sD + 7(%rip), %eax
     andl	$0, %eax
     orl	%edx, %eax
-    movb	%al, $sD + 7(%rip)
+    movb	%al, sD + 7(%rip)
     call	retitD
     leave
     ret
@@ -1677,40 +1719,40 @@ testD:
     subq	$56, %rsp
     movq	$sD, -24(%rbp)
     movl	$0, -52(%rbp)
-    jmp	L113
-L114:
+    jmp	L119
+L120:
     movq	-24(%rbp), %rbx
     leaq	1(%rbx), %rax
     movq	%rax, -24(%rbp)
     call	myrnd
     movb	%al, (%rbx)
     addl	$1, -52(%rbp)
-L113:
+L119:
     movl	-52(%rbp), %eax
     cmpl	$7, %eax
-    jbe	L114
-    movzbl $sD + 4(%rip), %eax
+    jbe	L120
+    movzbl	sD + 4(%rip), %eax
     orl	$-8, %eax
-    movb	%al, $sD + 4(%rip)
-    movzbl $sD + 5(%rip), %eax
+    movb	%al, sD + 4(%rip)
+    movzbl	sD + 5(%rip), %eax
     orl	$-1, %eax
-    movb	%al, $sD + 5(%rip)
-    movzbl $sD + 6(%rip), %eax
+    movb	%al, sD + 5(%rip)
+    movzbl	sD + 6(%rip), %eax
     orl	$-1, %eax
-    movb	%al, $sD + 6(%rip)
-    movzbl $sD + 7(%rip), %eax
+    movb	%al, sD + 6(%rip)
+    movzbl	sD + 7(%rip), %eax
     orl	$-1, %eax
-    movb	%al, $sD + 7(%rip)
-    movzbl $sD + 4(%rip), %eax
+    movb	%al, sD + 7(%rip)
+    movzbl	sD + 4(%rip), %eax
     shrb	$3, %al
     movzbl	%al, %eax
-    movzbl $sD + 5(%rip), %edx
+    movzbl	sD + 5(%rip), %edx
     salq	$5, %rdx
     orq	%rax, %rdx
-    movzbl $sD + 6(%rip), %eax
+    movzbl	sD + 6(%rip), %eax
     salq	$13, %rax
     orq	%rax, %rdx
-    movzbl $sD + 7(%rip), %eax
+    movzbl	sD + 7(%rip), %eax
     salq	$21, %rax
     orq	%rdx, %rax
     movl	%eax, -48(%rbp)
@@ -1723,34 +1765,34 @@ L113:
     movl	%eax, %edx
     andl	$31, %edx
     leal	0(,%rdx,8), %ecx
-    movzbl $sD + 4(%rip), %edx
+    movzbl	sD + 4(%rip), %edx
     andl	$7, %edx
     orl	%ecx, %edx
-    movb	%dl, $sD + 4(%rip)
+    movb	%dl, sD + 4(%rip)
     movl	%eax, %edx
     shrl	$5, %edx
     movl	%edx, %edx
     movzbl	%dl, %ecx
-    movzbl $sD + 5(%rip), %edx
+    movzbl	sD + 5(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sD + 5(%rip)
+    movb	%dl, sD + 5(%rip)
     movl	%eax, %edx
     shrl	$13, %edx
     movl	%edx, %edx
     movzbl	%dl, %ecx
-    movzbl $sD + 6(%rip), %edx
+    movzbl	sD + 6(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sD + 6(%rip)
+    movb	%dl, sD + 6(%rip)
     shrl	$21, %eax
     movl	%eax, %eax
     movzbl	%al, %edx
-    movzbl $sD + 7(%rip), %eax
+    movzbl	sD + 7(%rip), %eax
     andl	$0, %eax
     orl	%edx, %eax
-    movb	%al, $sD + 7(%rip)
-    movq $sD(%rip), %rax
+    movb	%al, sD + 7(%rip)
+    movq	sD(%rip), %rax
     movq	%rax, -32(%rbp)
     movl	-40(%rbp), %eax
     movl	%eax, %edi
@@ -1760,67 +1802,67 @@ L113:
     shrw	$6, %ax
     movl	%eax, %ecx
     andl	$63, %ecx
-    movzbl $sD(%rip), %eax
+    movzbl	sD(%rip), %eax
     shrb	$6, %al
     movzbl	%al, %eax
-    movzbl $sD + 1(%rip), %edx
+    movzbl	sD + 1(%rip), %edx
     andl	$15, %edx
     salq	$2, %rdx
     orq	%rdx, %rax
     cmpb	%al, %cl
-    jne	L115
+    jne	L121
     movq	-32(%rbp), %rax
     shrq	$12, %rax
     movl	%eax, %ecx
     andl	$8388607, %ecx
-    movzbl $sD + 1(%rip), %eax
+    movzbl	sD + 1(%rip), %eax
     shrb	$4, %al
     movzbl	%al, %eax
-    movzbl $sD + 2(%rip), %edx
+    movzbl	sD + 2(%rip), %edx
     salq	$4, %rdx
     orq	%rax, %rdx
-    movzbl $sD + 3(%rip), %eax
+    movzbl	sD + 3(%rip), %eax
     salq	$12, %rax
     orq	%rax, %rdx
-    movzbl $sD + 4(%rip), %eax
+    movzbl	sD + 4(%rip), %eax
     andl	$7, %eax
     salq	$20, %rax
     orq	%rdx, %rax
     cmpl	%eax, %ecx
-    jne	L115
+    jne	L121
     movl	-28(%rbp), %eax
     shrl	$3, %eax
     movl	%eax, %ecx
-    movzbl $sD + 4(%rip), %eax
+    movzbl	sD + 4(%rip), %eax
     shrb	$3, %al
     movzbl	%al, %eax
-    movzbl $sD + 5(%rip), %edx
+    movzbl	sD + 5(%rip), %edx
     salq	$5, %rdx
     orq	%rax, %rdx
-    movzbl $sD + 6(%rip), %eax
+    movzbl	sD + 6(%rip), %eax
     salq	$13, %rax
     orq	%rax, %rdx
-    movzbl $sD + 7(%rip), %eax
+    movzbl	sD + 7(%rip), %eax
     salq	$21, %rax
     orq	%rdx, %rax
     cmpl	%eax, %ecx
-    jne	L115
+    jne	L121
     movzbl	-32(%rbp), %eax
     andl	$63, %eax
     movl	%eax, %edx
-    movzbl $sD(%rip), %eax
+    movzbl	sD(%rip), %eax
     andl	$63, %eax
     cmpb	%al, %dl
-    jne	L115
+    jne	L121
     movl	-44(%rbp), %edx
     movl	-40(%rbp), %eax
     addl	%edx, %eax
     andl	-48(%rbp), %eax
     cmpl	-36(%rbp), %eax
-    je	L116
-L115:
+    je	L122
+L121:
     call	abort
-L116:
+L122:
     call	myrnd
     movl	%eax, -44(%rbp)
     call	myrnd
@@ -1830,34 +1872,34 @@ L116:
     movl	%eax, %edx
     andl	$31, %edx
     leal	0(,%rdx,8), %ecx
-    movzbl $sD + 4(%rip), %edx
+    movzbl	sD + 4(%rip), %edx
     andl	$7, %edx
     orl	%ecx, %edx
-    movb	%dl, $sD + 4(%rip)
+    movb	%dl, sD + 4(%rip)
     movl	%eax, %edx
     shrl	$5, %edx
     movl	%edx, %edx
     movzbl	%dl, %ecx
-    movzbl $sD + 5(%rip), %edx
+    movzbl	sD + 5(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sD + 5(%rip)
+    movb	%dl, sD + 5(%rip)
     movl	%eax, %edx
     shrl	$13, %edx
     movl	%edx, %edx
     movzbl	%dl, %ecx
-    movzbl $sD + 6(%rip), %edx
+    movzbl	sD + 6(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sD + 6(%rip)
+    movb	%dl, sD + 6(%rip)
     shrl	$21, %eax
     movl	%eax, %eax
     movzbl	%al, %edx
-    movzbl $sD + 7(%rip), %eax
+    movzbl	sD + 7(%rip), %eax
     andl	$0, %eax
     orl	%edx, %eax
-    movb	%al, $sD + 7(%rip)
-    movq $sD(%rip), %rax
+    movb	%al, sD + 7(%rip)
+    movq	sD(%rip), %rax
     movq	%rax, -32(%rbp)
     movl	-40(%rbp), %eax
     movl	%eax, %edi
@@ -1867,58 +1909,58 @@ L116:
     shrw	$6, %ax
     movl	%eax, %ecx
     andl	$63, %ecx
-    movzbl $sD(%rip), %eax
+    movzbl	sD(%rip), %eax
     shrb	$6, %al
     movzbl	%al, %eax
-    movzbl $sD + 1(%rip), %edx
+    movzbl	sD + 1(%rip), %edx
     andl	$15, %edx
     salq	$2, %rdx
     orq	%rdx, %rax
     cmpb	%al, %cl
-    jne	L117
+    jne	L123
     movq	-32(%rbp), %rax
     shrq	$12, %rax
     movl	%eax, %ecx
     andl	$8388607, %ecx
-    movzbl $sD + 1(%rip), %eax
+    movzbl	sD + 1(%rip), %eax
     shrb	$4, %al
     movzbl	%al, %eax
-    movzbl $sD + 2(%rip), %edx
+    movzbl	sD + 2(%rip), %edx
     salq	$4, %rdx
     orq	%rax, %rdx
-    movzbl $sD + 3(%rip), %eax
+    movzbl	sD + 3(%rip), %eax
     salq	$12, %rax
     orq	%rax, %rdx
-    movzbl $sD + 4(%rip), %eax
+    movzbl	sD + 4(%rip), %eax
     andl	$7, %eax
     salq	$20, %rax
     orq	%rdx, %rax
     cmpl	%eax, %ecx
-    jne	L117
+    jne	L123
     movl	-28(%rbp), %eax
     shrl	$3, %eax
     movl	%eax, %ecx
-    movzbl $sD + 4(%rip), %eax
+    movzbl	sD + 4(%rip), %eax
     shrb	$3, %al
     movzbl	%al, %eax
-    movzbl $sD + 5(%rip), %edx
+    movzbl	sD + 5(%rip), %edx
     salq	$5, %rdx
     orq	%rax, %rdx
-    movzbl $sD + 6(%rip), %eax
+    movzbl	sD + 6(%rip), %eax
     salq	$13, %rax
     orq	%rax, %rdx
-    movzbl $sD + 7(%rip), %eax
+    movzbl	sD + 7(%rip), %eax
     salq	$21, %rax
     orq	%rdx, %rax
     cmpl	%eax, %ecx
-    jne	L117
+    jne	L123
     movzbl	-32(%rbp), %eax
     andl	$63, %eax
     movl	%eax, %edx
-    movzbl $sD(%rip), %eax
+    movzbl	sD(%rip), %eax
     andl	$63, %eax
     cmpb	%al, %dl
-    jne	L117
+    jne	L123
     movl	-44(%rbp), %edx
     movl	-40(%rbp), %eax
     addl	%edx, %eax
@@ -1936,10 +1978,10 @@ L116:
     subl	%edx, %eax
     andl	-48(%rbp), %eax
     cmpl	-36(%rbp), %eax
-    je	L118
-L117:
+    je	L124
+L123:
     call	abort
-L118:
+L124:
     call	myrnd
     movl	%eax, -44(%rbp)
     call	myrnd
@@ -1949,34 +1991,34 @@ L118:
     movl	%eax, %edx
     andl	$31, %edx
     leal	0(,%rdx,8), %ecx
-    movzbl $sD + 4(%rip), %edx
+    movzbl	sD + 4(%rip), %edx
     andl	$7, %edx
     orl	%ecx, %edx
-    movb	%dl, $sD + 4(%rip)
+    movb	%dl, sD + 4(%rip)
     movl	%eax, %edx
     shrl	$5, %edx
     movl	%edx, %edx
     movzbl	%dl, %ecx
-    movzbl $sD + 5(%rip), %edx
+    movzbl	sD + 5(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sD + 5(%rip)
+    movb	%dl, sD + 5(%rip)
     movl	%eax, %edx
     shrl	$13, %edx
     movl	%edx, %edx
     movzbl	%dl, %ecx
-    movzbl $sD + 6(%rip), %edx
+    movzbl	sD + 6(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sD + 6(%rip)
+    movb	%dl, sD + 6(%rip)
     shrl	$21, %eax
     movl	%eax, %eax
     movzbl	%al, %edx
-    movzbl $sD + 7(%rip), %eax
+    movzbl	sD + 7(%rip), %eax
     andl	$0, %eax
     orl	%edx, %eax
-    movb	%al, $sD + 7(%rip)
-    movq $sD(%rip), %rax
+    movb	%al, sD + 7(%rip)
+    movq	sD(%rip), %rax
     movq	%rax, -32(%rbp)
     movl	-40(%rbp), %eax
     movl	%eax, %edi
@@ -1986,64 +2028,64 @@ L118:
     shrw	$6, %ax
     movl	%eax, %ecx
     andl	$63, %ecx
-    movzbl $sD(%rip), %eax
+    movzbl	sD(%rip), %eax
     shrb	$6, %al
     movzbl	%al, %eax
-    movzbl $sD + 1(%rip), %edx
+    movzbl	sD + 1(%rip), %edx
     andl	$15, %edx
     salq	$2, %rdx
     orq	%rdx, %rax
     cmpb	%al, %cl
-    jne	L119
+    jne	L125
     movq	-32(%rbp), %rax
     shrq	$12, %rax
     movl	%eax, %ecx
     andl	$8388607, %ecx
-    movzbl $sD + 1(%rip), %eax
+    movzbl	sD + 1(%rip), %eax
     shrb	$4, %al
     movzbl	%al, %eax
-    movzbl $sD + 2(%rip), %edx
+    movzbl	sD + 2(%rip), %edx
     salq	$4, %rdx
     orq	%rax, %rdx
-    movzbl $sD + 3(%rip), %eax
+    movzbl	sD + 3(%rip), %eax
     salq	$12, %rax
     orq	%rax, %rdx
-    movzbl $sD + 4(%rip), %eax
+    movzbl	sD + 4(%rip), %eax
     andl	$7, %eax
     salq	$20, %rax
     orq	%rdx, %rax
     cmpl	%eax, %ecx
-    jne	L119
-    movzbl $sD + 4(%rip), %eax
+    jne	L125
+    movzbl	sD + 4(%rip), %eax
     shrb	$3, %al
     movzbl	%al, %eax
-    movzbl $sD + 5(%rip), %edx
+    movzbl	sD + 5(%rip), %edx
     salq	$5, %rdx
     orq	%rax, %rdx
-    movzbl $sD + 6(%rip), %eax
+    movzbl	sD + 6(%rip), %eax
     salq	$13, %rax
     orq	%rax, %rdx
-    movzbl $sD + 7(%rip), %eax
+    movzbl	sD + 7(%rip), %eax
     salq	$21, %rax
     orq	%rdx, %rax
     cmpl	-36(%rbp), %eax
-    jne	L119
+    jne	L125
     movzbl	-32(%rbp), %eax
     andl	$63, %eax
     movl	%eax, %edx
-    movzbl $sD(%rip), %eax
+    movzbl	sD(%rip), %eax
     andl	$63, %eax
     cmpb	%al, %dl
-    jne	L119
+    jne	L125
     movl	-44(%rbp), %edx
     movl	-40(%rbp), %eax
     addl	%edx, %eax
     andl	-48(%rbp), %eax
     cmpl	-36(%rbp), %eax
-    je	L121
-L119:
+    je	L127
+L125:
     call	abort
-L121:
+L127:
     nop
     addq	$56, %rsp
     popq	%rbx
@@ -2069,8 +2111,8 @@ fn1E:
     movq	%rsp, %rbp
     subq	$32, %rsp
     movl	%edi, -20(%rbp)
-    movq $sE(%rip), %rax
-    movq $sE + 8(%rip), %rdx
+    movq	sE(%rip), %rax
+    movq	sE + 8(%rip), %rdx
     movq	%rax, -16(%rbp)
     movq	%rdx, -8(%rbp)
     movl	-4(%rbp), %eax
@@ -2100,8 +2142,8 @@ fn2E:
     pushq	%rbp
     movq	%rsp, %rbp
     movl	%edi, -20(%rbp)
-    movq $sE(%rip), %rax
-    movq $sE + 8(%rip), %rdx
+    movq	sE(%rip), %rax
+    movq	sE + 8(%rip), %rdx
     movq	%rax, -16(%rbp)
     movq	%rdx, -8(%rbp)
     movl	-4(%rbp), %eax
@@ -2147,16 +2189,16 @@ fn2E:
 retitE:
     pushq	%rbp
     movq	%rsp, %rbp
-    movzbl $sE + 12(%rip), %eax
+    movzbl	sE + 12(%rip), %eax
     shrb	$3, %al
     movzbl	%al, %eax
-    movzbl $sE + 13(%rip), %edx
+    movzbl	sE + 13(%rip), %edx
     salq	$5, %rdx
     orq	%rax, %rdx
-    movzbl $sE + 14(%rip), %eax
+    movzbl	sE + 14(%rip), %eax
     salq	$13, %rax
     orq	%rax, %rdx
-    movzbl $sE + 15(%rip), %eax
+    movzbl	sE + 15(%rip), %eax
     salq	$21, %rax
     orq	%rdx, %rax
     popq	%rbp
@@ -2167,16 +2209,16 @@ fn3E:
     movq	%rsp, %rbp
     subq	$8, %rsp
     movl	%edi, -4(%rbp)
-    movzbl $sE + 12(%rip), %eax
+    movzbl	sE + 12(%rip), %eax
     shrb	$3, %al
     movzbl	%al, %eax
-    movzbl $sE + 13(%rip), %edx
+    movzbl	sE + 13(%rip), %edx
     salq	$5, %rdx
     orq	%rax, %rdx
-    movzbl $sE + 14(%rip), %eax
+    movzbl	sE + 14(%rip), %eax
     salq	$13, %rax
     orq	%rax, %rdx
-    movzbl $sE + 15(%rip), %eax
+    movzbl	sE + 15(%rip), %eax
     salq	$21, %rax
     orq	%rdx, %rax
     movl	%eax, %edx
@@ -2186,33 +2228,33 @@ fn3E:
     movl	%eax, %edx
     andl	$31, %edx
     leal	0(,%rdx,8), %ecx
-    movzbl $sE + 12(%rip), %edx
+    movzbl	sE + 12(%rip), %edx
     andl	$7, %edx
     orl	%ecx, %edx
-    movb	%dl, $sE + 12(%rip)
+    movb	%dl, sE + 12(%rip)
     movl	%eax, %edx
     shrl	$5, %edx
     movl	%edx, %edx
     movzbl	%dl, %ecx
-    movzbl $sE + 13(%rip), %edx
+    movzbl	sE + 13(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sE + 13(%rip)
+    movb	%dl, sE + 13(%rip)
     movl	%eax, %edx
     shrl	$13, %edx
     movl	%edx, %edx
     movzbl	%dl, %ecx
-    movzbl $sE + 14(%rip), %edx
+    movzbl	sE + 14(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sE + 14(%rip)
+    movb	%dl, sE + 14(%rip)
     shrl	$21, %eax
     movl	%eax, %eax
     movzbl	%al, %edx
-    movzbl $sE + 15(%rip), %eax
+    movzbl	sE + 15(%rip), %eax
     andl	$0, %eax
     orl	%edx, %eax
-    movb	%al, $sE + 15(%rip)
+    movb	%al, sE + 15(%rip)
     call	retitE
     leave
     ret
@@ -2224,40 +2266,40 @@ testE:
     subq	$56, %rsp
     movq	$sE, -40(%rbp)
     movl	$0, -60(%rbp)
-    jmp	L133
-L134:
+    jmp	L139
+L140:
     movq	-40(%rbp), %rbx
     leaq	1(%rbx), %rax
     movq	%rax, -40(%rbp)
     call	myrnd
     movb	%al, (%rbx)
     addl	$1, -60(%rbp)
-L133:
+L139:
     movl	-60(%rbp), %eax
     cmpl	$15, %eax
-    jbe	L134
-    movzbl $sE + 12(%rip), %eax
+    jbe	L140
+    movzbl	sE + 12(%rip), %eax
     orl	$-8, %eax
-    movb	%al, $sE + 12(%rip)
-    movzbl $sE + 13(%rip), %eax
+    movb	%al, sE + 12(%rip)
+    movzbl	sE + 13(%rip), %eax
     orl	$-1, %eax
-    movb	%al, $sE + 13(%rip)
-    movzbl $sE + 14(%rip), %eax
+    movb	%al, sE + 13(%rip)
+    movzbl	sE + 14(%rip), %eax
     orl	$-1, %eax
-    movb	%al, $sE + 14(%rip)
-    movzbl $sE + 15(%rip), %eax
+    movb	%al, sE + 14(%rip)
+    movzbl	sE + 15(%rip), %eax
     orl	$-1, %eax
-    movb	%al, $sE + 15(%rip)
-    movzbl $sE + 12(%rip), %eax
+    movb	%al, sE + 15(%rip)
+    movzbl	sE + 12(%rip), %eax
     shrb	$3, %al
     movzbl	%al, %eax
-    movzbl $sE + 13(%rip), %edx
+    movzbl	sE + 13(%rip), %edx
     salq	$5, %rdx
     orq	%rax, %rdx
-    movzbl $sE + 14(%rip), %eax
+    movzbl	sE + 14(%rip), %eax
     salq	$13, %rax
     orq	%rax, %rdx
-    movzbl $sE + 15(%rip), %eax
+    movzbl	sE + 15(%rip), %eax
     salq	$21, %rax
     orq	%rdx, %rax
     movl	%eax, -56(%rbp)
@@ -2270,35 +2312,35 @@ L133:
     movl	%eax, %edx
     andl	$31, %edx
     leal	0(,%rdx,8), %ecx
-    movzbl $sE + 12(%rip), %edx
+    movzbl	sE + 12(%rip), %edx
     andl	$7, %edx
     orl	%ecx, %edx
-    movb	%dl, $sE + 12(%rip)
+    movb	%dl, sE + 12(%rip)
     movl	%eax, %edx
     shrl	$5, %edx
     movl	%edx, %edx
     movzbl	%dl, %ecx
-    movzbl $sE + 13(%rip), %edx
+    movzbl	sE + 13(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sE + 13(%rip)
+    movb	%dl, sE + 13(%rip)
     movl	%eax, %edx
     shrl	$13, %edx
     movl	%edx, %edx
     movzbl	%dl, %ecx
-    movzbl $sE + 14(%rip), %edx
+    movzbl	sE + 14(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sE + 14(%rip)
+    movb	%dl, sE + 14(%rip)
     shrl	$21, %eax
     movl	%eax, %eax
     movzbl	%al, %edx
-    movzbl $sE + 15(%rip), %eax
+    movzbl	sE + 15(%rip), %eax
     andl	$0, %eax
     orl	%edx, %eax
-    movb	%al, $sE + 15(%rip)
-    movq $sE(%rip), %rax
-    movq $sE + 8(%rip), %rdx
+    movb	%al, sE + 15(%rip)
+    movq	sE(%rip), %rax
+    movq	sE + 8(%rip), %rdx
     movq	%rax, -32(%rbp)
     movq	%rdx, -24(%rbp)
     movl	-48(%rbp), %eax
@@ -2308,62 +2350,62 @@ L133:
     movzwl	-24(%rbp), %eax
     andw	$4095, %ax
     movl	%eax, %ecx
-    movzbl $sE + 8(%rip), %eax
-    movzbl $sE + 9(%rip), %edx
+    movzbl	sE + 8(%rip), %eax
+    movzbl	sE + 9(%rip), %edx
     andl	$15, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L135
+    jne	L141
     movq	-24(%rbp), %rax
     shrq	$12, %rax
     movl	%eax, %ecx
     andl	$8388607, %ecx
-    movzbl $sE + 9(%rip), %eax
+    movzbl	sE + 9(%rip), %eax
     shrb	$4, %al
     movzbl	%al, %eax
-    movzbl $sE + 10(%rip), %edx
+    movzbl	sE + 10(%rip), %edx
     salq	$4, %rdx
     orq	%rax, %rdx
-    movzbl $sE + 11(%rip), %eax
+    movzbl	sE + 11(%rip), %eax
     salq	$12, %rax
     orq	%rax, %rdx
-    movzbl $sE + 12(%rip), %eax
+    movzbl	sE + 12(%rip), %eax
     andl	$7, %eax
     salq	$20, %rax
     orq	%rdx, %rax
     cmpl	%eax, %ecx
-    jne	L135
+    jne	L141
     movl	-20(%rbp), %eax
     shrl	$3, %eax
     movl	%eax, %ecx
-    movzbl $sE + 12(%rip), %eax
+    movzbl	sE + 12(%rip), %eax
     shrb	$3, %al
     movzbl	%al, %eax
-    movzbl $sE + 13(%rip), %edx
+    movzbl	sE + 13(%rip), %edx
     salq	$5, %rdx
     orq	%rax, %rdx
-    movzbl $sE + 14(%rip), %eax
+    movzbl	sE + 14(%rip), %eax
     salq	$13, %rax
     orq	%rax, %rdx
-    movzbl $sE + 15(%rip), %eax
+    movzbl	sE + 15(%rip), %eax
     salq	$21, %rax
     orq	%rdx, %rax
     cmpl	%eax, %ecx
-    jne	L135
+    jne	L141
     movq	-32(%rbp), %rdx
-    movq $sE(%rip), %rax
+    movq	sE(%rip), %rax
     cmpq	%rax, %rdx
-    jne	L135
+    jne	L141
     movl	-52(%rbp), %edx
     movl	-48(%rbp), %eax
     addl	%edx, %eax
     andl	-56(%rbp), %eax
     cmpl	-44(%rbp), %eax
-    je	L136
-L135:
+    je	L142
+L141:
     call	abort
-L136:
+L142:
     call	myrnd
     movl	%eax, -52(%rbp)
     call	myrnd
@@ -2373,35 +2415,35 @@ L136:
     movl	%eax, %edx
     andl	$31, %edx
     leal	0(,%rdx,8), %ecx
-    movzbl $sE + 12(%rip), %edx
+    movzbl	sE + 12(%rip), %edx
     andl	$7, %edx
     orl	%ecx, %edx
-    movb	%dl, $sE + 12(%rip)
+    movb	%dl, sE + 12(%rip)
     movl	%eax, %edx
     shrl	$5, %edx
     movl	%edx, %edx
     movzbl	%dl, %ecx
-    movzbl $sE + 13(%rip), %edx
+    movzbl	sE + 13(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sE + 13(%rip)
+    movb	%dl, sE + 13(%rip)
     movl	%eax, %edx
     shrl	$13, %edx
     movl	%edx, %edx
     movzbl	%dl, %ecx
-    movzbl $sE + 14(%rip), %edx
+    movzbl	sE + 14(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sE + 14(%rip)
+    movb	%dl, sE + 14(%rip)
     shrl	$21, %eax
     movl	%eax, %eax
     movzbl	%al, %edx
-    movzbl $sE + 15(%rip), %eax
+    movzbl	sE + 15(%rip), %eax
     andl	$0, %eax
     orl	%edx, %eax
-    movb	%al, $sE + 15(%rip)
-    movq $sE(%rip), %rax
-    movq $sE + 8(%rip), %rdx
+    movb	%al, sE + 15(%rip)
+    movq	sE(%rip), %rax
+    movq	sE + 8(%rip), %rdx
     movq	%rax, -32(%rbp)
     movq	%rdx, -24(%rbp)
     movl	-48(%rbp), %eax
@@ -2411,53 +2453,53 @@ L136:
     movzwl	-24(%rbp), %eax
     andw	$4095, %ax
     movl	%eax, %ecx
-    movzbl $sE + 8(%rip), %eax
-    movzbl $sE + 9(%rip), %edx
+    movzbl	sE + 8(%rip), %eax
+    movzbl	sE + 9(%rip), %edx
     andl	$15, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L137
+    jne	L143
     movq	-24(%rbp), %rax
     shrq	$12, %rax
     movl	%eax, %ecx
     andl	$8388607, %ecx
-    movzbl $sE + 9(%rip), %eax
+    movzbl	sE + 9(%rip), %eax
     shrb	$4, %al
     movzbl	%al, %eax
-    movzbl $sE + 10(%rip), %edx
+    movzbl	sE + 10(%rip), %edx
     salq	$4, %rdx
     orq	%rax, %rdx
-    movzbl $sE + 11(%rip), %eax
+    movzbl	sE + 11(%rip), %eax
     salq	$12, %rax
     orq	%rax, %rdx
-    movzbl $sE + 12(%rip), %eax
+    movzbl	sE + 12(%rip), %eax
     andl	$7, %eax
     salq	$20, %rax
     orq	%rdx, %rax
     cmpl	%eax, %ecx
-    jne	L137
+    jne	L143
     movl	-20(%rbp), %eax
     shrl	$3, %eax
     movl	%eax, %ecx
-    movzbl $sE + 12(%rip), %eax
+    movzbl	sE + 12(%rip), %eax
     shrb	$3, %al
     movzbl	%al, %eax
-    movzbl $sE + 13(%rip), %edx
+    movzbl	sE + 13(%rip), %edx
     salq	$5, %rdx
     orq	%rax, %rdx
-    movzbl $sE + 14(%rip), %eax
+    movzbl	sE + 14(%rip), %eax
     salq	$13, %rax
     orq	%rax, %rdx
-    movzbl $sE + 15(%rip), %eax
+    movzbl	sE + 15(%rip), %eax
     salq	$21, %rax
     orq	%rdx, %rax
     cmpl	%eax, %ecx
-    jne	L137
+    jne	L143
     movq	-32(%rbp), %rdx
-    movq $sE(%rip), %rax
+    movq	sE(%rip), %rax
     cmpq	%rax, %rdx
-    jne	L137
+    jne	L143
     movl	-52(%rbp), %edx
     movl	-48(%rbp), %eax
     addl	%edx, %eax
@@ -2475,10 +2517,10 @@ L136:
     subl	%edx, %eax
     andl	-56(%rbp), %eax
     cmpl	-44(%rbp), %eax
-    je	L138
-L137:
+    je	L144
+L143:
     call	abort
-L138:
+L144:
     call	myrnd
     movl	%eax, -52(%rbp)
     call	myrnd
@@ -2488,35 +2530,35 @@ L138:
     movl	%eax, %edx
     andl	$31, %edx
     leal	0(,%rdx,8), %ecx
-    movzbl $sE + 12(%rip), %edx
+    movzbl	sE + 12(%rip), %edx
     andl	$7, %edx
     orl	%ecx, %edx
-    movb	%dl, $sE + 12(%rip)
+    movb	%dl, sE + 12(%rip)
     movl	%eax, %edx
     shrl	$5, %edx
     movl	%edx, %edx
     movzbl	%dl, %ecx
-    movzbl $sE + 13(%rip), %edx
+    movzbl	sE + 13(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sE + 13(%rip)
+    movb	%dl, sE + 13(%rip)
     movl	%eax, %edx
     shrl	$13, %edx
     movl	%edx, %edx
     movzbl	%dl, %ecx
-    movzbl $sE + 14(%rip), %edx
+    movzbl	sE + 14(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sE + 14(%rip)
+    movb	%dl, sE + 14(%rip)
     shrl	$21, %eax
     movl	%eax, %eax
     movzbl	%al, %edx
-    movzbl $sE + 15(%rip), %eax
+    movzbl	sE + 15(%rip), %eax
     andl	$0, %eax
     orl	%edx, %eax
-    movb	%al, $sE + 15(%rip)
-    movq $sE(%rip), %rax
-    movq $sE + 8(%rip), %rdx
+    movb	%al, sE + 15(%rip)
+    movq	sE(%rip), %rax
+    movq	sE + 8(%rip), %rdx
     movq	%rax, -32(%rbp)
     movq	%rdx, -24(%rbp)
     movl	-48(%rbp), %eax
@@ -2526,59 +2568,59 @@ L138:
     movzwl	-24(%rbp), %eax
     andw	$4095, %ax
     movl	%eax, %ecx
-    movzbl $sE + 8(%rip), %eax
-    movzbl $sE + 9(%rip), %edx
+    movzbl	sE + 8(%rip), %eax
+    movzbl	sE + 9(%rip), %edx
     andl	$15, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L139
+    jne	L145
     movq	-24(%rbp), %rax
     shrq	$12, %rax
     movl	%eax, %ecx
     andl	$8388607, %ecx
-    movzbl $sE + 9(%rip), %eax
+    movzbl	sE + 9(%rip), %eax
     shrb	$4, %al
     movzbl	%al, %eax
-    movzbl $sE + 10(%rip), %edx
+    movzbl	sE + 10(%rip), %edx
     salq	$4, %rdx
     orq	%rax, %rdx
-    movzbl $sE + 11(%rip), %eax
+    movzbl	sE + 11(%rip), %eax
     salq	$12, %rax
     orq	%rax, %rdx
-    movzbl $sE + 12(%rip), %eax
+    movzbl	sE + 12(%rip), %eax
     andl	$7, %eax
     salq	$20, %rax
     orq	%rdx, %rax
     cmpl	%eax, %ecx
-    jne	L139
-    movzbl $sE + 12(%rip), %eax
+    jne	L145
+    movzbl	sE + 12(%rip), %eax
     shrb	$3, %al
     movzbl	%al, %eax
-    movzbl $sE + 13(%rip), %edx
+    movzbl	sE + 13(%rip), %edx
     salq	$5, %rdx
     orq	%rax, %rdx
-    movzbl $sE + 14(%rip), %eax
+    movzbl	sE + 14(%rip), %eax
     salq	$13, %rax
     orq	%rax, %rdx
-    movzbl $sE + 15(%rip), %eax
+    movzbl	sE + 15(%rip), %eax
     salq	$21, %rax
     orq	%rdx, %rax
     cmpl	-44(%rbp), %eax
-    jne	L139
+    jne	L145
     movq	-32(%rbp), %rdx
-    movq $sE(%rip), %rax
+    movq	sE(%rip), %rax
     cmpq	%rax, %rdx
-    jne	L139
+    jne	L145
     movl	-52(%rbp), %edx
     movl	-48(%rbp), %eax
     addl	%edx, %eax
     andl	-56(%rbp), %eax
     cmpl	-44(%rbp), %eax
-    je	L141
-L139:
+    je	L147
+L145:
     call	abort
-L141:
+L147:
     nop
     addq	$56, %rsp
     popq	%rbx
@@ -2604,8 +2646,8 @@ fn1F:
     movq	%rsp, %rbp
     subq	$32, %rsp
     movl	%edi, -20(%rbp)
-    movq $sF(%rip), %rax
-    movq $sF + 8(%rip), %rdx
+    movq	sF(%rip), %rax
+    movq	sF + 8(%rip), %rdx
     movq	%rax, -16(%rbp)
     movq	%rdx, -8(%rbp)
     movl	-12(%rbp), %eax
@@ -2635,8 +2677,8 @@ fn2F:
     pushq	%rbp
     movq	%rsp, %rbp
     movl	%edi, -20(%rbp)
-    movq $sF(%rip), %rax
-    movq $sF + 8(%rip), %rdx
+    movq	sF(%rip), %rax
+    movq	sF + 8(%rip), %rdx
     movq	%rax, -16(%rbp)
     movq	%rdx, -8(%rbp)
     movl	-12(%rbp), %eax
@@ -2682,16 +2724,16 @@ fn2F:
 retitF:
     pushq	%rbp
     movq	%rsp, %rbp
-    movzbl $sF + 4(%rip), %eax
+    movzbl	sF + 4(%rip), %eax
     shrb	$3, %al
     movzbl	%al, %eax
-    movzbl $sF + 5(%rip), %edx
+    movzbl	sF + 5(%rip), %edx
     salq	$5, %rdx
     orq	%rax, %rdx
-    movzbl $sF + 6(%rip), %eax
+    movzbl	sF + 6(%rip), %eax
     salq	$13, %rax
     orq	%rax, %rdx
-    movzbl $sF + 7(%rip), %eax
+    movzbl	sF + 7(%rip), %eax
     salq	$21, %rax
     orq	%rdx, %rax
     popq	%rbp
@@ -2702,16 +2744,16 @@ fn3F:
     movq	%rsp, %rbp
     subq	$8, %rsp
     movl	%edi, -4(%rbp)
-    movzbl $sF + 4(%rip), %eax
+    movzbl	sF + 4(%rip), %eax
     shrb	$3, %al
     movzbl	%al, %eax
-    movzbl $sF + 5(%rip), %edx
+    movzbl	sF + 5(%rip), %edx
     salq	$5, %rdx
     orq	%rax, %rdx
-    movzbl $sF + 6(%rip), %eax
+    movzbl	sF + 6(%rip), %eax
     salq	$13, %rax
     orq	%rax, %rdx
-    movzbl $sF + 7(%rip), %eax
+    movzbl	sF + 7(%rip), %eax
     salq	$21, %rax
     orq	%rdx, %rax
     movl	%eax, %edx
@@ -2721,33 +2763,33 @@ fn3F:
     movl	%eax, %edx
     andl	$31, %edx
     leal	0(,%rdx,8), %ecx
-    movzbl $sF + 4(%rip), %edx
+    movzbl	sF + 4(%rip), %edx
     andl	$7, %edx
     orl	%ecx, %edx
-    movb	%dl, $sF + 4(%rip)
+    movb	%dl, sF + 4(%rip)
     movl	%eax, %edx
     shrl	$5, %edx
     movl	%edx, %edx
     movzbl	%dl, %ecx
-    movzbl $sF + 5(%rip), %edx
+    movzbl	sF + 5(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sF + 5(%rip)
+    movb	%dl, sF + 5(%rip)
     movl	%eax, %edx
     shrl	$13, %edx
     movl	%edx, %edx
     movzbl	%dl, %ecx
-    movzbl $sF + 6(%rip), %edx
+    movzbl	sF + 6(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sF + 6(%rip)
+    movb	%dl, sF + 6(%rip)
     shrl	$21, %eax
     movl	%eax, %eax
     movzbl	%al, %edx
-    movzbl $sF + 7(%rip), %eax
+    movzbl	sF + 7(%rip), %eax
     andl	$0, %eax
     orl	%edx, %eax
-    movb	%al, $sF + 7(%rip)
+    movb	%al, sF + 7(%rip)
     call	retitF
     leave
     ret
@@ -2759,40 +2801,40 @@ testF:
     subq	$56, %rsp
     movq	$sF, -40(%rbp)
     movl	$0, -60(%rbp)
-    jmp	L153
-L154:
+    jmp	L159
+L160:
     movq	-40(%rbp), %rbx
     leaq	1(%rbx), %rax
     movq	%rax, -40(%rbp)
     call	myrnd
     movb	%al, (%rbx)
     addl	$1, -60(%rbp)
-L153:
+L159:
     movl	-60(%rbp), %eax
     cmpl	$15, %eax
-    jbe	L154
-    movzbl $sF + 4(%rip), %eax
+    jbe	L160
+    movzbl	sF + 4(%rip), %eax
     orl	$-8, %eax
-    movb	%al, $sF + 4(%rip)
-    movzbl $sF + 5(%rip), %eax
+    movb	%al, sF + 4(%rip)
+    movzbl	sF + 5(%rip), %eax
     orl	$-1, %eax
-    movb	%al, $sF + 5(%rip)
-    movzbl $sF + 6(%rip), %eax
+    movb	%al, sF + 5(%rip)
+    movzbl	sF + 6(%rip), %eax
     orl	$-1, %eax
-    movb	%al, $sF + 6(%rip)
-    movzbl $sF + 7(%rip), %eax
+    movb	%al, sF + 6(%rip)
+    movzbl	sF + 7(%rip), %eax
     orl	$-1, %eax
-    movb	%al, $sF + 7(%rip)
-    movzbl $sF + 4(%rip), %eax
+    movb	%al, sF + 7(%rip)
+    movzbl	sF + 4(%rip), %eax
     shrb	$3, %al
     movzbl	%al, %eax
-    movzbl $sF + 5(%rip), %edx
+    movzbl	sF + 5(%rip), %edx
     salq	$5, %rdx
     orq	%rax, %rdx
-    movzbl $sF + 6(%rip), %eax
+    movzbl	sF + 6(%rip), %eax
     salq	$13, %rax
     orq	%rax, %rdx
-    movzbl $sF + 7(%rip), %eax
+    movzbl	sF + 7(%rip), %eax
     salq	$21, %rax
     orq	%rdx, %rax
     movl	%eax, -56(%rbp)
@@ -2805,35 +2847,35 @@ L153:
     movl	%eax, %edx
     andl	$31, %edx
     leal	0(,%rdx,8), %ecx
-    movzbl $sF + 4(%rip), %edx
+    movzbl	sF + 4(%rip), %edx
     andl	$7, %edx
     orl	%ecx, %edx
-    movb	%dl, $sF + 4(%rip)
+    movb	%dl, sF + 4(%rip)
     movl	%eax, %edx
     shrl	$5, %edx
     movl	%edx, %edx
     movzbl	%dl, %ecx
-    movzbl $sF + 5(%rip), %edx
+    movzbl	sF + 5(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sF + 5(%rip)
+    movb	%dl, sF + 5(%rip)
     movl	%eax, %edx
     shrl	$13, %edx
     movl	%edx, %edx
     movzbl	%dl, %ecx
-    movzbl $sF + 6(%rip), %edx
+    movzbl	sF + 6(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sF + 6(%rip)
+    movb	%dl, sF + 6(%rip)
     shrl	$21, %eax
     movl	%eax, %eax
     movzbl	%al, %edx
-    movzbl $sF + 7(%rip), %eax
+    movzbl	sF + 7(%rip), %eax
     andl	$0, %eax
     orl	%edx, %eax
-    movb	%al, $sF + 7(%rip)
-    movq $sF(%rip), %rax
-    movq $sF + 8(%rip), %rdx
+    movb	%al, sF + 7(%rip)
+    movq	sF(%rip), %rax
+    movq	sF + 8(%rip), %rdx
     movq	%rax, -32(%rbp)
     movq	%rdx, -24(%rbp)
     movl	-48(%rbp), %eax
@@ -2843,62 +2885,62 @@ L153:
     movzwl	-32(%rbp), %eax
     andw	$4095, %ax
     movl	%eax, %ecx
-    movzbl $sF(%rip), %eax
-    movzbl $sF + 1(%rip), %edx
+    movzbl	sF(%rip), %eax
+    movzbl	sF + 1(%rip), %edx
     andl	$15, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L155
+    jne	L161
     movq	-32(%rbp), %rax
     shrq	$12, %rax
     movl	%eax, %ecx
     andl	$8388607, %ecx
-    movzbl $sF + 1(%rip), %eax
+    movzbl	sF + 1(%rip), %eax
     shrb	$4, %al
     movzbl	%al, %eax
-    movzbl $sF + 2(%rip), %edx
+    movzbl	sF + 2(%rip), %edx
     salq	$4, %rdx
     orq	%rax, %rdx
-    movzbl $sF + 3(%rip), %eax
+    movzbl	sF + 3(%rip), %eax
     salq	$12, %rax
     orq	%rax, %rdx
-    movzbl $sF + 4(%rip), %eax
+    movzbl	sF + 4(%rip), %eax
     andl	$7, %eax
     salq	$20, %rax
     orq	%rdx, %rax
     cmpl	%eax, %ecx
-    jne	L155
+    jne	L161
     movl	-28(%rbp), %eax
     shrl	$3, %eax
     movl	%eax, %ecx
-    movzbl $sF + 4(%rip), %eax
+    movzbl	sF + 4(%rip), %eax
     shrb	$3, %al
     movzbl	%al, %eax
-    movzbl $sF + 5(%rip), %edx
+    movzbl	sF + 5(%rip), %edx
     salq	$5, %rdx
     orq	%rax, %rdx
-    movzbl $sF + 6(%rip), %eax
+    movzbl	sF + 6(%rip), %eax
     salq	$13, %rax
     orq	%rax, %rdx
-    movzbl $sF + 7(%rip), %eax
+    movzbl	sF + 7(%rip), %eax
     salq	$21, %rax
     orq	%rdx, %rax
     cmpl	%eax, %ecx
-    jne	L155
+    jne	L161
     movq	-24(%rbp), %rdx
-    movq $sF + 8(%rip), %rax
+    movq	sF + 8(%rip), %rax
     cmpq	%rax, %rdx
-    jne	L155
+    jne	L161
     movl	-52(%rbp), %edx
     movl	-48(%rbp), %eax
     addl	%edx, %eax
     andl	-56(%rbp), %eax
     cmpl	-44(%rbp), %eax
-    je	L156
-L155:
+    je	L162
+L161:
     call	abort
-L156:
+L162:
     call	myrnd
     movl	%eax, -52(%rbp)
     call	myrnd
@@ -2908,35 +2950,35 @@ L156:
     movl	%eax, %edx
     andl	$31, %edx
     leal	0(,%rdx,8), %ecx
-    movzbl $sF + 4(%rip), %edx
+    movzbl	sF + 4(%rip), %edx
     andl	$7, %edx
     orl	%ecx, %edx
-    movb	%dl, $sF + 4(%rip)
+    movb	%dl, sF + 4(%rip)
     movl	%eax, %edx
     shrl	$5, %edx
     movl	%edx, %edx
     movzbl	%dl, %ecx
-    movzbl $sF + 5(%rip), %edx
+    movzbl	sF + 5(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sF + 5(%rip)
+    movb	%dl, sF + 5(%rip)
     movl	%eax, %edx
     shrl	$13, %edx
     movl	%edx, %edx
     movzbl	%dl, %ecx
-    movzbl $sF + 6(%rip), %edx
+    movzbl	sF + 6(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sF + 6(%rip)
+    movb	%dl, sF + 6(%rip)
     shrl	$21, %eax
     movl	%eax, %eax
     movzbl	%al, %edx
-    movzbl $sF + 7(%rip), %eax
+    movzbl	sF + 7(%rip), %eax
     andl	$0, %eax
     orl	%edx, %eax
-    movb	%al, $sF + 7(%rip)
-    movq $sF(%rip), %rax
-    movq $sF + 8(%rip), %rdx
+    movb	%al, sF + 7(%rip)
+    movq	sF(%rip), %rax
+    movq	sF + 8(%rip), %rdx
     movq	%rax, -32(%rbp)
     movq	%rdx, -24(%rbp)
     movl	-48(%rbp), %eax
@@ -2946,53 +2988,53 @@ L156:
     movzwl	-32(%rbp), %eax
     andw	$4095, %ax
     movl	%eax, %ecx
-    movzbl $sF(%rip), %eax
-    movzbl $sF + 1(%rip), %edx
+    movzbl	sF(%rip), %eax
+    movzbl	sF + 1(%rip), %edx
     andl	$15, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L157
+    jne	L163
     movq	-32(%rbp), %rax
     shrq	$12, %rax
     movl	%eax, %ecx
     andl	$8388607, %ecx
-    movzbl $sF + 1(%rip), %eax
+    movzbl	sF + 1(%rip), %eax
     shrb	$4, %al
     movzbl	%al, %eax
-    movzbl $sF + 2(%rip), %edx
+    movzbl	sF + 2(%rip), %edx
     salq	$4, %rdx
     orq	%rax, %rdx
-    movzbl $sF + 3(%rip), %eax
+    movzbl	sF + 3(%rip), %eax
     salq	$12, %rax
     orq	%rax, %rdx
-    movzbl $sF + 4(%rip), %eax
+    movzbl	sF + 4(%rip), %eax
     andl	$7, %eax
     salq	$20, %rax
     orq	%rdx, %rax
     cmpl	%eax, %ecx
-    jne	L157
+    jne	L163
     movl	-28(%rbp), %eax
     shrl	$3, %eax
     movl	%eax, %ecx
-    movzbl $sF + 4(%rip), %eax
+    movzbl	sF + 4(%rip), %eax
     shrb	$3, %al
     movzbl	%al, %eax
-    movzbl $sF + 5(%rip), %edx
+    movzbl	sF + 5(%rip), %edx
     salq	$5, %rdx
     orq	%rax, %rdx
-    movzbl $sF + 6(%rip), %eax
+    movzbl	sF + 6(%rip), %eax
     salq	$13, %rax
     orq	%rax, %rdx
-    movzbl $sF + 7(%rip), %eax
+    movzbl	sF + 7(%rip), %eax
     salq	$21, %rax
     orq	%rdx, %rax
     cmpl	%eax, %ecx
-    jne	L157
+    jne	L163
     movq	-24(%rbp), %rdx
-    movq $sF + 8(%rip), %rax
+    movq	sF + 8(%rip), %rax
     cmpq	%rax, %rdx
-    jne	L157
+    jne	L163
     movl	-52(%rbp), %edx
     movl	-48(%rbp), %eax
     addl	%edx, %eax
@@ -3010,10 +3052,10 @@ L156:
     subl	%edx, %eax
     andl	-56(%rbp), %eax
     cmpl	-44(%rbp), %eax
-    je	L158
-L157:
+    je	L164
+L163:
     call	abort
-L158:
+L164:
     call	myrnd
     movl	%eax, -52(%rbp)
     call	myrnd
@@ -3023,35 +3065,35 @@ L158:
     movl	%eax, %edx
     andl	$31, %edx
     leal	0(,%rdx,8), %ecx
-    movzbl $sF + 4(%rip), %edx
+    movzbl	sF + 4(%rip), %edx
     andl	$7, %edx
     orl	%ecx, %edx
-    movb	%dl, $sF + 4(%rip)
+    movb	%dl, sF + 4(%rip)
     movl	%eax, %edx
     shrl	$5, %edx
     movl	%edx, %edx
     movzbl	%dl, %ecx
-    movzbl $sF + 5(%rip), %edx
+    movzbl	sF + 5(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sF + 5(%rip)
+    movb	%dl, sF + 5(%rip)
     movl	%eax, %edx
     shrl	$13, %edx
     movl	%edx, %edx
     movzbl	%dl, %ecx
-    movzbl $sF + 6(%rip), %edx
+    movzbl	sF + 6(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sF + 6(%rip)
+    movb	%dl, sF + 6(%rip)
     shrl	$21, %eax
     movl	%eax, %eax
     movzbl	%al, %edx
-    movzbl $sF + 7(%rip), %eax
+    movzbl	sF + 7(%rip), %eax
     andl	$0, %eax
     orl	%edx, %eax
-    movb	%al, $sF + 7(%rip)
-    movq $sF(%rip), %rax
-    movq $sF + 8(%rip), %rdx
+    movb	%al, sF + 7(%rip)
+    movq	sF(%rip), %rax
+    movq	sF + 8(%rip), %rdx
     movq	%rax, -32(%rbp)
     movq	%rdx, -24(%rbp)
     movl	-48(%rbp), %eax
@@ -3061,59 +3103,59 @@ L158:
     movzwl	-32(%rbp), %eax
     andw	$4095, %ax
     movl	%eax, %ecx
-    movzbl $sF(%rip), %eax
-    movzbl $sF + 1(%rip), %edx
+    movzbl	sF(%rip), %eax
+    movzbl	sF + 1(%rip), %edx
     andl	$15, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L159
+    jne	L165
     movq	-32(%rbp), %rax
     shrq	$12, %rax
     movl	%eax, %ecx
     andl	$8388607, %ecx
-    movzbl $sF + 1(%rip), %eax
+    movzbl	sF + 1(%rip), %eax
     shrb	$4, %al
     movzbl	%al, %eax
-    movzbl $sF + 2(%rip), %edx
+    movzbl	sF + 2(%rip), %edx
     salq	$4, %rdx
     orq	%rax, %rdx
-    movzbl $sF + 3(%rip), %eax
+    movzbl	sF + 3(%rip), %eax
     salq	$12, %rax
     orq	%rax, %rdx
-    movzbl $sF + 4(%rip), %eax
+    movzbl	sF + 4(%rip), %eax
     andl	$7, %eax
     salq	$20, %rax
     orq	%rdx, %rax
     cmpl	%eax, %ecx
-    jne	L159
-    movzbl $sF + 4(%rip), %eax
+    jne	L165
+    movzbl	sF + 4(%rip), %eax
     shrb	$3, %al
     movzbl	%al, %eax
-    movzbl $sF + 5(%rip), %edx
+    movzbl	sF + 5(%rip), %edx
     salq	$5, %rdx
     orq	%rax, %rdx
-    movzbl $sF + 6(%rip), %eax
+    movzbl	sF + 6(%rip), %eax
     salq	$13, %rax
     orq	%rax, %rdx
-    movzbl $sF + 7(%rip), %eax
+    movzbl	sF + 7(%rip), %eax
     salq	$21, %rax
     orq	%rdx, %rax
     cmpl	-44(%rbp), %eax
-    jne	L159
+    jne	L165
     movq	-24(%rbp), %rdx
-    movq $sF + 8(%rip), %rax
+    movq	sF + 8(%rip), %rax
     cmpq	%rax, %rdx
-    jne	L159
+    jne	L165
     movl	-52(%rbp), %edx
     movl	-48(%rbp), %eax
     addl	%edx, %eax
     andl	-56(%rbp), %eax
     cmpl	-44(%rbp), %eax
-    je	L161
-L159:
+    je	L167
+L165:
     call	abort
-L161:
+L167:
     nop
     addq	$56, %rsp
     popq	%rbx
@@ -3142,9 +3184,9 @@ fn1G:
     movq	$40, %rax
     movq	%rax, -8(%rbp)
     xorl	%eax, %eax
-    movq $sG(%rip), %rax
+    movq	sG(%rip), %rax
     movq	%rax, -32(%rbp)
-    movzbl $sG + 8(%rip), %eax
+    movzbl	sG + 8(%rip), %eax
     movb	%al, -24(%rbp)
     movzbl	-32(%rbp), %eax
     shrb	$2, %al
@@ -3172,9 +3214,9 @@ fn1G:
     movzbl	%al, %eax
     movq	-8(%rbp), %rsi
     xorq	$40, %rsi
-    je	L166
+    je	L172
     call	__stack_chk_fail
-L166:
+L172:
     leave
     ret
     .globl	fn2G
@@ -3182,9 +3224,9 @@ fn2G:
     pushq	%rbp
     movq	%rsp, %rbp
     movl	%edi, -20(%rbp)
-    movq $sG(%rip), %rax
+    movq	sG(%rip), %rax
     movq	%rax, -16(%rbp)
-    movzbl $sG + 8(%rip), %eax
+    movzbl	sG + 8(%rip), %eax
     movb	%al, -8(%rbp)
     movzbl	-16(%rbp), %eax
     shrb	$2, %al
@@ -3230,7 +3272,7 @@ fn2G:
 retitG:
     pushq	%rbp
     movq	%rsp, %rbp
-    movzbl $sG(%rip), %eax
+    movzbl	sG(%rip), %eax
     shrb	$2, %al
     movzbl	%al, %eax
     popq	%rbp
@@ -3241,17 +3283,17 @@ fn3G:
     movq	%rsp, %rbp
     subq	$8, %rsp
     movl	%edi, -4(%rbp)
-    movzbl $sG(%rip), %eax
+    movzbl	sG(%rip), %eax
     shrb	$2, %al
     movl	%eax, %edx
     movl	-4(%rbp), %eax
     addl	%edx, %eax
     andl	$63, %eax
     leal	0(,%rax,4), %edx
-    movzbl $sG(%rip), %eax
+    movzbl	sG(%rip), %eax
     andl	$3, %eax
     orl	%edx, %eax
-    movb	%al, $sG(%rip)
+    movb	%al, sG(%rip)
     call	retitG
     leave
     ret
@@ -3263,22 +3305,22 @@ testG:
     subq	$56, %rsp
     movq	$sG, -40(%rbp)
     movl	$0, -60(%rbp)
-    jmp	L174
-L175:
+    jmp	L180
+L181:
     movq	-40(%rbp), %rbx
     leaq	1(%rbx), %rax
     movq	%rax, -40(%rbp)
     call	myrnd
     movb	%al, (%rbx)
     addl	$1, -60(%rbp)
-L174:
+L180:
     movl	-60(%rbp), %eax
     cmpl	$8, %eax
-    jbe	L175
-    movzbl $sG(%rip), %eax
+    jbe	L181
+    movzbl	sG(%rip), %eax
     orl	$-4, %eax
-    movb	%al, $sG(%rip)
-    movzbl $sG(%rip), %eax
+    movb	%al, sG(%rip)
+    movzbl	sG(%rip), %eax
     shrb	$2, %al
     movzbl	%al, %eax
     movl	%eax, -56(%rbp)
@@ -3289,13 +3331,13 @@ L174:
     movl	-52(%rbp), %eax
     andl	$63, %eax
     leal	0(,%rax,4), %edx
-    movzbl $sG(%rip), %eax
+    movzbl	sG(%rip), %eax
     andl	$3, %eax
     orl	%edx, %eax
-    movb	%al, $sG(%rip)
-    movq $sG(%rip), %rax
+    movb	%al, sG(%rip)
+    movq	sG(%rip), %rax
     movq	%rax, -32(%rbp)
-    movzbl $sG + 8(%rip), %eax
+    movzbl	sG + 8(%rip), %eax
     movb	%al, -24(%rbp)
     movl	-48(%rbp), %eax
     movl	%eax, %edi
@@ -3304,39 +3346,39 @@ L174:
     movzbl	-32(%rbp), %eax
     andl	$1, %eax
     movl	%eax, %edx
-    movzbl $sG(%rip), %eax
+    movzbl	sG(%rip), %eax
     andl	$1, %eax
     cmpb	%al, %dl
-    jne	L176
+    jne	L182
     movzbl	-32(%rbp), %eax
     shrb	%al
     movl	%eax, %edx
     andl	$1, %edx
-    movzbl $sG(%rip), %eax
+    movzbl	sG(%rip), %eax
     shrb	%al
     andl	$1, %eax
     cmpb	%al, %dl
-    jne	L176
+    jne	L182
     movzbl	-32(%rbp), %eax
     shrb	$2, %al
     movl	%eax, %edx
-    movzbl $sG(%rip), %eax
+    movzbl	sG(%rip), %eax
     shrb	$2, %al
     cmpb	%al, %dl
-    jne	L176
+    jne	L182
     movq	-31(%rbp), %rdx
-    movq $sG + 1(%rip), %rax
+    movq	sG + 1(%rip), %rax
     cmpq	%rax, %rdx
-    jne	L176
+    jne	L182
     movl	-52(%rbp), %edx
     movl	-48(%rbp), %eax
     addl	%edx, %eax
     andl	-56(%rbp), %eax
     cmpl	-44(%rbp), %eax
-    je	L177
-L176:
+    je	L183
+L182:
     call	abort
-L177:
+L183:
     call	myrnd
     movl	%eax, -52(%rbp)
     call	myrnd
@@ -3344,13 +3386,13 @@ L177:
     movl	-52(%rbp), %eax
     andl	$63, %eax
     leal	0(,%rax,4), %edx
-    movzbl $sG(%rip), %eax
+    movzbl	sG(%rip), %eax
     andl	$3, %eax
     orl	%edx, %eax
-    movb	%al, $sG(%rip)
-    movq $sG(%rip), %rax
+    movb	%al, sG(%rip)
+    movq	sG(%rip), %rax
     movq	%rax, -32(%rbp)
-    movzbl $sG + 8(%rip), %eax
+    movzbl	sG + 8(%rip), %eax
     movb	%al, -24(%rbp)
     movl	-48(%rbp), %eax
     movl	%eax, %edi
@@ -3359,30 +3401,30 @@ L177:
     movzbl	-32(%rbp), %eax
     andl	$1, %eax
     movl	%eax, %edx
-    movzbl $sG(%rip), %eax
+    movzbl	sG(%rip), %eax
     andl	$1, %eax
     cmpb	%al, %dl
-    jne	L178
+    jne	L184
     movzbl	-32(%rbp), %eax
     shrb	%al
     movl	%eax, %edx
     andl	$1, %edx
-    movzbl $sG(%rip), %eax
+    movzbl	sG(%rip), %eax
     shrb	%al
     andl	$1, %eax
     cmpb	%al, %dl
-    jne	L178
+    jne	L184
     movzbl	-32(%rbp), %eax
     shrb	$2, %al
     movl	%eax, %edx
-    movzbl $sG(%rip), %eax
+    movzbl	sG(%rip), %eax
     shrb	$2, %al
     cmpb	%al, %dl
-    jne	L178
+    jne	L184
     movq	-31(%rbp), %rdx
-    movq $sG + 1(%rip), %rax
+    movq	sG + 1(%rip), %rax
     cmpq	%rax, %rdx
-    jne	L178
+    jne	L184
     movl	-52(%rbp), %edx
     movl	-48(%rbp), %eax
     addl	%edx, %eax
@@ -3400,10 +3442,10 @@ L177:
     subl	%edx, %eax
     andl	-56(%rbp), %eax
     cmpl	-44(%rbp), %eax
-    je	L179
-L178:
+    je	L185
+L184:
     call	abort
-L179:
+L185:
     call	myrnd
     movl	%eax, -52(%rbp)
     call	myrnd
@@ -3411,13 +3453,13 @@ L179:
     movl	-52(%rbp), %eax
     andl	$63, %eax
     leal	0(,%rax,4), %edx
-    movzbl $sG(%rip), %eax
+    movzbl	sG(%rip), %eax
     andl	$3, %eax
     orl	%edx, %eax
-    movb	%al, $sG(%rip)
-    movq $sG(%rip), %rax
+    movb	%al, sG(%rip)
+    movq	sG(%rip), %rax
     movq	%rax, -32(%rbp)
-    movzbl $sG + 8(%rip), %eax
+    movzbl	sG + 8(%rip), %eax
     movb	%al, -24(%rbp)
     movl	-48(%rbp), %eax
     movl	%eax, %edi
@@ -3426,37 +3468,37 @@ L179:
     movzbl	-32(%rbp), %eax
     andl	$1, %eax
     movl	%eax, %edx
-    movzbl $sG(%rip), %eax
+    movzbl	sG(%rip), %eax
     andl	$1, %eax
     cmpb	%al, %dl
-    jne	L180
+    jne	L186
     movzbl	-32(%rbp), %eax
     shrb	%al
     movl	%eax, %edx
     andl	$1, %edx
-    movzbl $sG(%rip), %eax
+    movzbl	sG(%rip), %eax
     shrb	%al
     andl	$1, %eax
     cmpb	%al, %dl
-    jne	L180
-    movzbl $sG(%rip), %eax
+    jne	L186
+    movzbl	sG(%rip), %eax
     shrb	$2, %al
     movzbl	%al, %eax
     cmpl	-44(%rbp), %eax
-    jne	L180
+    jne	L186
     movq	-31(%rbp), %rdx
-    movq $sG + 1(%rip), %rax
+    movq	sG + 1(%rip), %rax
     cmpq	%rax, %rdx
-    jne	L180
+    jne	L186
     movl	-52(%rbp), %edx
     movl	-48(%rbp), %eax
     addl	%edx, %eax
     andl	-56(%rbp), %eax
     cmpl	-44(%rbp), %eax
-    je	L182
-L180:
+    je	L188
+L186:
     call	abort
-L182:
+L188:
     nop
     addq	$56, %rsp
     popq	%rbx
@@ -3485,9 +3527,9 @@ fn1H:
     movq	$40, %rax
     movq	%rax, -8(%rbp)
     xorl	%eax, %eax
-    movq $sH(%rip), %rax
+    movq	sH(%rip), %rax
     movq	%rax, -32(%rbp)
-    movzwl $sH + 8(%rip), %eax
+    movzwl	sH + 8(%rip), %eax
     movw	%ax, -24(%rbp)
     movzbl	-31(%rbp), %eax
     movl	-36(%rbp), %edx
@@ -3507,9 +3549,9 @@ fn1H:
     movzbl	%al, %eax
     movq	-8(%rbp), %rsi
     xorq	$40, %rsi
-    je	L187
+    je	L193
     call	__stack_chk_fail
-L187:
+L193:
     leave
     ret
     .globl	fn2H
@@ -3517,9 +3559,9 @@ fn2H:
     pushq	%rbp
     movq	%rsp, %rbp
     movl	%edi, -20(%rbp)
-    movq $sH(%rip), %rax
+    movq	sH(%rip), %rax
     movq	%rax, -16(%rbp)
-    movzwl $sH + 8(%rip), %eax
+    movzwl	sH + 8(%rip), %eax
     movw	%ax, -8(%rbp)
     movzbl	-15(%rbp), %eax
     movl	-20(%rbp), %edx
@@ -3548,7 +3590,7 @@ fn2H:
 retitH:
     pushq	%rbp
     movq	%rsp, %rbp
-    movzbl $sH + 1(%rip), %eax
+    movzbl	sH + 1(%rip), %eax
     movzbl	%al, %eax
     popq	%rbp
     ret
@@ -3558,10 +3600,10 @@ fn3H:
     movq	%rsp, %rbp
     subq	$8, %rsp
     movl	%edi, -4(%rbp)
-    movzbl $sH + 1(%rip), %eax
+    movzbl	sH + 1(%rip), %eax
     movl	-4(%rbp), %edx
     addl	%edx, %eax
-    movb	%al, $sH + 1(%rip)
+    movb	%al, sH + 1(%rip)
     call	retitH
     leave
     ret
@@ -3573,20 +3615,20 @@ testH:
     subq	$56, %rsp
     movq	$sH, -40(%rbp)
     movl	$0, -60(%rbp)
-    jmp	L195
-L196:
+    jmp	L201
+L202:
     movq	-40(%rbp), %rbx
     leaq	1(%rbx), %rax
     movq	%rax, -40(%rbp)
     call	myrnd
     movb	%al, (%rbx)
     addl	$1, -60(%rbp)
-L195:
+L201:
     movl	-60(%rbp), %eax
     cmpl	$9, %eax
-    jbe	L196
-    movb	$-1, $sH + 1(%rip)
-    movzbl $sH + 1(%rip), %eax
+    jbe	L202
+    movb	$-1, sH + 1(%rip)
+    movzbl	sH + 1(%rip), %eax
     movzbl	%al, %eax
     movl	%eax, -56(%rbp)
     call	myrnd
@@ -3594,10 +3636,10 @@ L195:
     call	myrnd
     movl	%eax, -48(%rbp)
     movl	-52(%rbp), %eax
-    movb	%al, $sH + 1(%rip)
-    movq $sH(%rip), %rax
+    movb	%al, sH + 1(%rip)
+    movq	sH(%rip), %rax
     movq	%rax, -32(%rbp)
-    movzwl $sH + 8(%rip), %eax
+    movzwl	sH + 8(%rip), %eax
     movw	%ax, -24(%rbp)
     movl	-48(%rbp), %eax
     movl	%eax, %edi
@@ -3606,43 +3648,43 @@ L195:
     movzbl	-32(%rbp), %eax
     andl	$63, %eax
     movl	%eax, %edx
-    movzbl $sH(%rip), %eax
+    movzbl	sH(%rip), %eax
     andl	$63, %eax
     cmpb	%al, %dl
-    jne	L197
+    jne	L203
     movzbl	-32(%rbp), %eax
     shrb	$6, %al
     movl	%eax, %edx
-    movzbl $sH(%rip), %eax
+    movzbl	sH(%rip), %eax
     shrb	$6, %al
     cmpb	%al, %dl
-    jne	L197
+    jne	L203
     movzbl	-31(%rbp), %edx
-    movzbl $sH + 1(%rip), %eax
+    movzbl	sH + 1(%rip), %eax
     cmpb	%al, %dl
-    jne	L197
+    jne	L203
     movq	-30(%rbp), %rdx
-    movq $sH + 2(%rip), %rax
+    movq	sH + 2(%rip), %rax
     cmpq	%rax, %rdx
-    jne	L197
+    jne	L203
     movl	-52(%rbp), %edx
     movl	-48(%rbp), %eax
     addl	%edx, %eax
     andl	-56(%rbp), %eax
     cmpl	-44(%rbp), %eax
-    je	L198
-L197:
+    je	L204
+L203:
     call	abort
-L198:
+L204:
     call	myrnd
     movl	%eax, -52(%rbp)
     call	myrnd
     movl	%eax, -48(%rbp)
     movl	-52(%rbp), %eax
-    movb	%al, $sH + 1(%rip)
-    movq $sH(%rip), %rax
+    movb	%al, sH + 1(%rip)
+    movq	sH(%rip), %rax
     movq	%rax, -32(%rbp)
-    movzwl $sH + 8(%rip), %eax
+    movzwl	sH + 8(%rip), %eax
     movw	%ax, -24(%rbp)
     movl	-48(%rbp), %eax
     movl	%eax, %edi
@@ -3651,25 +3693,25 @@ L198:
     movzbl	-32(%rbp), %eax
     andl	$63, %eax
     movl	%eax, %edx
-    movzbl $sH(%rip), %eax
+    movzbl	sH(%rip), %eax
     andl	$63, %eax
     cmpb	%al, %dl
-    jne	L199
+    jne	L205
     movzbl	-32(%rbp), %eax
     shrb	$6, %al
     movl	%eax, %edx
-    movzbl $sH(%rip), %eax
+    movzbl	sH(%rip), %eax
     shrb	$6, %al
     cmpb	%al, %dl
-    jne	L199
+    jne	L205
     movzbl	-31(%rbp), %edx
-    movzbl $sH + 1(%rip), %eax
+    movzbl	sH + 1(%rip), %eax
     cmpb	%al, %dl
-    jne	L199
+    jne	L205
     movq	-30(%rbp), %rdx
-    movq $sH + 2(%rip), %rax
+    movq	sH + 2(%rip), %rax
     cmpq	%rax, %rdx
-    jne	L199
+    jne	L205
     movl	-52(%rbp), %edx
     movl	-48(%rbp), %eax
     addl	%edx, %eax
@@ -3687,19 +3729,19 @@ L198:
     subl	%edx, %eax
     andl	-56(%rbp), %eax
     cmpl	-44(%rbp), %eax
-    je	L200
-L199:
+    je	L206
+L205:
     call	abort
-L200:
+L206:
     call	myrnd
     movl	%eax, -52(%rbp)
     call	myrnd
     movl	%eax, -48(%rbp)
     movl	-52(%rbp), %eax
-    movb	%al, $sH + 1(%rip)
-    movq $sH(%rip), %rax
+    movb	%al, sH + 1(%rip)
+    movq	sH(%rip), %rax
     movq	%rax, -32(%rbp)
-    movzwl $sH + 8(%rip), %eax
+    movzwl	sH + 8(%rip), %eax
     movw	%ax, -24(%rbp)
     movl	-48(%rbp), %eax
     movl	%eax, %edi
@@ -3708,34 +3750,34 @@ L200:
     movzbl	-32(%rbp), %eax
     andl	$63, %eax
     movl	%eax, %edx
-    movzbl $sH(%rip), %eax
+    movzbl	sH(%rip), %eax
     andl	$63, %eax
     cmpb	%al, %dl
-    jne	L201
+    jne	L207
     movzbl	-32(%rbp), %eax
     shrb	$6, %al
     movl	%eax, %edx
-    movzbl $sH(%rip), %eax
+    movzbl	sH(%rip), %eax
     shrb	$6, %al
     cmpb	%al, %dl
-    jne	L201
-    movzbl $sH + 1(%rip), %eax
+    jne	L207
+    movzbl	sH + 1(%rip), %eax
     movzbl	%al, %eax
     cmpl	-44(%rbp), %eax
-    jne	L201
+    jne	L207
     movq	-30(%rbp), %rdx
-    movq $sH + 2(%rip), %rax
+    movq	sH + 2(%rip), %rax
     cmpq	%rax, %rdx
-    jne	L201
+    jne	L207
     movl	-52(%rbp), %edx
     movl	-48(%rbp), %eax
     addl	%edx, %eax
     andl	-56(%rbp), %eax
     cmpl	-44(%rbp), %eax
-    je	L203
-L201:
+    je	L209
+L207:
     call	abort
-L203:
+L209:
     nop
     addq	$56, %rsp
     popq	%rbx
@@ -3764,9 +3806,9 @@ fn1I:
     movq	$40, %rax
     movq	%rax, -8(%rbp)
     xorl	%eax, %eax
-    movq $sI(%rip), %rax
+    movq	sI(%rip), %rax
     movq	%rax, -32(%rbp)
-    movzbl $sI + 8(%rip), %eax
+    movzbl	sI + 8(%rip), %eax
     movb	%al, -24(%rbp)
     movzbl	-32(%rbp), %eax
     shrb	$7, %al
@@ -3795,9 +3837,9 @@ fn1I:
     movzbl	%al, %eax
     movq	-8(%rbp), %rsi
     xorq	$40, %rsi
-    je	L208
+    je	L214
     call	__stack_chk_fail
-L208:
+L214:
     leave
     ret
     .globl	fn2I
@@ -3805,9 +3847,9 @@ fn2I:
     pushq	%rbp
     movq	%rsp, %rbp
     movl	%edi, -20(%rbp)
-    movq $sI(%rip), %rax
+    movq	sI(%rip), %rax
     movq	%rax, -16(%rbp)
-    movzbl $sI + 8(%rip), %eax
+    movzbl	sI + 8(%rip), %eax
     movb	%al, -8(%rbp)
     movzbl	-16(%rbp), %eax
     shrb	$7, %al
@@ -3855,7 +3897,7 @@ fn2I:
 retitI:
     pushq	%rbp
     movq	%rsp, %rbp
-    movzbl $sI(%rip), %eax
+    movzbl	sI(%rip), %eax
     shrb	$7, %al
     movzbl	%al, %eax
     popq	%rbp
@@ -3866,7 +3908,7 @@ fn3I:
     movq	%rsp, %rbp
     subq	$8, %rsp
     movl	%edi, -4(%rbp)
-    movzbl $sI(%rip), %eax
+    movzbl	sI(%rip), %eax
     shrb	$7, %al
     movl	%eax, %edx
     movl	-4(%rbp), %eax
@@ -3874,10 +3916,10 @@ fn3I:
     andl	$1, %eax
     sall	$7, %eax
     movl	%eax, %edx
-    movzbl $sI(%rip), %eax
+    movzbl	sI(%rip), %eax
     andl	$127, %eax
     orl	%edx, %eax
-    movb	%al, $sI(%rip)
+    movb	%al, sI(%rip)
     call	retitI
     leave
     ret
@@ -3889,22 +3931,22 @@ testI:
     subq	$56, %rsp
     movq	$sI, -40(%rbp)
     movl	$0, -60(%rbp)
-    jmp	L216
-L217:
+    jmp	L222
+L223:
     movq	-40(%rbp), %rbx
     leaq	1(%rbx), %rax
     movq	%rax, -40(%rbp)
     call	myrnd
     movb	%al, (%rbx)
     addl	$1, -60(%rbp)
-L216:
+L222:
     movl	-60(%rbp), %eax
     cmpl	$8, %eax
-    jbe	L217
-    movzbl $sI(%rip), %eax
+    jbe	L223
+    movzbl	sI(%rip), %eax
     orl	$-128, %eax
-    movb	%al, $sI(%rip)
-    movzbl $sI(%rip), %eax
+    movb	%al, sI(%rip)
+    movzbl	sI(%rip), %eax
     shrb	$7, %al
     movzbl	%al, %eax
     movl	%eax, -56(%rbp)
@@ -3916,13 +3958,13 @@ L216:
     andl	$1, %eax
     sall	$7, %eax
     movl	%eax, %edx
-    movzbl $sI(%rip), %eax
+    movzbl	sI(%rip), %eax
     andl	$127, %eax
     orl	%edx, %eax
-    movb	%al, $sI(%rip)
-    movq $sI(%rip), %rax
+    movb	%al, sI(%rip)
+    movq	sI(%rip), %rax
     movq	%rax, -32(%rbp)
-    movzbl $sI + 8(%rip), %eax
+    movzbl	sI + 8(%rip), %eax
     movb	%al, -24(%rbp)
     movl	-48(%rbp), %eax
     movl	%eax, %edi
@@ -3931,39 +3973,39 @@ L216:
     movzbl	-32(%rbp), %eax
     andl	$1, %eax
     movl	%eax, %edx
-    movzbl $sI(%rip), %eax
+    movzbl	sI(%rip), %eax
     andl	$1, %eax
     cmpb	%al, %dl
-    jne	L218
+    jne	L224
     movzbl	-32(%rbp), %eax
     shrb	%al
     movl	%eax, %edx
     andl	$63, %edx
-    movzbl $sI(%rip), %eax
+    movzbl	sI(%rip), %eax
     shrb	%al
     andl	$63, %eax
     cmpb	%al, %dl
-    jne	L218
+    jne	L224
     movzbl	-32(%rbp), %eax
     shrb	$7, %al
     movl	%eax, %edx
-    movzbl $sI(%rip), %eax
+    movzbl	sI(%rip), %eax
     shrb	$7, %al
     cmpb	%al, %dl
-    jne	L218
+    jne	L224
     movq	-31(%rbp), %rdx
-    movq $sI + 1(%rip), %rax
+    movq	sI + 1(%rip), %rax
     cmpq	%rax, %rdx
-    jne	L218
+    jne	L224
     movl	-52(%rbp), %edx
     movl	-48(%rbp), %eax
     addl	%edx, %eax
     andl	-56(%rbp), %eax
     cmpl	-44(%rbp), %eax
-    je	L219
-L218:
+    je	L225
+L224:
     call	abort
-L219:
+L225:
     call	myrnd
     movl	%eax, -52(%rbp)
     call	myrnd
@@ -3972,13 +4014,13 @@ L219:
     andl	$1, %eax
     sall	$7, %eax
     movl	%eax, %edx
-    movzbl $sI(%rip), %eax
+    movzbl	sI(%rip), %eax
     andl	$127, %eax
     orl	%edx, %eax
-    movb	%al, $sI(%rip)
-    movq $sI(%rip), %rax
+    movb	%al, sI(%rip)
+    movq	sI(%rip), %rax
     movq	%rax, -32(%rbp)
-    movzbl $sI + 8(%rip), %eax
+    movzbl	sI + 8(%rip), %eax
     movb	%al, -24(%rbp)
     movl	-48(%rbp), %eax
     movl	%eax, %edi
@@ -3987,30 +4029,30 @@ L219:
     movzbl	-32(%rbp), %eax
     andl	$1, %eax
     movl	%eax, %edx
-    movzbl $sI(%rip), %eax
+    movzbl	sI(%rip), %eax
     andl	$1, %eax
     cmpb	%al, %dl
-    jne	L220
+    jne	L226
     movzbl	-32(%rbp), %eax
     shrb	%al
     movl	%eax, %edx
     andl	$63, %edx
-    movzbl $sI(%rip), %eax
+    movzbl	sI(%rip), %eax
     shrb	%al
     andl	$63, %eax
     cmpb	%al, %dl
-    jne	L220
+    jne	L226
     movzbl	-32(%rbp), %eax
     shrb	$7, %al
     movl	%eax, %edx
-    movzbl $sI(%rip), %eax
+    movzbl	sI(%rip), %eax
     shrb	$7, %al
     cmpb	%al, %dl
-    jne	L220
+    jne	L226
     movq	-31(%rbp), %rdx
-    movq $sI + 1(%rip), %rax
+    movq	sI + 1(%rip), %rax
     cmpq	%rax, %rdx
-    jne	L220
+    jne	L226
     movl	-52(%rbp), %edx
     movl	-48(%rbp), %eax
     addl	%edx, %eax
@@ -4028,10 +4070,10 @@ L219:
     subl	%edx, %eax
     andl	-56(%rbp), %eax
     cmpl	-44(%rbp), %eax
-    je	L221
-L220:
+    je	L227
+L226:
     call	abort
-L221:
+L227:
     call	myrnd
     movl	%eax, -52(%rbp)
     call	myrnd
@@ -4040,13 +4082,13 @@ L221:
     andl	$1, %eax
     sall	$7, %eax
     movl	%eax, %edx
-    movzbl $sI(%rip), %eax
+    movzbl	sI(%rip), %eax
     andl	$127, %eax
     orl	%edx, %eax
-    movb	%al, $sI(%rip)
-    movq $sI(%rip), %rax
+    movb	%al, sI(%rip)
+    movq	sI(%rip), %rax
     movq	%rax, -32(%rbp)
-    movzbl $sI + 8(%rip), %eax
+    movzbl	sI + 8(%rip), %eax
     movb	%al, -24(%rbp)
     movl	-48(%rbp), %eax
     movl	%eax, %edi
@@ -4055,37 +4097,37 @@ L221:
     movzbl	-32(%rbp), %eax
     andl	$1, %eax
     movl	%eax, %edx
-    movzbl $sI(%rip), %eax
+    movzbl	sI(%rip), %eax
     andl	$1, %eax
     cmpb	%al, %dl
-    jne	L222
+    jne	L228
     movzbl	-32(%rbp), %eax
     shrb	%al
     movl	%eax, %edx
     andl	$63, %edx
-    movzbl $sI(%rip), %eax
+    movzbl	sI(%rip), %eax
     shrb	%al
     andl	$63, %eax
     cmpb	%al, %dl
-    jne	L222
-    movzbl $sI(%rip), %eax
+    jne	L228
+    movzbl	sI(%rip), %eax
     shrb	$7, %al
     movzbl	%al, %eax
     cmpl	-44(%rbp), %eax
-    jne	L222
+    jne	L228
     movq	-31(%rbp), %rdx
-    movq $sI + 1(%rip), %rax
+    movq	sI + 1(%rip), %rax
     cmpq	%rax, %rdx
-    jne	L222
+    jne	L228
     movl	-52(%rbp), %edx
     movl	-48(%rbp), %eax
     addl	%edx, %eax
     andl	-56(%rbp), %eax
     cmpl	-44(%rbp), %eax
-    je	L224
-L222:
+    je	L230
+L228:
     call	abort
-L224:
+L230:
     nop
     addq	$56, %rsp
     popq	%rbx
@@ -4106,7 +4148,7 @@ fn1J:
     movq	%rsp, %rbp
     subq	$32, %rsp
     movl	%edi, -20(%rbp)
-    movl $sJ(%rip), %eax
+    movl	sJ(%rip), %eax
     movl	%eax, -16(%rbp)
     movzbl	-15(%rbp), %eax
     shrb	%al
@@ -4133,7 +4175,7 @@ fn2J:
     pushq	%rbp
     movq	%rsp, %rbp
     movl	%edi, -20(%rbp)
-    movl $sJ(%rip), %eax
+    movl	sJ(%rip), %eax
     movl	%eax, -16(%rbp)
     movzbl	-15(%rbp), %eax
     shrb	%al
@@ -4179,7 +4221,7 @@ fn2J:
 retitJ:
     pushq	%rbp
     movq	%rsp, %rbp
-    movzbl $sJ + 1(%rip), %eax
+    movzbl	sJ + 1(%rip), %eax
     shrb	%al
     movzbl	%al, %eax
     popq	%rbp
@@ -4190,17 +4232,17 @@ fn3J:
     movq	%rsp, %rbp
     subq	$8, %rsp
     movl	%edi, -4(%rbp)
-    movzbl $sJ + 1(%rip), %eax
+    movzbl	sJ + 1(%rip), %eax
     shrb	%al
     movl	%eax, %edx
     movl	-4(%rbp), %eax
     addl	%edx, %eax
     andl	$127, %eax
     leal	(%rax,%rax), %edx
-    movzbl $sJ + 1(%rip), %eax
+    movzbl	sJ + 1(%rip), %eax
     andl	$1, %eax
     orl	%edx, %eax
-    movb	%al, $sJ + 1(%rip)
+    movb	%al, sJ + 1(%rip)
     call	retitJ
     leave
     ret
@@ -4212,22 +4254,22 @@ testJ:
     subq	$40, %rsp
     movq	$sJ, -24(%rbp)
     movl	$0, -44(%rbp)
-    jmp	L236
-L237:
+    jmp	L242
+L243:
     movq	-24(%rbp), %rbx
     leaq	1(%rbx), %rax
     movq	%rax, -24(%rbp)
     call	myrnd
     movb	%al, (%rbx)
     addl	$1, -44(%rbp)
-L236:
+L242:
     movl	-44(%rbp), %eax
     cmpl	$3, %eax
-    jbe	L237
-    movzbl $sJ + 1(%rip), %eax
+    jbe	L243
+    movzbl	sJ + 1(%rip), %eax
     orl	$-2, %eax
-    movb	%al, $sJ + 1(%rip)
-    movzbl $sJ + 1(%rip), %eax
+    movb	%al, sJ + 1(%rip)
+    movzbl	sJ + 1(%rip), %eax
     shrb	%al
     movzbl	%al, %eax
     movl	%eax, -40(%rbp)
@@ -4238,11 +4280,11 @@ L236:
     movl	-36(%rbp), %eax
     andl	$127, %eax
     leal	(%rax,%rax), %edx
-    movzbl $sJ + 1(%rip), %eax
+    movzbl	sJ + 1(%rip), %eax
     andl	$1, %eax
     orl	%edx, %eax
-    movb	%al, $sJ + 1(%rip)
-    movl $sJ(%rip), %eax
+    movb	%al, sJ + 1(%rip)
+    movl	sJ(%rip), %eax
     movl	%eax, -48(%rbp)
     movl	-32(%rbp), %eax
     movl	%eax, %edi
@@ -4251,43 +4293,43 @@ L236:
     movzbl	-48(%rbp), %eax
     andl	$1, %eax
     movl	%eax, %edx
-    movzbl $sJ(%rip), %eax
+    movzbl	sJ(%rip), %eax
     andl	$1, %eax
     cmpb	%al, %dl
-    jne	L238
+    jne	L244
     movzwl	-48(%rbp), %eax
     shrw	%ax
     movl	%eax, %ecx
     andb	$255, %ch
-    movzbl $sJ(%rip), %eax
+    movzbl	sJ(%rip), %eax
     shrb	%al
     movzbl	%al, %eax
-    movzbl $sJ + 1(%rip), %edx
+    movzbl	sJ + 1(%rip), %edx
     andl	$1, %edx
     salq	$7, %rdx
     orq	%rdx, %rax
     cmpb	%al, %cl
-    jne	L238
+    jne	L244
     movzbl	-47(%rbp), %eax
     shrb	%al
     movl	%eax, %edx
-    movzbl $sJ + 1(%rip), %eax
+    movzbl	sJ + 1(%rip), %eax
     shrb	%al
     cmpb	%al, %dl
-    jne	L238
+    jne	L244
     movzwl	-46(%rbp), %edx
-    movzwl $sJ + 2(%rip), %eax
+    movzwl	sJ + 2(%rip), %eax
     cmpw	%ax, %dx
-    jne	L238
+    jne	L244
     movl	-36(%rbp), %edx
     movl	-32(%rbp), %eax
     addl	%edx, %eax
     andl	-40(%rbp), %eax
     cmpl	-28(%rbp), %eax
-    je	L239
-L238:
+    je	L245
+L244:
     call	abort
-L239:
+L245:
     call	myrnd
     movl	%eax, -36(%rbp)
     call	myrnd
@@ -4295,11 +4337,11 @@ L239:
     movl	-36(%rbp), %eax
     andl	$127, %eax
     leal	(%rax,%rax), %edx
-    movzbl $sJ + 1(%rip), %eax
+    movzbl	sJ + 1(%rip), %eax
     andl	$1, %eax
     orl	%edx, %eax
-    movb	%al, $sJ + 1(%rip)
-    movl $sJ(%rip), %eax
+    movb	%al, sJ + 1(%rip)
+    movl	sJ(%rip), %eax
     movl	%eax, -48(%rbp)
     movl	-32(%rbp), %eax
     movl	%eax, %edi
@@ -4308,34 +4350,34 @@ L239:
     movzbl	-48(%rbp), %eax
     andl	$1, %eax
     movl	%eax, %edx
-    movzbl $sJ(%rip), %eax
+    movzbl	sJ(%rip), %eax
     andl	$1, %eax
     cmpb	%al, %dl
-    jne	L240
+    jne	L246
     movzwl	-48(%rbp), %eax
     shrw	%ax
     movl	%eax, %ecx
     andb	$255, %ch
-    movzbl $sJ(%rip), %eax
+    movzbl	sJ(%rip), %eax
     shrb	%al
     movzbl	%al, %eax
-    movzbl $sJ + 1(%rip), %edx
+    movzbl	sJ + 1(%rip), %edx
     andl	$1, %edx
     salq	$7, %rdx
     orq	%rdx, %rax
     cmpb	%al, %cl
-    jne	L240
+    jne	L246
     movzbl	-47(%rbp), %eax
     shrb	%al
     movl	%eax, %edx
-    movzbl $sJ + 1(%rip), %eax
+    movzbl	sJ + 1(%rip), %eax
     shrb	%al
     cmpb	%al, %dl
-    jne	L240
+    jne	L246
     movzwl	-46(%rbp), %edx
-    movzwl $sJ + 2(%rip), %eax
+    movzwl	sJ + 2(%rip), %eax
     cmpw	%ax, %dx
-    jne	L240
+    jne	L246
     movl	-36(%rbp), %edx
     movl	-32(%rbp), %eax
     addl	%edx, %eax
@@ -4353,10 +4395,10 @@ L239:
     subl	%edx, %eax
     andl	-40(%rbp), %eax
     cmpl	-28(%rbp), %eax
-    je	L241
-L240:
+    je	L247
+L246:
     call	abort
-L241:
+L247:
     call	myrnd
     movl	%eax, -36(%rbp)
     call	myrnd
@@ -4364,11 +4406,11 @@ L241:
     movl	-36(%rbp), %eax
     andl	$127, %eax
     leal	(%rax,%rax), %edx
-    movzbl $sJ + 1(%rip), %eax
+    movzbl	sJ + 1(%rip), %eax
     andl	$1, %eax
     orl	%edx, %eax
-    movb	%al, $sJ + 1(%rip)
-    movl $sJ(%rip), %eax
+    movb	%al, sJ + 1(%rip)
+    movl	sJ(%rip), %eax
     movl	%eax, -48(%rbp)
     movl	-32(%rbp), %eax
     movl	%eax, %edi
@@ -4377,41 +4419,41 @@ L241:
     movzbl	-48(%rbp), %eax
     andl	$1, %eax
     movl	%eax, %edx
-    movzbl $sJ(%rip), %eax
+    movzbl	sJ(%rip), %eax
     andl	$1, %eax
     cmpb	%al, %dl
-    jne	L242
+    jne	L248
     movzwl	-48(%rbp), %eax
     shrw	%ax
     movl	%eax, %ecx
     andb	$255, %ch
-    movzbl $sJ(%rip), %eax
+    movzbl	sJ(%rip), %eax
     shrb	%al
     movzbl	%al, %eax
-    movzbl $sJ + 1(%rip), %edx
+    movzbl	sJ + 1(%rip), %edx
     andl	$1, %edx
     salq	$7, %rdx
     orq	%rdx, %rax
     cmpb	%al, %cl
-    jne	L242
-    movzbl $sJ + 1(%rip), %eax
+    jne	L248
+    movzbl	sJ + 1(%rip), %eax
     shrb	%al
     movzbl	%al, %eax
     cmpl	-28(%rbp), %eax
-    jne	L242
+    jne	L248
     movzwl	-46(%rbp), %edx
-    movzwl $sJ + 2(%rip), %eax
+    movzwl	sJ + 2(%rip), %eax
     cmpw	%ax, %dx
-    jne	L242
+    jne	L248
     movl	-36(%rbp), %edx
     movl	-32(%rbp), %eax
     addl	%edx, %eax
     andl	-40(%rbp), %eax
     cmpl	-28(%rbp), %eax
-    je	L244
-L242:
+    je	L250
+L248:
     call	abort
-L244:
+L250:
     nop
     addq	$40, %rsp
     popq	%rbx
@@ -4432,7 +4474,7 @@ fn1K:
     movq	%rsp, %rbp
     subq	$32, %rsp
     movl	%edi, -20(%rbp)
-    movl $sK(%rip), %eax
+    movl	sK(%rip), %eax
     movl	%eax, -16(%rbp)
     movzbl	-16(%rbp), %eax
     andl	$63, %eax
@@ -4460,7 +4502,7 @@ fn2K:
     pushq	%rbp
     movq	%rsp, %rbp
     movl	%edi, -20(%rbp)
-    movl $sK(%rip), %eax
+    movl	sK(%rip), %eax
     movl	%eax, -16(%rbp)
     movzbl	-16(%rbp), %eax
     andl	$63, %eax
@@ -4508,7 +4550,7 @@ fn2K:
 retitK:
     pushq	%rbp
     movq	%rsp, %rbp
-    movzbl $sK(%rip), %eax
+    movzbl	sK(%rip), %eax
     andl	$63, %eax
     movzbl	%al, %eax
     popq	%rbp
@@ -4519,7 +4561,7 @@ fn3K:
     movq	%rsp, %rbp
     subq	$8, %rsp
     movl	%edi, -4(%rbp)
-    movzbl $sK(%rip), %eax
+    movzbl	sK(%rip), %eax
     andl	$63, %eax
     movl	%eax, %edx
     movl	-4(%rbp), %eax
@@ -4527,10 +4569,10 @@ fn3K:
     andl	$63, %eax
     andl	$63, %eax
     movl	%eax, %edx
-    movzbl $sK(%rip), %eax
+    movzbl	sK(%rip), %eax
     andl	$-64, %eax
     orl	%edx, %eax
-    movb	%al, $sK(%rip)
+    movb	%al, sK(%rip)
     call	retitK
     leave
     ret
@@ -4542,22 +4584,22 @@ testK:
     subq	$40, %rsp
     movq	$sK, -24(%rbp)
     movl	$0, -44(%rbp)
-    jmp	L256
-L257:
+    jmp	L262
+L263:
     movq	-24(%rbp), %rbx
     leaq	1(%rbx), %rax
     movq	%rax, -24(%rbp)
     call	myrnd
     movb	%al, (%rbx)
     addl	$1, -44(%rbp)
-L256:
+L262:
     movl	-44(%rbp), %eax
     cmpl	$3, %eax
-    jbe	L257
-    movzbl $sK(%rip), %eax
+    jbe	L263
+    movzbl	sK(%rip), %eax
     orl	$63, %eax
-    movb	%al, $sK(%rip)
-    movzbl $sK(%rip), %eax
+    movb	%al, sK(%rip)
+    movzbl	sK(%rip), %eax
     andl	$63, %eax
     movzbl	%al, %eax
     movl	%eax, -40(%rbp)
@@ -4569,11 +4611,11 @@ L256:
     andl	$63, %eax
     andl	$63, %eax
     movl	%eax, %edx
-    movzbl $sK(%rip), %eax
+    movzbl	sK(%rip), %eax
     andl	$-64, %eax
     orl	%edx, %eax
-    movb	%al, $sK(%rip)
-    movl $sK(%rip), %eax
+    movb	%al, sK(%rip)
+    movl	sK(%rip), %eax
     movl	%eax, -48(%rbp)
     movl	-32(%rbp), %eax
     movl	%eax, %edi
@@ -4582,55 +4624,55 @@ L256:
     movzwl	-46(%rbp), %eax
     shrw	%ax
     movl	%eax, %ecx
-    movzbl $sK + 2(%rip), %eax
+    movzbl	sK + 2(%rip), %eax
     shrb	%al
     movzbl	%al, %eax
-    movzbl $sK + 3(%rip), %edx
+    movzbl	sK + 3(%rip), %edx
     salq	$7, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L258
+    jne	L264
     movl	-48(%rbp), %eax
     shrl	$7, %eax
     movl	%eax, %ecx
     andw	$1023, %cx
-    movzbl $sK(%rip), %eax
+    movzbl	sK(%rip), %eax
     shrb	$7, %al
     movzbl	%al, %eax
-    movzbl $sK + 1(%rip), %edx
+    movzbl	sK + 1(%rip), %edx
     addq	%rdx, %rdx
     orq	%rax, %rdx
-    movzbl $sK + 2(%rip), %eax
+    movzbl	sK + 2(%rip), %eax
     andl	$1, %eax
     salq	$9, %rax
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L258
+    jne	L264
     movzbl	-48(%rbp), %eax
     andl	$63, %eax
     movl	%eax, %edx
-    movzbl $sK(%rip), %eax
+    movzbl	sK(%rip), %eax
     andl	$63, %eax
     cmpb	%al, %dl
-    jne	L258
+    jne	L264
     movzbl	-48(%rbp), %eax
     shrb	$6, %al
     movl	%eax, %edx
     andl	$1, %edx
-    movzbl $sK(%rip), %eax
+    movzbl	sK(%rip), %eax
     shrb	$6, %al
     andl	$1, %eax
     cmpb	%al, %dl
-    jne	L258
+    jne	L264
     movl	-36(%rbp), %edx
     movl	-32(%rbp), %eax
     addl	%edx, %eax
     andl	-40(%rbp), %eax
     cmpl	-28(%rbp), %eax
-    je	L259
-L258:
+    je	L265
+L264:
     call	abort
-L259:
+L265:
     call	myrnd
     movl	%eax, -36(%rbp)
     call	myrnd
@@ -4639,11 +4681,11 @@ L259:
     andl	$63, %eax
     andl	$63, %eax
     movl	%eax, %edx
-    movzbl $sK(%rip), %eax
+    movzbl	sK(%rip), %eax
     andl	$-64, %eax
     orl	%edx, %eax
-    movb	%al, $sK(%rip)
-    movl $sK(%rip), %eax
+    movb	%al, sK(%rip)
+    movl	sK(%rip), %eax
     movl	%eax, -48(%rbp)
     movl	-32(%rbp), %eax
     movl	%eax, %edi
@@ -4652,46 +4694,46 @@ L259:
     movzwl	-46(%rbp), %eax
     shrw	%ax
     movl	%eax, %ecx
-    movzbl $sK + 2(%rip), %eax
+    movzbl	sK + 2(%rip), %eax
     shrb	%al
     movzbl	%al, %eax
-    movzbl $sK + 3(%rip), %edx
+    movzbl	sK + 3(%rip), %edx
     salq	$7, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L260
+    jne	L266
     movl	-48(%rbp), %eax
     shrl	$7, %eax
     movl	%eax, %ecx
     andw	$1023, %cx
-    movzbl $sK(%rip), %eax
+    movzbl	sK(%rip), %eax
     shrb	$7, %al
     movzbl	%al, %eax
-    movzbl $sK + 1(%rip), %edx
+    movzbl	sK + 1(%rip), %edx
     addq	%rdx, %rdx
     orq	%rax, %rdx
-    movzbl $sK + 2(%rip), %eax
+    movzbl	sK + 2(%rip), %eax
     andl	$1, %eax
     salq	$9, %rax
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L260
+    jne	L266
     movzbl	-48(%rbp), %eax
     andl	$63, %eax
     movl	%eax, %edx
-    movzbl $sK(%rip), %eax
+    movzbl	sK(%rip), %eax
     andl	$63, %eax
     cmpb	%al, %dl
-    jne	L260
+    jne	L266
     movzbl	-48(%rbp), %eax
     shrb	$6, %al
     movl	%eax, %edx
     andl	$1, %edx
-    movzbl $sK(%rip), %eax
+    movzbl	sK(%rip), %eax
     shrb	$6, %al
     andl	$1, %eax
     cmpb	%al, %dl
-    jne	L260
+    jne	L266
     movl	-36(%rbp), %edx
     movl	-32(%rbp), %eax
     addl	%edx, %eax
@@ -4709,10 +4751,10 @@ L259:
     subl	%edx, %eax
     andl	-40(%rbp), %eax
     cmpl	-28(%rbp), %eax
-    je	L261
-L260:
+    je	L267
+L266:
     call	abort
-L261:
+L267:
     call	myrnd
     movl	%eax, -36(%rbp)
     call	myrnd
@@ -4721,11 +4763,11 @@ L261:
     andl	$63, %eax
     andl	$63, %eax
     movl	%eax, %edx
-    movzbl $sK(%rip), %eax
+    movzbl	sK(%rip), %eax
     andl	$-64, %eax
     orl	%edx, %eax
-    movb	%al, $sK(%rip)
-    movl $sK(%rip), %eax
+    movb	%al, sK(%rip)
+    movl	sK(%rip), %eax
     movl	%eax, -48(%rbp)
     movl	-32(%rbp), %eax
     movl	%eax, %edi
@@ -4734,53 +4776,53 @@ L261:
     movzwl	-46(%rbp), %eax
     shrw	%ax
     movl	%eax, %ecx
-    movzbl $sK + 2(%rip), %eax
+    movzbl	sK + 2(%rip), %eax
     shrb	%al
     movzbl	%al, %eax
-    movzbl $sK + 3(%rip), %edx
+    movzbl	sK + 3(%rip), %edx
     salq	$7, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L262
+    jne	L268
     movl	-48(%rbp), %eax
     shrl	$7, %eax
     movl	%eax, %ecx
     andw	$1023, %cx
-    movzbl $sK(%rip), %eax
+    movzbl	sK(%rip), %eax
     shrb	$7, %al
     movzbl	%al, %eax
-    movzbl $sK + 1(%rip), %edx
+    movzbl	sK + 1(%rip), %edx
     addq	%rdx, %rdx
     orq	%rax, %rdx
-    movzbl $sK + 2(%rip), %eax
+    movzbl	sK + 2(%rip), %eax
     andl	$1, %eax
     salq	$9, %rax
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L262
-    movzbl $sK(%rip), %eax
+    jne	L268
+    movzbl	sK(%rip), %eax
     andl	$63, %eax
     movzbl	%al, %eax
     cmpl	-28(%rbp), %eax
-    jne	L262
+    jne	L268
     movzbl	-48(%rbp), %eax
     shrb	$6, %al
     movl	%eax, %edx
     andl	$1, %edx
-    movzbl $sK(%rip), %eax
+    movzbl	sK(%rip), %eax
     shrb	$6, %al
     andl	$1, %eax
     cmpb	%al, %dl
-    jne	L262
+    jne	L268
     movl	-36(%rbp), %edx
     movl	-32(%rbp), %eax
     addl	%edx, %eax
     andl	-40(%rbp), %eax
     cmpl	-28(%rbp), %eax
-    je	L264
-L262:
+    je	L270
+L268:
     call	abort
-L264:
+L270:
     nop
     addq	$40, %rsp
     popq	%rbx
@@ -4801,7 +4843,7 @@ fn1L:
     movq	%rsp, %rbp
     subq	$32, %rsp
     movl	%edi, -20(%rbp)
-    movq $sL(%rip), %rax
+    movq	sL(%rip), %rax
     movq	%rax, -16(%rbp)
     movzbl	-16(%rbp), %eax
     andl	$63, %eax
@@ -4829,7 +4871,7 @@ fn2L:
     pushq	%rbp
     movq	%rsp, %rbp
     movl	%edi, -20(%rbp)
-    movq $sL(%rip), %rax
+    movq	sL(%rip), %rax
     movq	%rax, -16(%rbp)
     movzbl	-16(%rbp), %eax
     andl	$63, %eax
@@ -4877,7 +4919,7 @@ fn2L:
 retitL:
     pushq	%rbp
     movq	%rsp, %rbp
-    movzbl $sL(%rip), %eax
+    movzbl	sL(%rip), %eax
     andl	$63, %eax
     movzbl	%al, %eax
     popq	%rbp
@@ -4888,7 +4930,7 @@ fn3L:
     movq	%rsp, %rbp
     subq	$8, %rsp
     movl	%edi, -4(%rbp)
-    movzbl $sL(%rip), %eax
+    movzbl	sL(%rip), %eax
     andl	$63, %eax
     movl	%eax, %edx
     movl	-4(%rbp), %eax
@@ -4896,10 +4938,10 @@ fn3L:
     andl	$63, %eax
     andl	$63, %eax
     movl	%eax, %edx
-    movzbl $sL(%rip), %eax
+    movzbl	sL(%rip), %eax
     andl	$-64, %eax
     orl	%edx, %eax
-    movb	%al, $sL(%rip)
+    movb	%al, sL(%rip)
     call	retitL
     leave
     ret
@@ -4911,22 +4953,22 @@ testL:
     subq	$56, %rsp
     movq	$sL, -24(%rbp)
     movl	$0, -52(%rbp)
-    jmp	L276
-L277:
+    jmp	L282
+L283:
     movq	-24(%rbp), %rbx
     leaq	1(%rbx), %rax
     movq	%rax, -24(%rbp)
     call	myrnd
     movb	%al, (%rbx)
     addl	$1, -52(%rbp)
-L276:
+L282:
     movl	-52(%rbp), %eax
     cmpl	$7, %eax
-    jbe	L277
-    movzbl $sL(%rip), %eax
+    jbe	L283
+    movzbl	sL(%rip), %eax
     orl	$63, %eax
-    movb	%al, $sL(%rip)
-    movzbl $sL(%rip), %eax
+    movb	%al, sL(%rip)
+    movzbl	sL(%rip), %eax
     andl	$63, %eax
     movzbl	%al, %eax
     movl	%eax, -48(%rbp)
@@ -4938,11 +4980,11 @@ L276:
     andl	$63, %eax
     andl	$63, %eax
     movl	%eax, %edx
-    movzbl $sL(%rip), %eax
+    movzbl	sL(%rip), %eax
     andl	$-64, %eax
     orl	%edx, %eax
-    movb	%al, $sL(%rip)
-    movq $sL(%rip), %rax
+    movb	%al, sL(%rip)
+    movq	sL(%rip), %rax
     movq	%rax, -32(%rbp)
     movl	-40(%rbp), %eax
     movl	%eax, %edi
@@ -4951,50 +4993,50 @@ L276:
     movzwl	-30(%rbp), %eax
     shrw	%ax
     movl	%eax, %ecx
-    movzbl $sL + 2(%rip), %eax
+    movzbl	sL + 2(%rip), %eax
     shrb	%al
     movzbl	%al, %eax
-    movzbl $sL + 3(%rip), %edx
+    movzbl	sL + 3(%rip), %edx
     salq	$7, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L278
+    jne	L284
     movl	-32(%rbp), %eax
     shrl	$6, %eax
     movl	%eax, %ecx
     andw	$2047, %cx
-    movzbl $sL(%rip), %eax
+    movzbl	sL(%rip), %eax
     shrb	$6, %al
     movzbl	%al, %eax
-    movzbl $sL + 1(%rip), %edx
+    movzbl	sL + 1(%rip), %edx
     salq	$2, %rdx
     orq	%rax, %rdx
-    movzbl $sL + 2(%rip), %eax
+    movzbl	sL + 2(%rip), %eax
     andl	$1, %eax
     salq	$10, %rax
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L278
+    jne	L284
     movzbl	-32(%rbp), %eax
     andl	$63, %eax
     movl	%eax, %edx
-    movzbl $sL(%rip), %eax
+    movzbl	sL(%rip), %eax
     andl	$63, %eax
     cmpb	%al, %dl
-    jne	L278
+    jne	L284
     movl	-28(%rbp), %edx
-    movl $sL + 4(%rip), %eax
+    movl	sL + 4(%rip), %eax
     cmpl	%eax, %edx
-    jne	L278
+    jne	L284
     movl	-44(%rbp), %edx
     movl	-40(%rbp), %eax
     addl	%edx, %eax
     andl	-48(%rbp), %eax
     cmpl	-36(%rbp), %eax
-    je	L279
-L278:
+    je	L285
+L284:
     call	abort
-L279:
+L285:
     call	myrnd
     movl	%eax, -44(%rbp)
     call	myrnd
@@ -5003,11 +5045,11 @@ L279:
     andl	$63, %eax
     andl	$63, %eax
     movl	%eax, %edx
-    movzbl $sL(%rip), %eax
+    movzbl	sL(%rip), %eax
     andl	$-64, %eax
     orl	%edx, %eax
-    movb	%al, $sL(%rip)
-    movq $sL(%rip), %rax
+    movb	%al, sL(%rip)
+    movq	sL(%rip), %rax
     movq	%rax, -32(%rbp)
     movl	-40(%rbp), %eax
     movl	%eax, %edi
@@ -5016,41 +5058,41 @@ L279:
     movzwl	-30(%rbp), %eax
     shrw	%ax
     movl	%eax, %ecx
-    movzbl $sL + 2(%rip), %eax
+    movzbl	sL + 2(%rip), %eax
     shrb	%al
     movzbl	%al, %eax
-    movzbl $sL + 3(%rip), %edx
+    movzbl	sL + 3(%rip), %edx
     salq	$7, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L280
+    jne	L286
     movl	-32(%rbp), %eax
     shrl	$6, %eax
     movl	%eax, %ecx
     andw	$2047, %cx
-    movzbl $sL(%rip), %eax
+    movzbl	sL(%rip), %eax
     shrb	$6, %al
     movzbl	%al, %eax
-    movzbl $sL + 1(%rip), %edx
+    movzbl	sL + 1(%rip), %edx
     salq	$2, %rdx
     orq	%rax, %rdx
-    movzbl $sL + 2(%rip), %eax
+    movzbl	sL + 2(%rip), %eax
     andl	$1, %eax
     salq	$10, %rax
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L280
+    jne	L286
     movzbl	-32(%rbp), %eax
     andl	$63, %eax
     movl	%eax, %edx
-    movzbl $sL(%rip), %eax
+    movzbl	sL(%rip), %eax
     andl	$63, %eax
     cmpb	%al, %dl
-    jne	L280
+    jne	L286
     movl	-28(%rbp), %edx
-    movl $sL + 4(%rip), %eax
+    movl	sL + 4(%rip), %eax
     cmpl	%eax, %edx
-    jne	L280
+    jne	L286
     movl	-44(%rbp), %edx
     movl	-40(%rbp), %eax
     addl	%edx, %eax
@@ -5068,10 +5110,10 @@ L279:
     subl	%edx, %eax
     andl	-48(%rbp), %eax
     cmpl	-36(%rbp), %eax
-    je	L281
-L280:
+    je	L287
+L286:
     call	abort
-L281:
+L287:
     call	myrnd
     movl	%eax, -44(%rbp)
     call	myrnd
@@ -5080,11 +5122,11 @@ L281:
     andl	$63, %eax
     andl	$63, %eax
     movl	%eax, %edx
-    movzbl $sL(%rip), %eax
+    movzbl	sL(%rip), %eax
     andl	$-64, %eax
     orl	%edx, %eax
-    movb	%al, $sL(%rip)
-    movq $sL(%rip), %rax
+    movb	%al, sL(%rip)
+    movq	sL(%rip), %rax
     movq	%rax, -32(%rbp)
     movl	-40(%rbp), %eax
     movl	%eax, %edi
@@ -5093,48 +5135,48 @@ L281:
     movzwl	-30(%rbp), %eax
     shrw	%ax
     movl	%eax, %ecx
-    movzbl $sL + 2(%rip), %eax
+    movzbl	sL + 2(%rip), %eax
     shrb	%al
     movzbl	%al, %eax
-    movzbl $sL + 3(%rip), %edx
+    movzbl	sL + 3(%rip), %edx
     salq	$7, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L282
+    jne	L288
     movl	-32(%rbp), %eax
     shrl	$6, %eax
     movl	%eax, %ecx
     andw	$2047, %cx
-    movzbl $sL(%rip), %eax
+    movzbl	sL(%rip), %eax
     shrb	$6, %al
     movzbl	%al, %eax
-    movzbl $sL + 1(%rip), %edx
+    movzbl	sL + 1(%rip), %edx
     salq	$2, %rdx
     orq	%rax, %rdx
-    movzbl $sL + 2(%rip), %eax
+    movzbl	sL + 2(%rip), %eax
     andl	$1, %eax
     salq	$10, %rax
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L282
-    movzbl $sL(%rip), %eax
+    jne	L288
+    movzbl	sL(%rip), %eax
     andl	$63, %eax
     movzbl	%al, %eax
     cmpl	-36(%rbp), %eax
-    jne	L282
+    jne	L288
     movl	-28(%rbp), %edx
-    movl $sL + 4(%rip), %eax
+    movl	sL + 4(%rip), %eax
     cmpl	%eax, %edx
-    jne	L282
+    jne	L288
     movl	-44(%rbp), %edx
     movl	-40(%rbp), %eax
     addl	%edx, %eax
     andl	-48(%rbp), %eax
     cmpl	-36(%rbp), %eax
-    je	L284
-L282:
+    je	L290
+L288:
     call	abort
-L284:
+L290:
     nop
     addq	$56, %rsp
     popq	%rbx
@@ -5155,7 +5197,7 @@ fn1M:
     movq	%rsp, %rbp
     subq	$32, %rsp
     movl	%edi, -20(%rbp)
-    movq $sM(%rip), %rax
+    movq	sM(%rip), %rax
     movq	%rax, -16(%rbp)
     movzbl	-12(%rbp), %eax
     andl	$63, %eax
@@ -5183,7 +5225,7 @@ fn2M:
     pushq	%rbp
     movq	%rsp, %rbp
     movl	%edi, -20(%rbp)
-    movq $sM(%rip), %rax
+    movq	sM(%rip), %rax
     movq	%rax, -16(%rbp)
     movzbl	-12(%rbp), %eax
     andl	$63, %eax
@@ -5231,7 +5273,7 @@ fn2M:
 retitM:
     pushq	%rbp
     movq	%rsp, %rbp
-    movzbl $sM + 4(%rip), %eax
+    movzbl	sM + 4(%rip), %eax
     andl	$63, %eax
     movzbl	%al, %eax
     popq	%rbp
@@ -5242,7 +5284,7 @@ fn3M:
     movq	%rsp, %rbp
     subq	$8, %rsp
     movl	%edi, -4(%rbp)
-    movzbl $sM + 4(%rip), %eax
+    movzbl	sM + 4(%rip), %eax
     andl	$63, %eax
     movl	%eax, %edx
     movl	-4(%rbp), %eax
@@ -5250,10 +5292,10 @@ fn3M:
     andl	$63, %eax
     andl	$63, %eax
     movl	%eax, %edx
-    movzbl $sM + 4(%rip), %eax
+    movzbl	sM + 4(%rip), %eax
     andl	$-64, %eax
     orl	%edx, %eax
-    movb	%al, $sM + 4(%rip)
+    movb	%al, sM + 4(%rip)
     call	retitM
     leave
     ret
@@ -5265,22 +5307,22 @@ testM:
     subq	$56, %rsp
     movq	$sM, -24(%rbp)
     movl	$0, -52(%rbp)
-    jmp	L296
-L297:
+    jmp	L302
+L303:
     movq	-24(%rbp), %rbx
     leaq	1(%rbx), %rax
     movq	%rax, -24(%rbp)
     call	myrnd
     movb	%al, (%rbx)
     addl	$1, -52(%rbp)
-L296:
+L302:
     movl	-52(%rbp), %eax
     cmpl	$7, %eax
-    jbe	L297
-    movzbl $sM + 4(%rip), %eax
+    jbe	L303
+    movzbl	sM + 4(%rip), %eax
     orl	$63, %eax
-    movb	%al, $sM + 4(%rip)
-    movzbl $sM + 4(%rip), %eax
+    movb	%al, sM + 4(%rip)
+    movzbl	sM + 4(%rip), %eax
     andl	$63, %eax
     movzbl	%al, %eax
     movl	%eax, -48(%rbp)
@@ -5292,11 +5334,11 @@ L296:
     andl	$63, %eax
     andl	$63, %eax
     movl	%eax, %edx
-    movzbl $sM + 4(%rip), %eax
+    movzbl	sM + 4(%rip), %eax
     andl	$-64, %eax
     orl	%edx, %eax
-    movb	%al, $sM + 4(%rip)
-    movq $sM(%rip), %rax
+    movb	%al, sM + 4(%rip)
+    movq	sM(%rip), %rax
     movq	%rax, -32(%rbp)
     movl	-40(%rbp), %eax
     movl	%eax, %edi
@@ -5305,50 +5347,50 @@ L296:
     movzwl	-26(%rbp), %eax
     shrw	%ax
     movl	%eax, %ecx
-    movzbl $sM + 6(%rip), %eax
+    movzbl	sM + 6(%rip), %eax
     shrb	%al
     movzbl	%al, %eax
-    movzbl $sM + 7(%rip), %edx
+    movzbl	sM + 7(%rip), %edx
     salq	$7, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L298
+    jne	L304
     movl	-28(%rbp), %eax
     shrl	$6, %eax
     movl	%eax, %ecx
     andw	$2047, %cx
-    movzbl $sM + 4(%rip), %eax
+    movzbl	sM + 4(%rip), %eax
     shrb	$6, %al
     movzbl	%al, %eax
-    movzbl $sM + 5(%rip), %edx
+    movzbl	sM + 5(%rip), %edx
     salq	$2, %rdx
     orq	%rax, %rdx
-    movzbl $sM + 6(%rip), %eax
+    movzbl	sM + 6(%rip), %eax
     andl	$1, %eax
     salq	$10, %rax
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L298
+    jne	L304
     movzbl	-28(%rbp), %eax
     andl	$63, %eax
     movl	%eax, %edx
-    movzbl $sM + 4(%rip), %eax
+    movzbl	sM + 4(%rip), %eax
     andl	$63, %eax
     cmpb	%al, %dl
-    jne	L298
+    jne	L304
     movl	-32(%rbp), %edx
-    movl $sM(%rip), %eax
+    movl	sM(%rip), %eax
     cmpl	%eax, %edx
-    jne	L298
+    jne	L304
     movl	-44(%rbp), %edx
     movl	-40(%rbp), %eax
     addl	%edx, %eax
     andl	-48(%rbp), %eax
     cmpl	-36(%rbp), %eax
-    je	L299
-L298:
+    je	L305
+L304:
     call	abort
-L299:
+L305:
     call	myrnd
     movl	%eax, -44(%rbp)
     call	myrnd
@@ -5357,11 +5399,11 @@ L299:
     andl	$63, %eax
     andl	$63, %eax
     movl	%eax, %edx
-    movzbl $sM + 4(%rip), %eax
+    movzbl	sM + 4(%rip), %eax
     andl	$-64, %eax
     orl	%edx, %eax
-    movb	%al, $sM + 4(%rip)
-    movq $sM(%rip), %rax
+    movb	%al, sM + 4(%rip)
+    movq	sM(%rip), %rax
     movq	%rax, -32(%rbp)
     movl	-40(%rbp), %eax
     movl	%eax, %edi
@@ -5370,41 +5412,41 @@ L299:
     movzwl	-26(%rbp), %eax
     shrw	%ax
     movl	%eax, %ecx
-    movzbl $sM + 6(%rip), %eax
+    movzbl	sM + 6(%rip), %eax
     shrb	%al
     movzbl	%al, %eax
-    movzbl $sM + 7(%rip), %edx
+    movzbl	sM + 7(%rip), %edx
     salq	$7, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L300
+    jne	L306
     movl	-28(%rbp), %eax
     shrl	$6, %eax
     movl	%eax, %ecx
     andw	$2047, %cx
-    movzbl $sM + 4(%rip), %eax
+    movzbl	sM + 4(%rip), %eax
     shrb	$6, %al
     movzbl	%al, %eax
-    movzbl $sM + 5(%rip), %edx
+    movzbl	sM + 5(%rip), %edx
     salq	$2, %rdx
     orq	%rax, %rdx
-    movzbl $sM + 6(%rip), %eax
+    movzbl	sM + 6(%rip), %eax
     andl	$1, %eax
     salq	$10, %rax
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L300
+    jne	L306
     movzbl	-28(%rbp), %eax
     andl	$63, %eax
     movl	%eax, %edx
-    movzbl $sM + 4(%rip), %eax
+    movzbl	sM + 4(%rip), %eax
     andl	$63, %eax
     cmpb	%al, %dl
-    jne	L300
+    jne	L306
     movl	-32(%rbp), %edx
-    movl $sM(%rip), %eax
+    movl	sM(%rip), %eax
     cmpl	%eax, %edx
-    jne	L300
+    jne	L306
     movl	-44(%rbp), %edx
     movl	-40(%rbp), %eax
     addl	%edx, %eax
@@ -5422,10 +5464,10 @@ L299:
     subl	%edx, %eax
     andl	-48(%rbp), %eax
     cmpl	-36(%rbp), %eax
-    je	L301
-L300:
+    je	L307
+L306:
     call	abort
-L301:
+L307:
     call	myrnd
     movl	%eax, -44(%rbp)
     call	myrnd
@@ -5434,11 +5476,11 @@ L301:
     andl	$63, %eax
     andl	$63, %eax
     movl	%eax, %edx
-    movzbl $sM + 4(%rip), %eax
+    movzbl	sM + 4(%rip), %eax
     andl	$-64, %eax
     orl	%edx, %eax
-    movb	%al, $sM + 4(%rip)
-    movq $sM(%rip), %rax
+    movb	%al, sM + 4(%rip)
+    movq	sM(%rip), %rax
     movq	%rax, -32(%rbp)
     movl	-40(%rbp), %eax
     movl	%eax, %edi
@@ -5447,48 +5489,48 @@ L301:
     movzwl	-26(%rbp), %eax
     shrw	%ax
     movl	%eax, %ecx
-    movzbl $sM + 6(%rip), %eax
+    movzbl	sM + 6(%rip), %eax
     shrb	%al
     movzbl	%al, %eax
-    movzbl $sM + 7(%rip), %edx
+    movzbl	sM + 7(%rip), %edx
     salq	$7, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L302
+    jne	L308
     movl	-28(%rbp), %eax
     shrl	$6, %eax
     movl	%eax, %ecx
     andw	$2047, %cx
-    movzbl $sM + 4(%rip), %eax
+    movzbl	sM + 4(%rip), %eax
     shrb	$6, %al
     movzbl	%al, %eax
-    movzbl $sM + 5(%rip), %edx
+    movzbl	sM + 5(%rip), %edx
     salq	$2, %rdx
     orq	%rax, %rdx
-    movzbl $sM + 6(%rip), %eax
+    movzbl	sM + 6(%rip), %eax
     andl	$1, %eax
     salq	$10, %rax
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L302
-    movzbl $sM + 4(%rip), %eax
+    jne	L308
+    movzbl	sM + 4(%rip), %eax
     andl	$63, %eax
     movzbl	%al, %eax
     cmpl	-36(%rbp), %eax
-    jne	L302
+    jne	L308
     movl	-32(%rbp), %edx
-    movl $sM(%rip), %eax
+    movl	sM(%rip), %eax
     cmpl	%eax, %edx
-    jne	L302
+    jne	L308
     movl	-44(%rbp), %edx
     movl	-40(%rbp), %eax
     addl	%edx, %eax
     andl	-48(%rbp), %eax
     cmpl	-36(%rbp), %eax
-    je	L304
-L302:
+    je	L310
+L308:
     call	abort
-L304:
+L310:
     nop
     addq	$56, %rsp
     popq	%rbx
@@ -5509,7 +5551,7 @@ fn1N:
     movq	%rsp, %rbp
     subq	$32, %rsp
     movl	%edi, -20(%rbp)
-    movq $sN(%rip), %rax
+    movq	sN(%rip), %rax
     movq	%rax, -16(%rbp)
     movzwl	-16(%rbp), %eax
     shrw	$6, %ax
@@ -5541,7 +5583,7 @@ fn2N:
     pushq	%rbp
     movq	%rsp, %rbp
     movl	%edi, -20(%rbp)
-    movq $sN(%rip), %rax
+    movq	sN(%rip), %rax
     movq	%rax, -16(%rbp)
     movzwl	-16(%rbp), %eax
     shrw	$6, %ax
@@ -5596,10 +5638,10 @@ fn2N:
 retitN:
     pushq	%rbp
     movq	%rsp, %rbp
-    movzbl $sN(%rip), %eax
+    movzbl	sN(%rip), %eax
     shrb	$6, %al
     movzbl	%al, %eax
-    movzbl $sN + 1(%rip), %edx
+    movzbl	sN + 1(%rip), %edx
     andl	$15, %edx
     salq	$2, %rdx
     orq	%rdx, %rax
@@ -5612,10 +5654,10 @@ fn3N:
     movq	%rsp, %rbp
     subq	$8, %rsp
     movl	%edi, -4(%rbp)
-    movzbl $sN(%rip), %eax
+    movzbl	sN(%rip), %eax
     shrb	$6, %al
     movzbl	%al, %eax
-    movzbl $sN + 1(%rip), %edx
+    movzbl	sN + 1(%rip), %edx
     andl	$15, %edx
     salq	$2, %rdx
     orq	%rdx, %rax
@@ -5627,19 +5669,19 @@ fn3N:
     andl	$3, %edx
     movl	%edx, %ecx
     sall	$6, %ecx
-    movzbl $sN(%rip), %edx
+    movzbl	sN(%rip), %edx
     andl	$63, %edx
     orl	%ecx, %edx
-    movb	%dl, $sN(%rip)
+    movb	%dl, sN(%rip)
     shrb	$2, %al
     movzbl	%al, %eax
     andl	$15, %eax
     movl	%eax, %edx
     andl	$15, %edx
-    movzbl $sN + 1(%rip), %eax
+    movzbl	sN + 1(%rip), %eax
     andl	$-16, %eax
     orl	%edx, %eax
-    movb	%al, $sN + 1(%rip)
+    movb	%al, sN + 1(%rip)
     call	retitN
     leave
     ret
@@ -5651,28 +5693,28 @@ testN:
     subq	$56, %rsp
     movq	$sN, -24(%rbp)
     movl	$0, -52(%rbp)
-    jmp	L316
-L317:
+    jmp	L322
+L323:
     movq	-24(%rbp), %rbx
     leaq	1(%rbx), %rax
     movq	%rax, -24(%rbp)
     call	myrnd
     movb	%al, (%rbx)
     addl	$1, -52(%rbp)
-L316:
+L322:
     movl	-52(%rbp), %eax
     cmpl	$7, %eax
-    jbe	L317
-    movzbl $sN(%rip), %eax
+    jbe	L323
+    movzbl	sN(%rip), %eax
     orl	$-64, %eax
-    movb	%al, $sN(%rip)
-    movzbl $sN + 1(%rip), %eax
+    movb	%al, sN(%rip)
+    movzbl	sN + 1(%rip), %eax
     orl	$15, %eax
-    movb	%al, $sN + 1(%rip)
-    movzbl $sN(%rip), %eax
+    movb	%al, sN + 1(%rip)
+    movzbl	sN(%rip), %eax
     shrb	$6, %al
     movzbl	%al, %eax
-    movzbl $sN + 1(%rip), %edx
+    movzbl	sN + 1(%rip), %edx
     andl	$15, %edx
     salq	$2, %rdx
     orq	%rdx, %rax
@@ -5688,20 +5730,20 @@ L316:
     andl	$3, %edx
     movl	%edx, %ecx
     sall	$6, %ecx
-    movzbl $sN(%rip), %edx
+    movzbl	sN(%rip), %edx
     andl	$63, %edx
     orl	%ecx, %edx
-    movb	%dl, $sN(%rip)
+    movb	%dl, sN(%rip)
     shrb	$2, %al
     movzbl	%al, %eax
     andl	$15, %eax
     movl	%eax, %edx
     andl	$15, %edx
-    movzbl $sN + 1(%rip), %eax
+    movzbl	sN + 1(%rip), %eax
     andl	$-16, %eax
     orl	%edx, %eax
-    movb	%al, $sN + 1(%rip)
-    movq $sN(%rip), %rax
+    movb	%al, sN + 1(%rip)
+    movq	sN(%rip), %rax
     movq	%rax, -32(%rbp)
     movl	-40(%rbp), %eax
     movl	%eax, %edi
@@ -5710,68 +5752,68 @@ L316:
     movl	-28(%rbp), %eax
     shrl	$3, %eax
     movl	%eax, %ecx
-    movzbl $sN + 4(%rip), %eax
+    movzbl	sN + 4(%rip), %eax
     shrb	$3, %al
     movzbl	%al, %eax
-    movzbl $sN + 5(%rip), %edx
+    movzbl	sN + 5(%rip), %edx
     salq	$5, %rdx
     orq	%rax, %rdx
-    movzbl $sN + 6(%rip), %eax
+    movzbl	sN + 6(%rip), %eax
     salq	$13, %rax
     orq	%rax, %rdx
-    movzbl $sN + 7(%rip), %eax
+    movzbl	sN + 7(%rip), %eax
     salq	$21, %rax
     orq	%rdx, %rax
     cmpl	%eax, %ecx
-    jne	L318
+    jne	L324
     movq	-32(%rbp), %rax
     shrq	$12, %rax
     movl	%eax, %ecx
     andl	$8388607, %ecx
-    movzbl $sN + 1(%rip), %eax
+    movzbl	sN + 1(%rip), %eax
     shrb	$4, %al
     movzbl	%al, %eax
-    movzbl $sN + 2(%rip), %edx
+    movzbl	sN + 2(%rip), %edx
     salq	$4, %rdx
     orq	%rax, %rdx
-    movzbl $sN + 3(%rip), %eax
+    movzbl	sN + 3(%rip), %eax
     salq	$12, %rax
     orq	%rax, %rdx
-    movzbl $sN + 4(%rip), %eax
+    movzbl	sN + 4(%rip), %eax
     andl	$7, %eax
     salq	$20, %rax
     orq	%rdx, %rax
     cmpl	%eax, %ecx
-    jne	L318
+    jne	L324
     movzwl	-32(%rbp), %eax
     shrw	$6, %ax
     movl	%eax, %ecx
     andl	$63, %ecx
-    movzbl $sN(%rip), %eax
+    movzbl	sN(%rip), %eax
     shrb	$6, %al
     movzbl	%al, %eax
-    movzbl $sN + 1(%rip), %edx
+    movzbl	sN + 1(%rip), %edx
     andl	$15, %edx
     salq	$2, %rdx
     orq	%rdx, %rax
     cmpb	%al, %cl
-    jne	L318
+    jne	L324
     movzbl	-32(%rbp), %eax
     andl	$63, %eax
     movl	%eax, %edx
-    movzbl $sN(%rip), %eax
+    movzbl	sN(%rip), %eax
     andl	$63, %eax
     cmpb	%al, %dl
-    jne	L318
+    jne	L324
     movl	-44(%rbp), %edx
     movl	-40(%rbp), %eax
     addl	%edx, %eax
     andl	-48(%rbp), %eax
     cmpl	-36(%rbp), %eax
-    je	L319
-L318:
+    je	L325
+L324:
     call	abort
-L319:
+L325:
     call	myrnd
     movl	%eax, -44(%rbp)
     call	myrnd
@@ -5782,20 +5824,20 @@ L319:
     andl	$3, %edx
     movl	%edx, %ecx
     sall	$6, %ecx
-    movzbl $sN(%rip), %edx
+    movzbl	sN(%rip), %edx
     andl	$63, %edx
     orl	%ecx, %edx
-    movb	%dl, $sN(%rip)
+    movb	%dl, sN(%rip)
     shrb	$2, %al
     movzbl	%al, %eax
     andl	$15, %eax
     movl	%eax, %edx
     andl	$15, %edx
-    movzbl $sN + 1(%rip), %eax
+    movzbl	sN + 1(%rip), %eax
     andl	$-16, %eax
     orl	%edx, %eax
-    movb	%al, $sN + 1(%rip)
-    movq $sN(%rip), %rax
+    movb	%al, sN + 1(%rip)
+    movq	sN(%rip), %rax
     movq	%rax, -32(%rbp)
     movl	-40(%rbp), %eax
     movl	%eax, %edi
@@ -5804,59 +5846,59 @@ L319:
     movl	-28(%rbp), %eax
     shrl	$3, %eax
     movl	%eax, %ecx
-    movzbl $sN + 4(%rip), %eax
+    movzbl	sN + 4(%rip), %eax
     shrb	$3, %al
     movzbl	%al, %eax
-    movzbl $sN + 5(%rip), %edx
+    movzbl	sN + 5(%rip), %edx
     salq	$5, %rdx
     orq	%rax, %rdx
-    movzbl $sN + 6(%rip), %eax
+    movzbl	sN + 6(%rip), %eax
     salq	$13, %rax
     orq	%rax, %rdx
-    movzbl $sN + 7(%rip), %eax
+    movzbl	sN + 7(%rip), %eax
     salq	$21, %rax
     orq	%rdx, %rax
     cmpl	%eax, %ecx
-    jne	L320
+    jne	L326
     movq	-32(%rbp), %rax
     shrq	$12, %rax
     movl	%eax, %ecx
     andl	$8388607, %ecx
-    movzbl $sN + 1(%rip), %eax
+    movzbl	sN + 1(%rip), %eax
     shrb	$4, %al
     movzbl	%al, %eax
-    movzbl $sN + 2(%rip), %edx
+    movzbl	sN + 2(%rip), %edx
     salq	$4, %rdx
     orq	%rax, %rdx
-    movzbl $sN + 3(%rip), %eax
+    movzbl	sN + 3(%rip), %eax
     salq	$12, %rax
     orq	%rax, %rdx
-    movzbl $sN + 4(%rip), %eax
+    movzbl	sN + 4(%rip), %eax
     andl	$7, %eax
     salq	$20, %rax
     orq	%rdx, %rax
     cmpl	%eax, %ecx
-    jne	L320
+    jne	L326
     movzwl	-32(%rbp), %eax
     shrw	$6, %ax
     movl	%eax, %ecx
     andl	$63, %ecx
-    movzbl $sN(%rip), %eax
+    movzbl	sN(%rip), %eax
     shrb	$6, %al
     movzbl	%al, %eax
-    movzbl $sN + 1(%rip), %edx
+    movzbl	sN + 1(%rip), %edx
     andl	$15, %edx
     salq	$2, %rdx
     orq	%rdx, %rax
     cmpb	%al, %cl
-    jne	L320
+    jne	L326
     movzbl	-32(%rbp), %eax
     andl	$63, %eax
     movl	%eax, %edx
-    movzbl $sN(%rip), %eax
+    movzbl	sN(%rip), %eax
     andl	$63, %eax
     cmpb	%al, %dl
-    jne	L320
+    jne	L326
     movl	-44(%rbp), %edx
     movl	-40(%rbp), %eax
     addl	%edx, %eax
@@ -5874,10 +5916,10 @@ L319:
     subl	%edx, %eax
     andl	-48(%rbp), %eax
     cmpl	-36(%rbp), %eax
-    je	L321
-L320:
+    je	L327
+L326:
     call	abort
-L321:
+L327:
     call	myrnd
     movl	%eax, -44(%rbp)
     call	myrnd
@@ -5888,20 +5930,20 @@ L321:
     andl	$3, %edx
     movl	%edx, %ecx
     sall	$6, %ecx
-    movzbl $sN(%rip), %edx
+    movzbl	sN(%rip), %edx
     andl	$63, %edx
     orl	%ecx, %edx
-    movb	%dl, $sN(%rip)
+    movb	%dl, sN(%rip)
     shrb	$2, %al
     movzbl	%al, %eax
     andl	$15, %eax
     movl	%eax, %edx
     andl	$15, %edx
-    movzbl $sN + 1(%rip), %eax
+    movzbl	sN + 1(%rip), %eax
     andl	$-16, %eax
     orl	%edx, %eax
-    movb	%al, $sN + 1(%rip)
-    movq $sN(%rip), %rax
+    movb	%al, sN + 1(%rip)
+    movq	sN(%rip), %rax
     movq	%rax, -32(%rbp)
     movl	-40(%rbp), %eax
     movl	%eax, %edi
@@ -5910,65 +5952,65 @@ L321:
     movl	-28(%rbp), %eax
     shrl	$3, %eax
     movl	%eax, %ecx
-    movzbl $sN + 4(%rip), %eax
+    movzbl	sN + 4(%rip), %eax
     shrb	$3, %al
     movzbl	%al, %eax
-    movzbl $sN + 5(%rip), %edx
+    movzbl	sN + 5(%rip), %edx
     salq	$5, %rdx
     orq	%rax, %rdx
-    movzbl $sN + 6(%rip), %eax
+    movzbl	sN + 6(%rip), %eax
     salq	$13, %rax
     orq	%rax, %rdx
-    movzbl $sN + 7(%rip), %eax
+    movzbl	sN + 7(%rip), %eax
     salq	$21, %rax
     orq	%rdx, %rax
     cmpl	%eax, %ecx
-    jne	L322
+    jne	L328
     movq	-32(%rbp), %rax
     shrq	$12, %rax
     movl	%eax, %ecx
     andl	$8388607, %ecx
-    movzbl $sN + 1(%rip), %eax
+    movzbl	sN + 1(%rip), %eax
     shrb	$4, %al
     movzbl	%al, %eax
-    movzbl $sN + 2(%rip), %edx
+    movzbl	sN + 2(%rip), %edx
     salq	$4, %rdx
     orq	%rax, %rdx
-    movzbl $sN + 3(%rip), %eax
+    movzbl	sN + 3(%rip), %eax
     salq	$12, %rax
     orq	%rax, %rdx
-    movzbl $sN + 4(%rip), %eax
+    movzbl	sN + 4(%rip), %eax
     andl	$7, %eax
     salq	$20, %rax
     orq	%rdx, %rax
     cmpl	%eax, %ecx
-    jne	L322
-    movzbl $sN(%rip), %eax
+    jne	L328
+    movzbl	sN(%rip), %eax
     shrb	$6, %al
     movzbl	%al, %eax
-    movzbl $sN + 1(%rip), %edx
+    movzbl	sN + 1(%rip), %edx
     andl	$15, %edx
     salq	$2, %rdx
     orq	%rdx, %rax
     movzbl	%al, %eax
     cmpl	-36(%rbp), %eax
-    jne	L322
+    jne	L328
     movzbl	-32(%rbp), %eax
     andl	$63, %eax
     movl	%eax, %edx
-    movzbl $sN(%rip), %eax
+    movzbl	sN(%rip), %eax
     andl	$63, %eax
     cmpb	%al, %dl
-    jne	L322
+    jne	L328
     movl	-44(%rbp), %edx
     movl	-40(%rbp), %eax
     addl	%edx, %eax
     andl	-48(%rbp), %eax
     cmpl	-36(%rbp), %eax
-    je	L324
-L322:
+    je	L330
+L328:
     call	abort
-L324:
+L330:
     nop
     addq	$56, %rsp
     popq	%rbx
@@ -5994,8 +6036,8 @@ fn1O:
     movq	%rsp, %rbp
     subq	$32, %rsp
     movl	%edi, -20(%rbp)
-    movq $sO(%rip), %rax
-    movq $sO + 8(%rip), %rdx
+    movq	sO(%rip), %rax
+    movq	sO + 8(%rip), %rdx
     movq	%rax, -16(%rbp)
     movq	%rdx, -8(%rbp)
     movzwl	-8(%rbp), %eax
@@ -6027,8 +6069,8 @@ fn2O:
     pushq	%rbp
     movq	%rsp, %rbp
     movl	%edi, -20(%rbp)
-    movq $sO(%rip), %rax
-    movq $sO + 8(%rip), %rdx
+    movq	sO(%rip), %rax
+    movq	sO + 8(%rip), %rdx
     movq	%rax, -16(%rbp)
     movq	%rdx, -8(%rbp)
     movzwl	-8(%rbp), %eax
@@ -6077,8 +6119,8 @@ fn2O:
 retitO:
     pushq	%rbp
     movq	%rsp, %rbp
-    movzbl $sO + 8(%rip), %eax
-    movzbl $sO + 9(%rip), %edx
+    movzbl	sO + 8(%rip), %eax
+    movzbl	sO + 9(%rip), %edx
     andl	$15, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
@@ -6091,8 +6133,8 @@ fn3O:
     movq	%rsp, %rbp
     subq	$8, %rsp
     movl	%edi, -4(%rbp)
-    movzbl $sO + 8(%rip), %eax
-    movzbl $sO + 9(%rip), %edx
+    movzbl	sO + 8(%rip), %eax
+    movzbl	sO + 9(%rip), %edx
     andl	$15, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
@@ -6102,19 +6144,19 @@ fn3O:
     andw	$4095, %ax
     movzwl	%ax, %edx
     movzbl	%dl, %ecx
-    movzbl $sO + 8(%rip), %edx
+    movzbl	sO + 8(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sO + 8(%rip)
+    movb	%dl, sO + 8(%rip)
     shrw	$8, %ax
     movzwl	%ax, %eax
     andl	$15, %eax
     movl	%eax, %edx
     andl	$15, %edx
-    movzbl $sO + 9(%rip), %eax
+    movzbl	sO + 9(%rip), %eax
     andl	$-16, %eax
     orl	%edx, %eax
-    movb	%al, $sO + 9(%rip)
+    movb	%al, sO + 9(%rip)
     call	retitO
     leave
     ret
@@ -6126,26 +6168,26 @@ testO:
     subq	$56, %rsp
     movq	$sO, -40(%rbp)
     movl	$0, -60(%rbp)
-    jmp	L336
-L337:
+    jmp	L342
+L343:
     movq	-40(%rbp), %rbx
     leaq	1(%rbx), %rax
     movq	%rax, -40(%rbp)
     call	myrnd
     movb	%al, (%rbx)
     addl	$1, -60(%rbp)
-L336:
+L342:
     movl	-60(%rbp), %eax
     cmpl	$15, %eax
-    jbe	L337
-    movzbl $sO + 8(%rip), %eax
+    jbe	L343
+    movzbl	sO + 8(%rip), %eax
     orl	$-1, %eax
-    movb	%al, $sO + 8(%rip)
-    movzbl $sO + 9(%rip), %eax
+    movb	%al, sO + 8(%rip)
+    movzbl	sO + 9(%rip), %eax
     orl	$15, %eax
-    movb	%al, $sO + 9(%rip)
-    movzbl $sO + 8(%rip), %eax
-    movzbl $sO + 9(%rip), %edx
+    movb	%al, sO + 9(%rip)
+    movzbl	sO + 8(%rip), %eax
+    movzbl	sO + 9(%rip), %edx
     andl	$15, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
@@ -6159,21 +6201,21 @@ L336:
     andw	$4095, %ax
     movzwl	%ax, %edx
     movzbl	%dl, %ecx
-    movzbl $sO + 8(%rip), %edx
+    movzbl	sO + 8(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sO + 8(%rip)
+    movb	%dl, sO + 8(%rip)
     shrw	$8, %ax
     movzwl	%ax, %eax
     andl	$15, %eax
     movl	%eax, %edx
     andl	$15, %edx
-    movzbl $sO + 9(%rip), %eax
+    movzbl	sO + 9(%rip), %eax
     andl	$-16, %eax
     orl	%edx, %eax
-    movb	%al, $sO + 9(%rip)
-    movq $sO(%rip), %rax
-    movq $sO + 8(%rip), %rdx
+    movb	%al, sO + 9(%rip)
+    movq	sO(%rip), %rax
+    movq	sO + 8(%rip), %rdx
     movq	%rax, -32(%rbp)
     movq	%rdx, -24(%rbp)
     movl	-48(%rbp), %eax
@@ -6183,62 +6225,62 @@ L336:
     movl	-20(%rbp), %eax
     shrl	$3, %eax
     movl	%eax, %ecx
-    movzbl $sO + 12(%rip), %eax
+    movzbl	sO + 12(%rip), %eax
     shrb	$3, %al
     movzbl	%al, %eax
-    movzbl $sO + 13(%rip), %edx
+    movzbl	sO + 13(%rip), %edx
     salq	$5, %rdx
     orq	%rax, %rdx
-    movzbl $sO + 14(%rip), %eax
+    movzbl	sO + 14(%rip), %eax
     salq	$13, %rax
     orq	%rax, %rdx
-    movzbl $sO + 15(%rip), %eax
+    movzbl	sO + 15(%rip), %eax
     salq	$21, %rax
     orq	%rdx, %rax
     cmpl	%eax, %ecx
-    jne	L338
+    jne	L344
     movq	-24(%rbp), %rax
     shrq	$12, %rax
     movl	%eax, %ecx
     andl	$8388607, %ecx
-    movzbl $sO + 9(%rip), %eax
+    movzbl	sO + 9(%rip), %eax
     shrb	$4, %al
     movzbl	%al, %eax
-    movzbl $sO + 10(%rip), %edx
+    movzbl	sO + 10(%rip), %edx
     salq	$4, %rdx
     orq	%rax, %rdx
-    movzbl $sO + 11(%rip), %eax
+    movzbl	sO + 11(%rip), %eax
     salq	$12, %rax
     orq	%rax, %rdx
-    movzbl $sO + 12(%rip), %eax
+    movzbl	sO + 12(%rip), %eax
     andl	$7, %eax
     salq	$20, %rax
     orq	%rdx, %rax
     cmpl	%eax, %ecx
-    jne	L338
+    jne	L344
     movzwl	-24(%rbp), %eax
     andw	$4095, %ax
     movl	%eax, %ecx
-    movzbl $sO + 8(%rip), %eax
-    movzbl $sO + 9(%rip), %edx
+    movzbl	sO + 8(%rip), %eax
+    movzbl	sO + 9(%rip), %edx
     andl	$15, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L338
+    jne	L344
     movq	-32(%rbp), %rdx
-    movq $sO(%rip), %rax
+    movq	sO(%rip), %rax
     cmpq	%rax, %rdx
-    jne	L338
+    jne	L344
     movl	-52(%rbp), %edx
     movl	-48(%rbp), %eax
     addl	%edx, %eax
     andl	-56(%rbp), %eax
     cmpl	-44(%rbp), %eax
-    je	L339
-L338:
+    je	L345
+L344:
     call	abort
-L339:
+L345:
     call	myrnd
     movl	%eax, -52(%rbp)
     call	myrnd
@@ -6247,21 +6289,21 @@ L339:
     andw	$4095, %ax
     movzwl	%ax, %edx
     movzbl	%dl, %ecx
-    movzbl $sO + 8(%rip), %edx
+    movzbl	sO + 8(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sO + 8(%rip)
+    movb	%dl, sO + 8(%rip)
     shrw	$8, %ax
     movzwl	%ax, %eax
     andl	$15, %eax
     movl	%eax, %edx
     andl	$15, %edx
-    movzbl $sO + 9(%rip), %eax
+    movzbl	sO + 9(%rip), %eax
     andl	$-16, %eax
     orl	%edx, %eax
-    movb	%al, $sO + 9(%rip)
-    movq $sO(%rip), %rax
-    movq $sO + 8(%rip), %rdx
+    movb	%al, sO + 9(%rip)
+    movq	sO(%rip), %rax
+    movq	sO + 8(%rip), %rdx
     movq	%rax, -32(%rbp)
     movq	%rdx, -24(%rbp)
     movl	-48(%rbp), %eax
@@ -6271,53 +6313,53 @@ L339:
     movl	-20(%rbp), %eax
     shrl	$3, %eax
     movl	%eax, %ecx
-    movzbl $sO + 12(%rip), %eax
+    movzbl	sO + 12(%rip), %eax
     shrb	$3, %al
     movzbl	%al, %eax
-    movzbl $sO + 13(%rip), %edx
+    movzbl	sO + 13(%rip), %edx
     salq	$5, %rdx
     orq	%rax, %rdx
-    movzbl $sO + 14(%rip), %eax
+    movzbl	sO + 14(%rip), %eax
     salq	$13, %rax
     orq	%rax, %rdx
-    movzbl $sO + 15(%rip), %eax
+    movzbl	sO + 15(%rip), %eax
     salq	$21, %rax
     orq	%rdx, %rax
     cmpl	%eax, %ecx
-    jne	L340
+    jne	L346
     movq	-24(%rbp), %rax
     shrq	$12, %rax
     movl	%eax, %ecx
     andl	$8388607, %ecx
-    movzbl $sO + 9(%rip), %eax
+    movzbl	sO + 9(%rip), %eax
     shrb	$4, %al
     movzbl	%al, %eax
-    movzbl $sO + 10(%rip), %edx
+    movzbl	sO + 10(%rip), %edx
     salq	$4, %rdx
     orq	%rax, %rdx
-    movzbl $sO + 11(%rip), %eax
+    movzbl	sO + 11(%rip), %eax
     salq	$12, %rax
     orq	%rax, %rdx
-    movzbl $sO + 12(%rip), %eax
+    movzbl	sO + 12(%rip), %eax
     andl	$7, %eax
     salq	$20, %rax
     orq	%rdx, %rax
     cmpl	%eax, %ecx
-    jne	L340
+    jne	L346
     movzwl	-24(%rbp), %eax
     andw	$4095, %ax
     movl	%eax, %ecx
-    movzbl $sO + 8(%rip), %eax
-    movzbl $sO + 9(%rip), %edx
+    movzbl	sO + 8(%rip), %eax
+    movzbl	sO + 9(%rip), %edx
     andl	$15, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L340
+    jne	L346
     movq	-32(%rbp), %rdx
-    movq $sO(%rip), %rax
+    movq	sO(%rip), %rax
     cmpq	%rax, %rdx
-    jne	L340
+    jne	L346
     movl	-52(%rbp), %edx
     movl	-48(%rbp), %eax
     addl	%edx, %eax
@@ -6335,10 +6377,10 @@ L339:
     subl	%edx, %eax
     andl	-56(%rbp), %eax
     cmpl	-44(%rbp), %eax
-    je	L341
-L340:
+    je	L347
+L346:
     call	abort
-L341:
+L347:
     call	myrnd
     movl	%eax, -52(%rbp)
     call	myrnd
@@ -6347,21 +6389,21 @@ L341:
     andw	$4095, %ax
     movzwl	%ax, %edx
     movzbl	%dl, %ecx
-    movzbl $sO + 8(%rip), %edx
+    movzbl	sO + 8(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sO + 8(%rip)
+    movb	%dl, sO + 8(%rip)
     shrw	$8, %ax
     movzwl	%ax, %eax
     andl	$15, %eax
     movl	%eax, %edx
     andl	$15, %edx
-    movzbl $sO + 9(%rip), %eax
+    movzbl	sO + 9(%rip), %eax
     andl	$-16, %eax
     orl	%edx, %eax
-    movb	%al, $sO + 9(%rip)
-    movq $sO(%rip), %rax
-    movq $sO + 8(%rip), %rdx
+    movb	%al, sO + 9(%rip)
+    movq	sO(%rip), %rax
+    movq	sO + 8(%rip), %rdx
     movq	%rax, -32(%rbp)
     movq	%rdx, -24(%rbp)
     movl	-48(%rbp), %eax
@@ -6371,60 +6413,60 @@ L341:
     movl	-20(%rbp), %eax
     shrl	$3, %eax
     movl	%eax, %ecx
-    movzbl $sO + 12(%rip), %eax
+    movzbl	sO + 12(%rip), %eax
     shrb	$3, %al
     movzbl	%al, %eax
-    movzbl $sO + 13(%rip), %edx
+    movzbl	sO + 13(%rip), %edx
     salq	$5, %rdx
     orq	%rax, %rdx
-    movzbl $sO + 14(%rip), %eax
+    movzbl	sO + 14(%rip), %eax
     salq	$13, %rax
     orq	%rax, %rdx
-    movzbl $sO + 15(%rip), %eax
+    movzbl	sO + 15(%rip), %eax
     salq	$21, %rax
     orq	%rdx, %rax
     cmpl	%eax, %ecx
-    jne	L342
+    jne	L348
     movq	-24(%rbp), %rax
     shrq	$12, %rax
     movl	%eax, %ecx
     andl	$8388607, %ecx
-    movzbl $sO + 9(%rip), %eax
+    movzbl	sO + 9(%rip), %eax
     shrb	$4, %al
     movzbl	%al, %eax
-    movzbl $sO + 10(%rip), %edx
+    movzbl	sO + 10(%rip), %edx
     salq	$4, %rdx
     orq	%rax, %rdx
-    movzbl $sO + 11(%rip), %eax
+    movzbl	sO + 11(%rip), %eax
     salq	$12, %rax
     orq	%rax, %rdx
-    movzbl $sO + 12(%rip), %eax
+    movzbl	sO + 12(%rip), %eax
     andl	$7, %eax
     salq	$20, %rax
     orq	%rdx, %rax
     cmpl	%eax, %ecx
-    jne	L342
-    movzbl $sO + 8(%rip), %eax
-    movzbl $sO + 9(%rip), %edx
+    jne	L348
+    movzbl	sO + 8(%rip), %eax
+    movzbl	sO + 9(%rip), %edx
     andl	$15, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
     movzwl	%ax, %eax
     cmpl	-44(%rbp), %eax
-    jne	L342
+    jne	L348
     movq	-32(%rbp), %rdx
-    movq $sO(%rip), %rax
+    movq	sO(%rip), %rax
     cmpq	%rax, %rdx
-    jne	L342
+    jne	L348
     movl	-52(%rbp), %edx
     movl	-48(%rbp), %eax
     addl	%edx, %eax
     andl	-56(%rbp), %eax
     cmpl	-44(%rbp), %eax
-    je	L344
-L342:
+    je	L350
+L348:
     call	abort
-L344:
+L350:
     nop
     addq	$56, %rsp
     popq	%rbx
@@ -6450,8 +6492,8 @@ fn1P:
     movq	%rsp, %rbp
     subq	$32, %rsp
     movl	%edi, -20(%rbp)
-    movq $sP(%rip), %rax
-    movq $sP + 8(%rip), %rdx
+    movq	sP(%rip), %rax
+    movq	sP + 8(%rip), %rdx
     movq	%rax, -16(%rbp)
     movq	%rdx, -8(%rbp)
     movzwl	-16(%rbp), %eax
@@ -6483,8 +6525,8 @@ fn2P:
     pushq	%rbp
     movq	%rsp, %rbp
     movl	%edi, -20(%rbp)
-    movq $sP(%rip), %rax
-    movq $sP + 8(%rip), %rdx
+    movq	sP(%rip), %rax
+    movq	sP + 8(%rip), %rdx
     movq	%rax, -16(%rbp)
     movq	%rdx, -8(%rbp)
     movzwl	-16(%rbp), %eax
@@ -6533,8 +6575,8 @@ fn2P:
 retitP:
     pushq	%rbp
     movq	%rsp, %rbp
-    movzbl $sP(%rip), %eax
-    movzbl $sP + 1(%rip), %edx
+    movzbl	sP(%rip), %eax
+    movzbl	sP + 1(%rip), %edx
     andl	$15, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
@@ -6547,8 +6589,8 @@ fn3P:
     movq	%rsp, %rbp
     subq	$8, %rsp
     movl	%edi, -4(%rbp)
-    movzbl $sP(%rip), %eax
-    movzbl $sP + 1(%rip), %edx
+    movzbl	sP(%rip), %eax
+    movzbl	sP + 1(%rip), %edx
     andl	$15, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
@@ -6558,19 +6600,19 @@ fn3P:
     andw	$4095, %ax
     movzwl	%ax, %edx
     movzbl	%dl, %ecx
-    movzbl $sP(%rip), %edx
+    movzbl	sP(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sP(%rip)
+    movb	%dl, sP(%rip)
     shrw	$8, %ax
     movzwl	%ax, %eax
     andl	$15, %eax
     movl	%eax, %edx
     andl	$15, %edx
-    movzbl $sP + 1(%rip), %eax
+    movzbl	sP + 1(%rip), %eax
     andl	$-16, %eax
     orl	%edx, %eax
-    movb	%al, $sP + 1(%rip)
+    movb	%al, sP + 1(%rip)
     call	retitP
     leave
     ret
@@ -6582,26 +6624,26 @@ testP:
     subq	$56, %rsp
     movq	$sP, -40(%rbp)
     movl	$0, -60(%rbp)
-    jmp	L356
-L357:
+    jmp	L362
+L363:
     movq	-40(%rbp), %rbx
     leaq	1(%rbx), %rax
     movq	%rax, -40(%rbp)
     call	myrnd
     movb	%al, (%rbx)
     addl	$1, -60(%rbp)
-L356:
+L362:
     movl	-60(%rbp), %eax
     cmpl	$15, %eax
-    jbe	L357
-    movzbl $sP(%rip), %eax
+    jbe	L363
+    movzbl	sP(%rip), %eax
     orl	$-1, %eax
-    movb	%al, $sP(%rip)
-    movzbl $sP + 1(%rip), %eax
+    movb	%al, sP(%rip)
+    movzbl	sP + 1(%rip), %eax
     orl	$15, %eax
-    movb	%al, $sP + 1(%rip)
-    movzbl $sP(%rip), %eax
-    movzbl $sP + 1(%rip), %edx
+    movb	%al, sP + 1(%rip)
+    movzbl	sP(%rip), %eax
+    movzbl	sP + 1(%rip), %edx
     andl	$15, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
@@ -6615,21 +6657,21 @@ L356:
     andw	$4095, %ax
     movzwl	%ax, %edx
     movzbl	%dl, %ecx
-    movzbl $sP(%rip), %edx
+    movzbl	sP(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sP(%rip)
+    movb	%dl, sP(%rip)
     shrw	$8, %ax
     movzwl	%ax, %eax
     andl	$15, %eax
     movl	%eax, %edx
     andl	$15, %edx
-    movzbl $sP + 1(%rip), %eax
+    movzbl	sP + 1(%rip), %eax
     andl	$-16, %eax
     orl	%edx, %eax
-    movb	%al, $sP + 1(%rip)
-    movq $sP(%rip), %rax
-    movq $sP + 8(%rip), %rdx
+    movb	%al, sP + 1(%rip)
+    movq	sP(%rip), %rax
+    movq	sP + 8(%rip), %rdx
     movq	%rax, -32(%rbp)
     movq	%rdx, -24(%rbp)
     movl	-48(%rbp), %eax
@@ -6639,62 +6681,62 @@ L356:
     movl	-28(%rbp), %eax
     shrl	$3, %eax
     movl	%eax, %ecx
-    movzbl $sP + 4(%rip), %eax
+    movzbl	sP + 4(%rip), %eax
     shrb	$3, %al
     movzbl	%al, %eax
-    movzbl $sP + 5(%rip), %edx
+    movzbl	sP + 5(%rip), %edx
     salq	$5, %rdx
     orq	%rax, %rdx
-    movzbl $sP + 6(%rip), %eax
+    movzbl	sP + 6(%rip), %eax
     salq	$13, %rax
     orq	%rax, %rdx
-    movzbl $sP + 7(%rip), %eax
+    movzbl	sP + 7(%rip), %eax
     salq	$21, %rax
     orq	%rdx, %rax
     cmpl	%eax, %ecx
-    jne	L358
+    jne	L364
     movq	-32(%rbp), %rax
     shrq	$12, %rax
     movl	%eax, %ecx
     andl	$8388607, %ecx
-    movzbl $sP + 1(%rip), %eax
+    movzbl	sP + 1(%rip), %eax
     shrb	$4, %al
     movzbl	%al, %eax
-    movzbl $sP + 2(%rip), %edx
+    movzbl	sP + 2(%rip), %edx
     salq	$4, %rdx
     orq	%rax, %rdx
-    movzbl $sP + 3(%rip), %eax
+    movzbl	sP + 3(%rip), %eax
     salq	$12, %rax
     orq	%rax, %rdx
-    movzbl $sP + 4(%rip), %eax
+    movzbl	sP + 4(%rip), %eax
     andl	$7, %eax
     salq	$20, %rax
     orq	%rdx, %rax
     cmpl	%eax, %ecx
-    jne	L358
+    jne	L364
     movzwl	-32(%rbp), %eax
     andw	$4095, %ax
     movl	%eax, %ecx
-    movzbl $sP(%rip), %eax
-    movzbl $sP + 1(%rip), %edx
+    movzbl	sP(%rip), %eax
+    movzbl	sP + 1(%rip), %edx
     andl	$15, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L358
+    jne	L364
     movq	-24(%rbp), %rdx
-    movq $sP + 8(%rip), %rax
+    movq	sP + 8(%rip), %rax
     cmpq	%rax, %rdx
-    jne	L358
+    jne	L364
     movl	-52(%rbp), %edx
     movl	-48(%rbp), %eax
     addl	%edx, %eax
     andl	-56(%rbp), %eax
     cmpl	-44(%rbp), %eax
-    je	L359
-L358:
+    je	L365
+L364:
     call	abort
-L359:
+L365:
     call	myrnd
     movl	%eax, -52(%rbp)
     call	myrnd
@@ -6703,21 +6745,21 @@ L359:
     andw	$4095, %ax
     movzwl	%ax, %edx
     movzbl	%dl, %ecx
-    movzbl $sP(%rip), %edx
+    movzbl	sP(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sP(%rip)
+    movb	%dl, sP(%rip)
     shrw	$8, %ax
     movzwl	%ax, %eax
     andl	$15, %eax
     movl	%eax, %edx
     andl	$15, %edx
-    movzbl $sP + 1(%rip), %eax
+    movzbl	sP + 1(%rip), %eax
     andl	$-16, %eax
     orl	%edx, %eax
-    movb	%al, $sP + 1(%rip)
-    movq $sP(%rip), %rax
-    movq $sP + 8(%rip), %rdx
+    movb	%al, sP + 1(%rip)
+    movq	sP(%rip), %rax
+    movq	sP + 8(%rip), %rdx
     movq	%rax, -32(%rbp)
     movq	%rdx, -24(%rbp)
     movl	-48(%rbp), %eax
@@ -6727,53 +6769,53 @@ L359:
     movl	-28(%rbp), %eax
     shrl	$3, %eax
     movl	%eax, %ecx
-    movzbl $sP + 4(%rip), %eax
+    movzbl	sP + 4(%rip), %eax
     shrb	$3, %al
     movzbl	%al, %eax
-    movzbl $sP + 5(%rip), %edx
+    movzbl	sP + 5(%rip), %edx
     salq	$5, %rdx
     orq	%rax, %rdx
-    movzbl $sP + 6(%rip), %eax
+    movzbl	sP + 6(%rip), %eax
     salq	$13, %rax
     orq	%rax, %rdx
-    movzbl $sP + 7(%rip), %eax
+    movzbl	sP + 7(%rip), %eax
     salq	$21, %rax
     orq	%rdx, %rax
     cmpl	%eax, %ecx
-    jne	L360
+    jne	L366
     movq	-32(%rbp), %rax
     shrq	$12, %rax
     movl	%eax, %ecx
     andl	$8388607, %ecx
-    movzbl $sP + 1(%rip), %eax
+    movzbl	sP + 1(%rip), %eax
     shrb	$4, %al
     movzbl	%al, %eax
-    movzbl $sP + 2(%rip), %edx
+    movzbl	sP + 2(%rip), %edx
     salq	$4, %rdx
     orq	%rax, %rdx
-    movzbl $sP + 3(%rip), %eax
+    movzbl	sP + 3(%rip), %eax
     salq	$12, %rax
     orq	%rax, %rdx
-    movzbl $sP + 4(%rip), %eax
+    movzbl	sP + 4(%rip), %eax
     andl	$7, %eax
     salq	$20, %rax
     orq	%rdx, %rax
     cmpl	%eax, %ecx
-    jne	L360
+    jne	L366
     movzwl	-32(%rbp), %eax
     andw	$4095, %ax
     movl	%eax, %ecx
-    movzbl $sP(%rip), %eax
-    movzbl $sP + 1(%rip), %edx
+    movzbl	sP(%rip), %eax
+    movzbl	sP + 1(%rip), %edx
     andl	$15, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L360
+    jne	L366
     movq	-24(%rbp), %rdx
-    movq $sP + 8(%rip), %rax
+    movq	sP + 8(%rip), %rax
     cmpq	%rax, %rdx
-    jne	L360
+    jne	L366
     movl	-52(%rbp), %edx
     movl	-48(%rbp), %eax
     addl	%edx, %eax
@@ -6791,10 +6833,10 @@ L359:
     subl	%edx, %eax
     andl	-56(%rbp), %eax
     cmpl	-44(%rbp), %eax
-    je	L361
-L360:
+    je	L367
+L366:
     call	abort
-L361:
+L367:
     call	myrnd
     movl	%eax, -52(%rbp)
     call	myrnd
@@ -6803,21 +6845,21 @@ L361:
     andw	$4095, %ax
     movzwl	%ax, %edx
     movzbl	%dl, %ecx
-    movzbl $sP(%rip), %edx
+    movzbl	sP(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sP(%rip)
+    movb	%dl, sP(%rip)
     shrw	$8, %ax
     movzwl	%ax, %eax
     andl	$15, %eax
     movl	%eax, %edx
     andl	$15, %edx
-    movzbl $sP + 1(%rip), %eax
+    movzbl	sP + 1(%rip), %eax
     andl	$-16, %eax
     orl	%edx, %eax
-    movb	%al, $sP + 1(%rip)
-    movq $sP(%rip), %rax
-    movq $sP + 8(%rip), %rdx
+    movb	%al, sP + 1(%rip)
+    movq	sP(%rip), %rax
+    movq	sP + 8(%rip), %rdx
     movq	%rax, -32(%rbp)
     movq	%rdx, -24(%rbp)
     movl	-48(%rbp), %eax
@@ -6827,60 +6869,60 @@ L361:
     movl	-28(%rbp), %eax
     shrl	$3, %eax
     movl	%eax, %ecx
-    movzbl $sP + 4(%rip), %eax
+    movzbl	sP + 4(%rip), %eax
     shrb	$3, %al
     movzbl	%al, %eax
-    movzbl $sP + 5(%rip), %edx
+    movzbl	sP + 5(%rip), %edx
     salq	$5, %rdx
     orq	%rax, %rdx
-    movzbl $sP + 6(%rip), %eax
+    movzbl	sP + 6(%rip), %eax
     salq	$13, %rax
     orq	%rax, %rdx
-    movzbl $sP + 7(%rip), %eax
+    movzbl	sP + 7(%rip), %eax
     salq	$21, %rax
     orq	%rdx, %rax
     cmpl	%eax, %ecx
-    jne	L362
+    jne	L368
     movq	-32(%rbp), %rax
     shrq	$12, %rax
     movl	%eax, %ecx
     andl	$8388607, %ecx
-    movzbl $sP + 1(%rip), %eax
+    movzbl	sP + 1(%rip), %eax
     shrb	$4, %al
     movzbl	%al, %eax
-    movzbl $sP + 2(%rip), %edx
+    movzbl	sP + 2(%rip), %edx
     salq	$4, %rdx
     orq	%rax, %rdx
-    movzbl $sP + 3(%rip), %eax
+    movzbl	sP + 3(%rip), %eax
     salq	$12, %rax
     orq	%rax, %rdx
-    movzbl $sP + 4(%rip), %eax
+    movzbl	sP + 4(%rip), %eax
     andl	$7, %eax
     salq	$20, %rax
     orq	%rdx, %rax
     cmpl	%eax, %ecx
-    jne	L362
-    movzbl $sP(%rip), %eax
-    movzbl $sP + 1(%rip), %edx
+    jne	L368
+    movzbl	sP(%rip), %eax
+    movzbl	sP + 1(%rip), %edx
     andl	$15, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
     movzwl	%ax, %eax
     cmpl	-44(%rbp), %eax
-    jne	L362
+    jne	L368
     movq	-24(%rbp), %rdx
-    movq $sP + 8(%rip), %rax
+    movq	sP + 8(%rip), %rax
     cmpq	%rax, %rdx
-    jne	L362
+    jne	L368
     movl	-52(%rbp), %edx
     movl	-48(%rbp), %eax
     addl	%edx, %eax
     andl	-56(%rbp), %eax
     cmpl	-44(%rbp), %eax
-    je	L364
-L362:
+    je	L370
+L368:
     call	abort
-L364:
+L370:
     nop
     addq	$56, %rsp
     popq	%rbx
@@ -6909,9 +6951,9 @@ fn1Q:
     movq	$40, %rax
     movq	%rax, -8(%rbp)
     xorl	%eax, %eax
-    movq $sQ(%rip), %rax
+    movq	sQ(%rip), %rax
     movq	%rax, -32(%rbp)
-    movzwl $sQ + 8(%rip), %eax
+    movzwl	sQ + 8(%rip), %eax
     movw	%ax, -24(%rbp)
     movzwl	-32(%rbp), %eax
     andw	$4095, %ax
@@ -6940,9 +6982,9 @@ fn1Q:
     movzwl	%ax, %eax
     movq	-8(%rbp), %rsi
     xorq	$40, %rsi
-    je	L369
+    je	L375
     call	__stack_chk_fail
-L369:
+L375:
     leave
     ret
     .globl	fn2Q
@@ -6950,9 +6992,9 @@ fn2Q:
     pushq	%rbp
     movq	%rsp, %rbp
     movl	%edi, -20(%rbp)
-    movq $sQ(%rip), %rax
+    movq	sQ(%rip), %rax
     movq	%rax, -16(%rbp)
-    movzwl $sQ + 8(%rip), %eax
+    movzwl	sQ + 8(%rip), %eax
     movw	%ax, -8(%rbp)
     movzwl	-16(%rbp), %eax
     andw	$4095, %ax
@@ -7000,8 +7042,8 @@ fn2Q:
 retitQ:
     pushq	%rbp
     movq	%rsp, %rbp
-    movzbl $sQ(%rip), %eax
-    movzbl $sQ + 1(%rip), %edx
+    movzbl	sQ(%rip), %eax
+    movzbl	sQ + 1(%rip), %edx
     andl	$15, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
@@ -7014,8 +7056,8 @@ fn3Q:
     movq	%rsp, %rbp
     subq	$8, %rsp
     movl	%edi, -4(%rbp)
-    movzbl $sQ(%rip), %eax
-    movzbl $sQ + 1(%rip), %edx
+    movzbl	sQ(%rip), %eax
+    movzbl	sQ + 1(%rip), %edx
     andl	$15, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
@@ -7025,19 +7067,19 @@ fn3Q:
     andw	$4095, %ax
     movzwl	%ax, %edx
     movzbl	%dl, %ecx
-    movzbl $sQ(%rip), %edx
+    movzbl	sQ(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sQ(%rip)
+    movb	%dl, sQ(%rip)
     shrw	$8, %ax
     movzwl	%ax, %eax
     andl	$15, %eax
     movl	%eax, %edx
     andl	$15, %edx
-    movzbl $sQ + 1(%rip), %eax
+    movzbl	sQ + 1(%rip), %eax
     andl	$-16, %eax
     orl	%edx, %eax
-    movb	%al, $sQ + 1(%rip)
+    movb	%al, sQ + 1(%rip)
     call	retitQ
     leave
     ret
@@ -7049,26 +7091,26 @@ testQ:
     subq	$56, %rsp
     movq	$sQ, -40(%rbp)
     movl	$0, -60(%rbp)
-    jmp	L377
-L378:
+    jmp	L383
+L384:
     movq	-40(%rbp), %rbx
     leaq	1(%rbx), %rax
     movq	%rax, -40(%rbp)
     call	myrnd
     movb	%al, (%rbx)
     addl	$1, -60(%rbp)
-L377:
+L383:
     movl	-60(%rbp), %eax
     cmpl	$9, %eax
-    jbe	L378
-    movzbl $sQ(%rip), %eax
+    jbe	L384
+    movzbl	sQ(%rip), %eax
     orl	$-1, %eax
-    movb	%al, $sQ(%rip)
-    movzbl $sQ + 1(%rip), %eax
+    movb	%al, sQ(%rip)
+    movzbl	sQ + 1(%rip), %eax
     orl	$15, %eax
-    movb	%al, $sQ + 1(%rip)
-    movzbl $sQ(%rip), %eax
-    movzbl $sQ + 1(%rip), %edx
+    movb	%al, sQ + 1(%rip)
+    movzbl	sQ(%rip), %eax
+    movzbl	sQ + 1(%rip), %edx
     andl	$15, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
@@ -7082,22 +7124,22 @@ L377:
     andw	$4095, %ax
     movzwl	%ax, %edx
     movzbl	%dl, %ecx
-    movzbl $sQ(%rip), %edx
+    movzbl	sQ(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sQ(%rip)
+    movb	%dl, sQ(%rip)
     shrw	$8, %ax
     movzwl	%ax, %eax
     andl	$15, %eax
     movl	%eax, %edx
     andl	$15, %edx
-    movzbl $sQ + 1(%rip), %eax
+    movzbl	sQ + 1(%rip), %eax
     andl	$-16, %eax
     orl	%edx, %eax
-    movb	%al, $sQ + 1(%rip)
-    movq $sQ(%rip), %rax
+    movb	%al, sQ + 1(%rip)
+    movq	sQ(%rip), %rax
     movq	%rax, -32(%rbp)
-    movzwl $sQ + 8(%rip), %eax
+    movzwl	sQ + 8(%rip), %eax
     movw	%ax, -24(%rbp)
     movl	-48(%rbp), %eax
     movl	%eax, %edi
@@ -7106,42 +7148,42 @@ L377:
     movzbl	-31(%rbp), %eax
     shrb	$5, %al
     movl	%eax, %edx
-    movzbl $sQ + 1(%rip), %eax
+    movzbl	sQ + 1(%rip), %eax
     shrb	$5, %al
     cmpb	%al, %dl
-    jne	L379
+    jne	L385
     movzbl	-31(%rbp), %eax
     shrb	$4, %al
     movl	%eax, %edx
     andl	$1, %edx
-    movzbl $sQ + 1(%rip), %eax
+    movzbl	sQ + 1(%rip), %eax
     shrb	$4, %al
     andl	$1, %eax
     cmpb	%al, %dl
-    jne	L379
+    jne	L385
     movzwl	-32(%rbp), %eax
     andw	$4095, %ax
     movl	%eax, %ecx
-    movzbl $sQ(%rip), %eax
-    movzbl $sQ + 1(%rip), %edx
+    movzbl	sQ(%rip), %eax
+    movzbl	sQ + 1(%rip), %edx
     andl	$15, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L379
+    jne	L385
     movq	-30(%rbp), %rdx
-    movq $sQ + 2(%rip), %rax
+    movq	sQ + 2(%rip), %rax
     cmpq	%rax, %rdx
-    jne	L379
+    jne	L385
     movl	-52(%rbp), %edx
     movl	-48(%rbp), %eax
     addl	%edx, %eax
     andl	-56(%rbp), %eax
     cmpl	-44(%rbp), %eax
-    je	L380
-L379:
+    je	L386
+L385:
     call	abort
-L380:
+L386:
     call	myrnd
     movl	%eax, -52(%rbp)
     call	myrnd
@@ -7150,22 +7192,22 @@ L380:
     andw	$4095, %ax
     movzwl	%ax, %edx
     movzbl	%dl, %ecx
-    movzbl $sQ(%rip), %edx
+    movzbl	sQ(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sQ(%rip)
+    movb	%dl, sQ(%rip)
     shrw	$8, %ax
     movzwl	%ax, %eax
     andl	$15, %eax
     movl	%eax, %edx
     andl	$15, %edx
-    movzbl $sQ + 1(%rip), %eax
+    movzbl	sQ + 1(%rip), %eax
     andl	$-16, %eax
     orl	%edx, %eax
-    movb	%al, $sQ + 1(%rip)
-    movq $sQ(%rip), %rax
+    movb	%al, sQ + 1(%rip)
+    movq	sQ(%rip), %rax
     movq	%rax, -32(%rbp)
-    movzwl $sQ + 8(%rip), %eax
+    movzwl	sQ + 8(%rip), %eax
     movw	%ax, -24(%rbp)
     movl	-48(%rbp), %eax
     movl	%eax, %edi
@@ -7174,33 +7216,33 @@ L380:
     movzbl	-31(%rbp), %eax
     shrb	$5, %al
     movl	%eax, %edx
-    movzbl $sQ + 1(%rip), %eax
+    movzbl	sQ + 1(%rip), %eax
     shrb	$5, %al
     cmpb	%al, %dl
-    jne	L381
+    jne	L387
     movzbl	-31(%rbp), %eax
     shrb	$4, %al
     movl	%eax, %edx
     andl	$1, %edx
-    movzbl $sQ + 1(%rip), %eax
+    movzbl	sQ + 1(%rip), %eax
     shrb	$4, %al
     andl	$1, %eax
     cmpb	%al, %dl
-    jne	L381
+    jne	L387
     movzwl	-32(%rbp), %eax
     andw	$4095, %ax
     movl	%eax, %ecx
-    movzbl $sQ(%rip), %eax
-    movzbl $sQ + 1(%rip), %edx
+    movzbl	sQ(%rip), %eax
+    movzbl	sQ + 1(%rip), %edx
     andl	$15, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L381
+    jne	L387
     movq	-30(%rbp), %rdx
-    movq $sQ + 2(%rip), %rax
+    movq	sQ + 2(%rip), %rax
     cmpq	%rax, %rdx
-    jne	L381
+    jne	L387
     movl	-52(%rbp), %edx
     movl	-48(%rbp), %eax
     addl	%edx, %eax
@@ -7218,10 +7260,10 @@ L380:
     subl	%edx, %eax
     andl	-56(%rbp), %eax
     cmpl	-44(%rbp), %eax
-    je	L382
-L381:
+    je	L388
+L387:
     call	abort
-L382:
+L388:
     call	myrnd
     movl	%eax, -52(%rbp)
     call	myrnd
@@ -7230,22 +7272,22 @@ L382:
     andw	$4095, %ax
     movzwl	%ax, %edx
     movzbl	%dl, %ecx
-    movzbl $sQ(%rip), %edx
+    movzbl	sQ(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sQ(%rip)
+    movb	%dl, sQ(%rip)
     shrw	$8, %ax
     movzwl	%ax, %eax
     andl	$15, %eax
     movl	%eax, %edx
     andl	$15, %edx
-    movzbl $sQ + 1(%rip), %eax
+    movzbl	sQ + 1(%rip), %eax
     andl	$-16, %eax
     orl	%edx, %eax
-    movb	%al, $sQ + 1(%rip)
-    movq $sQ(%rip), %rax
+    movb	%al, sQ + 1(%rip)
+    movq	sQ(%rip), %rax
     movq	%rax, -32(%rbp)
-    movzwl $sQ + 8(%rip), %eax
+    movzwl	sQ + 8(%rip), %eax
     movw	%ax, -24(%rbp)
     movl	-48(%rbp), %eax
     movl	%eax, %edi
@@ -7254,40 +7296,40 @@ L382:
     movzbl	-31(%rbp), %eax
     shrb	$5, %al
     movl	%eax, %edx
-    movzbl $sQ + 1(%rip), %eax
+    movzbl	sQ + 1(%rip), %eax
     shrb	$5, %al
     cmpb	%al, %dl
-    jne	L383
+    jne	L389
     movzbl	-31(%rbp), %eax
     shrb	$4, %al
     movl	%eax, %edx
     andl	$1, %edx
-    movzbl $sQ + 1(%rip), %eax
+    movzbl	sQ + 1(%rip), %eax
     shrb	$4, %al
     andl	$1, %eax
     cmpb	%al, %dl
-    jne	L383
-    movzbl $sQ(%rip), %eax
-    movzbl $sQ + 1(%rip), %edx
+    jne	L389
+    movzbl	sQ(%rip), %eax
+    movzbl	sQ + 1(%rip), %edx
     andl	$15, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
     movzwl	%ax, %eax
     cmpl	-44(%rbp), %eax
-    jne	L383
+    jne	L389
     movq	-30(%rbp), %rdx
-    movq $sQ + 2(%rip), %rax
+    movq	sQ + 2(%rip), %rax
     cmpq	%rax, %rdx
-    jne	L383
+    jne	L389
     movl	-52(%rbp), %edx
     movl	-48(%rbp), %eax
     addl	%edx, %eax
     andl	-56(%rbp), %eax
     cmpl	-44(%rbp), %eax
-    je	L385
-L383:
+    je	L391
+L389:
     call	abort
-L385:
+L391:
     nop
     addq	$56, %rsp
     popq	%rbx
@@ -7316,9 +7358,9 @@ fn1R:
     movq	$40, %rax
     movq	%rax, -8(%rbp)
     xorl	%eax, %eax
-    movq $sR(%rip), %rax
+    movq	sR(%rip), %rax
     movq	%rax, -32(%rbp)
-    movzwl $sR + 8(%rip), %eax
+    movzwl	sR + 8(%rip), %eax
     movw	%ax, -24(%rbp)
     movzbl	-32(%rbp), %eax
     andl	$3, %eax
@@ -7347,9 +7389,9 @@ fn1R:
     movzbl	%al, %eax
     movq	-8(%rbp), %rsi
     xorq	$40, %rsi
-    je	L390
+    je	L396
     call	__stack_chk_fail
-L390:
+L396:
     leave
     ret
     .globl	fn2R
@@ -7357,9 +7399,9 @@ fn2R:
     pushq	%rbp
     movq	%rsp, %rbp
     movl	%edi, -20(%rbp)
-    movq $sR(%rip), %rax
+    movq	sR(%rip), %rax
     movq	%rax, -16(%rbp)
-    movzwl $sR + 8(%rip), %eax
+    movzwl	sR + 8(%rip), %eax
     movw	%ax, -8(%rbp)
     movzbl	-16(%rbp), %eax
     andl	$3, %eax
@@ -7407,7 +7449,7 @@ fn2R:
 retitR:
     pushq	%rbp
     movq	%rsp, %rbp
-    movzbl $sR(%rip), %eax
+    movzbl	sR(%rip), %eax
     andl	$3, %eax
     movzbl	%al, %eax
     popq	%rbp
@@ -7418,7 +7460,7 @@ fn3R:
     movq	%rsp, %rbp
     subq	$8, %rsp
     movl	%edi, -4(%rbp)
-    movzbl $sR(%rip), %eax
+    movzbl	sR(%rip), %eax
     andl	$3, %eax
     movl	%eax, %edx
     movl	-4(%rbp), %eax
@@ -7426,10 +7468,10 @@ fn3R:
     andl	$3, %eax
     andl	$3, %eax
     movl	%eax, %edx
-    movzbl $sR(%rip), %eax
+    movzbl	sR(%rip), %eax
     andl	$-4, %eax
     orl	%edx, %eax
-    movb	%al, $sR(%rip)
+    movb	%al, sR(%rip)
     call	retitR
     leave
     ret
@@ -7441,22 +7483,22 @@ testR:
     subq	$56, %rsp
     movq	$sR, -40(%rbp)
     movl	$0, -60(%rbp)
-    jmp	L398
-L399:
+    jmp	L404
+L405:
     movq	-40(%rbp), %rbx
     leaq	1(%rbx), %rax
     movq	%rax, -40(%rbp)
     call	myrnd
     movb	%al, (%rbx)
     addl	$1, -60(%rbp)
-L398:
+L404:
     movl	-60(%rbp), %eax
     cmpl	$9, %eax
-    jbe	L399
-    movzbl $sR(%rip), %eax
+    jbe	L405
+    movzbl	sR(%rip), %eax
     orl	$3, %eax
-    movb	%al, $sR(%rip)
-    movzbl $sR(%rip), %eax
+    movb	%al, sR(%rip)
+    movzbl	sR(%rip), %eax
     andl	$3, %eax
     movzbl	%al, %eax
     movl	%eax, -56(%rbp)
@@ -7468,13 +7510,13 @@ L398:
     andl	$3, %eax
     andl	$3, %eax
     movl	%eax, %edx
-    movzbl $sR(%rip), %eax
+    movzbl	sR(%rip), %eax
     andl	$-4, %eax
     orl	%edx, %eax
-    movb	%al, $sR(%rip)
-    movq $sR(%rip), %rax
+    movb	%al, sR(%rip)
+    movq	sR(%rip), %rax
     movq	%rax, -32(%rbp)
-    movzwl $sR + 8(%rip), %eax
+    movzwl	sR + 8(%rip), %eax
     movw	%ax, -24(%rbp)
     movl	-48(%rbp), %eax
     movl	%eax, %edi
@@ -7483,42 +7525,42 @@ L398:
     movzbl	-31(%rbp), %eax
     shrb	$5, %al
     movl	%eax, %edx
-    movzbl $sR + 1(%rip), %eax
+    movzbl	sR + 1(%rip), %eax
     shrb	$5, %al
     cmpb	%al, %dl
-    jne	L400
+    jne	L406
     movzwl	-32(%rbp), %eax
     shrw	$2, %ax
     andw	$2047, %ax
-    movzbl $sR(%rip), %edx
+    movzbl	sR(%rip), %edx
     shrb	$2, %dl
     movzbl	%dl, %edx
-    movzbl $sR + 1(%rip), %ecx
+    movzbl	sR + 1(%rip), %ecx
     andl	$31, %ecx
     salq	$6, %rcx
     orq	%rcx, %rdx
     cmpw	%dx, %ax
-    jne	L400
+    jne	L406
     movzbl	-32(%rbp), %eax
     andl	$3, %eax
     movl	%eax, %edx
-    movzbl $sR(%rip), %eax
+    movzbl	sR(%rip), %eax
     andl	$3, %eax
     cmpb	%al, %dl
-    jne	L400
+    jne	L406
     movq	-30(%rbp), %rdx
-    movq $sR + 2(%rip), %rax
+    movq	sR + 2(%rip), %rax
     cmpq	%rax, %rdx
-    jne	L400
+    jne	L406
     movl	-52(%rbp), %edx
     movl	-48(%rbp), %eax
     addl	%edx, %eax
     andl	-56(%rbp), %eax
     cmpl	-44(%rbp), %eax
-    je	L401
-L400:
+    je	L407
+L406:
     call	abort
-L401:
+L407:
     call	myrnd
     movl	%eax, -52(%rbp)
     call	myrnd
@@ -7527,13 +7569,13 @@ L401:
     andl	$3, %eax
     andl	$3, %eax
     movl	%eax, %edx
-    movzbl $sR(%rip), %eax
+    movzbl	sR(%rip), %eax
     andl	$-4, %eax
     orl	%edx, %eax
-    movb	%al, $sR(%rip)
-    movq $sR(%rip), %rax
+    movb	%al, sR(%rip)
+    movq	sR(%rip), %rax
     movq	%rax, -32(%rbp)
-    movzwl $sR + 8(%rip), %eax
+    movzwl	sR + 8(%rip), %eax
     movw	%ax, -24(%rbp)
     movl	-48(%rbp), %eax
     movl	%eax, %edi
@@ -7542,33 +7584,33 @@ L401:
     movzbl	-31(%rbp), %eax
     shrb	$5, %al
     movl	%eax, %edx
-    movzbl $sR + 1(%rip), %eax
+    movzbl	sR + 1(%rip), %eax
     shrb	$5, %al
     cmpb	%al, %dl
-    jne	L402
+    jne	L408
     movzwl	-32(%rbp), %eax
     shrw	$2, %ax
     andw	$2047, %ax
-    movzbl $sR(%rip), %edx
+    movzbl	sR(%rip), %edx
     shrb	$2, %dl
     movzbl	%dl, %edx
-    movzbl $sR + 1(%rip), %ecx
+    movzbl	sR + 1(%rip), %ecx
     andl	$31, %ecx
     salq	$6, %rcx
     orq	%rcx, %rdx
     cmpw	%dx, %ax
-    jne	L402
+    jne	L408
     movzbl	-32(%rbp), %eax
     andl	$3, %eax
     movl	%eax, %edx
-    movzbl $sR(%rip), %eax
+    movzbl	sR(%rip), %eax
     andl	$3, %eax
     cmpb	%al, %dl
-    jne	L402
+    jne	L408
     movq	-30(%rbp), %rdx
-    movq $sR + 2(%rip), %rax
+    movq	sR + 2(%rip), %rax
     cmpq	%rax, %rdx
-    jne	L402
+    jne	L408
     movl	-52(%rbp), %edx
     movl	-48(%rbp), %eax
     addl	%edx, %eax
@@ -7586,10 +7628,10 @@ L401:
     subl	%edx, %eax
     andl	-56(%rbp), %eax
     cmpl	-44(%rbp), %eax
-    je	L403
-L402:
+    je	L409
+L408:
     call	abort
-L403:
+L409:
     call	myrnd
     movl	%eax, -52(%rbp)
     call	myrnd
@@ -7598,13 +7640,13 @@ L403:
     andl	$3, %eax
     andl	$3, %eax
     movl	%eax, %edx
-    movzbl $sR(%rip), %eax
+    movzbl	sR(%rip), %eax
     andl	$-4, %eax
     orl	%edx, %eax
-    movb	%al, $sR(%rip)
-    movq $sR(%rip), %rax
+    movb	%al, sR(%rip)
+    movq	sR(%rip), %rax
     movq	%rax, -32(%rbp)
-    movzwl $sR + 8(%rip), %eax
+    movzwl	sR + 8(%rip), %eax
     movw	%ax, -24(%rbp)
     movl	-48(%rbp), %eax
     movl	%eax, %edi
@@ -7613,40 +7655,40 @@ L403:
     movzbl	-31(%rbp), %eax
     shrb	$5, %al
     movl	%eax, %edx
-    movzbl $sR + 1(%rip), %eax
+    movzbl	sR + 1(%rip), %eax
     shrb	$5, %al
     cmpb	%al, %dl
-    jne	L404
+    jne	L410
     movzwl	-32(%rbp), %eax
     shrw	$2, %ax
     andw	$2047, %ax
-    movzbl $sR(%rip), %edx
+    movzbl	sR(%rip), %edx
     shrb	$2, %dl
     movzbl	%dl, %edx
-    movzbl $sR + 1(%rip), %ecx
+    movzbl	sR + 1(%rip), %ecx
     andl	$31, %ecx
     salq	$6, %rcx
     orq	%rcx, %rdx
     cmpw	%dx, %ax
-    jne	L404
-    movzbl $sR(%rip), %eax
+    jne	L410
+    movzbl	sR(%rip), %eax
     andl	$3, %eax
     movzbl	%al, %eax
     cmpl	-44(%rbp), %eax
-    jne	L404
+    jne	L410
     movq	-30(%rbp), %rdx
-    movq $sR + 2(%rip), %rax
+    movq	sR + 2(%rip), %rax
     cmpq	%rax, %rdx
-    jne	L404
+    jne	L410
     movl	-52(%rbp), %edx
     movl	-48(%rbp), %eax
     addl	%edx, %eax
     andl	-56(%rbp), %eax
     cmpl	-44(%rbp), %eax
-    je	L406
-L404:
+    je	L412
+L410:
     call	abort
-L406:
+L412:
     nop
     addq	$56, %rsp
     popq	%rbx
@@ -7675,9 +7717,9 @@ fn1S:
     movq	$40, %rax
     movq	%rax, -8(%rbp)
     xorl	%eax, %eax
-    movq $sS(%rip), %rax
+    movq	sS(%rip), %rax
     movq	%rax, -32(%rbp)
-    movzwl $sS + 8(%rip), %eax
+    movzwl	sS + 8(%rip), %eax
     movw	%ax, -24(%rbp)
     movzbl	-32(%rbp), %eax
     andl	$1, %eax
@@ -7706,9 +7748,9 @@ fn1S:
     movzbl	%al, %eax
     movq	-8(%rbp), %rsi
     xorq	$40, %rsi
-    je	L411
+    je	L417
     call	__stack_chk_fail
-L411:
+L417:
     leave
     ret
     .globl	fn2S
@@ -7716,9 +7758,9 @@ fn2S:
     pushq	%rbp
     movq	%rsp, %rbp
     movl	%edi, -20(%rbp)
-    movq $sS(%rip), %rax
+    movq	sS(%rip), %rax
     movq	%rax, -16(%rbp)
-    movzwl $sS + 8(%rip), %eax
+    movzwl	sS + 8(%rip), %eax
     movw	%ax, -8(%rbp)
     movzbl	-16(%rbp), %eax
     andl	$1, %eax
@@ -7766,7 +7808,7 @@ fn2S:
 retitS:
     pushq	%rbp
     movq	%rsp, %rbp
-    movzbl $sS(%rip), %eax
+    movzbl	sS(%rip), %eax
     andl	$1, %eax
     movzbl	%al, %eax
     popq	%rbp
@@ -7777,7 +7819,7 @@ fn3S:
     movq	%rsp, %rbp
     subq	$8, %rsp
     movl	%edi, -4(%rbp)
-    movzbl $sS(%rip), %eax
+    movzbl	sS(%rip), %eax
     andl	$1, %eax
     movl	%eax, %edx
     movl	-4(%rbp), %eax
@@ -7785,10 +7827,10 @@ fn3S:
     andl	$1, %eax
     andl	$1, %eax
     movl	%eax, %edx
-    movzbl $sS(%rip), %eax
+    movzbl	sS(%rip), %eax
     andl	$-2, %eax
     orl	%edx, %eax
-    movb	%al, $sS(%rip)
+    movb	%al, sS(%rip)
     call	retitS
     leave
     ret
@@ -7800,22 +7842,22 @@ testS:
     subq	$56, %rsp
     movq	$sS, -40(%rbp)
     movl	$0, -60(%rbp)
-    jmp	L419
-L420:
+    jmp	L425
+L426:
     movq	-40(%rbp), %rbx
     leaq	1(%rbx), %rax
     movq	%rax, -40(%rbp)
     call	myrnd
     movb	%al, (%rbx)
     addl	$1, -60(%rbp)
-L419:
+L425:
     movl	-60(%rbp), %eax
     cmpl	$9, %eax
-    jbe	L420
-    movzbl $sS(%rip), %eax
+    jbe	L426
+    movzbl	sS(%rip), %eax
     orl	$1, %eax
-    movb	%al, $sS(%rip)
-    movzbl $sS(%rip), %eax
+    movb	%al, sS(%rip)
+    movzbl	sS(%rip), %eax
     andl	$1, %eax
     movzbl	%al, %eax
     movl	%eax, -56(%rbp)
@@ -7827,13 +7869,13 @@ L419:
     andl	$1, %eax
     andl	$1, %eax
     movl	%eax, %edx
-    movzbl $sS(%rip), %eax
+    movzbl	sS(%rip), %eax
     andl	$-2, %eax
     orl	%edx, %eax
-    movb	%al, $sS(%rip)
-    movq $sS(%rip), %rax
+    movb	%al, sS(%rip)
+    movq	sS(%rip), %rax
     movq	%rax, -32(%rbp)
-    movzwl $sS + 8(%rip), %eax
+    movzwl	sS + 8(%rip), %eax
     movw	%ax, -24(%rbp)
     movl	-48(%rbp), %eax
     movl	%eax, %edi
@@ -7842,43 +7884,43 @@ L419:
     movzwl	-32(%rbp), %eax
     shrw	$7, %ax
     movl	%eax, %ecx
-    movzbl $sS(%rip), %eax
+    movzbl	sS(%rip), %eax
     shrb	$7, %al
     movzbl	%al, %eax
-    movzbl $sS + 1(%rip), %edx
+    movzbl	sS + 1(%rip), %edx
     addq	%rdx, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L421
+    jne	L427
     movzbl	-32(%rbp), %eax
     shrb	%al
     movl	%eax, %edx
     andl	$63, %edx
-    movzbl $sS(%rip), %eax
+    movzbl	sS(%rip), %eax
     shrb	%al
     andl	$63, %eax
     cmpb	%al, %dl
-    jne	L421
+    jne	L427
     movzbl	-32(%rbp), %eax
     andl	$1, %eax
     movl	%eax, %edx
-    movzbl $sS(%rip), %eax
+    movzbl	sS(%rip), %eax
     andl	$1, %eax
     cmpb	%al, %dl
-    jne	L421
+    jne	L427
     movq	-30(%rbp), %rdx
-    movq $sS + 2(%rip), %rax
+    movq	sS + 2(%rip), %rax
     cmpq	%rax, %rdx
-    jne	L421
+    jne	L427
     movl	-52(%rbp), %edx
     movl	-48(%rbp), %eax
     addl	%edx, %eax
     andl	-56(%rbp), %eax
     cmpl	-44(%rbp), %eax
-    je	L422
-L421:
+    je	L428
+L427:
     call	abort
-L422:
+L428:
     call	myrnd
     movl	%eax, -52(%rbp)
     call	myrnd
@@ -7887,13 +7929,13 @@ L422:
     andl	$1, %eax
     andl	$1, %eax
     movl	%eax, %edx
-    movzbl $sS(%rip), %eax
+    movzbl	sS(%rip), %eax
     andl	$-2, %eax
     orl	%edx, %eax
-    movb	%al, $sS(%rip)
-    movq $sS(%rip), %rax
+    movb	%al, sS(%rip)
+    movq	sS(%rip), %rax
     movq	%rax, -32(%rbp)
-    movzwl $sS + 8(%rip), %eax
+    movzwl	sS + 8(%rip), %eax
     movw	%ax, -24(%rbp)
     movl	-48(%rbp), %eax
     movl	%eax, %edi
@@ -7902,34 +7944,34 @@ L422:
     movzwl	-32(%rbp), %eax
     shrw	$7, %ax
     movl	%eax, %ecx
-    movzbl $sS(%rip), %eax
+    movzbl	sS(%rip), %eax
     shrb	$7, %al
     movzbl	%al, %eax
-    movzbl $sS + 1(%rip), %edx
+    movzbl	sS + 1(%rip), %edx
     addq	%rdx, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L423
+    jne	L429
     movzbl	-32(%rbp), %eax
     shrb	%al
     movl	%eax, %edx
     andl	$63, %edx
-    movzbl $sS(%rip), %eax
+    movzbl	sS(%rip), %eax
     shrb	%al
     andl	$63, %eax
     cmpb	%al, %dl
-    jne	L423
+    jne	L429
     movzbl	-32(%rbp), %eax
     andl	$1, %eax
     movl	%eax, %edx
-    movzbl $sS(%rip), %eax
+    movzbl	sS(%rip), %eax
     andl	$1, %eax
     cmpb	%al, %dl
-    jne	L423
+    jne	L429
     movq	-30(%rbp), %rdx
-    movq $sS + 2(%rip), %rax
+    movq	sS + 2(%rip), %rax
     cmpq	%rax, %rdx
-    jne	L423
+    jne	L429
     movl	-52(%rbp), %edx
     movl	-48(%rbp), %eax
     addl	%edx, %eax
@@ -7947,10 +7989,10 @@ L422:
     subl	%edx, %eax
     andl	-56(%rbp), %eax
     cmpl	-44(%rbp), %eax
-    je	L424
-L423:
+    je	L430
+L429:
     call	abort
-L424:
+L430:
     call	myrnd
     movl	%eax, -52(%rbp)
     call	myrnd
@@ -7959,13 +8001,13 @@ L424:
     andl	$1, %eax
     andl	$1, %eax
     movl	%eax, %edx
-    movzbl $sS(%rip), %eax
+    movzbl	sS(%rip), %eax
     andl	$-2, %eax
     orl	%edx, %eax
-    movb	%al, $sS(%rip)
-    movq $sS(%rip), %rax
+    movb	%al, sS(%rip)
+    movq	sS(%rip), %rax
     movq	%rax, -32(%rbp)
-    movzwl $sS + 8(%rip), %eax
+    movzwl	sS + 8(%rip), %eax
     movw	%ax, -24(%rbp)
     movl	-48(%rbp), %eax
     movl	%eax, %edi
@@ -7974,41 +8016,41 @@ L424:
     movzwl	-32(%rbp), %eax
     shrw	$7, %ax
     movl	%eax, %ecx
-    movzbl $sS(%rip), %eax
+    movzbl	sS(%rip), %eax
     shrb	$7, %al
     movzbl	%al, %eax
-    movzbl $sS + 1(%rip), %edx
+    movzbl	sS + 1(%rip), %edx
     addq	%rdx, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L425
+    jne	L431
     movzbl	-32(%rbp), %eax
     shrb	%al
     movl	%eax, %edx
     andl	$63, %edx
-    movzbl $sS(%rip), %eax
+    movzbl	sS(%rip), %eax
     shrb	%al
     andl	$63, %eax
     cmpb	%al, %dl
-    jne	L425
-    movzbl $sS(%rip), %eax
+    jne	L431
+    movzbl	sS(%rip), %eax
     andl	$1, %eax
     movzbl	%al, %eax
     cmpl	-44(%rbp), %eax
-    jne	L425
+    jne	L431
     movq	-30(%rbp), %rdx
-    movq $sS + 2(%rip), %rax
+    movq	sS + 2(%rip), %rax
     cmpq	%rax, %rdx
-    jne	L425
+    jne	L431
     movl	-52(%rbp), %edx
     movl	-48(%rbp), %eax
     addl	%edx, %eax
     andl	-56(%rbp), %eax
     cmpl	-44(%rbp), %eax
-    je	L427
-L425:
+    je	L433
+L431:
     call	abort
-L427:
+L433:
     nop
     addq	$56, %rsp
     popq	%rbx
@@ -8029,7 +8071,7 @@ fn1T:
     movq	%rsp, %rbp
     subq	$32, %rsp
     movl	%edi, -20(%rbp)
-    movl $sT(%rip), %eax
+    movl	sT(%rip), %eax
     movl	%eax, -16(%rbp)
     movzbl	-16(%rbp), %eax
     andl	$1, %eax
@@ -8057,7 +8099,7 @@ fn2T:
     pushq	%rbp
     movq	%rsp, %rbp
     movl	%edi, -20(%rbp)
-    movl $sT(%rip), %eax
+    movl	sT(%rip), %eax
     movl	%eax, -16(%rbp)
     movzbl	-16(%rbp), %eax
     andl	$1, %eax
@@ -8105,7 +8147,7 @@ fn2T:
 retitT:
     pushq	%rbp
     movq	%rsp, %rbp
-    movzbl $sT(%rip), %eax
+    movzbl	sT(%rip), %eax
     andl	$1, %eax
     movzbl	%al, %eax
     popq	%rbp
@@ -8116,7 +8158,7 @@ fn3T:
     movq	%rsp, %rbp
     subq	$8, %rsp
     movl	%edi, -4(%rbp)
-    movzbl $sT(%rip), %eax
+    movzbl	sT(%rip), %eax
     andl	$1, %eax
     movl	%eax, %edx
     movl	-4(%rbp), %eax
@@ -8124,10 +8166,10 @@ fn3T:
     andl	$1, %eax
     andl	$1, %eax
     movl	%eax, %edx
-    movzbl $sT(%rip), %eax
+    movzbl	sT(%rip), %eax
     andl	$-2, %eax
     orl	%edx, %eax
-    movb	%al, $sT(%rip)
+    movb	%al, sT(%rip)
     call	retitT
     leave
     ret
@@ -8139,22 +8181,22 @@ testT:
     subq	$40, %rsp
     movq	$sT, -24(%rbp)
     movl	$0, -44(%rbp)
-    jmp	L439
-L440:
+    jmp	L445
+L446:
     movq	-24(%rbp), %rbx
     leaq	1(%rbx), %rax
     movq	%rax, -24(%rbp)
     call	myrnd
     movb	%al, (%rbx)
     addl	$1, -44(%rbp)
-L439:
+L445:
     movl	-44(%rbp), %eax
     cmpl	$3, %eax
-    jbe	L440
-    movzbl $sT(%rip), %eax
+    jbe	L446
+    movzbl	sT(%rip), %eax
     orl	$1, %eax
-    movb	%al, $sT(%rip)
-    movzbl $sT(%rip), %eax
+    movb	%al, sT(%rip)
+    movzbl	sT(%rip), %eax
     andl	$1, %eax
     movzbl	%al, %eax
     movl	%eax, -40(%rbp)
@@ -8166,11 +8208,11 @@ L439:
     andl	$1, %eax
     andl	$1, %eax
     movl	%eax, %edx
-    movzbl $sT(%rip), %eax
+    movzbl	sT(%rip), %eax
     andl	$-2, %eax
     orl	%edx, %eax
-    movb	%al, $sT(%rip)
-    movl $sT(%rip), %eax
+    movb	%al, sT(%rip)
+    movl	sT(%rip), %eax
     movl	%eax, -48(%rbp)
     movl	-32(%rbp), %eax
     movl	%eax, %edi
@@ -8179,43 +8221,43 @@ L439:
     movzbl	-47(%rbp), %eax
     shrb	%al
     movl	%eax, %edx
-    movzbl $sT + 1(%rip), %eax
+    movzbl	sT + 1(%rip), %eax
     shrb	%al
     cmpb	%al, %dl
-    jne	L441
+    jne	L447
     movzwl	-48(%rbp), %eax
     shrw	%ax
     movl	%eax, %ecx
     andb	$255, %ch
-    movzbl $sT(%rip), %eax
+    movzbl	sT(%rip), %eax
     shrb	%al
     movzbl	%al, %eax
-    movzbl $sT + 1(%rip), %edx
+    movzbl	sT + 1(%rip), %edx
     andl	$1, %edx
     salq	$7, %rdx
     orq	%rdx, %rax
     cmpb	%al, %cl
-    jne	L441
+    jne	L447
     movzbl	-48(%rbp), %eax
     andl	$1, %eax
     movl	%eax, %edx
-    movzbl $sT(%rip), %eax
+    movzbl	sT(%rip), %eax
     andl	$1, %eax
     cmpb	%al, %dl
-    jne	L441
+    jne	L447
     movzwl	-46(%rbp), %edx
-    movzwl $sT + 2(%rip), %eax
+    movzwl	sT + 2(%rip), %eax
     cmpw	%ax, %dx
-    jne	L441
+    jne	L447
     movl	-36(%rbp), %edx
     movl	-32(%rbp), %eax
     addl	%edx, %eax
     andl	-40(%rbp), %eax
     cmpl	-28(%rbp), %eax
-    je	L442
-L441:
+    je	L448
+L447:
     call	abort
-L442:
+L448:
     call	myrnd
     movl	%eax, -36(%rbp)
     call	myrnd
@@ -8224,11 +8266,11 @@ L442:
     andl	$1, %eax
     andl	$1, %eax
     movl	%eax, %edx
-    movzbl $sT(%rip), %eax
+    movzbl	sT(%rip), %eax
     andl	$-2, %eax
     orl	%edx, %eax
-    movb	%al, $sT(%rip)
-    movl $sT(%rip), %eax
+    movb	%al, sT(%rip)
+    movl	sT(%rip), %eax
     movl	%eax, -48(%rbp)
     movl	-32(%rbp), %eax
     movl	%eax, %edi
@@ -8237,34 +8279,34 @@ L442:
     movzbl	-47(%rbp), %eax
     shrb	%al
     movl	%eax, %edx
-    movzbl $sT + 1(%rip), %eax
+    movzbl	sT + 1(%rip), %eax
     shrb	%al
     cmpb	%al, %dl
-    jne	L443
+    jne	L449
     movzwl	-48(%rbp), %eax
     shrw	%ax
     movl	%eax, %ecx
     andb	$255, %ch
-    movzbl $sT(%rip), %eax
+    movzbl	sT(%rip), %eax
     shrb	%al
     movzbl	%al, %eax
-    movzbl $sT + 1(%rip), %edx
+    movzbl	sT + 1(%rip), %edx
     andl	$1, %edx
     salq	$7, %rdx
     orq	%rdx, %rax
     cmpb	%al, %cl
-    jne	L443
+    jne	L449
     movzbl	-48(%rbp), %eax
     andl	$1, %eax
     movl	%eax, %edx
-    movzbl $sT(%rip), %eax
+    movzbl	sT(%rip), %eax
     andl	$1, %eax
     cmpb	%al, %dl
-    jne	L443
+    jne	L449
     movzwl	-46(%rbp), %edx
-    movzwl $sT + 2(%rip), %eax
+    movzwl	sT + 2(%rip), %eax
     cmpw	%ax, %dx
-    jne	L443
+    jne	L449
     movl	-36(%rbp), %edx
     movl	-32(%rbp), %eax
     addl	%edx, %eax
@@ -8282,10 +8324,10 @@ L442:
     subl	%edx, %eax
     andl	-40(%rbp), %eax
     cmpl	-28(%rbp), %eax
-    je	L444
-L443:
+    je	L450
+L449:
     call	abort
-L444:
+L450:
     call	myrnd
     movl	%eax, -36(%rbp)
     call	myrnd
@@ -8294,11 +8336,11 @@ L444:
     andl	$1, %eax
     andl	$1, %eax
     movl	%eax, %edx
-    movzbl $sT(%rip), %eax
+    movzbl	sT(%rip), %eax
     andl	$-2, %eax
     orl	%edx, %eax
-    movb	%al, $sT(%rip)
-    movl $sT(%rip), %eax
+    movb	%al, sT(%rip)
+    movl	sT(%rip), %eax
     movl	%eax, -48(%rbp)
     movl	-32(%rbp), %eax
     movl	%eax, %edi
@@ -8307,41 +8349,41 @@ L444:
     movzbl	-47(%rbp), %eax
     shrb	%al
     movl	%eax, %edx
-    movzbl $sT + 1(%rip), %eax
+    movzbl	sT + 1(%rip), %eax
     shrb	%al
     cmpb	%al, %dl
-    jne	L445
+    jne	L451
     movzwl	-48(%rbp), %eax
     shrw	%ax
     movl	%eax, %ecx
     andb	$255, %ch
-    movzbl $sT(%rip), %eax
+    movzbl	sT(%rip), %eax
     shrb	%al
     movzbl	%al, %eax
-    movzbl $sT + 1(%rip), %edx
+    movzbl	sT + 1(%rip), %edx
     andl	$1, %edx
     salq	$7, %rdx
     orq	%rdx, %rax
     cmpb	%al, %cl
-    jne	L445
-    movzbl $sT(%rip), %eax
+    jne	L451
+    movzbl	sT(%rip), %eax
     andl	$1, %eax
     movzbl	%al, %eax
     cmpl	-28(%rbp), %eax
-    jne	L445
+    jne	L451
     movzwl	-46(%rbp), %edx
-    movzwl $sT + 2(%rip), %eax
+    movzwl	sT + 2(%rip), %eax
     cmpw	%ax, %dx
-    jne	L445
+    jne	L451
     movl	-36(%rbp), %edx
     movl	-32(%rbp), %eax
     addl	%edx, %eax
     andl	-40(%rbp), %eax
     cmpl	-28(%rbp), %eax
-    je	L447
-L445:
+    je	L453
+L451:
     call	abort
-L447:
+L453:
     nop
     addq	$40, %rsp
     popq	%rbx
@@ -8370,9 +8412,9 @@ fn1U:
     movq	$40, %rax
     movq	%rax, -8(%rbp)
     xorl	%eax, %eax
-    movq $sU(%rip), %rax
+    movq	sU(%rip), %rax
     movq	%rax, -32(%rbp)
-    movzwl $sU + 8(%rip), %eax
+    movzwl	sU + 8(%rip), %eax
     movw	%ax, -24(%rbp)
     movzbl	-32(%rbp), %eax
     shrb	$6, %al
@@ -8404,9 +8446,9 @@ fn1U:
     movzbl	%al, %eax
     movq	-8(%rbp), %rsi
     xorq	$40, %rsi
-    je	L452
+    je	L458
     call	__stack_chk_fail
-L452:
+L458:
     leave
     ret
     .globl	fn2U
@@ -8414,9 +8456,9 @@ fn2U:
     pushq	%rbp
     movq	%rsp, %rbp
     movl	%edi, -20(%rbp)
-    movq $sU(%rip), %rax
+    movq	sU(%rip), %rax
     movq	%rax, -16(%rbp)
-    movzwl $sU + 8(%rip), %eax
+    movzwl	sU + 8(%rip), %eax
     movw	%ax, -8(%rbp)
     movzbl	-16(%rbp), %eax
     shrb	$6, %al
@@ -8469,7 +8511,7 @@ fn2U:
 retitU:
     pushq	%rbp
     movq	%rsp, %rbp
-    movzbl $sU(%rip), %eax
+    movzbl	sU(%rip), %eax
     shrb	$6, %al
     andl	$1, %eax
     movzbl	%al, %eax
@@ -8481,7 +8523,7 @@ fn3U:
     movq	%rsp, %rbp
     subq	$8, %rsp
     movl	%edi, -4(%rbp)
-    movzbl $sU(%rip), %eax
+    movzbl	sU(%rip), %eax
     shrb	$6, %al
     andl	$1, %eax
     movl	%eax, %edx
@@ -8491,10 +8533,10 @@ fn3U:
     andl	$1, %eax
     sall	$6, %eax
     movl	%eax, %edx
-    movzbl $sU(%rip), %eax
+    movzbl	sU(%rip), %eax
     andl	$-65, %eax
     orl	%edx, %eax
-    movb	%al, $sU(%rip)
+    movb	%al, sU(%rip)
     call	retitU
     leave
     ret
@@ -8506,22 +8548,22 @@ testU:
     subq	$56, %rsp
     movq	$sU, -40(%rbp)
     movl	$0, -60(%rbp)
-    jmp	L460
-L461:
+    jmp	L466
+L467:
     movq	-40(%rbp), %rbx
     leaq	1(%rbx), %rax
     movq	%rax, -40(%rbp)
     call	myrnd
     movb	%al, (%rbx)
     addl	$1, -60(%rbp)
-L460:
+L466:
     movl	-60(%rbp), %eax
     cmpl	$9, %eax
-    jbe	L461
-    movzbl $sU(%rip), %eax
+    jbe	L467
+    movzbl	sU(%rip), %eax
     orl	$64, %eax
-    movb	%al, $sU(%rip)
-    movzbl $sU(%rip), %eax
+    movb	%al, sU(%rip)
+    movzbl	sU(%rip), %eax
     shrb	$6, %al
     andl	$1, %eax
     movzbl	%al, %eax
@@ -8535,13 +8577,13 @@ L460:
     andl	$1, %eax
     sall	$6, %eax
     movl	%eax, %edx
-    movzbl $sU(%rip), %eax
+    movzbl	sU(%rip), %eax
     andl	$-65, %eax
     orl	%edx, %eax
-    movb	%al, $sU(%rip)
-    movq $sU(%rip), %rax
+    movb	%al, sU(%rip)
+    movq	sU(%rip), %rax
     movq	%rax, -32(%rbp)
-    movzwl $sU + 8(%rip), %eax
+    movzwl	sU + 8(%rip), %eax
     movw	%ax, -24(%rbp)
     movl	-48(%rbp), %eax
     movl	%eax, %edi
@@ -8550,43 +8592,43 @@ L460:
     movzwl	-32(%rbp), %eax
     shrw	$7, %ax
     movl	%eax, %ecx
-    movzbl $sU(%rip), %eax
+    movzbl	sU(%rip), %eax
     shrb	$7, %al
     movzbl	%al, %eax
-    movzbl $sU + 1(%rip), %edx
+    movzbl	sU + 1(%rip), %edx
     addq	%rdx, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L462
+    jne	L468
     movzbl	-32(%rbp), %eax
     andl	$63, %eax
     movl	%eax, %edx
-    movzbl $sU(%rip), %eax
+    movzbl	sU(%rip), %eax
     andl	$63, %eax
     cmpb	%al, %dl
-    jne	L462
+    jne	L468
     movzbl	-32(%rbp), %eax
     shrb	$6, %al
     movl	%eax, %edx
     andl	$1, %edx
-    movzbl $sU(%rip), %eax
+    movzbl	sU(%rip), %eax
     shrb	$6, %al
     andl	$1, %eax
     cmpb	%al, %dl
-    jne	L462
+    jne	L468
     movq	-30(%rbp), %rdx
-    movq $sU + 2(%rip), %rax
+    movq	sU + 2(%rip), %rax
     cmpq	%rax, %rdx
-    jne	L462
+    jne	L468
     movl	-52(%rbp), %edx
     movl	-48(%rbp), %eax
     addl	%edx, %eax
     andl	-56(%rbp), %eax
     cmpl	-44(%rbp), %eax
-    je	L463
-L462:
+    je	L469
+L468:
     call	abort
-L463:
+L469:
     call	myrnd
     movl	%eax, -52(%rbp)
     call	myrnd
@@ -8596,13 +8638,13 @@ L463:
     andl	$1, %eax
     sall	$6, %eax
     movl	%eax, %edx
-    movzbl $sU(%rip), %eax
+    movzbl	sU(%rip), %eax
     andl	$-65, %eax
     orl	%edx, %eax
-    movb	%al, $sU(%rip)
-    movq $sU(%rip), %rax
+    movb	%al, sU(%rip)
+    movq	sU(%rip), %rax
     movq	%rax, -32(%rbp)
-    movzwl $sU + 8(%rip), %eax
+    movzwl	sU + 8(%rip), %eax
     movw	%ax, -24(%rbp)
     movl	-48(%rbp), %eax
     movl	%eax, %edi
@@ -8611,34 +8653,34 @@ L463:
     movzwl	-32(%rbp), %eax
     shrw	$7, %ax
     movl	%eax, %ecx
-    movzbl $sU(%rip), %eax
+    movzbl	sU(%rip), %eax
     shrb	$7, %al
     movzbl	%al, %eax
-    movzbl $sU + 1(%rip), %edx
+    movzbl	sU + 1(%rip), %edx
     addq	%rdx, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L464
+    jne	L470
     movzbl	-32(%rbp), %eax
     andl	$63, %eax
     movl	%eax, %edx
-    movzbl $sU(%rip), %eax
+    movzbl	sU(%rip), %eax
     andl	$63, %eax
     cmpb	%al, %dl
-    jne	L464
+    jne	L470
     movzbl	-32(%rbp), %eax
     shrb	$6, %al
     movl	%eax, %edx
     andl	$1, %edx
-    movzbl $sU(%rip), %eax
+    movzbl	sU(%rip), %eax
     shrb	$6, %al
     andl	$1, %eax
     cmpb	%al, %dl
-    jne	L464
+    jne	L470
     movq	-30(%rbp), %rdx
-    movq $sU + 2(%rip), %rax
+    movq	sU + 2(%rip), %rax
     cmpq	%rax, %rdx
-    jne	L464
+    jne	L470
     movl	-52(%rbp), %edx
     movl	-48(%rbp), %eax
     addl	%edx, %eax
@@ -8656,10 +8698,10 @@ L463:
     subl	%edx, %eax
     andl	-56(%rbp), %eax
     cmpl	-44(%rbp), %eax
-    je	L465
-L464:
+    je	L471
+L470:
     call	abort
-L465:
+L471:
     call	myrnd
     movl	%eax, -52(%rbp)
     call	myrnd
@@ -8669,13 +8711,13 @@ L465:
     andl	$1, %eax
     sall	$6, %eax
     movl	%eax, %edx
-    movzbl $sU(%rip), %eax
+    movzbl	sU(%rip), %eax
     andl	$-65, %eax
     orl	%edx, %eax
-    movb	%al, $sU(%rip)
-    movq $sU(%rip), %rax
+    movb	%al, sU(%rip)
+    movq	sU(%rip), %rax
     movq	%rax, -32(%rbp)
-    movzwl $sU + 8(%rip), %eax
+    movzwl	sU + 8(%rip), %eax
     movw	%ax, -24(%rbp)
     movl	-48(%rbp), %eax
     movl	%eax, %edi
@@ -8684,40 +8726,40 @@ L465:
     movzwl	-32(%rbp), %eax
     shrw	$7, %ax
     movl	%eax, %ecx
-    movzbl $sU(%rip), %eax
+    movzbl	sU(%rip), %eax
     shrb	$7, %al
     movzbl	%al, %eax
-    movzbl $sU + 1(%rip), %edx
+    movzbl	sU + 1(%rip), %edx
     addq	%rdx, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L466
+    jne	L472
     movzbl	-32(%rbp), %eax
     andl	$63, %eax
     movl	%eax, %edx
-    movzbl $sU(%rip), %eax
+    movzbl	sU(%rip), %eax
     andl	$63, %eax
     cmpb	%al, %dl
-    jne	L466
-    movzbl $sU(%rip), %eax
+    jne	L472
+    movzbl	sU(%rip), %eax
     shrb	$6, %al
     andl	$1, %eax
     movzbl	%al, %eax
     cmpl	-44(%rbp), %eax
-    jne	L466
+    jne	L472
     movq	-30(%rbp), %rdx
-    movq $sU + 2(%rip), %rax
+    movq	sU + 2(%rip), %rax
     cmpq	%rax, %rdx
-    jne	L466
+    jne	L472
     movl	-52(%rbp), %edx
     movl	-48(%rbp), %eax
     addl	%edx, %eax
     andl	-56(%rbp), %eax
     cmpl	-44(%rbp), %eax
-    je	L468
-L466:
+    je	L474
+L472:
     call	abort
-L468:
+L474:
     nop
     addq	$56, %rsp
     popq	%rbx
@@ -8738,7 +8780,7 @@ fn1V:
     movq	%rsp, %rbp
     subq	$32, %rsp
     movl	%edi, -20(%rbp)
-    movl $sV(%rip), %eax
+    movl	sV(%rip), %eax
     movl	%eax, -16(%rbp)
     movzbl	-15(%rbp), %eax
     andl	$1, %eax
@@ -8766,7 +8808,7 @@ fn2V:
     pushq	%rbp
     movq	%rsp, %rbp
     movl	%edi, -20(%rbp)
-    movl $sV(%rip), %eax
+    movl	sV(%rip), %eax
     movl	%eax, -16(%rbp)
     movzbl	-15(%rbp), %eax
     andl	$1, %eax
@@ -8814,7 +8856,7 @@ fn2V:
 retitV:
     pushq	%rbp
     movq	%rsp, %rbp
-    movzbl $sV + 1(%rip), %eax
+    movzbl	sV + 1(%rip), %eax
     andl	$1, %eax
     movzbl	%al, %eax
     popq	%rbp
@@ -8825,7 +8867,7 @@ fn3V:
     movq	%rsp, %rbp
     subq	$8, %rsp
     movl	%edi, -4(%rbp)
-    movzbl $sV + 1(%rip), %eax
+    movzbl	sV + 1(%rip), %eax
     andl	$1, %eax
     movl	%eax, %edx
     movl	-4(%rbp), %eax
@@ -8833,10 +8875,10 @@ fn3V:
     andl	$1, %eax
     andl	$1, %eax
     movl	%eax, %edx
-    movzbl $sV + 1(%rip), %eax
+    movzbl	sV + 1(%rip), %eax
     andl	$-2, %eax
     orl	%edx, %eax
-    movb	%al, $sV + 1(%rip)
+    movb	%al, sV + 1(%rip)
     call	retitV
     leave
     ret
@@ -8848,22 +8890,22 @@ testV:
     subq	$40, %rsp
     movq	$sV, -24(%rbp)
     movl	$0, -44(%rbp)
-    jmp	L480
-L481:
+    jmp	L486
+L487:
     movq	-24(%rbp), %rbx
     leaq	1(%rbx), %rax
     movq	%rax, -24(%rbp)
     call	myrnd
     movb	%al, (%rbx)
     addl	$1, -44(%rbp)
-L480:
+L486:
     movl	-44(%rbp), %eax
     cmpl	$3, %eax
-    jbe	L481
-    movzbl $sV + 1(%rip), %eax
+    jbe	L487
+    movzbl	sV + 1(%rip), %eax
     orl	$1, %eax
-    movb	%al, $sV + 1(%rip)
-    movzbl $sV + 1(%rip), %eax
+    movb	%al, sV + 1(%rip)
+    movzbl	sV + 1(%rip), %eax
     andl	$1, %eax
     movzbl	%al, %eax
     movl	%eax, -40(%rbp)
@@ -8875,11 +8917,11 @@ L480:
     andl	$1, %eax
     andl	$1, %eax
     movl	%eax, %edx
-    movzbl $sV + 1(%rip), %eax
+    movzbl	sV + 1(%rip), %eax
     andl	$-2, %eax
     orl	%edx, %eax
-    movb	%al, $sV + 1(%rip)
-    movl $sV(%rip), %eax
+    movb	%al, sV + 1(%rip)
+    movl	sV(%rip), %eax
     movl	%eax, -48(%rbp)
     movl	-32(%rbp), %eax
     movl	%eax, %edi
@@ -8888,34 +8930,34 @@ L480:
     movzbl	-47(%rbp), %eax
     shrb	%al
     movl	%eax, %edx
-    movzbl $sV + 1(%rip), %eax
+    movzbl	sV + 1(%rip), %eax
     shrb	%al
     cmpb	%al, %dl
-    jne	L482
+    jne	L488
     movzbl	-48(%rbp), %edx
-    movzbl $sV(%rip), %eax
+    movzbl	sV(%rip), %eax
     cmpb	%al, %dl
-    jne	L482
+    jne	L488
     movzbl	-47(%rbp), %eax
     andl	$1, %eax
     movl	%eax, %edx
-    movzbl $sV + 1(%rip), %eax
+    movzbl	sV + 1(%rip), %eax
     andl	$1, %eax
     cmpb	%al, %dl
-    jne	L482
+    jne	L488
     movzwl	-46(%rbp), %edx
-    movzwl $sV + 2(%rip), %eax
+    movzwl	sV + 2(%rip), %eax
     cmpw	%ax, %dx
-    jne	L482
+    jne	L488
     movl	-36(%rbp), %edx
     movl	-32(%rbp), %eax
     addl	%edx, %eax
     andl	-40(%rbp), %eax
     cmpl	-28(%rbp), %eax
-    je	L483
-L482:
+    je	L489
+L488:
     call	abort
-L483:
+L489:
     call	myrnd
     movl	%eax, -36(%rbp)
     call	myrnd
@@ -8924,11 +8966,11 @@ L483:
     andl	$1, %eax
     andl	$1, %eax
     movl	%eax, %edx
-    movzbl $sV + 1(%rip), %eax
+    movzbl	sV + 1(%rip), %eax
     andl	$-2, %eax
     orl	%edx, %eax
-    movb	%al, $sV + 1(%rip)
-    movl $sV(%rip), %eax
+    movb	%al, sV + 1(%rip)
+    movl	sV(%rip), %eax
     movl	%eax, -48(%rbp)
     movl	-32(%rbp), %eax
     movl	%eax, %edi
@@ -8937,25 +8979,25 @@ L483:
     movzbl	-47(%rbp), %eax
     shrb	%al
     movl	%eax, %edx
-    movzbl $sV + 1(%rip), %eax
+    movzbl	sV + 1(%rip), %eax
     shrb	%al
     cmpb	%al, %dl
-    jne	L484
+    jne	L490
     movzbl	-48(%rbp), %edx
-    movzbl $sV(%rip), %eax
+    movzbl	sV(%rip), %eax
     cmpb	%al, %dl
-    jne	L484
+    jne	L490
     movzbl	-47(%rbp), %eax
     andl	$1, %eax
     movl	%eax, %edx
-    movzbl $sV + 1(%rip), %eax
+    movzbl	sV + 1(%rip), %eax
     andl	$1, %eax
     cmpb	%al, %dl
-    jne	L484
+    jne	L490
     movzwl	-46(%rbp), %edx
-    movzwl $sV + 2(%rip), %eax
+    movzwl	sV + 2(%rip), %eax
     cmpw	%ax, %dx
-    jne	L484
+    jne	L490
     movl	-36(%rbp), %edx
     movl	-32(%rbp), %eax
     addl	%edx, %eax
@@ -8973,10 +9015,10 @@ L483:
     subl	%edx, %eax
     andl	-40(%rbp), %eax
     cmpl	-28(%rbp), %eax
-    je	L485
-L484:
+    je	L491
+L490:
     call	abort
-L485:
+L491:
     call	myrnd
     movl	%eax, -36(%rbp)
     call	myrnd
@@ -8985,11 +9027,11 @@ L485:
     andl	$1, %eax
     andl	$1, %eax
     movl	%eax, %edx
-    movzbl $sV + 1(%rip), %eax
+    movzbl	sV + 1(%rip), %eax
     andl	$-2, %eax
     orl	%edx, %eax
-    movb	%al, $sV + 1(%rip)
-    movl $sV(%rip), %eax
+    movb	%al, sV + 1(%rip)
+    movl	sV(%rip), %eax
     movl	%eax, -48(%rbp)
     movl	-32(%rbp), %eax
     movl	%eax, %edi
@@ -8998,32 +9040,32 @@ L485:
     movzbl	-47(%rbp), %eax
     shrb	%al
     movl	%eax, %edx
-    movzbl $sV + 1(%rip), %eax
+    movzbl	sV + 1(%rip), %eax
     shrb	%al
     cmpb	%al, %dl
-    jne	L486
+    jne	L492
     movzbl	-48(%rbp), %edx
-    movzbl $sV(%rip), %eax
+    movzbl	sV(%rip), %eax
     cmpb	%al, %dl
-    jne	L486
-    movzbl $sV + 1(%rip), %eax
+    jne	L492
+    movzbl	sV + 1(%rip), %eax
     andl	$1, %eax
     movzbl	%al, %eax
     cmpl	-28(%rbp), %eax
-    jne	L486
+    jne	L492
     movzwl	-46(%rbp), %edx
-    movzwl $sV + 2(%rip), %eax
+    movzwl	sV + 2(%rip), %eax
     cmpw	%ax, %dx
-    jne	L486
+    jne	L492
     movl	-36(%rbp), %edx
     movl	-32(%rbp), %eax
     addl	%edx, %eax
     andl	-40(%rbp), %eax
     cmpl	-28(%rbp), %eax
-    je	L488
-L486:
+    je	L494
+L492:
     call	abort
-L488:
+L494:
     nop
     addq	$40, %rsp
     popq	%rbx
@@ -9054,11 +9096,11 @@ fn1W:
     movq	$40, %rax
     movq	%rax, -8(%rbp)
     xorl	%eax, %eax
-    movq $sW(%rip), %rax
+    movq	sW(%rip), %rax
     movq	%rax, -32(%rbp)
-    movq $sW + 8(%rip), %rax
+    movq	sW + 8(%rip), %rax
     movq	%rax, -24(%rbp)
-    movl $sW + 16(%rip), %eax
+    movl	sW + 16(%rip), %eax
     movl	%eax, -16(%rbp)
     movzwl	-16(%rbp), %eax
     andw	$4095, %ax
@@ -9089,9 +9131,9 @@ fn1W:
     movzwl	%ax, %eax
     movq	-8(%rbp), %rsi
     xorq	$40, %rsi
-    je	L493
+    je	L499
     call	__stack_chk_fail
-L493:
+L499:
     leave
     ret
     .globl	fn2W
@@ -9099,11 +9141,11 @@ fn2W:
     pushq	%rbp
     movq	%rsp, %rbp
     movl	%edi, -36(%rbp)
-    movq $sW(%rip), %rax
+    movq	sW(%rip), %rax
     movq	%rax, -32(%rbp)
-    movq $sW + 8(%rip), %rax
+    movq	sW + 8(%rip), %rax
     movq	%rax, -24(%rbp)
-    movl $sW + 16(%rip), %eax
+    movl	sW + 16(%rip), %eax
     movl	%eax, -16(%rbp)
     movzwl	-16(%rbp), %eax
     andw	$4095, %ax
@@ -9151,8 +9193,8 @@ fn2W:
 retitW:
     pushq	%rbp
     movq	%rsp, %rbp
-    movzbl $sW + 16(%rip), %eax
-    movzbl $sW + 17(%rip), %edx
+    movzbl	sW + 16(%rip), %eax
+    movzbl	sW + 17(%rip), %edx
     andl	$15, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
@@ -9165,8 +9207,8 @@ fn3W:
     movq	%rsp, %rbp
     subq	$8, %rsp
     movl	%edi, -4(%rbp)
-    movzbl $sW + 16(%rip), %eax
-    movzbl $sW + 17(%rip), %edx
+    movzbl	sW + 16(%rip), %eax
+    movzbl	sW + 17(%rip), %edx
     andl	$15, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
@@ -9176,19 +9218,19 @@ fn3W:
     andw	$4095, %ax
     movzwl	%ax, %edx
     movzbl	%dl, %ecx
-    movzbl $sW + 16(%rip), %edx
+    movzbl	sW + 16(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sW + 16(%rip)
+    movb	%dl, sW + 16(%rip)
     shrw	$8, %ax
     movzwl	%ax, %eax
     andl	$15, %eax
     movl	%eax, %edx
     andl	$15, %edx
-    movzbl $sW + 17(%rip), %eax
+    movzbl	sW + 17(%rip), %eax
     andl	$-16, %eax
     orl	%edx, %eax
-    movb	%al, $sW + 17(%rip)
+    movb	%al, sW + 17(%rip)
     call	retitW
     leave
     ret
@@ -9200,28 +9242,28 @@ testW:
     subq	$72, %rsp
     movq	$sW, -56(%rbp)
     movl	$0, -76(%rbp)
-    jmp	L501
-L502:
+    jmp	L507
+L508:
     movq	-56(%rbp), %rbx
     leaq	1(%rbx), %rax
     movq	%rax, -56(%rbp)
     call	myrnd
     movb	%al, (%rbx)
     addl	$1, -76(%rbp)
-L501:
+L507:
     movl	-76(%rbp), %eax
     cmpl	$19, %eax
-    jbe	L502
-    fldt	$LC0(%rip)
-    fstpt $sW(%rip)
-    movzbl $sW + 16(%rip), %eax
+    jbe	L508
+    fldt	LC0(%rip)
+    fstpt	sW(%rip)
+    movzbl	sW + 16(%rip), %eax
     orl	$-1, %eax
-    movb	%al, $sW + 16(%rip)
-    movzbl $sW + 17(%rip), %eax
+    movb	%al, sW + 16(%rip)
+    movzbl	sW + 17(%rip), %eax
     orl	$15, %eax
-    movb	%al, $sW + 17(%rip)
-    movzbl $sW + 16(%rip), %eax
-    movzbl $sW + 17(%rip), %edx
+    movb	%al, sW + 17(%rip)
+    movzbl	sW + 16(%rip), %eax
+    movzbl	sW + 17(%rip), %edx
     andl	$15, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
@@ -9235,24 +9277,24 @@ L501:
     andw	$4095, %ax
     movzwl	%ax, %edx
     movzbl	%dl, %ecx
-    movzbl $sW + 16(%rip), %edx
+    movzbl	sW + 16(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sW + 16(%rip)
+    movb	%dl, sW + 16(%rip)
     shrw	$8, %ax
     movzwl	%ax, %eax
     andl	$15, %eax
     movl	%eax, %edx
     andl	$15, %edx
-    movzbl $sW + 17(%rip), %eax
+    movzbl	sW + 17(%rip), %eax
     andl	$-16, %eax
     orl	%edx, %eax
-    movb	%al, $sW + 17(%rip)
-    movq $sW(%rip), %rax
+    movb	%al, sW + 17(%rip)
+    movq	sW(%rip), %rax
     movq	%rax, -48(%rbp)
-    movq $sW + 8(%rip), %rax
+    movq	sW + 8(%rip), %rax
     movq	%rax, -40(%rbp)
-    movl $sW + 16(%rip), %eax
+    movl	sW + 16(%rip), %eax
     movl	%eax, -32(%rbp)
     movl	-64(%rbp), %eax
     movl	%eax, %edi
@@ -9261,56 +9303,56 @@ L501:
     movzbl	-29(%rbp), %eax
     shrb	%al
     movl	%eax, %edx
-    movzbl $sW + 19(%rip), %eax
+    movzbl	sW + 19(%rip), %eax
     shrb	%al
     cmpb	%al, %dl
-    jne	L503
+    jne	L509
     movl	-32(%rbp), %eax
     shrl	$12, %eax
     movl	%eax, %ecx
     andw	$8191, %cx
-    movzbl $sW + 17(%rip), %eax
+    movzbl	sW + 17(%rip), %eax
     shrb	$4, %al
     movzbl	%al, %eax
-    movzbl $sW + 18(%rip), %edx
+    movzbl	sW + 18(%rip), %edx
     salq	$4, %rdx
     orq	%rax, %rdx
-    movzbl $sW + 19(%rip), %eax
+    movzbl	sW + 19(%rip), %eax
     andl	$1, %eax
     salq	$12, %rax
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L503
+    jne	L509
     movzwl	-32(%rbp), %eax
     andw	$4095, %ax
     movl	%eax, %ecx
-    movzbl $sW + 16(%rip), %eax
-    movzbl $sW + 17(%rip), %edx
+    movzbl	sW + 16(%rip), %eax
+    movzbl	sW + 17(%rip), %edx
     andl	$15, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L503
+    jne	L509
     fldt	-48(%rbp)
-    fldt $sW(%rip)
+    fldt	sW(%rip)
     fucomi	%st(1), %st
-    jp	L510
+    jp	L516
     fucomip	%st(1), %st
     fstp	%st(0)
-    jne	L503
+    jne	L509
     movl	-68(%rbp), %edx
     movl	-64(%rbp), %eax
     addl	%edx, %eax
     andl	-72(%rbp), %eax
     cmpl	-60(%rbp), %eax
-    je	L504
-    jmp	L503
-L510:
+    je	L510
+    jmp	L509
+L516:
     fstp	%st(0)
     fstp	%st(0)
-L503:
+L509:
     call	abort
-L504:
+L510:
     call	myrnd
     movl	%eax, -68(%rbp)
     call	myrnd
@@ -9319,24 +9361,24 @@ L504:
     andw	$4095, %ax
     movzwl	%ax, %edx
     movzbl	%dl, %ecx
-    movzbl $sW + 16(%rip), %edx
+    movzbl	sW + 16(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sW + 16(%rip)
+    movb	%dl, sW + 16(%rip)
     shrw	$8, %ax
     movzwl	%ax, %eax
     andl	$15, %eax
     movl	%eax, %edx
     andl	$15, %edx
-    movzbl $sW + 17(%rip), %eax
+    movzbl	sW + 17(%rip), %eax
     andl	$-16, %eax
     orl	%edx, %eax
-    movb	%al, $sW + 17(%rip)
-    movq $sW(%rip), %rax
+    movb	%al, sW + 17(%rip)
+    movq	sW(%rip), %rax
     movq	%rax, -48(%rbp)
-    movq $sW + 8(%rip), %rax
+    movq	sW + 8(%rip), %rax
     movq	%rax, -40(%rbp)
-    movl $sW + 16(%rip), %eax
+    movl	sW + 16(%rip), %eax
     movl	%eax, -32(%rbp)
     movl	-64(%rbp), %eax
     movl	%eax, %edi
@@ -9345,43 +9387,43 @@ L504:
     movzbl	-29(%rbp), %eax
     shrb	%al
     movl	%eax, %edx
-    movzbl $sW + 19(%rip), %eax
+    movzbl	sW + 19(%rip), %eax
     shrb	%al
     cmpb	%al, %dl
-    jne	L505
+    jne	L511
     movl	-32(%rbp), %eax
     shrl	$12, %eax
     movl	%eax, %ecx
     andw	$8191, %cx
-    movzbl $sW + 17(%rip), %eax
+    movzbl	sW + 17(%rip), %eax
     shrb	$4, %al
     movzbl	%al, %eax
-    movzbl $sW + 18(%rip), %edx
+    movzbl	sW + 18(%rip), %edx
     salq	$4, %rdx
     orq	%rax, %rdx
-    movzbl $sW + 19(%rip), %eax
+    movzbl	sW + 19(%rip), %eax
     andl	$1, %eax
     salq	$12, %rax
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L505
+    jne	L511
     movzwl	-32(%rbp), %eax
     andw	$4095, %ax
     movl	%eax, %ecx
-    movzbl $sW + 16(%rip), %eax
-    movzbl $sW + 17(%rip), %edx
+    movzbl	sW + 16(%rip), %eax
+    movzbl	sW + 17(%rip), %edx
     andl	$15, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L505
+    jne	L511
     fldt	-48(%rbp)
-    fldt $sW(%rip)
+    fldt	sW(%rip)
     fucomi	%st(1), %st
-    jp	L511
+    jp	L517
     fucomip	%st(1), %st
     fstp	%st(0)
-    jne	L505
+    jne	L511
     movl	-68(%rbp), %edx
     movl	-64(%rbp), %eax
     addl	%edx, %eax
@@ -9399,14 +9441,14 @@ L504:
     subl	%edx, %eax
     andl	-72(%rbp), %eax
     cmpl	-60(%rbp), %eax
-    je	L506
-    jmp	L505
+    je	L512
+    jmp	L511
+L517:
+    fstp	%st(0)
+    fstp	%st(0)
 L511:
-    fstp	%st(0)
-    fstp	%st(0)
-L505:
     call	abort
-L506:
+L512:
     call	myrnd
     movl	%eax, -68(%rbp)
     call	myrnd
@@ -9415,24 +9457,24 @@ L506:
     andw	$4095, %ax
     movzwl	%ax, %edx
     movzbl	%dl, %ecx
-    movzbl $sW + 16(%rip), %edx
+    movzbl	sW + 16(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sW + 16(%rip)
+    movb	%dl, sW + 16(%rip)
     shrw	$8, %ax
     movzwl	%ax, %eax
     andl	$15, %eax
     movl	%eax, %edx
     andl	$15, %edx
-    movzbl $sW + 17(%rip), %eax
+    movzbl	sW + 17(%rip), %eax
     andl	$-16, %eax
     orl	%edx, %eax
-    movb	%al, $sW + 17(%rip)
-    movq $sW(%rip), %rax
+    movb	%al, sW + 17(%rip)
+    movq	sW(%rip), %rax
     movq	%rax, -48(%rbp)
-    movq $sW + 8(%rip), %rax
+    movq	sW + 8(%rip), %rax
     movq	%rax, -40(%rbp)
-    movl $sW + 16(%rip), %eax
+    movl	sW + 16(%rip), %eax
     movl	%eax, -32(%rbp)
     movl	-64(%rbp), %eax
     movl	%eax, %edi
@@ -9441,54 +9483,54 @@ L506:
     movzbl	-29(%rbp), %eax
     shrb	%al
     movl	%eax, %edx
-    movzbl $sW + 19(%rip), %eax
+    movzbl	sW + 19(%rip), %eax
     shrb	%al
     cmpb	%al, %dl
-    jne	L507
+    jne	L513
     movl	-32(%rbp), %eax
     shrl	$12, %eax
     movl	%eax, %ecx
     andw	$8191, %cx
-    movzbl $sW + 17(%rip), %eax
+    movzbl	sW + 17(%rip), %eax
     shrb	$4, %al
     movzbl	%al, %eax
-    movzbl $sW + 18(%rip), %edx
+    movzbl	sW + 18(%rip), %edx
     salq	$4, %rdx
     orq	%rax, %rdx
-    movzbl $sW + 19(%rip), %eax
+    movzbl	sW + 19(%rip), %eax
     andl	$1, %eax
     salq	$12, %rax
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L507
-    movzbl $sW + 16(%rip), %eax
-    movzbl $sW + 17(%rip), %edx
+    jne	L513
+    movzbl	sW + 16(%rip), %eax
+    movzbl	sW + 17(%rip), %edx
     andl	$15, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
     movzwl	%ax, %eax
     cmpl	-60(%rbp), %eax
-    jne	L507
+    jne	L513
     fldt	-48(%rbp)
-    fldt $sW(%rip)
+    fldt	sW(%rip)
     fucomi	%st(1), %st
-    jp	L512
+    jp	L518
     fucomip	%st(1), %st
     fstp	%st(0)
-    jne	L507
+    jne	L513
     movl	-68(%rbp), %edx
     movl	-64(%rbp), %eax
     addl	%edx, %eax
     andl	-72(%rbp), %eax
     cmpl	-60(%rbp), %eax
-    je	L509
-    jmp	L507
-L512:
+    je	L515
+    jmp	L513
+L518:
     fstp	%st(0)
     fstp	%st(0)
-L507:
+L513:
     call	abort
-L509:
+L515:
     nop
     addq	$72, %rsp
     popq	%rbx
@@ -9519,11 +9561,11 @@ fn1X:
     movq	$40, %rax
     movq	%rax, -8(%rbp)
     xorl	%eax, %eax
-    movq $sX(%rip), %rax
+    movq	sX(%rip), %rax
     movq	%rax, -32(%rbp)
-    movq $sX + 8(%rip), %rax
+    movq	sX + 8(%rip), %rax
     movq	%rax, -24(%rbp)
-    movl $sX + 16(%rip), %eax
+    movl	sX + 16(%rip), %eax
     movl	%eax, -16(%rbp)
     movzwl	-32(%rbp), %eax
     andw	$4095, %ax
@@ -9554,9 +9596,9 @@ fn1X:
     movzwl	%ax, %eax
     movq	-8(%rbp), %rsi
     xorq	$40, %rsi
-    je	L517
+    je	L523
     call	__stack_chk_fail
-L517:
+L523:
     leave
     ret
     .globl	fn2X
@@ -9564,11 +9606,11 @@ fn2X:
     pushq	%rbp
     movq	%rsp, %rbp
     movl	%edi, -36(%rbp)
-    movq $sX(%rip), %rax
+    movq	sX(%rip), %rax
     movq	%rax, -32(%rbp)
-    movq $sX + 8(%rip), %rax
+    movq	sX + 8(%rip), %rax
     movq	%rax, -24(%rbp)
-    movl $sX + 16(%rip), %eax
+    movl	sX + 16(%rip), %eax
     movl	%eax, -16(%rbp)
     movzwl	-32(%rbp), %eax
     andw	$4095, %ax
@@ -9616,8 +9658,8 @@ fn2X:
 retitX:
     pushq	%rbp
     movq	%rsp, %rbp
-    movzbl $sX(%rip), %eax
-    movzbl $sX + 1(%rip), %edx
+    movzbl	sX(%rip), %eax
+    movzbl	sX + 1(%rip), %edx
     andl	$15, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
@@ -9630,8 +9672,8 @@ fn3X:
     movq	%rsp, %rbp
     subq	$8, %rsp
     movl	%edi, -4(%rbp)
-    movzbl $sX(%rip), %eax
-    movzbl $sX + 1(%rip), %edx
+    movzbl	sX(%rip), %eax
+    movzbl	sX + 1(%rip), %edx
     andl	$15, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
@@ -9641,19 +9683,19 @@ fn3X:
     andw	$4095, %ax
     movzwl	%ax, %edx
     movzbl	%dl, %ecx
-    movzbl $sX(%rip), %edx
+    movzbl	sX(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sX(%rip)
+    movb	%dl, sX(%rip)
     shrw	$8, %ax
     movzwl	%ax, %eax
     andl	$15, %eax
     movl	%eax, %edx
     andl	$15, %edx
-    movzbl $sX + 1(%rip), %eax
+    movzbl	sX + 1(%rip), %eax
     andl	$-16, %eax
     orl	%edx, %eax
-    movb	%al, $sX + 1(%rip)
+    movb	%al, sX + 1(%rip)
     call	retitX
     leave
     ret
@@ -9665,28 +9707,28 @@ testX:
     subq	$72, %rsp
     movq	$sX, -56(%rbp)
     movl	$0, -76(%rbp)
-    jmp	L525
-L526:
+    jmp	L531
+L532:
     movq	-56(%rbp), %rbx
     leaq	1(%rbx), %rax
     movq	%rax, -56(%rbp)
     call	myrnd
     movb	%al, (%rbx)
     addl	$1, -76(%rbp)
-L525:
+L531:
     movl	-76(%rbp), %eax
     cmpl	$19, %eax
-    jbe	L526
-    fldt	$LC0(%rip)
-    fstpt $sX + 4(%rip)
-    movzbl $sX(%rip), %eax
+    jbe	L532
+    fldt	LC0(%rip)
+    fstpt	sX + 4(%rip)
+    movzbl	sX(%rip), %eax
     orl	$-1, %eax
-    movb	%al, $sX(%rip)
-    movzbl $sX + 1(%rip), %eax
+    movb	%al, sX(%rip)
+    movzbl	sX + 1(%rip), %eax
     orl	$15, %eax
-    movb	%al, $sX + 1(%rip)
-    movzbl $sX(%rip), %eax
-    movzbl $sX + 1(%rip), %edx
+    movb	%al, sX + 1(%rip)
+    movzbl	sX(%rip), %eax
+    movzbl	sX + 1(%rip), %edx
     andl	$15, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
@@ -9700,24 +9742,24 @@ L525:
     andw	$4095, %ax
     movzwl	%ax, %edx
     movzbl	%dl, %ecx
-    movzbl $sX(%rip), %edx
+    movzbl	sX(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sX(%rip)
+    movb	%dl, sX(%rip)
     shrw	$8, %ax
     movzwl	%ax, %eax
     andl	$15, %eax
     movl	%eax, %edx
     andl	$15, %edx
-    movzbl $sX + 1(%rip), %eax
+    movzbl	sX + 1(%rip), %eax
     andl	$-16, %eax
     orl	%edx, %eax
-    movb	%al, $sX + 1(%rip)
-    movq $sX(%rip), %rax
+    movb	%al, sX + 1(%rip)
+    movq	sX(%rip), %rax
     movq	%rax, -48(%rbp)
-    movq $sX + 8(%rip), %rax
+    movq	sX + 8(%rip), %rax
     movq	%rax, -40(%rbp)
-    movl $sX + 16(%rip), %eax
+    movl	sX + 16(%rip), %eax
     movl	%eax, -32(%rbp)
     movl	-64(%rbp), %eax
     movl	%eax, %edi
@@ -9726,56 +9768,56 @@ L525:
     movzbl	-45(%rbp), %eax
     shrb	%al
     movl	%eax, %edx
-    movzbl $sX + 3(%rip), %eax
+    movzbl	sX + 3(%rip), %eax
     shrb	%al
     cmpb	%al, %dl
-    jne	L527
+    jne	L533
     movl	-48(%rbp), %eax
     shrl	$12, %eax
     movl	%eax, %ecx
     andw	$8191, %cx
-    movzbl $sX + 1(%rip), %eax
+    movzbl	sX + 1(%rip), %eax
     shrb	$4, %al
     movzbl	%al, %eax
-    movzbl $sX + 2(%rip), %edx
+    movzbl	sX + 2(%rip), %edx
     salq	$4, %rdx
     orq	%rax, %rdx
-    movzbl $sX + 3(%rip), %eax
+    movzbl	sX + 3(%rip), %eax
     andl	$1, %eax
     salq	$12, %rax
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L527
+    jne	L533
     movzwl	-48(%rbp), %eax
     andw	$4095, %ax
     movl	%eax, %ecx
-    movzbl $sX(%rip), %eax
-    movzbl $sX + 1(%rip), %edx
+    movzbl	sX(%rip), %eax
+    movzbl	sX + 1(%rip), %edx
     andl	$15, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L527
+    jne	L533
     fldt	-44(%rbp)
-    fldt $sX + 4(%rip)
+    fldt	sX + 4(%rip)
     fucomi	%st(1), %st
-    jp	L534
+    jp	L540
     fucomip	%st(1), %st
     fstp	%st(0)
-    jne	L527
+    jne	L533
     movl	-68(%rbp), %edx
     movl	-64(%rbp), %eax
     addl	%edx, %eax
     andl	-72(%rbp), %eax
     cmpl	-60(%rbp), %eax
-    je	L528
-    jmp	L527
-L534:
+    je	L534
+    jmp	L533
+L540:
     fstp	%st(0)
     fstp	%st(0)
-L527:
+L533:
     call	abort
-L528:
+L534:
     call	myrnd
     movl	%eax, -68(%rbp)
     call	myrnd
@@ -9784,24 +9826,24 @@ L528:
     andw	$4095, %ax
     movzwl	%ax, %edx
     movzbl	%dl, %ecx
-    movzbl $sX(%rip), %edx
+    movzbl	sX(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sX(%rip)
+    movb	%dl, sX(%rip)
     shrw	$8, %ax
     movzwl	%ax, %eax
     andl	$15, %eax
     movl	%eax, %edx
     andl	$15, %edx
-    movzbl $sX + 1(%rip), %eax
+    movzbl	sX + 1(%rip), %eax
     andl	$-16, %eax
     orl	%edx, %eax
-    movb	%al, $sX + 1(%rip)
-    movq $sX(%rip), %rax
+    movb	%al, sX + 1(%rip)
+    movq	sX(%rip), %rax
     movq	%rax, -48(%rbp)
-    movq $sX + 8(%rip), %rax
+    movq	sX + 8(%rip), %rax
     movq	%rax, -40(%rbp)
-    movl $sX + 16(%rip), %eax
+    movl	sX + 16(%rip), %eax
     movl	%eax, -32(%rbp)
     movl	-64(%rbp), %eax
     movl	%eax, %edi
@@ -9810,43 +9852,43 @@ L528:
     movzbl	-45(%rbp), %eax
     shrb	%al
     movl	%eax, %edx
-    movzbl $sX + 3(%rip), %eax
+    movzbl	sX + 3(%rip), %eax
     shrb	%al
     cmpb	%al, %dl
-    jne	L529
+    jne	L535
     movl	-48(%rbp), %eax
     shrl	$12, %eax
     movl	%eax, %ecx
     andw	$8191, %cx
-    movzbl $sX + 1(%rip), %eax
+    movzbl	sX + 1(%rip), %eax
     shrb	$4, %al
     movzbl	%al, %eax
-    movzbl $sX + 2(%rip), %edx
+    movzbl	sX + 2(%rip), %edx
     salq	$4, %rdx
     orq	%rax, %rdx
-    movzbl $sX + 3(%rip), %eax
+    movzbl	sX + 3(%rip), %eax
     andl	$1, %eax
     salq	$12, %rax
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L529
+    jne	L535
     movzwl	-48(%rbp), %eax
     andw	$4095, %ax
     movl	%eax, %ecx
-    movzbl $sX(%rip), %eax
-    movzbl $sX + 1(%rip), %edx
+    movzbl	sX(%rip), %eax
+    movzbl	sX + 1(%rip), %edx
     andl	$15, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L529
+    jne	L535
     fldt	-44(%rbp)
-    fldt $sX + 4(%rip)
+    fldt	sX + 4(%rip)
     fucomi	%st(1), %st
-    jp	L535
+    jp	L541
     fucomip	%st(1), %st
     fstp	%st(0)
-    jne	L529
+    jne	L535
     movl	-68(%rbp), %edx
     movl	-64(%rbp), %eax
     addl	%edx, %eax
@@ -9864,14 +9906,14 @@ L528:
     subl	%edx, %eax
     andl	-72(%rbp), %eax
     cmpl	-60(%rbp), %eax
-    je	L530
-    jmp	L529
+    je	L536
+    jmp	L535
+L541:
+    fstp	%st(0)
+    fstp	%st(0)
 L535:
-    fstp	%st(0)
-    fstp	%st(0)
-L529:
     call	abort
-L530:
+L536:
     call	myrnd
     movl	%eax, -68(%rbp)
     call	myrnd
@@ -9880,24 +9922,24 @@ L530:
     andw	$4095, %ax
     movzwl	%ax, %edx
     movzbl	%dl, %ecx
-    movzbl $sX(%rip), %edx
+    movzbl	sX(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sX(%rip)
+    movb	%dl, sX(%rip)
     shrw	$8, %ax
     movzwl	%ax, %eax
     andl	$15, %eax
     movl	%eax, %edx
     andl	$15, %edx
-    movzbl $sX + 1(%rip), %eax
+    movzbl	sX + 1(%rip), %eax
     andl	$-16, %eax
     orl	%edx, %eax
-    movb	%al, $sX + 1(%rip)
-    movq $sX(%rip), %rax
+    movb	%al, sX + 1(%rip)
+    movq	sX(%rip), %rax
     movq	%rax, -48(%rbp)
-    movq $sX + 8(%rip), %rax
+    movq	sX + 8(%rip), %rax
     movq	%rax, -40(%rbp)
-    movl $sX + 16(%rip), %eax
+    movl	sX + 16(%rip), %eax
     movl	%eax, -32(%rbp)
     movl	-64(%rbp), %eax
     movl	%eax, %edi
@@ -9906,54 +9948,54 @@ L530:
     movzbl	-45(%rbp), %eax
     shrb	%al
     movl	%eax, %edx
-    movzbl $sX + 3(%rip), %eax
+    movzbl	sX + 3(%rip), %eax
     shrb	%al
     cmpb	%al, %dl
-    jne	L531
+    jne	L537
     movl	-48(%rbp), %eax
     shrl	$12, %eax
     movl	%eax, %ecx
     andw	$8191, %cx
-    movzbl $sX + 1(%rip), %eax
+    movzbl	sX + 1(%rip), %eax
     shrb	$4, %al
     movzbl	%al, %eax
-    movzbl $sX + 2(%rip), %edx
+    movzbl	sX + 2(%rip), %edx
     salq	$4, %rdx
     orq	%rax, %rdx
-    movzbl $sX + 3(%rip), %eax
+    movzbl	sX + 3(%rip), %eax
     andl	$1, %eax
     salq	$12, %rax
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L531
-    movzbl $sX(%rip), %eax
-    movzbl $sX + 1(%rip), %edx
+    jne	L537
+    movzbl	sX(%rip), %eax
+    movzbl	sX + 1(%rip), %edx
     andl	$15, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
     movzwl	%ax, %eax
     cmpl	-60(%rbp), %eax
-    jne	L531
+    jne	L537
     fldt	-44(%rbp)
-    fldt $sX + 4(%rip)
+    fldt	sX + 4(%rip)
     fucomi	%st(1), %st
-    jp	L536
+    jp	L542
     fucomip	%st(1), %st
     fstp	%st(0)
-    jne	L531
+    jne	L537
     movl	-68(%rbp), %edx
     movl	-64(%rbp), %eax
     addl	%edx, %eax
     andl	-72(%rbp), %eax
     cmpl	-60(%rbp), %eax
-    je	L533
-    jmp	L531
-L536:
+    je	L539
+    jmp	L537
+L542:
     fstp	%st(0)
     fstp	%st(0)
-L531:
+L537:
     call	abort
-L533:
+L539:
     nop
     addq	$72, %rsp
     popq	%rbx
@@ -9984,11 +10026,11 @@ fn1Y:
     movq	$40, %rax
     movq	%rax, -8(%rbp)
     xorl	%eax, %eax
-    movq $sY(%rip), %rax
+    movq	sY(%rip), %rax
     movq	%rax, -32(%rbp)
-    movq $sY + 8(%rip), %rax
+    movq	sY + 8(%rip), %rax
     movq	%rax, -24(%rbp)
-    movl $sY + 16(%rip), %eax
+    movl	sY + 16(%rip), %eax
     movl	%eax, -16(%rbp)
     movzwl	-32(%rbp), %eax
     andw	$4095, %ax
@@ -10019,9 +10061,9 @@ fn1Y:
     movzwl	%ax, %eax
     movq	-8(%rbp), %rsi
     xorq	$40, %rsi
-    je	L541
+    je	L547
     call	__stack_chk_fail
-L541:
+L547:
     leave
     ret
     .globl	fn2Y
@@ -10029,11 +10071,11 @@ fn2Y:
     pushq	%rbp
     movq	%rsp, %rbp
     movl	%edi, -36(%rbp)
-    movq $sY(%rip), %rax
+    movq	sY(%rip), %rax
     movq	%rax, -32(%rbp)
-    movq $sY + 8(%rip), %rax
+    movq	sY + 8(%rip), %rax
     movq	%rax, -24(%rbp)
-    movl $sY + 16(%rip), %eax
+    movl	sY + 16(%rip), %eax
     movl	%eax, -16(%rbp)
     movzwl	-32(%rbp), %eax
     andw	$4095, %ax
@@ -10081,8 +10123,8 @@ fn2Y:
 retitY:
     pushq	%rbp
     movq	%rsp, %rbp
-    movzbl $sY(%rip), %eax
-    movzbl $sY + 1(%rip), %edx
+    movzbl	sY(%rip), %eax
+    movzbl	sY + 1(%rip), %edx
     andl	$15, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
@@ -10095,8 +10137,8 @@ fn3Y:
     movq	%rsp, %rbp
     subq	$8, %rsp
     movl	%edi, -4(%rbp)
-    movzbl $sY(%rip), %eax
-    movzbl $sY + 1(%rip), %edx
+    movzbl	sY(%rip), %eax
+    movzbl	sY + 1(%rip), %edx
     andl	$15, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
@@ -10106,19 +10148,19 @@ fn3Y:
     andw	$4095, %ax
     movzwl	%ax, %edx
     movzbl	%dl, %ecx
-    movzbl $sY(%rip), %edx
+    movzbl	sY(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sY(%rip)
+    movb	%dl, sY(%rip)
     shrw	$8, %ax
     movzwl	%ax, %eax
     andl	$15, %eax
     movl	%eax, %edx
     andl	$15, %edx
-    movzbl $sY + 1(%rip), %eax
+    movzbl	sY + 1(%rip), %eax
     andl	$-16, %eax
     orl	%edx, %eax
-    movb	%al, $sY + 1(%rip)
+    movb	%al, sY + 1(%rip)
     call	retitY
     leave
     ret
@@ -10130,28 +10172,28 @@ testY:
     subq	$72, %rsp
     movq	$sY, -56(%rbp)
     movl	$0, -76(%rbp)
-    jmp	L549
-L550:
+    jmp	L555
+L556:
     movq	-56(%rbp), %rbx
     leaq	1(%rbx), %rax
     movq	%rax, -56(%rbp)
     call	myrnd
     movb	%al, (%rbx)
     addl	$1, -76(%rbp)
-L549:
+L555:
     movl	-76(%rbp), %eax
     cmpl	$19, %eax
-    jbe	L550
-    fldt	$LC0(%rip)
-    fstpt $sY + 4(%rip)
-    movzbl $sY(%rip), %eax
+    jbe	L556
+    fldt	LC0(%rip)
+    fstpt	sY + 4(%rip)
+    movzbl	sY(%rip), %eax
     orl	$-1, %eax
-    movb	%al, $sY(%rip)
-    movzbl $sY + 1(%rip), %eax
+    movb	%al, sY(%rip)
+    movzbl	sY + 1(%rip), %eax
     orl	$15, %eax
-    movb	%al, $sY + 1(%rip)
-    movzbl $sY(%rip), %eax
-    movzbl $sY + 1(%rip), %edx
+    movb	%al, sY + 1(%rip)
+    movzbl	sY(%rip), %eax
+    movzbl	sY + 1(%rip), %edx
     andl	$15, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
@@ -10165,24 +10207,24 @@ L549:
     andw	$4095, %ax
     movzwl	%ax, %edx
     movzbl	%dl, %ecx
-    movzbl $sY(%rip), %edx
+    movzbl	sY(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sY(%rip)
+    movb	%dl, sY(%rip)
     shrw	$8, %ax
     movzwl	%ax, %eax
     andl	$15, %eax
     movl	%eax, %edx
     andl	$15, %edx
-    movzbl $sY + 1(%rip), %eax
+    movzbl	sY + 1(%rip), %eax
     andl	$-16, %eax
     orl	%edx, %eax
-    movb	%al, $sY + 1(%rip)
-    movq $sY(%rip), %rax
+    movb	%al, sY + 1(%rip)
+    movq	sY(%rip), %rax
     movq	%rax, -48(%rbp)
-    movq $sY + 8(%rip), %rax
+    movq	sY + 8(%rip), %rax
     movq	%rax, -40(%rbp)
-    movl $sY + 16(%rip), %eax
+    movl	sY + 16(%rip), %eax
     movl	%eax, -32(%rbp)
     movl	-64(%rbp), %eax
     movl	%eax, %edi
@@ -10191,57 +10233,57 @@ L549:
     movzwl	-46(%rbp), %eax
     shrw	$7, %ax
     movl	%eax, %ecx
-    movzbl $sY + 2(%rip), %eax
+    movzbl	sY + 2(%rip), %eax
     shrb	$7, %al
     movzbl	%al, %eax
-    movzbl $sY + 3(%rip), %edx
+    movzbl	sY + 3(%rip), %edx
     addq	%rdx, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L551
+    jne	L557
     movl	-48(%rbp), %eax
     shrl	$12, %eax
     movl	%eax, %ecx
     andw	$2047, %cx
-    movzbl $sY + 1(%rip), %eax
+    movzbl	sY + 1(%rip), %eax
     shrb	$4, %al
     movzbl	%al, %eax
-    movzbl $sY + 2(%rip), %edx
+    movzbl	sY + 2(%rip), %edx
     andl	$127, %edx
     salq	$4, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L551
+    jne	L557
     movzwl	-48(%rbp), %eax
     andw	$4095, %ax
     movl	%eax, %ecx
-    movzbl $sY(%rip), %eax
-    movzbl $sY + 1(%rip), %edx
+    movzbl	sY(%rip), %eax
+    movzbl	sY + 1(%rip), %edx
     andl	$15, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L551
+    jne	L557
     fldt	-44(%rbp)
-    fldt $sY + 4(%rip)
+    fldt	sY + 4(%rip)
     fucomi	%st(1), %st
-    jp	L558
+    jp	L564
     fucomip	%st(1), %st
     fstp	%st(0)
-    jne	L551
+    jne	L557
     movl	-68(%rbp), %edx
     movl	-64(%rbp), %eax
     addl	%edx, %eax
     andl	-72(%rbp), %eax
     cmpl	-60(%rbp), %eax
-    je	L552
-    jmp	L551
-L558:
+    je	L558
+    jmp	L557
+L564:
     fstp	%st(0)
     fstp	%st(0)
-L551:
+L557:
     call	abort
-L552:
+L558:
     call	myrnd
     movl	%eax, -68(%rbp)
     call	myrnd
@@ -10250,24 +10292,24 @@ L552:
     andw	$4095, %ax
     movzwl	%ax, %edx
     movzbl	%dl, %ecx
-    movzbl $sY(%rip), %edx
+    movzbl	sY(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sY(%rip)
+    movb	%dl, sY(%rip)
     shrw	$8, %ax
     movzwl	%ax, %eax
     andl	$15, %eax
     movl	%eax, %edx
     andl	$15, %edx
-    movzbl $sY + 1(%rip), %eax
+    movzbl	sY + 1(%rip), %eax
     andl	$-16, %eax
     orl	%edx, %eax
-    movb	%al, $sY + 1(%rip)
-    movq $sY(%rip), %rax
+    movb	%al, sY + 1(%rip)
+    movq	sY(%rip), %rax
     movq	%rax, -48(%rbp)
-    movq $sY + 8(%rip), %rax
+    movq	sY + 8(%rip), %rax
     movq	%rax, -40(%rbp)
-    movl $sY + 16(%rip), %eax
+    movl	sY + 16(%rip), %eax
     movl	%eax, -32(%rbp)
     movl	-64(%rbp), %eax
     movl	%eax, %edi
@@ -10276,44 +10318,44 @@ L552:
     movzwl	-46(%rbp), %eax
     shrw	$7, %ax
     movl	%eax, %ecx
-    movzbl $sY + 2(%rip), %eax
+    movzbl	sY + 2(%rip), %eax
     shrb	$7, %al
     movzbl	%al, %eax
-    movzbl $sY + 3(%rip), %edx
+    movzbl	sY + 3(%rip), %edx
     addq	%rdx, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L553
+    jne	L559
     movl	-48(%rbp), %eax
     shrl	$12, %eax
     movl	%eax, %ecx
     andw	$2047, %cx
-    movzbl $sY + 1(%rip), %eax
+    movzbl	sY + 1(%rip), %eax
     shrb	$4, %al
     movzbl	%al, %eax
-    movzbl $sY + 2(%rip), %edx
+    movzbl	sY + 2(%rip), %edx
     andl	$127, %edx
     salq	$4, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L553
+    jne	L559
     movzwl	-48(%rbp), %eax
     andw	$4095, %ax
     movl	%eax, %ecx
-    movzbl $sY(%rip), %eax
-    movzbl $sY + 1(%rip), %edx
+    movzbl	sY(%rip), %eax
+    movzbl	sY + 1(%rip), %edx
     andl	$15, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L553
+    jne	L559
     fldt	-44(%rbp)
-    fldt $sY + 4(%rip)
+    fldt	sY + 4(%rip)
     fucomi	%st(1), %st
-    jp	L559
+    jp	L565
     fucomip	%st(1), %st
     fstp	%st(0)
-    jne	L553
+    jne	L559
     movl	-68(%rbp), %edx
     movl	-64(%rbp), %eax
     addl	%edx, %eax
@@ -10331,14 +10373,14 @@ L552:
     subl	%edx, %eax
     andl	-72(%rbp), %eax
     cmpl	-60(%rbp), %eax
-    je	L554
-    jmp	L553
+    je	L560
+    jmp	L559
+L565:
+    fstp	%st(0)
+    fstp	%st(0)
 L559:
-    fstp	%st(0)
-    fstp	%st(0)
-L553:
     call	abort
-L554:
+L560:
     call	myrnd
     movl	%eax, -68(%rbp)
     call	myrnd
@@ -10347,24 +10389,24 @@ L554:
     andw	$4095, %ax
     movzwl	%ax, %edx
     movzbl	%dl, %ecx
-    movzbl $sY(%rip), %edx
+    movzbl	sY(%rip), %edx
     andl	$0, %edx
     orl	%ecx, %edx
-    movb	%dl, $sY(%rip)
+    movb	%dl, sY(%rip)
     shrw	$8, %ax
     movzwl	%ax, %eax
     andl	$15, %eax
     movl	%eax, %edx
     andl	$15, %edx
-    movzbl $sY + 1(%rip), %eax
+    movzbl	sY + 1(%rip), %eax
     andl	$-16, %eax
     orl	%edx, %eax
-    movb	%al, $sY + 1(%rip)
-    movq $sY(%rip), %rax
+    movb	%al, sY + 1(%rip)
+    movq	sY(%rip), %rax
     movq	%rax, -48(%rbp)
-    movq $sY + 8(%rip), %rax
+    movq	sY + 8(%rip), %rax
     movq	%rax, -40(%rbp)
-    movl $sY + 16(%rip), %eax
+    movl	sY + 16(%rip), %eax
     movl	%eax, -32(%rbp)
     movl	-64(%rbp), %eax
     movl	%eax, %edi
@@ -10373,55 +10415,55 @@ L554:
     movzwl	-46(%rbp), %eax
     shrw	$7, %ax
     movl	%eax, %ecx
-    movzbl $sY + 2(%rip), %eax
+    movzbl	sY + 2(%rip), %eax
     shrb	$7, %al
     movzbl	%al, %eax
-    movzbl $sY + 3(%rip), %edx
+    movzbl	sY + 3(%rip), %edx
     addq	%rdx, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L555
+    jne	L561
     movl	-48(%rbp), %eax
     shrl	$12, %eax
     movl	%eax, %ecx
     andw	$2047, %cx
-    movzbl $sY + 1(%rip), %eax
+    movzbl	sY + 1(%rip), %eax
     shrb	$4, %al
     movzbl	%al, %eax
-    movzbl $sY + 2(%rip), %edx
+    movzbl	sY + 2(%rip), %edx
     andl	$127, %edx
     salq	$4, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L555
-    movzbl $sY(%rip), %eax
-    movzbl $sY + 1(%rip), %edx
+    jne	L561
+    movzbl	sY(%rip), %eax
+    movzbl	sY + 1(%rip), %edx
     andl	$15, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
     movzwl	%ax, %eax
     cmpl	-60(%rbp), %eax
-    jne	L555
+    jne	L561
     fldt	-44(%rbp)
-    fldt $sY + 4(%rip)
+    fldt	sY + 4(%rip)
     fucomi	%st(1), %st
-    jp	L560
+    jp	L566
     fucomip	%st(1), %st
     fstp	%st(0)
-    jne	L555
+    jne	L561
     movl	-68(%rbp), %edx
     movl	-64(%rbp), %eax
     addl	%edx, %eax
     andl	-72(%rbp), %eax
     cmpl	-60(%rbp), %eax
-    je	L557
-    jmp	L555
-L560:
+    je	L563
+    jmp	L561
+L566:
     fstp	%st(0)
     fstp	%st(0)
-L555:
+L561:
     call	abort
-L557:
+L563:
     nop
     addq	$72, %rsp
     popq	%rbx
@@ -10452,11 +10494,11 @@ fn1Z:
     movq	$40, %rax
     movq	%rax, -8(%rbp)
     xorl	%eax, %eax
-    movq $sZ(%rip), %rax
+    movq	sZ(%rip), %rax
     movq	%rax, -32(%rbp)
-    movq $sZ + 8(%rip), %rax
+    movq	sZ + 8(%rip), %rax
     movq	%rax, -24(%rbp)
-    movl $sZ + 16(%rip), %eax
+    movl	sZ + 16(%rip), %eax
     movl	%eax, -16(%rbp)
     movzwl	-14(%rbp), %eax
     shrw	$4, %ax
@@ -10487,9 +10529,9 @@ fn1Z:
     movzwl	%ax, %eax
     movq	-8(%rbp), %rsi
     xorq	$40, %rsi
-    je	L565
+    je	L571
     call	__stack_chk_fail
-L565:
+L571:
     leave
     ret
     .globl	fn2Z
@@ -10497,11 +10539,11 @@ fn2Z:
     pushq	%rbp
     movq	%rsp, %rbp
     movl	%edi, -36(%rbp)
-    movq $sZ(%rip), %rax
+    movq	sZ(%rip), %rax
     movq	%rax, -32(%rbp)
-    movq $sZ + 8(%rip), %rax
+    movq	sZ + 8(%rip), %rax
     movq	%rax, -24(%rbp)
-    movl $sZ + 16(%rip), %eax
+    movl	sZ + 16(%rip), %eax
     movl	%eax, -16(%rbp)
     movzwl	-14(%rbp), %eax
     shrw	$4, %ax
@@ -10549,10 +10591,10 @@ fn2Z:
 retitZ:
     pushq	%rbp
     movq	%rsp, %rbp
-    movzbl $sZ + 18(%rip), %eax
+    movzbl	sZ + 18(%rip), %eax
     shrb	$4, %al
     movzbl	%al, %eax
-    movzbl $sZ + 19(%rip), %edx
+    movzbl	sZ + 19(%rip), %edx
     salq	$4, %rdx
     orq	%rdx, %rax
     movzwl	%ax, %eax
@@ -10564,10 +10606,10 @@ fn3Z:
     movq	%rsp, %rbp
     subq	$8, %rsp
     movl	%edi, -4(%rbp)
-    movzbl $sZ + 18(%rip), %eax
+    movzbl	sZ + 18(%rip), %eax
     shrb	$4, %al
     movzbl	%al, %eax
-    movzbl $sZ + 19(%rip), %edx
+    movzbl	sZ + 19(%rip), %edx
     salq	$4, %rdx
     orq	%rdx, %rax
     movl	%eax, %edx
@@ -10578,17 +10620,17 @@ fn3Z:
     andl	$15, %edx
     movl	%edx, %ecx
     sall	$4, %ecx
-    movzbl $sZ + 18(%rip), %edx
+    movzbl	sZ + 18(%rip), %edx
     andl	$15, %edx
     orl	%ecx, %edx
-    movb	%dl, $sZ + 18(%rip)
+    movb	%dl, sZ + 18(%rip)
     shrw	$4, %ax
     movzwl	%ax, %eax
     movzbl	%al, %edx
-    movzbl $sZ + 19(%rip), %eax
+    movzbl	sZ + 19(%rip), %eax
     andl	$0, %eax
     orl	%edx, %eax
-    movb	%al, $sZ + 19(%rip)
+    movb	%al, sZ + 19(%rip)
     call	retitZ
     leave
     ret
@@ -10600,30 +10642,30 @@ testZ:
     subq	$72, %rsp
     movq	$sZ, -56(%rbp)
     movl	$0, -76(%rbp)
-    jmp	L573
-L574:
+    jmp	L579
+L580:
     movq	-56(%rbp), %rbx
     leaq	1(%rbx), %rax
     movq	%rax, -56(%rbp)
     call	myrnd
     movb	%al, (%rbx)
     addl	$1, -76(%rbp)
-L573:
+L579:
     movl	-76(%rbp), %eax
     cmpl	$19, %eax
-    jbe	L574
-    fldt	$LC0(%rip)
-    fstpt $sZ(%rip)
-    movzbl $sZ + 18(%rip), %eax
+    jbe	L580
+    fldt	LC0(%rip)
+    fstpt	sZ(%rip)
+    movzbl	sZ + 18(%rip), %eax
     orl	$-16, %eax
-    movb	%al, $sZ + 18(%rip)
-    movzbl $sZ + 19(%rip), %eax
+    movb	%al, sZ + 18(%rip)
+    movzbl	sZ + 19(%rip), %eax
     orl	$-1, %eax
-    movb	%al, $sZ + 19(%rip)
-    movzbl $sZ + 18(%rip), %eax
+    movb	%al, sZ + 19(%rip)
+    movzbl	sZ + 18(%rip), %eax
     shrb	$4, %al
     movzbl	%al, %eax
-    movzbl $sZ + 19(%rip), %edx
+    movzbl	sZ + 19(%rip), %edx
     salq	$4, %rdx
     orq	%rdx, %rax
     movzwl	%ax, %eax
@@ -10638,22 +10680,22 @@ L573:
     andl	$15, %edx
     movl	%edx, %ecx
     sall	$4, %ecx
-    movzbl $sZ + 18(%rip), %edx
+    movzbl	sZ + 18(%rip), %edx
     andl	$15, %edx
     orl	%ecx, %edx
-    movb	%dl, $sZ + 18(%rip)
+    movb	%dl, sZ + 18(%rip)
     shrw	$4, %ax
     movzwl	%ax, %eax
     movzbl	%al, %edx
-    movzbl $sZ + 19(%rip), %eax
+    movzbl	sZ + 19(%rip), %eax
     andl	$0, %eax
     orl	%edx, %eax
-    movb	%al, $sZ + 19(%rip)
-    movq $sZ(%rip), %rax
+    movb	%al, sZ + 19(%rip)
+    movq	sZ(%rip), %rax
     movq	%rax, -48(%rbp)
-    movq $sZ + 8(%rip), %rax
+    movq	sZ + 8(%rip), %rax
     movq	%rax, -40(%rbp)
-    movl $sZ + 16(%rip), %eax
+    movl	sZ + 16(%rip), %eax
     movl	%eax, -32(%rbp)
     movl	-64(%rbp), %eax
     movl	%eax, %edi
@@ -10663,56 +10705,56 @@ L573:
     shrl	$13, %eax
     movl	%eax, %ecx
     andl	$127, %ecx
-    movzbl $sZ + 17(%rip), %eax
+    movzbl	sZ + 17(%rip), %eax
     shrb	$5, %al
     movzbl	%al, %eax
-    movzbl $sZ + 18(%rip), %edx
+    movzbl	sZ + 18(%rip), %edx
     andl	$15, %edx
     salq	$3, %rdx
     orq	%rdx, %rax
     cmpb	%al, %cl
-    jne	L575
+    jne	L581
     movzwl	-32(%rbp), %eax
     andw	$8191, %ax
     movl	%eax, %ecx
-    movzbl $sZ + 16(%rip), %eax
-    movzbl $sZ + 17(%rip), %edx
+    movzbl	sZ + 16(%rip), %eax
+    movzbl	sZ + 17(%rip), %edx
     andl	$31, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L575
+    jne	L581
     movzwl	-30(%rbp), %eax
     shrw	$4, %ax
     movl	%eax, %ecx
-    movzbl $sZ + 18(%rip), %eax
+    movzbl	sZ + 18(%rip), %eax
     shrb	$4, %al
     movzbl	%al, %eax
-    movzbl $sZ + 19(%rip), %edx
+    movzbl	sZ + 19(%rip), %edx
     salq	$4, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L575
+    jne	L581
     fldt	-48(%rbp)
-    fldt $sZ(%rip)
+    fldt	sZ(%rip)
     fucomi	%st(1), %st
-    jp	L582
+    jp	L588
     fucomip	%st(1), %st
     fstp	%st(0)
-    jne	L575
+    jne	L581
     movl	-68(%rbp), %edx
     movl	-64(%rbp), %eax
     addl	%edx, %eax
     andl	-72(%rbp), %eax
     cmpl	-60(%rbp), %eax
-    je	L576
-    jmp	L575
-L582:
+    je	L582
+    jmp	L581
+L588:
     fstp	%st(0)
     fstp	%st(0)
-L575:
+L581:
     call	abort
-L576:
+L582:
     call	myrnd
     movl	%eax, -68(%rbp)
     call	myrnd
@@ -10723,22 +10765,22 @@ L576:
     andl	$15, %edx
     movl	%edx, %ecx
     sall	$4, %ecx
-    movzbl $sZ + 18(%rip), %edx
+    movzbl	sZ + 18(%rip), %edx
     andl	$15, %edx
     orl	%ecx, %edx
-    movb	%dl, $sZ + 18(%rip)
+    movb	%dl, sZ + 18(%rip)
     shrw	$4, %ax
     movzwl	%ax, %eax
     movzbl	%al, %edx
-    movzbl $sZ + 19(%rip), %eax
+    movzbl	sZ + 19(%rip), %eax
     andl	$0, %eax
     orl	%edx, %eax
-    movb	%al, $sZ + 19(%rip)
-    movq $sZ(%rip), %rax
+    movb	%al, sZ + 19(%rip)
+    movq	sZ(%rip), %rax
     movq	%rax, -48(%rbp)
-    movq $sZ + 8(%rip), %rax
+    movq	sZ + 8(%rip), %rax
     movq	%rax, -40(%rbp)
-    movl $sZ + 16(%rip), %eax
+    movl	sZ + 16(%rip), %eax
     movl	%eax, -32(%rbp)
     movl	-64(%rbp), %eax
     movl	%eax, %edi
@@ -10748,43 +10790,43 @@ L576:
     shrl	$13, %eax
     movl	%eax, %ecx
     andl	$127, %ecx
-    movzbl $sZ + 17(%rip), %eax
+    movzbl	sZ + 17(%rip), %eax
     shrb	$5, %al
     movzbl	%al, %eax
-    movzbl $sZ + 18(%rip), %edx
+    movzbl	sZ + 18(%rip), %edx
     andl	$15, %edx
     salq	$3, %rdx
     orq	%rdx, %rax
     cmpb	%al, %cl
-    jne	L577
+    jne	L583
     movzwl	-32(%rbp), %eax
     andw	$8191, %ax
     movl	%eax, %ecx
-    movzbl $sZ + 16(%rip), %eax
-    movzbl $sZ + 17(%rip), %edx
+    movzbl	sZ + 16(%rip), %eax
+    movzbl	sZ + 17(%rip), %edx
     andl	$31, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L577
+    jne	L583
     movzwl	-30(%rbp), %eax
     shrw	$4, %ax
     movl	%eax, %ecx
-    movzbl $sZ + 18(%rip), %eax
+    movzbl	sZ + 18(%rip), %eax
     shrb	$4, %al
     movzbl	%al, %eax
-    movzbl $sZ + 19(%rip), %edx
+    movzbl	sZ + 19(%rip), %edx
     salq	$4, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L577
+    jne	L583
     fldt	-48(%rbp)
-    fldt $sZ(%rip)
+    fldt	sZ(%rip)
     fucomi	%st(1), %st
-    jp	L583
+    jp	L589
     fucomip	%st(1), %st
     fstp	%st(0)
-    jne	L577
+    jne	L583
     movl	-68(%rbp), %edx
     movl	-64(%rbp), %eax
     addl	%edx, %eax
@@ -10802,14 +10844,14 @@ L576:
     subl	%edx, %eax
     andl	-72(%rbp), %eax
     cmpl	-60(%rbp), %eax
-    je	L578
-    jmp	L577
+    je	L584
+    jmp	L583
+L589:
+    fstp	%st(0)
+    fstp	%st(0)
 L583:
-    fstp	%st(0)
-    fstp	%st(0)
-L577:
     call	abort
-L578:
+L584:
     call	myrnd
     movl	%eax, -68(%rbp)
     call	myrnd
@@ -10820,22 +10862,22 @@ L578:
     andl	$15, %edx
     movl	%edx, %ecx
     sall	$4, %ecx
-    movzbl $sZ + 18(%rip), %edx
+    movzbl	sZ + 18(%rip), %edx
     andl	$15, %edx
     orl	%ecx, %edx
-    movb	%dl, $sZ + 18(%rip)
+    movb	%dl, sZ + 18(%rip)
     shrw	$4, %ax
     movzwl	%ax, %eax
     movzbl	%al, %edx
-    movzbl $sZ + 19(%rip), %eax
+    movzbl	sZ + 19(%rip), %eax
     andl	$0, %eax
     orl	%edx, %eax
-    movb	%al, $sZ + 19(%rip)
-    movq $sZ(%rip), %rax
+    movb	%al, sZ + 19(%rip)
+    movq	sZ(%rip), %rax
     movq	%rax, -48(%rbp)
-    movq $sZ + 8(%rip), %rax
+    movq	sZ + 8(%rip), %rax
     movq	%rax, -40(%rbp)
-    movl $sZ + 16(%rip), %eax
+    movl	sZ + 16(%rip), %eax
     movl	%eax, -32(%rbp)
     movl	-64(%rbp), %eax
     movl	%eax, %edi
@@ -10845,54 +10887,54 @@ L578:
     shrl	$13, %eax
     movl	%eax, %ecx
     andl	$127, %ecx
-    movzbl $sZ + 17(%rip), %eax
+    movzbl	sZ + 17(%rip), %eax
     shrb	$5, %al
     movzbl	%al, %eax
-    movzbl $sZ + 18(%rip), %edx
+    movzbl	sZ + 18(%rip), %edx
     andl	$15, %edx
     salq	$3, %rdx
     orq	%rdx, %rax
     cmpb	%al, %cl
-    jne	L579
+    jne	L585
     movzwl	-32(%rbp), %eax
     andw	$8191, %ax
     movl	%eax, %ecx
-    movzbl $sZ + 16(%rip), %eax
-    movzbl $sZ + 17(%rip), %edx
+    movzbl	sZ + 16(%rip), %eax
+    movzbl	sZ + 17(%rip), %edx
     andl	$31, %edx
     salq	$8, %rdx
     orq	%rdx, %rax
     cmpw	%ax, %cx
-    jne	L579
-    movzbl $sZ + 18(%rip), %eax
+    jne	L585
+    movzbl	sZ + 18(%rip), %eax
     shrb	$4, %al
     movzbl	%al, %eax
-    movzbl $sZ + 19(%rip), %edx
+    movzbl	sZ + 19(%rip), %edx
     salq	$4, %rdx
     orq	%rdx, %rax
     movzwl	%ax, %eax
     cmpl	-60(%rbp), %eax
-    jne	L579
+    jne	L585
     fldt	-48(%rbp)
-    fldt $sZ(%rip)
+    fldt	sZ(%rip)
     fucomi	%st(1), %st
-    jp	L584
+    jp	L590
     fucomip	%st(1), %st
     fstp	%st(0)
-    jne	L579
+    jne	L585
     movl	-68(%rbp), %edx
     movl	-64(%rbp), %eax
     addl	%edx, %eax
     andl	-72(%rbp), %eax
     cmpl	-60(%rbp), %eax
-    je	L581
-    jmp	L579
-L584:
+    je	L587
+    jmp	L585
+L590:
     fstp	%st(0)
     fstp	%st(0)
-L579:
+L585:
     call	abort
-L581:
+L587:
     nop
     addq	$72, %rsp
     popq	%rbx
@@ -10932,7 +10974,7 @@ _start:
     movl	$0, %edi
     call	exit
     .data
-s2409:
+s2418:
     .long	1388815473
     .section	.rodata
 LC0:

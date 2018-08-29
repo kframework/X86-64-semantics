@@ -69,6 +69,38 @@ L12:
     movq	-8(%rbp), %rax
     popq	%rbp
     ret
+    .globl	strcmp
+strcmp:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq	%rdi, -8(%rbp)
+    movq	%rsi, -16(%rbp)
+    jmp	L15
+L17:
+    addq	$1, -8(%rbp)
+    addq	$1, -16(%rbp)
+L15:
+    movq	-8(%rbp), %rax
+    movzbl	(%rax), %eax
+    testb	%al, %al
+    je	L16
+    movq	-8(%rbp), %rax
+    movzbl	(%rax), %edx
+    movq	-16(%rbp), %rax
+    movzbl	(%rax), %eax
+    cmpb	%al, %dl
+    je	L17
+L16:
+    movq	-8(%rbp), %rax
+    movzbl	(%rax), %eax
+    movzbl	%al, %edx
+    movq	-16(%rbp), %rax
+    movzbl	(%rax), %eax
+    movzbl	%al, %eax
+    subl	%eax, %edx
+    movl	%edx, %eax
+    popq	%rbp
+    ret
     .globl	memcmp
 memcmp:
     pushq	%rbp
@@ -80,14 +112,14 @@ memcmp:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L15
-L18:
+    jmp	L20
+L23:
     movq	-16(%rbp), %rax
     movzbl	(%rax), %edx
     movq	-8(%rbp), %rax
     movzbl	(%rax), %eax
     cmpb	%al, %dl
-    je	L16
+    je	L21
     movq	-16(%rbp), %rax
     movzbl	(%rax), %eax
     movzbl	%al, %edx
@@ -96,18 +128,28 @@ L18:
     movzbl	%al, %eax
     subl	%eax, %edx
     movl	%edx, %eax
-    jmp	L17
-L16:
+    jmp	L22
+L21:
     addq	$1, -16(%rbp)
     addq	$1, -8(%rbp)
-L15:
+L20:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L18
+    jne	L23
     movl	$0, %eax
-L17:
+L22:
+    popq	%rbp
+    ret
+    .globl	__stack_chk_fail
+__stack_chk_fail:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq $-1, %rax
+    jmp %rax
+    
+    nop
     popq	%rbp
     ret
     .globl	exit
@@ -140,19 +182,19 @@ memset:
     movq	%rdx, -40(%rbp)
     movq	-24(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L22
-L23:
+    jmp	L28
+L29:
     movq	-8(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -8(%rbp)
     movl	-28(%rbp), %edx
     movb	%dl, (%rax)
-L22:
+L28:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L23
+    jne	L29
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -167,8 +209,8 @@ memcpy:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L26
-L27:
+    jmp	L32
+L33:
     movq	-16(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -16(%rbp)
@@ -177,12 +219,12 @@ L27:
     movq	%rcx, -8(%rbp)
     movzbl	(%rdx), %edx
     movb	%dl, (%rax)
-L26:
+L32:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L27
+    jne	L33
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -217,28 +259,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L35
+    jle	L41
     cmpl	$122, -4(%rbp)
-    jg	L35
+    jg	L41
     movl	$1, %eax
-    jmp	L36
-L35:
+    jmp	L42
+L41:
     cmpl	$64, -4(%rbp)
-    jle	L37
+    jle	L43
     cmpl	$90, -4(%rbp)
-    jg	L37
+    jg	L43
     movl	$1, %eax
-    jmp	L36
-L37:
+    jmp	L42
+L43:
     cmpl	$47, -4(%rbp)
-    jle	L38
+    jle	L44
     cmpl	$57, -4(%rbp)
-    jg	L38
+    jg	L44
     movl	$1, %eax
-    jmp	L36
-L38:
+    jmp	L42
+L44:
     movl	$0, %eax
-L36:
+L42:
     popq	%rbp
     ret
     .globl	NSReturnAddress
@@ -247,19 +289,13 @@ NSReturnAddress:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$99, -4(%rbp)
-    ja	L40
+    ja	L46
     movl	-4(%rbp), %eax
-    movq	$L42(,%rax,8), %rax
+    movq	L48(,%rax,8), %rax
     jmp	%rax
     .section	.rodata
-L42:
-    .quad	L41
-    .quad	L43
-    .quad	L44
-    .quad	L45
-    .quad	L46
+L48:
     .quad	L47
-    .quad	L48
     .quad	L49
     .quad	L50
     .quad	L51
@@ -353,106 +389,43 @@ L42:
     .quad	L139
     .quad	L140
     .quad	L141
+    .quad	L142
+    .quad	L143
+    .quad	L144
+    .quad	L145
+    .quad	L146
+    .quad	L147
     .text
-L41:
-    movq	0(%rbp), %rax
-    movq	8(%rax), %rax
-    jmp	L142
-L43:
-    movq	0(%rbp), %rax
-    movq	(%rax), %rax
-    movq	8(%rax), %rax
-    jmp	L142
-L44:
-    movq	0(%rbp), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	8(%rax), %rax
-    jmp	L142
-L45:
-    movq	0(%rbp), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	8(%rax), %rax
-    jmp	L142
-L46:
-    movq	0(%rbp), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	8(%rax), %rax
-    jmp	L142
 L47:
     movq	0(%rbp), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
-L48:
-    movq	0(%rbp), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L49:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L50:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L51:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L52:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L53:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -460,14 +433,8 @@ L53:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L54:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -476,14 +443,8 @@ L54:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L55:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -493,14 +454,8 @@ L55:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L56:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -511,14 +466,8 @@ L56:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L57:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -530,14 +479,8 @@ L57:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L58:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -550,14 +493,8 @@ L58:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L59:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -571,14 +508,8 @@ L59:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L60:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -593,14 +524,8 @@ L60:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L61:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -616,14 +541,8 @@ L61:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L62:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -640,14 +559,8 @@ L62:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L63:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -665,14 +578,8 @@ L63:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L64:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -691,14 +598,8 @@ L64:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L65:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -718,14 +619,8 @@ L65:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L66:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -746,14 +641,8 @@ L66:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L67:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -775,14 +664,8 @@ L67:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L68:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -805,14 +688,8 @@ L68:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L69:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -836,14 +713,8 @@ L69:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L70:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -868,14 +739,8 @@ L70:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L71:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -901,14 +766,8 @@ L71:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L72:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -935,14 +794,8 @@ L72:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L73:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -970,14 +823,8 @@ L73:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L74:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -1006,14 +853,8 @@ L74:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L75:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -1043,14 +884,8 @@ L75:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L76:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -1081,14 +916,8 @@ L76:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L77:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -1120,14 +949,8 @@ L77:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L78:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -1160,14 +983,8 @@ L78:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L79:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -1201,14 +1018,8 @@ L79:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L80:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -1243,14 +1054,8 @@ L80:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L81:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -1286,14 +1091,8 @@ L81:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L82:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -1330,14 +1129,8 @@ L82:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L83:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -1375,14 +1168,8 @@ L83:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L84:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -1421,14 +1208,8 @@ L84:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L85:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -1468,14 +1249,8 @@ L85:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L86:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -1516,14 +1291,8 @@ L86:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L87:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -1565,14 +1334,8 @@ L87:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L88:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -1615,14 +1378,8 @@ L88:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L89:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -1666,14 +1423,8 @@ L89:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L90:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -1718,14 +1469,8 @@ L90:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L91:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -1771,14 +1516,8 @@ L91:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L92:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -1825,14 +1564,8 @@ L92:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L93:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -1880,14 +1613,8 @@ L93:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L94:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -1936,14 +1663,8 @@ L94:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L95:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -1993,14 +1714,8 @@ L95:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L96:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -2051,14 +1766,8 @@ L96:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L97:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -2110,14 +1819,8 @@ L97:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L98:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -2170,14 +1873,8 @@ L98:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L99:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -2231,14 +1928,8 @@ L99:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L100:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -2293,14 +1984,8 @@ L100:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L101:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -2356,14 +2041,8 @@ L101:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L102:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -2420,14 +2099,8 @@ L102:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L103:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -2485,14 +2158,8 @@ L103:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L104:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -2551,14 +2218,8 @@ L104:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L105:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -2618,14 +2279,8 @@ L105:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L106:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -2686,14 +2341,8 @@ L106:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L107:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -2755,14 +2404,8 @@ L107:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L108:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -2825,14 +2468,8 @@ L108:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L109:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -2896,14 +2533,8 @@ L109:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L110:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -2968,14 +2599,8 @@ L110:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L111:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -3041,14 +2666,8 @@ L111:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L112:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -3115,14 +2734,8 @@ L112:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L113:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -3190,14 +2803,8 @@ L113:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L114:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -3266,14 +2873,8 @@ L114:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L115:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -3343,14 +2944,8 @@ L115:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L116:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -3421,14 +3016,8 @@ L116:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L117:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -3500,14 +3089,8 @@ L117:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L118:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -3580,14 +3163,8 @@ L118:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L119:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -3661,14 +3238,8 @@ L119:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L120:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -3743,14 +3314,8 @@ L120:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L121:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -3826,14 +3391,8 @@ L121:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L122:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -3910,14 +3469,8 @@ L122:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L123:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -3995,14 +3548,8 @@ L123:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L124:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -4081,14 +3628,8 @@ L124:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L125:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -4168,14 +3709,8 @@ L125:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L126:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -4256,14 +3791,8 @@ L126:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L127:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -4345,14 +3874,8 @@ L127:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L128:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -4435,14 +3958,8 @@ L128:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L129:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -4526,14 +4043,8 @@ L129:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L130:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -4618,14 +4129,8 @@ L130:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L131:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -4711,14 +4216,8 @@ L131:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L132:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -4805,14 +4304,8 @@ L132:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L133:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -4900,14 +4393,8 @@ L133:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L134:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -4996,14 +4483,8 @@ L134:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L135:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -5093,14 +4574,8 @@ L135:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L136:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -5191,14 +4666,8 @@ L136:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L137:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -5290,14 +4759,8 @@ L137:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L138:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -5390,14 +4853,8 @@ L138:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L139:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -5491,14 +4948,8 @@ L139:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L140:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -5593,14 +5044,8 @@ L140:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
-    movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
+    jmp	L148
 L141:
     movq	0(%rbp), %rax
     movq	(%rax), %rax
@@ -5696,6 +5141,98 @@ L141:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
+    movq	8(%rax), %rax
+    jmp	L148
+L142:
+    movq	0(%rbp), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	(%rax), %rax
@@ -5703,10 +5240,515 @@ L141:
     movq	(%rax), %rax
     movq	(%rax), %rax
     movq	8(%rax), %rax
-    jmp	L142
-L40:
+    jmp	L148
+L143:
+    movq	0(%rbp), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	8(%rax), %rax
+    jmp	L148
+L144:
+    movq	0(%rbp), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	8(%rax), %rax
+    jmp	L148
+L145:
+    movq	0(%rbp), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	8(%rax), %rax
+    jmp	L148
+L146:
+    movq	0(%rbp), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	8(%rax), %rax
+    jmp	L148
+L147:
+    movq	0(%rbp), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	(%rax), %rax
+    movq	8(%rax), %rax
+    jmp	L148
+L46:
     movl	$0, %eax
-L142:
+L148:
     popq	%rbp
     ret
     .globl	main

@@ -125,7 +125,7 @@ int
 main ()
 {
 #if DO_TEST
-  signal (SIGFPE, sigfpe);
+  //signal (SIGFPE, sigfpe);
   k = i / j;
   abort ();
 #else

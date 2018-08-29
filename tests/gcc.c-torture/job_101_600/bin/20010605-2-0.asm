@@ -69,6 +69,38 @@ L12:
     movq	-8(%rbp), %rax
     popq	%rbp
     ret
+    .globl	strcmp
+strcmp:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq	%rdi, -8(%rbp)
+    movq	%rsi, -16(%rbp)
+    jmp	L15
+L17:
+    addq	$1, -8(%rbp)
+    addq	$1, -16(%rbp)
+L15:
+    movq	-8(%rbp), %rax
+    movzbl	(%rax), %eax
+    testb	%al, %al
+    je	L16
+    movq	-8(%rbp), %rax
+    movzbl	(%rax), %edx
+    movq	-16(%rbp), %rax
+    movzbl	(%rax), %eax
+    cmpb	%al, %dl
+    je	L17
+L16:
+    movq	-8(%rbp), %rax
+    movzbl	(%rax), %eax
+    movzbl	%al, %edx
+    movq	-16(%rbp), %rax
+    movzbl	(%rax), %eax
+    movzbl	%al, %eax
+    subl	%eax, %edx
+    movl	%edx, %eax
+    popq	%rbp
+    ret
     .globl	memcmp
 memcmp:
     pushq	%rbp
@@ -80,14 +112,14 @@ memcmp:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L15
-L18:
+    jmp	L20
+L23:
     movq	-16(%rbp), %rax
     movzbl	(%rax), %edx
     movq	-8(%rbp), %rax
     movzbl	(%rax), %eax
     cmpb	%al, %dl
-    je	L16
+    je	L21
     movq	-16(%rbp), %rax
     movzbl	(%rax), %eax
     movzbl	%al, %edx
@@ -96,18 +128,28 @@ L18:
     movzbl	%al, %eax
     subl	%eax, %edx
     movl	%edx, %eax
-    jmp	L17
-L16:
+    jmp	L22
+L21:
     addq	$1, -16(%rbp)
     addq	$1, -8(%rbp)
-L15:
+L20:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L18
+    jne	L23
     movl	$0, %eax
-L17:
+L22:
+    popq	%rbp
+    ret
+    .globl	__stack_chk_fail
+__stack_chk_fail:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq $-1, %rax
+    jmp %rax
+    
+    nop
     popq	%rbp
     ret
     .globl	exit
@@ -140,19 +182,19 @@ memset:
     movq	%rdx, -40(%rbp)
     movq	-24(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L22
-L23:
+    jmp	L28
+L29:
     movq	-8(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -8(%rbp)
     movl	-28(%rbp), %edx
     movb	%dl, (%rax)
-L22:
+L28:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L23
+    jne	L29
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -167,8 +209,8 @@ memcpy:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L26
-L27:
+    jmp	L32
+L33:
     movq	-16(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -16(%rbp)
@@ -177,12 +219,12 @@ L27:
     movq	%rcx, -8(%rbp)
     movzbl	(%rdx), %edx
     movb	%dl, (%rax)
-L26:
+L32:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L27
+    jne	L33
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -217,28 +259,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L35
+    jle	L41
     cmpl	$122, -4(%rbp)
-    jg	L35
+    jg	L41
     movl	$1, %eax
-    jmp	L36
-L35:
+    jmp	L42
+L41:
     cmpl	$64, -4(%rbp)
-    jle	L37
+    jle	L43
     cmpl	$90, -4(%rbp)
-    jg	L37
+    jg	L43
     movl	$1, %eax
-    jmp	L36
-L37:
+    jmp	L42
+L43:
     cmpl	$47, -4(%rbp)
-    jle	L38
+    jle	L44
     cmpl	$57, -4(%rbp)
-    jg	L38
+    jg	L44
     movl	$1, %eax
-    jmp	L36
-L38:
+    jmp	L42
+L44:
     movl	$0, %eax
-L36:
+L42:
     popq	%rbp
     ret
     .globl	main
@@ -249,13 +291,13 @@ _start:
     subq	$112, %rsp
     vmovsd	-104(%rbp), %xmm0
     vmovsd	%xmm0, -40(%rbp)
-    vmovsd	$LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm0
     vmovsd	%xmm0, -48(%rbp)
-    vmovsd	$LC0(%rip), %xmm0
+    vmovsd	LC0(%rip), %xmm0
     vmovsd	%xmm0, -96(%rbp)
     vmovsd	-96(%rbp), %xmm0
     vmovsd	%xmm0, -48(%rbp)
-    vmovsd	$LC1(%rip), %xmm0
+    vmovsd	LC1(%rip), %xmm0
     vmovsd	%xmm0, -40(%rbp)
     movq	-48(%rbp), %rax
     vmovsd	-40(%rbp), %xmm1
@@ -264,13 +306,13 @@ _start:
     call	foo
     vmovss	-112(%rbp), %xmm0
     vmovss	%xmm0, -84(%rbp)
-    vmovss	$LC2(%rip), %xmm0
+    vmovss	LC2(%rip), %xmm0
     vmovss	%xmm0, -88(%rbp)
-    vmovss	$LC2(%rip), %xmm0
+    vmovss	LC2(%rip), %xmm0
     vmovss	%xmm0, -108(%rbp)
     vmovss	-108(%rbp), %xmm0
     vmovss	%xmm0, -88(%rbp)
-    vmovss	$LC3(%rip), %xmm0
+    vmovss	LC3(%rip), %xmm0
     vmovss	%xmm0, -84(%rbp)
     movq	-88(%rbp), %rax
     vmovq	%rax, %xmm0
@@ -278,13 +320,13 @@ _start:
     call	bar
     fldt	-80(%rbp)
     fstpt	-16(%rbp)
-    fldt	$LC4(%rip)
+    fldt	LC4(%rip)
     fstpt	-32(%rbp)
-    fldt	$LC4(%rip)
+    fldt	LC4(%rip)
     fstpt	-64(%rbp)
     fldt	-64(%rbp)
     fstpt	-32(%rbp)
-    fldt	$LC5(%rip)
+    fldt	LC5(%rip)
     fstpt	-16(%rbp)
     pushq	-8(%rbp)
     pushq	-16(%rbp)
@@ -307,21 +349,21 @@ foo:
     vmovsd	%xmm1, -16(%rbp)
     vmovsd	%xmm0, -8(%rbp)
     vmovsd	-16(%rbp), %xmm0
-    vmovsd	$LC0(%rip), %xmm1
+    vmovsd	LC0(%rip), %xmm1
     vucomisd	%xmm1, %xmm0
-    jp	L41
-    vmovsd	$LC0(%rip), %xmm1
+    jp	L47
+    vmovsd	LC0(%rip), %xmm1
     vucomisd	%xmm1, %xmm0
-    jne	L41
+    jne	L47
     vmovsd	-8(%rbp), %xmm0
-    vucomisd	$LC1(%rip), %xmm0
-    jp	L41
-    vucomisd	$LC1(%rip), %xmm0
-    jne	L41
-    jmp	L44
-L41:
+    vucomisd	LC1(%rip), %xmm0
+    jp	L47
+    vucomisd	LC1(%rip), %xmm0
+    jne	L47
+    jmp	L50
+L47:
     call	abort
-L44:
+L50:
     leave
     ret
     .globl	bar
@@ -336,19 +378,19 @@ bar:
     vmovss	%xmm1, -16(%rbp)
     vmovss	%xmm0, -12(%rbp)
     vmovss	-16(%rbp), %xmm0
-    vucomiss	$LC2(%rip), %xmm0
-    jp	L46
-    vucomiss	$LC2(%rip), %xmm0
-    jne	L46
+    vucomiss	LC2(%rip), %xmm0
+    jp	L52
+    vucomiss	LC2(%rip), %xmm0
+    jne	L52
     vmovss	-12(%rbp), %xmm0
-    vucomiss	$LC3(%rip), %xmm0
-    jp	L46
-    vucomiss	$LC3(%rip), %xmm0
-    jne	L46
-    jmp	L49
-L46:
+    vucomiss	LC3(%rip), %xmm0
+    jp	L52
+    vucomiss	LC3(%rip), %xmm0
+    jne	L52
+    jmp	L55
+L52:
     call	abort
-L49:
+L55:
     leave
     ret
     .globl	baz
@@ -356,30 +398,30 @@ baz:
     pushq	%rbp
     movq	%rsp, %rbp
     fldt	16(%rbp)
-    fldt	$LC4(%rip)
+    fldt	LC4(%rip)
     fucomip	%st(1), %st
-    jp	L55
-    fldt	$LC4(%rip)
+    jp	L61
+    fldt	LC4(%rip)
     fucomip	%st(1), %st
     fstp	%st(0)
-    jne	L51
+    jne	L57
     fldt	32(%rbp)
-    fldt	$LC5(%rip)
+    fldt	LC5(%rip)
     fucomip	%st(1), %st
-    jp	L56
-    fldt	$LC5(%rip)
+    jp	L62
+    fldt	LC5(%rip)
     fucomip	%st(1), %st
     fstp	%st(0)
-    jne	L51
-    jmp	L54
-L55:
+    jne	L57
+    jmp	L60
+L61:
     fstp	%st(0)
-    jmp	L51
-L56:
+    jmp	L57
+L62:
     fstp	%st(0)
-L51:
+L57:
     call	abort
-L54:
+L60:
     popq	%rbp
     ret
     .section	.rodata
