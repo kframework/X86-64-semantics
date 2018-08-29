@@ -185,6 +185,31 @@ L24:
 L25:
     popq	%rbp
     ret
+    .globl	strrchr
+strrchr:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq	%rdi, -24(%rbp)
+    movl	%esi, -28(%rbp)
+    movq	$0, -8(%rbp)
+L29:
+    movq	-24(%rbp), %rax
+    movzbl	(%rax), %eax
+    movl	-28(%rbp), %edx
+    cmpb	%dl, %al
+    jne	L28
+    movq	-24(%rbp), %rax
+    movq	%rax, -8(%rbp)
+L28:
+    movq	-24(%rbp), %rax
+    leaq	1(%rax), %rdx
+    movq	%rdx, -24(%rbp)
+    movzbl	(%rax), %eax
+    testb	%al, %al
+    jne	L29
+    movq	-8(%rbp), %rax
+    popq	%rbp
+    ret
     .globl	memcmp
 memcmp:
     pushq	%rbp
@@ -196,14 +221,14 @@ memcmp:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L28
-L31:
+    jmp	L32
+L35:
     movq	-16(%rbp), %rax
     movzbl	(%rax), %edx
     movq	-8(%rbp), %rax
     movzbl	(%rax), %eax
     cmpb	%al, %dl
-    je	L29
+    je	L33
     movq	-16(%rbp), %rax
     movzbl	(%rax), %eax
     movzbl	%al, %edx
@@ -212,18 +237,18 @@ L31:
     movzbl	%al, %eax
     subl	%eax, %edx
     movl	%edx, %eax
-    jmp	L30
-L29:
+    jmp	L34
+L33:
     addq	$1, -16(%rbp)
     addq	$1, -8(%rbp)
-L28:
+L32:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L31
+    jne	L35
     movl	$0, %eax
-L30:
+L34:
     popq	%rbp
     ret
     .globl	__stack_chk_fail
@@ -266,19 +291,19 @@ memset:
     movq	%rdx, -40(%rbp)
     movq	-24(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L36
-L37:
+    jmp	L40
+L41:
     movq	-8(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -8(%rbp)
     movl	-28(%rbp), %edx
     movb	%dl, (%rax)
-L36:
+L40:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L37
+    jne	L41
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -293,8 +318,8 @@ memcpy:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L40
-L41:
+    jmp	L44
+L45:
     movq	-16(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -16(%rbp)
@@ -303,12 +328,12 @@ L41:
     movq	%rcx, -8(%rbp)
     movzbl	(%rdx), %edx
     movb	%dl, (%rax)
-L40:
+L44:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L41
+    jne	L45
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -343,28 +368,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L49
+    jle	L53
     cmpl	$122, -4(%rbp)
-    jg	L49
+    jg	L53
     movl	$1, %eax
-    jmp	L50
-L49:
+    jmp	L54
+L53:
     cmpl	$64, -4(%rbp)
-    jle	L51
+    jle	L55
     cmpl	$90, -4(%rbp)
-    jg	L51
+    jg	L55
     movl	$1, %eax
-    jmp	L50
-L51:
+    jmp	L54
+L55:
     cmpl	$47, -4(%rbp)
-    jle	L52
+    jle	L56
     cmpl	$57, -4(%rbp)
-    jg	L52
+    jg	L56
     movl	$1, %eax
-    jmp	L50
-L52:
+    jmp	L54
+L56:
     movl	$0, %eax
-L50:
+L54:
     popq	%rbp
     ret
     .globl	foo
@@ -376,7 +401,7 @@ foo:
     movq	-24(%rbp), %rax
     movl	(%rax), %eax
     cmpl	$48, %eax
-    jnb	L54
+    jnb	L58
     movq	-24(%rbp), %rax
     movq	16(%rax), %rdx
     movq	-24(%rbp), %rax
@@ -388,20 +413,20 @@ foo:
     leal	8(%rdx), %ecx
     movq	-24(%rbp), %rdx
     movl	%ecx, (%rdx)
-    jmp	L55
-L54:
+    jmp	L59
+L58:
     movq	-24(%rbp), %rax
     movq	8(%rax), %rax
     leaq	8(%rax), %rcx
     movq	-24(%rbp), %rdx
     movq	%rcx, 8(%rdx)
-L55:
+L59:
     movq	(%rax), %rax
     movq	%rax, -8(%rbp)
     cmpq	$16, -8(%rbp)
-    je	L57
+    je	L61
     call	abort
-L57:
+L61:
     nop
     leave
     ret
@@ -415,7 +440,7 @@ bar:
     movq	%r8, -144(%rbp)
     movq	%r9, -136(%rbp)
     testb	%al, %al
-    je	L59
+    je	L63
     vmovaps	%xmm0, -128(%rbp)
     vmovaps	%xmm1, -112(%rbp)
     vmovaps	%xmm2, -96(%rbp)
@@ -424,7 +449,7 @@ bar:
     vmovaps	%xmm5, -48(%rbp)
     vmovaps	%xmm6, -32(%rbp)
     vmovaps	%xmm7, -16(%rbp)
-L59:
+L63:
     movb	%dil, -212(%rbp)
     movb	%sil, -216(%rbp)
     movq	$40, %rax
@@ -442,9 +467,9 @@ L59:
     nop
     movq	-184(%rbp), %rax
     xorq	$40, %rax
-    je	L60
+    je	L64
     call	__stack_chk_fail
-L60:
+L64:
     leave
     ret
     .globl	main

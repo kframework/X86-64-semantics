@@ -185,6 +185,31 @@ L24:
 L25:
     popq	%rbp
     ret
+    .globl	strrchr
+strrchr:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq	%rdi, -24(%rbp)
+    movl	%esi, -28(%rbp)
+    movq	$0, -8(%rbp)
+L29:
+    movq	-24(%rbp), %rax
+    movzbl	(%rax), %eax
+    movl	-28(%rbp), %edx
+    cmpb	%dl, %al
+    jne	L28
+    movq	-24(%rbp), %rax
+    movq	%rax, -8(%rbp)
+L28:
+    movq	-24(%rbp), %rax
+    leaq	1(%rax), %rdx
+    movq	%rdx, -24(%rbp)
+    movzbl	(%rax), %eax
+    testb	%al, %al
+    jne	L29
+    movq	-8(%rbp), %rax
+    popq	%rbp
+    ret
     .globl	memcmp
 memcmp:
     pushq	%rbp
@@ -196,14 +221,14 @@ memcmp:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L28
-L31:
+    jmp	L32
+L35:
     movq	-16(%rbp), %rax
     movzbl	(%rax), %edx
     movq	-8(%rbp), %rax
     movzbl	(%rax), %eax
     cmpb	%al, %dl
-    je	L29
+    je	L33
     movq	-16(%rbp), %rax
     movzbl	(%rax), %eax
     movzbl	%al, %edx
@@ -212,18 +237,18 @@ L31:
     movzbl	%al, %eax
     subl	%eax, %edx
     movl	%edx, %eax
-    jmp	L30
-L29:
+    jmp	L34
+L33:
     addq	$1, -16(%rbp)
     addq	$1, -8(%rbp)
-L28:
+L32:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L31
+    jne	L35
     movl	$0, %eax
-L30:
+L34:
     popq	%rbp
     ret
     .globl	__stack_chk_fail
@@ -266,19 +291,19 @@ memset:
     movq	%rdx, -40(%rbp)
     movq	-24(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L36
-L37:
+    jmp	L40
+L41:
     movq	-8(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -8(%rbp)
     movl	-28(%rbp), %edx
     movb	%dl, (%rax)
-L36:
+L40:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L37
+    jne	L41
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -293,8 +318,8 @@ memcpy:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L40
-L41:
+    jmp	L44
+L45:
     movq	-16(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -16(%rbp)
@@ -303,12 +328,12 @@ L41:
     movq	%rcx, -8(%rbp)
     movzbl	(%rdx), %edx
     movb	%dl, (%rax)
-L40:
+L44:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L41
+    jne	L45
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -343,28 +368,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L49
+    jle	L53
     cmpl	$122, -4(%rbp)
-    jg	L49
+    jg	L53
     movl	$1, %eax
-    jmp	L50
-L49:
+    jmp	L54
+L53:
     cmpl	$64, -4(%rbp)
-    jle	L51
+    jle	L55
     cmpl	$90, -4(%rbp)
-    jg	L51
+    jg	L55
     movl	$1, %eax
-    jmp	L50
-L51:
+    jmp	L54
+L55:
     cmpl	$47, -4(%rbp)
-    jle	L52
+    jle	L56
     cmpl	$57, -4(%rbp)
-    jg	L52
+    jg	L56
     movl	$1, %eax
-    jmp	L50
-L52:
+    jmp	L54
+L56:
     movl	$0, %eax
-L50:
+L54:
     popq	%rbp
     ret
     .comm	should_optimize,4,4
@@ -414,7 +439,7 @@ inner:
     movq	%r8, -144(%rbp)
     movq	%r9, -136(%rbp)
     testb	%al, %al
-    je	L56
+    je	L60
     vmovaps	%xmm0, -128(%rbp)
     vmovaps	%xmm1, -112(%rbp)
     vmovaps	%xmm2, -96(%rbp)
@@ -423,7 +448,7 @@ inner:
     vmovaps	%xmm5, -48(%rbp)
     vmovaps	%xmm6, -32(%rbp)
     vmovaps	%xmm7, -16(%rbp)
-L56:
+L60:
     movq	$40, %rax
     movq	%rax, -184(%rbp)
     xorl	%eax, %eax
@@ -440,25 +465,25 @@ L56:
     leaq	-176(%rbp), %rax
     movq	%rax, -192(%rbp)
     cmpl	$10, -244(%rbp)
-    ja	L57
+    ja	L61
     movl	-244(%rbp), %eax
-    movq	L59(,%rax,8), %rax
+    movq	L63(,%rax,8), %rax
     jmp	%rax
     .section	.rodata
-L59:
-    .quad	L58
-    .quad	L60
-    .quad	L61
+L63:
     .quad	L62
-    .quad	L63
     .quad	L64
     .quad	L65
     .quad	L66
     .quad	L67
     .quad	L68
     .quad	L69
+    .quad	L70
+    .quad	L71
+    .quad	L72
+    .quad	L73
     .text
-L58:
+L62:
     movl	$0, should_optimize(%rip)
     leaq	-232(%rbp), %rax
     movq	%rax, %rdx
@@ -467,11 +492,11 @@ L58:
     call	__vprintf_chk
     movl	should_optimize(%rip), %eax
     testl	%eax, %eax
-    jne	L70
+    jne	L74
     leaq	-233(%rbp), %rax
     movq	%rax, %r10
-    call	abort3479
-L70:
+    call	abort3493
+L74:
     movl	$0, should_optimize(%rip)
     leaq	-208(%rbp), %rax
     movq	%rax, %rdx
@@ -479,29 +504,29 @@ L70:
     movl	$1, %edi
     call	__vprintf_chk
     cmpl	$5, %eax
-    je	L71
+    je	L75
     leaq	-233(%rbp), %rax
     movq	%rax, %r10
-    call	abort3479
-L71:
+    call	abort3493
+L75:
     movl	should_optimize(%rip), %eax
     testl	%eax, %eax
-    jne	L105
+    jne	L109
     leaq	-233(%rbp), %rax
     movq	%rax, %r10
-    call	abort3479
-    jmp	L105
-L60:
+    call	abort3493
+    jmp	L109
+L64:
     movl	$1, should_optimize(%rip)
     movl	$LC0, %edi
     call	puts
     movl	should_optimize(%rip), %eax
     testl	%eax, %eax
-    jne	L74
+    jne	L78
     leaq	-233(%rbp), %rax
     movq	%rax, %r10
-    call	abort3479
-L74:
+    call	abort3493
+L78:
     movl	$0, should_optimize(%rip)
     leaq	-208(%rbp), %rax
     movq	%rax, %rdx
@@ -509,29 +534,29 @@ L74:
     movl	$1, %edi
     call	__vprintf_chk
     cmpl	$6, %eax
-    je	L75
+    je	L79
     leaq	-233(%rbp), %rax
     movq	%rax, %r10
-    call	abort3479
-L75:
+    call	abort3493
+L79:
     movl	should_optimize(%rip), %eax
     testl	%eax, %eax
-    jne	L106
+    jne	L110
     leaq	-233(%rbp), %rax
     movq	%rax, %r10
-    call	abort3479
-    jmp	L106
-L61:
+    call	abort3493
+    jmp	L110
+L65:
     movl	$1, should_optimize(%rip)
     movl	$97, %edi
     call	putchar
     movl	should_optimize(%rip), %eax
     testl	%eax, %eax
-    jne	L77
+    jne	L81
     leaq	-233(%rbp), %rax
     movq	%rax, %r10
-    call	abort3479
-L77:
+    call	abort3493
+L81:
     movl	$0, should_optimize(%rip)
     leaq	-208(%rbp), %rax
     movq	%rax, %rdx
@@ -539,27 +564,27 @@ L77:
     movl	$1, %edi
     call	__vprintf_chk
     cmpl	$1, %eax
-    je	L78
+    je	L82
     leaq	-233(%rbp), %rax
     movq	%rax, %r10
-    call	abort3479
-L78:
+    call	abort3493
+L82:
     movl	should_optimize(%rip), %eax
     testl	%eax, %eax
-    jne	L107
+    jne	L111
     leaq	-233(%rbp), %rax
     movq	%rax, %r10
-    call	abort3479
-    jmp	L107
-L62:
+    call	abort3493
+    jmp	L111
+L66:
     movl	$1, should_optimize(%rip)
     movl	should_optimize(%rip), %eax
     testl	%eax, %eax
-    jne	L80
+    jne	L84
     leaq	-233(%rbp), %rax
     movq	%rax, %r10
-    call	abort3479
-L80:
+    call	abort3493
+L84:
     movl	$0, should_optimize(%rip)
     leaq	-208(%rbp), %rax
     movq	%rax, %rdx
@@ -567,19 +592,19 @@ L80:
     movl	$1, %edi
     call	__vprintf_chk
     testl	%eax, %eax
-    je	L81
+    je	L85
     leaq	-233(%rbp), %rax
     movq	%rax, %r10
-    call	abort3479
-L81:
+    call	abort3493
+L85:
     movl	should_optimize(%rip), %eax
     testl	%eax, %eax
-    jne	L108
+    jne	L112
     leaq	-233(%rbp), %rax
     movq	%rax, %r10
-    call	abort3479
-    jmp	L108
-L63:
+    call	abort3493
+    jmp	L112
+L67:
     movl	$0, should_optimize(%rip)
     leaq	-232(%rbp), %rax
     movq	%rax, %rdx
@@ -588,11 +613,11 @@ L63:
     call	__vprintf_chk
     movl	should_optimize(%rip), %eax
     testl	%eax, %eax
-    jne	L83
+    jne	L87
     leaq	-233(%rbp), %rax
     movq	%rax, %r10
-    call	abort3479
-L83:
+    call	abort3493
+L87:
     movl	$0, should_optimize(%rip)
     leaq	-208(%rbp), %rax
     movq	%rax, %rdx
@@ -600,19 +625,19 @@ L83:
     movl	$1, %edi
     call	__vprintf_chk
     cmpl	$5, %eax
-    je	L84
+    je	L88
     leaq	-233(%rbp), %rax
     movq	%rax, %r10
-    call	abort3479
-L84:
+    call	abort3493
+L88:
     movl	should_optimize(%rip), %eax
     testl	%eax, %eax
-    jne	L109
+    jne	L113
     leaq	-233(%rbp), %rax
     movq	%rax, %r10
-    call	abort3479
-    jmp	L109
-L64:
+    call	abort3493
+    jmp	L113
+L68:
     movl	$0, should_optimize(%rip)
     leaq	-232(%rbp), %rax
     movq	%rax, %rdx
@@ -621,11 +646,11 @@ L64:
     call	__vprintf_chk
     movl	should_optimize(%rip), %eax
     testl	%eax, %eax
-    jne	L86
+    jne	L90
     leaq	-233(%rbp), %rax
     movq	%rax, %r10
-    call	abort3479
-L86:
+    call	abort3493
+L90:
     movl	$0, should_optimize(%rip)
     leaq	-208(%rbp), %rax
     movq	%rax, %rdx
@@ -633,19 +658,19 @@ L86:
     movl	$1, %edi
     call	__vprintf_chk
     cmpl	$6, %eax
-    je	L87
+    je	L91
     leaq	-233(%rbp), %rax
     movq	%rax, %r10
-    call	abort3479
-L87:
+    call	abort3493
+L91:
     movl	should_optimize(%rip), %eax
     testl	%eax, %eax
-    jne	L110
+    jne	L114
     leaq	-233(%rbp), %rax
     movq	%rax, %r10
-    call	abort3479
-    jmp	L110
-L65:
+    call	abort3493
+    jmp	L114
+L69:
     movl	$0, should_optimize(%rip)
     leaq	-232(%rbp), %rax
     movq	%rax, %rdx
@@ -654,64 +679,64 @@ L65:
     call	__vprintf_chk
     movl	should_optimize(%rip), %eax
     testl	%eax, %eax
-    jne	L89
+    jne	L93
     leaq	-233(%rbp), %rax
     movq	%rax, %r10
-    call	abort3479
-L89:
-    movl	$0, should_optimize(%rip)
-    leaq	-208(%rbp), %rax
-    movq	%rax, %rdx
-    movl	$LC4, %esi
-    movl	$1, %edi
-    call	__vprintf_chk
-    cmpl	$1, %eax
-    je	L90
-    leaq	-233(%rbp), %rax
-    movq	%rax, %r10
-    call	abort3479
-L90:
-    movl	should_optimize(%rip), %eax
-    testl	%eax, %eax
-    jne	L111
-    leaq	-233(%rbp), %rax
-    movq	%rax, %r10
-    call	abort3479
-    jmp	L111
-L66:
-    movl	$0, should_optimize(%rip)
-    leaq	-232(%rbp), %rax
-    movq	%rax, %rdx
-    movl	$LC4, %esi
-    movl	$1, %edi
-    call	__vprintf_chk
-    movl	should_optimize(%rip), %eax
-    testl	%eax, %eax
-    jne	L92
-    leaq	-233(%rbp), %rax
-    movq	%rax, %r10
-    call	abort3479
-L92:
-    movl	$0, should_optimize(%rip)
-    leaq	-208(%rbp), %rax
-    movq	%rax, %rdx
-    movl	$LC4, %esi
-    movl	$1, %edi
-    call	__vprintf_chk
-    testl	%eax, %eax
-    je	L93
-    leaq	-233(%rbp), %rax
-    movq	%rax, %r10
-    call	abort3479
+    call	abort3493
 L93:
-    movl	should_optimize(%rip), %eax
-    testl	%eax, %eax
-    jne	L112
+    movl	$0, should_optimize(%rip)
+    leaq	-208(%rbp), %rax
+    movq	%rax, %rdx
+    movl	$LC4, %esi
+    movl	$1, %edi
+    call	__vprintf_chk
+    cmpl	$1, %eax
+    je	L94
     leaq	-233(%rbp), %rax
     movq	%rax, %r10
-    call	abort3479
-    jmp	L112
-L67:
+    call	abort3493
+L94:
+    movl	should_optimize(%rip), %eax
+    testl	%eax, %eax
+    jne	L115
+    leaq	-233(%rbp), %rax
+    movq	%rax, %r10
+    call	abort3493
+    jmp	L115
+L70:
+    movl	$0, should_optimize(%rip)
+    leaq	-232(%rbp), %rax
+    movq	%rax, %rdx
+    movl	$LC4, %esi
+    movl	$1, %edi
+    call	__vprintf_chk
+    movl	should_optimize(%rip), %eax
+    testl	%eax, %eax
+    jne	L96
+    leaq	-233(%rbp), %rax
+    movq	%rax, %r10
+    call	abort3493
+L96:
+    movl	$0, should_optimize(%rip)
+    leaq	-208(%rbp), %rax
+    movq	%rax, %rdx
+    movl	$LC4, %esi
+    movl	$1, %edi
+    call	__vprintf_chk
+    testl	%eax, %eax
+    je	L97
+    leaq	-233(%rbp), %rax
+    movq	%rax, %r10
+    call	abort3493
+L97:
+    movl	should_optimize(%rip), %eax
+    testl	%eax, %eax
+    jne	L116
+    leaq	-233(%rbp), %rax
+    movq	%rax, %r10
+    call	abort3493
+    jmp	L116
+L71:
     movl	$0, should_optimize(%rip)
     leaq	-232(%rbp), %rax
     movq	%rax, %rdx
@@ -720,11 +745,11 @@ L67:
     call	__vprintf_chk
     movl	should_optimize(%rip), %eax
     testl	%eax, %eax
-    jne	L95
+    jne	L99
     leaq	-233(%rbp), %rax
     movq	%rax, %r10
-    call	abort3479
-L95:
+    call	abort3493
+L99:
     movl	$0, should_optimize(%rip)
     leaq	-208(%rbp), %rax
     movq	%rax, %rdx
@@ -732,19 +757,19 @@ L95:
     movl	$1, %edi
     call	__vprintf_chk
     cmpl	$1, %eax
-    je	L96
+    je	L100
     leaq	-233(%rbp), %rax
     movq	%rax, %r10
-    call	abort3479
-L96:
+    call	abort3493
+L100:
     movl	should_optimize(%rip), %eax
     testl	%eax, %eax
-    jne	L113
+    jne	L117
     leaq	-233(%rbp), %rax
     movq	%rax, %r10
-    call	abort3479
-    jmp	L113
-L68:
+    call	abort3493
+    jmp	L117
+L72:
     movl	$0, should_optimize(%rip)
     leaq	-232(%rbp), %rax
     movq	%rax, %rdx
@@ -753,11 +778,11 @@ L68:
     call	__vprintf_chk
     movl	should_optimize(%rip), %eax
     testl	%eax, %eax
-    jne	L98
+    jne	L102
     leaq	-233(%rbp), %rax
     movq	%rax, %r10
-    call	abort3479
-L98:
+    call	abort3493
+L102:
     movl	$0, should_optimize(%rip)
     leaq	-208(%rbp), %rax
     movq	%rax, %rdx
@@ -765,19 +790,19 @@ L98:
     movl	$1, %edi
     call	__vprintf_chk
     cmpl	$7, %eax
-    je	L99
+    je	L103
     leaq	-233(%rbp), %rax
     movq	%rax, %r10
-    call	abort3479
-L99:
+    call	abort3493
+L103:
     movl	should_optimize(%rip), %eax
     testl	%eax, %eax
-    jne	L114
+    jne	L118
     leaq	-233(%rbp), %rax
     movq	%rax, %r10
-    call	abort3479
-    jmp	L114
-L69:
+    call	abort3493
+    jmp	L118
+L73:
     movl	$0, should_optimize(%rip)
     leaq	-232(%rbp), %rax
     movq	%rax, %rdx
@@ -786,11 +811,11 @@ L69:
     call	__vprintf_chk
     movl	should_optimize(%rip), %eax
     testl	%eax, %eax
-    jne	L101
+    jne	L105
     leaq	-233(%rbp), %rax
     movq	%rax, %r10
-    call	abort3479
-L101:
+    call	abort3493
+L105:
     movl	$0, should_optimize(%rip)
     leaq	-208(%rbp), %rax
     movq	%rax, %rdx
@@ -798,65 +823,65 @@ L101:
     movl	$1, %edi
     call	__vprintf_chk
     cmpl	$2, %eax
-    je	L102
+    je	L106
     leaq	-233(%rbp), %rax
     movq	%rax, %r10
-    call	abort3479
-L102:
+    call	abort3493
+L106:
     movl	should_optimize(%rip), %eax
     testl	%eax, %eax
-    jne	L115
+    jne	L119
     leaq	-233(%rbp), %rax
     movq	%rax, %r10
-    call	abort3479
-    jmp	L115
-L57:
+    call	abort3493
+    jmp	L119
+L61:
     leaq	-233(%rbp), %rax
     movq	%rax, %r10
-    call	abort3479
-    jmp	L73
-L105:
-    nop
-    jmp	L73
-L106:
-    nop
-    jmp	L73
-L107:
-    nop
-    jmp	L73
-L108:
-    nop
-    jmp	L73
+    call	abort3493
+    jmp	L77
 L109:
     nop
-    jmp	L73
+    jmp	L77
 L110:
     nop
-    jmp	L73
+    jmp	L77
 L111:
     nop
-    jmp	L73
+    jmp	L77
 L112:
     nop
-    jmp	L73
+    jmp	L77
 L113:
     nop
-    jmp	L73
+    jmp	L77
 L114:
     nop
-    jmp	L73
+    jmp	L77
 L115:
     nop
-L73:
+    jmp	L77
+L116:
+    nop
+    jmp	L77
+L117:
+    nop
+    jmp	L77
+L118:
+    nop
+    jmp	L77
+L119:
+    nop
+L77:
     nop
     movq	-184(%rbp), %rax
     xorq	$40, %rax
-    je	L104
+    je	L108
     call	__stack_chk_fail
-L104:
+L108:
     leave
     ret
-abort3479:
+abort3493:
     pushq	%rbp
     movq	%rsp, %rbp
     movq	%r10, -8(%rbp)
@@ -918,8 +943,8 @@ _start:
     movl	$0, %eax
     movq	-8(%rbp), %rdx
     xorq	$40, %rdx
-    je	L119
+    je	L123
     call	__stack_chk_fail
-L119:
+L123:
     leave
     ret

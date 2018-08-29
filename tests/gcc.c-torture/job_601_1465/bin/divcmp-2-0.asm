@@ -185,6 +185,31 @@ L24:
 L25:
     popq	%rbp
     ret
+    .globl	strrchr
+strrchr:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq	%rdi, -24(%rbp)
+    movl	%esi, -28(%rbp)
+    movq	$0, -8(%rbp)
+L29:
+    movq	-24(%rbp), %rax
+    movzbl	(%rax), %eax
+    movl	-28(%rbp), %edx
+    cmpb	%dl, %al
+    jne	L28
+    movq	-24(%rbp), %rax
+    movq	%rax, -8(%rbp)
+L28:
+    movq	-24(%rbp), %rax
+    leaq	1(%rax), %rdx
+    movq	%rdx, -24(%rbp)
+    movzbl	(%rax), %eax
+    testb	%al, %al
+    jne	L29
+    movq	-8(%rbp), %rax
+    popq	%rbp
+    ret
     .globl	memcmp
 memcmp:
     pushq	%rbp
@@ -196,14 +221,14 @@ memcmp:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L28
-L31:
+    jmp	L32
+L35:
     movq	-16(%rbp), %rax
     movzbl	(%rax), %edx
     movq	-8(%rbp), %rax
     movzbl	(%rax), %eax
     cmpb	%al, %dl
-    je	L29
+    je	L33
     movq	-16(%rbp), %rax
     movzbl	(%rax), %eax
     movzbl	%al, %edx
@@ -212,18 +237,18 @@ L31:
     movzbl	%al, %eax
     subl	%eax, %edx
     movl	%edx, %eax
-    jmp	L30
-L29:
+    jmp	L34
+L33:
     addq	$1, -16(%rbp)
     addq	$1, -8(%rbp)
-L28:
+L32:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L31
+    jne	L35
     movl	$0, %eax
-L30:
+L34:
     popq	%rbp
     ret
     .globl	__stack_chk_fail
@@ -266,19 +291,19 @@ memset:
     movq	%rdx, -40(%rbp)
     movq	-24(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L36
-L37:
+    jmp	L40
+L41:
     movq	-8(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -8(%rbp)
     movl	-28(%rbp), %edx
     movb	%dl, (%rax)
-L36:
+L40:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L37
+    jne	L41
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -293,8 +318,8 @@ memcpy:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L40
-L41:
+    jmp	L44
+L45:
     movq	-16(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -16(%rbp)
@@ -303,12 +328,12 @@ L41:
     movq	%rcx, -8(%rbp)
     movzbl	(%rdx), %edx
     movb	%dl, (%rax)
-L40:
+L44:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L41
+    jne	L45
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -343,28 +368,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L49
+    jle	L53
     cmpl	$122, -4(%rbp)
-    jg	L49
+    jg	L53
     movl	$1, %eax
-    jmp	L50
-L49:
+    jmp	L54
+L53:
     cmpl	$64, -4(%rbp)
-    jle	L51
+    jle	L55
     cmpl	$90, -4(%rbp)
-    jg	L51
+    jg	L55
     movl	$1, %eax
-    jmp	L50
-L51:
+    jmp	L54
+L55:
     cmpl	$47, -4(%rbp)
-    jle	L52
+    jle	L56
     cmpl	$57, -4(%rbp)
-    jg	L52
+    jg	L56
     movl	$1, %eax
-    jmp	L50
-L52:
+    jmp	L54
+L56:
     movl	$0, %eax
-L50:
+L54:
     popq	%rbp
     ret
     .globl	test1
@@ -447,147 +472,147 @@ _start:
     movl	$19, %edi
     call	test1
     testl	%eax, %eax
-    je	L66
-    call	abort
-L66:
-    movl	$20, %edi
-    call	test1
-    cmpl	$1, %eax
-    je	L67
-    call	abort
-L67:
-    movl	$29, %edi
-    call	test1
-    cmpl	$1, %eax
-    je	L68
-    call	abort
-L68:
-    movl	$30, %edi
-    call	test1
-    testl	%eax, %eax
-    je	L69
-    call	abort
-L69:
-    movl	$-10, %edi
-    call	test2
-    testl	%eax, %eax
     je	L70
     call	abort
 L70:
-    movl	$-9, %edi
-    call	test2
+    movl	$20, %edi
+    call	test1
     cmpl	$1, %eax
     je	L71
     call	abort
 L71:
-    movl	$9, %edi
-    call	test2
+    movl	$29, %edi
+    call	test1
     cmpl	$1, %eax
     je	L72
     call	abort
 L72:
-    movl	$10, %edi
-    call	test2
+    movl	$30, %edi
+    call	test1
     testl	%eax, %eax
     je	L73
     call	abort
 L73:
-    movl	$-30, %edi
-    call	test3
+    movl	$-10, %edi
+    call	test2
     testl	%eax, %eax
     je	L74
     call	abort
 L74:
-    movl	$-29, %edi
-    call	test3
+    movl	$-9, %edi
+    call	test2
     cmpl	$1, %eax
     je	L75
     call	abort
 L75:
-    movl	$-20, %edi
-    call	test3
+    movl	$9, %edi
+    call	test2
     cmpl	$1, %eax
     je	L76
     call	abort
 L76:
-    movl	$-19, %edi
-    call	test3
+    movl	$10, %edi
+    call	test2
     testl	%eax, %eax
     je	L77
     call	abort
 L77:
     movl	$-30, %edi
-    call	test4
+    call	test3
     testl	%eax, %eax
     je	L78
     call	abort
 L78:
     movl	$-29, %edi
-    call	test4
+    call	test3
     cmpl	$1, %eax
     je	L79
     call	abort
 L79:
     movl	$-20, %edi
-    call	test4
+    call	test3
     cmpl	$1, %eax
     je	L80
     call	abort
 L80:
     movl	$-19, %edi
-    call	test4
+    call	test3
     testl	%eax, %eax
     je	L81
     call	abort
 L81:
-    movl	$-10, %edi
-    call	test5
+    movl	$-30, %edi
+    call	test4
     testl	%eax, %eax
     je	L82
     call	abort
 L82:
-    movl	$-9, %edi
-    call	test5
+    movl	$-29, %edi
+    call	test4
     cmpl	$1, %eax
     je	L83
     call	abort
 L83:
-    movl	$9, %edi
-    call	test5
+    movl	$-20, %edi
+    call	test4
     cmpl	$1, %eax
     je	L84
     call	abort
 L84:
-    movl	$10, %edi
-    call	test5
+    movl	$-19, %edi
+    call	test4
     testl	%eax, %eax
     je	L85
     call	abort
 L85:
-    movl	$19, %edi
-    call	test6
+    movl	$-10, %edi
+    call	test5
     testl	%eax, %eax
     je	L86
     call	abort
 L86:
-    movl	$20, %edi
-    call	test6
+    movl	$-9, %edi
+    call	test5
     cmpl	$1, %eax
     je	L87
     call	abort
 L87:
-    movl	$29, %edi
-    call	test6
+    movl	$9, %edi
+    call	test5
     cmpl	$1, %eax
     je	L88
     call	abort
 L88:
-    movl	$30, %edi
-    call	test6
+    movl	$10, %edi
+    call	test5
     testl	%eax, %eax
     je	L89
     call	abort
 L89:
+    movl	$19, %edi
+    call	test6
+    testl	%eax, %eax
+    je	L90
+    call	abort
+L90:
+    movl	$20, %edi
+    call	test6
+    cmpl	$1, %eax
+    je	L91
+    call	abort
+L91:
+    movl	$29, %edi
+    call	test6
+    cmpl	$1, %eax
+    je	L92
+    call	abort
+L92:
+    movl	$30, %edi
+    call	test6
+    testl	%eax, %eax
+    je	L93
+    call	abort
+L93:
     movl	$0, %eax
     popq	%rbp
     ret

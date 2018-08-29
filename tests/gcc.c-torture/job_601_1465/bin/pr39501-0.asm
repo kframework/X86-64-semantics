@@ -185,6 +185,31 @@ L24:
 L25:
     popq	%rbp
     ret
+    .globl	strrchr
+strrchr:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq	%rdi, -24(%rbp)
+    movl	%esi, -28(%rbp)
+    movq	$0, -8(%rbp)
+L29:
+    movq	-24(%rbp), %rax
+    movzbl	(%rax), %eax
+    movl	-28(%rbp), %edx
+    cmpb	%dl, %al
+    jne	L28
+    movq	-24(%rbp), %rax
+    movq	%rax, -8(%rbp)
+L28:
+    movq	-24(%rbp), %rax
+    leaq	1(%rax), %rdx
+    movq	%rdx, -24(%rbp)
+    movzbl	(%rax), %eax
+    testb	%al, %al
+    jne	L29
+    movq	-8(%rbp), %rax
+    popq	%rbp
+    ret
     .globl	memcmp
 memcmp:
     pushq	%rbp
@@ -196,14 +221,14 @@ memcmp:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L28
-L31:
+    jmp	L32
+L35:
     movq	-16(%rbp), %rax
     movzbl	(%rax), %edx
     movq	-8(%rbp), %rax
     movzbl	(%rax), %eax
     cmpb	%al, %dl
-    je	L29
+    je	L33
     movq	-16(%rbp), %rax
     movzbl	(%rax), %eax
     movzbl	%al, %edx
@@ -212,18 +237,18 @@ L31:
     movzbl	%al, %eax
     subl	%eax, %edx
     movl	%edx, %eax
-    jmp	L30
-L29:
+    jmp	L34
+L33:
     addq	$1, -16(%rbp)
     addq	$1, -8(%rbp)
-L28:
+L32:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L31
+    jne	L35
     movl	$0, %eax
-L30:
+L34:
     popq	%rbp
     ret
     .globl	__stack_chk_fail
@@ -266,19 +291,19 @@ memset:
     movq	%rdx, -40(%rbp)
     movq	-24(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L36
-L37:
+    jmp	L40
+L41:
     movq	-8(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -8(%rbp)
     movl	-28(%rbp), %edx
     movb	%dl, (%rax)
-L36:
+L40:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L37
+    jne	L41
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -293,8 +318,8 @@ memcpy:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L40
-L41:
+    jmp	L44
+L45:
     movq	-16(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -16(%rbp)
@@ -303,12 +328,12 @@ L41:
     movq	%rcx, -8(%rbp)
     movzbl	(%rdx), %edx
     movb	%dl, (%rax)
-L40:
+L44:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L41
+    jne	L45
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -343,28 +368,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L49
+    jle	L53
     cmpl	$122, -4(%rbp)
-    jg	L49
+    jg	L53
     movl	$1, %eax
-    jmp	L50
-L49:
+    jmp	L54
+L53:
     cmpl	$64, -4(%rbp)
-    jle	L51
+    jle	L55
     cmpl	$90, -4(%rbp)
-    jg	L51
+    jg	L55
     movl	$1, %eax
-    jmp	L50
-L51:
+    jmp	L54
+L55:
     cmpl	$47, -4(%rbp)
-    jle	L52
+    jle	L56
     cmpl	$57, -4(%rbp)
-    jg	L52
+    jg	L56
     movl	$1, %eax
-    jmp	L50
-L52:
+    jmp	L54
+L56:
     movl	$0, %eax
-L50:
+L54:
     popq	%rbp
     ret
     .globl	float_min1
@@ -466,47 +491,11 @@ _start:
     vmovaps	%xmm0, %xmm1
     vmovss	LC0(%rip), %xmm0
     vcomiss	%xmm0, %xmm1
-    je	L214
-    call	abort
-L214:
-    vxorps	%xmm1, %xmm1, %xmm1
-    vmovss	LC0(%rip), %xmm0
-    call	float_min1
-    vmovaps	%xmm0, %xmm1
-    vmovss	LC0(%rip), %xmm0
-    vcomiss	%xmm0, %xmm1
-    je	L215
-    call	abort
-L215:
-    vmovss	LC2(%rip), %xmm1
-    vxorps	%xmm0, %xmm0, %xmm0
-    call	float_min1
-    vmovaps	%xmm0, %xmm1
-    vxorps	%xmm0, %xmm0, %xmm0
-    vcomiss	%xmm0, %xmm1
-    je	L216
-    call	abort
-L216:
-    vxorps	%xmm1, %xmm1, %xmm1
-    vmovss	LC2(%rip), %xmm0
-    call	float_min1
-    vmovaps	%xmm0, %xmm1
-    vxorps	%xmm0, %xmm0, %xmm0
-    vcomiss	%xmm0, %xmm1
-    je	L217
-    call	abort
-L217:
-    vmovss	LC2(%rip), %xmm1
-    vmovss	LC0(%rip), %xmm0
-    call	float_min1
-    vmovaps	%xmm0, %xmm1
-    vmovss	LC0(%rip), %xmm0
-    vcomiss	%xmm0, %xmm1
     je	L218
     call	abort
 L218:
-    vmovss	LC0(%rip), %xmm1
-    vmovss	LC2(%rip), %xmm0
+    vxorps	%xmm1, %xmm1, %xmm1
+    vmovss	LC0(%rip), %xmm0
     call	float_min1
     vmovaps	%xmm0, %xmm1
     vmovss	LC0(%rip), %xmm0
@@ -514,9 +503,9 @@ L218:
     je	L219
     call	abort
 L219:
-    vmovss	LC0(%rip), %xmm1
+    vmovss	LC2(%rip), %xmm1
     vxorps	%xmm0, %xmm0, %xmm0
-    call	float_max1
+    call	float_min1
     vmovaps	%xmm0, %xmm1
     vxorps	%xmm0, %xmm0, %xmm0
     vcomiss	%xmm0, %xmm1
@@ -524,8 +513,8 @@ L219:
     call	abort
 L220:
     vxorps	%xmm1, %xmm1, %xmm1
-    vmovss	LC0(%rip), %xmm0
-    call	float_max1
+    vmovss	LC2(%rip), %xmm0
+    call	float_min1
     vmovaps	%xmm0, %xmm1
     vxorps	%xmm0, %xmm0, %xmm0
     vcomiss	%xmm0, %xmm1
@@ -533,79 +522,79 @@ L220:
     call	abort
 L221:
     vmovss	LC2(%rip), %xmm1
-    vxorps	%xmm0, %xmm0, %xmm0
-    call	float_max1
+    vmovss	LC0(%rip), %xmm0
+    call	float_min1
     vmovaps	%xmm0, %xmm1
-    vmovss	LC2(%rip), %xmm0
+    vmovss	LC0(%rip), %xmm0
     vcomiss	%xmm0, %xmm1
     je	L222
     call	abort
 L222:
-    vxorps	%xmm1, %xmm1, %xmm1
+    vmovss	LC0(%rip), %xmm1
     vmovss	LC2(%rip), %xmm0
-    call	float_max1
+    call	float_min1
     vmovaps	%xmm0, %xmm1
-    vmovss	LC2(%rip), %xmm0
+    vmovss	LC0(%rip), %xmm0
     vcomiss	%xmm0, %xmm1
     je	L223
     call	abort
 L223:
-    vmovss	LC2(%rip), %xmm1
-    vmovss	LC0(%rip), %xmm0
+    vmovss	LC0(%rip), %xmm1
+    vxorps	%xmm0, %xmm0, %xmm0
     call	float_max1
     vmovaps	%xmm0, %xmm1
-    vmovss	LC2(%rip), %xmm0
+    vxorps	%xmm0, %xmm0, %xmm0
     vcomiss	%xmm0, %xmm1
     je	L224
     call	abort
 L224:
-    vmovss	LC0(%rip), %xmm1
-    vmovss	LC2(%rip), %xmm0
+    vxorps	%xmm1, %xmm1, %xmm1
+    vmovss	LC0(%rip), %xmm0
     call	float_max1
     vmovaps	%xmm0, %xmm1
-    vmovss	LC2(%rip), %xmm0
+    vxorps	%xmm0, %xmm0, %xmm0
     vcomiss	%xmm0, %xmm1
     je	L225
     call	abort
 L225:
-    vmovss	LC0(%rip), %xmm1
+    vmovss	LC2(%rip), %xmm1
     vxorps	%xmm0, %xmm0, %xmm0
-    call	float_min2
+    call	float_max1
     vmovaps	%xmm0, %xmm1
-    vmovss	LC0(%rip), %xmm0
+    vmovss	LC2(%rip), %xmm0
     vcomiss	%xmm0, %xmm1
     je	L226
     call	abort
 L226:
     vxorps	%xmm1, %xmm1, %xmm1
-    vmovss	LC0(%rip), %xmm0
-    call	float_min2
+    vmovss	LC2(%rip), %xmm0
+    call	float_max1
     vmovaps	%xmm0, %xmm1
-    vmovss	LC0(%rip), %xmm0
+    vmovss	LC2(%rip), %xmm0
     vcomiss	%xmm0, %xmm1
     je	L227
     call	abort
 L227:
     vmovss	LC2(%rip), %xmm1
-    vxorps	%xmm0, %xmm0, %xmm0
-    call	float_min2
+    vmovss	LC0(%rip), %xmm0
+    call	float_max1
     vmovaps	%xmm0, %xmm1
-    vxorps	%xmm0, %xmm0, %xmm0
+    vmovss	LC2(%rip), %xmm0
     vcomiss	%xmm0, %xmm1
     je	L228
     call	abort
 L228:
-    vxorps	%xmm1, %xmm1, %xmm1
+    vmovss	LC0(%rip), %xmm1
     vmovss	LC2(%rip), %xmm0
-    call	float_min2
+    call	float_max1
     vmovaps	%xmm0, %xmm1
-    vxorps	%xmm0, %xmm0, %xmm0
+    vmovss	LC2(%rip), %xmm0
     vcomiss	%xmm0, %xmm1
     je	L229
     call	abort
 L229:
-    vmovss	LC2(%rip), %xmm1
-    vmovss	LC0(%rip), %xmm0
+    vmovss	LC0(%rip), %xmm1
+    vxorps	%xmm0, %xmm0, %xmm0
     call	float_min2
     vmovaps	%xmm0, %xmm1
     vmovss	LC0(%rip), %xmm0
@@ -613,8 +602,8 @@ L229:
     je	L230
     call	abort
 L230:
-    vmovss	LC0(%rip), %xmm1
-    vmovss	LC2(%rip), %xmm0
+    vxorps	%xmm1, %xmm1, %xmm1
+    vmovss	LC0(%rip), %xmm0
     call	float_min2
     vmovaps	%xmm0, %xmm1
     vmovss	LC0(%rip), %xmm0
@@ -622,9 +611,9 @@ L230:
     je	L231
     call	abort
 L231:
-    vmovss	LC0(%rip), %xmm1
+    vmovss	LC2(%rip), %xmm1
     vxorps	%xmm0, %xmm0, %xmm0
-    call	float_max2
+    call	float_min2
     vmovaps	%xmm0, %xmm1
     vxorps	%xmm0, %xmm0, %xmm0
     vcomiss	%xmm0, %xmm1
@@ -632,8 +621,8 @@ L231:
     call	abort
 L232:
     vxorps	%xmm1, %xmm1, %xmm1
-    vmovss	LC0(%rip), %xmm0
-    call	float_max2
+    vmovss	LC2(%rip), %xmm0
+    call	float_min2
     vmovaps	%xmm0, %xmm1
     vxorps	%xmm0, %xmm0, %xmm0
     vcomiss	%xmm0, %xmm1
@@ -641,281 +630,349 @@ L232:
     call	abort
 L233:
     vmovss	LC2(%rip), %xmm1
+    vmovss	LC0(%rip), %xmm0
+    call	float_min2
+    vmovaps	%xmm0, %xmm1
+    vmovss	LC0(%rip), %xmm0
+    vcomiss	%xmm0, %xmm1
+    je	L234
+    call	abort
+L234:
+    vmovss	LC0(%rip), %xmm1
+    vmovss	LC2(%rip), %xmm0
+    call	float_min2
+    vmovaps	%xmm0, %xmm1
+    vmovss	LC0(%rip), %xmm0
+    vcomiss	%xmm0, %xmm1
+    je	L235
+    call	abort
+L235:
+    vmovss	LC0(%rip), %xmm1
+    vxorps	%xmm0, %xmm0, %xmm0
+    call	float_max2
+    vmovaps	%xmm0, %xmm1
+    vxorps	%xmm0, %xmm0, %xmm0
+    vcomiss	%xmm0, %xmm1
+    je	L236
+    call	abort
+L236:
+    vxorps	%xmm1, %xmm1, %xmm1
+    vmovss	LC0(%rip), %xmm0
+    call	float_max2
+    vmovaps	%xmm0, %xmm1
+    vxorps	%xmm0, %xmm0, %xmm0
+    vcomiss	%xmm0, %xmm1
+    je	L237
+    call	abort
+L237:
+    vmovss	LC2(%rip), %xmm1
     vxorps	%xmm0, %xmm0, %xmm0
     call	float_max2
     vmovaps	%xmm0, %xmm1
     vmovss	LC2(%rip), %xmm0
     vcomiss	%xmm0, %xmm1
-    je	L234
+    je	L238
     call	abort
-L234:
+L238:
     vxorps	%xmm1, %xmm1, %xmm1
     vmovss	LC2(%rip), %xmm0
     call	float_max2
     vmovaps	%xmm0, %xmm1
     vmovss	LC2(%rip), %xmm0
     vcomiss	%xmm0, %xmm1
-    je	L235
+    je	L239
     call	abort
-L235:
+L239:
     vmovss	LC2(%rip), %xmm1
     vmovss	LC0(%rip), %xmm0
     call	float_max2
     vmovaps	%xmm0, %xmm1
     vmovss	LC2(%rip), %xmm0
     vcomiss	%xmm0, %xmm1
-    je	L236
+    je	L240
     call	abort
-L236:
+L240:
     vmovss	LC0(%rip), %xmm1
     vmovss	LC2(%rip), %xmm0
     call	float_max2
     vmovaps	%xmm0, %xmm1
     vmovss	LC2(%rip), %xmm0
     vcomiss	%xmm0, %xmm1
-    je	L237
-    call	abort
-L237:
-    vmovsd	LC3(%rip), %xmm1
-    vxorpd	%xmm0, %xmm0, %xmm0
-    call	double_min1
-    vmovq	%xmm0, %rax
-    vmovsd	LC3(%rip), %xmm0
-    vmovq	%rax, %xmm2
-    vcomisd	%xmm0, %xmm2
-    je	L238
-    call	abort
-L238:
-    vxorpd	%xmm1, %xmm1, %xmm1
-    vmovsd	LC3(%rip), %xmm0
-    call	double_min1
-    vmovq	%xmm0, %rax
-    vmovsd	LC3(%rip), %xmm0
-    vmovq	%rax, %xmm3
-    vcomisd	%xmm0, %xmm3
-    je	L239
-    call	abort
-L239:
-    vmovsd	LC5(%rip), %xmm1
-    vxorpd	%xmm0, %xmm0, %xmm0
-    call	double_min1
-    vmovq	%xmm0, %rax
-    vxorpd	%xmm0, %xmm0, %xmm0
-    vmovq	%rax, %xmm4
-    vcomisd	%xmm0, %xmm4
-    je	L240
-    call	abort
-L240:
-    vxorpd	%xmm1, %xmm1, %xmm1
-    vmovsd	LC5(%rip), %xmm0
-    call	double_min1
-    vmovq	%xmm0, %rax
-    vxorpd	%xmm0, %xmm0, %xmm0
-    vmovq	%rax, %xmm5
-    vcomisd	%xmm0, %xmm5
     je	L241
     call	abort
 L241:
-    vmovsd	LC5(%rip), %xmm1
     vmovsd	LC3(%rip), %xmm0
+    vmovapd	%xmm0, %xmm1
+    vxorpd	%xmm0, %xmm0, %xmm0
     call	double_min1
     vmovq	%xmm0, %rax
     vmovsd	LC3(%rip), %xmm0
-    vmovq	%rax, %xmm6
-    vcomisd	%xmm0, %xmm6
+    vmovq	%rax, %xmm2
+    vcomisd	%xmm0, %xmm2
     je	L242
     call	abort
 L242:
-    vmovsd	LC3(%rip), %xmm1
+    movabsq	$-4616189618054758400, %rax
+    vxorpd	%xmm1, %xmm1, %xmm1
+    vmovq	%rax, %xmm0
+    call	double_min1
+    vmovq	%xmm0, %rax
+    vmovsd	LC3(%rip), %xmm0
+    vmovq	%rax, %xmm3
+    vcomisd	%xmm0, %xmm3
+    je	L243
+    call	abort
+L243:
     vmovsd	LC5(%rip), %xmm0
+    vmovapd	%xmm0, %xmm1
+    vxorpd	%xmm0, %xmm0, %xmm0
+    call	double_min1
+    vmovq	%xmm0, %rax
+    vxorpd	%xmm0, %xmm0, %xmm0
+    vmovq	%rax, %xmm4
+    vcomisd	%xmm0, %xmm4
+    je	L244
+    call	abort
+L244:
+    movabsq	$4607182418800017408, %rax
+    vxorpd	%xmm1, %xmm1, %xmm1
+    vmovq	%rax, %xmm0
+    call	double_min1
+    vmovq	%xmm0, %rax
+    vxorpd	%xmm0, %xmm0, %xmm0
+    vmovq	%rax, %xmm5
+    vcomisd	%xmm0, %xmm5
+    je	L245
+    call	abort
+L245:
+    vmovsd	LC5(%rip), %xmm0
+    movabsq	$-4616189618054758400, %rax
+    vmovapd	%xmm0, %xmm1
+    vmovq	%rax, %xmm0
+    call	double_min1
+    vmovq	%xmm0, %rax
+    vmovsd	LC3(%rip), %xmm0
+    vmovq	%rax, %xmm6
+    vcomisd	%xmm0, %xmm6
+    je	L246
+    call	abort
+L246:
+    vmovsd	LC3(%rip), %xmm0
+    movabsq	$4607182418800017408, %rax
+    vmovapd	%xmm0, %xmm1
+    vmovq	%rax, %xmm0
     call	double_min1
     vmovq	%xmm0, %rax
     vmovsd	LC3(%rip), %xmm0
     vmovq	%rax, %xmm7
     vcomisd	%xmm0, %xmm7
-    je	L243
-    call	abort
-L243:
-    vmovsd	LC3(%rip), %xmm1
-    vxorpd	%xmm0, %xmm0, %xmm0
-    call	double_max1
-    vmovq	%xmm0, %rax
-    vxorpd	%xmm0, %xmm0, %xmm0
-    vmovq	%rax, %xmm2
-    vcomisd	%xmm0, %xmm2
-    je	L244
-    call	abort
-L244:
-    vxorpd	%xmm1, %xmm1, %xmm1
-    vmovsd	LC3(%rip), %xmm0
-    call	double_max1
-    vmovq	%xmm0, %rax
-    vxorpd	%xmm0, %xmm0, %xmm0
-    vmovq	%rax, %xmm3
-    vcomisd	%xmm0, %xmm3
-    je	L245
-    call	abort
-L245:
-    vmovsd	LC5(%rip), %xmm1
-    vxorpd	%xmm0, %xmm0, %xmm0
-    call	double_max1
-    vmovq	%xmm0, %rax
-    vmovsd	LC5(%rip), %xmm0
-    vmovq	%rax, %xmm4
-    vcomisd	%xmm0, %xmm4
-    je	L246
-    call	abort
-L246:
-    vxorpd	%xmm1, %xmm1, %xmm1
-    vmovsd	LC5(%rip), %xmm0
-    call	double_max1
-    vmovq	%xmm0, %rax
-    vmovsd	LC5(%rip), %xmm0
-    vmovq	%rax, %xmm5
-    vcomisd	%xmm0, %xmm5
     je	L247
     call	abort
 L247:
-    vmovsd	LC5(%rip), %xmm1
     vmovsd	LC3(%rip), %xmm0
+    vmovapd	%xmm0, %xmm1
+    vxorpd	%xmm0, %xmm0, %xmm0
     call	double_max1
     vmovq	%xmm0, %rax
-    vmovsd	LC5(%rip), %xmm0
-    vmovq	%rax, %xmm6
-    vcomisd	%xmm0, %xmm6
+    vxorpd	%xmm0, %xmm0, %xmm0
+    vmovq	%rax, %xmm2
+    vcomisd	%xmm0, %xmm2
     je	L248
     call	abort
 L248:
-    vmovsd	LC3(%rip), %xmm1
+    movabsq	$-4616189618054758400, %rax
+    vxorpd	%xmm1, %xmm1, %xmm1
+    vmovq	%rax, %xmm0
+    call	double_max1
+    vmovq	%xmm0, %rax
+    vxorpd	%xmm0, %xmm0, %xmm0
+    vmovq	%rax, %xmm3
+    vcomisd	%xmm0, %xmm3
+    je	L249
+    call	abort
+L249:
     vmovsd	LC5(%rip), %xmm0
+    vmovapd	%xmm0, %xmm1
+    vxorpd	%xmm0, %xmm0, %xmm0
+    call	double_max1
+    vmovq	%xmm0, %rax
+    vmovsd	LC5(%rip), %xmm0
+    vmovq	%rax, %xmm4
+    vcomisd	%xmm0, %xmm4
+    je	L250
+    call	abort
+L250:
+    movabsq	$4607182418800017408, %rax
+    vxorpd	%xmm1, %xmm1, %xmm1
+    vmovq	%rax, %xmm0
+    call	double_max1
+    vmovq	%xmm0, %rax
+    vmovsd	LC5(%rip), %xmm0
+    vmovq	%rax, %xmm5
+    vcomisd	%xmm0, %xmm5
+    je	L251
+    call	abort
+L251:
+    vmovsd	LC5(%rip), %xmm0
+    movabsq	$-4616189618054758400, %rax
+    vmovapd	%xmm0, %xmm1
+    vmovq	%rax, %xmm0
+    call	double_max1
+    vmovq	%xmm0, %rax
+    vmovsd	LC5(%rip), %xmm0
+    vmovq	%rax, %xmm6
+    vcomisd	%xmm0, %xmm6
+    je	L252
+    call	abort
+L252:
+    vmovsd	LC3(%rip), %xmm0
+    movabsq	$4607182418800017408, %rax
+    vmovapd	%xmm0, %xmm1
+    vmovq	%rax, %xmm0
     call	double_max1
     vmovq	%xmm0, %rax
     vmovsd	LC5(%rip), %xmm0
     vmovq	%rax, %xmm7
     vcomisd	%xmm0, %xmm7
-    je	L249
-    call	abort
-L249:
-    vmovsd	LC3(%rip), %xmm1
-    vxorpd	%xmm0, %xmm0, %xmm0
-    call	double_min2
-    vmovq	%xmm0, %rax
-    vmovsd	LC3(%rip), %xmm0
-    vmovq	%rax, %xmm2
-    vcomisd	%xmm0, %xmm2
-    je	L250
-    call	abort
-L250:
-    vxorpd	%xmm1, %xmm1, %xmm1
-    vmovsd	LC3(%rip), %xmm0
-    call	double_min2
-    vmovq	%xmm0, %rax
-    vmovsd	LC3(%rip), %xmm0
-    vmovq	%rax, %xmm3
-    vcomisd	%xmm0, %xmm3
-    je	L251
-    call	abort
-L251:
-    vmovsd	LC5(%rip), %xmm1
-    vxorpd	%xmm0, %xmm0, %xmm0
-    call	double_min2
-    vmovq	%xmm0, %rax
-    vxorpd	%xmm0, %xmm0, %xmm0
-    vmovq	%rax, %xmm4
-    vcomisd	%xmm0, %xmm4
-    je	L252
-    call	abort
-L252:
-    vxorpd	%xmm1, %xmm1, %xmm1
-    vmovsd	LC5(%rip), %xmm0
-    call	double_min2
-    vmovq	%xmm0, %rax
-    vxorpd	%xmm0, %xmm0, %xmm0
-    vmovq	%rax, %xmm5
-    vcomisd	%xmm0, %xmm5
     je	L253
     call	abort
 L253:
-    vmovsd	LC5(%rip), %xmm1
     vmovsd	LC3(%rip), %xmm0
+    vmovapd	%xmm0, %xmm1
+    vxorpd	%xmm0, %xmm0, %xmm0
+    call	double_min2
+    vmovq	%xmm0, %rax
+    vmovsd	LC3(%rip), %xmm0
+    vmovq	%rax, %xmm2
+    vcomisd	%xmm0, %xmm2
+    je	L254
+    call	abort
+L254:
+    movabsq	$-4616189618054758400, %rax
+    vxorpd	%xmm1, %xmm1, %xmm1
+    vmovq	%rax, %xmm0
+    call	double_min2
+    vmovq	%xmm0, %rax
+    vmovsd	LC3(%rip), %xmm0
+    vmovq	%rax, %xmm3
+    vcomisd	%xmm0, %xmm3
+    je	L255
+    call	abort
+L255:
+    vmovsd	LC5(%rip), %xmm0
+    vmovapd	%xmm0, %xmm1
+    vxorpd	%xmm0, %xmm0, %xmm0
+    call	double_min2
+    vmovq	%xmm0, %rax
+    vxorpd	%xmm0, %xmm0, %xmm0
+    vmovq	%rax, %xmm4
+    vcomisd	%xmm0, %xmm4
+    je	L256
+    call	abort
+L256:
+    movabsq	$4607182418800017408, %rax
+    vxorpd	%xmm1, %xmm1, %xmm1
+    vmovq	%rax, %xmm0
+    call	double_min2
+    vmovq	%xmm0, %rax
+    vxorpd	%xmm0, %xmm0, %xmm0
+    vmovq	%rax, %xmm5
+    vcomisd	%xmm0, %xmm5
+    je	L257
+    call	abort
+L257:
+    vmovsd	LC5(%rip), %xmm0
+    movabsq	$-4616189618054758400, %rax
+    vmovapd	%xmm0, %xmm1
+    vmovq	%rax, %xmm0
     call	double_min2
     vmovq	%xmm0, %rax
     vmovsd	LC3(%rip), %xmm0
     vmovq	%rax, %xmm6
     vcomisd	%xmm0, %xmm6
-    je	L254
+    je	L258
     call	abort
-L254:
-    vmovsd	LC3(%rip), %xmm1
-    vmovsd	LC5(%rip), %xmm0
+L258:
+    vmovsd	LC3(%rip), %xmm0
+    movabsq	$4607182418800017408, %rax
+    vmovapd	%xmm0, %xmm1
+    vmovq	%rax, %xmm0
     call	double_min2
     vmovq	%xmm0, %rax
     vmovsd	LC3(%rip), %xmm0
     vmovq	%rax, %xmm7
     vcomisd	%xmm0, %xmm7
-    je	L255
+    je	L259
     call	abort
-L255:
-    vmovsd	LC3(%rip), %xmm1
+L259:
+    vmovsd	LC3(%rip), %xmm0
+    vmovapd	%xmm0, %xmm1
     vxorpd	%xmm0, %xmm0, %xmm0
     call	double_max2
     vmovq	%xmm0, %rax
     vxorpd	%xmm0, %xmm0, %xmm0
     vmovq	%rax, %xmm2
     vcomisd	%xmm0, %xmm2
-    je	L256
+    je	L260
     call	abort
-L256:
+L260:
+    movabsq	$-4616189618054758400, %rax
     vxorpd	%xmm1, %xmm1, %xmm1
-    vmovsd	LC3(%rip), %xmm0
+    vmovq	%rax, %xmm0
     call	double_max2
     vmovq	%xmm0, %rax
     vxorpd	%xmm0, %xmm0, %xmm0
     vmovq	%rax, %xmm3
     vcomisd	%xmm0, %xmm3
-    je	L257
+    je	L261
     call	abort
-L257:
-    vmovsd	LC5(%rip), %xmm1
+L261:
+    vmovsd	LC5(%rip), %xmm0
+    vmovapd	%xmm0, %xmm1
     vxorpd	%xmm0, %xmm0, %xmm0
     call	double_max2
     vmovq	%xmm0, %rax
     vmovsd	LC5(%rip), %xmm0
     vmovq	%rax, %xmm4
     vcomisd	%xmm0, %xmm4
-    je	L258
+    je	L262
     call	abort
-L258:
+L262:
+    movabsq	$4607182418800017408, %rax
     vxorpd	%xmm1, %xmm1, %xmm1
-    vmovsd	LC5(%rip), %xmm0
+    vmovq	%rax, %xmm0
     call	double_max2
     vmovq	%xmm0, %rax
     vmovsd	LC5(%rip), %xmm0
     vmovq	%rax, %xmm5
     vcomisd	%xmm0, %xmm5
-    je	L259
+    je	L263
     call	abort
-L259:
-    vmovsd	LC5(%rip), %xmm1
-    vmovsd	LC3(%rip), %xmm0
+L263:
+    vmovsd	LC5(%rip), %xmm0
+    movabsq	$-4616189618054758400, %rax
+    vmovapd	%xmm0, %xmm1
+    vmovq	%rax, %xmm0
     call	double_max2
     vmovq	%xmm0, %rax
     vmovsd	LC5(%rip), %xmm0
     vmovq	%rax, %xmm6
     vcomisd	%xmm0, %xmm6
-    je	L260
+    je	L264
     call	abort
-L260:
-    vmovsd	LC3(%rip), %xmm1
-    vmovsd	LC5(%rip), %xmm0
+L264:
+    vmovsd	LC3(%rip), %xmm0
+    movabsq	$4607182418800017408, %rax
+    vmovapd	%xmm0, %xmm1
+    vmovq	%rax, %xmm0
     call	double_max2
     vmovq	%xmm0, %rax
     vmovsd	LC5(%rip), %xmm0
     vmovq	%rax, %xmm7
     vcomisd	%xmm0, %xmm7
-    je	L261
+    je	L265
     call	abort
-L261:
+L265:
     movl	$0, %edi
     call	exit
     .section	.rodata

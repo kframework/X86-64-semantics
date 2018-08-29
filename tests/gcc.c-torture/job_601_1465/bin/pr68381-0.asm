@@ -108,34 +108,45 @@ L30:
     jne	L32
     movl	$0, %eax
     ret
+    .globl	strrchr
+strrchr:
+    movl	$0, %eax
+L37:
+    movzbl	(%rdi), %edx
+    cmpb	%sil, %dl
+    cmove	%rdi, %rax
+    addq	$1, %rdi
+    testb	%dl, %dl
+    jne	L37
+    ret
     .globl	memcmp
 memcmp:
     leaq	-1(%rdx), %r8
     testq	%rdx, %rdx
-    je	L40
+    je	L44
     movzbl	(%rdi), %edx
     movzbl	(%rsi), %ecx
     cmpb	%cl, %dl
-    jne	L37
+    jne	L41
     movl	$0, %eax
-    jmp	L38
-L39:
+    jmp	L42
+L43:
     movzbl	1(%rdi,%rax), %edx
     addq	$1, %rax
     movzbl	(%rsi,%rax), %ecx
     cmpb	%cl, %dl
-    je	L38
-L37:
+    je	L42
+L41:
     movzbl	%dl, %eax
     movzbl	%cl, %ecx
     subl	%ecx, %eax
     ret
-L38:
+L42:
     cmpq	%r8, %rax
-    jne	L39
+    jne	L43
     movl	$0, %eax
     ret
-L40:
+L44:
     movl	$0, %eax
     ret
     .globl	__stack_chk_fail
@@ -160,29 +171,29 @@ abort:
 memset:
     movq	%rdi, %rax
     testq	%rdx, %rdx
-    je	L50
+    je	L54
     addq	%rdi, %rdx
     movq	%rdi, %rcx
-L48:
+L52:
     addq	$1, %rcx
     movb	%sil, -1(%rcx)
     cmpq	%rcx, %rdx
-    jne	L48
-L50:
+    jne	L52
+L54:
     ret
     .globl	memcpy
 memcpy:
     movq	%rdi, %rax
     testq	%rdx, %rdx
-    je	L55
+    je	L59
     movl	$0, %ecx
-L53:
+L57:
     movzbl	(%rsi,%rcx), %r8d
     movb	%r8b, (%rax,%rcx)
     addq	$1, %rcx
     cmpq	%rdx, %rcx
-    jne	L53
-L55:
+    jne	L57
+L59:
     ret
     .globl	malloc
 malloc:
@@ -202,12 +213,12 @@ isprint:
     subl	$65, %edx
     movl	$1, %eax
     cmpl	$25, %edx
-    jbe	L62
+    jbe	L66
     subl	$48, %edi
     cmpl	$9, %edi
     setbe	%al
     movzbl	%al, %eax
-L62:
+L66:
     ret
     .globl	foo
 foo:
@@ -220,10 +231,10 @@ foo:
     movl	$1, %ecx
     cmovs	%ecx, %edx
     testl	%edx, %edx
-    je	L70
+    je	L74
     subq	$8, %rsp
     call	abort
-L70:
+L74:
     ret
     .globl	main
 .globl _start
@@ -233,9 +244,9 @@ _start:
     movl	$1, %edi
     call	foo
     cmpl	$2, %eax
-    je	L73
+    je	L77
     call	abort
-L73:
+L77:
     movl	$0, %eax
     addq	$8, %rsp
     ret

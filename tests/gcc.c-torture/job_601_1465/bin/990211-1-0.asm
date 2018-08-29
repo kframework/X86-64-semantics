@@ -185,6 +185,31 @@ L24:
 L25:
     popq	%rbp
     ret
+    .globl	strrchr
+strrchr:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq	%rdi, -24(%rbp)
+    movl	%esi, -28(%rbp)
+    movq	$0, -8(%rbp)
+L29:
+    movq	-24(%rbp), %rax
+    movzbl	(%rax), %eax
+    movl	-28(%rbp), %edx
+    cmpb	%dl, %al
+    jne	L28
+    movq	-24(%rbp), %rax
+    movq	%rax, -8(%rbp)
+L28:
+    movq	-24(%rbp), %rax
+    leaq	1(%rax), %rdx
+    movq	%rdx, -24(%rbp)
+    movzbl	(%rax), %eax
+    testb	%al, %al
+    jne	L29
+    movq	-8(%rbp), %rax
+    popq	%rbp
+    ret
     .globl	memcmp
 memcmp:
     pushq	%rbp
@@ -196,14 +221,14 @@ memcmp:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L28
-L31:
+    jmp	L32
+L35:
     movq	-16(%rbp), %rax
     movzbl	(%rax), %edx
     movq	-8(%rbp), %rax
     movzbl	(%rax), %eax
     cmpb	%al, %dl
-    je	L29
+    je	L33
     movq	-16(%rbp), %rax
     movzbl	(%rax), %eax
     movzbl	%al, %edx
@@ -212,18 +237,18 @@ L31:
     movzbl	%al, %eax
     subl	%eax, %edx
     movl	%edx, %eax
-    jmp	L30
-L29:
+    jmp	L34
+L33:
     addq	$1, -16(%rbp)
     addq	$1, -8(%rbp)
-L28:
+L32:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L31
+    jne	L35
     movl	$0, %eax
-L30:
+L34:
     popq	%rbp
     ret
     .globl	__stack_chk_fail
@@ -266,19 +291,19 @@ memset:
     movq	%rdx, -40(%rbp)
     movq	-24(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L36
-L37:
+    jmp	L40
+L41:
     movq	-8(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -8(%rbp)
     movl	-28(%rbp), %edx
     movb	%dl, (%rax)
-L36:
+L40:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L37
+    jne	L41
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -293,8 +318,8 @@ memcpy:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L40
-L41:
+    jmp	L44
+L45:
     movq	-16(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -16(%rbp)
@@ -303,12 +328,12 @@ L41:
     movq	%rcx, -8(%rbp)
     movzbl	(%rdx), %edx
     movb	%dl, (%rax)
-L40:
+L44:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L41
+    jne	L45
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -343,28 +368,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L49
+    jle	L53
     cmpl	$122, -4(%rbp)
-    jg	L49
+    jg	L53
     movl	$1, %eax
-    jmp	L50
-L49:
+    jmp	L54
+L53:
     cmpl	$64, -4(%rbp)
-    jle	L51
+    jle	L55
     cmpl	$90, -4(%rbp)
-    jg	L51
+    jg	L55
     movl	$1, %eax
-    jmp	L50
-L51:
+    jmp	L54
+L55:
     cmpl	$47, -4(%rbp)
-    jle	L52
+    jle	L56
     cmpl	$57, -4(%rbp)
-    jg	L52
+    jg	L56
     movl	$1, %eax
-    jmp	L50
-L52:
+    jmp	L54
+L56:
     movl	$0, %eax
-L50:
+L54:
     popq	%rbp
     ret
     .globl	func
@@ -374,101 +399,101 @@ func:
     subq	$8, %rsp
     movl	%edi, -4(%rbp)
     cmpl	$0, -4(%rbp)
-    jns	L54
+    jns	L58
     cmpl	$0, -4(%rbp)
-    js	L54
-    call	abort
-L54:
-    cmpl	$0, -4(%rbp)
-    jle	L55
-    cmpl	$0, -4(%rbp)
-    jg	L55
-    call	abort
-L55:
-    cmpl	$0, -4(%rbp)
-    js	L56
-    cmpl	$0, -4(%rbp)
-    jns	L56
-    call	abort
-L56:
-    cmpl	$0, -4(%rbp)
-    jg	L57
-    cmpl	$0, -4(%rbp)
-    jle	L57
-    call	abort
-L57:
-    cmpl	$76, -4(%rbp)
-    jg	L58
-    cmpl	$76, -4(%rbp)
-    jle	L58
+    js	L58
     call	abort
 L58:
-    cmpl	$77, -4(%rbp)
+    cmpl	$0, -4(%rbp)
     jle	L59
-    cmpl	$77, -4(%rbp)
+    cmpl	$0, -4(%rbp)
     jg	L59
     call	abort
 L59:
-    cmpl	$76, -4(%rbp)
-    jle	L60
-    cmpl	$76, -4(%rbp)
-    jg	L60
+    cmpl	$0, -4(%rbp)
+    js	L60
+    cmpl	$0, -4(%rbp)
+    jns	L60
     call	abort
 L60:
-    cmpl	$77, -4(%rbp)
+    cmpl	$0, -4(%rbp)
     jg	L61
-    cmpl	$77, -4(%rbp)
+    cmpl	$0, -4(%rbp)
     jle	L61
     call	abort
 L61:
-    cmpl	$0, -4(%rbp)
-    js	L62
-    cmpl	$0, -4(%rbp)
-    jns	L62
+    cmpl	$76, -4(%rbp)
+    jg	L62
+    cmpl	$76, -4(%rbp)
+    jle	L62
     call	abort
 L62:
-    cmpl	$0, -4(%rbp)
-    jg	L63
-    cmpl	$0, -4(%rbp)
+    cmpl	$77, -4(%rbp)
     jle	L63
+    cmpl	$77, -4(%rbp)
+    jg	L63
     call	abort
 L63:
-    cmpl	$0, -4(%rbp)
-    jns	L64
-    cmpl	$0, -4(%rbp)
-    js	L64
+    cmpl	$76, -4(%rbp)
+    jle	L64
+    cmpl	$76, -4(%rbp)
+    jg	L64
     call	abort
 L64:
-    cmpl	$0, -4(%rbp)
-    jle	L65
-    cmpl	$0, -4(%rbp)
+    cmpl	$77, -4(%rbp)
     jg	L65
+    cmpl	$77, -4(%rbp)
+    jle	L65
     call	abort
 L65:
-    cmpl	$76, -4(%rbp)
-    jle	L66
-    cmpl	$76, -4(%rbp)
-    jg	L66
+    cmpl	$0, -4(%rbp)
+    js	L66
+    cmpl	$0, -4(%rbp)
+    jns	L66
     call	abort
 L66:
-    cmpl	$77, -4(%rbp)
+    cmpl	$0, -4(%rbp)
     jg	L67
-    cmpl	$77, -4(%rbp)
+    cmpl	$0, -4(%rbp)
     jle	L67
     call	abort
 L67:
-    cmpl	$76, -4(%rbp)
-    jg	L68
-    cmpl	$76, -4(%rbp)
-    jle	L68
+    cmpl	$0, -4(%rbp)
+    jns	L68
+    cmpl	$0, -4(%rbp)
+    js	L68
     call	abort
 L68:
-    cmpl	$77, -4(%rbp)
-    jle	L71
+    cmpl	$0, -4(%rbp)
+    jle	L69
+    cmpl	$0, -4(%rbp)
+    jg	L69
+    call	abort
+L69:
+    cmpl	$76, -4(%rbp)
+    jle	L70
+    cmpl	$76, -4(%rbp)
+    jg	L70
+    call	abort
+L70:
     cmpl	$77, -4(%rbp)
     jg	L71
+    cmpl	$77, -4(%rbp)
+    jle	L71
     call	abort
 L71:
+    cmpl	$76, -4(%rbp)
+    jg	L72
+    cmpl	$76, -4(%rbp)
+    jle	L72
+    call	abort
+L72:
+    cmpl	$77, -4(%rbp)
+    jle	L75
+    cmpl	$77, -4(%rbp)
+    jg	L75
+    call	abort
+L75:
     nop
     leave
     ret
