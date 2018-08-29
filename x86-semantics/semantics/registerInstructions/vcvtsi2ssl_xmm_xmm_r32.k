@@ -5,6 +5,10 @@ module VCVTSI2SSL-XMM-XMM-R32
   imports X86-CONFIGURATION
 
   rule <k>
+    execinstr (vcvtsi2ss R1:R32, R2:Xmm, R3:Xmm,  .Operands) => execinstr (vcvtsi2ssl R1:R32, R2:Xmm, R3:Xmm,  .Operands)
+  ...</k>
+
+  rule <k>
     execinstr (vcvtsi2ssl R1:R32, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>

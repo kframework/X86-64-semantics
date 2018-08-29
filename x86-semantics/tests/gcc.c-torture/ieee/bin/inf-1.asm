@@ -142,6 +142,16 @@ L20:
 L22:
     popq	%rbp
     ret
+    .globl	__stack_chk_fail
+__stack_chk_fail:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq $-1, %rax
+    jmp %rax
+    
+    nop
+    popq	%rbp
+    ret
     .globl	exit
 exit:
     pushq	%rbp
@@ -172,19 +182,19 @@ memset:
     movq	%rdx, -40(%rbp)
     movq	-24(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L27
-L28:
+    jmp	L28
+L29:
     movq	-8(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -8(%rbp)
     movl	-28(%rbp), %edx
     movb	%dl, (%rax)
-L27:
+L28:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L28
+    jne	L29
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -199,8 +209,8 @@ memcpy:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L31
-L32:
+    jmp	L32
+L33:
     movq	-16(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -16(%rbp)
@@ -209,12 +219,12 @@ L32:
     movq	%rcx, -8(%rbp)
     movzbl	(%rdx), %edx
     movb	%dl, (%rax)
-L31:
+L32:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L32
+    jne	L33
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -249,28 +259,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L40
+    jle	L41
     cmpl	$122, -4(%rbp)
-    jg	L40
+    jg	L41
     movl	$1, %eax
-    jmp	L41
-L40:
+    jmp	L42
+L41:
     cmpl	$64, -4(%rbp)
-    jle	L42
-    cmpl	$90, -4(%rbp)
-    jg	L42
-    movl	$1, %eax
-    jmp	L41
-L42:
-    cmpl	$47, -4(%rbp)
     jle	L43
-    cmpl	$57, -4(%rbp)
+    cmpl	$90, -4(%rbp)
     jg	L43
     movl	$1, %eax
-    jmp	L41
+    jmp	L42
 L43:
+    cmpl	$47, -4(%rbp)
+    jle	L44
+    cmpl	$57, -4(%rbp)
+    jg	L44
+    movl	$1, %eax
+    jmp	L42
+L44:
     movl	$0, %eax
-L41:
+L42:
     popq	%rbp
     ret
     .globl	main
@@ -294,72 +304,72 @@ _start:
     vmovss	-40(%rbp), %xmm0
     vaddss	%xmm0, %xmm0, %xmm0
     vucomiss	-40(%rbp), %xmm0
-    jp	L64
-    vucomiss	-40(%rbp), %xmm0
-    je	L73
-L64:
-    call	abort
-L73:
-    vmovsd	-32(%rbp), %xmm0
-    vaddsd	%xmm0, %xmm0, %xmm0
-    vucomisd	-32(%rbp), %xmm0
     jp	L65
-    vucomisd	-32(%rbp), %xmm0
+    vucomiss	-40(%rbp), %xmm0
     je	L74
 L65:
     call	abort
 L74:
-    vmovsd	-24(%rbp), %xmm0
+    vmovsd	-32(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
-    vucomisd	-24(%rbp), %xmm0
+    vucomisd	-32(%rbp), %xmm0
     jp	L66
-    vucomisd	-24(%rbp), %xmm0
+    vucomisd	-32(%rbp), %xmm0
     je	L75
 L66:
     call	abort
 L75:
-    vmovss	-40(%rbp), %xmm0
-    vucomiss	-36(%rbp), %xmm0
+    vmovsd	-24(%rbp), %xmm0
+    vaddsd	%xmm0, %xmm0, %xmm0
+    vucomisd	-24(%rbp), %xmm0
     jp	L67
-    vmovss	-40(%rbp), %xmm0
-    vucomiss	-36(%rbp), %xmm0
+    vucomisd	-24(%rbp), %xmm0
     je	L76
 L67:
     call	abort
 L76:
-    vmovsd	-32(%rbp), %xmm0
-    vucomisd	-16(%rbp), %xmm0
+    vmovss	-40(%rbp), %xmm0
+    vucomiss	-36(%rbp), %xmm0
     jp	L68
-    vmovsd	-32(%rbp), %xmm0
-    vucomisd	-16(%rbp), %xmm0
+    vmovss	-40(%rbp), %xmm0
+    vucomiss	-36(%rbp), %xmm0
     je	L77
 L68:
     call	abort
 L77:
-    vmovsd	-24(%rbp), %xmm0
-    vucomisd	-8(%rbp), %xmm0
+    vmovsd	-32(%rbp), %xmm0
+    vucomisd	-16(%rbp), %xmm0
     jp	L69
-    vmovsd	-24(%rbp), %xmm0
-    vucomisd	-8(%rbp), %xmm0
+    vmovsd	-32(%rbp), %xmm0
+    vucomisd	-16(%rbp), %xmm0
     je	L78
 L69:
     call	abort
 L78:
-    vxorps	%xmm0, %xmm0, %xmm0
-    vucomiss	-40(%rbp), %xmm0
-    jb	L79
+    vmovsd	-24(%rbp), %xmm0
+    vucomisd	-8(%rbp), %xmm0
+    jp	L70
+    vmovsd	-24(%rbp), %xmm0
+    vucomisd	-8(%rbp), %xmm0
+    je	L79
+L70:
     call	abort
 L79:
-    vxorpd	%xmm0, %xmm0, %xmm0
-    vucomisd	-32(%rbp), %xmm0
+    vxorps	%xmm0, %xmm0, %xmm0
+    vucomiss	-40(%rbp), %xmm0
     jb	L80
     call	abort
 L80:
     vxorpd	%xmm0, %xmm0, %xmm0
-    vucomisd	-24(%rbp), %xmm0
+    vucomisd	-32(%rbp), %xmm0
     jb	L81
     call	abort
 L81:
+    vxorpd	%xmm0, %xmm0, %xmm0
+    vucomisd	-24(%rbp), %xmm0
+    jb	L82
+    call	abort
+L82:
     movl	$0, %eax
     leave
     ret

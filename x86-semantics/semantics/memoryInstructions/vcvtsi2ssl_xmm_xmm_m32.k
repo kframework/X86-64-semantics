@@ -4,6 +4,11 @@ requires "x86-configuration.k"
 module VCVTSI2SSL-XMM-XMM-M32
   imports X86-CONFIGURATION
 
+  rule <k>
+    execinstr (vcvtsi2ss:Opcode M:Mem, R2:Xmm, R3:Xmm,  .Operands) => execinstr (vcvtsi2ssl:Opcode M:Mem, R2:Xmm, R3:Xmm,  .Operands)
+  ...</k>
+
+
   context execinstr(vcvtsi2ssl:Opcode HOLE:Mem, R2:Xmm, R3:Xmm,  .Operands) [result(MemOffset)]
   
   rule <k>
