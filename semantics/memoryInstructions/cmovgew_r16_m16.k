@@ -5,7 +5,7 @@ module CMOVGEW-R16-M16
   imports X86-CONFIGURATION
 
    rule <k>
-    execinstr (cmovge:Opcode M:mem, R2:R16,  .Operands) => execinstr (cmovgew:Opcode M:mem, R2:R16,  .Operands)
+    execinstr (cmovge:Opcode M:Mem, R2:R16,  .Operands) => execinstr (cmovgew:Opcode M:Mem, R2:R16,  .Operands)
   ...</k>
 
 
