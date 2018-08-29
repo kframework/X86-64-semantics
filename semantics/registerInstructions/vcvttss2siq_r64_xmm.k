@@ -3,6 +3,9 @@ requires "x86-configuration.k"
 
 module VCVTTSS2SIQ-R64-XMM
   imports X86-CONFIGURATION
+  rule <k>
+    execinstr (vcvttss2si R1:Xmm, R2:R64,  .Operands) => execinstr (vcvttss2siq R1:Xmm, R2:R64,  .Operands)
+  ...</k>
 
   rule <k>
     execinstr (vcvttss2siq R1:Xmm, R2:R64,  .Operands) => .

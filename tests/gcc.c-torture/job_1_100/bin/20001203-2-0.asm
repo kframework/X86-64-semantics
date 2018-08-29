@@ -142,6 +142,16 @@ L20:
 L22:
     popq	%rbp
     ret
+    .globl	__stack_chk_fail
+__stack_chk_fail:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq $-1, %rax
+    jmp %rax
+    
+    nop
+    popq	%rbp
+    ret
     .globl	exit
 exit:
     pushq	%rbp
@@ -172,19 +182,19 @@ memset:
     movq	%rdx, -40(%rbp)
     movq	-24(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L27
-L28:
+    jmp	L28
+L29:
     movq	-8(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -8(%rbp)
     movl	-28(%rbp), %edx
     movb	%dl, (%rax)
-L27:
+L28:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L28
+    jne	L29
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -199,8 +209,8 @@ memcpy:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L31
-L32:
+    jmp	L32
+L33:
     movq	-16(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -16(%rbp)
@@ -209,12 +219,12 @@ L32:
     movq	%rcx, -8(%rbp)
     movzbl	(%rdx), %edx
     movb	%dl, (%rax)
-L31:
+L32:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L32
+    jne	L33
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -249,28 +259,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L40
+    jle	L41
     cmpl	$122, -4(%rbp)
-    jg	L40
+    jg	L41
     movl	$1, %eax
-    jmp	L41
-L40:
+    jmp	L42
+L41:
     cmpl	$64, -4(%rbp)
-    jle	L42
-    cmpl	$90, -4(%rbp)
-    jg	L42
-    movl	$1, %eax
-    jmp	L41
-L42:
-    cmpl	$47, -4(%rbp)
     jle	L43
-    cmpl	$57, -4(%rbp)
+    cmpl	$90, -4(%rbp)
     jg	L43
     movl	$1, %eax
-    jmp	L41
+    jmp	L42
 L43:
+    cmpl	$47, -4(%rbp)
+    jle	L44
+    cmpl	$57, -4(%rbp)
+    jg	L44
+    movl	$1, %eax
+    jmp	L42
+L44:
     movl	$0, %eax
-L41:
+L42:
     popq	%rbp
     ret
     .globl	create_array_type
@@ -284,10 +294,10 @@ create_array_type:
     movq	%rax, -8(%rbp)
     xorl	%eax, %eax
     cmpq	$0, -72(%rbp)
-    jne	L45
+    jne	L46
     call	alloc_type
     movq	%rax, -72(%rbp)
-L45:
+L46:
     leaq	-48(%rbp), %rdx
     leaq	-56(%rbp), %rax
     movq	%rdx, %rsi
@@ -308,7 +318,7 @@ L45:
     movq	-72(%rbp), %rax
     movq	8(%rax), %rax
     testq	%rax, %rax
-    je	L46
+    je	L47
     movq	-72(%rbp), %rax
     movq	8(%rax), %rax
     addq	$8, %rax
@@ -325,13 +335,13 @@ L45:
     movl	-60(%rbp), %eax
     cltq
     cmpq	%rax, %rdx
-    jge	L47
+    jge	L48
     movl	-60(%rbp), %edx
     movq	-32(%rbp), %rax
     movl	%edx, %esi
     movq	%rax, %rdi
     call	_obstack_newchunk
-L47:
+L48:
     movq	-32(%rbp), %rax
     movq	24(%rax), %rdx
     movl	-60(%rbp), %eax
@@ -347,10 +357,10 @@ L47:
     movq	-24(%rbp), %rax
     movq	24(%rax), %rax
     cmpq	-16(%rbp), %rax
-    jne	L48
+    jne	L49
     movq	-24(%rbp), %rax
     movl	$1, 44(%rax)
-L48:
+L49:
     movq	-24(%rbp), %rax
     movq	24(%rax), %rax
     movq	%rax, %rdx
@@ -380,30 +390,30 @@ L48:
     subq	%rax, %rcx
     movq	%rcx, %rax
     cmpq	%rax, %rdx
-    jle	L49
+    jle	L50
     movq	-24(%rbp), %rax
     movq	32(%rax), %rdx
     movq	-24(%rbp), %rax
     movq	%rdx, 24(%rax)
-L49:
+L50:
     movq	-24(%rbp), %rax
     movq	24(%rax), %rdx
     movq	-24(%rbp), %rax
     movq	%rdx, 16(%rax)
     movq	-16(%rbp), %rax
-    jmp	L50
-L46:
+    jmp	L51
+L47:
     movl	$32, %edi
     call	xmalloc
-L50:
+L51:
     movq	-72(%rbp), %rdx
     movq	%rax, 24(%rdx)
     movq	-72(%rbp), %rax
     movq	-8(%rbp), %rsi
     xorq	$40, %rsi
-    je	L52
+    je	L53
     call	__stack_chk_fail
-L52:
+L53:
     leave
     ret
     .globl	alloc_type
@@ -467,8 +477,8 @@ _start:
     call	create_array_type
     movl	-48(%rbp), %eax
     cmpl	$12, %eax
-    je	L59
+    je	L60
     call	abort
-L59:
+L60:
     movl	$0, %edi
     call	exit

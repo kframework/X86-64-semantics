@@ -142,6 +142,16 @@ L20:
 L22:
     popq	%rbp
     ret
+    .globl	__stack_chk_fail
+__stack_chk_fail:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq $-1, %rax
+    jmp %rax
+    
+    nop
+    popq	%rbp
+    ret
     .globl	exit
 exit:
     pushq	%rbp
@@ -172,19 +182,19 @@ memset:
     movq	%rdx, -40(%rbp)
     movq	-24(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L27
-L28:
+    jmp	L28
+L29:
     movq	-8(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -8(%rbp)
     movl	-28(%rbp), %edx
     movb	%dl, (%rax)
-L27:
+L28:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L28
+    jne	L29
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -199,8 +209,8 @@ memcpy:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L31
-L32:
+    jmp	L32
+L33:
     movq	-16(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -16(%rbp)
@@ -209,12 +219,12 @@ L32:
     movq	%rcx, -8(%rbp)
     movzbl	(%rdx), %edx
     movb	%dl, (%rax)
-L31:
+L32:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L32
+    jne	L33
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -249,28 +259,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L40
+    jle	L41
     cmpl	$122, -4(%rbp)
-    jg	L40
+    jg	L41
     movl	$1, %eax
-    jmp	L41
-L40:
+    jmp	L42
+L41:
     cmpl	$64, -4(%rbp)
-    jle	L42
-    cmpl	$90, -4(%rbp)
-    jg	L42
-    movl	$1, %eax
-    jmp	L41
-L42:
-    cmpl	$47, -4(%rbp)
     jle	L43
-    cmpl	$57, -4(%rbp)
+    cmpl	$90, -4(%rbp)
     jg	L43
     movl	$1, %eax
-    jmp	L41
+    jmp	L42
 L43:
+    cmpl	$47, -4(%rbp)
+    jle	L44
+    cmpl	$57, -4(%rbp)
+    jg	L44
+    movl	$1, %eax
+    jmp	L42
+L44:
     movl	$0, %eax
-L41:
+L42:
     popq	%rbp
     ret
     .globl	f
@@ -282,44 +292,44 @@ f:
     movl	-4(%rbp), %eax
     addl	$2, %eax
     cmpl	$6, %eax
-    ja	L45
+    ja	L46
     movl	%eax, %eax
-    movq	$L47(,%rax,8), %rax
+    movq	L48(,%rax,8), %rax
     jmp	%rax
     .section	.rodata
-L47:
-    .quad	L46
-    .quad	L48
+L48:
+    .quad	L47
     .quad	L49
     .quad	L50
     .quad	L51
     .quad	L52
     .quad	L53
+    .quad	L54
     .text
-L46:
+L47:
     movl	$33, %eax
-    jmp	L54
-L48:
-    movl	$0, %eax
-    jmp	L54
+    jmp	L55
 L49:
-    movl	$7, %eax
-    jmp	L54
+    movl	$0, %eax
+    jmp	L55
 L50:
-    movl	$4, %eax
-    jmp	L54
+    movl	$7, %eax
+    jmp	L55
 L51:
-    movl	$3, %eax
-    jmp	L54
+    movl	$4, %eax
+    jmp	L55
 L52:
-    movl	$15, %eax
-    jmp	L54
+    movl	$3, %eax
+    jmp	L55
 L53:
-    movl	$9, %eax
-    jmp	L54
-L45:
-    call	abort
+    movl	$15, %eax
+    jmp	L55
 L54:
+    movl	$9, %eax
+    jmp	L55
+L46:
+    call	abort
+L55:
     leave
     ret
     .globl	main
@@ -330,8 +340,8 @@ _start:
     movl	$-1, %edi
     call	f
     testl	%eax, %eax
-    je	L56
+    je	L57
     call	abort
-L56:
+L57:
     movl	$0, %edi
     call	exit

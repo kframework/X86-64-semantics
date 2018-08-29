@@ -58,7 +58,8 @@ for my $line (@lines) {
     }
 
     if($line =~ m/(.*)stdout\(%rip\)(.*)/) {
-      print $1. "\$stdout" . $2. "\n";
+      #print $1. "\$stdout" . $2. "\n";
+      print $1. "stdout" . $2. "\n";
       next;
     }
 
@@ -79,54 +80,55 @@ for my $line (@lines) {
       my $pre = $1;
       my $post = $2;
 
-      my $text = "";
-      if($pre =~ m/\$/g) {
-        $text = $pre."L". $post;
-      } else {
-        $text = $pre."\$L". $post;
-      }
+      #my $text = "";
+      my  $text = $pre."L". $post;
+      #if($pre =~ m/\$/g) {
+      #  $text = $pre."L". $post;
+      #} else {
+      #  $text = $pre."\$L". $post;
+      #}
 
       print "". $text. "\n";
       next;
     }
 
     #print $line. "\n";
-    if($line =~ m/^(.*)\s+([a-zA-Z]+[0-9]*) \+ (\d+)(.*)/) {
-      my $pre = $1;
-      my $base = $2;
-      my $const = $3;
-      my $post = $4;
+    #if($line =~ m/^(.*)\s+([a-zA-Z]+[0-9]*) \+ (\d+)(.*)/) {
+    #  my $pre = $1;
+    #  my $base = $2;
+    #  my $const = $3;
+    #  my $post = $4;
 
-        $base = "\$". $base;
-      $line = $pre . " $base + $const$post";
-      print "" . "$line". "\n";
-      next;
-    }
+    #    $base = "\$". $base;
+    #  $line = $pre . " $base + $const$post";
+    #  print "" . "$line". "\n";
+    #  next;
+    #}
 
-    if($line =~ m/^(.*)\s+([_a-zA-Z]+[0-9]*)\(%(\w+)\)(.*)/) {
-      my $pre = $1;
-      my $base = $2;
-      my $reg = $3;
-      my $post = $4;
+    #if($line =~ m/^(.*)\s+([_a-zA-Z]+[0-9]*)\(%(\w+)\)(.*)/) {
+    #  my $pre = $1;
+    #  my $base = $2;
+    #  my $reg = $3;
+    #  my $post = $4;
 
-      $base = "\$". $base;
-      $line = $pre . " $base(%$reg)$post";
-      print "". "$line". "\n";
-      next;
-    }
+    #  $base = "\$". $base;
+    #  $line = $pre . " $base(%$reg)$post";
+    #  print "". "$line". "\n";
+    #  next;
+    #}
 
-    if($line =~ m/^(.*)\s+([_a-zA-Z]+[0-9]*)\(,%(\w+),(\d+)\)(.*)/) {
-      my $pre = $1;
-      my $base = $2;
-      my $reg1 = $3;
-      my $reg2 = $4;
-      my $post = $5;
+    #if($line =~ m/^(.*)\s+([_a-zA-Z]+[0-9]*)\(,%(\w+),(\d+)\)(.*)/) {
+    #  my $pre = $1;
+    #  my $base = $2;
+    #  my $reg1 = $3;
+    #  my $reg2 = $4;
+    #  my $post = $5;
 
-      $base = "\$". $base;
-      $line = $pre . " $base(,%$reg1,$reg2)$post";
-      print "". "$line". "\n";
-      next;
-    }
+    #  $base = "\$". $base;
+    #  $line = $pre . " $base(,%$reg1,$reg2)$post";
+    #  print "". "$line". "\n";
+    #  next;
+    #}
 
     if($line =~ m/^#.*/) {
       next;
