@@ -142,6 +142,16 @@ L20:
 L22:
     popq	%rbp
     ret
+    .globl	__stack_chk_fail
+__stack_chk_fail:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movq $-1, %rax
+    jmp %rax
+    
+    nop
+    popq	%rbp
+    ret
     .globl	exit
 exit:
     pushq	%rbp
@@ -172,19 +182,19 @@ memset:
     movq	%rdx, -40(%rbp)
     movq	-24(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L27
-L28:
+    jmp	L28
+L29:
     movq	-8(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -8(%rbp)
     movl	-28(%rbp), %edx
     movb	%dl, (%rax)
-L27:
+L28:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L28
+    jne	L29
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -199,8 +209,8 @@ memcpy:
     movq	%rax, -16(%rbp)
     movq	-32(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L31
-L32:
+    jmp	L32
+L33:
     movq	-16(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -16(%rbp)
@@ -209,12 +219,12 @@ L32:
     movq	%rcx, -8(%rbp)
     movzbl	(%rdx), %edx
     movb	%dl, (%rax)
-L31:
+L32:
     movq	-40(%rbp), %rax
     leaq	-1(%rax), %rdx
     movq	%rdx, -40(%rbp)
     testq	%rax, %rax
-    jne	L32
+    jne	L33
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
@@ -249,28 +259,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L40
+    jle	L41
     cmpl	$122, -4(%rbp)
-    jg	L40
+    jg	L41
     movl	$1, %eax
-    jmp	L41
-L40:
+    jmp	L42
+L41:
     cmpl	$64, -4(%rbp)
-    jle	L42
-    cmpl	$90, -4(%rbp)
-    jg	L42
-    movl	$1, %eax
-    jmp	L41
-L42:
-    cmpl	$47, -4(%rbp)
     jle	L43
-    cmpl	$57, -4(%rbp)
+    cmpl	$90, -4(%rbp)
     jg	L43
     movl	$1, %eax
-    jmp	L41
+    jmp	L42
 L43:
+    cmpl	$47, -4(%rbp)
+    jle	L44
+    cmpl	$57, -4(%rbp)
+    jg	L44
+    movl	$1, %eax
+    jmp	L42
+L44:
     movl	$0, %eax
-L41:
+L42:
     popq	%rbp
     ret
     .comm	table,256,32
@@ -296,42 +306,42 @@ invalidate_memory:
     movsbl	%al, %eax
     movl	%eax, -36(%rbp)
     movl	$0, %r12d
-    jmp	L45
-L51:
-    movslq	%r12d, %rax
-    movq $table(,%rax,8), %rbx
     jmp	L46
-L50:
+L52:
+    movslq	%r12d, %rax
+    movq	table(,%rax,8), %rbx
+    jmp	L47
+L51:
     movq	8(%rbx), %r13
     movzbl	64(%rbx), %eax
     testb	%al, %al
-    je	L47
+    je	L48
     cmpl	$0, -40(%rbp)
-    jne	L48
+    jne	L49
     cmpl	$0, -36(%rbp)
-    je	L49
+    je	L50
     movzbl	65(%rbx), %eax
     testb	%al, %al
-    jne	L48
-L49:
+    jne	L49
+L50:
     movq	(%rbx), %rax
     movq	%rax, %rdi
     call	cse_rtx_addr_varies_p
     testl	%eax, %eax
-    je	L47
-L48:
+    je	L48
+L49:
     movl	%r12d, %esi
     movq	%rbx, %rdi
     call	remove_from_table
-L47:
+L48:
     movq	%r13, %rbx
-L46:
+L47:
     testq	%rbx, %rbx
-    jne	L50
+    jne	L51
     addl	$1, %r12d
-L45:
+L46:
     cmpl	$30, %r12d
-    jle	L51
+    jle	L52
     nop
     addq	$40, %rsp
     popq	%rbx
@@ -371,7 +381,7 @@ _start:
     call	memset
     movb	$1, -16(%rbp)
     leaq	-80(%rbp), %rax
-    movq	%rax, $table(%rip)
+    movq	%rax, table(%rip)
     leaq	-96(%rbp), %rax
     movl	$4, %edx
     movl	$0, %esi
@@ -390,8 +400,8 @@ _start:
     movl	$0, %eax
     movq	-8(%rbp), %rcx
     xorq	$40, %rcx
-    je	L57
+    je	L58
     call	__stack_chk_fail
-L57:
+L58:
     leave
     ret
