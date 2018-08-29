@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .globl	test1
@@ -303,37 +286,37 @@ test1:
     movq	%rax, -16(%rbp)
     movzbl	-16(%rbp), %eax
     cmpb	$65, %al
-    jne	L46
+    jne	L42
     movzbl	-15(%rbp), %eax
     cmpb	$66, %al
-    jne	L46
+    jne	L42
     movzbl	-14(%rbp), %eax
     cmpb	$67, %al
-    jne	L46
+    jne	L42
     movzbl	-13(%rbp), %eax
     cmpb	$68, %al
-    jne	L46
+    jne	L42
     movzbl	-12(%rbp), %eax
     cmpb	$69, %al
-    jne	L46
+    jne	L42
     movzbl	-11(%rbp), %eax
     cmpb	$70, %al
-    jne	L46
+    jne	L42
     movzbl	-10(%rbp), %eax
     cmpb	$71, %al
-    jne	L46
+    jne	L42
     movzbl	-9(%rbp), %eax
     cmpb	$72, %al
-    je	L47
-L46:
+    je	L43
+L42:
     call	abort
-L47:
+L43:
     movl	$0, %eax
     movq	-8(%rbp), %rdx
     xorq	$40, %rdx
-    je	L49
+    je	L45
     call	__stack_chk_fail
-L49:
+L45:
     leave
     ret
     .globl	test2
@@ -357,43 +340,43 @@ test2:
     movw	%ax, -24(%rbp)
     movzbl	-32(%rbp), %eax
     cmpb	$65, %al
-    jne	L51
+    jne	L47
     movzbl	-31(%rbp), %eax
     cmpb	$66, %al
-    jne	L51
+    jne	L47
     movzbl	-30(%rbp), %eax
     cmpb	$67, %al
-    jne	L51
+    jne	L47
     movzbl	-29(%rbp), %eax
     cmpb	$68, %al
-    jne	L51
+    jne	L47
     movzbl	-28(%rbp), %eax
     cmpb	$69, %al
-    jne	L51
+    jne	L47
     movzbl	-27(%rbp), %eax
     testb	%al, %al
-    jne	L51
+    jne	L47
     movzbl	-26(%rbp), %eax
     testb	%al, %al
-    jne	L51
+    jne	L47
     movzbl	-25(%rbp), %eax
     testb	%al, %al
-    jne	L51
+    jne	L47
     movzbl	-24(%rbp), %eax
     testb	%al, %al
-    jne	L51
+    jne	L47
     movzbl	-23(%rbp), %eax
     testb	%al, %al
-    je	L52
-L51:
+    je	L48
+L47:
     call	abort
-L52:
+L48:
     movl	$0, %eax
     movq	-8(%rbp), %rdx
     xorq	$40, %rdx
-    je	L54
+    je	L50
     call	__stack_chk_fail
-L54:
+L50:
     leave
     ret
     .globl	test3
@@ -417,43 +400,43 @@ test3:
     movw	%ax, -24(%rbp)
     movzbl	-32(%rbp), %eax
     cmpb	$65, %al
-    jne	L56
+    jne	L52
     movzbl	-31(%rbp), %eax
     testb	%al, %al
-    jne	L56
+    jne	L52
     movzbl	-30(%rbp), %eax
     cmpb	$67, %al
-    jne	L56
+    jne	L52
     movzbl	-29(%rbp), %eax
     testb	%al, %al
-    jne	L56
+    jne	L52
     movzbl	-28(%rbp), %eax
     cmpb	$69, %al
-    jne	L56
+    jne	L52
     movzbl	-27(%rbp), %eax
     testb	%al, %al
-    jne	L56
+    jne	L52
     movzbl	-26(%rbp), %eax
     cmpb	$71, %al
-    jne	L56
+    jne	L52
     movzbl	-25(%rbp), %eax
     testb	%al, %al
-    jne	L56
+    jne	L52
     movzbl	-24(%rbp), %eax
     cmpb	$73, %al
-    jne	L56
+    jne	L52
     movzbl	-23(%rbp), %eax
     testb	%al, %al
-    je	L57
-L56:
+    je	L53
+L52:
     call	abort
-L57:
+L53:
     movl	$0, %eax
     movq	-8(%rbp), %rdx
     xorq	$40, %rdx
-    je	L59
+    je	L55
     call	__stack_chk_fail
-L59:
+L55:
     leave
     ret
     .globl	test4
@@ -477,43 +460,43 @@ test4:
     movw	%ax, -24(%rbp)
     movzbl	-32(%rbp), %eax
     testb	%al, %al
-    jne	L61
+    jne	L57
     movzbl	-31(%rbp), %eax
     cmpb	$66, %al
-    jne	L61
+    jne	L57
     movzbl	-30(%rbp), %eax
     testb	%al, %al
-    jne	L61
+    jne	L57
     movzbl	-29(%rbp), %eax
     cmpb	$68, %al
-    jne	L61
+    jne	L57
     movzbl	-28(%rbp), %eax
     testb	%al, %al
-    jne	L61
+    jne	L57
     movzbl	-27(%rbp), %eax
     cmpb	$70, %al
-    jne	L61
+    jne	L57
     movzbl	-26(%rbp), %eax
     testb	%al, %al
-    jne	L61
+    jne	L57
     movzbl	-25(%rbp), %eax
     cmpb	$72, %al
-    jne	L61
+    jne	L57
     movzbl	-24(%rbp), %eax
     testb	%al, %al
-    jne	L61
+    jne	L57
     movzbl	-23(%rbp), %eax
     cmpb	$74, %al
-    je	L62
-L61:
+    je	L58
+L57:
     call	abort
-L62:
+L58:
     movl	$0, %eax
     movq	-8(%rbp), %rdx
     xorq	$40, %rdx
-    je	L64
+    je	L60
     call	__stack_chk_fail
-L64:
+L60:
     leave
     ret
     .globl	main

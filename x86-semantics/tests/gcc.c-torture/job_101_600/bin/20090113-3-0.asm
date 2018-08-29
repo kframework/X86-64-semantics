@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .comm	bitmap_zero_bits,40,32
@@ -297,44 +280,44 @@ bmp_iter_set_init:
     movq	%rdx, (%rax)
     movq	-8(%rbp), %rax
     movq	$0, 8(%rax)
-L49:
+L45:
     movq	-8(%rbp), %rax
     movq	(%rax), %rax
     testq	%rax, %rax
-    jne	L46
+    jne	L42
     movq	-8(%rbp), %rax
     movq	$bitmap_zero_bits, (%rax)
-    jmp	L47
-L46:
+    jmp	L43
+L42:
     movq	-8(%rbp), %rax
     movq	(%rax), %rax
     movl	16(%rax), %eax
     movl	-20(%rbp), %edx
     shrl	$7, %edx
     cmpl	%edx, %eax
-    jnb	L51
+    jnb	L47
     movq	-8(%rbp), %rax
     movq	(%rax), %rax
     movq	(%rax), %rdx
     movq	-8(%rbp), %rax
     movq	%rdx, (%rax)
-    jmp	L49
-L51:
-    nop
+    jmp	L45
 L47:
+    nop
+L43:
     movq	-8(%rbp), %rax
     movq	(%rax), %rax
     movl	16(%rax), %eax
     movl	-20(%rbp), %edx
     shrl	$7, %edx
     cmpl	%edx, %eax
-    je	L50
+    je	L46
     movq	-8(%rbp), %rax
     movq	(%rax), %rax
     movl	16(%rax), %eax
     sall	$7, %eax
     movl	%eax, -20(%rbp)
-L50:
+L46:
     movl	-20(%rbp), %eax
     shrl	$6, %eax
     andl	$1, %eax
@@ -383,8 +366,8 @@ foobar:
     movl	$0, %edx
     movq	%rax, %rdi
     call	bmp_iter_set_init
-    jmp	L53
-L65:
+    jmp	L49
+L61:
     leaq	-48(%rbp), %rax
     movq	%rax, -72(%rbp)
     leaq	-84(%rbp), %rax
@@ -400,7 +383,7 @@ L65:
     leal	1(%rax), %edx
     movq	-64(%rbp), %rax
     movl	%edx, (%rax)
-L53:
+L49:
     leaq	-48(%rbp), %rax
     movq	%rax, -80(%rbp)
     leaq	-84(%rbp), %rax
@@ -408,9 +391,9 @@ L53:
     movq	-80(%rbp), %rax
     movq	24(%rax), %rax
     testq	%rax, %rax
-    jne	L54
-    jmp	L67
-L56:
+    jne	L50
+    jmp	L63
+L52:
     movq	-80(%rbp), %rax
     movq	24(%rax), %rax
     shrq	%rax
@@ -422,15 +405,15 @@ L56:
     leal	1(%rax), %edx
     movq	-56(%rbp), %rax
     movl	%edx, (%rax)
-L54:
+L50:
     movq	-80(%rbp), %rax
     movq	24(%rax), %rax
     andl	$1, %eax
     testq	%rax, %rax
-    je	L56
+    je	L52
     movl	$1, %eax
-    jmp	L57
-L67:
+    jmp	L53
+L63:
     movq	-56(%rbp), %rax
     movl	(%rax), %eax
     addl	$63, %eax
@@ -444,8 +427,8 @@ L67:
     leal	1(%rax), %edx
     movq	-80(%rbp), %rax
     movl	%edx, 16(%rax)
-    jmp	L58
-L62:
+    jmp	L54
+L58:
     movq	-80(%rbp), %rax
     movq	(%rax), %rax
     movq	-80(%rbp), %rdx
@@ -457,9 +440,9 @@ L62:
     movq	-80(%rbp), %rax
     movq	24(%rax), %rax
     testq	%rax, %rax
-    jne	L59
-    jmp	L68
-L61:
+    jne	L55
+    jmp	L64
+L57:
     movq	-80(%rbp), %rax
     movq	24(%rax), %rax
     shrq	%rax
@@ -471,15 +454,15 @@ L61:
     leal	1(%rax), %edx
     movq	-56(%rbp), %rax
     movl	%edx, (%rax)
-L59:
+L55:
     movq	-80(%rbp), %rax
     movq	24(%rax), %rax
     andl	$1, %eax
     testq	%rax, %rax
-    je	L61
+    je	L57
     movl	$1, %eax
-    jmp	L57
-L68:
+    jmp	L53
+L64:
     movq	-56(%rbp), %rax
     movl	(%rax), %eax
     leal	64(%rax), %edx
@@ -490,11 +473,11 @@ L68:
     leal	1(%rax), %edx
     movq	-80(%rbp), %rax
     movl	%edx, 16(%rax)
-L58:
+L54:
     movq	-80(%rbp), %rax
     movl	16(%rax), %eax
     cmpl	$2, %eax
-    jne	L62
+    jne	L58
     movq	-80(%rbp), %rax
     movq	(%rax), %rax
     movq	(%rax), %rdx
@@ -503,10 +486,10 @@ L58:
     movq	-80(%rbp), %rax
     movq	(%rax), %rax
     testq	%rax, %rax
-    jne	L63
+    jne	L59
     movl	$0, %eax
-    jmp	L57
-L63:
+    jmp	L53
+L59:
     movq	-80(%rbp), %rax
     movq	(%rax), %rax
     movl	16(%rax), %eax
@@ -516,16 +499,16 @@ L63:
     movl	%edx, (%rax)
     movq	-80(%rbp), %rax
     movl	$0, 16(%rax)
-    jmp	L58
-L57:
+    jmp	L54
+L53:
     testb	%al, %al
-    jne	L65
+    jne	L61
     nop
     movq	-8(%rbp), %rax
     xorq	$40, %rax
-    je	L66
+    je	L62
     call	__stack_chk_fail
-L66:
+L62:
     leave
     ret
     .globl	main
@@ -554,8 +537,8 @@ _start:
     movl	$0, %eax
     movq	-8(%rbp), %rdx
     xorq	$40, %rdx
-    je	L71
+    je	L67
     call	__stack_chk_fail
-L71:
+L67:
     leave
     ret

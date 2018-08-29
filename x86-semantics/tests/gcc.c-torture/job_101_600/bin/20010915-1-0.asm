@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .comm	u,8,8
@@ -325,16 +308,16 @@ _start:
     movl	$5, %edi
     call	x
     testl	%eax, %eax
-    jne	L46
+    jne	L42
     movl	check(%rip), %eax
     cmpl	$2, %eax
-    jne	L46
+    jne	L42
     movl	o(%rip), %eax
     cmpl	$5, %eax
-    je	L47
-L46:
+    je	L43
+L42:
     call	abort
-L47:
+L43:
     movl	$0, %edi
     call	exit
     .globl	x
@@ -352,9 +335,9 @@ x:
     movq	$0, -24(%rbp)
     movl	o(%rip), %eax
     cmpl	%eax, -36(%rbp)
-    jle	L50
+    jle	L46
     cmpl	$2, -36(%rbp)
-    jle	L50
+    jle	L46
     movl	o(%rip), %eax
     cltq
     leaq	0(,%rax,8), %rdx
@@ -362,7 +345,7 @@ x:
     addq	%rdx, %rax
     movq	(%rax), %rax
     testq	%rax, %rax
-    je	L50
+    je	L46
     movl	o(%rip), %eax
     cltq
     leaq	0(,%rax,8), %rdx
@@ -375,7 +358,7 @@ x:
     call	s
     movq	%rax, -16(%rbp)
     cmpq	$0, -16(%rbp)
-    je	L51
+    je	L47
     movq	-16(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -16(%rbp)
@@ -388,12 +371,12 @@ x:
     movq	%rax, h(%rip)
     movq	-24(%rbp), %rax
     cmpq	%rax, -16(%rbp)
-    jne	L51
+    jne	L47
     movq	-16(%rbp), %rax
     movq	%rax, %rdi
     call	m
     movq	%rax, h(%rip)
-L51:
+L47:
     movl	o(%rip), %eax
     cltq
     leaq	0(,%rax,8), %rdx
@@ -413,7 +396,7 @@ L51:
     movq	(%rax), %rdx
     movq	-24(%rbp), %rax
     cmpq	%rax, %rdx
-    jne	L53
+    jne	L49
     movl	o(%rip), %eax
     cltq
     leaq	0(,%rax,8), %rdx
@@ -423,12 +406,12 @@ L51:
     movq	%rax, %rdi
     call	m
     movq	%rax, u(%rip)
-    jmp	L53
-L50:
+    jmp	L49
+L46:
     call	abort
-L53:
-    jmp	L54
-L56:
+L49:
+    jmp	L50
+L52:
     movl	o(%rip), %eax
     cltq
     leaq	0(,%rax,8), %rdx
@@ -438,23 +421,23 @@ L56:
     movq	%rax, %rdi
     call	r
     testl	%eax, %eax
-    jne	L54
+    jne	L50
     movl	$1, %eax
-    jmp	L57
-L54:
+    jmp	L53
+L50:
     movl	o(%rip), %eax
     addl	$1, %eax
     movl	%eax, o(%rip)
     movl	o(%rip), %eax
     cmpl	-36(%rbp), %eax
-    jl	L56
+    jl	L52
     movl	$0, %eax
-L57:
+L53:
     movq	-8(%rbp), %rcx
     xorq	$40, %rcx
-    je	L58
+    je	L54
     call	__stack_chk_fail
-L58:
+L54:
     leave
     ret
     .globl	m
@@ -476,15 +459,15 @@ s:
     movq	%rax, %rdi
     call	strcmp
     testl	%eax, %eax
-    jne	L61
+    jne	L57
     movl	check(%rip), %eax
     leal	1(%rax), %edx
     movl	%edx, check(%rip)
     cmpl	$1, %eax
-    jle	L62
-L61:
+    jle	L58
+L57:
     call	abort
-L62:
+L58:
     movq	-8(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	-16(%rbp), %rax
@@ -500,31 +483,31 @@ r:
     movq	%rdi, -8(%rbp)
     movq	-8(%rbp), %rax
     movzbl	(%rax), %edx
-    movzbl	c2451(%rip), %eax
+    movzbl	c2444(%rip), %eax
     cmpb	%al, %dl
-    jne	L65
+    jne	L61
     movq	-8(%rbp), %rax
     addq	$1, %rax
     movzbl	(%rax), %edx
-    movzbl	c2451 + 1(%rip), %eax
+    movzbl	c2444 + 1(%rip), %eax
     cmpb	%al, %dl
-    jne	L65
-    movl	cnt2452(%rip), %eax
+    jne	L61
+    movl	cnt2445(%rip), %eax
     cmpl	$3, %eax
-    jle	L66
-L65:
+    jle	L62
+L61:
     call	abort
-L66:
-    movzbl	c2451(%rip), %eax
+L62:
+    movzbl	c2444(%rip), %eax
     addl	$1, %eax
-    movb	%al, c2451(%rip)
-    movl	cnt2452(%rip), %eax
+    movb	%al, c2444(%rip)
+    movl	cnt2445(%rip), %eax
     addl	$1, %eax
-    movl	%eax, cnt2452(%rip)
+    movl	%eax, cnt2445(%rip)
     movl	$1, %eax
     leave
     ret
     .data
-c2451:
+c2444:
     .string	"b"
-    .comm	cnt2452,4,4
+    .comm	cnt2445,4,4

@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .globl	test
@@ -295,17 +278,17 @@ test:
     movl	$0, -12(%rbp)
     vxorpd	%xmm0, %xmm0, %xmm0
     vucomisd	-24(%rbp), %xmm0
-    jbe	L46
+    jbe	L42
     vmovsd	-24(%rbp), %xmm1
     vmovsd	LC2(%rip), %xmm0
     vxorpd	%xmm1, %xmm0, %xmm0
     vmovsd	%xmm0, -24(%rbp)
-L46:
+L42:
     vmovsd	-24(%rbp), %xmm0
     vucomisd	-8(%rbp), %xmm0
-    jb	L59
-    jmp	L50
-L51:
+    jb	L55
+    jmp	L46
+L47:
     vmovsd	-8(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	%xmm0, -8(%rbp)
@@ -313,22 +296,22 @@ L51:
     leal	1(%rax), %edx
     movl	%edx, -12(%rbp)
     cmpl	$9, %eax
-    jle	L50
+    jle	L46
     call	abort
-L50:
+L46:
     vmovsd	-24(%rbp), %xmm0
     vucomisd	-8(%rbp), %xmm0
-    ja	L51
-    jmp	L52
-L59:
-    vxorpd	%xmm0, %xmm0, %xmm0
-    vucomisd	-24(%rbp), %xmm0
-    jp	L54
-    vxorpd	%xmm0, %xmm0, %xmm0
-    vucomisd	-24(%rbp), %xmm0
-    je	L52
-    jmp	L54
+    ja	L47
+    jmp	L48
 L55:
+    vxorpd	%xmm0, %xmm0, %xmm0
+    vucomisd	-24(%rbp), %xmm0
+    jp	L50
+    vxorpd	%xmm0, %xmm0, %xmm0
+    vucomisd	-24(%rbp), %xmm0
+    je	L48
+    jmp	L50
+L51:
     vmovsd	-8(%rbp), %xmm0
     vmovsd	LC3(%rip), %xmm1
     vdivsd	%xmm1, %xmm0, %xmm0
@@ -337,13 +320,13 @@ L55:
     leal	1(%rax), %edx
     movl	%edx, -12(%rbp)
     cmpl	$9, %eax
-    jle	L54
+    jle	L50
     call	abort
-L54:
+L50:
     vmovsd	-8(%rbp), %xmm0
     vucomisd	-24(%rbp), %xmm0
-    ja	L55
-L52:
+    ja	L51
+L48:
     movq	-32(%rbp), %rax
     movl	-12(%rbp), %edx
     movl	%edx, (%rax)

@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .globl	f
@@ -291,44 +274,44 @@ f:
     movl	-4(%rbp), %eax
     subl	$1026, %eax
     cmpl	$5, %eax
-    ja	L46
+    ja	L42
     movl	%eax, %eax
-    movq	L48(,%rax,8), %rax
+    movq	L44(,%rax,8), %rax
     jmp	%rax
     .section	.rodata
-L48:
+L44:
+    .quad	L43
+    .quad	L45
+    .quad	L46
     .quad	L47
+    .quad	L48
     .quad	L49
-    .quad	L50
-    .quad	L51
-    .quad	L52
-    .quad	L53
     .text
-L47:
+L43:
     movl	-4(%rbp), %eax
     addl	$1, %eax
-    jmp	L54
-L49:
+    jmp	L50
+L45:
     movl	-4(%rbp), %eax
     addl	$2, %eax
-    jmp	L54
-L50:
+    jmp	L50
+L46:
     movl	-4(%rbp), %eax
     addl	$3, %eax
-    jmp	L54
-L51:
+    jmp	L50
+L47:
     movl	-4(%rbp), %eax
     addl	$4, %eax
-    jmp	L54
-L52:
+    jmp	L50
+L48:
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     movl	$4, %eax
-    jmp	L54
-L46:
+    jmp	L50
+L42:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	main
@@ -340,8 +323,8 @@ _start:
     movl	$0, %eax
     call	f
     testl	%eax, %eax
-    je	L56
+    je	L52
     call	abort
-L56:
+L52:
     movl	$0, %edi
     call	exit

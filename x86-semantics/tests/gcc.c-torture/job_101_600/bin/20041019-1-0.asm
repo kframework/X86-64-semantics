@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .globl	test_store_ccp
@@ -293,20 +276,20 @@ test_store_ccp:
     movq	%rax, -8(%rbp)
     xorl	%eax, %eax
     cmpl	$4, -36(%rbp)
-    jg	L46
+    jg	L42
     leaq	-28(%rbp), %rax
     movq	%rax, -16(%rbp)
-    jmp	L47
-L46:
+    jmp	L43
+L42:
     cmpl	$8, -36(%rbp)
-    jle	L48
+    jle	L44
     leaq	-24(%rbp), %rax
     movq	%rax, -16(%rbp)
-    jmp	L47
-L48:
+    jmp	L43
+L44:
     leaq	-20(%rbp), %rax
     movq	%rax, -16(%rbp)
-L47:
+L43:
     movq	-16(%rbp), %rax
     movl	$10, (%rax)
     movl	$3, -24(%rbp)
@@ -315,9 +298,9 @@ L47:
     addl	$2, %eax
     movq	-8(%rbp), %rdx
     xorq	$40, %rdx
-    je	L50
+    je	L46
     call	__stack_chk_fail
-L50:
+L46:
     leave
     ret
     .globl	test_store_copy_prop
@@ -330,20 +313,20 @@ test_store_copy_prop:
     movq	%rax, -8(%rbp)
     xorl	%eax, %eax
     cmpl	$4, -36(%rbp)
-    jg	L52
+    jg	L48
     leaq	-28(%rbp), %rax
     movq	%rax, -16(%rbp)
-    jmp	L53
-L52:
+    jmp	L49
+L48:
     cmpl	$8, -36(%rbp)
-    jle	L54
+    jle	L50
     leaq	-24(%rbp), %rax
     movq	%rax, -16(%rbp)
-    jmp	L53
-L54:
+    jmp	L49
+L50:
     leaq	-20(%rbp), %rax
     movq	%rax, -16(%rbp)
-L53:
+L49:
     movq	-16(%rbp), %rax
     movl	-36(%rbp), %edx
     movl	%edx, (%rax)
@@ -354,9 +337,9 @@ L53:
     movl	(%rax), %eax
     movq	-8(%rbp), %rcx
     xorq	$40, %rcx
-    je	L56
+    je	L52
     call	__stack_chk_fail
-L56:
+L52:
     leave
     ret
     .globl	main
@@ -369,16 +352,16 @@ _start:
     call	test_store_ccp
     movl	%eax, -4(%rbp)
     cmpl	$12, -4(%rbp)
-    jne	L58
+    jne	L54
     call	abort
-L58:
+L54:
     movl	$9, %edi
     call	test_store_copy_prop
     movl	%eax, -4(%rbp)
     cmpl	$9, -4(%rbp)
-    jne	L59
+    jne	L55
     call	abort
-L59:
+L55:
     movl	$0, %eax
     leave
     ret

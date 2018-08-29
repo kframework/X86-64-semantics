@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .globl	false
@@ -321,7 +304,7 @@ RenderBox_setStyle:
     movl	-20(%rbp), %eax
     subl	$2, %eax
     cmpl	$1, %eax
-    ja	L46
+    ja	L42
     movb	$1, -25(%rbp)
     movq	-8(%rbp), %rax
     movzbl	-25(%rbp), %edx
@@ -332,10 +315,10 @@ RenderBox_setStyle:
     andl	$-17, %edx
     orl	%ecx, %edx
     movb	%dl, 26(%rax)
-    jmp	L48
-L46:
+    jmp	L44
+L42:
     cmpb	$0, -26(%rbp)
-    je	L49
+    je	L45
     movb	$1, -24(%rbp)
     movq	-8(%rbp), %rax
     movzbl	-24(%rbp), %edx
@@ -349,7 +332,7 @@ L46:
     movq	-8(%rbp), %rax
     movq	%rax, %rdi
     call	removeFromSpecialObjects
-L49:
+L45:
     movb	$0, -23(%rbp)
     movq	-8(%rbp), %rax
     movzbl	-23(%rbp), %edx
@@ -373,9 +356,9 @@ L49:
     call	%rax
     xorl	$1, %eax
     testb	%al, %al
-    je	L50
+    je	L46
     cmpl	$0, -16(%rbp)
-    je	L50
+    je	L46
     movb	$1, -22(%rbp)
     movq	-8(%rbp), %rax
     movzbl	-22(%rbp), %edx
@@ -385,8 +368,8 @@ L49:
     andl	$-9, %edx
     orl	%ecx, %edx
     movb	%dl, 26(%rax)
-    jmp	L48
-L50:
+    jmp	L44
+L46:
     movq	-48(%rbp), %rax
     movzbl	2(%rax), %eax
     shrb	%al
@@ -394,7 +377,7 @@ L50:
     movzbl	%al, %eax
     movl	%eax, -12(%rbp)
     cmpl	$1, -12(%rbp)
-    jne	L51
+    jne	L47
     movb	$1, -21(%rbp)
     movq	-8(%rbp), %rax
     movzbl	-21(%rbp), %edx
@@ -405,9 +388,9 @@ L50:
     andl	$-65, %edx
     orl	%ecx, %edx
     movb	%dl, 26(%rax)
-    jmp	L51
-L48:
-L51:
+    jmp	L47
+L44:
+L47:
     nop
     leave
     ret
@@ -481,24 +464,24 @@ _start:
     andl	$1, %eax
     movl	$1, %edx
     cmpb	%dl, %al
-    je	L57
+    je	L53
     call	abort
-L57:
+L53:
     movzbl	g_this + 26(%rip), %eax
     shrb	$6, %al
     andl	$1, %eax
     movl	$0, %edx
     cmpb	%dl, %al
-    je	L58
+    je	L54
     call	abort
-L58:
+L54:
     movzbl	g_this + 26(%rip), %eax
     shrb	$3, %al
     andl	$1, %eax
     movl	$0, %edx
     cmpb	%dl, %al
-    je	L59
+    je	L55
     call	abort
-L59:
+L55:
     movl	$0, %edi
     call	exit

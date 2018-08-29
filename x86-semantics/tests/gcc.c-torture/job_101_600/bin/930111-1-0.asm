@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .globl	main
@@ -292,9 +275,9 @@ _start:
     movl	$0, %eax
     call	wwrite
     cmpl	$123, %eax
-    je	L46
+    je	L42
     call	abort
-L46:
+L42:
     movl	$0, %edi
     call	exit
     .globl	wwrite
@@ -305,62 +288,62 @@ wwrite:
     movq	-8(%rbp), %rax
     subq	$3, %rax
     cmpq	$44, %rax
-    ja	L48
-    movq	L50(,%rax,8), %rax
+    ja	L44
+    movq	L46(,%rax,8), %rax
     jmp	%rax
     .section	.rodata
-L50:
-    .quad	L49
-    .quad	L48
-    .quad	L48
-    .quad	L48
-    .quad	L48
-    .quad	L48
-    .quad	L48
-    .quad	L49
-    .quad	L48
-    .quad	L48
-    .quad	L48
-    .quad	L48
-    .quad	L48
-    .quad	L48
-    .quad	L48
-    .quad	L48
-    .quad	L48
-    .quad	L48
-    .quad	L48
-    .quad	L48
-    .quad	L49
-    .quad	L48
-    .quad	L48
-    .quad	L48
-    .quad	L48
-    .quad	L49
-    .quad	L48
-    .quad	L48
-    .quad	L48
-    .quad	L48
-    .quad	L48
-    .quad	L48
-    .quad	L48
-    .quad	L48
-    .quad	L48
-    .quad	L48
-    .quad	L48
-    .quad	L48
-    .quad	L48
-    .quad	L48
-    .quad	L48
-    .quad	L48
-    .quad	L48
-    .quad	L48
-    .quad	L49
+L46:
+    .quad	L45
+    .quad	L44
+    .quad	L44
+    .quad	L44
+    .quad	L44
+    .quad	L44
+    .quad	L44
+    .quad	L45
+    .quad	L44
+    .quad	L44
+    .quad	L44
+    .quad	L44
+    .quad	L44
+    .quad	L44
+    .quad	L44
+    .quad	L44
+    .quad	L44
+    .quad	L44
+    .quad	L44
+    .quad	L44
+    .quad	L45
+    .quad	L44
+    .quad	L44
+    .quad	L44
+    .quad	L44
+    .quad	L45
+    .quad	L44
+    .quad	L44
+    .quad	L44
+    .quad	L44
+    .quad	L44
+    .quad	L44
+    .quad	L44
+    .quad	L44
+    .quad	L44
+    .quad	L44
+    .quad	L44
+    .quad	L44
+    .quad	L44
+    .quad	L44
+    .quad	L44
+    .quad	L44
+    .quad	L44
+    .quad	L44
+    .quad	L45
     .text
-L49:
+L45:
     movl	$0, %eax
-    jmp	L51
-L48:
+    jmp	L47
+L44:
     movl	$123, %eax
-L51:
+L47:
     popq	%rbp
     ret

@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .globl	fail1
@@ -312,74 +295,74 @@ foo:
     movq	-8(%rbp), %rax
     addq	$6, %rax
     cmpq	$11, %rax
-    ja	L50
-    movq	L52(,%rax,8), %rax
+    ja	L46
+    movq	L48(,%rax,8), %rax
     jmp	%rax
     .section	.rodata
-L52:
+L48:
+    .quad	L47
+    .quad	L46
+    .quad	L46
+    .quad	L46
+    .quad	L46
+    .quad	L46
+    .quad	L49
+    .quad	L60
+    .quad	L60
     .quad	L51
-    .quad	L50
-    .quad	L50
-    .quad	L50
-    .quad	L50
-    .quad	L50
-    .quad	L53
-    .quad	L64
-    .quad	L64
-    .quad	L55
-    .quad	L55
-    .quad	L55
+    .quad	L51
+    .quad	L51
     .text
-L51:
+L47:
     call	fail1
-    jmp	L56
-L53:
+    jmp	L52
+L49:
     call	fail2
-    jmp	L56
-L55:
+    jmp	L52
+L51:
     call	fail3
-    jmp	L56
-L50:
+    jmp	L52
+L46:
     call	fail4
-    jmp	L56
-L64:
+    jmp	L52
+L60:
     nop
-L56:
+L52:
     movq	-8(%rbp), %rax
     addq	$3, %rax
     cmpq	$11, %rax
-    ja	L57
-    movq	L59(,%rax,8), %rax
+    ja	L53
+    movq	L55(,%rax,8), %rax
     jmp	%rax
     .section	.rodata
-L59:
+L55:
+    .quad	L54
+    .quad	L53
+    .quad	L53
+    .quad	L56
+    .quad	L61
     .quad	L58
-    .quad	L57
-    .quad	L57
-    .quad	L60
-    .quad	L65
-    .quad	L62
-    .quad	L65
-    .quad	L60
-    .quad	L57
-    .quad	L57
-    .quad	L57
-    .quad	L62
+    .quad	L61
+    .quad	L56
+    .quad	L53
+    .quad	L53
+    .quad	L53
+    .quad	L58
     .text
-L58:
+L54:
     call	fail1
-    jmp	L63
-L60:
+    jmp	L59
+L56:
     call	fail2
-    jmp	L63
-L62:
+    jmp	L59
+L58:
     call	abort
-L57:
+L53:
     call	fail4
-    jmp	L63
-L65:
+    jmp	L59
+L61:
     nop
-L63:
+L59:
     nop
     leave
     ret

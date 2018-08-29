@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .globl	f
@@ -296,11 +279,11 @@ f:
     leaq	-48(%rbp), %rax
     movq	%rax, -16(%rbp)
     movq	$0, -32(%rbp)
-    jmp	L46
-L49:
+    jmp	L42
+L45:
     movq	$0, -40(%rbp)
-    jmp	L47
-L48:
+    jmp	L43
+L44:
     movq	-40(%rbp), %rdx
     movq	-16(%rbp), %rax
     addq	%rax, %rdx
@@ -310,22 +293,22 @@ L48:
     movzbl	(%rax), %eax
     movb	%al, (%rdx)
     addq	$1, -40(%rbp)
-L47:
+L43:
     movq	-40(%rbp), %rax
     cmpq	$7, %rax
-    jbe	L48
+    jbe	L44
     movq	-48(%rbp), %rax
     addq	%rax, -24(%rbp)
     addq	$1, -32(%rbp)
-L46:
+L42:
     cmpq	$0, -32(%rbp)
-    jle	L49
+    jle	L45
     movq	-24(%rbp), %rax
     movq	-8(%rbp), %rsi
     xorq	$40, %rsi
-    je	L51
+    je	L47
     call	__stack_chk_fail
-L51:
+L47:
     leave
     ret
     .globl	main
@@ -338,15 +321,15 @@ _start:
     movq	%rax, -8(%rbp)
     xorl	%eax, %eax
     movl	$8, -20(%rbp)
-    jmp	L53
-L54:
+    jmp	L49
+L50:
     movl	-20(%rbp), %eax
     cltq
     movb	$32, -16(%rbp,%rax)
-L53:
+L49:
     subl	$1, -20(%rbp)
     cmpl	$0, -20(%rbp)
-    jns	L54
+    jns	L50
     leaq	-16(%rbp), %rax
     movq	%rax, %rdi
     movl	$0, %eax
@@ -354,8 +337,8 @@ L53:
     movq	%rax, %rdx
     movabsq	$2314885530818453536, %rax
     cmpq	%rax, %rdx
-    je	L55
+    je	L51
     call	abort
-L55:
+L51:
     movl	$0, %edi
     call	exit

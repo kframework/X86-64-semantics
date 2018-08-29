@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .globl	test1
@@ -292,45 +275,45 @@ test1:
     movl	%esi, -8(%rbp)
     movb	%al, -4(%rbp)
     cmpb	$0, -4(%rbp)
-    js	L46
+    js	L42
     cmpl	$0, -8(%rbp)
-    je	L47
+    je	L43
     call	abort
-L46:
+L42:
+    cmpl	$0, -8(%rbp)
+    jne	L43
+    call	abort
+L43:
+    cmpb	$0, -4(%rbp)
+    jns	L44
+    cmpl	$0, -8(%rbp)
+    jne	L45
+    call	abort
+L44:
+    cmpl	$0, -8(%rbp)
+    je	L45
+    call	abort
+L45:
+    cmpb	$0, -4(%rbp)
+    jns	L46
     cmpl	$0, -8(%rbp)
     jne	L47
     call	abort
+L46:
+    cmpl	$0, -8(%rbp)
+    je	L47
+    call	abort
 L47:
     cmpb	$0, -4(%rbp)
-    jns	L48
+    js	L48
     cmpl	$0, -8(%rbp)
-    jne	L49
+    je	L50
     call	abort
 L48:
     cmpl	$0, -8(%rbp)
-    je	L49
-    call	abort
-L49:
-    cmpb	$0, -4(%rbp)
-    jns	L50
-    cmpl	$0, -8(%rbp)
-    jne	L51
+    jne	L50
     call	abort
 L50:
-    cmpl	$0, -8(%rbp)
-    je	L51
-    call	abort
-L51:
-    cmpb	$0, -4(%rbp)
-    js	L52
-    cmpl	$0, -8(%rbp)
-    je	L54
-    call	abort
-L52:
-    cmpl	$0, -8(%rbp)
-    jne	L54
-    call	abort
-L54:
     nop
     leave
     ret
@@ -344,48 +327,48 @@ test2:
     movb	%al, -4(%rbp)
     movzbl	-4(%rbp), %eax
     testb	%al, %al
-    js	L56
+    js	L52
     cmpl	$0, -8(%rbp)
-    je	L57
+    je	L53
+    call	abort
+L52:
+    cmpl	$0, -8(%rbp)
+    jne	L53
+    call	abort
+L53:
+    movzbl	-4(%rbp), %eax
+    testb	%al, %al
+    jns	L54
+    cmpl	$0, -8(%rbp)
+    jne	L55
+    call	abort
+L54:
+    cmpl	$0, -8(%rbp)
+    je	L55
+    call	abort
+L55:
+    movzbl	-4(%rbp), %eax
+    testb	%al, %al
+    jns	L56
+    cmpl	$0, -8(%rbp)
+    jne	L57
     call	abort
 L56:
     cmpl	$0, -8(%rbp)
-    jne	L57
+    je	L57
     call	abort
 L57:
     movzbl	-4(%rbp), %eax
     testb	%al, %al
-    jns	L58
+    js	L58
     cmpl	$0, -8(%rbp)
-    jne	L59
+    je	L60
     call	abort
 L58:
     cmpl	$0, -8(%rbp)
-    je	L59
-    call	abort
-L59:
-    movzbl	-4(%rbp), %eax
-    testb	%al, %al
-    jns	L60
-    cmpl	$0, -8(%rbp)
-    jne	L61
+    jne	L60
     call	abort
 L60:
-    cmpl	$0, -8(%rbp)
-    je	L61
-    call	abort
-L61:
-    movzbl	-4(%rbp), %eax
-    testb	%al, %al
-    js	L62
-    cmpl	$0, -8(%rbp)
-    je	L64
-    call	abort
-L62:
-    cmpl	$0, -8(%rbp)
-    jne	L64
-    call	abort
-L64:
     nop
     leave
     ret
@@ -398,45 +381,45 @@ test3:
     movl	%esi, -8(%rbp)
     movw	%ax, -4(%rbp)
     cmpw	$0, -4(%rbp)
-    js	L66
+    js	L62
     cmpl	$0, -8(%rbp)
-    je	L67
+    je	L63
     call	abort
-L66:
+L62:
+    cmpl	$0, -8(%rbp)
+    jne	L63
+    call	abort
+L63:
+    cmpw	$0, -4(%rbp)
+    jns	L64
+    cmpl	$0, -8(%rbp)
+    jne	L65
+    call	abort
+L64:
+    cmpl	$0, -8(%rbp)
+    je	L65
+    call	abort
+L65:
+    cmpw	$0, -4(%rbp)
+    jns	L66
     cmpl	$0, -8(%rbp)
     jne	L67
     call	abort
+L66:
+    cmpl	$0, -8(%rbp)
+    je	L67
+    call	abort
 L67:
     cmpw	$0, -4(%rbp)
-    jns	L68
+    js	L68
     cmpl	$0, -8(%rbp)
-    jne	L69
+    je	L70
     call	abort
 L68:
     cmpl	$0, -8(%rbp)
-    je	L69
-    call	abort
-L69:
-    cmpw	$0, -4(%rbp)
-    jns	L70
-    cmpl	$0, -8(%rbp)
-    jne	L71
+    jne	L70
     call	abort
 L70:
-    cmpl	$0, -8(%rbp)
-    je	L71
-    call	abort
-L71:
-    cmpw	$0, -4(%rbp)
-    js	L72
-    cmpl	$0, -8(%rbp)
-    je	L74
-    call	abort
-L72:
-    cmpl	$0, -8(%rbp)
-    jne	L74
-    call	abort
-L74:
     nop
     leave
     ret
@@ -450,48 +433,48 @@ test4:
     movw	%ax, -4(%rbp)
     movzwl	-4(%rbp), %eax
     testw	%ax, %ax
-    js	L76
+    js	L72
     cmpl	$0, -8(%rbp)
-    je	L77
+    je	L73
+    call	abort
+L72:
+    cmpl	$0, -8(%rbp)
+    jne	L73
+    call	abort
+L73:
+    movzwl	-4(%rbp), %eax
+    testw	%ax, %ax
+    jns	L74
+    cmpl	$0, -8(%rbp)
+    jne	L75
+    call	abort
+L74:
+    cmpl	$0, -8(%rbp)
+    je	L75
+    call	abort
+L75:
+    movzwl	-4(%rbp), %eax
+    testw	%ax, %ax
+    jns	L76
+    cmpl	$0, -8(%rbp)
+    jne	L77
     call	abort
 L76:
     cmpl	$0, -8(%rbp)
-    jne	L77
+    je	L77
     call	abort
 L77:
     movzwl	-4(%rbp), %eax
     testw	%ax, %ax
-    jns	L78
+    js	L78
     cmpl	$0, -8(%rbp)
-    jne	L79
+    je	L80
     call	abort
 L78:
     cmpl	$0, -8(%rbp)
-    je	L79
-    call	abort
-L79:
-    movzwl	-4(%rbp), %eax
-    testw	%ax, %ax
-    jns	L80
-    cmpl	$0, -8(%rbp)
-    jne	L81
+    jne	L80
     call	abort
 L80:
-    cmpl	$0, -8(%rbp)
-    je	L81
-    call	abort
-L81:
-    movzwl	-4(%rbp), %eax
-    testw	%ax, %ax
-    js	L82
-    cmpl	$0, -8(%rbp)
-    je	L84
-    call	abort
-L82:
-    cmpl	$0, -8(%rbp)
-    jne	L84
-    call	abort
-L84:
     nop
     leave
     ret
@@ -503,45 +486,45 @@ test5:
     movl	%edi, -4(%rbp)
     movl	%esi, -8(%rbp)
     cmpl	$0, -4(%rbp)
-    js	L86
+    js	L82
     cmpl	$0, -8(%rbp)
-    je	L87
+    je	L83
     call	abort
-L86:
+L82:
+    cmpl	$0, -8(%rbp)
+    jne	L83
+    call	abort
+L83:
+    cmpl	$0, -4(%rbp)
+    jns	L84
+    cmpl	$0, -8(%rbp)
+    jne	L85
+    call	abort
+L84:
+    cmpl	$0, -8(%rbp)
+    je	L85
+    call	abort
+L85:
+    cmpl	$0, -4(%rbp)
+    jns	L86
     cmpl	$0, -8(%rbp)
     jne	L87
     call	abort
+L86:
+    cmpl	$0, -8(%rbp)
+    je	L87
+    call	abort
 L87:
     cmpl	$0, -4(%rbp)
-    jns	L88
+    js	L88
     cmpl	$0, -8(%rbp)
-    jne	L89
+    je	L90
     call	abort
 L88:
     cmpl	$0, -8(%rbp)
-    je	L89
-    call	abort
-L89:
-    cmpl	$0, -4(%rbp)
-    jns	L90
-    cmpl	$0, -8(%rbp)
-    jne	L91
+    jne	L90
     call	abort
 L90:
-    cmpl	$0, -8(%rbp)
-    je	L91
-    call	abort
-L91:
-    cmpl	$0, -4(%rbp)
-    js	L92
-    cmpl	$0, -8(%rbp)
-    je	L94
-    call	abort
-L92:
-    cmpl	$0, -8(%rbp)
-    jne	L94
-    call	abort
-L94:
     nop
     leave
     ret
@@ -554,48 +537,48 @@ test6:
     movl	%esi, -8(%rbp)
     movl	-4(%rbp), %eax
     testl	%eax, %eax
-    js	L96
+    js	L92
     cmpl	$0, -8(%rbp)
-    je	L97
+    je	L93
+    call	abort
+L92:
+    cmpl	$0, -8(%rbp)
+    jne	L93
+    call	abort
+L93:
+    movl	-4(%rbp), %eax
+    testl	%eax, %eax
+    jns	L94
+    cmpl	$0, -8(%rbp)
+    jne	L95
+    call	abort
+L94:
+    cmpl	$0, -8(%rbp)
+    je	L95
+    call	abort
+L95:
+    movl	-4(%rbp), %eax
+    testl	%eax, %eax
+    jns	L96
+    cmpl	$0, -8(%rbp)
+    jne	L97
     call	abort
 L96:
     cmpl	$0, -8(%rbp)
-    jne	L97
+    je	L97
     call	abort
 L97:
     movl	-4(%rbp), %eax
     testl	%eax, %eax
-    jns	L98
+    js	L98
     cmpl	$0, -8(%rbp)
-    jne	L99
+    je	L100
     call	abort
 L98:
     cmpl	$0, -8(%rbp)
-    je	L99
-    call	abort
-L99:
-    movl	-4(%rbp), %eax
-    testl	%eax, %eax
-    jns	L100
-    cmpl	$0, -8(%rbp)
-    jne	L101
+    jne	L100
     call	abort
 L100:
-    cmpl	$0, -8(%rbp)
-    je	L101
-    call	abort
-L101:
-    movl	-4(%rbp), %eax
-    testl	%eax, %eax
-    js	L102
-    cmpl	$0, -8(%rbp)
-    je	L104
-    call	abort
-L102:
-    cmpl	$0, -8(%rbp)
-    jne	L104
-    call	abort
-L104:
     nop
     leave
     ret
@@ -607,45 +590,45 @@ test7:
     movq	%rdi, -8(%rbp)
     movl	%esi, -12(%rbp)
     cmpq	$0, -8(%rbp)
-    js	L106
+    js	L102
     cmpl	$0, -12(%rbp)
-    je	L107
+    je	L103
     call	abort
-L106:
+L102:
+    cmpl	$0, -12(%rbp)
+    jne	L103
+    call	abort
+L103:
+    cmpq	$0, -8(%rbp)
+    jns	L104
+    cmpl	$0, -12(%rbp)
+    jne	L105
+    call	abort
+L104:
+    cmpl	$0, -12(%rbp)
+    je	L105
+    call	abort
+L105:
+    cmpq	$0, -8(%rbp)
+    jns	L106
     cmpl	$0, -12(%rbp)
     jne	L107
     call	abort
+L106:
+    cmpl	$0, -12(%rbp)
+    je	L107
+    call	abort
 L107:
     cmpq	$0, -8(%rbp)
-    jns	L108
+    js	L108
     cmpl	$0, -12(%rbp)
-    jne	L109
+    je	L110
     call	abort
 L108:
     cmpl	$0, -12(%rbp)
-    je	L109
-    call	abort
-L109:
-    cmpq	$0, -8(%rbp)
-    jns	L110
-    cmpl	$0, -12(%rbp)
-    jne	L111
+    jne	L110
     call	abort
 L110:
-    cmpl	$0, -12(%rbp)
-    je	L111
-    call	abort
-L111:
-    cmpq	$0, -8(%rbp)
-    js	L112
-    cmpl	$0, -12(%rbp)
-    je	L114
-    call	abort
-L112:
-    cmpl	$0, -12(%rbp)
-    jne	L114
-    call	abort
-L114:
     nop
     leave
     ret
@@ -658,48 +641,48 @@ test8:
     movl	%esi, -12(%rbp)
     movq	-8(%rbp), %rax
     testq	%rax, %rax
-    js	L116
+    js	L112
     cmpl	$0, -12(%rbp)
-    je	L117
+    je	L113
+    call	abort
+L112:
+    cmpl	$0, -12(%rbp)
+    jne	L113
+    call	abort
+L113:
+    movq	-8(%rbp), %rax
+    testq	%rax, %rax
+    jns	L114
+    cmpl	$0, -12(%rbp)
+    jne	L115
+    call	abort
+L114:
+    cmpl	$0, -12(%rbp)
+    je	L115
+    call	abort
+L115:
+    movq	-8(%rbp), %rax
+    testq	%rax, %rax
+    jns	L116
+    cmpl	$0, -12(%rbp)
+    jne	L117
     call	abort
 L116:
     cmpl	$0, -12(%rbp)
-    jne	L117
+    je	L117
     call	abort
 L117:
     movq	-8(%rbp), %rax
     testq	%rax, %rax
-    jns	L118
+    js	L118
     cmpl	$0, -12(%rbp)
-    jne	L119
+    je	L120
     call	abort
 L118:
     cmpl	$0, -12(%rbp)
-    je	L119
-    call	abort
-L119:
-    movq	-8(%rbp), %rax
-    testq	%rax, %rax
-    jns	L120
-    cmpl	$0, -12(%rbp)
-    jne	L121
+    jne	L120
     call	abort
 L120:
-    cmpl	$0, -12(%rbp)
-    je	L121
-    call	abort
-L121:
-    movq	-8(%rbp), %rax
-    testq	%rax, %rax
-    js	L122
-    cmpl	$0, -12(%rbp)
-    je	L124
-    call	abort
-L122:
-    cmpl	$0, -12(%rbp)
-    jne	L124
-    call	abort
-L124:
     nop
     leave
     ret

@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .comm	reg_class_contents,32,32
@@ -293,14 +276,14 @@ merge_overlapping_regs:
     movq	-8(%rbp), %rax
     movq	(%rax), %rax
     cmpq	$-1, %rax
-    jne	L46
+    jne	L42
     movq	-8(%rbp), %rax
     movq	8(%rax), %rax
     cmpq	$-1, %rax
-    je	L48
-L46:
+    je	L44
+L42:
     call	abort
-L48:
+L44:
     nop
     leave
     ret
@@ -318,8 +301,8 @@ regrename_optimize:
     movl	$0, -52(%rbp)
     movq	-72(%rbp), %rax
     movq	%rax, -48(%rbp)
-    jmp	L50
-L51:
+    jmp	L46
+L47:
     movq	-48(%rbp), %rax
     movl	8(%rax), %eax
     cltq
@@ -343,13 +326,13 @@ L51:
     movq	-48(%rbp), %rax
     movq	(%rax), %rax
     movq	%rax, -48(%rbp)
-L50:
+L46:
     movq	-48(%rbp), %rax
     movq	(%rax), %rax
     testq	%rax, %rax
-    jne	L51
+    jne	L47
     cmpl	$0, -52(%rbp)
-    jle	L55
+    jle	L51
     movq	-48(%rbp), %rax
     movl	8(%rax), %eax
     cltq
@@ -372,15 +355,15 @@ L50:
     leaq	-32(%rbp), %rax
     movq	%rax, %rdi
     call	merge_overlapping_regs
-    jmp	L49
-L55:
+    jmp	L45
+L51:
     nop
-L49:
+L45:
     movq	-8(%rbp), %rax
     xorq	$40, %rax
-    je	L54
+    je	L50
     call	__stack_chk_fail
-L54:
+L50:
     leave
     ret
     .globl	main
@@ -407,8 +390,8 @@ _start:
     movl	$0, %eax
     movq	-8(%rbp), %rdx
     xorq	$40, %rdx
-    je	L58
+    je	L54
     call	__stack_chk_fail
-L58:
+L54:
     leave
     ret

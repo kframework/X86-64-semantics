@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .globl	test1
@@ -292,11 +275,11 @@ test1:
     movzwl	-4(%rbp), %eax
     andl	$65280, %eax
     testl	%eax, %eax
-    jne	L46
+    jne	L42
     cmpw	$0, -4(%rbp)
-    jne	L46
+    jne	L42
     movw	$2, -4(%rbp)
-L46:
+L42:
     movzwl	-4(%rbp), %eax
     popq	%rbp
     ret
@@ -308,11 +291,11 @@ test2:
     movq	-8(%rbp), %rax
     andl	$4294901760, %eax
     testq	%rax, %rax
-    jne	L49
+    jne	L45
     cmpq	$0, -8(%rbp)
-    jne	L49
+    jne	L45
     movq	$2, -8(%rbp)
-L49:
+L45:
     movq	-8(%rbp), %rax
     popq	%rbp
     ret
@@ -325,17 +308,17 @@ test3:
     movzwl	-4(%rbp), %eax
     andl	$1, %eax
     testl	%eax, %eax
-    je	L52
+    je	L48
     movl	$1, %eax
-    jmp	L53
-L52:
+    jmp	L49
+L48:
     cmpw	$0, -4(%rbp)
-    je	L54
+    je	L50
     movl	$1, %eax
-    jmp	L53
-L54:
+    jmp	L49
+L50:
     movl	$0, %eax
-L53:
+L49:
     popq	%rbp
     ret
     .globl	main
@@ -346,20 +329,20 @@ _start:
     movl	$1, %edi
     call	test1
     cmpw	$1, %ax
-    je	L56
+    je	L52
     call	abort
-L56:
+L52:
     movl	$1, %edi
     call	test2
     cmpq	$1, %rax
-    je	L57
+    je	L53
     call	abort
-L57:
+L53:
     movl	$2, %edi
     call	test3
     cmpl	$1, %eax
-    je	L58
+    je	L54
     call	abort
-L58:
+L54:
     movl	$0, %edi
     call	exit

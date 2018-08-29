@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .globl	test1
@@ -469,30 +452,30 @@ test:
     movl	%eax, %edi
     call	test1
     cmpl	-8(%rbp), %eax
-    je	L78
+    je	L74
     call	abort
-L78:
+L74:
     movl	-4(%rbp), %eax
     movl	%eax, %edi
     call	test2
     cmpl	-8(%rbp), %eax
-    je	L79
+    je	L75
     call	abort
-L79:
+L75:
     movl	-4(%rbp), %eax
     movl	%eax, %edi
     call	test7
     cmpl	-8(%rbp), %eax
-    je	L80
+    je	L76
     call	abort
-L80:
+L76:
     movl	-4(%rbp), %eax
     movl	%eax, %edi
     call	test8
     cmpl	-8(%rbp), %eax
-    je	L82
+    je	L78
     call	abort
-L82:
+L78:
     nop
     leave
     ret
@@ -507,86 +490,86 @@ testu:
     movl	%eax, %edi
     call	test1u
     cmpl	-8(%rbp), %eax
+    je	L80
+    call	abort
+L80:
+    movl	-4(%rbp), %eax
+    movl	%eax, %edi
+    call	test2u
+    cmpl	-8(%rbp), %eax
+    je	L81
+    call	abort
+L81:
+    movl	-4(%rbp), %eax
+    movl	%eax, %edi
+    call	test3u
+    cmpl	-8(%rbp), %eax
+    je	L82
+    call	abort
+L82:
+    movl	-4(%rbp), %eax
+    movl	%eax, %edi
+    call	test4u
+    cmpl	-8(%rbp), %eax
+    je	L83
+    call	abort
+L83:
+    movl	-4(%rbp), %eax
+    movl	%eax, %edi
+    call	test5u
+    cmpl	-8(%rbp), %eax
     je	L84
     call	abort
 L84:
     movl	-4(%rbp), %eax
     movl	%eax, %edi
-    call	test2u
+    call	test6u
     cmpl	-8(%rbp), %eax
     je	L85
     call	abort
 L85:
     movl	-4(%rbp), %eax
     movl	%eax, %edi
-    call	test3u
+    call	test7u
     cmpl	-8(%rbp), %eax
     je	L86
     call	abort
 L86:
     movl	-4(%rbp), %eax
     movl	%eax, %edi
-    call	test4u
+    call	test8u
     cmpl	-8(%rbp), %eax
     je	L87
     call	abort
 L87:
     movl	-4(%rbp), %eax
     movl	%eax, %edi
-    call	test5u
+    call	test9u
     cmpl	-8(%rbp), %eax
     je	L88
     call	abort
 L88:
     movl	-4(%rbp), %eax
     movl	%eax, %edi
-    call	test6u
+    call	test10u
     cmpl	-8(%rbp), %eax
     je	L89
     call	abort
 L89:
     movl	-4(%rbp), %eax
     movl	%eax, %edi
-    call	test7u
+    call	test11u
     cmpl	-8(%rbp), %eax
     je	L90
     call	abort
 L90:
     movl	-4(%rbp), %eax
     movl	%eax, %edi
-    call	test8u
-    cmpl	-8(%rbp), %eax
-    je	L91
-    call	abort
-L91:
-    movl	-4(%rbp), %eax
-    movl	%eax, %edi
-    call	test9u
+    call	test12u
     cmpl	-8(%rbp), %eax
     je	L92
     call	abort
 L92:
-    movl	-4(%rbp), %eax
-    movl	%eax, %edi
-    call	test10u
-    cmpl	-8(%rbp), %eax
-    je	L93
-    call	abort
-L93:
-    movl	-4(%rbp), %eax
-    movl	%eax, %edi
-    call	test11u
-    cmpl	-8(%rbp), %eax
-    je	L94
-    call	abort
-L94:
-    movl	-4(%rbp), %eax
-    movl	%eax, %edi
-    call	test12u
-    cmpl	-8(%rbp), %eax
-    je	L96
-    call	abort
-L96:
     nop
     leave
     ret

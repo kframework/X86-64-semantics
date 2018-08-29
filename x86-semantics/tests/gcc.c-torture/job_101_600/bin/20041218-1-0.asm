@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .section	.rodata
@@ -312,9 +295,9 @@ baz:
     movl	%edi, -4(%rbp)
     movl	$72, %edx
     movl	$85, %esi
-    movl	$v2439, %edi
+    movl	$v2432, %edi
     call	memset
-    movl	$v2439, %eax
+    movl	$v2432, %eax
     leave
     ret
     .globl	check
@@ -327,26 +310,26 @@ check:
     movq	-16(%rbp), %rax
     movl	(%rax), %eax
     testl	%eax, %eax
-    jne	L51
+    jne	L47
     movq	-16(%rbp), %rax
     movl	8(%rax), %eax
     testl	%eax, %eax
-    jne	L51
+    jne	L47
     movq	-16(%rbp), %rax
     movl	12(%rax), %eax
     testl	%eax, %eax
-    jne	L51
+    jne	L47
     movq	-16(%rbp), %rax
     movq	16(%rax), %rax
     testq	%rax, %rax
-    jne	L51
+    jne	L47
     movq	-16(%rbp), %rax
     movzbl	24(%rax), %eax
     testb	%al, %al
-    je	L52
-L51:
+    je	L48
+L47:
     call	abort
-L52:
+L48:
     movl	$1, %eax
     leave
     ret
@@ -365,10 +348,10 @@ bar:
     call	dummy1
     movq	%rax, -48(%rbp)
     cmpq	$0, -48(%rbp)
-    jne	L55
+    jne	L51
     movl	$0, %eax
-    jmp	L59
-L55:
+    jmp	L55
+L51:
     movl	$72, %edi
     call	baz
     movq	%rax, -40(%rbp)
@@ -400,7 +383,7 @@ L55:
     movq	%rax, %rdi
     call	check
     testl	%eax, %eax
-    je	L57
+    je	L53
     movq	-40(%rbp), %rax
     leaq	40(%rax), %rdx
     movq	-48(%rbp), %rax
@@ -408,13 +391,13 @@ L55:
     movq	%rax, %rdi
     call	check
     testl	%eax, %eax
-    jne	L58
-L57:
+    jne	L54
+L53:
     movl	$0, %eax
-    jmp	L59
-L58:
+    jmp	L55
+L54:
     movq	-40(%rbp), %rax
-L59:
+L55:
     leave
     ret
     .globl	foo
@@ -430,48 +413,48 @@ foo:
     movq	-16(%rbp), %rdx
     movq	%rdx, (%rax)
     movl	$0, -24(%rbp)
-    jmp	L61
-L68:
+    jmp	L57
+L64:
     movq	-40(%rbp), %rax
     movl	(%rax), %eax
     movl	%eax, -20(%rbp)
     movl	-20(%rbp), %eax
     cmpl	$1, %eax
-    jne	L69
+    jne	L65
     movq	-40(%rbp), %rdx
     movl	-20(%rbp), %eax
     movq	%rdx, %rsi
     movl	%eax, %edi
     call	bar
     movq	%rax, -8(%rbp)
-    jmp	L64
-L69:
+    jmp	L60
+L65:
     movq	$0, -8(%rbp)
     nop
-L64:
+L60:
     cmpq	$0, -8(%rbp)
-    je	L65
+    je	L61
     movq	-8(%rbp), %rdx
     movq	-16(%rbp), %rax
     movq	%rdx, %rsi
     movq	%rax, %rdi
     call	dummy2
     movq	%rax, -16(%rbp)
-    jmp	L70
-L65:
-    movl	$1, %eax
-    jmp	L67
-L70:
-    addl	$1, -24(%rbp)
+    jmp	L66
 L61:
+    movl	$1, %eax
+    jmp	L63
+L66:
+    addl	$1, -24(%rbp)
+L57:
     movl	-24(%rbp), %eax
     cmpl	-44(%rbp), %eax
-    jb	L68
+    jb	L64
     movq	-56(%rbp), %rax
     movq	-16(%rbp), %rdx
     movq	%rdx, (%rax)
     movl	$0, %eax
-L67:
+L63:
     leave
     ret
     .globl	main
@@ -490,4 +473,4 @@ _start:
     movq	%rax, %rdi
     call	foo
     call	abort
-    .comm	v2439,72,32
+    .comm	v2432,72,32

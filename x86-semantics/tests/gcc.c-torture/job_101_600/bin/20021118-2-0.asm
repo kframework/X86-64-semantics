@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .globl	t1
@@ -361,14 +344,14 @@ f1:
     vmovsd	%xmm0, -8(%rbp)
     vmovsd	LC0(%rip), %xmm0
     vucomisd	-8(%rbp), %xmm0
-    jp	L50
+    jp	L46
     vmovsd	LC0(%rip), %xmm0
     vucomisd	-8(%rbp), %xmm0
-    jne	L50
-    jmp	L51
-L50:
+    jne	L46
+    jmp	L47
+L46:
     call	abort
-L51:
+L47:
     leave
     ret
     .globl	f2
@@ -380,20 +363,20 @@ f2:
     vmovss	%xmm1, -8(%rbp)
     vmovss	LC2(%rip), %xmm0
     vucomiss	-4(%rbp), %xmm0
-    jp	L53
+    jp	L49
     vmovss	LC2(%rip), %xmm0
     vucomiss	-4(%rbp), %xmm0
-    jne	L53
+    jne	L49
     vmovss	LC1(%rip), %xmm0
     vucomiss	-8(%rbp), %xmm0
-    jp	L53
+    jp	L49
     vmovss	LC1(%rip), %xmm0
     vucomiss	-8(%rbp), %xmm0
-    jne	L53
-    jmp	L56
-L53:
+    jne	L49
+    jmp	L52
+L49:
     call	abort
-L56:
+L52:
     leave
     ret
     .globl	f3
@@ -404,14 +387,14 @@ f3:
     vmovss	%xmm0, -4(%rbp)
     vmovss	LC3(%rip), %xmm0
     vucomiss	-4(%rbp), %xmm0
-    jp	L60
+    jp	L56
     vmovss	LC3(%rip), %xmm0
     vucomiss	-4(%rbp), %xmm0
-    jne	L60
-    jmp	L61
-L60:
+    jne	L56
+    jmp	L57
+L56:
     call	abort
-L61:
+L57:
     leave
     ret
     .globl	main
@@ -445,21 +428,21 @@ _start:
     vmovss	-32(%rbp), %xmm0
     vmovss	LC5(%rip), %xmm1
     vucomiss	%xmm1, %xmm0
-    jp	L67
+    jp	L63
     vmovss	LC5(%rip), %xmm1
     vucomiss	%xmm1, %xmm0
-    je	L63
-L67:
+    je	L59
+L63:
     vmovss	-28(%rbp), %xmm0
     vmovss	LC6(%rip), %xmm1
     vucomiss	%xmm1, %xmm0
-    jp	L68
+    jp	L64
     vmovss	LC6(%rip), %xmm1
     vucomiss	%xmm1, %xmm0
-    je	L63
-L68:
+    je	L59
+L64:
     call	abort
-L63:
+L59:
     movl	$0, %edi
     call	exit
     .section	.rodata

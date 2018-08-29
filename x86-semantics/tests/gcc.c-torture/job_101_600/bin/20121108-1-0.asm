@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .globl	temp
@@ -304,30 +287,30 @@ strtoul1:
     movq	-16(%rbp), %rax
     movq	%rdx, (%rax)
     cmpq	$temp, -8(%rbp)
-    jne	L46
+    jne	L42
     movl	$192, %eax
-    jmp	L47
-L46:
+    jmp	L43
+L42:
     movl	$temp + 4, %eax
     cmpq	%rax, -8(%rbp)
-    jne	L48
+    jne	L44
     movl	$168, %eax
-    jmp	L47
-L48:
+    jmp	L43
+L44:
     movl	$temp + 8, %eax
     cmpq	%rax, -8(%rbp)
-    jne	L49
+    jne	L45
     movl	$190, %eax
-    jmp	L47
-L49:
+    jmp	L43
+L45:
     movl	$temp + 12, %eax
     cmpq	%rax, -8(%rbp)
-    jne	L50
+    jne	L46
     movl	$160, %eax
-    jmp	L47
-L50:
+    jmp	L43
+L46:
     call	abort
-L47:
+L43:
     leave
     ret
     .globl	string_to_ip
@@ -340,56 +323,56 @@ string_to_ip:
     movq	%rax, -8(%rbp)
     xorl	%eax, %eax
     cmpq	$0, -40(%rbp)
-    jne	L52
+    jne	L48
     movl	$0, %eax
-    jmp	L61
-L52:
+    jmp	L57
+L48:
     movl	$0, -28(%rbp)
     movl	$0, -24(%rbp)
-    jmp	L54
-L60:
+    jmp	L50
+L56:
     cmpq	$0, -40(%rbp)
-    je	L55
+    je	L51
     leaq	-16(%rbp), %rcx
     movq	-40(%rbp), %rax
     movl	$10, %edx
     movq	%rcx, %rsi
     movq	%rax, %rdi
     call	strtoul1
-    jmp	L56
-L55:
+    jmp	L52
+L51:
     movl	$0, %eax
-L56:
+L52:
     movl	%eax, -20(%rbp)
     sall	$8, -28(%rbp)
     movl	-20(%rbp), %eax
     movzbl	%al, %eax
     orl	%eax, -28(%rbp)
     cmpq	$0, -40(%rbp)
-    je	L57
+    je	L53
     movq	-16(%rbp), %rax
     movzbl	(%rax), %eax
     testb	%al, %al
-    je	L58
+    je	L54
     movq	-16(%rbp), %rax
     addq	$1, %rax
-    jmp	L59
-L58:
-    movq	-16(%rbp), %rax
-L59:
-    movq	%rax, -40(%rbp)
-L57:
-    addl	$1, -24(%rbp)
+    jmp	L55
 L54:
+    movq	-16(%rbp), %rax
+L55:
+    movq	%rax, -40(%rbp)
+L53:
+    addl	$1, -24(%rbp)
+L50:
     cmpl	$3, -24(%rbp)
-    jle	L60
+    jle	L56
     movl	-28(%rbp), %eax
-L61:
+L57:
     movq	-8(%rbp), %rdx
     xorq	$40, %rdx
-    je	L62
+    je	L58
     call	__stack_chk_fail
-L62:
+L58:
     leave
     ret
     .globl	main
@@ -404,9 +387,9 @@ _start:
     movl	-4(%rbp), %edx
     movl	result(%rip), %eax
     cmpl	%eax, %edx
-    je	L64
+    je	L60
     call	abort
-L64:
+L60:
     movl	$0, %eax
     leave
     ret

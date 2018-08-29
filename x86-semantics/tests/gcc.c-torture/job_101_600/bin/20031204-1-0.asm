@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .globl	in_aton
@@ -302,67 +285,67 @@ root_nfs_parse_addr:
     movq	%rax, -8(%rbp)
     movq	-8(%rbp), %rax
     movq	%rax, -16(%rbp)
-    jmp	L48
-L51:
+    jmp	L44
+L47:
     addq	$1, -16(%rbp)
-L49:
+L45:
     movq	-16(%rbp), %rax
     movzbl	(%rax), %eax
     cmpb	$47, %al
-    jle	L50
+    jle	L46
     movq	-16(%rbp), %rax
     movzbl	(%rax), %eax
     cmpb	$57, %al
-    jle	L51
-L50:
+    jle	L47
+L46:
     movq	-16(%rbp), %rax
     cmpq	-8(%rbp), %rax
-    je	L52
+    je	L48
     movq	-16(%rbp), %rdx
     movq	-8(%rbp), %rax
     subq	%rax, %rdx
     movq	%rdx, %rax
     cmpq	$3, %rax
-    jg	L52
+    jg	L48
     movq	-16(%rbp), %rax
     movzbl	(%rax), %eax
     cmpb	$46, %al
-    je	L53
+    je	L49
     cmpl	$3, -28(%rbp)
-    jne	L54
-L53:
+    jne	L50
+L49:
     addl	$1, -28(%rbp)
-L54:
+L50:
     cmpl	$3, -28(%rbp)
-    jg	L55
+    jg	L51
     addq	$1, -16(%rbp)
-L55:
+L51:
     movq	-16(%rbp), %rax
     movq	%rax, -8(%rbp)
-L48:
+L44:
     cmpl	$3, -28(%rbp)
-    jle	L49
-L52:
+    jle	L45
+L48:
     cmpl	$4, -28(%rbp)
-    jne	L57
+    jne	L53
     movq	-16(%rbp), %rax
     movzbl	(%rax), %eax
     cmpb	$58, %al
-    je	L58
+    je	L54
     movq	-16(%rbp), %rax
     movzbl	(%rax), %eax
     testb	%al, %al
-    jne	L57
-L58:
+    jne	L53
+L54:
     movq	-16(%rbp), %rax
     movzbl	(%rax), %eax
     cmpb	$58, %al
-    jne	L59
+    jne	L55
     movq	-16(%rbp), %rax
     leaq	1(%rax), %rdx
     movq	%rdx, -16(%rbp)
     movb	$0, (%rax)
-L59:
+L55:
     movq	-40(%rbp), %rax
     movq	%rax, %rdi
     call	in_aton
@@ -372,10 +355,10 @@ L59:
     movq	%rdx, %rsi
     movq	%rax, %rdi
     call	strcpy
-    jmp	L60
-L57:
+    jmp	L56
+L53:
     movq	$-1, -24(%rbp)
-L60:
+L56:
     movq	-24(%rbp), %rax
     leave
     ret
@@ -385,16 +368,16 @@ _start:
     pushq	%rbp
     movq	%rsp, %rbp
     subq	$16, %rsp
-    movl	$addr2612, %edi
+    movl	$addr2605, %edi
     call	root_nfs_parse_addr
     movq	%rax, -8(%rbp)
     cmpq	$168496141, -8(%rbp)
-    je	L63
+    je	L59
     call	abort
-L63:
+L59:
     movl	$0, %eax
     leave
     ret
     .data
-addr2612:
+addr2605:
     .string	"1011.1213:/hello"

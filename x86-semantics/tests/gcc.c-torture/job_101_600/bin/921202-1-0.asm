@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .section	.rodata
@@ -296,7 +279,7 @@ _start:
     movq	$40, %rax
     movq	%rax, -8(%rbp)
     xorl	%eax, %eax
-L52:
+L48:
     movq	$2055, -49368(%rbp)
     movq	-49368(%rbp), %rdx
     leaq	-49360(%rbp), %rax
@@ -305,17 +288,17 @@ L52:
     movl	$0, %eax
     call	mpn_random2
     movl	$0, -49376(%rbp)
-    jmp	L46
-L47:
+    jmp	L42
+L43:
     addl	$1, -49376(%rbp)
-L46:
+L42:
     cmpl	$0, -49376(%rbp)
-    jle	L47
+    jle	L43
     movq	-49368(%rbp), %rax
     movq	$305419896, -16464(%rbp,%rax,8)
     movl	$0, -49376(%rbp)
-    jmp	L48
-L49:
+    jmp	L44
+L45:
     movq	-49368(%rbp), %rdx
     leaq	-49360(%rbp), %rcx
     leaq	-16464(%rbp), %rax
@@ -325,12 +308,12 @@ L49:
     call	mpn_mul_1
     movl	%eax, -49380(%rbp)
     addl	$1, -49376(%rbp)
-L48:
+L44:
     cmpl	$0, -49376(%rbp)
-    jle	L49
+    jle	L45
     movl	-49372(%rbp), %eax
     cmpl	-49380(%rbp), %eax
-    jne	L50
+    jne	L46
     movq	-49368(%rbp), %rax
     leaq	1(%rax), %rdx
     leaq	-16464(%rbp), %rcx
@@ -340,12 +323,12 @@ L48:
     movl	$0, %eax
     call	mpn_cmp
     testl	%eax, %eax
-    jne	L50
+    jne	L46
     movq	-49368(%rbp), %rax
     movq	-32912(%rbp,%rax,8), %rax
     cmpq	$305419896, %rax
-    je	L51
-L50:
+    je	L47
+L46:
     movl	-49380(%rbp), %eax
     movl	%eax, %edx
     movl	$8, %esi
@@ -358,10 +341,10 @@ L50:
     movq	%rax, %rdi
     movl	$0, %eax
     call	mpn_print
-L51:
+L47:
     movl	$0, %eax
     call	exxit
-    jmp	L52
+    jmp	L48
     .globl	foo
 foo:
     pushq	%rbp
