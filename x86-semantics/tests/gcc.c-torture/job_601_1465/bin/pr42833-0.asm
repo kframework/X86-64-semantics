@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	helper_neon_rshl_s8
@@ -409,19 +392,19 @@ helper_neon_rshl_s8:
     movzbl	-48(%rbp), %eax
     movb	%al, -68(%rbp)
     cmpb	$7, -68(%rbp)
-    jle	L58
+    jle	L54
     movb	$0, -32(%rbp)
-    jmp	L59
-L58:
+    jmp	L55
+L54:
     cmpb	$-8, -68(%rbp)
-    jge	L60
+    jge	L56
     movzbl	-64(%rbp), %eax
     sarb	$7, %al
     movb	%al, -32(%rbp)
-    jmp	L59
-L60:
+    jmp	L55
+L56:
     cmpb	$-8, -68(%rbp)
-    jne	L61
+    jne	L57
     movzbl	-64(%rbp), %eax
     movsbl	%al, %edx
     movsbl	-68(%rbp), %eax
@@ -434,10 +417,10 @@ L60:
     movzbl	-32(%rbp), %eax
     sarb	%al
     movb	%al, -32(%rbp)
-    jmp	L59
-L61:
+    jmp	L55
+L57:
     cmpb	$0, -68(%rbp)
-    jns	L62
+    jns	L58
     movzbl	-64(%rbp), %eax
     movsbl	%al, %eax
     movsbl	-68(%rbp), %edx
@@ -449,30 +432,30 @@ L61:
     negl	%eax
     sarx	%eax, %edx, %eax
     movb	%al, -32(%rbp)
-    jmp	L59
-L62:
+    jmp	L55
+L58:
     movzbl	-64(%rbp), %eax
     movsbl	%al, %edx
     movsbl	-68(%rbp), %eax
     shlx	%eax, %edx, %eax
     movb	%al, -32(%rbp)
-L59:
+L55:
     movzbl	-47(%rbp), %eax
     movb	%al, -67(%rbp)
     cmpb	$7, -67(%rbp)
-    jle	L63
+    jle	L59
     movb	$0, -31(%rbp)
-    jmp	L64
-L63:
+    jmp	L60
+L59:
     cmpb	$-8, -67(%rbp)
-    jge	L65
+    jge	L61
     movzbl	-63(%rbp), %eax
     sarb	$7, %al
     movb	%al, -31(%rbp)
-    jmp	L64
-L65:
+    jmp	L60
+L61:
     cmpb	$-8, -67(%rbp)
-    jne	L66
+    jne	L62
     movzbl	-63(%rbp), %eax
     movsbl	%al, %edx
     movsbl	-67(%rbp), %eax
@@ -485,10 +468,10 @@ L65:
     movzbl	-31(%rbp), %eax
     sarb	%al
     movb	%al, -31(%rbp)
-    jmp	L64
-L66:
+    jmp	L60
+L62:
     cmpb	$0, -67(%rbp)
-    jns	L67
+    jns	L63
     movzbl	-63(%rbp), %eax
     movsbl	%al, %eax
     movsbl	-67(%rbp), %edx
@@ -500,30 +483,30 @@ L66:
     negl	%eax
     sarx	%eax, %edx, %eax
     movb	%al, -31(%rbp)
-    jmp	L64
-L67:
+    jmp	L60
+L63:
     movzbl	-63(%rbp), %eax
     movsbl	%al, %edx
     movsbl	-67(%rbp), %eax
     shlx	%eax, %edx, %eax
     movb	%al, -31(%rbp)
-L64:
+L60:
     movzbl	-46(%rbp), %eax
     movb	%al, -66(%rbp)
     cmpb	$7, -66(%rbp)
-    jle	L68
+    jle	L64
     movb	$0, -30(%rbp)
-    jmp	L69
-L68:
+    jmp	L65
+L64:
     cmpb	$-8, -66(%rbp)
-    jge	L70
+    jge	L66
     movzbl	-62(%rbp), %eax
     sarb	$7, %al
     movb	%al, -30(%rbp)
-    jmp	L69
-L70:
+    jmp	L65
+L66:
     cmpb	$-8, -66(%rbp)
-    jne	L71
+    jne	L67
     movzbl	-62(%rbp), %eax
     movsbl	%al, %edx
     movsbl	-66(%rbp), %eax
@@ -536,10 +519,10 @@ L70:
     movzbl	-30(%rbp), %eax
     sarb	%al
     movb	%al, -30(%rbp)
-    jmp	L69
-L71:
+    jmp	L65
+L67:
     cmpb	$0, -66(%rbp)
-    jns	L72
+    jns	L68
     movzbl	-62(%rbp), %eax
     movsbl	%al, %eax
     movsbl	-66(%rbp), %edx
@@ -551,30 +534,30 @@ L71:
     negl	%eax
     sarx	%eax, %edx, %eax
     movb	%al, -30(%rbp)
-    jmp	L69
-L72:
+    jmp	L65
+L68:
     movzbl	-62(%rbp), %eax
     movsbl	%al, %edx
     movsbl	-66(%rbp), %eax
     shlx	%eax, %edx, %eax
     movb	%al, -30(%rbp)
-L69:
+L65:
     movzbl	-45(%rbp), %eax
     movb	%al, -65(%rbp)
     cmpb	$7, -65(%rbp)
-    jle	L73
+    jle	L69
     movb	$0, -29(%rbp)
-    jmp	L74
-L73:
+    jmp	L70
+L69:
     cmpb	$-8, -65(%rbp)
-    jge	L75
+    jge	L71
     movzbl	-61(%rbp), %eax
     sarb	$7, %al
     movb	%al, -29(%rbp)
-    jmp	L74
-L75:
+    jmp	L70
+L71:
     cmpb	$-8, -65(%rbp)
-    jne	L76
+    jne	L72
     movzbl	-61(%rbp), %eax
     movsbl	%al, %edx
     movsbl	-65(%rbp), %eax
@@ -587,10 +570,10 @@ L75:
     movzbl	-29(%rbp), %eax
     sarb	%al
     movb	%al, -29(%rbp)
-    jmp	L74
-L76:
+    jmp	L70
+L72:
     cmpb	$0, -65(%rbp)
-    jns	L77
+    jns	L73
     movzbl	-61(%rbp), %eax
     movsbl	%al, %eax
     movsbl	-65(%rbp), %edx
@@ -602,14 +585,14 @@ L76:
     negl	%eax
     sarx	%eax, %edx, %eax
     movb	%al, -29(%rbp)
-    jmp	L74
-L77:
+    jmp	L70
+L73:
     movzbl	-61(%rbp), %eax
     movsbl	%al, %edx
     movsbl	-65(%rbp), %eax
     shlx	%eax, %edx, %eax
     movb	%al, -29(%rbp)
-L74:
+L70:
     movl	-32(%rbp), %eax
     movl	%eax, -16(%rbp)
     movl	-16(%rbp), %eax
@@ -628,9 +611,9 @@ _start:
     call	helper_neon_rshl_s8
     movl	%eax, -4(%rbp)
     cmpl	$168430090, -4(%rbp)
-    je	L80
+    je	L76
     call	abort
-L80:
+L76:
     movl	$0, %eax
     leave
     ret

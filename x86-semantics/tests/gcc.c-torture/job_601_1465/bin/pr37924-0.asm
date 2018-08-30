@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .comm	a,1,1
@@ -424,15 +407,15 @@ _start:
     movb	$0, a(%rip)
     call	test1
     cmpl	$8388607, %eax
-    je	L62
+    je	L58
     call	abort
-L62:
+L58:
     movb	$64, a(%rip)
     call	test1
     cmpl	$8388607, %eax
-    je	L63
+    je	L59
     call	abort
-L63:
+L59:
     movb	$-128, a(%rip)
     call	test1
     movl	%eax, %edx
@@ -440,9 +423,9 @@ L63:
     shrb	$7, %al
     movzbl	%al, %eax
     cmpl	%eax, %edx
-    jne	L64
+    jne	L60
     call	abort
-L64:
+L60:
     movb	$-1, a(%rip)
     call	test1
     movl	%eax, %edx
@@ -450,33 +433,33 @@ L64:
     shrb	$7, %al
     movzbl	%al, %eax
     cmpl	%eax, %edx
-    jne	L65
+    jne	L61
     call	abort
-L65:
+L61:
     movb	$0, b(%rip)
     call	test2
     cmpl	$8388607, %eax
-    je	L66
+    je	L62
     call	abort
-L66:
+L62:
     movb	$64, b(%rip)
     call	test2
     cmpl	$8388607, %eax
-    je	L67
+    je	L63
     call	abort
-L67:
+L63:
     movb	$-128, b(%rip)
     call	test2
     cmpl	$8388607, %eax
-    je	L68
+    je	L64
     call	abort
-L68:
+L64:
     movb	$-1, b(%rip)
     call	test2
     cmpl	$8388607, %eax
-    je	L69
+    je	L65
     call	abort
-L69:
+L65:
     movl	$0, %eax
     popq	%rbp
     ret

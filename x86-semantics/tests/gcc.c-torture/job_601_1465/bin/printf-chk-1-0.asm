@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .comm	should_optimize,4,4
@@ -405,7 +388,7 @@ __printf_chk:
     movq	%r8, -144(%rbp)
     movq	%r9, -136(%rbp)
     testb	%al, %al
-    je	L58
+    je	L54
     vmovaps	%xmm0, -128(%rbp)
     vmovaps	%xmm1, -112(%rbp)
     vmovaps	%xmm2, -96(%rbp)
@@ -414,7 +397,7 @@ __printf_chk:
     vmovaps	%xmm5, -48(%rbp)
     vmovaps	%xmm6, -32(%rbp)
     vmovaps	%xmm7, -16(%rbp)
-L58:
+L54:
     movq	$40, %rax
     movq	%rax, -184(%rbp)
     xorl	%eax, %eax
@@ -434,9 +417,9 @@ L58:
     movl	-212(%rbp), %eax
     movq	-184(%rbp), %rcx
     xorq	$40, %rcx
-    je	L60
+    je	L56
     call	__stack_chk_fail
-L60:
+L56:
     leave
     ret
     .section	.rodata
@@ -469,87 +452,87 @@ _start:
     call	__printf_chk
     movl	should_optimize(%rip), %eax
     testl	%eax, %eax
-    jne	L62
+    jne	L58
     call	abort
-L62:
+L58:
     movl	$0, should_optimize(%rip)
     movl	$LC0, %esi
     movl	$1, %edi
     movl	$0, %eax
     call	__printf_chk
     cmpl	$5, %eax
-    je	L63
+    je	L59
     call	abort
-L63:
+L59:
     movl	should_optimize(%rip), %eax
     testl	%eax, %eax
-    jne	L64
+    jne	L60
     call	abort
-L64:
+L60:
     movl	$1, should_optimize(%rip)
     movl	$LC0, %edi
     call	puts
     movl	should_optimize(%rip), %eax
     testl	%eax, %eax
-    jne	L65
+    jne	L61
     call	abort
-L65:
+L61:
     movl	$0, should_optimize(%rip)
     movl	$LC1, %esi
     movl	$1, %edi
     movl	$0, %eax
     call	__printf_chk
     cmpl	$6, %eax
-    je	L66
+    je	L62
     call	abort
-L66:
+L62:
     movl	should_optimize(%rip), %eax
     testl	%eax, %eax
-    jne	L67
+    jne	L63
     call	abort
-L67:
+L63:
     movl	$1, should_optimize(%rip)
     movl	$97, %edi
     call	putchar
     movl	should_optimize(%rip), %eax
     testl	%eax, %eax
-    jne	L68
+    jne	L64
     call	abort
-L68:
+L64:
     movl	$0, should_optimize(%rip)
     movl	$LC2, %esi
     movl	$1, %edi
     movl	$0, %eax
     call	__printf_chk
     cmpl	$1, %eax
-    je	L69
+    je	L65
     call	abort
-L69:
+L65:
     movl	should_optimize(%rip), %eax
     testl	%eax, %eax
-    jne	L70
+    jne	L66
     call	abort
-L70:
+L66:
     movl	$1, should_optimize(%rip)
     movl	should_optimize(%rip), %eax
     testl	%eax, %eax
-    jne	L71
+    jne	L67
     call	abort
-L71:
+L67:
     movl	$0, should_optimize(%rip)
     movl	$LC3, %esi
     movl	$1, %edi
     movl	$0, %eax
     call	__printf_chk
     testl	%eax, %eax
-    je	L72
+    je	L68
     call	abort
-L72:
+L68:
     movl	should_optimize(%rip), %eax
     testl	%eax, %eax
-    jne	L73
+    jne	L69
     call	abort
-L73:
+L69:
     movl	$0, should_optimize(%rip)
     movl	$LC0, %edx
     movl	$LC4, %esi
@@ -558,9 +541,9 @@ L73:
     call	__printf_chk
     movl	should_optimize(%rip), %eax
     testl	%eax, %eax
-    jne	L74
+    jne	L70
     call	abort
-L74:
+L70:
     movl	$0, should_optimize(%rip)
     movl	$LC0, %edx
     movl	$LC4, %esi
@@ -568,22 +551,22 @@ L74:
     movl	$0, %eax
     call	__printf_chk
     cmpl	$5, %eax
-    je	L75
+    je	L71
     call	abort
-L75:
+L71:
     movl	should_optimize(%rip), %eax
     testl	%eax, %eax
-    jne	L76
+    jne	L72
     call	abort
-L76:
+L72:
     movl	$1, should_optimize(%rip)
     movl	$LC0, %edi
     call	puts
     movl	should_optimize(%rip), %eax
     testl	%eax, %eax
-    jne	L77
+    jne	L73
     call	abort
-L77:
+L73:
     movl	$0, should_optimize(%rip)
     movl	$LC1, %edx
     movl	$LC4, %esi
@@ -591,22 +574,22 @@ L77:
     movl	$0, %eax
     call	__printf_chk
     cmpl	$6, %eax
-    je	L78
+    je	L74
     call	abort
-L78:
+L74:
     movl	should_optimize(%rip), %eax
     testl	%eax, %eax
-    jne	L79
+    jne	L75
     call	abort
-L79:
+L75:
     movl	$1, should_optimize(%rip)
     movl	$97, %edi
     call	putchar
     movl	should_optimize(%rip), %eax
     testl	%eax, %eax
-    jne	L80
+    jne	L76
     call	abort
-L80:
+L76:
     movl	$0, should_optimize(%rip)
     movl	$LC2, %edx
     movl	$LC4, %esi
@@ -614,20 +597,20 @@ L80:
     movl	$0, %eax
     call	__printf_chk
     cmpl	$1, %eax
-    je	L81
+    je	L77
     call	abort
-L81:
+L77:
     movl	should_optimize(%rip), %eax
     testl	%eax, %eax
-    jne	L82
+    jne	L78
     call	abort
-L82:
+L78:
     movl	$1, should_optimize(%rip)
     movl	should_optimize(%rip), %eax
     testl	%eax, %eax
-    jne	L83
+    jne	L79
     call	abort
-L83:
+L79:
     movl	$0, should_optimize(%rip)
     movl	$LC3, %edx
     movl	$LC4, %esi
@@ -635,22 +618,22 @@ L83:
     movl	$0, %eax
     call	__printf_chk
     testl	%eax, %eax
-    je	L84
+    je	L80
     call	abort
-L84:
+L80:
     movl	should_optimize(%rip), %eax
     testl	%eax, %eax
-    jne	L85
+    jne	L81
     call	abort
-L85:
+L81:
     movl	$1, should_optimize(%rip)
     movl	$120, %edi
     call	putchar
     movl	should_optimize(%rip), %eax
     testl	%eax, %eax
-    jne	L86
+    jne	L82
     call	abort
-L86:
+L82:
     movl	$0, should_optimize(%rip)
     movl	$120, %edx
     movl	$LC5, %esi
@@ -658,22 +641,22 @@ L86:
     movl	$0, %eax
     call	__printf_chk
     cmpl	$1, %eax
-    je	L87
+    je	L83
     call	abort
-L87:
+L83:
     movl	should_optimize(%rip), %eax
     testl	%eax, %eax
-    jne	L88
+    jne	L84
     call	abort
-L88:
+L84:
     movl	$1, should_optimize(%rip)
     movl	$LC1, %edi
     call	puts
     movl	should_optimize(%rip), %eax
     testl	%eax, %eax
-    jne	L89
+    jne	L85
     call	abort
-L89:
+L85:
     movl	$0, should_optimize(%rip)
     movl	$LC1, %edx
     movl	$LC6, %esi
@@ -681,14 +664,14 @@ L89:
     movl	$0, %eax
     call	__printf_chk
     cmpl	$7, %eax
-    je	L90
+    je	L86
     call	abort
-L90:
+L86:
     movl	should_optimize(%rip), %eax
     testl	%eax, %eax
-    jne	L91
+    jne	L87
     call	abort
-L91:
+L87:
     movl	$0, should_optimize(%rip)
     movl	$0, %edx
     movl	$LC7, %esi
@@ -697,9 +680,9 @@ L91:
     call	__printf_chk
     movl	should_optimize(%rip), %eax
     testl	%eax, %eax
-    jne	L92
+    jne	L88
     call	abort
-L92:
+L88:
     movl	$0, should_optimize(%rip)
     movl	$0, %edx
     movl	$LC7, %esi
@@ -707,14 +690,14 @@ L92:
     movl	$0, %eax
     call	__printf_chk
     cmpl	$2, %eax
-    je	L93
+    je	L89
     call	abort
-L93:
+L89:
     movl	should_optimize(%rip), %eax
     testl	%eax, %eax
-    jne	L94
+    jne	L90
     call	abort
-L94:
+L90:
     movl	$0, %eax
     popq	%rbp
     ret

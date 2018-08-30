@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .comm	err,4,4
@@ -461,11 +444,11 @@ test_float:
     cmovne	%ecx, %eax
     orl	%edx, %eax
     cmpb	$1, %al
-    jne	L61
+    jne	L57
     movl	err(%rip), %eax
     addl	$1, %eax
     movl	%eax, err(%rip)
-L61:
+L57:
     nop
     leave
     ret
@@ -536,11 +519,11 @@ test_double:
     cmovne	%ecx, %eax
     orl	%edx, %eax
     cmpb	$1, %al
-    jne	L66
+    jne	L62
     movl	err(%rip), %eax
     addl	$1, %eax
     movl	%eax, err(%rip)
-L66:
+L62:
     nop
     leave
     ret
@@ -611,11 +594,11 @@ test_long_double:
     cmovne	%ecx, %eax
     orl	%edx, %eax
     cmpb	$1, %al
-    jne	L71
+    jne	L67
     movl	err(%rip), %eax
     addl	$1, %eax
     movl	%eax, err(%rip)
-L71:
+L67:
     nop
     leave
     ret
@@ -697,11 +680,11 @@ test_int:
     cmovne	%ecx, %eax
     orl	%edx, %eax
     cmpb	$1, %al
-    jne	L76
+    jne	L72
     movl	err(%rip), %eax
     addl	$1, %eax
     movl	%eax, err(%rip)
-L76:
+L72:
     nop
     leave
     ret
@@ -775,11 +758,11 @@ test_long_int:
     cmovne	%ecx, %eax
     orl	%edx, %eax
     cmpb	$1, %al
-    jne	L81
+    jne	L77
     movl	err(%rip), %eax
     addl	$1, %eax
     movl	%eax, err(%rip)
-L81:
+L77:
     nop
     addq	$48, %rsp
     popq	%rbx
@@ -798,9 +781,9 @@ _start:
     call	test_long_int
     movl	err(%rip), %eax
     testl	%eax, %eax
-    je	L83
+    je	L79
     call	abort
-L83:
+L79:
     movl	$0, %eax
     popq	%rbp
     ret

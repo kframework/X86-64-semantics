@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	copysign_bug
@@ -399,21 +382,21 @@ copysign_bug:
     vmovsd	%xmm0, -8(%rbp)
     vxorpd	%xmm0, %xmm0, %xmm0
     vucomisd	-8(%rbp), %xmm0
-    jp	L64
+    jp	L60
     vxorpd	%xmm0, %xmm0, %xmm0
     vucomisd	-8(%rbp), %xmm0
-    je	L58
-L64:
+    je	L54
+L60:
     vmovsd	-8(%rbp), %xmm1
     vmovsd	LC1(%rip), %xmm0
     vmulsd	%xmm0, %xmm1, %xmm0
     vucomisd	-8(%rbp), %xmm0
-    jp	L58
+    jp	L54
     vucomisd	-8(%rbp), %xmm0
-    jne	L58
+    jne	L54
     movl	$1, %eax
-    jmp	L61
-L58:
+    jmp	L57
+L54:
     vmovsd	-8(%rbp), %xmm2
     vmovsd	LC2(%rip), %xmm0
     vmovsd	LC3(%rip), %xmm1
@@ -422,12 +405,12 @@ L58:
     vmovapd	%xmm2, %xmm0
     vxorpd	%xmm1, %xmm1, %xmm1
     vucomisd	%xmm0, %xmm1
-    jbe	L67
+    jbe	L63
     movl	$2, %eax
-    jmp	L61
-L67:
+    jmp	L57
+L63:
     movl	$3, %eax
-L61:
+L57:
     popq	%rbp
     ret
     .globl	main
@@ -442,9 +425,9 @@ _start:
     vmovq	%rax, %xmm0
     call	copysign_bug
     cmpl	$2, %eax
-    je	L69
+    je	L65
     call	abort
-L69:
+L65:
     movl	$0, %eax
     leave
     ret

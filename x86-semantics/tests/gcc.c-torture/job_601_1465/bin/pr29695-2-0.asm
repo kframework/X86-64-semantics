@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	a
@@ -429,12 +412,12 @@ f3:
     movq	%rsp, %rbp
     movzbl	b(%rip), %eax
     testb	%al, %al
-    jns	L62
+    jns	L58
     movl	$896, %eax
-    jmp	L64
-L62:
+    jmp	L60
+L58:
     movl	$0, %eax
-L64:
+L60:
     popq	%rbp
     ret
     .globl	f4
@@ -469,12 +452,12 @@ f7:
     movq	%rsp, %rbp
     movl	d(%rip), %eax
     testl	%eax, %eax
-    jns	L72
+    jns	L68
     movabsq	$15032385536, %rax
-    jmp	L74
-L72:
+    jmp	L70
+L68:
     movl	$0, %eax
-L74:
+L70:
     popq	%rbp
     ret
     .globl	f8
@@ -493,50 +476,50 @@ _start:
     movq	%rsp, %rbp
     call	f1
     cmpl	$128, %eax
-    je	L78
+    je	L74
     call	abort
-L78:
+L74:
     call	f2
     cmpl	$128, %eax
-    je	L79
+    je	L75
     call	abort
-L79:
+L75:
     call	f3
     cmpl	$896, %eax
-    je	L80
+    je	L76
     call	abort
-L80:
+L76:
     call	f4
     cmpl	$-128, %eax
-    je	L81
+    je	L77
     call	abort
-L81:
+L77:
     call	f5
     movq	%rax, %rdx
     movl	$2147483648, %eax
     cmpq	%rax, %rdx
-    je	L82
+    je	L78
     call	abort
-L82:
+L78:
     call	f6
     movq	%rax, %rdx
     movl	$2147483648, %eax
     cmpq	%rax, %rdx
-    je	L83
+    je	L79
     call	abort
-L83:
+L79:
     call	f7
     movq	%rax, %rdx
     movabsq	$15032385536, %rax
     cmpq	%rax, %rdx
-    je	L84
+    je	L80
     call	abort
-L84:
+L80:
     call	f8
     cmpq	$-2147483648, %rax
-    je	L85
+    je	L81
     call	abort
-L85:
+L81:
     movl	$0, %eax
     popq	%rbp
     ret

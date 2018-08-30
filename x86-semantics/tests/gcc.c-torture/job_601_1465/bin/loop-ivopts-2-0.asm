@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	check
@@ -399,8 +382,8 @@ check:
     subq	$24, %rsp
     movq	%rdi, -24(%rbp)
     movl	$0, -4(%rbp)
-    jmp	L58
-L65:
+    jmp	L54
+L61:
     movl	-4(%rbp), %eax
     cltq
     leaq	0(,%rax,4), %rdx
@@ -408,34 +391,34 @@ L65:
     addq	%rdx, %rax
     movl	(%rax), %eax
     cmpl	$255, -4(%rbp)
-    jle	L59
+    jle	L55
     cmpl	$279, -4(%rbp)
-    jle	L60
-L59:
+    jle	L56
+L55:
     movl	$1, %edx
-    jmp	L61
-L60:
+    jmp	L57
+L56:
     movl	$0, %edx
-L61:
+L57:
     addl	$7, %edx
     cmpl	$143, -4(%rbp)
-    jle	L62
+    jle	L58
     cmpl	$255, -4(%rbp)
-    jg	L62
+    jg	L58
     movl	$1, %ecx
-    jmp	L63
-L62:
+    jmp	L59
+L58:
     movl	$0, %ecx
-L63:
+L59:
     addl	%ecx, %edx
     cmpl	%edx, %eax
-    je	L64
+    je	L60
     call	abort
-L64:
+L60:
     addl	$1, -4(%rbp)
-L58:
+L54:
     cmpl	$287, -4(%rbp)
-    jle	L65
+    jle	L61
     nop
     leave
     ret
@@ -449,50 +432,50 @@ _start:
     movq	%rax, -8(%rbp)
     xorl	%eax, %eax
     movl	$0, -1172(%rbp)
-    jmp	L67
-L68:
+    jmp	L63
+L64:
     movl	-1172(%rbp), %eax
     cltq
     movl	$8, -1168(%rbp,%rax,4)
     addl	$1, -1172(%rbp)
-L67:
+L63:
     cmpl	$143, -1172(%rbp)
+    jle	L64
+    jmp	L65
+L66:
+    movl	-1172(%rbp), %eax
+    cltq
+    movl	$9, -1168(%rbp,%rax,4)
+    addl	$1, -1172(%rbp)
+L65:
+    cmpl	$255, -1172(%rbp)
+    jle	L66
+    jmp	L67
+L68:
+    movl	-1172(%rbp), %eax
+    cltq
+    movl	$7, -1168(%rbp,%rax,4)
+    addl	$1, -1172(%rbp)
+L67:
+    cmpl	$279, -1172(%rbp)
     jle	L68
     jmp	L69
 L70:
     movl	-1172(%rbp), %eax
     cltq
-    movl	$9, -1168(%rbp,%rax,4)
-    addl	$1, -1172(%rbp)
-L69:
-    cmpl	$255, -1172(%rbp)
-    jle	L70
-    jmp	L71
-L72:
-    movl	-1172(%rbp), %eax
-    cltq
-    movl	$7, -1168(%rbp,%rax,4)
-    addl	$1, -1172(%rbp)
-L71:
-    cmpl	$279, -1172(%rbp)
-    jle	L72
-    jmp	L73
-L74:
-    movl	-1172(%rbp), %eax
-    cltq
     movl	$8, -1168(%rbp,%rax,4)
     addl	$1, -1172(%rbp)
-L73:
+L69:
     cmpl	$287, -1172(%rbp)
-    jle	L74
+    jle	L70
     leaq	-1168(%rbp), %rax
     movq	%rax, %rdi
     call	check
     movl	$0, %eax
     movq	-8(%rbp), %rdx
     xorq	$40, %rdx
-    je	L76
+    je	L72
     call	__stack_chk_fail
-L76:
+L72:
     leave
     ret

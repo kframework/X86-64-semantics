@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	ieq
@@ -402,60 +385,60 @@ ieq:
     movl	%edx, -12(%rbp)
     movl	-4(%rbp), %eax
     cmpl	-8(%rbp), %eax
-    jg	L58
+    jg	L54
     movl	-4(%rbp), %eax
     cmpl	-8(%rbp), %eax
-    jl	L58
+    jl	L54
     cmpl	$0, -12(%rbp)
-    jne	L60
+    jne	L56
     call	abort
-L58:
+L54:
     cmpl	$0, -12(%rbp)
-    je	L60
+    je	L56
+    call	abort
+L56:
+    movl	-4(%rbp), %eax
+    cmpl	-8(%rbp), %eax
+    jg	L57
+    movl	-4(%rbp), %eax
+    cmpl	-8(%rbp), %eax
+    jne	L57
+    cmpl	$0, -12(%rbp)
+    jne	L59
+    call	abort
+L57:
+    cmpl	$0, -12(%rbp)
+    je	L59
+    call	abort
+L59:
+    movl	-4(%rbp), %eax
+    cmpl	-8(%rbp), %eax
+    jg	L60
+    movl	-8(%rbp), %eax
+    cmpl	-4(%rbp), %eax
+    jg	L60
+    cmpl	$0, -12(%rbp)
+    jne	L62
     call	abort
 L60:
-    movl	-4(%rbp), %eax
-    cmpl	-8(%rbp), %eax
-    jg	L61
-    movl	-4(%rbp), %eax
-    cmpl	-8(%rbp), %eax
-    jne	L61
     cmpl	$0, -12(%rbp)
-    jne	L63
+    je	L62
     call	abort
-L61:
+L62:
+    movl	-8(%rbp), %eax
+    cmpl	-4(%rbp), %eax
+    jne	L63
+    movl	-4(%rbp), %eax
+    cmpl	-8(%rbp), %eax
+    jg	L63
     cmpl	$0, -12(%rbp)
-    je	L63
+    jne	L65
     call	abort
 L63:
-    movl	-4(%rbp), %eax
-    cmpl	-8(%rbp), %eax
-    jg	L64
-    movl	-8(%rbp), %eax
-    cmpl	-4(%rbp), %eax
-    jg	L64
     cmpl	$0, -12(%rbp)
-    jne	L66
+    je	L65
     call	abort
-L64:
-    cmpl	$0, -12(%rbp)
-    je	L66
-    call	abort
-L66:
-    movl	-8(%rbp), %eax
-    cmpl	-4(%rbp), %eax
-    jne	L67
-    movl	-4(%rbp), %eax
-    cmpl	-8(%rbp), %eax
-    jg	L67
-    cmpl	$0, -12(%rbp)
-    jne	L69
-    call	abort
-L67:
-    cmpl	$0, -12(%rbp)
-    je	L69
-    call	abort
-L69:
+L65:
     nop
     leave
     ret
@@ -469,19 +452,19 @@ ine:
     movl	%edx, -12(%rbp)
     movl	-4(%rbp), %eax
     cmpl	-8(%rbp), %eax
-    jl	L71
+    jl	L67
     movl	-4(%rbp), %eax
     cmpl	-8(%rbp), %eax
-    jle	L72
-L71:
+    jle	L68
+L67:
     cmpl	$0, -12(%rbp)
-    jne	L74
+    jne	L70
     call	abort
-L72:
+L68:
     cmpl	$0, -12(%rbp)
-    je	L74
+    je	L70
     call	abort
-L74:
+L70:
     nop
     leave
     ret
@@ -495,18 +478,18 @@ ilt:
     movl	%edx, -12(%rbp)
     movl	-4(%rbp), %eax
     cmpl	-8(%rbp), %eax
-    jge	L76
+    jge	L72
     movl	-4(%rbp), %eax
     cmpl	-8(%rbp), %eax
-    je	L76
+    je	L72
     cmpl	$0, -12(%rbp)
-    jne	L78
+    jne	L74
     call	abort
-L76:
+L72:
     cmpl	$0, -12(%rbp)
-    je	L78
+    je	L74
     call	abort
-L78:
+L74:
     nop
     leave
     ret
@@ -520,19 +503,19 @@ ile:
     movl	%edx, -12(%rbp)
     movl	-4(%rbp), %eax
     cmpl	-8(%rbp), %eax
-    jl	L80
+    jl	L76
     movl	-4(%rbp), %eax
     cmpl	-8(%rbp), %eax
-    jne	L81
-L80:
+    jne	L77
+L76:
     cmpl	$0, -12(%rbp)
-    jne	L83
+    jne	L79
     call	abort
-L81:
+L77:
     cmpl	$0, -12(%rbp)
-    je	L83
+    je	L79
     call	abort
-L83:
+L79:
     nop
     leave
     ret
@@ -546,18 +529,18 @@ igt:
     movl	%edx, -12(%rbp)
     movl	-4(%rbp), %eax
     cmpl	-8(%rbp), %eax
-    jle	L85
+    jle	L81
     movl	-4(%rbp), %eax
     cmpl	-8(%rbp), %eax
-    je	L85
+    je	L81
     cmpl	$0, -12(%rbp)
-    jne	L87
+    jne	L83
     call	abort
-L85:
+L81:
     cmpl	$0, -12(%rbp)
-    je	L87
+    je	L83
     call	abort
-L87:
+L83:
     nop
     leave
     ret
@@ -571,19 +554,19 @@ ige:
     movl	%edx, -12(%rbp)
     movl	-4(%rbp), %eax
     cmpl	-8(%rbp), %eax
-    jg	L89
+    jg	L85
     movl	-4(%rbp), %eax
     cmpl	-8(%rbp), %eax
-    jne	L90
-L89:
+    jne	L86
+L85:
     cmpl	$0, -12(%rbp)
-    jne	L92
+    jne	L88
     call	abort
-L90:
+L86:
     cmpl	$0, -12(%rbp)
-    je	L92
+    je	L88
     call	abort
-L92:
+L88:
     nop
     leave
     ret

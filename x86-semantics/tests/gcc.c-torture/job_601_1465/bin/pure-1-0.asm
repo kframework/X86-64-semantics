@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
 func2:
@@ -478,78 +461,78 @@ _start:
     movl	%eax, -52(%rbp)
     movl	-48(%rbp), %eax
     testl	%eax, %eax
-    je	L70
+    je	L66
     call	link_error0
-L70:
+L66:
     movl	$0, -44(%rbp)
     movl	$0, %edi
     call	func1
     movl	%eax, -52(%rbp)
     movl	-44(%rbp), %eax
     testl	%eax, %eax
-    je	L71
+    je	L67
     call	link_error1
-L71:
+L67:
     movl	$0, -40(%rbp)
     movl	$0, %edi
     call	func2
     movl	%eax, -52(%rbp)
     movl	-40(%rbp), %eax
     testl	%eax, %eax
-    je	L72
+    je	L68
     call	link_error2
-L72:
+L68:
     movl	$0, -36(%rbp)
     movl	$0, %edi
     call	func3
     movl	%eax, -52(%rbp)
     movl	-36(%rbp), %eax
     testl	%eax, %eax
-    je	L73
+    je	L69
     call	link_error3
-L73:
+L69:
     movl	$0, -32(%rbp)
     movl	$0, %edi
     call	func4
     movl	%eax, -52(%rbp)
     movl	-32(%rbp), %eax
     testl	%eax, %eax
-    je	L74
+    je	L70
     call	link_error4
-L74:
+L70:
     movl	$0, -28(%rbp)
     movl	$0, %edi
     call	func5
     movl	%eax, -52(%rbp)
     movl	-28(%rbp), %eax
     testl	%eax, %eax
-    je	L75
+    je	L71
     call	link_error5
-L75:
+L71:
     movl	$0, -24(%rbp)
     movl	$0, %edi
     call	func6
     movl	%eax, -52(%rbp)
     movl	-24(%rbp), %eax
     testl	%eax, %eax
-    je	L76
+    je	L72
     call	link_error6
-L76:
+L72:
     movl	$0, -20(%rbp)
     movl	$0, %edi
     call	func7
     movl	%eax, -52(%rbp)
     movl	-20(%rbp), %eax
     testl	%eax, %eax
-    je	L77
+    je	L73
     call	link_error7
-L77:
+L73:
     movl	-52(%rbp), %eax
     movq	-8(%rbp), %rdx
     xorq	$40, %rdx
-    je	L79
+    je	L75
     call	__stack_chk_fail
-L79:
+L75:
     leave
     ret
     .globl	func0

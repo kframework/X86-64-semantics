@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	a
@@ -410,19 +393,19 @@ bar:
     movl	%edi, -4(%rbp)
     movq	%rsi, -16(%rbp)
     cmpl	$0, -4(%rbp)
-    jne	L58
+    jne	L54
     movq	-16(%rbp), %rax
     vmovsd	(%rax), %xmm0
     vmovsd	LC0(%rip), %xmm1
     vucomisd	%xmm1, %xmm0
-    jp	L58
+    jp	L54
     vmovsd	LC0(%rip), %xmm1
     vucomisd	%xmm1, %xmm0
-    jne	L58
-    jmp	L61
-L58:
+    jne	L54
+    jmp	L57
+L54:
     call	abort
-L61:
+L57:
     leave
     ret
     .globl	main
@@ -435,8 +418,8 @@ _start:
     movq	%rax, -8(%rbp)
     xorl	%eax, %eax
     movl	$0, -20(%rbp)
-    jmp	L63
-L67:
+    jmp	L59
+L63:
     movl	-20(%rbp), %eax
     cltq
     vmovsd	a(,%rax,8), %xmm0
@@ -444,20 +427,20 @@ L67:
     vmovsd	-16(%rbp), %xmm0
     vxorpd	%xmm1, %xmm1, %xmm1
     vucomisd	%xmm1, %xmm0
-    ja	L69
+    ja	L65
     addl	$1, -20(%rbp)
-L63:
+L59:
     cmpl	$2, -20(%rbp)
-    jle	L67
+    jle	L63
     leaq	-16(%rbp), %rax
     movq	%rax, %rsi
     movl	$1, %edi
     call	bar
     movl	$1, %edi
     call	exit
-L69:
+L65:
     nop
-L66:
+L62:
     leaq	-16(%rbp), %rax
     movq	%rax, %rsi
     movl	$0, %edi

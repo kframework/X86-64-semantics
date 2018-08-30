@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .comm	poolptr,8,8
@@ -2157,8 +2140,8 @@ loadpoolstrings:
     movq	$0, -8(%rbp)
     movl	$0, -28(%rbp)
     movl	$0, -24(%rbp)
-    jmp	L60
-L65:
+    jmp	L56
+L61:
     movq	-16(%rbp), %rax
     movq	$-1, %rcx
     movq	%rax, %rdx
@@ -2174,10 +2157,10 @@ L65:
     movl	-28(%rbp), %eax
     cltq
     cmpq	-40(%rbp), %rax
-    jl	L63
+    jl	L59
     movl	$0, %eax
-    jmp	L62
-L64:
+    jmp	L58
+L60:
     movq	strpool(%rip), %rcx
     movq	poolptr(%rip), %rax
     leaq	1(%rax), %rdx
@@ -2188,15 +2171,15 @@ L64:
     movq	%rdx, -16(%rbp)
     movzbl	(%rax), %eax
     movb	%al, (%rcx)
-L63:
+L59:
     movl	-20(%rbp), %eax
     leal	-1(%rax), %edx
     movl	%edx, -20(%rbp)
     testl	%eax, %eax
-    jg	L64
+    jg	L60
     call	makestring
     movq	%rax, -8(%rbp)
-L60:
+L56:
     movl	-24(%rbp), %eax
     leal	1(%rax), %edx
     movl	%edx, -24(%rbp)
@@ -2204,9 +2187,9 @@ L60:
     movq	poolfilearr(,%rax,8), %rax
     movq	%rax, -16(%rbp)
     cmpq	$0, -16(%rbp)
-    jne	L65
+    jne	L61
     movq	-8(%rbp), %rax
-L62:
+L58:
     leave
     ret
     .globl	main
@@ -2220,10 +2203,10 @@ _start:
     movq	%rax, strpool(%rip)
     movq	strpool(%rip), %rax
     testq	%rax, %rax
-    jne	L67
+    jne	L63
     movl	$0, %eax
-    jmp	L68
-L67:
+    jmp	L64
+L63:
     movl	$4000, %edi
     call	loadpoolstrings
     movl	%eax, -4(%rbp)
@@ -2231,6 +2214,6 @@ L67:
     movq	%rax, %rdi
     call	free
     movl	$0, %eax
-L68:
+L64:
     leave
     ret

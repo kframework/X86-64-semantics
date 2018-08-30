@@ -308,9 +308,8 @@ LCOLDB6:
     .text
 LHOTB6:
     .p2align 4,,15
-    .globl	malloc
-malloc:
-    movl	$1000, %eax
+    .globl	free
+free:
     ret
     .section	.textunlikely
 LCOLDE6:
@@ -321,9 +320,19 @@ LCOLDB7:
     .text
 LHOTB7:
     .p2align 4,,15
-    .globl	calloc
-calloc:
-    movl	$1000, %eax
+    .globl	isprint
+isprint:
+    movl	%edi, %edx
+    movl	$1, %eax
+    andl	$-33, %edx
+    subl	$65, %edx
+    cmpl	$25, %edx
+    jbe	L73
+    subl	$48, %edi
+    xorl	%eax, %eax
+    cmpl	$9, %edi
+    setbe	%al
+L73:
     ret
     .section	.textunlikely
 LCOLDE7:
@@ -334,63 +343,28 @@ LCOLDB8:
     .text
 LHOTB8:
     .p2align 4,,15
-    .globl	free
-free:
+    .globl	test
+test:
+    leaq	256(%rsi), %rcx
+    .p2align 4,,10
+    .p2align 3
+L75:
+    movl	%edx, %eax
+    addq	$16, %rsi
+    imulw	-16(%rsi), %ax
+    addl	%eax, %edi
+    cmpq	%rcx, %rsi
+    jne	L75
+    movzwl	%di, %eax
     ret
     .section	.textunlikely
 LCOLDE8:
     .text
 LHOTE8:
     .section	.textunlikely
-LCOLDB9:
-    .text
-LHOTB9:
-    .p2align 4,,15
-    .globl	isprint
-isprint:
-    movl	%edi, %edx
-    movl	$1, %eax
-    andl	$-33, %edx
-    subl	$65, %edx
-    cmpl	$25, %edx
-    jbe	L75
-    subl	$48, %edi
-    xorl	%eax, %eax
-    cmpl	$9, %edi
-    setbe	%al
-L75:
-    ret
-    .section	.textunlikely
-LCOLDE9:
-    .text
-LHOTE9:
-    .section	.textunlikely
-LCOLDB10:
-    .text
-LHOTB10:
-    .p2align 4,,15
-    .globl	test
-test:
-    leaq	256(%rsi), %rcx
-    .p2align 4,,10
-    .p2align 3
-L77:
-    movl	%edx, %eax
-    addq	$16, %rsi
-    imulw	-16(%rsi), %ax
-    addl	%eax, %edi
-    cmpq	%rcx, %rsi
-    jne	L77
-    movzwl	%di, %eax
-    ret
-    .section	.textunlikely
-LCOLDE10:
-    .text
-LHOTE10:
-    .section	.textunlikely
-LCOLDB15:
+LCOLDB13:
     .section	.textstartup,"ax",@progbits
-LHOTB15:
+LHOTB13:
     .p2align 4,,15
     .globl	main
 .globl _start
@@ -408,36 +382,36 @@ _start:
     negq	%rdi
     subq	$8, %rsp
     andl	$15, %edi
-    je	L87
+    je	L85
     movl	%edi, %edx
     xorl	%eax, %eax
     movl	$128, %r8d
     .p2align 4,,10
     .p2align 3
-L81:
+L79:
     movw	%ax, (%rcx)
     movl	%r8d, %esi
     addl	$1, %eax
     addq	$2, %rcx
     subl	%eax, %esi
     cmpl	%eax, %edi
-    jne	L81
+    jne	L79
     movl	%edi, %edi
     movl	%esi, %r10d
     movl	$112, %r9d
     movl	$7, %r8d
-L80:
-    vmovdqa	LC12(%rip), %ymm5
+L78:
+    vmovdqa	LC10(%rip), %ymm5
     vmovd	%edx, %xmm2
     xorl	%eax, %eax
-    vmovdqa	LC13(%rip), %ymm4
+    vmovdqa	LC11(%rip), %ymm4
     vpbroadcastd	%xmm2, %ymm2
-    vpaddd	LC11(%rip), %ymm2, %ymm2
-    vmovdqa	LC14(%rip), %ymm3
+    vpaddd	LC9(%rip), %ymm2, %ymm2
+    vmovdqa	LC12(%rip), %ymm3
     leaq	in(%rdi,%rdi), %rcx
     .p2align 4,,10
     .p2align 3
-L82:
+L80:
     vpaddd	%ymm4, %ymm2, %ymm0
     addl	$1, %eax
     vpand	%ymm2, %ymm3, %ymm1
@@ -448,51 +422,51 @@ L82:
     vpermq	$216, %ymm0, %ymm0
     vmovdqa	%ymm0, -32(%rcx)
     cmpl	%r8d, %eax
-    jb	L82
+    jb	L80
     leal	(%r9,%rdx), %eax
     subl	%r9d, %esi
     cmpl	%r9d, %r10d
-    je	L85
+    je	L83
     leal	(%rax,%rsi), %edx
     .p2align 4,,10
     .p2align 3
-L84:
+L82:
     movslq	%eax, %rcx
     movw	%ax, in(%rcx,%rcx)
     addl	$1, %eax
     cmpl	%edx, %eax
-    jne	L84
-L85:
+    jne	L82
+L83:
     movl	$1, %edx
     movl	$in, %esi
     xorl	%edi, %edi
     vzeroupper
     call	test
     cmpl	$960, %eax
-    jne	L95
+    jne	L93
     addq	$8, %rsp
     xorl	%eax, %eax
     popq	%r10
     popq	%rbp
     leaq	-8(%r10), %rsp
     ret
-L87:
+L85:
     movl	$128, %r9d
     movl	$8, %r8d
     movl	$128, %r10d
     xorl	%edi, %edi
     movl	$128, %esi
     xorl	%edx, %edx
-    jmp	L80
-L95:
+    jmp	L78
+L93:
     call	abort
     .section	.textunlikely
-LCOLDE15:
+LCOLDE13:
     .section	.textstartup
-LHOTE15:
+LHOTE13:
     .comm	in,256,16
     .section	.rodatacst32,"aM",@progbits,32
-LC11:
+LC9:
     .long	0
     .long	1
     .long	2
@@ -501,25 +475,25 @@ LC11:
     .long	5
     .long	6
     .long	7
+LC10:
+    .long	16
+    .long	16
+    .long	16
+    .long	16
+    .long	16
+    .long	16
+    .long	16
+    .long	16
+LC11:
+    .long	8
+    .long	8
+    .long	8
+    .long	8
+    .long	8
+    .long	8
+    .long	8
+    .long	8
 LC12:
-    .long	16
-    .long	16
-    .long	16
-    .long	16
-    .long	16
-    .long	16
-    .long	16
-    .long	16
-LC13:
-    .long	8
-    .long	8
-    .long	8
-    .long	8
-    .long	8
-    .long	8
-    .long	8
-    .long	8
-LC14:
     .long	65535
     .long	65535
     .long	65535

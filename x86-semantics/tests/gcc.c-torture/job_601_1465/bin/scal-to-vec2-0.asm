@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	vlng
@@ -508,8 +491,8 @@ _start:
     vpaddb	%xmm0, %xmm1, %xmm0
     vmovaps	%xmm0, -144(%rbp)
     movl	$0, -200(%rbp)
-    jmp	L66
-L68:
+    jmp	L62
+L64:
     movl	-200(%rbp), %eax
     cltq
     leaq	-144(%rbp), %rdx
@@ -527,13 +510,13 @@ L68:
     movsbl	%al, %eax
     addl	%edx, %eax
     cmpl	%eax, %ebx
-    je	L67
+    je	L63
     call	abort
-L67:
+L63:
     addl	$1, -200(%rbp)
-L66:
+L62:
     cmpl	$15, -200(%rbp)
-    jle	L68
+    jle	L64
     movl	$0, %eax
     call	vsrt
     vmovd	%eax, %xmm0
@@ -543,8 +526,8 @@ L66:
     vpaddw	%xmm0, %xmm1, %xmm0
     vmovaps	%xmm0, -112(%rbp)
     movl	$0, -196(%rbp)
-    jmp	L69
-L71:
+    jmp	L65
+L67:
     movl	-196(%rbp), %eax
     cltq
     leaq	(%rax,%rax), %rdx
@@ -564,13 +547,13 @@ L71:
     cwtl
     addl	%edx, %eax
     cmpl	%eax, %ebx
-    je	L70
+    je	L66
     call	abort
-L70:
+L66:
     addl	$1, -196(%rbp)
-L69:
+L65:
     cmpl	$7, -196(%rbp)
-    jle	L71
+    jle	L67
     movl	$0, %eax
     call	vchr
     movsbw	%al, %di
@@ -602,8 +585,8 @@ L69:
     vpaddw	%xmm0, %xmm1, %xmm0
     vmovaps	%xmm0, -112(%rbp)
     movl	$0, -192(%rbp)
-    jmp	L72
-L74:
+    jmp	L68
+L70:
     movl	-192(%rbp), %eax
     cltq
     leaq	(%rax,%rax), %rdx
@@ -623,13 +606,13 @@ L74:
     cwtl
     addl	%edx, %eax
     cmpl	%eax, %ebx
-    je	L73
+    je	L69
     call	abort
-L73:
+L69:
     addl	$1, -192(%rbp)
-L72:
+L68:
     cmpl	$7, -192(%rbp)
-    jle	L74
+    jle	L70
     movl	$0, %eax
     call	vint
     movl	%eax, -232(%rbp)
@@ -639,8 +622,8 @@ L72:
     vpmulld	%xmm0, %xmm1, %xmm0
     vmovaps	%xmm0, -80(%rbp)
     movl	$0, -188(%rbp)
-    jmp	L75
-L77:
+    jmp	L71
+L73:
     movl	-188(%rbp), %eax
     cltq
     leaq	0(,%rax,4), %rdx
@@ -658,13 +641,13 @@ L77:
     movl	(%rax), %eax
     imull	%ecx, %eax
     cmpl	%eax, %ebx
-    je	L76
+    je	L72
     call	abort
-L76:
+L72:
     addl	$1, -188(%rbp)
-L75:
+L71:
     cmpl	$3, -188(%rbp)
-    jle	L77
+    jle	L73
     movl	$0, %eax
     call	vsrt
     movswl	%ax, %ecx
@@ -681,8 +664,8 @@ L75:
     vpmulld	%xmm0, %xmm1, %xmm0
     vmovaps	%xmm0, -80(%rbp)
     movl	$0, -184(%rbp)
-    jmp	L78
-L80:
+    jmp	L74
+L76:
     movl	-184(%rbp), %eax
     cltq
     leaq	0(,%rax,4), %rdx
@@ -700,13 +683,13 @@ L80:
     movl	(%rax), %eax
     imull	%edx, %eax
     cmpl	%eax, %ebx
-    je	L79
+    je	L75
     call	abort
-L79:
+L75:
     addl	$1, -184(%rbp)
-L78:
+L74:
     cmpl	$3, -184(%rbp)
-    jle	L80
+    jle	L76
     movl	$0, %eax
     call	vchr
     movsbl	%al, %ecx
@@ -723,8 +706,8 @@ L78:
     vpmulld	%xmm0, %xmm1, %xmm0
     vmovaps	%xmm0, -80(%rbp)
     movl	$0, -180(%rbp)
-    jmp	L81
-L83:
+    jmp	L77
+L79:
     movl	-180(%rbp), %eax
     cltq
     leaq	0(,%rax,4), %rdx
@@ -742,13 +725,13 @@ L83:
     movl	(%rax), %eax
     imull	%edx, %eax
     cmpl	%eax, %ebx
-    je	L82
+    je	L78
     call	abort
-L82:
+L78:
     addl	$1, -180(%rbp)
-L81:
+L77:
     cmpl	$3, -180(%rbp)
-    jle	L83
+    jle	L79
     movl	$0, %eax
     call	vlng
     movq	%rax, -232(%rbp)
@@ -765,8 +748,8 @@ L81:
     vpaddq	%xmm0, %xmm2, %xmm0
     vmovaps	%xmm0, -48(%rbp)
     movl	$0, -176(%rbp)
-    jmp	L84
-L86:
+    jmp	L80
+L82:
     movl	-176(%rbp), %eax
     cltq
     leaq	0(,%rax,8), %rdx
@@ -784,13 +767,13 @@ L86:
     movq	(%rax), %rax
     imulq	%rcx, %rax
     cmpq	%rax, %rbx
-    je	L85
+    je	L81
     call	abort
-L85:
+L81:
     addl	$1, -176(%rbp)
-L84:
+L80:
     cmpl	$1, -176(%rbp)
-    jle	L86
+    jle	L82
     movl	$0, %eax
     call	vint
     movslq	%eax, %rdx
@@ -809,8 +792,8 @@ L84:
     vpaddq	%xmm0, %xmm2, %xmm0
     vmovaps	%xmm0, -48(%rbp)
     movl	$0, -172(%rbp)
-    jmp	L87
-L89:
+    jmp	L83
+L85:
     movl	-172(%rbp), %eax
     cltq
     leaq	0(,%rax,8), %rdx
@@ -828,13 +811,13 @@ L89:
     movq	(%rax), %rax
     imulq	%rdx, %rax
     cmpq	%rax, %rbx
-    je	L88
+    je	L84
     call	abort
-L88:
+L84:
     addl	$1, -172(%rbp)
-L87:
+L83:
     cmpl	$1, -172(%rbp)
-    jle	L89
+    jle	L85
     movl	$0, %eax
     call	vsrt
     movswq	%ax, %rdx
@@ -853,8 +836,8 @@ L87:
     vpaddq	%xmm0, %xmm2, %xmm0
     vmovaps	%xmm0, -48(%rbp)
     movl	$0, -168(%rbp)
-    jmp	L90
-L92:
+    jmp	L86
+L88:
     movl	-168(%rbp), %eax
     cltq
     leaq	0(,%rax,8), %rdx
@@ -872,13 +855,13 @@ L92:
     movq	(%rax), %rax
     imulq	%rdx, %rax
     cmpq	%rax, %rbx
-    je	L91
+    je	L87
     call	abort
-L91:
+L87:
     addl	$1, -168(%rbp)
-L90:
+L86:
     cmpl	$1, -168(%rbp)
-    jle	L92
+    jle	L88
     movl	$0, %eax
     call	vchr
     movsbq	%al, %rdx
@@ -897,8 +880,8 @@ L90:
     vpaddq	%xmm0, %xmm2, %xmm0
     vmovaps	%xmm0, -48(%rbp)
     movl	$0, -164(%rbp)
-    jmp	L93
-L95:
+    jmp	L89
+L91:
     movl	-164(%rbp), %eax
     cltq
     leaq	0(,%rax,8), %rdx
@@ -916,19 +899,19 @@ L95:
     movq	(%rax), %rax
     imulq	%rdx, %rax
     cmpq	%rax, %rbx
-    je	L94
+    je	L90
     call	abort
-L94:
+L90:
     addl	$1, -164(%rbp)
-L93:
+L89:
     cmpl	$1, -164(%rbp)
-    jle	L95
+    jle	L91
     movl	$0, %eax
     movq	-24(%rbp), %rdi
     xorq	$40, %rdi
-    je	L97
+    je	L93
     call	__stack_chk_fail
-L97:
+L93:
     addq	$232, %rsp
     popq	%rbx
     popq	%rbp

@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	div1
@@ -520,68 +503,68 @@ _start:
     movl	$-128, %edi
     call	div1
     cmpl	$128, %eax
+    je	L74
+    call	abort
+L74:
+    movl	$-32768, %edi
+    call	div2
+    cmpl	$32768, %eax
+    je	L75
+    call	abort
+L75:
+    movl	$-1, %esi
+    movl	$-128, %edi
+    call	div3
+    cmpl	$128, %eax
+    je	L76
+    call	abort
+L76:
+    movl	$-1, %esi
+    movl	$-32768, %edi
+    call	div4
+    cmpl	$32768, %eax
+    je	L77
+    call	abort
+L77:
+    movl	$-128, %edi
+    call	mod1
+    testl	%eax, %eax
     je	L78
     call	abort
 L78:
     movl	$-32768, %edi
-    call	div2
-    cmpl	$32768, %eax
+    call	mod2
+    testl	%eax, %eax
     je	L79
     call	abort
 L79:
     movl	$-1, %esi
     movl	$-128, %edi
-    call	div3
-    cmpl	$128, %eax
+    call	mod3
+    testl	%eax, %eax
     je	L80
     call	abort
 L80:
     movl	$-1, %esi
     movl	$-32768, %edi
-    call	div4
-    cmpl	$32768, %eax
+    call	mod4
+    testl	%eax, %eax
     je	L81
     call	abort
 L81:
-    movl	$-128, %edi
-    call	mod1
-    testl	%eax, %eax
-    je	L82
-    call	abort
-L82:
-    movl	$-32768, %edi
-    call	mod2
-    testl	%eax, %eax
-    je	L83
-    call	abort
-L83:
-    movl	$-1, %esi
-    movl	$-128, %edi
-    call	mod3
-    testl	%eax, %eax
-    je	L84
-    call	abort
-L84:
-    movl	$-1, %esi
-    movl	$-32768, %edi
-    call	mod4
-    testl	%eax, %eax
-    je	L85
-    call	abort
-L85:
     movl	$2, %esi
     movl	$1342177280, %edi
     call	mod5
     testq	%rax, %rax
-    je	L86
+    je	L82
     call	abort
-L86:
+L82:
     movl	$2, %esi
     movl	$1342177280, %edi
     call	mod6
     testq	%rax, %rax
-    je	L87
+    je	L83
     call	abort
-L87:
+L83:
     movl	$0, %edi
     call	exit

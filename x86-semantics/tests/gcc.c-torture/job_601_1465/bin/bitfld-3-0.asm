@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	a
@@ -471,7 +454,7 @@ _start:
     movabsq	$8589934591, %rdx
     andq	%rdx, %rax
     testq	%rax, %rax
-    jne	L58
+    jne	L54
     movabsq	$8589934591, %rax
     andq	a(%rip), %rax
     movq	%rax, %rdx
@@ -483,7 +466,7 @@ _start:
     movabsq	$1099511627775, %rdx
     andq	%rdx, %rax
     testq	%rax, %rax
-    jne	L58
+    jne	L54
     movabsq	$1099511627775, %rax
     andq	a + 8(%rip), %rax
     movq	%rax, %rdx
@@ -496,7 +479,7 @@ _start:
     movabsq	$1099511627775, %rdx
     andq	%rdx, %rax
     testq	%rax, %rax
-    jne	L58
+    jne	L54
     movabsq	$1099511627775, %rax
     andq	a + 8(%rip), %rax
     movq	%rax, %rdx
@@ -506,10 +489,10 @@ _start:
     movabsq	$1099511627775, %rdx
     andq	%rdx, %rax
     testq	%rax, %rax
-    je	L59
-L58:
+    je	L55
+L54:
     call	abort
-L59:
+L55:
     movabsq	$8589934591, %rax
     andq	a(%rip), %rax
     movq	%rax, %rdx
@@ -522,7 +505,7 @@ L59:
     andq	%rdx, %rax
     movabsq	$1099511627776, %rdx
     cmpq	%rdx, %rax
-    jne	L60
+    jne	L56
     movabsq	$1099511627775, %rax
     andq	a + 8(%rip), %rax
     movq	%rax, %rdx
@@ -535,7 +518,7 @@ L59:
     andq	%rdx, %rax
     movabsq	$1099511627776, %rdx
     cmpq	%rdx, %rax
-    jne	L60
+    jne	L56
     movabsq	$2199023255551, %rax
     andq	a + 16(%rip), %rax
     movq	%rax, %rdx
@@ -549,7 +532,7 @@ L59:
     andq	%rdx, %rax
     movabsq	$1099511627776, %rdx
     cmpq	%rdx, %rax
-    jne	L60
+    jne	L56
     movabsq	$2199023255551, %rax
     andq	a + 16(%rip), %rax
     movq	%rax, %rdx
@@ -563,7 +546,7 @@ L59:
     andq	%rdx, %rax
     movabsq	$1099511627776, %rdx
     cmpq	%rdx, %rax
-    jne	L60
+    jne	L56
     movabsq	$2199023255551, %rax
     andq	a + 16(%rip), %rax
     movq	%rax, %rdx
@@ -574,10 +557,10 @@ L59:
     andq	%rdx, %rax
     movabsq	$1099511627776, %rdx
     cmpq	%rdx, %rax
-    je	L61
-L60:
+    je	L57
+L56:
     call	abort
-L61:
+L57:
     movabsq	$8589934591, %rax
     andq	b(%rip), %rax
     movq	%rax, %rdx
@@ -587,9 +570,9 @@ L61:
     movabsq	$8589934591, %rdx
     andq	%rdx, %rax
     testq	%rax, %rax
-    je	L62
+    je	L58
     call	abort
-L62:
+L58:
     movabsq	$8589934591, %rax
     andq	b(%rip), %rax
     movq	%rax, %rdx
@@ -602,7 +585,7 @@ L62:
     andq	%rdx, %rax
     movabsq	$8589934592, %rdx
     cmpq	%rdx, %rax
-    jne	L63
+    jne	L59
     movabsq	$8589934591, %rax
     andq	b(%rip), %rax
     movq	%rax, %rdx
@@ -615,7 +598,7 @@ L62:
     andq	%rdx, %rax
     movabsq	$8589934592, %rdx
     cmpq	%rdx, %rax
-    jne	L63
+    jne	L59
     movabsq	$1099511627775, %rax
     andq	b + 8(%rip), %rax
     movq	%rax, %rdx
@@ -629,7 +612,7 @@ L62:
     andq	%rdx, %rax
     movabsq	$8589934592, %rdx
     cmpq	%rdx, %rax
-    jne	L63
+    jne	L59
     movabsq	$1099511627775, %rax
     andq	b + 8(%rip), %rax
     movq	%rax, %rdx
@@ -640,7 +623,7 @@ L62:
     andq	%rdx, %rax
     movabsq	$8589934592, %rdx
     cmpq	%rdx, %rax
-    jne	L63
+    jne	L59
     movabsq	$1099511627775, %rax
     andq	b + 8(%rip), %rax
     movq	%rax, %rdx
@@ -653,7 +636,7 @@ L62:
     andq	%rdx, %rax
     movabsq	$8589934592, %rdx
     cmpq	%rdx, %rax
-    jne	L63
+    jne	L59
     movabsq	$2199023255551, %rax
     andq	b + 16(%rip), %rax
     movq	%rax, %rdx
@@ -667,7 +650,7 @@ L62:
     andq	%rdx, %rax
     movabsq	$8589934592, %rdx
     cmpq	%rdx, %rax
-    jne	L63
+    jne	L59
     movabsq	$2199023255551, %rax
     andq	b + 16(%rip), %rax
     movq	%rax, %rdx
@@ -681,7 +664,7 @@ L62:
     andq	%rdx, %rax
     movabsq	$8589934592, %rdx
     cmpq	%rdx, %rax
-    jne	L63
+    jne	L59
     movabsq	$2199023255551, %rax
     andq	b + 16(%rip), %rax
     movq	%rax, %rdx
@@ -692,10 +675,10 @@ L62:
     andq	%rdx, %rax
     movabsq	$8589934592, %rdx
     cmpq	%rdx, %rax
-    je	L64
-L63:
+    je	L60
+L59:
     call	abort
-L64:
+L60:
     movabsq	$8589934591, %rax
     andq	a(%rip), %rax
     movq	%rax, %rdx
@@ -707,7 +690,7 @@ L64:
     andq	%rdx, %rax
     movabsq	$4296015872, %rdx
     cmpq	%rdx, %rax
-    jne	L65
+    jne	L61
     movabsq	$8589934591, %rax
     andq	a(%rip), %rax
     movq	%rax, %rdx
@@ -721,7 +704,7 @@ L64:
     andq	%rdx, %rax
     movabsq	$1095217709056, %rdx
     cmpq	%rdx, %rax
-    jne	L65
+    jne	L61
     movabsq	$8589934591, %rax
     andq	a(%rip), %rax
     movq	%rax, %rdx
@@ -735,7 +718,7 @@ L64:
     andq	%rdx, %rax
     movabsq	$2194729336832, %rdx
     cmpq	%rdx, %rax
-    jne	L65
+    jne	L61
     movabsq	$1099511627775, %rax
     andq	a + 8(%rip), %rax
     movq	%rax, %rdx
@@ -750,7 +733,7 @@ L64:
     andq	%rdx, %rax
     movabsq	$1095217709056, %rdx
     cmpq	%rdx, %rax
-    jne	L65
+    jne	L61
     movabsq	$1099511627775, %rax
     andq	a + 8(%rip), %rax
     movq	%rax, %rdx
@@ -762,7 +745,7 @@ L64:
     andq	%rdx, %rax
     movabsq	$1095217709056, %rdx
     cmpq	%rdx, %rax
-    jne	L65
+    jne	L61
     movabsq	$1099511627775, %rax
     andq	a + 8(%rip), %rax
     movq	%rax, %rdx
@@ -776,7 +759,7 @@ L64:
     andq	%rdx, %rax
     movabsq	$2194729336832, %rdx
     cmpq	%rdx, %rax
-    jne	L65
+    jne	L61
     movabsq	$2199023255551, %rax
     andq	a + 16(%rip), %rax
     movq	%rax, %rdx
@@ -791,7 +774,7 @@ L64:
     andq	%rdx, %rax
     movabsq	$2194729336832, %rdx
     cmpq	%rdx, %rax
-    jne	L65
+    jne	L61
     movabsq	$2199023255551, %rax
     andq	a + 16(%rip), %rax
     movq	%rax, %rdx
@@ -806,7 +789,7 @@ L64:
     andq	%rdx, %rax
     movabsq	$2194729336832, %rdx
     cmpq	%rdx, %rax
-    jne	L65
+    jne	L61
     movabsq	$2199023255551, %rax
     andq	a + 16(%rip), %rax
     movq	%rax, %rdx
@@ -818,10 +801,10 @@ L64:
     andq	%rdx, %rax
     movabsq	$2194729336832, %rdx
     cmpq	%rdx, %rax
-    je	L66
-L65:
+    je	L62
+L61:
     call	abort
-L66:
+L62:
     movabsq	$8589934591, %rax
     andq	c(%rip), %rax
     addq	$1, %rax
@@ -838,7 +821,7 @@ L66:
     movabsq	$8589934591, %rax
     andq	c(%rip), %rax
     testq	%rax, %rax
-    jne	L67
+    jne	L63
     movabsq	$1099511627775, %rax
     andq	c + 8(%rip), %rax
     movq	%rax, %rdx
@@ -859,7 +842,7 @@ L66:
     movq	%rax, %rdx
     movabsq	$1099511627775, %rax
     cmpq	%rax, %rdx
-    jne	L67
+    jne	L63
     movabsq	$2199023255551, %rax
     andq	c + 16(%rip), %rax
     movq	%rax, %rdx
@@ -881,9 +864,9 @@ L66:
     orl	%ecx, %eax
     movw	%ax, c + 20(%rip)
     testq	%rdx, %rdx
-    je	L68
-L67:
+    je	L64
+L63:
     call	abort
-L68:
+L64:
     movl	$0, %edi
     call	exit

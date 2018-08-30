@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .comm	an_array,5,1
@@ -407,64 +390,64 @@ f:
     movq	%rsi, -64(%rbp)
     movb	%al, -52(%rbp)
     cmpq	$0, -64(%rbp)
-    je	L58
+    je	L54
     movl	yabba(%rip), %eax
     testl	%eax, %eax
-    je	L59
+    je	L55
     movl	$-1, %eax
-    jmp	L57
-L59:
+    jmp	L53
+L55:
     movl	$4000000, %eax
     movl	$0, %edx
     divq	-64(%rbp)
     movq	%rax, -24(%rbp)
     movq	$0, -48(%rbp)
-    jmp	L61
-L69:
+    jmp	L57
+L65:
     movq	$0, -40(%rbp)
-    jmp	L62
-L68:
+    jmp	L58
+L64:
     movq	-16(%rbp), %rax
     subq	-24(%rbp), %rax
     testq	%rax, %rax
-    jns	L63
+    jns	L59
     movq	-24(%rbp), %rax
     negq	%rax
     movq	%rax, %rdx
-    jmp	L64
-L63:
+    jmp	L60
+L59:
     movl	$0, %edx
-L64:
+L60:
     movq	-8(%rbp), %rax
     subq	-24(%rbp), %rax
     testq	%rax, %rax
-    jns	L65
+    jns	L61
     movq	-24(%rbp), %rax
     negq	%rax
-    jmp	L66
-L65:
+    jmp	L62
+L61:
     movq	-8(%rbp), %rax
-L66:
+L62:
     cmpq	%rax, %rdx
-    jge	L67
+    jge	L63
     movq	-48(%rbp), %rax
     movq	%rax, -32(%rbp)
-L67:
+L63:
     addq	$1, -40(%rbp)
-L62:
-    cmpq	$255, -40(%rbp)
-    jle	L68
-    addq	$1, -48(%rbp)
-L61:
-    cmpq	$10, -48(%rbp)
-    jle	L69
 L58:
+    cmpq	$255, -40(%rbp)
+    jle	L64
+    addq	$1, -48(%rbp)
+L57:
+    cmpq	$10, -48(%rbp)
+    jle	L65
+L54:
     movl	yabba(%rip), %eax
     testl	%eax, %eax
-    je	L70
+    je	L66
     movl	$0, %eax
-    jmp	L57
-L70:
+    jmp	L53
+L66:
     movzbl	-52(%rbp), %eax
     cltq
     addq	$an_array, %rax
@@ -472,7 +455,7 @@ L70:
     movq	a_ptr(%rip), %rax
     movq	-32(%rbp), %rdx
     movb	%dl, (%rax)
-L57:
+L53:
     popq	%rbp
     ret
     .globl	main
@@ -485,8 +468,8 @@ _start:
     movl	$0, %eax
     call	f
     testl	%eax, %eax
-    je	L72
+    je	L68
     call	abort
-L72:
+L68:
     movl	$0, %edi
     call	exit

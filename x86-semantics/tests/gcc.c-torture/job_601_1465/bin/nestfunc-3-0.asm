@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,31 +351,31 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
-nested_02455:
+nested_02448:
     pushq	%rbp
     movq	%rsp, %rbp
     movq	%rdi, -8(%rbp)
@@ -401,14 +384,14 @@ nested_02455:
     movq	-16(%rbp), %rax
     addq	%rax, %rax
     cmpq	-8(%rbp), %rax
-    jge	L58
+    jge	L54
     movq	-8(%rbp), %rax
     subq	-16(%rbp), %rax
-    jmp	L59
-L58:
+    jmp	L55
+L54:
     movq	-16(%rbp), %rax
     subq	-8(%rbp), %rax
-L59:
+L55:
     popq	%rbp
     ret
     .globl	main
@@ -423,7 +406,7 @@ _start:
     leaq	-64(%rbp), %rax
     addq	$32, %rax
     leaq	-64(%rbp), %rdx
-    movl	$nested_02455, %ecx
+    movl	$nested_02448, %ecx
     movw	$-17599, (%rax)
     movl	%ecx, 2(%rax)
     movw	$-17847, 6(%rax)
@@ -432,7 +415,7 @@ _start:
     leaq	-64(%rbp), %rax
     addq	$8, %rax
     leaq	-64(%rbp), %rdx
-    movl	$nested_22463, %ecx
+    movl	$nested_22456, %ecx
     movw	$-17599, (%rax)
     movl	%ecx, 2(%rax)
     movw	$-17847, 6(%rax)
@@ -441,24 +424,24 @@ _start:
     movl	$0, %eax
     movq	%rax, -64(%rbp)
     movq	$0, -88(%rbp)
-    jmp	L61
-L68:
+    jmp	L57
+L64:
     movq	$0, -80(%rbp)
-    jmp	L62
-L67:
+    jmp	L58
+L63:
     movq	$0, -72(%rbp)
-    jmp	L63
-L66:
+    jmp	L59
+L62:
     movq	-80(%rbp), %rax
     cmpq	-72(%rbp), %rax
-    jle	L64
+    jle	L60
     movq	-80(%rbp), %rax
     subq	-72(%rbp), %rax
-    jmp	L65
-L64:
+    jmp	L61
+L60:
     movq	-72(%rbp), %rax
     subq	-80(%rbp), %rax
-L65:
+L61:
     leaq	-64(%rbp), %rdx
     addq	$8, %rdx
     movq	-88(%rbp), %rcx
@@ -470,27 +453,27 @@ L65:
     addq	%rdx, %rax
     movq	%rax, -64(%rbp)
     addq	$1, -72(%rbp)
-L63:
+L59:
     cmpq	$9, -72(%rbp)
-    jle	L66
+    jle	L62
     addq	$1, -80(%rbp)
-L62:
+L58:
     cmpq	$9, -80(%rbp)
-    jle	L67
+    jle	L63
     addq	$1, -88(%rbp)
-L61:
+L57:
     cmpq	$9, -88(%rbp)
-    jle	L68
+    jle	L64
     movq	-64(%rbp), %rax
     movl	%eax, %edx
     movl	$3201289205, %eax
     cmpq	%rax, %rdx
-    je	L69
+    je	L65
     call	abort
-L69:
+L65:
     movl	$0, %edi
     call	exit
-nested_12459:
+nested_12452:
     pushq	%rbp
     movq	%rsp, %rbp
     pushq	%rbx
@@ -513,7 +496,7 @@ nested_12459:
     popq	%rbx
     popq	%rbp
     ret
-nested_22463:
+nested_22456:
     pushq	%rbp
     movq	%rsp, %rbp
     subq	$32, %rsp
@@ -526,7 +509,7 @@ nested_22463:
     movq	%rcx, %r10
     movq	%rdx, %rsi
     movq	%rax, %rdi
-    call	nested_12459
+    call	nested_12452
     leave
     ret
     .globl	use

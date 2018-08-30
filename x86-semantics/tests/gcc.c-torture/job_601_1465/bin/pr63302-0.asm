@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	foo
@@ -410,7 +393,7 @@ foo:
     movq	-8(%rbp), %rax
     orq	-16(%rbp), %rax
     testq	%rax, %rax
-    je	L58
+    je	L54
     movabsq	$-9223372036854775808, %rax
     movq	$-1, %rdx
     movq	%rdx, %rcx
@@ -418,13 +401,13 @@ foo:
     xorq	-16(%rbp), %rax
     orq	%rcx, %rax
     testq	%rax, %rax
-    jne	L59
-L58:
+    jne	L55
+L54:
     movl	$1, %eax
-    jmp	L60
-L59:
+    jmp	L56
+L55:
     movl	$0, %eax
-L60:
+L56:
     popq	%rbp
     ret
     .globl	bar
@@ -436,15 +419,15 @@ bar:
     andq	$-2147481601, %rax
     movq	%rax, -8(%rbp)
     cmpq	$0, -8(%rbp)
-    je	L63
+    je	L59
     cmpq	$-2147483648, -8(%rbp)
-    jne	L64
-L63:
+    jne	L60
+L59:
     movl	$1, %eax
-    jmp	L65
-L64:
+    jmp	L61
+L60:
     movl	$0, %eax
-L65:
+L61:
     popq	%rbp
     ret
     .globl	main
@@ -458,105 +441,105 @@ _start:
     movq	%rax, %rsi
     call	foo
     cmpl	$1, %eax
-    jne	L68
+    jne	L64
     movl	$1, %edx
     movl	$0, %eax
     movq	%rdx, %rdi
     movq	%rax, %rsi
     call	foo
     testl	%eax, %eax
-    jne	L68
+    jne	L64
     movl	$2048, %edx
     movl	$0, %eax
     movq	%rdx, %rdi
     movq	%rax, %rsi
     call	foo
     cmpl	$1, %eax
-    jne	L68
+    jne	L64
     movl	$2049, %edx
     movl	$0, %eax
     movq	%rdx, %rdi
     movq	%rax, %rsi
     call	foo
     testl	%eax, %eax
-    jne	L68
+    jne	L64
     movabsq	$-9223372036854775808, %rax
     movl	$0, %edx
     movq	%rax, %rdi
     movq	%rdx, %rsi
     call	foo
     testl	%eax, %eax
-    jne	L68
+    jne	L64
     movabsq	$-9223372036854775808, %rax
     movq	$-1, %rdx
     movq	%rax, %rdi
     movq	%rdx, %rsi
     call	foo
     cmpl	$1, %eax
-    jne	L68
+    jne	L64
     movabsq	$-9223372036854775807, %rax
     movq	$-1, %rdx
     movq	%rax, %rdi
     movq	%rdx, %rsi
     call	foo
     testl	%eax, %eax
-    jne	L68
+    jne	L64
     movabsq	$-9223372036854773760, %rax
     movq	$-1, %rdx
     movq	%rax, %rdi
     movq	%rdx, %rsi
     call	foo
     cmpl	$1, %eax
-    jne	L68
+    jne	L64
     movabsq	$-9223372036854773759, %rax
     movq	$-1, %rdx
     movq	%rax, %rdi
     movq	%rdx, %rsi
     call	foo
     testl	%eax, %eax
-    je	L69
-L68:
+    je	L65
+L64:
     call	abort
-L69:
+L65:
     movl	$0, %edi
     call	bar
     cmpl	$1, %eax
-    jne	L70
+    jne	L66
     movl	$1, %edi
     call	bar
     testl	%eax, %eax
-    jne	L70
+    jne	L66
     movl	$2048, %edi
     call	bar
     cmpl	$1, %eax
-    jne	L70
+    jne	L66
     movl	$2049, %edi
     call	bar
     testl	%eax, %eax
-    jne	L70
+    jne	L66
     movl	$2147483648, %edi
     call	bar
     testl	%eax, %eax
-    jne	L70
+    jne	L66
     movq	$-2147483648, %rdi
     call	bar
     cmpl	$1, %eax
-    jne	L70
+    jne	L66
     movq	$-2147483647, %rdi
     call	bar
     testl	%eax, %eax
-    jne	L70
+    jne	L66
     movq	$-2147481600, %rdi
     call	bar
     cmpl	$1, %eax
-    jne	L70
+    jne	L66
     movq	$-2147481599, %rdi
     call	bar
     testl	%eax, %eax
-    je	L71
-L70:
+    je	L67
+L66:
     call	abort
-L71:
+L67:
     movl	$0, %eax
     popq	%rbp
     ret

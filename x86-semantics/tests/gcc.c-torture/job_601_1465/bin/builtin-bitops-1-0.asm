@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	my_ffs
@@ -398,31 +381,31 @@ my_ffs:
     movq	%rsp, %rbp
     movl	%edi, -20(%rbp)
     cmpl	$0, -20(%rbp)
-    jne	L58
+    jne	L54
     movl	$0, %eax
-    jmp	L59
-L58:
+    jmp	L55
+L54:
     movl	$0, -4(%rbp)
-    jmp	L60
-L63:
+    jmp	L56
+L59:
     movl	-4(%rbp), %eax
     movl	-20(%rbp), %edx
     shrx	%eax, %edx, %eax
     andl	$1, %eax
     testl	%eax, %eax
-    jne	L64
+    jne	L60
     addl	$1, -4(%rbp)
-L60:
+L56:
     movl	-4(%rbp), %eax
     cmpl	$31, %eax
-    jbe	L63
-    jmp	L62
-L64:
+    jbe	L59
+    jmp	L58
+L60:
     nop
-L62:
+L58:
     movl	-4(%rbp), %eax
     addl	$1, %eax
-L59:
+L55:
     popq	%rbp
     ret
     .globl	my_ctz
@@ -431,23 +414,23 @@ my_ctz:
     movq	%rsp, %rbp
     movl	%edi, -20(%rbp)
     movl	$0, -4(%rbp)
-    jmp	L66
-L69:
+    jmp	L62
+L65:
     movl	-4(%rbp), %eax
     movl	-20(%rbp), %edx
     shrx	%eax, %edx, %eax
     andl	$1, %eax
     testl	%eax, %eax
-    jne	L71
+    jne	L67
     addl	$1, -4(%rbp)
-L66:
+L62:
     movl	-4(%rbp), %eax
     cmpl	$31, %eax
-    jbe	L69
-    jmp	L68
-L71:
+    jbe	L65
+    jmp	L64
+L67:
     nop
-L68:
+L64:
     movl	-4(%rbp), %eax
     popq	%rbp
     ret
@@ -457,8 +440,8 @@ my_clz:
     movq	%rsp, %rbp
     movl	%edi, -20(%rbp)
     movl	$0, -4(%rbp)
-    jmp	L73
-L76:
+    jmp	L69
+L72:
     movl	-4(%rbp), %eax
     movl	$31, %edx
     subl	%eax, %edx
@@ -467,16 +450,16 @@ L76:
     shrx	%eax, %edx, %eax
     andl	$1, %eax
     testl	%eax, %eax
-    jne	L78
+    jne	L74
     addl	$1, -4(%rbp)
-L73:
+L69:
     movl	-4(%rbp), %eax
     cmpl	$31, %eax
-    jbe	L76
-    jmp	L75
-L78:
+    jbe	L72
+    jmp	L71
+L74:
     nop
-L75:
+L71:
     movl	-4(%rbp), %eax
     popq	%rbp
     ret
@@ -489,8 +472,8 @@ my_clrsb:
     shrl	$31, %eax
     movl	%eax, -4(%rbp)
     movl	$1, -8(%rbp)
-    jmp	L80
-L83:
+    jmp	L76
+L79:
     movl	-8(%rbp), %eax
     movl	$31, %edx
     subl	%eax, %edx
@@ -501,16 +484,16 @@ L83:
     movl	%eax, %edx
     movl	-4(%rbp), %eax
     cmpl	%eax, %edx
-    jne	L85
+    jne	L81
     addl	$1, -8(%rbp)
-L80:
+L76:
     movl	-8(%rbp), %eax
     cmpl	$31, %eax
-    jbe	L83
-    jmp	L82
-L85:
+    jbe	L79
+    jmp	L78
+L81:
     nop
-L82:
+L78:
     movl	-8(%rbp), %eax
     subl	$1, %eax
     popq	%rbp
@@ -522,21 +505,21 @@ my_popcount:
     movl	%edi, -20(%rbp)
     movl	$0, -4(%rbp)
     movl	$0, -8(%rbp)
-    jmp	L87
-L89:
+    jmp	L83
+L85:
     movl	-8(%rbp), %eax
     movl	-20(%rbp), %edx
     shrx	%eax, %edx, %eax
     andl	$1, %eax
     testl	%eax, %eax
-    je	L88
+    je	L84
     addl	$1, -4(%rbp)
-L88:
+L84:
     addl	$1, -8(%rbp)
-L87:
+L83:
     movl	-8(%rbp), %eax
     cmpl	$31, %eax
-    jbe	L89
+    jbe	L85
     movl	-4(%rbp), %eax
     popq	%rbp
     ret
@@ -547,21 +530,21 @@ my_parity:
     movl	%edi, -20(%rbp)
     movl	$0, -4(%rbp)
     movl	$0, -8(%rbp)
-    jmp	L92
-L94:
+    jmp	L88
+L90:
     movl	-8(%rbp), %eax
     movl	-20(%rbp), %edx
     shrx	%eax, %edx, %eax
     andl	$1, %eax
     testl	%eax, %eax
-    je	L93
+    je	L89
     addl	$1, -4(%rbp)
-L93:
+L89:
     addl	$1, -8(%rbp)
-L92:
+L88:
     movl	-8(%rbp), %eax
     cmpl	$31, %eax
-    jbe	L94
+    jbe	L90
     movl	-4(%rbp), %eax
     andl	$1, %eax
     popq	%rbp
@@ -572,31 +555,31 @@ my_ffsl:
     movq	%rsp, %rbp
     movq	%rdi, -24(%rbp)
     cmpq	$0, -24(%rbp)
-    jne	L97
+    jne	L93
     movl	$0, %eax
-    jmp	L98
-L97:
+    jmp	L94
+L93:
     movl	$0, -4(%rbp)
-    jmp	L99
-L102:
+    jmp	L95
+L98:
     movl	-4(%rbp), %eax
     movq	-24(%rbp), %rdx
     shrx	%rax, %rdx, %rax
     andl	$1, %eax
     testq	%rax, %rax
-    jne	L103
+    jne	L99
     addl	$1, -4(%rbp)
-L99:
+L95:
     movl	-4(%rbp), %eax
     cmpl	$63, %eax
-    jbe	L102
-    jmp	L101
-L103:
+    jbe	L98
+    jmp	L97
+L99:
     nop
-L101:
+L97:
     movl	-4(%rbp), %eax
     addl	$1, %eax
-L98:
+L94:
     popq	%rbp
     ret
     .globl	my_ctzl
@@ -605,23 +588,23 @@ my_ctzl:
     movq	%rsp, %rbp
     movq	%rdi, -24(%rbp)
     movl	$0, -4(%rbp)
-    jmp	L105
-L108:
+    jmp	L101
+L104:
     movl	-4(%rbp), %eax
     movq	-24(%rbp), %rdx
     shrx	%rax, %rdx, %rax
     andl	$1, %eax
     testq	%rax, %rax
-    jne	L110
+    jne	L106
     addl	$1, -4(%rbp)
-L105:
+L101:
     movl	-4(%rbp), %eax
     cmpl	$63, %eax
-    jbe	L108
-    jmp	L107
-L110:
+    jbe	L104
+    jmp	L103
+L106:
     nop
-L107:
+L103:
     movl	-4(%rbp), %eax
     popq	%rbp
     ret
@@ -631,8 +614,8 @@ my_clzl:
     movq	%rsp, %rbp
     movq	%rdi, -24(%rbp)
     movl	$0, -4(%rbp)
-    jmp	L112
-L115:
+    jmp	L108
+L111:
     movl	-4(%rbp), %eax
     movl	$63, %edx
     subl	%eax, %edx
@@ -641,16 +624,16 @@ L115:
     shrx	%rax, %rdx, %rax
     andl	$1, %eax
     testq	%rax, %rax
-    jne	L117
+    jne	L113
     addl	$1, -4(%rbp)
-L112:
+L108:
     movl	-4(%rbp), %eax
     cmpl	$63, %eax
-    jbe	L115
-    jmp	L114
-L117:
+    jbe	L111
+    jmp	L110
+L113:
     nop
-L114:
+L110:
     movl	-4(%rbp), %eax
     popq	%rbp
     ret
@@ -663,8 +646,8 @@ my_clrsbl:
     shrq	$63, %rax
     movl	%eax, -4(%rbp)
     movl	$1, -8(%rbp)
-    jmp	L119
-L122:
+    jmp	L115
+L118:
     movl	-8(%rbp), %eax
     movl	$63, %edx
     subl	%eax, %edx
@@ -676,16 +659,16 @@ L122:
     movl	-4(%rbp), %eax
     cltq
     cmpq	%rax, %rdx
-    jne	L124
+    jne	L120
     addl	$1, -8(%rbp)
-L119:
+L115:
     movl	-8(%rbp), %eax
     cmpl	$63, %eax
-    jbe	L122
-    jmp	L121
-L124:
+    jbe	L118
+    jmp	L117
+L120:
     nop
-L121:
+L117:
     movl	-8(%rbp), %eax
     subl	$1, %eax
     popq	%rbp
@@ -697,21 +680,21 @@ my_popcountl:
     movq	%rdi, -24(%rbp)
     movl	$0, -4(%rbp)
     movl	$0, -8(%rbp)
-    jmp	L126
-L128:
+    jmp	L122
+L124:
     movl	-8(%rbp), %eax
     movq	-24(%rbp), %rdx
     shrx	%rax, %rdx, %rax
     andl	$1, %eax
     testq	%rax, %rax
-    je	L127
+    je	L123
     addl	$1, -4(%rbp)
-L127:
+L123:
     addl	$1, -8(%rbp)
-L126:
+L122:
     movl	-8(%rbp), %eax
     cmpl	$63, %eax
-    jbe	L128
+    jbe	L124
     movl	-4(%rbp), %eax
     popq	%rbp
     ret
@@ -722,21 +705,21 @@ my_parityl:
     movq	%rdi, -24(%rbp)
     movl	$0, -4(%rbp)
     movl	$0, -8(%rbp)
-    jmp	L131
-L133:
+    jmp	L127
+L129:
     movl	-8(%rbp), %eax
     movq	-24(%rbp), %rdx
     shrx	%rax, %rdx, %rax
     andl	$1, %eax
     testq	%rax, %rax
-    je	L132
+    je	L128
     addl	$1, -4(%rbp)
-L132:
+L128:
     addl	$1, -8(%rbp)
-L131:
+L127:
     movl	-8(%rbp), %eax
     cmpl	$63, %eax
-    jbe	L133
+    jbe	L129
     movl	-4(%rbp), %eax
     andl	$1, %eax
     popq	%rbp
@@ -747,31 +730,31 @@ my_ffsll:
     movq	%rsp, %rbp
     movq	%rdi, -24(%rbp)
     cmpq	$0, -24(%rbp)
-    jne	L136
+    jne	L132
     movl	$0, %eax
-    jmp	L137
-L136:
+    jmp	L133
+L132:
     movl	$0, -4(%rbp)
-    jmp	L138
-L141:
+    jmp	L134
+L137:
     movl	-4(%rbp), %eax
     movq	-24(%rbp), %rdx
     shrx	%rax, %rdx, %rax
     andl	$1, %eax
     testq	%rax, %rax
-    jne	L142
+    jne	L138
     addl	$1, -4(%rbp)
-L138:
+L134:
     movl	-4(%rbp), %eax
     cmpl	$63, %eax
-    jbe	L141
-    jmp	L140
-L142:
+    jbe	L137
+    jmp	L136
+L138:
     nop
-L140:
+L136:
     movl	-4(%rbp), %eax
     addl	$1, %eax
-L137:
+L133:
     popq	%rbp
     ret
     .globl	my_ctzll
@@ -780,23 +763,23 @@ my_ctzll:
     movq	%rsp, %rbp
     movq	%rdi, -24(%rbp)
     movl	$0, -4(%rbp)
-    jmp	L144
-L147:
+    jmp	L140
+L143:
     movl	-4(%rbp), %eax
     movq	-24(%rbp), %rdx
     shrx	%rax, %rdx, %rax
     andl	$1, %eax
     testq	%rax, %rax
-    jne	L149
+    jne	L145
     addl	$1, -4(%rbp)
-L144:
+L140:
     movl	-4(%rbp), %eax
     cmpl	$63, %eax
-    jbe	L147
-    jmp	L146
-L149:
+    jbe	L143
+    jmp	L142
+L145:
     nop
-L146:
+L142:
     movl	-4(%rbp), %eax
     popq	%rbp
     ret
@@ -806,8 +789,8 @@ my_clzll:
     movq	%rsp, %rbp
     movq	%rdi, -24(%rbp)
     movl	$0, -4(%rbp)
-    jmp	L151
-L154:
+    jmp	L147
+L150:
     movl	-4(%rbp), %eax
     movl	$63, %edx
     subl	%eax, %edx
@@ -816,16 +799,16 @@ L154:
     shrx	%rax, %rdx, %rax
     andl	$1, %eax
     testq	%rax, %rax
-    jne	L156
+    jne	L152
     addl	$1, -4(%rbp)
-L151:
+L147:
     movl	-4(%rbp), %eax
     cmpl	$63, %eax
-    jbe	L154
-    jmp	L153
-L156:
+    jbe	L150
+    jmp	L149
+L152:
     nop
-L153:
+L149:
     movl	-4(%rbp), %eax
     popq	%rbp
     ret
@@ -838,8 +821,8 @@ my_clrsbll:
     shrq	$63, %rax
     movl	%eax, -4(%rbp)
     movl	$1, -8(%rbp)
-    jmp	L158
-L161:
+    jmp	L154
+L157:
     movl	-8(%rbp), %eax
     movl	$63, %edx
     subl	%eax, %edx
@@ -851,16 +834,16 @@ L161:
     movl	-4(%rbp), %eax
     cltq
     cmpq	%rax, %rdx
-    jne	L163
+    jne	L159
     addl	$1, -8(%rbp)
-L158:
+L154:
     movl	-8(%rbp), %eax
     cmpl	$63, %eax
-    jbe	L161
-    jmp	L160
-L163:
+    jbe	L157
+    jmp	L156
+L159:
     nop
-L160:
+L156:
     movl	-8(%rbp), %eax
     subl	$1, %eax
     popq	%rbp
@@ -872,21 +855,21 @@ my_popcountll:
     movq	%rdi, -24(%rbp)
     movl	$0, -4(%rbp)
     movl	$0, -8(%rbp)
-    jmp	L165
-L167:
+    jmp	L161
+L163:
     movl	-8(%rbp), %eax
     movq	-24(%rbp), %rdx
     shrx	%rax, %rdx, %rax
     andl	$1, %eax
     testq	%rax, %rax
-    je	L166
+    je	L162
     addl	$1, -4(%rbp)
-L166:
+L162:
     addl	$1, -8(%rbp)
-L165:
+L161:
     movl	-8(%rbp), %eax
     cmpl	$63, %eax
-    jbe	L167
+    jbe	L163
     movl	-4(%rbp), %eax
     popq	%rbp
     ret
@@ -897,21 +880,21 @@ my_parityll:
     movq	%rdi, -24(%rbp)
     movl	$0, -4(%rbp)
     movl	$0, -8(%rbp)
-    jmp	L170
-L172:
+    jmp	L166
+L168:
     movl	-8(%rbp), %eax
     movq	-24(%rbp), %rdx
     shrx	%rax, %rdx, %rax
     andl	$1, %eax
     testq	%rax, %rax
-    je	L171
+    je	L167
     addl	$1, -4(%rbp)
-L171:
+L167:
     addl	$1, -8(%rbp)
-L170:
+L166:
     movl	-8(%rbp), %eax
     cmpl	$63, %eax
-    jbe	L172
+    jbe	L168
     movl	-4(%rbp), %eax
     andl	$1, %eax
     popq	%rbp
@@ -972,8 +955,8 @@ _start:
     pushq	%rbx
     subq	$24, %rsp
     movl	$0, -20(%rbp)
-    jmp	L175
-L182:
+    jmp	L171
+L178:
     movl	-20(%rbp), %eax
     cltq
     movl	ints(,%rax,4), %eax
@@ -988,14 +971,14 @@ L182:
     movl	%eax, %edi
     call	my_ffs
     cmpl	%eax, %ebx
-    je	L176
+    je	L172
     call	abort
-L176:
+L172:
     movl	-20(%rbp), %eax
     cltq
     movl	ints(,%rax,4), %eax
     testl	%eax, %eax
-    je	L177
+    je	L173
     movl	-20(%rbp), %eax
     cltq
     movl	ints(,%rax,4), %eax
@@ -1007,14 +990,14 @@ L176:
     movl	%eax, %edi
     call	my_clz
     cmpl	%eax, %ebx
-    je	L177
+    je	L173
     call	abort
-L177:
+L173:
     movl	-20(%rbp), %eax
     cltq
     movl	ints(,%rax,4), %eax
     testl	%eax, %eax
-    je	L178
+    je	L174
     movl	-20(%rbp), %eax
     cltq
     movl	ints(,%rax,4), %eax
@@ -1026,9 +1009,9 @@ L177:
     movl	%eax, %edi
     call	my_ctz
     cmpl	%eax, %ebx
-    je	L178
+    je	L174
     call	abort
-L178:
+L174:
     movl	-20(%rbp), %eax
     cltq
     movl	ints(,%rax,4), %eax
@@ -1044,9 +1027,9 @@ L178:
     movl	%eax, %edi
     call	my_clrsb
     cmpl	%eax, %ebx
-    je	L179
+    je	L175
     call	abort
-L179:
+L175:
     movl	-20(%rbp), %eax
     cltq
     movl	ints(,%rax,4), %eax
@@ -1058,9 +1041,9 @@ L179:
     movl	%eax, %edi
     call	my_popcount
     cmpl	%eax, %ebx
-    je	L180
+    je	L176
     call	abort
-L180:
+L176:
     movl	-20(%rbp), %eax
     cltq
     movl	ints(,%rax,4), %eax
@@ -1073,17 +1056,17 @@ L180:
     movl	%eax, %edi
     call	my_parity
     cmpl	%eax, %ebx
-    je	L181
+    je	L177
     call	abort
-L181:
+L177:
     addl	$1, -20(%rbp)
-L175:
+L171:
     movl	-20(%rbp), %eax
     cmpl	$12, %eax
-    jbe	L182
+    jbe	L178
     movl	$0, -20(%rbp)
-    jmp	L183
-L190:
+    jmp	L179
+L186:
     movl	-20(%rbp), %eax
     cltq
     movq	longs(,%rax,8), %rax
@@ -1098,14 +1081,14 @@ L190:
     movq	%rax, %rdi
     call	my_ffsl
     cmpl	%eax, %ebx
-    je	L184
+    je	L180
     call	abort
-L184:
+L180:
     movl	-20(%rbp), %eax
     cltq
     movq	longs(,%rax,8), %rax
     testq	%rax, %rax
-    je	L185
+    je	L181
     movl	-20(%rbp), %eax
     cltq
     movq	longs(,%rax,8), %rax
@@ -1117,14 +1100,14 @@ L184:
     movq	%rax, %rdi
     call	my_clzl
     cmpl	%eax, %ebx
-    je	L185
+    je	L181
     call	abort
-L185:
+L181:
     movl	-20(%rbp), %eax
     cltq
     movq	longs(,%rax,8), %rax
     testq	%rax, %rax
-    je	L186
+    je	L182
     movl	-20(%rbp), %eax
     cltq
     movq	longs(,%rax,8), %rax
@@ -1136,9 +1119,9 @@ L185:
     movq	%rax, %rdi
     call	my_ctzl
     cmpl	%eax, %ebx
-    je	L186
+    je	L182
     call	abort
-L186:
+L182:
     movl	-20(%rbp), %eax
     cltq
     movq	longs(,%rax,8), %rax
@@ -1151,9 +1134,9 @@ L186:
     movq	%rax, %rdi
     call	my_clrsbl
     cmpl	%eax, %ebx
-    je	L187
+    je	L183
     call	abort
-L187:
+L183:
     movl	-20(%rbp), %eax
     cltq
     movq	longs(,%rax,8), %rax
@@ -1165,9 +1148,9 @@ L187:
     movq	%rax, %rdi
     call	my_popcountl
     cmpl	%eax, %ebx
-    je	L188
+    je	L184
     call	abort
-L188:
+L184:
     movl	-20(%rbp), %eax
     cltq
     movq	longs(,%rax,8), %rax
@@ -1180,17 +1163,17 @@ L188:
     movq	%rax, %rdi
     call	my_parityl
     cmpl	%eax, %ebx
-    je	L189
+    je	L185
     call	abort
-L189:
+L185:
     addl	$1, -20(%rbp)
-L183:
+L179:
     movl	-20(%rbp), %eax
     cmpl	$12, %eax
-    jbe	L190
+    jbe	L186
     movl	$0, -20(%rbp)
-    jmp	L191
-L198:
+    jmp	L187
+L194:
     movl	-20(%rbp), %eax
     cltq
     movq	longlongs(,%rax,8), %rax
@@ -1205,14 +1188,14 @@ L198:
     movq	%rax, %rdi
     call	my_ffsll
     cmpl	%eax, %ebx
-    je	L192
+    je	L188
     call	abort
-L192:
+L188:
     movl	-20(%rbp), %eax
     cltq
     movq	longlongs(,%rax,8), %rax
     testq	%rax, %rax
-    je	L193
+    je	L189
     movl	-20(%rbp), %eax
     cltq
     movq	longlongs(,%rax,8), %rax
@@ -1224,14 +1207,14 @@ L192:
     movq	%rax, %rdi
     call	my_clzll
     cmpl	%eax, %ebx
-    je	L193
+    je	L189
     call	abort
-L193:
+L189:
     movl	-20(%rbp), %eax
     cltq
     movq	longlongs(,%rax,8), %rax
     testq	%rax, %rax
-    je	L194
+    je	L190
     movl	-20(%rbp), %eax
     cltq
     movq	longlongs(,%rax,8), %rax
@@ -1243,9 +1226,9 @@ L193:
     movq	%rax, %rdi
     call	my_ctzll
     cmpl	%eax, %ebx
-    je	L194
+    je	L190
     call	abort
-L194:
+L190:
     movl	-20(%rbp), %eax
     cltq
     movq	longlongs(,%rax,8), %rax
@@ -1258,9 +1241,9 @@ L194:
     movq	%rax, %rdi
     call	my_clrsbll
     cmpl	%eax, %ebx
-    je	L195
+    je	L191
     call	abort
-L195:
+L191:
     movl	-20(%rbp), %eax
     cltq
     movq	longlongs(,%rax,8), %rax
@@ -1272,9 +1255,9 @@ L195:
     movq	%rax, %rdi
     call	my_popcountll
     cmpl	%eax, %ebx
-    je	L196
+    je	L192
     call	abort
-L196:
+L192:
     movl	-20(%rbp), %eax
     cltq
     movq	longlongs(,%rax,8), %rax
@@ -1287,889 +1270,889 @@ L196:
     movq	%rax, %rdi
     call	my_parityll
     cmpl	%eax, %ebx
-    je	L197
+    je	L193
     call	abort
-L197:
+L193:
     addl	$1, -20(%rbp)
-L191:
+L187:
     movl	-20(%rbp), %eax
     cmpl	$12, %eax
-    jbe	L198
+    jbe	L194
     movl	$0, %edi
     call	my_ffs
     testl	%eax, %eax
+    je	L195
+    call	abort
+L195:
+    movl	$0, %edi
+    call	my_clrsb
+    cmpl	$31, %eax
+    je	L196
+    call	abort
+L196:
+    movl	$0, %edi
+    call	my_popcount
+    testl	%eax, %eax
+    je	L197
+    call	abort
+L197:
+    movl	$0, %edi
+    call	my_parity
+    testl	%eax, %eax
+    je	L198
+    call	abort
+L198:
+    movl	$1, %edi
+    call	my_ffs
+    cmpl	$1, %eax
     je	L199
     call	abort
 L199:
-    movl	$0, %edi
-    call	my_clrsb
+    movl	$1, %edi
+    call	my_clz
     cmpl	$31, %eax
     je	L200
     call	abort
 L200:
-    movl	$0, %edi
-    call	my_popcount
+    movl	$1, %edi
+    call	my_ctz
     testl	%eax, %eax
     je	L201
     call	abort
 L201:
-    movl	$0, %edi
-    call	my_parity
-    testl	%eax, %eax
+    movl	$1, %edi
+    call	my_clrsb
+    cmpl	$30, %eax
     je	L202
     call	abort
 L202:
     movl	$1, %edi
-    call	my_ffs
+    call	my_popcount
     cmpl	$1, %eax
     je	L203
     call	abort
 L203:
     movl	$1, %edi
-    call	my_clz
-    cmpl	$31, %eax
+    call	my_parity
+    cmpl	$1, %eax
     je	L204
     call	abort
 L204:
-    movl	$1, %edi
-    call	my_ctz
-    testl	%eax, %eax
+    movl	$-2147483648, %edi
+    call	my_ffs
+    cmpl	$32, %eax
     je	L205
     call	abort
 L205:
-    movl	$1, %edi
-    call	my_clrsb
-    cmpl	$30, %eax
+    movl	$-2147483648, %edi
+    call	my_clz
+    testl	%eax, %eax
     je	L206
     call	abort
 L206:
-    movl	$1, %edi
-    call	my_popcount
-    cmpl	$1, %eax
+    movl	$-2147483648, %edi
+    call	my_ctz
+    cmpl	$31, %eax
     je	L207
     call	abort
 L207:
-    movl	$1, %edi
-    call	my_parity
-    cmpl	$1, %eax
+    movl	$-2147483648, %edi
+    call	my_clrsb
+    testl	%eax, %eax
     je	L208
     call	abort
 L208:
     movl	$-2147483648, %edi
-    call	my_ffs
-    cmpl	$32, %eax
+    call	my_popcount
+    cmpl	$1, %eax
     je	L209
     call	abort
 L209:
     movl	$-2147483648, %edi
-    call	my_clz
-    testl	%eax, %eax
+    call	my_parity
+    cmpl	$1, %eax
     je	L210
     call	abort
 L210:
-    movl	$-2147483648, %edi
-    call	my_ctz
+    movl	$1073741824, %edi
+    call	my_ffs
     cmpl	$31, %eax
     je	L211
     call	abort
 L211:
-    movl	$-2147483648, %edi
-    call	my_clrsb
-    testl	%eax, %eax
+    movl	$1073741824, %edi
+    call	my_clz
+    cmpl	$1, %eax
     je	L212
     call	abort
 L212:
-    movl	$-2147483648, %edi
-    call	my_popcount
-    cmpl	$1, %eax
+    movl	$1073741824, %edi
+    call	my_ctz
+    cmpl	$30, %eax
     je	L213
     call	abort
 L213:
-    movl	$-2147483648, %edi
-    call	my_parity
-    cmpl	$1, %eax
+    movl	$1073741824, %edi
+    call	my_clrsb
+    testl	%eax, %eax
     je	L214
     call	abort
 L214:
     movl	$1073741824, %edi
-    call	my_ffs
-    cmpl	$31, %eax
+    call	my_popcount
+    cmpl	$1, %eax
     je	L215
     call	abort
 L215:
     movl	$1073741824, %edi
-    call	my_clz
+    call	my_parity
     cmpl	$1, %eax
     je	L216
     call	abort
 L216:
-    movl	$1073741824, %edi
-    call	my_ctz
-    cmpl	$30, %eax
+    movl	$65536, %edi
+    call	my_ffs
+    cmpl	$17, %eax
     je	L217
     call	abort
 L217:
-    movl	$1073741824, %edi
-    call	my_clrsb
-    testl	%eax, %eax
+    movl	$65536, %edi
+    call	my_clz
+    cmpl	$15, %eax
     je	L218
     call	abort
 L218:
-    movl	$1073741824, %edi
-    call	my_popcount
-    cmpl	$1, %eax
+    movl	$65536, %edi
+    call	my_ctz
+    cmpl	$16, %eax
     je	L219
     call	abort
 L219:
-    movl	$1073741824, %edi
-    call	my_parity
-    cmpl	$1, %eax
+    movl	$65536, %edi
+    call	my_clrsb
+    cmpl	$14, %eax
     je	L220
     call	abort
 L220:
     movl	$65536, %edi
-    call	my_ffs
-    cmpl	$17, %eax
+    call	my_popcount
+    cmpl	$1, %eax
     je	L221
     call	abort
 L221:
     movl	$65536, %edi
-    call	my_clz
-    cmpl	$15, %eax
+    call	my_parity
+    cmpl	$1, %eax
     je	L222
     call	abort
 L222:
-    movl	$65536, %edi
-    call	my_ctz
+    movl	$32768, %edi
+    call	my_ffs
     cmpl	$16, %eax
     je	L223
     call	abort
 L223:
-    movl	$65536, %edi
-    call	my_clrsb
-    cmpl	$14, %eax
+    movl	$32768, %edi
+    call	my_clz
+    cmpl	$16, %eax
     je	L224
     call	abort
 L224:
-    movl	$65536, %edi
-    call	my_popcount
-    cmpl	$1, %eax
+    movl	$32768, %edi
+    call	my_ctz
+    cmpl	$15, %eax
     je	L225
     call	abort
 L225:
-    movl	$65536, %edi
-    call	my_parity
-    cmpl	$1, %eax
+    movl	$32768, %edi
+    call	my_clrsb
+    cmpl	$15, %eax
     je	L226
     call	abort
 L226:
     movl	$32768, %edi
-    call	my_ffs
-    cmpl	$16, %eax
+    call	my_popcount
+    cmpl	$1, %eax
     je	L227
     call	abort
 L227:
     movl	$32768, %edi
-    call	my_clz
-    cmpl	$16, %eax
+    call	my_parity
+    cmpl	$1, %eax
     je	L228
     call	abort
 L228:
-    movl	$32768, %edi
-    call	my_ctz
-    cmpl	$15, %eax
+    movl	$-1515870811, %edi
+    call	my_ffs
+    cmpl	$1, %eax
     je	L229
     call	abort
 L229:
-    movl	$32768, %edi
-    call	my_clrsb
-    cmpl	$15, %eax
+    movl	$-1515870811, %edi
+    call	my_clz
+    testl	%eax, %eax
     je	L230
     call	abort
 L230:
-    movl	$32768, %edi
-    call	my_popcount
-    cmpl	$1, %eax
+    movl	$-1515870811, %edi
+    call	my_ctz
+    testl	%eax, %eax
     je	L231
     call	abort
 L231:
-    movl	$32768, %edi
-    call	my_parity
-    cmpl	$1, %eax
+    movl	$-1515870811, %edi
+    call	my_clrsb
+    testl	%eax, %eax
     je	L232
     call	abort
 L232:
     movl	$-1515870811, %edi
-    call	my_ffs
-    cmpl	$1, %eax
+    call	my_popcount
+    cmpl	$16, %eax
     je	L233
     call	abort
 L233:
     movl	$-1515870811, %edi
-    call	my_clz
+    call	my_parity
     testl	%eax, %eax
     je	L234
     call	abort
 L234:
-    movl	$-1515870811, %edi
-    call	my_ctz
-    testl	%eax, %eax
+    movl	$1515870810, %edi
+    call	my_ffs
+    cmpl	$2, %eax
     je	L235
     call	abort
 L235:
-    movl	$-1515870811, %edi
-    call	my_clrsb
-    testl	%eax, %eax
+    movl	$1515870810, %edi
+    call	my_clz
+    cmpl	$1, %eax
     je	L236
     call	abort
 L236:
-    movl	$-1515870811, %edi
-    call	my_popcount
-    cmpl	$16, %eax
+    movl	$1515870810, %edi
+    call	my_ctz
+    cmpl	$1, %eax
     je	L237
     call	abort
 L237:
-    movl	$-1515870811, %edi
-    call	my_parity
+    movl	$1515870810, %edi
+    call	my_clrsb
     testl	%eax, %eax
     je	L238
     call	abort
 L238:
     movl	$1515870810, %edi
-    call	my_ffs
-    cmpl	$2, %eax
+    call	my_popcount
+    cmpl	$16, %eax
     je	L239
     call	abort
 L239:
     movl	$1515870810, %edi
-    call	my_clz
-    cmpl	$1, %eax
+    call	my_parity
+    testl	%eax, %eax
     je	L240
     call	abort
 L240:
-    movl	$1515870810, %edi
-    call	my_ctz
-    cmpl	$1, %eax
+    movl	$-889323520, %edi
+    call	my_ffs
+    cmpl	$18, %eax
     je	L241
     call	abort
 L241:
-    movl	$1515870810, %edi
-    call	my_clrsb
+    movl	$-889323520, %edi
+    call	my_clz
     testl	%eax, %eax
     je	L242
     call	abort
 L242:
-    movl	$1515870810, %edi
-    call	my_popcount
-    cmpl	$16, %eax
+    movl	$-889323520, %edi
+    call	my_ctz
+    cmpl	$17, %eax
     je	L243
     call	abort
 L243:
-    movl	$1515870810, %edi
-    call	my_parity
-    testl	%eax, %eax
+    movl	$-889323520, %edi
+    call	my_clrsb
+    cmpl	$1, %eax
     je	L244
     call	abort
 L244:
     movl	$-889323520, %edi
-    call	my_ffs
-    cmpl	$18, %eax
+    call	my_popcount
+    cmpl	$11, %eax
     je	L245
     call	abort
 L245:
     movl	$-889323520, %edi
-    call	my_clz
-    testl	%eax, %eax
+    call	my_parity
+    cmpl	$1, %eax
     je	L246
     call	abort
 L246:
-    movl	$-889323520, %edi
-    call	my_ctz
-    cmpl	$17, %eax
+    movl	$13303296, %edi
+    call	my_ffs
+    cmpl	$10, %eax
     je	L247
     call	abort
 L247:
-    movl	$-889323520, %edi
-    call	my_clrsb
-    cmpl	$1, %eax
+    movl	$13303296, %edi
+    call	my_clz
+    cmpl	$8, %eax
     je	L248
     call	abort
 L248:
-    movl	$-889323520, %edi
-    call	my_popcount
-    cmpl	$11, %eax
+    movl	$13303296, %edi
+    call	my_ctz
+    cmpl	$9, %eax
     je	L249
     call	abort
 L249:
-    movl	$-889323520, %edi
-    call	my_parity
-    cmpl	$1, %eax
+    movl	$13303296, %edi
+    call	my_clrsb
+    cmpl	$7, %eax
     je	L250
     call	abort
 L250:
     movl	$13303296, %edi
-    call	my_ffs
-    cmpl	$10, %eax
+    call	my_popcount
+    cmpl	$11, %eax
     je	L251
     call	abort
 L251:
     movl	$13303296, %edi
-    call	my_clz
-    cmpl	$8, %eax
+    call	my_parity
+    cmpl	$1, %eax
     je	L252
     call	abort
 L252:
-    movl	$13303296, %edi
-    call	my_ctz
-    cmpl	$9, %eax
+    movl	$51966, %edi
+    call	my_ffs
+    cmpl	$2, %eax
     je	L253
     call	abort
 L253:
-    movl	$13303296, %edi
-    call	my_clrsb
-    cmpl	$7, %eax
+    movl	$51966, %edi
+    call	my_clz
+    cmpl	$16, %eax
     je	L254
     call	abort
 L254:
-    movl	$13303296, %edi
-    call	my_popcount
-    cmpl	$11, %eax
+    movl	$51966, %edi
+    call	my_ctz
+    cmpl	$1, %eax
     je	L255
     call	abort
 L255:
-    movl	$13303296, %edi
-    call	my_parity
-    cmpl	$1, %eax
+    movl	$51966, %edi
+    call	my_clrsb
+    cmpl	$15, %eax
     je	L256
     call	abort
 L256:
     movl	$51966, %edi
-    call	my_ffs
-    cmpl	$2, %eax
+    call	my_popcount
+    cmpl	$11, %eax
     je	L257
     call	abort
 L257:
     movl	$51966, %edi
-    call	my_clz
-    cmpl	$16, %eax
+    call	my_parity
+    cmpl	$1, %eax
     je	L258
     call	abort
 L258:
-    movl	$51966, %edi
-    call	my_ctz
+    movl	$-1, %edi
+    call	my_ffs
     cmpl	$1, %eax
     je	L259
     call	abort
 L259:
-    movl	$51966, %edi
-    call	my_clrsb
-    cmpl	$15, %eax
+    movl	$-1, %edi
+    call	my_clz
+    testl	%eax, %eax
     je	L260
     call	abort
 L260:
-    movl	$51966, %edi
-    call	my_popcount
-    cmpl	$11, %eax
+    movl	$-1, %edi
+    call	my_ctz
+    testl	%eax, %eax
     je	L261
     call	abort
 L261:
-    movl	$51966, %edi
-    call	my_parity
-    cmpl	$1, %eax
+    movl	$-1, %edi
+    call	my_clrsb
+    cmpl	$31, %eax
     je	L262
     call	abort
 L262:
     movl	$-1, %edi
-    call	my_ffs
-    cmpl	$1, %eax
+    call	my_popcount
+    cmpl	$32, %eax
     je	L263
     call	abort
 L263:
     movl	$-1, %edi
-    call	my_clz
+    call	my_parity
     testl	%eax, %eax
     je	L264
     call	abort
 L264:
-    movl	$-1, %edi
-    call	my_ctz
+    movl	$0, %edi
+    call	my_ffsll
     testl	%eax, %eax
     je	L265
     call	abort
 L265:
-    movl	$-1, %edi
-    call	my_clrsb
-    cmpl	$31, %eax
+    movl	$0, %edi
+    call	my_clrsbll
+    cmpl	$63, %eax
     je	L266
     call	abort
 L266:
-    movl	$-1, %edi
-    call	my_popcount
-    cmpl	$32, %eax
+    movl	$0, %edi
+    call	my_popcountll
+    testl	%eax, %eax
     je	L267
     call	abort
 L267:
-    movl	$-1, %edi
-    call	my_parity
+    movl	$0, %edi
+    call	my_parityll
     testl	%eax, %eax
     je	L268
     call	abort
 L268:
-    movl	$0, %edi
+    movl	$1, %edi
     call	my_ffsll
-    testl	%eax, %eax
+    cmpl	$1, %eax
     je	L269
     call	abort
 L269:
-    movl	$0, %edi
-    call	my_clrsbll
+    movl	$1, %edi
+    call	my_clzll
     cmpl	$63, %eax
     je	L270
     call	abort
 L270:
-    movl	$0, %edi
-    call	my_popcountll
+    movl	$1, %edi
+    call	my_ctzll
     testl	%eax, %eax
     je	L271
     call	abort
 L271:
-    movl	$0, %edi
-    call	my_parityll
-    testl	%eax, %eax
+    movl	$1, %edi
+    call	my_clrsbll
+    cmpl	$62, %eax
     je	L272
     call	abort
 L272:
     movl	$1, %edi
-    call	my_ffsll
+    call	my_popcountll
     cmpl	$1, %eax
     je	L273
     call	abort
 L273:
     movl	$1, %edi
-    call	my_clzll
-    cmpl	$63, %eax
+    call	my_parityll
+    cmpl	$1, %eax
     je	L274
     call	abort
 L274:
-    movl	$1, %edi
-    call	my_ctzll
-    testl	%eax, %eax
+    movabsq	$-9223372036854775808, %rdi
+    call	my_ffsll
+    cmpl	$64, %eax
     je	L275
     call	abort
 L275:
-    movl	$1, %edi
-    call	my_clrsbll
-    cmpl	$62, %eax
+    movabsq	$-9223372036854775808, %rdi
+    call	my_clzll
+    testl	%eax, %eax
     je	L276
     call	abort
 L276:
-    movl	$1, %edi
-    call	my_popcountll
-    cmpl	$1, %eax
+    movabsq	$-9223372036854775808, %rdi
+    call	my_ctzll
+    cmpl	$63, %eax
     je	L277
     call	abort
 L277:
-    movl	$1, %edi
-    call	my_parityll
-    cmpl	$1, %eax
+    movabsq	$-9223372036854775808, %rdi
+    call	my_clrsbll
+    testl	%eax, %eax
     je	L278
     call	abort
 L278:
     movabsq	$-9223372036854775808, %rdi
-    call	my_ffsll
-    cmpl	$64, %eax
+    call	my_popcountll
+    cmpl	$1, %eax
     je	L279
     call	abort
 L279:
     movabsq	$-9223372036854775808, %rdi
-    call	my_clzll
-    testl	%eax, %eax
+    call	my_parityll
+    cmpl	$1, %eax
     je	L280
     call	abort
 L280:
-    movabsq	$-9223372036854775808, %rdi
-    call	my_ctzll
-    cmpl	$63, %eax
+    movl	$2, %edi
+    call	my_ffsll
+    cmpl	$2, %eax
     je	L281
     call	abort
 L281:
-    movabsq	$-9223372036854775808, %rdi
-    call	my_clrsbll
-    testl	%eax, %eax
+    movl	$2, %edi
+    call	my_clzll
+    cmpl	$62, %eax
     je	L282
     call	abort
 L282:
-    movabsq	$-9223372036854775808, %rdi
-    call	my_popcountll
+    movl	$2, %edi
+    call	my_ctzll
     cmpl	$1, %eax
     je	L283
     call	abort
 L283:
-    movabsq	$-9223372036854775808, %rdi
-    call	my_parityll
-    cmpl	$1, %eax
+    movl	$2, %edi
+    call	my_clrsbll
+    cmpl	$61, %eax
     je	L284
     call	abort
 L284:
     movl	$2, %edi
-    call	my_ffsll
-    cmpl	$2, %eax
+    call	my_popcountll
+    cmpl	$1, %eax
     je	L285
     call	abort
 L285:
     movl	$2, %edi
-    call	my_clzll
-    cmpl	$62, %eax
+    call	my_parityll
+    cmpl	$1, %eax
     je	L286
     call	abort
 L286:
-    movl	$2, %edi
-    call	my_ctzll
-    cmpl	$1, %eax
+    movabsq	$4611686018427387904, %rdi
+    call	my_ffsll
+    cmpl	$63, %eax
     je	L287
     call	abort
 L287:
-    movl	$2, %edi
-    call	my_clrsbll
-    cmpl	$61, %eax
+    movabsq	$4611686018427387904, %rdi
+    call	my_clzll
+    cmpl	$1, %eax
     je	L288
     call	abort
 L288:
-    movl	$2, %edi
-    call	my_popcountll
-    cmpl	$1, %eax
+    movabsq	$4611686018427387904, %rdi
+    call	my_ctzll
+    cmpl	$62, %eax
     je	L289
     call	abort
 L289:
-    movl	$2, %edi
-    call	my_parityll
-    cmpl	$1, %eax
+    movabsq	$4611686018427387904, %rdi
+    call	my_clrsbll
+    testl	%eax, %eax
     je	L290
     call	abort
 L290:
     movabsq	$4611686018427387904, %rdi
-    call	my_ffsll
-    cmpl	$63, %eax
+    call	my_popcountll
+    cmpl	$1, %eax
     je	L291
     call	abort
 L291:
     movabsq	$4611686018427387904, %rdi
-    call	my_clzll
+    call	my_parityll
     cmpl	$1, %eax
     je	L292
     call	abort
 L292:
-    movabsq	$4611686018427387904, %rdi
-    call	my_ctzll
-    cmpl	$62, %eax
+    movabsq	$4294967296, %rdi
+    call	my_ffsll
+    cmpl	$33, %eax
     je	L293
     call	abort
 L293:
-    movabsq	$4611686018427387904, %rdi
-    call	my_clrsbll
-    testl	%eax, %eax
+    movabsq	$4294967296, %rdi
+    call	my_clzll
+    cmpl	$31, %eax
     je	L294
     call	abort
 L294:
-    movabsq	$4611686018427387904, %rdi
-    call	my_popcountll
-    cmpl	$1, %eax
+    movabsq	$4294967296, %rdi
+    call	my_ctzll
+    cmpl	$32, %eax
     je	L295
     call	abort
 L295:
-    movabsq	$4611686018427387904, %rdi
-    call	my_parityll
-    cmpl	$1, %eax
+    movabsq	$4294967296, %rdi
+    call	my_clrsbll
+    cmpl	$30, %eax
     je	L296
     call	abort
 L296:
     movabsq	$4294967296, %rdi
-    call	my_ffsll
-    cmpl	$33, %eax
+    call	my_popcountll
+    cmpl	$1, %eax
     je	L297
     call	abort
 L297:
     movabsq	$4294967296, %rdi
-    call	my_clzll
-    cmpl	$31, %eax
+    call	my_parityll
+    cmpl	$1, %eax
     je	L298
     call	abort
 L298:
-    movabsq	$4294967296, %rdi
-    call	my_ctzll
+    movl	$2147483648, %edi
+    call	my_ffsll
     cmpl	$32, %eax
     je	L299
     call	abort
 L299:
-    movabsq	$4294967296, %rdi
-    call	my_clrsbll
-    cmpl	$30, %eax
+    movl	$2147483648, %edi
+    call	my_clzll
+    cmpl	$32, %eax
     je	L300
     call	abort
 L300:
-    movabsq	$4294967296, %rdi
-    call	my_popcountll
-    cmpl	$1, %eax
+    movl	$2147483648, %edi
+    call	my_ctzll
+    cmpl	$31, %eax
     je	L301
     call	abort
 L301:
-    movabsq	$4294967296, %rdi
-    call	my_parityll
-    cmpl	$1, %eax
+    movl	$2147483648, %edi
+    call	my_clrsbll
+    cmpl	$31, %eax
     je	L302
     call	abort
 L302:
     movl	$2147483648, %edi
-    call	my_ffsll
-    cmpl	$32, %eax
+    call	my_popcountll
+    cmpl	$1, %eax
     je	L303
     call	abort
 L303:
     movl	$2147483648, %edi
-    call	my_clzll
-    cmpl	$32, %eax
+    call	my_parityll
+    cmpl	$1, %eax
     je	L304
     call	abort
 L304:
-    movl	$2147483648, %edi
-    call	my_ctzll
-    cmpl	$31, %eax
+    movabsq	$-6510615555426900571, %rdi
+    call	my_ffsll
+    cmpl	$1, %eax
     je	L305
     call	abort
 L305:
-    movl	$2147483648, %edi
-    call	my_clrsbll
-    cmpl	$31, %eax
+    movabsq	$-6510615555426900571, %rdi
+    call	my_clzll
+    testl	%eax, %eax
     je	L306
     call	abort
 L306:
-    movl	$2147483648, %edi
-    call	my_popcountll
-    cmpl	$1, %eax
+    movabsq	$-6510615555426900571, %rdi
+    call	my_ctzll
+    testl	%eax, %eax
     je	L307
     call	abort
 L307:
-    movl	$2147483648, %edi
-    call	my_parityll
-    cmpl	$1, %eax
+    movabsq	$-6510615555426900571, %rdi
+    call	my_clrsbll
+    testl	%eax, %eax
     je	L308
     call	abort
 L308:
     movabsq	$-6510615555426900571, %rdi
-    call	my_ffsll
-    cmpl	$1, %eax
+    call	my_popcountll
+    cmpl	$32, %eax
     je	L309
     call	abort
 L309:
     movabsq	$-6510615555426900571, %rdi
-    call	my_clzll
+    call	my_parityll
     testl	%eax, %eax
     je	L310
     call	abort
 L310:
-    movabsq	$-6510615555426900571, %rdi
-    call	my_ctzll
-    testl	%eax, %eax
+    movabsq	$6510615555426900570, %rdi
+    call	my_ffsll
+    cmpl	$2, %eax
     je	L311
     call	abort
 L311:
-    movabsq	$-6510615555426900571, %rdi
-    call	my_clrsbll
-    testl	%eax, %eax
+    movabsq	$6510615555426900570, %rdi
+    call	my_clzll
+    cmpl	$1, %eax
     je	L312
     call	abort
 L312:
-    movabsq	$-6510615555426900571, %rdi
-    call	my_popcountll
-    cmpl	$32, %eax
+    movabsq	$6510615555426900570, %rdi
+    call	my_ctzll
+    cmpl	$1, %eax
     je	L313
     call	abort
 L313:
-    movabsq	$-6510615555426900571, %rdi
-    call	my_parityll
+    movabsq	$6510615555426900570, %rdi
+    call	my_clrsbll
     testl	%eax, %eax
     je	L314
     call	abort
 L314:
     movabsq	$6510615555426900570, %rdi
-    call	my_ffsll
-    cmpl	$2, %eax
+    call	my_popcountll
+    cmpl	$32, %eax
     je	L315
     call	abort
 L315:
     movabsq	$6510615555426900570, %rdi
-    call	my_clzll
-    cmpl	$1, %eax
+    call	my_parityll
+    testl	%eax, %eax
     je	L316
     call	abort
 L316:
-    movabsq	$6510615555426900570, %rdi
-    call	my_ctzll
-    cmpl	$1, %eax
+    movabsq	$-3819392241693097984, %rdi
+    call	my_ffsll
+    cmpl	$34, %eax
     je	L317
     call	abort
 L317:
-    movabsq	$6510615555426900570, %rdi
-    call	my_clrsbll
+    movabsq	$-3819392241693097984, %rdi
+    call	my_clzll
     testl	%eax, %eax
     je	L318
     call	abort
 L318:
-    movabsq	$6510615555426900570, %rdi
-    call	my_popcountll
-    cmpl	$32, %eax
+    movabsq	$-3819392241693097984, %rdi
+    call	my_ctzll
+    cmpl	$33, %eax
     je	L319
     call	abort
 L319:
-    movabsq	$6510615555426900570, %rdi
-    call	my_parityll
-    testl	%eax, %eax
+    movabsq	$-3819392241693097984, %rdi
+    call	my_clrsbll
+    cmpl	$1, %eax
     je	L320
     call	abort
 L320:
     movabsq	$-3819392241693097984, %rdi
-    call	my_ffsll
-    cmpl	$34, %eax
+    call	my_popcountll
+    cmpl	$22, %eax
     je	L321
     call	abort
 L321:
     movabsq	$-3819392241693097984, %rdi
-    call	my_clzll
+    call	my_parityll
     testl	%eax, %eax
     je	L322
     call	abort
 L322:
-    movabsq	$-3819392241693097984, %rdi
-    call	my_ctzll
-    cmpl	$33, %eax
+    movabsq	$223195676147712, %rdi
+    call	my_ffsll
+    cmpl	$18, %eax
     je	L323
     call	abort
 L323:
-    movabsq	$-3819392241693097984, %rdi
-    call	my_clrsbll
-    cmpl	$1, %eax
+    movabsq	$223195676147712, %rdi
+    call	my_clzll
+    cmpl	$16, %eax
     je	L324
     call	abort
 L324:
-    movabsq	$-3819392241693097984, %rdi
-    call	my_popcountll
-    cmpl	$22, %eax
+    movabsq	$223195676147712, %rdi
+    call	my_ctzll
+    cmpl	$17, %eax
     je	L325
     call	abort
 L325:
-    movabsq	$-3819392241693097984, %rdi
-    call	my_parityll
-    testl	%eax, %eax
+    movabsq	$223195676147712, %rdi
+    call	my_clrsbll
+    cmpl	$15, %eax
     je	L326
     call	abort
 L326:
     movabsq	$223195676147712, %rdi
-    call	my_ffsll
-    cmpl	$18, %eax
+    call	my_popcountll
+    cmpl	$22, %eax
     je	L327
     call	abort
 L327:
     movabsq	$223195676147712, %rdi
-    call	my_clzll
-    cmpl	$16, %eax
+    call	my_parityll
+    testl	%eax, %eax
     je	L328
     call	abort
 L328:
-    movabsq	$223195676147712, %rdi
-    call	my_ctzll
-    cmpl	$17, %eax
+    movl	$3405695742, %edi
+    call	my_ffsll
+    cmpl	$2, %eax
     je	L329
     call	abort
 L329:
-    movabsq	$223195676147712, %rdi
-    call	my_clrsbll
-    cmpl	$15, %eax
+    movl	$3405695742, %edi
+    call	my_clzll
+    cmpl	$32, %eax
     je	L330
     call	abort
 L330:
-    movabsq	$223195676147712, %rdi
-    call	my_popcountll
-    cmpl	$22, %eax
+    movl	$3405695742, %edi
+    call	my_ctzll
+    cmpl	$1, %eax
     je	L331
     call	abort
 L331:
-    movabsq	$223195676147712, %rdi
-    call	my_parityll
-    testl	%eax, %eax
+    movl	$3405695742, %edi
+    call	my_clrsbll
+    cmpl	$31, %eax
     je	L332
     call	abort
 L332:
     movl	$3405695742, %edi
-    call	my_ffsll
-    cmpl	$2, %eax
+    call	my_popcountll
+    cmpl	$22, %eax
     je	L333
     call	abort
 L333:
     movl	$3405695742, %edi
-    call	my_clzll
-    cmpl	$32, %eax
+    call	my_parityll
+    testl	%eax, %eax
     je	L334
     call	abort
 L334:
-    movl	$3405695742, %edi
-    call	my_ctzll
+    movq	$-1, %rdi
+    call	my_ffsll
     cmpl	$1, %eax
     je	L335
     call	abort
 L335:
-    movl	$3405695742, %edi
-    call	my_clrsbll
-    cmpl	$31, %eax
+    movq	$-1, %rdi
+    call	my_clzll
+    testl	%eax, %eax
     je	L336
     call	abort
 L336:
-    movl	$3405695742, %edi
-    call	my_popcountll
-    cmpl	$22, %eax
+    movq	$-1, %rdi
+    call	my_ctzll
+    testl	%eax, %eax
     je	L337
     call	abort
 L337:
-    movl	$3405695742, %edi
-    call	my_parityll
-    testl	%eax, %eax
+    movq	$-1, %rdi
+    call	my_clrsbll
+    cmpl	$63, %eax
     je	L338
     call	abort
 L338:
     movq	$-1, %rdi
-    call	my_ffsll
-    cmpl	$1, %eax
+    call	my_popcountll
+    cmpl	$64, %eax
     je	L339
     call	abort
 L339:
     movq	$-1, %rdi
-    call	my_clzll
+    call	my_parityll
     testl	%eax, %eax
     je	L340
     call	abort
 L340:
-    movq	$-1, %rdi
-    call	my_ctzll
-    testl	%eax, %eax
-    je	L341
-    call	abort
-L341:
-    movq	$-1, %rdi
-    call	my_clrsbll
-    cmpl	$63, %eax
-    je	L342
-    call	abort
-L342:
-    movq	$-1, %rdi
-    call	my_popcountll
-    cmpl	$64, %eax
-    je	L343
-    call	abort
-L343:
-    movq	$-1, %rdi
-    call	my_parityll
-    testl	%eax, %eax
-    je	L344
-    call	abort
-L344:
     movl	$0, %edi
     call	exit

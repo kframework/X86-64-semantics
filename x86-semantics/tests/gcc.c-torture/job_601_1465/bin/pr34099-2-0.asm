@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	test1
@@ -399,14 +382,14 @@ test1:
     movl	%edi, -20(%rbp)
     movl	%esi, -24(%rbp)
     cmpl	$0, -20(%rbp)
-    je	L58
+    je	L54
     movsbl	-1(%rbp), %eax
     cltd
     idivl	-24(%rbp)
-    jmp	L59
-L58:
+    jmp	L55
+L54:
     movl	$1, %eax
-L59:
+L55:
     popq	%rbp
     ret
     .globl	test2
@@ -416,13 +399,13 @@ test2:
     movl	%edi, -20(%rbp)
     movl	%esi, -24(%rbp)
     cmpl	$0, -20(%rbp)
-    je	L61
+    je	L57
     movl	-4(%rbp), %eax
     imull	-24(%rbp), %eax
-    jmp	L62
-L61:
+    jmp	L58
+L57:
     movl	$1, %eax
-L62:
+L58:
     popq	%rbp
     ret
     .globl	test3
@@ -432,15 +415,15 @@ test3:
     movl	%edi, -20(%rbp)
     movl	%esi, -24(%rbp)
     cmpl	$0, -20(%rbp)
-    je	L64
+    je	L60
     movl	-4(%rbp), %eax
     cltd
     idivl	-24(%rbp)
     movl	%edx, %eax
-    jmp	L65
-L64:
+    jmp	L61
+L60:
     movl	$1, %eax
-L65:
+L61:
     popq	%rbp
     ret
     .globl	test4
@@ -450,15 +433,15 @@ test4:
     movl	%edi, -20(%rbp)
     movl	%esi, -24(%rbp)
     cmpl	$0, -20(%rbp)
-    je	L67
+    je	L63
     movsbl	-1(%rbp), %eax
     cmpl	-24(%rbp), %eax
     sete	%al
     movzbl	%al, %eax
-    jmp	L68
-L67:
+    jmp	L64
+L63:
     movl	$1, %eax
-L68:
+L64:
     popq	%rbp
     ret
     .globl	main
@@ -470,30 +453,30 @@ _start:
     movl	$1, %edi
     call	test1
     testl	%eax, %eax
-    je	L70
+    je	L66
     call	abort
-L70:
+L66:
     movl	$0, %esi
     movl	$1, %edi
     call	test2
     testl	%eax, %eax
-    je	L71
+    je	L67
     call	abort
-L71:
+L67:
     movl	$1, %esi
     movl	$1, %edi
     call	test3
     testl	%eax, %eax
-    je	L72
+    je	L68
     call	abort
-L72:
+L68:
     movl	$1000, %esi
     movl	$1, %edi
     call	test4
     testl	%eax, %eax
-    je	L73
+    je	L69
     call	abort
-L73:
+L69:
     movl	$0, %eax
     popq	%rbp
     ret

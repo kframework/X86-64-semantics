@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .comm	a,8,8
@@ -410,28 +393,28 @@ foo:
 bar:
     pushq	%rbp
     movq	%rsp, %rbp
-    jmp	L59
-L64:
+    jmp	L55
+L60:
     movl	$0, -4(%rbp)
-    jmp	L60
-L63:
+    jmp	L56
+L59:
     movl	$0, e(%rip)
-    jmp	L61
-L62:
+    jmp	L57
+L58:
     movl	$1, e(%rip)
-L61:
+L57:
     movl	e(%rip), %eax
     testl	%eax, %eax
-    jne	L62
+    jne	L58
     addl	$1, -4(%rbp)
-L60:
+L56:
     cmpl	$3, -4(%rbp)
-    jle	L63
+    jle	L59
     movl	$1, d(%rip)
-L59:
+L55:
     movl	d(%rip), %eax
     testl	%eax, %eax
-    jle	L64
+    jle	L60
     movl	$0, %eax
     popq	%rbp
     ret
@@ -441,8 +424,8 @@ _start:
     pushq	%rbp
     movq	%rsp, %rbp
     movl	$0, b(%rip)
-    jmp	L67
-L69:
+    jmp	L63
+L65:
     call	bar
     movl	%eax, %ecx
     movl	b(%rip), %eax
@@ -453,17 +436,17 @@ L69:
     movl	%ecx, %esi
     movl	%eax, %edi
     call	foo
-L68:
+L64:
     movl	c(%rip), %eax
     testl	%eax, %eax
-    jne	L69
+    jne	L65
     movl	b(%rip), %eax
     addl	$1, %eax
     movl	%eax, b(%rip)
-L67:
+L63:
     movl	b(%rip), %eax
     cmpl	$1, %eax
-    jle	L68
+    jle	L64
     movl	$0, %eax
     popq	%rbp
     ret

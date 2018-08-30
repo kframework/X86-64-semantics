@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
 testit:
@@ -406,17 +389,17 @@ testit:
     movl	$1, -40(%rbp)
     movl	$3, -36(%rbp)
     movl	$1, -44(%rbp)
-    jmp	L58
-L61:
+    jmp	L54
+L57:
     cmpl	$1, -40(%rbp)
-    jne	L59
+    jne	L55
     movl	$4, -36(%rbp)
-    jmp	L60
-L59:
+    jmp	L56
+L55:
     movl	-40(%rbp), %eax
     subl	$1, %eax
     movl	%eax, -36(%rbp)
-L60:
+L56:
     movl	-40(%rbp), %eax
     subl	$1, %eax
     cltq
@@ -426,15 +409,15 @@ L60:
     movl	-36(%rbp), %eax
     movl	%eax, -40(%rbp)
     addl	$1, -44(%rbp)
-L58:
+L54:
     cmpl	$4, -44(%rbp)
-    jle	L61
+    jle	L57
     nop
     movq	-8(%rbp), %rax
     xorq	$40, %rax
-    je	L62
+    je	L58
     call	__stack_chk_fail
-L62:
+L58:
     leave
     ret
     .comm	t,4,4
@@ -446,9 +429,9 @@ ap:
     movl	%edi, -4(%rbp)
     movl	t(%rip), %eax
     cmpl	$3, %eax
-    jle	L64
+    jle	L60
     call	abort
-L64:
+L60:
     movl	t(%rip), %eax
     leal	1(%rax), %edx
     movl	%edx, t(%rip)
@@ -466,23 +449,23 @@ _start:
     call	testit
     movl	a(%rip), %eax
     testl	%eax, %eax
-    je	L67
+    je	L63
     call	abort
-L67:
+L63:
     movl	a + 4(%rip), %eax
     cmpl	$3, %eax
-    je	L68
+    je	L64
     call	abort
-L68:
+L64:
     movl	a + 8(%rip), %eax
     cmpl	$2, %eax
-    je	L69
+    je	L65
     call	abort
-L69:
+L65:
     movl	a + 12(%rip), %eax
     cmpl	$1, %eax
-    je	L70
+    je	L66
     call	abort
-L70:
+L66:
     movl	$0, %edi
     call	exit

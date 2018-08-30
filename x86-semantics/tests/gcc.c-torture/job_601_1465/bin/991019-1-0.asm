@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	foo
@@ -413,8 +396,8 @@ _start:
     movq	%rsp, %rbp
     subq	$32, %rsp
     movl	$0, -20(%rbp)
-    jmp	L60
-L63:
+    jmp	L56
+L59:
     movabsq	$4607182418800017408, %rax
     vmovq	%rax, %xmm0
     call	foo
@@ -424,17 +407,17 @@ L63:
     vmovsd	-16(%rbp), %xmm0
     vmovsd	LC1(%rip), %xmm1
     vucomisd	%xmm1, %xmm0
-    jp	L64
+    jp	L60
     vmovsd	LC1(%rip), %xmm1
     vucomisd	%xmm1, %xmm0
-    je	L65
-L64:
-    call	abort
-L65:
-    addl	$1, -20(%rbp)
+    je	L61
 L60:
+    call	abort
+L61:
+    addl	$1, -20(%rbp)
+L56:
     cmpl	$9, -20(%rbp)
-    jle	L63
+    jle	L59
     movl	$0, %edi
     call	exit
     .section	.rodata

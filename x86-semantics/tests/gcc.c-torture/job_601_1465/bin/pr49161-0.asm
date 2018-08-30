@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .comm	c,4,4
@@ -403,9 +386,9 @@ bar:
     leal	1(%rax), %edx
     movl	%edx, c(%rip)
     cmpl	-4(%rbp), %eax
-    je	L59
+    je	L55
     call	abort
-L59:
+L55:
     nop
     leave
     ret
@@ -417,41 +400,41 @@ foo:
     movl	%edi, -4(%rbp)
     movl	-4(%rbp), %eax
     cmpl	$4, %eax
-    je	L72
+    je	L68
     cmpl	$6, %eax
-    je	L73
+    je	L69
     cmpl	$3, %eax
-    je	L74
-    jmp	L60
-L74:
+    je	L70
+    jmp	L56
+L70:
     nop
-L65:
-    jmp	L69
-L72:
+L61:
+    jmp	L65
+L68:
     nop
-L66:
-    jmp	L69
-L73:
+L62:
+    jmp	L65
+L69:
     nop
-L67:
+L63:
     movl	$-1, %edi
     call	bar
-L69:
+L65:
     movl	$0, %edi
     call	bar
     cmpl	$4, -4(%rbp)
-    je	L70
+    je	L66
     movl	$1, %edi
     call	bar
-L70:
+L66:
     cmpl	$3, -4(%rbp)
-    je	L71
+    je	L67
     movl	$-1, %edi
     call	bar
-L71:
+L67:
     movl	$2, %edi
     call	bar
-L60:
+L56:
     leave
     ret
     .globl	main
@@ -463,9 +446,9 @@ _start:
     call	foo
     movl	c(%rip), %eax
     cmpl	$3, %eax
-    je	L76
+    je	L72
     call	abort
-L76:
+L72:
     movl	$0, %eax
     popq	%rbp
     ret

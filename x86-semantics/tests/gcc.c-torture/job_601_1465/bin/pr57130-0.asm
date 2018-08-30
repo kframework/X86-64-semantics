@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	s
@@ -414,9 +397,9 @@ foo:
     movq	%rcx, %rdx
     movq	%rax, -16(%rbp)
     movq	%rdx, -8(%rbp)
-    movl	cnt2445(%rip), %eax
+    movl	cnt2438(%rip), %eax
     leal	1(%rax), %edx
-    movl	%edx, cnt2445(%rip)
+    movl	%edx, cnt2438(%rip)
     cltq
     salq	$4, %rax
     leaq	s(%rax), %rcx
@@ -426,9 +409,9 @@ foo:
     movq	%rax, %rdi
     call	memcmp
     testl	%eax, %eax
-    je	L59
+    je	L55
     call	abort
-L59:
+L55:
     nop
     leave
     ret
@@ -459,4 +442,4 @@ _start:
     movl	$0, %eax
     leave
     ret
-    .comm	cnt2445,4,4
+    .comm	cnt2438,4,4

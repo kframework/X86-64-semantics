@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .comm	arr,400,32
@@ -864,71 +847,97 @@ _start:
     movq	%rax, %rdi
     call	assign_arg_ptr
     testl	%eax, %eax
-    jne	L106
+    jne	L102
     call	abort
-L106:
+L102:
     call	assign_glob_ptr
     testl	%eax, %eax
-    jne	L107
+    jne	L103
     call	abort
-L107:
+L103:
     movq	ptr(%rip), %rax
     movl	$4, %esi
     movq	%rax, %rdi
     call	assign_arg_idx
     testl	%eax, %eax
+    jne	L104
+    call	abort
+L104:
+    call	assign_glob_idx
+    testl	%eax, %eax
+    jne	L105
+    call	abort
+L105:
+    movq	ptr(%rip), %rax
+    movq	%rax, %rdi
+    call	preinc_arg_ptr
+    testl	%eax, %eax
+    jne	L106
+    call	abort
+L106:
+    call	preinc_glob_ptr
+    testl	%eax, %eax
+    jne	L107
+    call	abort
+L107:
+    movq	ptr(%rip), %rax
+    movq	%rax, %rdi
+    call	postinc_arg_ptr
+    testl	%eax, %eax
     jne	L108
     call	abort
 L108:
-    call	assign_glob_idx
+    call	postinc_glob_ptr
     testl	%eax, %eax
     jne	L109
     call	abort
 L109:
     movq	ptr(%rip), %rax
     movq	%rax, %rdi
-    call	preinc_arg_ptr
+    call	predec_arg_ptr
     testl	%eax, %eax
     jne	L110
     call	abort
 L110:
-    call	preinc_glob_ptr
+    call	predec_glob_ptr
     testl	%eax, %eax
     jne	L111
     call	abort
 L111:
     movq	ptr(%rip), %rax
     movq	%rax, %rdi
-    call	postinc_arg_ptr
+    call	postdec_arg_ptr
     testl	%eax, %eax
     jne	L112
     call	abort
 L112:
-    call	postinc_glob_ptr
+    call	postdec_glob_ptr
     testl	%eax, %eax
     jne	L113
     call	abort
 L113:
     movq	ptr(%rip), %rax
+    movl	$3, %esi
     movq	%rax, %rdi
-    call	predec_arg_ptr
+    call	preinc_arg_idx
     testl	%eax, %eax
     jne	L114
     call	abort
 L114:
-    call	predec_glob_ptr
+    call	preinc_glob_idx
     testl	%eax, %eax
     jne	L115
     call	abort
 L115:
     movq	ptr(%rip), %rax
+    movl	$3, %esi
     movq	%rax, %rdi
-    call	postdec_arg_ptr
+    call	postinc_arg_idx
     testl	%eax, %eax
     jne	L116
     call	abort
 L116:
-    call	postdec_glob_ptr
+    call	postinc_glob_idx
     testl	%eax, %eax
     jne	L117
     call	abort
@@ -936,12 +945,12 @@ L117:
     movq	ptr(%rip), %rax
     movl	$3, %esi
     movq	%rax, %rdi
-    call	preinc_arg_idx
+    call	predec_arg_idx
     testl	%eax, %eax
     jne	L118
     call	abort
 L118:
-    call	preinc_glob_idx
+    call	predec_glob_idx
     testl	%eax, %eax
     jne	L119
     call	abort
@@ -949,56 +958,30 @@ L119:
     movq	ptr(%rip), %rax
     movl	$3, %esi
     movq	%rax, %rdi
-    call	postinc_arg_idx
+    call	postdec_arg_idx
     testl	%eax, %eax
     jne	L120
     call	abort
 L120:
-    call	postinc_glob_idx
+    call	postdec_glob_idx
     testl	%eax, %eax
     jne	L121
     call	abort
 L121:
     movq	ptr(%rip), %rax
-    movl	$3, %esi
     movq	%rax, %rdi
-    call	predec_arg_idx
+    call	funccall_arg_ptr
     testl	%eax, %eax
     jne	L122
     call	abort
 L122:
-    call	predec_glob_idx
-    testl	%eax, %eax
-    jne	L123
-    call	abort
-L123:
-    movq	ptr(%rip), %rax
-    movl	$3, %esi
-    movq	%rax, %rdi
-    call	postdec_arg_idx
-    testl	%eax, %eax
-    jne	L124
-    call	abort
-L124:
-    call	postdec_glob_idx
-    testl	%eax, %eax
-    jne	L125
-    call	abort
-L125:
-    movq	ptr(%rip), %rax
-    movq	%rax, %rdi
-    call	funccall_arg_ptr
-    testl	%eax, %eax
-    jne	L126
-    call	abort
-L126:
     movq	ptr(%rip), %rax
     movl	$3, %esi
     movq	%rax, %rdi
     call	funccall_arg_idx
     testl	%eax, %eax
-    jne	L127
+    jne	L123
     call	abort
-L127:
+L123:
     movl	$0, %edi
     call	exit

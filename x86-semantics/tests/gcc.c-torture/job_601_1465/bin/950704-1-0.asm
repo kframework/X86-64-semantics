@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .comm	errflag,4,4
@@ -405,26 +388,26 @@ f:
     addq	%rdx, %rax
     movq	%rax, -8(%rbp)
     cmpq	$0, -24(%rbp)
-    js	L58
+    js	L54
     cmpq	$0, -32(%rbp)
-    js	L59
+    js	L55
     cmpq	$0, -8(%rbp)
-    js	L60
-L59:
+    js	L56
+L55:
     movq	-8(%rbp), %rax
-    jmp	L61
+    jmp	L57
+L54:
+    cmpq	$0, -32(%rbp)
+    jg	L58
+    cmpq	$0, -8(%rbp)
+    jns	L56
 L58:
-    cmpq	$0, -32(%rbp)
-    jg	L62
-    cmpq	$0, -8(%rbp)
-    jns	L60
-L62:
     movq	-8(%rbp), %rax
-    jmp	L61
-L60:
+    jmp	L57
+L56:
     movl	$1, errflag(%rip)
     movl	$0, %eax
-L61:
+L57:
     popq	%rbp
     ret
     .globl	main
@@ -437,64 +420,64 @@ _start:
     call	f
     movl	errflag(%rip), %eax
     testl	%eax, %eax
-    je	L64
+    je	L60
     call	abort
-L64:
+L60:
     movq	$-1, %rsi
     movl	$1, %edi
     call	f
     movl	errflag(%rip), %eax
     testl	%eax, %eax
-    je	L65
+    je	L61
     call	abort
-L65:
+L61:
     movl	$1, %esi
     movq	$-1, %rdi
     call	f
     movl	errflag(%rip), %eax
     testl	%eax, %eax
-    je	L66
+    je	L62
     call	abort
-L66:
+L62:
     movabsq	$-9223372036854775808, %rsi
     movabsq	$-9223372036854775808, %rdi
     call	f
     movl	errflag(%rip), %eax
     testl	%eax, %eax
-    jne	L67
+    jne	L63
     call	abort
-L67:
+L63:
     movq	$-1, %rsi
     movabsq	$-9223372036854775808, %rdi
     call	f
     movl	errflag(%rip), %eax
     testl	%eax, %eax
-    jne	L68
+    jne	L64
     call	abort
-L68:
+L64:
     movabsq	$9223372036854775807, %rsi
     movabsq	$9223372036854775807, %rdi
     call	f
     movl	errflag(%rip), %eax
     testl	%eax, %eax
-    jne	L69
+    jne	L65
     call	abort
-L69:
+L65:
     movl	$1, %esi
     movabsq	$9223372036854775807, %rdi
     call	f
     movl	errflag(%rip), %eax
     testl	%eax, %eax
-    jne	L70
+    jne	L66
     call	abort
-L70:
+L66:
     movabsq	$-9223372036854775808, %rsi
     movabsq	$9223372036854775807, %rdi
     call	f
     movl	errflag(%rip), %eax
     testl	%eax, %eax
-    je	L71
+    je	L67
     call	abort
-L71:
+L67:
     movl	$0, %edi
     call	exit

@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	fp_add
@@ -830,65 +813,65 @@ _start:
     call	fp_add
     vmovss	LC3(%rip), %xmm1
     vucomiss	%xmm1, %xmm0
-    jp	L168
+    jp	L164
     vmovss	LC3(%rip), %xmm1
     vucomiss	%xmm1, %xmm0
-    je	L119
-L168:
+    je	L115
+L164:
     movl	$LC4, %edi
     call	fail
-L119:
+L115:
     vmovss	LC3(%rip), %xmm1
     vmovss	LC5(%rip), %xmm0
     call	fp_sub
     vmovss	LC2(%rip), %xmm1
     vucomiss	%xmm1, %xmm0
-    jp	L169
+    jp	L165
     vmovss	LC2(%rip), %xmm1
     vucomiss	%xmm1, %xmm0
-    je	L121
-L169:
+    je	L117
+L165:
     movl	$LC6, %edi
     call	fail
-L121:
+L117:
     vmovss	LC5(%rip), %xmm1
     vmovss	LC3(%rip), %xmm0
     call	fp_mul
     vmovss	LC7(%rip), %xmm1
     vucomiss	%xmm1, %xmm0
-    jp	L170
+    jp	L166
     vmovss	LC7(%rip), %xmm1
     vucomiss	%xmm1, %xmm0
-    je	L123
-L170:
+    je	L119
+L166:
     movl	$LC8, %edi
     call	fail
-L123:
+L119:
     vmovss	LC3(%rip), %xmm1
     vmovss	LC5(%rip), %xmm0
     call	fp_div
     vmovss	LC9(%rip), %xmm1
     vucomiss	%xmm1, %xmm0
-    jp	L171
+    jp	L167
     vmovss	LC9(%rip), %xmm1
     vucomiss	%xmm1, %xmm0
-    je	L125
-L171:
+    je	L121
+L167:
     movl	$LC10, %edi
     call	fail
-L125:
+L121:
     vmovss	LC2(%rip), %xmm0
     call	fp_neg
     vmovss	LC11(%rip), %xmm1
     vucomiss	%xmm1, %xmm0
-    jp	L172
+    jp	L168
     vmovss	LC11(%rip), %xmm1
     vucomiss	%xmm1, %xmm0
-    je	L127
-L172:
+    je	L123
+L168:
     movl	$LC12, %edi
     call	fail
-L127:
+L123:
     vmovsd	LC13(%rip), %xmm0
     movabsq	$4607182418800017408, %rax
     vmovapd	%xmm0, %xmm1
@@ -898,15 +881,15 @@ L127:
     vmovsd	LC14(%rip), %xmm0
     vmovq	%rax, %xmm2
     vucomisd	%xmm0, %xmm2
-    jp	L173
+    jp	L169
     vmovsd	LC14(%rip), %xmm0
     vmovq	%rax, %xmm3
     vucomisd	%xmm0, %xmm3
-    je	L129
-L173:
+    je	L125
+L169:
     movl	$LC15, %edi
     call	fail
-L129:
+L125:
     vmovsd	LC14(%rip), %xmm0
     movabsq	$4613937818241073152, %rax
     vmovapd	%xmm0, %xmm1
@@ -916,15 +899,15 @@ L129:
     vmovsd	LC13(%rip), %xmm0
     vmovq	%rax, %xmm4
     vucomisd	%xmm0, %xmm4
-    jp	L174
+    jp	L170
     vmovsd	LC13(%rip), %xmm0
     vmovq	%rax, %xmm5
     vucomisd	%xmm0, %xmm5
-    je	L131
-L174:
+    je	L127
+L170:
     movl	$LC17, %edi
     call	fail
-L131:
+L127:
     vmovsd	LC16(%rip), %xmm0
     movabsq	$4611686018427387904, %rax
     vmovapd	%xmm0, %xmm1
@@ -934,15 +917,15 @@ L131:
     vmovsd	LC18(%rip), %xmm0
     vmovq	%rax, %xmm6
     vucomisd	%xmm0, %xmm6
-    jp	L175
+    jp	L171
     vmovsd	LC18(%rip), %xmm0
     vmovq	%rax, %xmm7
     vucomisd	%xmm0, %xmm7
-    je	L133
-L175:
+    je	L129
+L171:
     movl	$LC19, %edi
     call	fail
-L133:
+L129:
     vmovsd	LC14(%rip), %xmm0
     movabsq	$4613937818241073152, %rax
     vmovapd	%xmm0, %xmm1
@@ -952,15 +935,15 @@ L133:
     vmovsd	LC20(%rip), %xmm0
     vmovq	%rax, %xmm2
     vucomisd	%xmm0, %xmm2
-    jp	L176
+    jp	L172
     vmovsd	LC20(%rip), %xmm0
     vmovq	%rax, %xmm3
     vucomisd	%xmm0, %xmm3
-    je	L135
-L176:
+    je	L131
+L172:
     movl	$LC21, %edi
     call	fail
-L135:
+L131:
     movabsq	$4607182418800017408, %rax
     vmovq	%rax, %xmm0
     call	dp_neg
@@ -968,233 +951,233 @@ L135:
     vmovsd	LC22(%rip), %xmm0
     vmovq	%rax, %xmm4
     vucomisd	%xmm0, %xmm4
-    jp	L177
+    jp	L173
     vmovsd	LC22(%rip), %xmm0
     vmovq	%rax, %xmm5
     vucomisd	%xmm0, %xmm5
-    je	L137
-L177:
+    je	L133
+L173:
     movl	$LC23, %edi
     call	fail
-L137:
+L133:
     vmovss	LC9(%rip), %xmm0
     call	fp_to_dp
     vmovq	%xmm0, %rax
     vmovsd	LC20(%rip), %xmm0
     vmovq	%rax, %xmm6
     vucomisd	%xmm0, %xmm6
-    jp	L178
+    jp	L174
     vmovsd	LC20(%rip), %xmm0
     vmovq	%rax, %xmm7
     vucomisd	%xmm0, %xmm7
-    je	L139
-L178:
+    je	L135
+L174:
     movl	$LC24, %edi
     call	fail
-L139:
+L135:
     movabsq	$4609434218613702656, %rax
     vmovq	%rax, %xmm0
     call	dp_to_fp
     vmovss	LC9(%rip), %xmm1
     vucomiss	%xmm1, %xmm0
-    jp	L179
+    jp	L175
     vmovss	LC9(%rip), %xmm1
     vucomiss	%xmm1, %xmm0
-    je	L141
-L179:
+    je	L137
+L175:
     movl	$LC25, %edi
     call	fail
-L141:
+L137:
     movl	$1, %edi
     call	floatsisf
     vmovss	LC2(%rip), %xmm1
     vucomiss	%xmm1, %xmm0
-    jp	L180
+    jp	L176
     vmovss	LC2(%rip), %xmm1
     vucomiss	%xmm1, %xmm0
-    je	L143
-L180:
+    je	L139
+L176:
     movl	$LC26, %edi
     call	fail
-L143:
+L139:
     movl	$1, %edi
     call	floatsidf
     vmovq	%xmm0, %rax
     vmovsd	LC13(%rip), %xmm0
     vmovq	%rax, %xmm2
     vucomisd	%xmm0, %xmm2
-    jp	L181
+    jp	L177
     vmovsd	LC13(%rip), %xmm0
     vmovq	%rax, %xmm3
     vucomisd	%xmm0, %xmm3
-    je	L145
-L181:
+    je	L141
+L177:
     movl	$LC27, %edi
     call	fail
-L145:
+L141:
     vmovss	LC28(%rip), %xmm0
     call	fixsfsi
     cmpl	$1, %eax
-    je	L147
+    je	L143
     movl	$LC29, %edi
     call	fail
-L147:
+L143:
     vmovss	LC28(%rip), %xmm0
     call	fixunssfsi
     cmpl	$1, %eax
-    je	L148
+    je	L144
     movl	$LC30, %edi
     call	fail
-L148:
+L144:
     movabsq	$4609073930643513016, %rax
     vmovq	%rax, %xmm0
     call	fixdfsi
     cmpl	$1, %eax
-    je	L149
+    je	L145
     movl	$LC32, %edi
     call	fail
-L149:
+L145:
     movabsq	$4609073930643513016, %rax
     vmovq	%rax, %xmm0
     call	fixunsdfsi
     cmpl	$1, %eax
-    je	L150
+    je	L146
     movl	$LC33, %edi
+    call	fail
+L146:
+    vmovss	LC2(%rip), %xmm1
+    vmovss	LC2(%rip), %xmm0
+    call	eqsf2
+    testl	%eax, %eax
+    jne	L147
+    movl	$LC34, %edi
+    call	fail
+L147:
+    vmovss	LC3(%rip), %xmm1
+    vmovss	LC2(%rip), %xmm0
+    call	eqsf2
+    testl	%eax, %eax
+    je	L148
+    movl	$LC35, %edi
+    call	fail
+L148:
+    vmovss	LC3(%rip), %xmm1
+    vmovss	LC2(%rip), %xmm0
+    call	nesf2
+    testl	%eax, %eax
+    jne	L149
+    movl	$LC36, %edi
+    call	fail
+L149:
+    vmovss	LC2(%rip), %xmm1
+    vmovss	LC2(%rip), %xmm0
+    call	nesf2
+    testl	%eax, %eax
+    je	L150
+    movl	$LC36, %edi
     call	fail
 L150:
     vmovss	LC2(%rip), %xmm1
-    vmovss	LC2(%rip), %xmm0
-    call	eqsf2
+    vmovss	LC3(%rip), %xmm0
+    call	gtsf2
     testl	%eax, %eax
     jne	L151
-    movl	$LC34, %edi
+    movl	$LC37, %edi
     call	fail
 L151:
-    vmovss	LC3(%rip), %xmm1
+    vmovss	LC2(%rip), %xmm1
     vmovss	LC2(%rip), %xmm0
-    call	eqsf2
+    call	gtsf2
     testl	%eax, %eax
     je	L152
-    movl	$LC35, %edi
+    movl	$LC38, %edi
     call	fail
 L152:
-    vmovss	LC3(%rip), %xmm1
-    vmovss	LC2(%rip), %xmm0
-    call	nesf2
+    vmovss	LC2(%rip), %xmm1
+    vxorps	%xmm0, %xmm0, %xmm0
+    call	gtsf2
     testl	%eax, %eax
-    jne	L153
-    movl	$LC36, %edi
+    je	L153
+    movl	$LC40, %edi
     call	fail
 L153:
     vmovss	LC2(%rip), %xmm1
-    vmovss	LC2(%rip), %xmm0
-    call	nesf2
+    vmovss	LC3(%rip), %xmm0
+    call	gesf2
     testl	%eax, %eax
-    je	L154
-    movl	$LC36, %edi
+    jne	L154
+    movl	$LC41, %edi
     call	fail
 L154:
     vmovss	LC2(%rip), %xmm1
-    vmovss	LC3(%rip), %xmm0
-    call	gtsf2
+    vmovss	LC2(%rip), %xmm0
+    call	gesf2
     testl	%eax, %eax
     jne	L155
-    movl	$LC37, %edi
+    movl	$LC42, %edi
     call	fail
 L155:
     vmovss	LC2(%rip), %xmm1
-    vmovss	LC2(%rip), %xmm0
-    call	gtsf2
+    vxorps	%xmm0, %xmm0, %xmm0
+    call	gesf2
     testl	%eax, %eax
     je	L156
-    movl	$LC38, %edi
+    movl	$LC43, %edi
     call	fail
 L156:
-    vmovss	LC2(%rip), %xmm1
-    vxorps	%xmm0, %xmm0, %xmm0
-    call	gtsf2
+    vmovss	LC3(%rip), %xmm1
+    vmovss	LC2(%rip), %xmm0
+    call	ltsf2
     testl	%eax, %eax
-    je	L157
-    movl	$LC40, %edi
+    jne	L157
+    movl	$LC44, %edi
     call	fail
 L157:
     vmovss	LC2(%rip), %xmm1
-    vmovss	LC3(%rip), %xmm0
-    call	gesf2
-    testl	%eax, %eax
-    jne	L158
-    movl	$LC41, %edi
-    call	fail
-L158:
-    vmovss	LC2(%rip), %xmm1
-    vmovss	LC2(%rip), %xmm0
-    call	gesf2
-    testl	%eax, %eax
-    jne	L159
-    movl	$LC42, %edi
-    call	fail
-L159:
-    vmovss	LC2(%rip), %xmm1
-    vxorps	%xmm0, %xmm0, %xmm0
-    call	gesf2
-    testl	%eax, %eax
-    je	L160
-    movl	$LC43, %edi
-    call	fail
-L160:
-    vmovss	LC3(%rip), %xmm1
     vmovss	LC2(%rip), %xmm0
     call	ltsf2
     testl	%eax, %eax
-    jne	L161
-    movl	$LC44, %edi
-    call	fail
-L161:
-    vmovss	LC2(%rip), %xmm1
-    vmovss	LC2(%rip), %xmm0
-    call	ltsf2
-    testl	%eax, %eax
-    je	L162
+    je	L158
     movl	$LC45, %edi
     call	fail
-L162:
+L158:
     vxorps	%xmm1, %xmm1, %xmm1
     vmovss	LC2(%rip), %xmm0
     call	ltsf2
     testl	%eax, %eax
-    je	L163
+    je	L159
     movl	$LC46, %edi
     call	fail
-L163:
+L159:
     vmovss	LC3(%rip), %xmm1
     vmovss	LC2(%rip), %xmm0
     call	lesf2
     testl	%eax, %eax
-    jne	L164
+    jne	L160
     movl	$LC47, %edi
     call	fail
-L164:
+L160:
     vmovss	LC2(%rip), %xmm1
     vmovss	LC2(%rip), %xmm0
     call	lesf2
     testl	%eax, %eax
-    jne	L165
+    jne	L161
     movl	$LC48, %edi
     call	fail
-L165:
+L161:
     vxorps	%xmm1, %xmm1, %xmm1
     vmovss	LC2(%rip), %xmm0
     call	lesf2
     testl	%eax, %eax
-    je	L166
+    je	L162
     movl	$LC49, %edi
     call	fail
-L166:
+L162:
     movl	fail_count(%rip), %eax
     testl	%eax, %eax
-    je	L167
+    je	L163
     call	abort
-L167:
+L163:
     movl	$0, %edi
     call	exit
     .section	.rodata

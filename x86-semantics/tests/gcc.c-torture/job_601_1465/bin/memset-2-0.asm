@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .comm	u,32,32
@@ -403,16 +386,16 @@ reset:
     pushq	%rbp
     movq	%rsp, %rbp
     movl	$0, -4(%rbp)
-    jmp	L58
-L59:
+    jmp	L54
+L55:
     movl	-4(%rbp), %eax
     cltq
     movb	$97, u(%rax)
     addl	$1, -4(%rbp)
-L58:
+L54:
     movl	-4(%rbp), %eax
     cmpl	$30, %eax
-    jbe	L59
+    jbe	L55
     nop
     popq	%rbp
     ret
@@ -426,51 +409,51 @@ check:
     movl	%edx, -28(%rbp)
     movq	$u, -8(%rbp)
     movl	$0, -12(%rbp)
-    jmp	L61
-L63:
+    jmp	L57
+L59:
     movq	-8(%rbp), %rax
     movzbl	(%rax), %eax
     cmpb	$97, %al
-    je	L62
+    je	L58
     call	abort
-L62:
+L58:
     addl	$1, -12(%rbp)
     addq	$1, -8(%rbp)
-L61:
+L57:
     movl	-12(%rbp), %eax
     cmpl	-20(%rbp), %eax
-    jl	L63
+    jl	L59
     movl	$0, -12(%rbp)
-    jmp	L64
-L66:
+    jmp	L60
+L62:
     movq	-8(%rbp), %rax
     movzbl	(%rax), %eax
     movsbl	%al, %eax
     cmpl	-28(%rbp), %eax
-    je	L65
+    je	L61
     call	abort
-L65:
+L61:
     addl	$1, -12(%rbp)
     addq	$1, -8(%rbp)
-L64:
+L60:
     movl	-12(%rbp), %eax
     cmpl	-24(%rbp), %eax
-    jl	L66
+    jl	L62
     movl	$0, -12(%rbp)
-    jmp	L67
-L69:
+    jmp	L63
+L65:
     movq	-8(%rbp), %rax
     movzbl	(%rax), %eax
     cmpb	$97, %al
-    je	L68
+    je	L64
     call	abort
-L68:
+L64:
     addl	$1, -12(%rbp)
     addq	$1, -8(%rbp)
-L67:
+L63:
     movl	-12(%rbp), %eax
     cmpl	$7, %eax
-    jbe	L69
+    jbe	L65
     nop
     leave
     ret
@@ -481,8 +464,8 @@ _start:
     movq	%rsp, %rbp
     subq	$16, %rsp
     movl	$0, -12(%rbp)
-    jmp	L71
-L75:
+    jmp	L67
+L71:
     movl	$0, %eax
     call	reset
     movl	-12(%rbp), %eax
@@ -497,9 +480,9 @@ L75:
     cltq
     addq	$u, %rax
     cmpq	-8(%rbp), %rax
-    je	L72
+    je	L68
     call	abort
-L72:
+L68:
     movl	-12(%rbp), %eax
     movl	$0, %edx
     movl	$1, %esi
@@ -513,6 +496,56 @@ L72:
     movl	$1, %edx
     movl	%eax, %esi
     movq	%rcx, %rdi
+    call	memset
+    movq	%rax, -8(%rbp)
+    movl	-12(%rbp), %eax
+    cltq
+    addq	$u, %rax
+    cmpq	-8(%rbp), %rax
+    je	L69
+    call	abort
+L69:
+    movl	-12(%rbp), %eax
+    movl	$65, %edx
+    movl	$1, %esi
+    movl	%eax, %edi
+    call	check
+    movl	-12(%rbp), %eax
+    cltq
+    addq	$u, %rax
+    movl	$1, %edx
+    movl	$66, %esi
+    movq	%rax, %rdi
+    call	memset
+    movq	%rax, -8(%rbp)
+    movl	-12(%rbp), %eax
+    cltq
+    addq	$u, %rax
+    cmpq	-8(%rbp), %rax
+    je	L70
+    call	abort
+L70:
+    movl	-12(%rbp), %eax
+    movl	$66, %edx
+    movl	$1, %esi
+    movl	%eax, %edi
+    call	check
+    addl	$1, -12(%rbp)
+L67:
+    movl	-12(%rbp), %eax
+    cmpl	$7, %eax
+    jbe	L71
+    movl	$0, -12(%rbp)
+    jmp	L72
+L76:
+    movl	$0, %eax
+    call	reset
+    movl	-12(%rbp), %eax
+    cltq
+    addq	$u, %rax
+    movl	$2, %edx
+    movl	$0, %esi
+    movq	%rax, %rdi
     call	memset
     movq	%rax, -8(%rbp)
     movl	-12(%rbp), %eax
@@ -523,16 +556,18 @@ L72:
     call	abort
 L73:
     movl	-12(%rbp), %eax
-    movl	$65, %edx
-    movl	$1, %esi
+    movl	$0, %edx
+    movl	$2, %esi
     movl	%eax, %edi
     call	check
-    movl	-12(%rbp), %eax
-    cltq
-    addq	$u, %rax
-    movl	$1, %edx
-    movl	$66, %esi
-    movq	%rax, %rdi
+    movzbl	A(%rip), %eax
+    movsbl	%al, %eax
+    movl	-12(%rbp), %edx
+    movslq	%edx, %rdx
+    leaq	u(%rdx), %rcx
+    movl	$2, %edx
+    movl	%eax, %esi
+    movq	%rcx, %rdi
     call	memset
     movq	%rax, -8(%rbp)
     movl	-12(%rbp), %eax
@@ -543,25 +578,15 @@ L73:
     call	abort
 L74:
     movl	-12(%rbp), %eax
-    movl	$66, %edx
-    movl	$1, %esi
+    movl	$65, %edx
+    movl	$2, %esi
     movl	%eax, %edi
     call	check
-    addl	$1, -12(%rbp)
-L71:
-    movl	-12(%rbp), %eax
-    cmpl	$7, %eax
-    jbe	L75
-    movl	$0, -12(%rbp)
-    jmp	L76
-L80:
-    movl	$0, %eax
-    call	reset
     movl	-12(%rbp), %eax
     cltq
     addq	$u, %rax
     movl	$2, %edx
-    movl	$0, %esi
+    movl	$66, %esi
     movq	%rax, %rdi
     call	memset
     movq	%rax, -8(%rbp)
@@ -569,22 +594,30 @@ L80:
     cltq
     addq	$u, %rax
     cmpq	-8(%rbp), %rax
-    je	L77
+    je	L75
     call	abort
-L77:
+L75:
     movl	-12(%rbp), %eax
-    movl	$0, %edx
+    movl	$66, %edx
     movl	$2, %esi
     movl	%eax, %edi
     call	check
-    movzbl	A(%rip), %eax
-    movsbl	%al, %eax
-    movl	-12(%rbp), %edx
-    movslq	%edx, %rdx
-    leaq	u(%rdx), %rcx
-    movl	$2, %edx
-    movl	%eax, %esi
-    movq	%rcx, %rdi
+    addl	$1, -12(%rbp)
+L72:
+    movl	-12(%rbp), %eax
+    cmpl	$7, %eax
+    jbe	L76
+    movl	$0, -12(%rbp)
+    jmp	L77
+L81:
+    movl	$0, %eax
+    call	reset
+    movl	-12(%rbp), %eax
+    cltq
+    addq	$u, %rax
+    movl	$3, %edx
+    movl	$0, %esi
+    movq	%rax, %rdi
     call	memset
     movq	%rax, -8(%rbp)
     movl	-12(%rbp), %eax
@@ -595,16 +628,18 @@ L77:
     call	abort
 L78:
     movl	-12(%rbp), %eax
-    movl	$65, %edx
-    movl	$2, %esi
+    movl	$0, %edx
+    movl	$3, %esi
     movl	%eax, %edi
     call	check
-    movl	-12(%rbp), %eax
-    cltq
-    addq	$u, %rax
-    movl	$2, %edx
-    movl	$66, %esi
-    movq	%rax, %rdi
+    movzbl	A(%rip), %eax
+    movsbl	%al, %eax
+    movl	-12(%rbp), %edx
+    movslq	%edx, %rdx
+    leaq	u(%rdx), %rcx
+    movl	$3, %edx
+    movl	%eax, %esi
+    movq	%rcx, %rdi
     call	memset
     movq	%rax, -8(%rbp)
     movl	-12(%rbp), %eax
@@ -615,25 +650,15 @@ L78:
     call	abort
 L79:
     movl	-12(%rbp), %eax
-    movl	$66, %edx
-    movl	$2, %esi
+    movl	$65, %edx
+    movl	$3, %esi
     movl	%eax, %edi
     call	check
-    addl	$1, -12(%rbp)
-L76:
-    movl	-12(%rbp), %eax
-    cmpl	$7, %eax
-    jbe	L80
-    movl	$0, -12(%rbp)
-    jmp	L81
-L85:
-    movl	$0, %eax
-    call	reset
     movl	-12(%rbp), %eax
     cltq
     addq	$u, %rax
     movl	$3, %edx
-    movl	$0, %esi
+    movl	$66, %esi
     movq	%rax, %rdi
     call	memset
     movq	%rax, -8(%rbp)
@@ -641,22 +666,30 @@ L85:
     cltq
     addq	$u, %rax
     cmpq	-8(%rbp), %rax
-    je	L82
+    je	L80
     call	abort
-L82:
+L80:
     movl	-12(%rbp), %eax
-    movl	$0, %edx
+    movl	$66, %edx
     movl	$3, %esi
     movl	%eax, %edi
     call	check
-    movzbl	A(%rip), %eax
-    movsbl	%al, %eax
-    movl	-12(%rbp), %edx
-    movslq	%edx, %rdx
-    leaq	u(%rdx), %rcx
-    movl	$3, %edx
-    movl	%eax, %esi
-    movq	%rcx, %rdi
+    addl	$1, -12(%rbp)
+L77:
+    movl	-12(%rbp), %eax
+    cmpl	$7, %eax
+    jbe	L81
+    movl	$0, -12(%rbp)
+    jmp	L82
+L86:
+    movl	$0, %eax
+    call	reset
+    movl	-12(%rbp), %eax
+    cltq
+    addq	$u, %rax
+    movl	$4, %edx
+    movl	$0, %esi
+    movq	%rax, %rdi
     call	memset
     movq	%rax, -8(%rbp)
     movl	-12(%rbp), %eax
@@ -667,16 +700,18 @@ L82:
     call	abort
 L83:
     movl	-12(%rbp), %eax
-    movl	$65, %edx
-    movl	$3, %esi
+    movl	$0, %edx
+    movl	$4, %esi
     movl	%eax, %edi
     call	check
-    movl	-12(%rbp), %eax
-    cltq
-    addq	$u, %rax
-    movl	$3, %edx
-    movl	$66, %esi
-    movq	%rax, %rdi
+    movzbl	A(%rip), %eax
+    movsbl	%al, %eax
+    movl	-12(%rbp), %edx
+    movslq	%edx, %rdx
+    leaq	u(%rdx), %rcx
+    movl	$4, %edx
+    movl	%eax, %esi
+    movq	%rcx, %rdi
     call	memset
     movq	%rax, -8(%rbp)
     movl	-12(%rbp), %eax
@@ -687,25 +722,15 @@ L83:
     call	abort
 L84:
     movl	-12(%rbp), %eax
-    movl	$66, %edx
-    movl	$3, %esi
+    movl	$65, %edx
+    movl	$4, %esi
     movl	%eax, %edi
     call	check
-    addl	$1, -12(%rbp)
-L81:
-    movl	-12(%rbp), %eax
-    cmpl	$7, %eax
-    jbe	L85
-    movl	$0, -12(%rbp)
-    jmp	L86
-L90:
-    movl	$0, %eax
-    call	reset
     movl	-12(%rbp), %eax
     cltq
     addq	$u, %rax
     movl	$4, %edx
-    movl	$0, %esi
+    movl	$66, %esi
     movq	%rax, %rdi
     call	memset
     movq	%rax, -8(%rbp)
@@ -713,22 +738,30 @@ L90:
     cltq
     addq	$u, %rax
     cmpq	-8(%rbp), %rax
-    je	L87
+    je	L85
     call	abort
-L87:
+L85:
     movl	-12(%rbp), %eax
-    movl	$0, %edx
+    movl	$66, %edx
     movl	$4, %esi
     movl	%eax, %edi
     call	check
-    movzbl	A(%rip), %eax
-    movsbl	%al, %eax
-    movl	-12(%rbp), %edx
-    movslq	%edx, %rdx
-    leaq	u(%rdx), %rcx
-    movl	$4, %edx
-    movl	%eax, %esi
-    movq	%rcx, %rdi
+    addl	$1, -12(%rbp)
+L82:
+    movl	-12(%rbp), %eax
+    cmpl	$7, %eax
+    jbe	L86
+    movl	$0, -12(%rbp)
+    jmp	L87
+L91:
+    movl	$0, %eax
+    call	reset
+    movl	-12(%rbp), %eax
+    cltq
+    addq	$u, %rax
+    movl	$5, %edx
+    movl	$0, %esi
+    movq	%rax, %rdi
     call	memset
     movq	%rax, -8(%rbp)
     movl	-12(%rbp), %eax
@@ -739,16 +772,18 @@ L87:
     call	abort
 L88:
     movl	-12(%rbp), %eax
-    movl	$65, %edx
-    movl	$4, %esi
+    movl	$0, %edx
+    movl	$5, %esi
     movl	%eax, %edi
     call	check
-    movl	-12(%rbp), %eax
-    cltq
-    addq	$u, %rax
-    movl	$4, %edx
-    movl	$66, %esi
-    movq	%rax, %rdi
+    movzbl	A(%rip), %eax
+    movsbl	%al, %eax
+    movl	-12(%rbp), %edx
+    movslq	%edx, %rdx
+    leaq	u(%rdx), %rcx
+    movl	$5, %edx
+    movl	%eax, %esi
+    movq	%rcx, %rdi
     call	memset
     movq	%rax, -8(%rbp)
     movl	-12(%rbp), %eax
@@ -759,25 +794,15 @@ L88:
     call	abort
 L89:
     movl	-12(%rbp), %eax
-    movl	$66, %edx
-    movl	$4, %esi
+    movl	$65, %edx
+    movl	$5, %esi
     movl	%eax, %edi
     call	check
-    addl	$1, -12(%rbp)
-L86:
-    movl	-12(%rbp), %eax
-    cmpl	$7, %eax
-    jbe	L90
-    movl	$0, -12(%rbp)
-    jmp	L91
-L95:
-    movl	$0, %eax
-    call	reset
     movl	-12(%rbp), %eax
     cltq
     addq	$u, %rax
     movl	$5, %edx
-    movl	$0, %esi
+    movl	$66, %esi
     movq	%rax, %rdi
     call	memset
     movq	%rax, -8(%rbp)
@@ -785,22 +810,30 @@ L95:
     cltq
     addq	$u, %rax
     cmpq	-8(%rbp), %rax
-    je	L92
+    je	L90
     call	abort
-L92:
+L90:
     movl	-12(%rbp), %eax
-    movl	$0, %edx
+    movl	$66, %edx
     movl	$5, %esi
     movl	%eax, %edi
     call	check
-    movzbl	A(%rip), %eax
-    movsbl	%al, %eax
-    movl	-12(%rbp), %edx
-    movslq	%edx, %rdx
-    leaq	u(%rdx), %rcx
-    movl	$5, %edx
-    movl	%eax, %esi
-    movq	%rcx, %rdi
+    addl	$1, -12(%rbp)
+L87:
+    movl	-12(%rbp), %eax
+    cmpl	$7, %eax
+    jbe	L91
+    movl	$0, -12(%rbp)
+    jmp	L92
+L96:
+    movl	$0, %eax
+    call	reset
+    movl	-12(%rbp), %eax
+    cltq
+    addq	$u, %rax
+    movl	$6, %edx
+    movl	$0, %esi
+    movq	%rax, %rdi
     call	memset
     movq	%rax, -8(%rbp)
     movl	-12(%rbp), %eax
@@ -811,16 +844,18 @@ L92:
     call	abort
 L93:
     movl	-12(%rbp), %eax
-    movl	$65, %edx
-    movl	$5, %esi
+    movl	$0, %edx
+    movl	$6, %esi
     movl	%eax, %edi
     call	check
-    movl	-12(%rbp), %eax
-    cltq
-    addq	$u, %rax
-    movl	$5, %edx
-    movl	$66, %esi
-    movq	%rax, %rdi
+    movzbl	A(%rip), %eax
+    movsbl	%al, %eax
+    movl	-12(%rbp), %edx
+    movslq	%edx, %rdx
+    leaq	u(%rdx), %rcx
+    movl	$6, %edx
+    movl	%eax, %esi
+    movq	%rcx, %rdi
     call	memset
     movq	%rax, -8(%rbp)
     movl	-12(%rbp), %eax
@@ -831,25 +866,15 @@ L93:
     call	abort
 L94:
     movl	-12(%rbp), %eax
-    movl	$66, %edx
-    movl	$5, %esi
+    movl	$65, %edx
+    movl	$6, %esi
     movl	%eax, %edi
     call	check
-    addl	$1, -12(%rbp)
-L91:
-    movl	-12(%rbp), %eax
-    cmpl	$7, %eax
-    jbe	L95
-    movl	$0, -12(%rbp)
-    jmp	L96
-L100:
-    movl	$0, %eax
-    call	reset
     movl	-12(%rbp), %eax
     cltq
     addq	$u, %rax
     movl	$6, %edx
-    movl	$0, %esi
+    movl	$66, %esi
     movq	%rax, %rdi
     call	memset
     movq	%rax, -8(%rbp)
@@ -857,22 +882,30 @@ L100:
     cltq
     addq	$u, %rax
     cmpq	-8(%rbp), %rax
-    je	L97
+    je	L95
     call	abort
-L97:
+L95:
     movl	-12(%rbp), %eax
-    movl	$0, %edx
+    movl	$66, %edx
     movl	$6, %esi
     movl	%eax, %edi
     call	check
-    movzbl	A(%rip), %eax
-    movsbl	%al, %eax
-    movl	-12(%rbp), %edx
-    movslq	%edx, %rdx
-    leaq	u(%rdx), %rcx
-    movl	$6, %edx
-    movl	%eax, %esi
-    movq	%rcx, %rdi
+    addl	$1, -12(%rbp)
+L92:
+    movl	-12(%rbp), %eax
+    cmpl	$7, %eax
+    jbe	L96
+    movl	$0, -12(%rbp)
+    jmp	L97
+L101:
+    movl	$0, %eax
+    call	reset
+    movl	-12(%rbp), %eax
+    cltq
+    addq	$u, %rax
+    movl	$7, %edx
+    movl	$0, %esi
+    movq	%rax, %rdi
     call	memset
     movq	%rax, -8(%rbp)
     movl	-12(%rbp), %eax
@@ -883,16 +916,18 @@ L97:
     call	abort
 L98:
     movl	-12(%rbp), %eax
-    movl	$65, %edx
-    movl	$6, %esi
+    movl	$0, %edx
+    movl	$7, %esi
     movl	%eax, %edi
     call	check
-    movl	-12(%rbp), %eax
-    cltq
-    addq	$u, %rax
-    movl	$6, %edx
-    movl	$66, %esi
-    movq	%rax, %rdi
+    movzbl	A(%rip), %eax
+    movsbl	%al, %eax
+    movl	-12(%rbp), %edx
+    movslq	%edx, %rdx
+    leaq	u(%rdx), %rcx
+    movl	$7, %edx
+    movl	%eax, %esi
+    movq	%rcx, %rdi
     call	memset
     movq	%rax, -8(%rbp)
     movl	-12(%rbp), %eax
@@ -903,25 +938,15 @@ L98:
     call	abort
 L99:
     movl	-12(%rbp), %eax
-    movl	$66, %edx
-    movl	$6, %esi
+    movl	$65, %edx
+    movl	$7, %esi
     movl	%eax, %edi
     call	check
-    addl	$1, -12(%rbp)
-L96:
-    movl	-12(%rbp), %eax
-    cmpl	$7, %eax
-    jbe	L100
-    movl	$0, -12(%rbp)
-    jmp	L101
-L105:
-    movl	$0, %eax
-    call	reset
     movl	-12(%rbp), %eax
     cltq
     addq	$u, %rax
     movl	$7, %edx
-    movl	$0, %esi
+    movl	$66, %esi
     movq	%rax, %rdi
     call	memset
     movq	%rax, -8(%rbp)
@@ -929,22 +954,30 @@ L105:
     cltq
     addq	$u, %rax
     cmpq	-8(%rbp), %rax
-    je	L102
+    je	L100
     call	abort
-L102:
+L100:
     movl	-12(%rbp), %eax
-    movl	$0, %edx
+    movl	$66, %edx
     movl	$7, %esi
     movl	%eax, %edi
     call	check
-    movzbl	A(%rip), %eax
-    movsbl	%al, %eax
-    movl	-12(%rbp), %edx
-    movslq	%edx, %rdx
-    leaq	u(%rdx), %rcx
-    movl	$7, %edx
-    movl	%eax, %esi
-    movq	%rcx, %rdi
+    addl	$1, -12(%rbp)
+L97:
+    movl	-12(%rbp), %eax
+    cmpl	$7, %eax
+    jbe	L101
+    movl	$0, -12(%rbp)
+    jmp	L102
+L106:
+    movl	$0, %eax
+    call	reset
+    movl	-12(%rbp), %eax
+    cltq
+    addq	$u, %rax
+    movl	$8, %edx
+    movl	$0, %esi
+    movq	%rax, %rdi
     call	memset
     movq	%rax, -8(%rbp)
     movl	-12(%rbp), %eax
@@ -955,16 +988,18 @@ L102:
     call	abort
 L103:
     movl	-12(%rbp), %eax
-    movl	$65, %edx
-    movl	$7, %esi
+    movl	$0, %edx
+    movl	$8, %esi
     movl	%eax, %edi
     call	check
-    movl	-12(%rbp), %eax
-    cltq
-    addq	$u, %rax
-    movl	$7, %edx
-    movl	$66, %esi
-    movq	%rax, %rdi
+    movzbl	A(%rip), %eax
+    movsbl	%al, %eax
+    movl	-12(%rbp), %edx
+    movslq	%edx, %rdx
+    leaq	u(%rdx), %rcx
+    movl	$8, %edx
+    movl	%eax, %esi
+    movq	%rcx, %rdi
     call	memset
     movq	%rax, -8(%rbp)
     movl	-12(%rbp), %eax
@@ -975,25 +1010,15 @@ L103:
     call	abort
 L104:
     movl	-12(%rbp), %eax
-    movl	$66, %edx
-    movl	$7, %esi
+    movl	$65, %edx
+    movl	$8, %esi
     movl	%eax, %edi
     call	check
-    addl	$1, -12(%rbp)
-L101:
-    movl	-12(%rbp), %eax
-    cmpl	$7, %eax
-    jbe	L105
-    movl	$0, -12(%rbp)
-    jmp	L106
-L110:
-    movl	$0, %eax
-    call	reset
     movl	-12(%rbp), %eax
     cltq
     addq	$u, %rax
     movl	$8, %edx
-    movl	$0, %esi
+    movl	$66, %esi
     movq	%rax, %rdi
     call	memset
     movq	%rax, -8(%rbp)
@@ -1001,22 +1026,30 @@ L110:
     cltq
     addq	$u, %rax
     cmpq	-8(%rbp), %rax
-    je	L107
+    je	L105
     call	abort
-L107:
+L105:
     movl	-12(%rbp), %eax
-    movl	$0, %edx
+    movl	$66, %edx
     movl	$8, %esi
     movl	%eax, %edi
     call	check
-    movzbl	A(%rip), %eax
-    movsbl	%al, %eax
-    movl	-12(%rbp), %edx
-    movslq	%edx, %rdx
-    leaq	u(%rdx), %rcx
-    movl	$8, %edx
-    movl	%eax, %esi
-    movq	%rcx, %rdi
+    addl	$1, -12(%rbp)
+L102:
+    movl	-12(%rbp), %eax
+    cmpl	$7, %eax
+    jbe	L106
+    movl	$0, -12(%rbp)
+    jmp	L107
+L111:
+    movl	$0, %eax
+    call	reset
+    movl	-12(%rbp), %eax
+    cltq
+    addq	$u, %rax
+    movl	$9, %edx
+    movl	$0, %esi
+    movq	%rax, %rdi
     call	memset
     movq	%rax, -8(%rbp)
     movl	-12(%rbp), %eax
@@ -1027,16 +1060,18 @@ L107:
     call	abort
 L108:
     movl	-12(%rbp), %eax
-    movl	$65, %edx
-    movl	$8, %esi
+    movl	$0, %edx
+    movl	$9, %esi
     movl	%eax, %edi
     call	check
-    movl	-12(%rbp), %eax
-    cltq
-    addq	$u, %rax
-    movl	$8, %edx
-    movl	$66, %esi
-    movq	%rax, %rdi
+    movzbl	A(%rip), %eax
+    movsbl	%al, %eax
+    movl	-12(%rbp), %edx
+    movslq	%edx, %rdx
+    leaq	u(%rdx), %rcx
+    movl	$9, %edx
+    movl	%eax, %esi
+    movq	%rcx, %rdi
     call	memset
     movq	%rax, -8(%rbp)
     movl	-12(%rbp), %eax
@@ -1047,25 +1082,15 @@ L108:
     call	abort
 L109:
     movl	-12(%rbp), %eax
-    movl	$66, %edx
-    movl	$8, %esi
+    movl	$65, %edx
+    movl	$9, %esi
     movl	%eax, %edi
     call	check
-    addl	$1, -12(%rbp)
-L106:
-    movl	-12(%rbp), %eax
-    cmpl	$7, %eax
-    jbe	L110
-    movl	$0, -12(%rbp)
-    jmp	L111
-L115:
-    movl	$0, %eax
-    call	reset
     movl	-12(%rbp), %eax
     cltq
     addq	$u, %rax
     movl	$9, %edx
-    movl	$0, %esi
+    movl	$66, %esi
     movq	%rax, %rdi
     call	memset
     movq	%rax, -8(%rbp)
@@ -1073,22 +1098,30 @@ L115:
     cltq
     addq	$u, %rax
     cmpq	-8(%rbp), %rax
-    je	L112
+    je	L110
     call	abort
-L112:
+L110:
     movl	-12(%rbp), %eax
-    movl	$0, %edx
+    movl	$66, %edx
     movl	$9, %esi
     movl	%eax, %edi
     call	check
-    movzbl	A(%rip), %eax
-    movsbl	%al, %eax
-    movl	-12(%rbp), %edx
-    movslq	%edx, %rdx
-    leaq	u(%rdx), %rcx
-    movl	$9, %edx
-    movl	%eax, %esi
-    movq	%rcx, %rdi
+    addl	$1, -12(%rbp)
+L107:
+    movl	-12(%rbp), %eax
+    cmpl	$7, %eax
+    jbe	L111
+    movl	$0, -12(%rbp)
+    jmp	L112
+L116:
+    movl	$0, %eax
+    call	reset
+    movl	-12(%rbp), %eax
+    cltq
+    addq	$u, %rax
+    movl	$10, %edx
+    movl	$0, %esi
+    movq	%rax, %rdi
     call	memset
     movq	%rax, -8(%rbp)
     movl	-12(%rbp), %eax
@@ -1099,16 +1132,18 @@ L112:
     call	abort
 L113:
     movl	-12(%rbp), %eax
-    movl	$65, %edx
-    movl	$9, %esi
+    movl	$0, %edx
+    movl	$10, %esi
     movl	%eax, %edi
     call	check
-    movl	-12(%rbp), %eax
-    cltq
-    addq	$u, %rax
-    movl	$9, %edx
-    movl	$66, %esi
-    movq	%rax, %rdi
+    movzbl	A(%rip), %eax
+    movsbl	%al, %eax
+    movl	-12(%rbp), %edx
+    movslq	%edx, %rdx
+    leaq	u(%rdx), %rcx
+    movl	$10, %edx
+    movl	%eax, %esi
+    movq	%rcx, %rdi
     call	memset
     movq	%rax, -8(%rbp)
     movl	-12(%rbp), %eax
@@ -1119,25 +1154,15 @@ L113:
     call	abort
 L114:
     movl	-12(%rbp), %eax
-    movl	$66, %edx
-    movl	$9, %esi
+    movl	$65, %edx
+    movl	$10, %esi
     movl	%eax, %edi
     call	check
-    addl	$1, -12(%rbp)
-L111:
-    movl	-12(%rbp), %eax
-    cmpl	$7, %eax
-    jbe	L115
-    movl	$0, -12(%rbp)
-    jmp	L116
-L120:
-    movl	$0, %eax
-    call	reset
     movl	-12(%rbp), %eax
     cltq
     addq	$u, %rax
     movl	$10, %edx
-    movl	$0, %esi
+    movl	$66, %esi
     movq	%rax, %rdi
     call	memset
     movq	%rax, -8(%rbp)
@@ -1145,22 +1170,30 @@ L120:
     cltq
     addq	$u, %rax
     cmpq	-8(%rbp), %rax
-    je	L117
+    je	L115
     call	abort
-L117:
+L115:
     movl	-12(%rbp), %eax
-    movl	$0, %edx
+    movl	$66, %edx
     movl	$10, %esi
     movl	%eax, %edi
     call	check
-    movzbl	A(%rip), %eax
-    movsbl	%al, %eax
-    movl	-12(%rbp), %edx
-    movslq	%edx, %rdx
-    leaq	u(%rdx), %rcx
-    movl	$10, %edx
-    movl	%eax, %esi
-    movq	%rcx, %rdi
+    addl	$1, -12(%rbp)
+L112:
+    movl	-12(%rbp), %eax
+    cmpl	$7, %eax
+    jbe	L116
+    movl	$0, -12(%rbp)
+    jmp	L117
+L121:
+    movl	$0, %eax
+    call	reset
+    movl	-12(%rbp), %eax
+    cltq
+    addq	$u, %rax
+    movl	$11, %edx
+    movl	$0, %esi
+    movq	%rax, %rdi
     call	memset
     movq	%rax, -8(%rbp)
     movl	-12(%rbp), %eax
@@ -1171,16 +1204,18 @@ L117:
     call	abort
 L118:
     movl	-12(%rbp), %eax
-    movl	$65, %edx
-    movl	$10, %esi
+    movl	$0, %edx
+    movl	$11, %esi
     movl	%eax, %edi
     call	check
-    movl	-12(%rbp), %eax
-    cltq
-    addq	$u, %rax
-    movl	$10, %edx
-    movl	$66, %esi
-    movq	%rax, %rdi
+    movzbl	A(%rip), %eax
+    movsbl	%al, %eax
+    movl	-12(%rbp), %edx
+    movslq	%edx, %rdx
+    leaq	u(%rdx), %rcx
+    movl	$11, %edx
+    movl	%eax, %esi
+    movq	%rcx, %rdi
     call	memset
     movq	%rax, -8(%rbp)
     movl	-12(%rbp), %eax
@@ -1191,25 +1226,15 @@ L118:
     call	abort
 L119:
     movl	-12(%rbp), %eax
-    movl	$66, %edx
-    movl	$10, %esi
+    movl	$65, %edx
+    movl	$11, %esi
     movl	%eax, %edi
     call	check
-    addl	$1, -12(%rbp)
-L116:
-    movl	-12(%rbp), %eax
-    cmpl	$7, %eax
-    jbe	L120
-    movl	$0, -12(%rbp)
-    jmp	L121
-L125:
-    movl	$0, %eax
-    call	reset
     movl	-12(%rbp), %eax
     cltq
     addq	$u, %rax
     movl	$11, %edx
-    movl	$0, %esi
+    movl	$66, %esi
     movq	%rax, %rdi
     call	memset
     movq	%rax, -8(%rbp)
@@ -1217,22 +1242,30 @@ L125:
     cltq
     addq	$u, %rax
     cmpq	-8(%rbp), %rax
-    je	L122
+    je	L120
     call	abort
-L122:
+L120:
     movl	-12(%rbp), %eax
-    movl	$0, %edx
+    movl	$66, %edx
     movl	$11, %esi
     movl	%eax, %edi
     call	check
-    movzbl	A(%rip), %eax
-    movsbl	%al, %eax
-    movl	-12(%rbp), %edx
-    movslq	%edx, %rdx
-    leaq	u(%rdx), %rcx
-    movl	$11, %edx
-    movl	%eax, %esi
-    movq	%rcx, %rdi
+    addl	$1, -12(%rbp)
+L117:
+    movl	-12(%rbp), %eax
+    cmpl	$7, %eax
+    jbe	L121
+    movl	$0, -12(%rbp)
+    jmp	L122
+L126:
+    movl	$0, %eax
+    call	reset
+    movl	-12(%rbp), %eax
+    cltq
+    addq	$u, %rax
+    movl	$12, %edx
+    movl	$0, %esi
+    movq	%rax, %rdi
     call	memset
     movq	%rax, -8(%rbp)
     movl	-12(%rbp), %eax
@@ -1243,16 +1276,18 @@ L122:
     call	abort
 L123:
     movl	-12(%rbp), %eax
-    movl	$65, %edx
-    movl	$11, %esi
+    movl	$0, %edx
+    movl	$12, %esi
     movl	%eax, %edi
     call	check
-    movl	-12(%rbp), %eax
-    cltq
-    addq	$u, %rax
-    movl	$11, %edx
-    movl	$66, %esi
-    movq	%rax, %rdi
+    movzbl	A(%rip), %eax
+    movsbl	%al, %eax
+    movl	-12(%rbp), %edx
+    movslq	%edx, %rdx
+    leaq	u(%rdx), %rcx
+    movl	$12, %edx
+    movl	%eax, %esi
+    movq	%rcx, %rdi
     call	memset
     movq	%rax, -8(%rbp)
     movl	-12(%rbp), %eax
@@ -1263,25 +1298,15 @@ L123:
     call	abort
 L124:
     movl	-12(%rbp), %eax
-    movl	$66, %edx
-    movl	$11, %esi
+    movl	$65, %edx
+    movl	$12, %esi
     movl	%eax, %edi
     call	check
-    addl	$1, -12(%rbp)
-L121:
-    movl	-12(%rbp), %eax
-    cmpl	$7, %eax
-    jbe	L125
-    movl	$0, -12(%rbp)
-    jmp	L126
-L130:
-    movl	$0, %eax
-    call	reset
     movl	-12(%rbp), %eax
     cltq
     addq	$u, %rax
     movl	$12, %edx
-    movl	$0, %esi
+    movl	$66, %esi
     movq	%rax, %rdi
     call	memset
     movq	%rax, -8(%rbp)
@@ -1289,22 +1314,30 @@ L130:
     cltq
     addq	$u, %rax
     cmpq	-8(%rbp), %rax
-    je	L127
+    je	L125
     call	abort
-L127:
+L125:
     movl	-12(%rbp), %eax
-    movl	$0, %edx
+    movl	$66, %edx
     movl	$12, %esi
     movl	%eax, %edi
     call	check
-    movzbl	A(%rip), %eax
-    movsbl	%al, %eax
-    movl	-12(%rbp), %edx
-    movslq	%edx, %rdx
-    leaq	u(%rdx), %rcx
-    movl	$12, %edx
-    movl	%eax, %esi
-    movq	%rcx, %rdi
+    addl	$1, -12(%rbp)
+L122:
+    movl	-12(%rbp), %eax
+    cmpl	$7, %eax
+    jbe	L126
+    movl	$0, -12(%rbp)
+    jmp	L127
+L131:
+    movl	$0, %eax
+    call	reset
+    movl	-12(%rbp), %eax
+    cltq
+    addq	$u, %rax
+    movl	$13, %edx
+    movl	$0, %esi
+    movq	%rax, %rdi
     call	memset
     movq	%rax, -8(%rbp)
     movl	-12(%rbp), %eax
@@ -1315,16 +1348,18 @@ L127:
     call	abort
 L128:
     movl	-12(%rbp), %eax
-    movl	$65, %edx
-    movl	$12, %esi
+    movl	$0, %edx
+    movl	$13, %esi
     movl	%eax, %edi
     call	check
-    movl	-12(%rbp), %eax
-    cltq
-    addq	$u, %rax
-    movl	$12, %edx
-    movl	$66, %esi
-    movq	%rax, %rdi
+    movzbl	A(%rip), %eax
+    movsbl	%al, %eax
+    movl	-12(%rbp), %edx
+    movslq	%edx, %rdx
+    leaq	u(%rdx), %rcx
+    movl	$13, %edx
+    movl	%eax, %esi
+    movq	%rcx, %rdi
     call	memset
     movq	%rax, -8(%rbp)
     movl	-12(%rbp), %eax
@@ -1335,25 +1370,15 @@ L128:
     call	abort
 L129:
     movl	-12(%rbp), %eax
-    movl	$66, %edx
-    movl	$12, %esi
+    movl	$65, %edx
+    movl	$13, %esi
     movl	%eax, %edi
     call	check
-    addl	$1, -12(%rbp)
-L126:
-    movl	-12(%rbp), %eax
-    cmpl	$7, %eax
-    jbe	L130
-    movl	$0, -12(%rbp)
-    jmp	L131
-L135:
-    movl	$0, %eax
-    call	reset
     movl	-12(%rbp), %eax
     cltq
     addq	$u, %rax
     movl	$13, %edx
-    movl	$0, %esi
+    movl	$66, %esi
     movq	%rax, %rdi
     call	memset
     movq	%rax, -8(%rbp)
@@ -1361,22 +1386,30 @@ L135:
     cltq
     addq	$u, %rax
     cmpq	-8(%rbp), %rax
-    je	L132
+    je	L130
     call	abort
-L132:
+L130:
     movl	-12(%rbp), %eax
-    movl	$0, %edx
+    movl	$66, %edx
     movl	$13, %esi
     movl	%eax, %edi
     call	check
-    movzbl	A(%rip), %eax
-    movsbl	%al, %eax
-    movl	-12(%rbp), %edx
-    movslq	%edx, %rdx
-    leaq	u(%rdx), %rcx
-    movl	$13, %edx
-    movl	%eax, %esi
-    movq	%rcx, %rdi
+    addl	$1, -12(%rbp)
+L127:
+    movl	-12(%rbp), %eax
+    cmpl	$7, %eax
+    jbe	L131
+    movl	$0, -12(%rbp)
+    jmp	L132
+L136:
+    movl	$0, %eax
+    call	reset
+    movl	-12(%rbp), %eax
+    cltq
+    addq	$u, %rax
+    movl	$14, %edx
+    movl	$0, %esi
+    movq	%rax, %rdi
     call	memset
     movq	%rax, -8(%rbp)
     movl	-12(%rbp), %eax
@@ -1387,16 +1420,18 @@ L132:
     call	abort
 L133:
     movl	-12(%rbp), %eax
-    movl	$65, %edx
-    movl	$13, %esi
+    movl	$0, %edx
+    movl	$14, %esi
     movl	%eax, %edi
     call	check
-    movl	-12(%rbp), %eax
-    cltq
-    addq	$u, %rax
-    movl	$13, %edx
-    movl	$66, %esi
-    movq	%rax, %rdi
+    movzbl	A(%rip), %eax
+    movsbl	%al, %eax
+    movl	-12(%rbp), %edx
+    movslq	%edx, %rdx
+    leaq	u(%rdx), %rcx
+    movl	$14, %edx
+    movl	%eax, %esi
+    movq	%rcx, %rdi
     call	memset
     movq	%rax, -8(%rbp)
     movl	-12(%rbp), %eax
@@ -1407,25 +1442,15 @@ L133:
     call	abort
 L134:
     movl	-12(%rbp), %eax
-    movl	$66, %edx
-    movl	$13, %esi
+    movl	$65, %edx
+    movl	$14, %esi
     movl	%eax, %edi
     call	check
-    addl	$1, -12(%rbp)
-L131:
-    movl	-12(%rbp), %eax
-    cmpl	$7, %eax
-    jbe	L135
-    movl	$0, -12(%rbp)
-    jmp	L136
-L140:
-    movl	$0, %eax
-    call	reset
     movl	-12(%rbp), %eax
     cltq
     addq	$u, %rax
     movl	$14, %edx
-    movl	$0, %esi
+    movl	$66, %esi
     movq	%rax, %rdi
     call	memset
     movq	%rax, -8(%rbp)
@@ -1433,22 +1458,30 @@ L140:
     cltq
     addq	$u, %rax
     cmpq	-8(%rbp), %rax
-    je	L137
+    je	L135
     call	abort
-L137:
+L135:
     movl	-12(%rbp), %eax
-    movl	$0, %edx
+    movl	$66, %edx
     movl	$14, %esi
     movl	%eax, %edi
     call	check
-    movzbl	A(%rip), %eax
-    movsbl	%al, %eax
-    movl	-12(%rbp), %edx
-    movslq	%edx, %rdx
-    leaq	u(%rdx), %rcx
-    movl	$14, %edx
-    movl	%eax, %esi
-    movq	%rcx, %rdi
+    addl	$1, -12(%rbp)
+L132:
+    movl	-12(%rbp), %eax
+    cmpl	$7, %eax
+    jbe	L136
+    movl	$0, -12(%rbp)
+    jmp	L137
+L141:
+    movl	$0, %eax
+    call	reset
+    movl	-12(%rbp), %eax
+    cltq
+    addq	$u, %rax
+    movl	$15, %edx
+    movl	$0, %esi
+    movq	%rax, %rdi
     call	memset
     movq	%rax, -8(%rbp)
     movl	-12(%rbp), %eax
@@ -1459,56 +1492,6 @@ L137:
     call	abort
 L138:
     movl	-12(%rbp), %eax
-    movl	$65, %edx
-    movl	$14, %esi
-    movl	%eax, %edi
-    call	check
-    movl	-12(%rbp), %eax
-    cltq
-    addq	$u, %rax
-    movl	$14, %edx
-    movl	$66, %esi
-    movq	%rax, %rdi
-    call	memset
-    movq	%rax, -8(%rbp)
-    movl	-12(%rbp), %eax
-    cltq
-    addq	$u, %rax
-    cmpq	-8(%rbp), %rax
-    je	L139
-    call	abort
-L139:
-    movl	-12(%rbp), %eax
-    movl	$66, %edx
-    movl	$14, %esi
-    movl	%eax, %edi
-    call	check
-    addl	$1, -12(%rbp)
-L136:
-    movl	-12(%rbp), %eax
-    cmpl	$7, %eax
-    jbe	L140
-    movl	$0, -12(%rbp)
-    jmp	L141
-L145:
-    movl	$0, %eax
-    call	reset
-    movl	-12(%rbp), %eax
-    cltq
-    addq	$u, %rax
-    movl	$15, %edx
-    movl	$0, %esi
-    movq	%rax, %rdi
-    call	memset
-    movq	%rax, -8(%rbp)
-    movl	-12(%rbp), %eax
-    cltq
-    addq	$u, %rax
-    cmpq	-8(%rbp), %rax
-    je	L142
-    call	abort
-L142:
-    movl	-12(%rbp), %eax
     movl	$0, %edx
     movl	$15, %esi
     movl	%eax, %edi
@@ -1527,9 +1510,9 @@ L142:
     cltq
     addq	$u, %rax
     cmpq	-8(%rbp), %rax
-    je	L143
+    je	L139
     call	abort
-L143:
+L139:
     movl	-12(%rbp), %eax
     movl	$65, %edx
     movl	$15, %esi
@@ -1547,18 +1530,18 @@ L143:
     cltq
     addq	$u, %rax
     cmpq	-8(%rbp), %rax
-    je	L144
+    je	L140
     call	abort
-L144:
+L140:
     movl	-12(%rbp), %eax
     movl	$66, %edx
     movl	$15, %esi
     movl	%eax, %edi
     call	check
     addl	$1, -12(%rbp)
-L141:
+L137:
     movl	-12(%rbp), %eax
     cmpl	$7, %eax
-    jbe	L145
+    jbe	L141
     movl	$0, %edi
     call	exit

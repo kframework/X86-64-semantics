@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .comm	ptrs,160,32
@@ -521,8 +504,8 @@ foo:
     movq	%rax, -8(%rbp)
     vxorps	%xmm0, %xmm0, %xmm0
     vmovss	%xmm0, -244(%rbp)
-    jmp	L58
-L59:
+    jmp	L54
+L55:
     movq	-160(%rbp), %rax
     vmovss	(%rax), %xmm0
     vmovss	-320(%rbp), %xmm1
@@ -703,12 +686,12 @@ L59:
     cltq
     salq	$2, %rax
     addq	%rax, -8(%rbp)
-L58:
+L54:
     movl	-324(%rbp), %eax
     leal	-1(%rax), %edx
     movl	%edx, -324(%rbp)
     testl	%eax, %eax
-    jne	L59
+    jne	L55
     vmovss	-320(%rbp), %xmm0
     vmovss	%xmm0, results(%rip)
     vmovss	-316(%rbp), %xmm0
@@ -760,8 +743,8 @@ _start:
     movq	%rsp, %rbp
     subq	$16, %rsp
     movl	$0, -4(%rbp)
-    jmp	L61
-L62:
+    jmp	L57
+L58:
     movl	-4(%rbp), %eax
     cltq
     salq	$2, %rax
@@ -774,26 +757,26 @@ L62:
     movl	-4(%rbp), %edx
     movl	%edx, incs(,%rax,4)
     addl	$1, -4(%rbp)
-L61:
+L57:
     cmpl	$19, -4(%rbp)
-    jle	L62
+    jle	L58
     movl	$0, -4(%rbp)
-    jmp	L63
-L64:
+    jmp	L59
+L60:
     vxorps	%xmm0, %xmm0, %xmm0
     vcvtsi2ss	-4(%rbp), %xmm0, %xmm0
     movl	-4(%rbp), %eax
     cltq
     vmovss	%xmm0, input(,%rax,4)
     addl	$1, -4(%rbp)
-L63:
+L59:
     cmpl	$79, -4(%rbp)
-    jle	L64
+    jle	L60
     movl	$4, %edi
     call	foo
     movl	$0, -4(%rbp)
-    jmp	L65
-L69:
+    jmp	L61
+L65:
     movl	-4(%rbp), %eax
     cltq
     vmovss	results(,%rax,4), %xmm1
@@ -809,18 +792,18 @@ L69:
     vxorps	%xmm0, %xmm0, %xmm0
     vcvtsi2ss	%eax, %xmm0, %xmm0
     vucomiss	%xmm0, %xmm1
-    jp	L70
+    jp	L66
     vucomiss	%xmm0, %xmm1
-    je	L71
-L70:
+    je	L67
+L66:
     movl	$1, %eax
-    jmp	L68
-L71:
+    jmp	L64
+L67:
     addl	$1, -4(%rbp)
-L65:
+L61:
     cmpl	$19, -4(%rbp)
-    jle	L69
+    jle	L65
     movl	$0, %eax
-L68:
+L64:
     leave
     ret

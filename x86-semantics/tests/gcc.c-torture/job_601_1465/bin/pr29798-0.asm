@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	main
@@ -403,25 +386,25 @@ _start:
     vmovsd	LC1(%rip), %xmm0
     vmovsd	%xmm0, -16(%rbp)
     movl	$1, -36(%rbp)
-    jmp	L58
-L62:
+    jmp	L54
+L58:
     vmovsd	-16(%rbp), %xmm0
     vmulsd	-16(%rbp), %xmm0, %xmm0
     vmovsd	%xmm0, -8(%rbp)
     cmpl	$1, -36(%rbp)
-    je	L59
+    je	L55
     vmovsd	-8(%rbp), %xmm0
     vdivsd	-32(%rbp), %xmm0, %xmm0
     vmovsd	%xmm0, -24(%rbp)
-L59:
+L55:
     vmovsd	LC1(%rip), %xmm0
     vucomisd	-24(%rbp), %xmm0
-    jp	L60
+    jp	L56
     vmovsd	LC1(%rip), %xmm0
     vucomisd	-24(%rbp), %xmm0
-    jne	L60
+    jne	L56
     call	abort
-L60:
+L56:
     vmovsd	-16(%rbp), %xmm0
     vmovsd	LC2(%rip), %xmm1
     vdivsd	%xmm1, %xmm0, %xmm0
@@ -429,9 +412,9 @@ L60:
     vmovsd	-8(%rbp), %xmm0
     vmovsd	%xmm0, -32(%rbp)
     addl	$1, -36(%rbp)
-L58:
+L54:
     cmpl	$2, -36(%rbp)
-    jle	L62
+    jle	L58
     movl	$0, %eax
     leave
     ret

@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	sub1
@@ -398,12 +381,12 @@ sub1:
     movq	%rsp, %rbp
     movq	%rdi, -8(%rbp)
     cmpq	$2147483647, -8(%rbp)
-    ja	L58
+    ja	L54
     movl	$1, %eax
-    jmp	L59
-L58:
+    jmp	L55
+L54:
     movl	$0, %eax
-L59:
+L55:
     popq	%rbp
     ret
     .globl	sub2
@@ -412,12 +395,12 @@ sub2:
     movq	%rsp, %rbp
     movq	%rdi, -8(%rbp)
     cmpq	$2147483647, -8(%rbp)
-    ja	L61
+    ja	L57
     movl	$1, %eax
-    jmp	L62
-L61:
+    jmp	L58
+L57:
     movl	$0, %eax
-L62:
+L58:
     popq	%rbp
     ret
     .globl	sub3
@@ -426,12 +409,12 @@ sub3:
     movq	%rsp, %rbp
     movq	%rdi, -8(%rbp)
     cmpq	$2147483647, -8(%rbp)
-    jbe	L64
+    jbe	L60
     movl	$0, %eax
-    jmp	L65
-L64:
+    jmp	L61
+L60:
     movl	$1, %eax
-L65:
+L61:
     popq	%rbp
     ret
     .globl	sub4
@@ -440,12 +423,12 @@ sub4:
     movq	%rsp, %rbp
     movq	%rdi, -8(%rbp)
     cmpq	$2147483647, -8(%rbp)
-    jbe	L67
+    jbe	L63
     movl	$0, %eax
-    jmp	L68
-L67:
+    jmp	L64
+L63:
     movl	$1, %eax
-L68:
+L64:
     popq	%rbp
     ret
     .globl	main
@@ -456,26 +439,26 @@ _start:
     movl	$2147483648, %edi
     call	sub1
     testl	%eax, %eax
-    je	L70
+    je	L66
     call	abort
-L70:
+L66:
     movl	$2147483648, %edi
     call	sub2
     testl	%eax, %eax
-    je	L71
+    je	L67
     call	abort
-L71:
+L67:
     movl	$2147483648, %edi
     call	sub3
     testl	%eax, %eax
-    je	L72
+    je	L68
     call	abort
-L72:
+L68:
     movl	$2147483648, %edi
     call	sub4
     testl	%eax, %eax
-    je	L73
+    je	L69
     call	abort
-L73:
+L69:
     movl	$0, %edi
     call	exit
