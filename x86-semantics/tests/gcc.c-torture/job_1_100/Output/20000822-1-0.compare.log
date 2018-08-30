@@ -1,0 +1,56 @@
+grep  -A 40  "ListItem"  Output/20000822-1-0.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfileXsYDi 2>&1 
+numOfInstrs: 37
+[4m[1m[34m20000822-1-0 Compare Results :[0m
+Failed:[4m[1m[91m20000822-1-0: kstate xstate count unequal[0m
+kstates = 1406
+xstates = 2546
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 7
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 8
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 9
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 12
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 12
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 12
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 12
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 12
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 12
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 00007fffffffd9a8
+r10 at instrcount: 12
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 000000000040033e
+r11 at instrcount: 12
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 12
+
+Passed:[4m[1m[92mPassed[0m
