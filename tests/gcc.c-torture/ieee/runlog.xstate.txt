@@ -1,0 +1,418 @@
+as bin//20010114-2.asm -o Output//20010114-2.o 
+ld Output//20010114-2.o -o Output//20010114-2.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//20010114-2.exec 1> Output//20010114-2.xstate 2>&1 
+bin//20010114-2.asm: Assembler messages:
+bin//20010114-2.asm:150: Warning: indirect jmp without `*'
+bin//20010114-2.asm:161: Warning: indirect jmp without `*'
+bin//20010114-2.asm:171: Warning: indirect jmp without `*'
+as bin//20041213-1.asm -o Output//20041213-1.o 
+ld Output//20041213-1.o -o Output//20041213-1.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//20041213-1.exec 1> Output//20041213-1.xstate 2>&1 
+bin//20041213-1.asm: Assembler messages:
+bin//20041213-1.asm:150: Warning: indirect jmp without `*'
+bin//20041213-1.asm:161: Warning: indirect jmp without `*'
+bin//20041213-1.asm:171: Warning: indirect jmp without `*'
+Output//20041213-1.o: In function `_start':
+(.text+0x2ef): undefined reference to `sqrt'
+as bin//20011123-1.asm -o Output//20011123-1.o 
+ld Output//20011123-1.o -o Output//20011123-1.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//20011123-1.exec 1> Output//20011123-1.xstate 2>&1 
+bin//20011123-1.asm: Assembler messages:
+bin//20011123-1.asm:150: Warning: indirect jmp without `*'
+bin//20011123-1.asm:161: Warning: indirect jmp without `*'
+bin//20011123-1.asm:171: Warning: indirect jmp without `*'
+as bin//20010226-1.asm -o Output//20010226-1.o 
+ld Output//20010226-1.o -o Output//20010226-1.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//20010226-1.exec 1> Output//20010226-1.xstate 2>&1 
+bin//20010226-1.asm: Assembler messages:
+bin//20010226-1.asm:150: Warning: indirect jmp without `*'
+bin//20010226-1.asm:161: Warning: indirect jmp without `*'
+bin//20010226-1.asm:171: Warning: indirect jmp without `*'
+as bin//920518-1.asm -o Output//920518-1.o 
+ld Output//920518-1.o -o Output//920518-1.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//920518-1.exec 1> Output//920518-1.xstate 2>&1 
+bin//920518-1.asm: Assembler messages:
+bin//920518-1.asm:150: Warning: indirect jmp without `*'
+bin//920518-1.asm:161: Warning: indirect jmp without `*'
+bin//920518-1.asm:171: Warning: indirect jmp without `*'
+as bin//compare-fp-2.asm -o Output//compare-fp-2.o 
+ld Output//compare-fp-2.o -o Output//compare-fp-2.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//compare-fp-2.exec 1> Output//compare-fp-2.xstate 2>&1 
+bin//compare-fp-2.asm: Assembler messages:
+bin//compare-fp-2.asm:150: Warning: indirect jmp without `*'
+bin//compare-fp-2.asm:161: Warning: indirect jmp without `*'
+bin//compare-fp-2.asm:171: Warning: indirect jmp without `*'
+as bin//fp-cmp-7.asm -o Output//fp-cmp-7.o 
+ld Output//fp-cmp-7.o -o Output//fp-cmp-7.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//fp-cmp-7.exec 1> Output//fp-cmp-7.xstate 2>&1 
+bin//fp-cmp-7.asm: Assembler messages:
+bin//fp-cmp-7.asm:150: Warning: indirect jmp without `*'
+bin//fp-cmp-7.asm:161: Warning: indirect jmp without `*'
+bin//fp-cmp-7.asm:171: Warning: indirect jmp without `*'
+as bin//fp-cmp-8e.asm -o Output//fp-cmp-8e.o 
+ld Output//fp-cmp-8e.o -o Output//fp-cmp-8e.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//fp-cmp-8e.exec 1> Output//fp-cmp-8e.xstate 2>&1 
+bin//fp-cmp-8e.asm: Assembler messages:
+bin//fp-cmp-8e.asm:150: Warning: indirect jmp without `*'
+bin//fp-cmp-8e.asm:161: Warning: indirect jmp without `*'
+bin//fp-cmp-8e.asm:171: Warning: indirect jmp without `*'
+as bin//930529-1.asm -o Output//930529-1.o 
+ld Output//930529-1.o -o Output//930529-1.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//930529-1.exec 1> Output//930529-1.xstate 2>&1 
+bin//930529-1.asm: Assembler messages:
+bin//930529-1.asm:150: Warning: indirect jmp without `*'
+bin//930529-1.asm:161: Warning: indirect jmp without `*'
+bin//930529-1.asm:171: Warning: indirect jmp without `*'
+as bin//20030331-1.asm -o Output//20030331-1.o 
+ld Output//20030331-1.o -o Output//20030331-1.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//20030331-1.exec 1> Output//20030331-1.xstate 2>&1 
+bin//20030331-1.asm: Assembler messages:
+bin//20030331-1.asm:150: Warning: indirect jmp without `*'
+bin//20030331-1.asm:161: Warning: indirect jmp without `*'
+bin//20030331-1.asm:171: Warning: indirect jmp without `*'
+as bin//fp-cmp-4e.asm -o Output//fp-cmp-4e.o 
+ld Output//fp-cmp-4e.o -o Output//fp-cmp-4e.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//fp-cmp-4e.exec 1> Output//fp-cmp-4e.xstate 2>&1 
+bin//fp-cmp-4e.asm: Assembler messages:
+bin//fp-cmp-4e.asm:150: Warning: indirect jmp without `*'
+bin//fp-cmp-4e.asm:161: Warning: indirect jmp without `*'
+bin//fp-cmp-4e.asm:171: Warning: indirect jmp without `*'
+as bin//920810-1.asm -o Output//920810-1.o 
+ld Output//920810-1.o -o Output//920810-1.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//920810-1.exec 1> Output//920810-1.xstate 2>&1 
+bin//920810-1.asm: Assembler messages:
+bin//920810-1.asm:150: Warning: indirect jmp without `*'
+bin//920810-1.asm:161: Warning: indirect jmp without `*'
+bin//920810-1.asm:171: Warning: indirect jmp without `*'
+as bin//fp-cmp-6.asm -o Output//fp-cmp-6.o 
+ld Output//fp-cmp-6.o -o Output//fp-cmp-6.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//fp-cmp-6.exec 1> Output//fp-cmp-6.xstate 2>&1 
+bin//fp-cmp-6.asm: Assembler messages:
+bin//fp-cmp-6.asm:150: Warning: indirect jmp without `*'
+bin//fp-cmp-6.asm:161: Warning: indirect jmp without `*'
+bin//fp-cmp-6.asm:171: Warning: indirect jmp without `*'
+as bin//fp-cmp-1.asm -o Output//fp-cmp-1.o 
+ld Output//fp-cmp-1.o -o Output//fp-cmp-1.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//fp-cmp-1.exec 1> Output//fp-cmp-1.xstate 2>&1 
+bin//fp-cmp-1.asm: Assembler messages:
+bin//fp-cmp-1.asm:150: Warning: indirect jmp without `*'
+bin//fp-cmp-1.asm:161: Warning: indirect jmp without `*'
+bin//fp-cmp-1.asm:171: Warning: indirect jmp without `*'
+as bin//hugeval.asm -o Output//hugeval.o 
+ld Output//hugeval.o -o Output//hugeval.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//hugeval.exec 1> Output//hugeval.xstate 2>&1 
+bin//hugeval.asm: Assembler messages:
+bin//hugeval.asm:150: Warning: indirect jmp without `*'
+bin//hugeval.asm:161: Warning: indirect jmp without `*'
+bin//hugeval.asm:171: Warning: indirect jmp without `*'
+as bin//fp-cmp-2.asm -o Output//fp-cmp-2.o 
+ld Output//fp-cmp-2.o -o Output//fp-cmp-2.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//fp-cmp-2.exec 1> Output//fp-cmp-2.xstate 2>&1 
+bin//fp-cmp-2.asm: Assembler messages:
+bin//fp-cmp-2.asm:150: Warning: indirect jmp without `*'
+bin//fp-cmp-2.asm:161: Warning: indirect jmp without `*'
+bin//fp-cmp-2.asm:171: Warning: indirect jmp without `*'
+as bin//minuszero.asm -o Output//minuszero.o 
+ld Output//minuszero.o -o Output//minuszero.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//minuszero.exec 1> Output//minuszero.xstate 2>&1 
+bin//minuszero.asm: Assembler messages:
+bin//minuszero.asm:150: Warning: indirect jmp without `*'
+bin//minuszero.asm:161: Warning: indirect jmp without `*'
+bin//minuszero.asm:171: Warning: indirect jmp without `*'
+as bin//fp-cmp-3.asm -o Output//fp-cmp-3.o 
+ld Output//fp-cmp-3.o -o Output//fp-cmp-3.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//fp-cmp-3.exec 1> Output//fp-cmp-3.xstate 2>&1 
+bin//fp-cmp-3.asm: Assembler messages:
+bin//fp-cmp-3.asm:150: Warning: indirect jmp without `*'
+bin//fp-cmp-3.asm:161: Warning: indirect jmp without `*'
+bin//fp-cmp-3.asm:171: Warning: indirect jmp without `*'
+as bin//inf-1.asm -o Output//inf-1.o 
+ld Output//inf-1.o -o Output//inf-1.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//inf-1.exec 1> Output//inf-1.xstate 2>&1 
+bin//inf-1.asm: Assembler messages:
+bin//inf-1.asm:150: Warning: indirect jmp without `*'
+bin//inf-1.asm:161: Warning: indirect jmp without `*'
+bin//inf-1.asm:171: Warning: indirect jmp without `*'
+as bin//acc1.asm -o Output//acc1.o 
+ld Output//acc1.o -o Output//acc1.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//acc1.exec 1> Output//acc1.xstate 2>&1 
+bin//acc1.asm: Assembler messages:
+bin//acc1.asm:150: Warning: indirect jmp without `*'
+bin//acc1.asm:161: Warning: indirect jmp without `*'
+bin//acc1.asm:171: Warning: indirect jmp without `*'
+as bin//acc2.asm -o Output//acc2.o 
+ld Output//acc2.o -o Output//acc2.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//acc2.exec 1> Output//acc2.xstate 2>&1 
+bin//acc2.asm: Assembler messages:
+bin//acc2.asm:150: Warning: indirect jmp without `*'
+bin//acc2.asm:161: Warning: indirect jmp without `*'
+bin//acc2.asm:171: Warning: indirect jmp without `*'
+as bin//builtin-nan-1.asm -o Output//builtin-nan-1.o 
+ld Output//builtin-nan-1.o -o Output//builtin-nan-1.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//builtin-nan-1.exec 1> Output//builtin-nan-1.xstate 2>&1 
+bin//builtin-nan-1.asm: Assembler messages:
+bin//builtin-nan-1.asm:150: Warning: indirect jmp without `*'
+bin//builtin-nan-1.asm:161: Warning: indirect jmp without `*'
+bin//builtin-nan-1.asm:171: Warning: indirect jmp without `*'
+as bin//inf-2.asm -o Output//inf-2.o 
+ld Output//inf-2.o -o Output//inf-2.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//inf-2.exec 1> Output//inf-2.xstate 2>&1 
+bin//inf-2.asm: Assembler messages:
+bin//inf-2.asm:150: Warning: indirect jmp without `*'
+bin//inf-2.asm:161: Warning: indirect jmp without `*'
+bin//inf-2.asm:171: Warning: indirect jmp without `*'
+as bin//inf-3.asm -o Output//inf-3.o 
+ld Output//inf-3.o -o Output//inf-3.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//inf-3.exec 1> Output//inf-3.xstate 2>&1 
+bin//inf-3.asm: Assembler messages:
+bin//inf-3.asm:150: Warning: indirect jmp without `*'
+bin//inf-3.asm:161: Warning: indirect jmp without `*'
+bin//inf-3.asm:171: Warning: indirect jmp without `*'
+as bin//20000320-1.asm -o Output//20000320-1.o 
+ld Output//20000320-1.o -o Output//20000320-1.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//20000320-1.exec 1> Output//20000320-1.xstate 2>&1 
+bin//20000320-1.asm: Assembler messages:
+bin//20000320-1.asm:150: Warning: indirect jmp without `*'
+bin//20000320-1.asm:161: Warning: indirect jmp without `*'
+bin//20000320-1.asm:171: Warning: indirect jmp without `*'
+as bin//pr28634.asm -o Output//pr28634.o 
+ld Output//pr28634.o -o Output//pr28634.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//pr28634.exec 1> Output//pr28634.xstate 2>&1 
+bin//pr28634.asm: Assembler messages:
+bin//pr28634.asm:150: Warning: indirect jmp without `*'
+bin//pr28634.asm:161: Warning: indirect jmp without `*'
+bin//pr28634.asm:171: Warning: indirect jmp without `*'
+as bin//pr36332.asm -o Output//pr36332.o 
+ld Output//pr36332.o -o Output//pr36332.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//pr36332.exec 1> Output//pr36332.xstate 2>&1 
+bin//pr36332.asm: Assembler messages:
+bin//pr36332.asm:150: Warning: indirect jmp without `*'
+bin//pr36332.asm:161: Warning: indirect jmp without `*'
+bin//pr36332.asm:171: Warning: indirect jmp without `*'
+as bin//pr29302-1.asm -o Output//pr29302-1.o 
+ld Output//pr29302-1.o -o Output//pr29302-1.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//pr29302-1.exec 1> Output//pr29302-1.xstate 2>&1 
+bin//pr29302-1.asm: Assembler messages:
+bin//pr29302-1.asm:150: Warning: indirect jmp without `*'
+bin//pr29302-1.asm:161: Warning: indirect jmp without `*'
+bin//pr29302-1.asm:171: Warning: indirect jmp without `*'
+as bin//pr72824-2.asm -o Output//pr72824-2.o 
+ld Output//pr72824-2.o -o Output//pr72824-2.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//pr72824-2.exec 1> Output//pr72824-2.xstate 2>&1 
+bin//pr72824-2.asm: Assembler messages:
+bin//pr72824-2.asm:150: Warning: indirect jmp without `*'
+bin//pr72824-2.asm:161: Warning: indirect jmp without `*'
+bin//pr72824-2.asm:171: Warning: indirect jmp without `*'
+as bin//pr67218.asm -o Output//pr67218.o 
+ld Output//pr67218.o -o Output//pr67218.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//pr67218.exec 1> Output//pr67218.xstate 2>&1 
+bin//pr67218.asm: Assembler messages:
+bin//pr67218.asm:150: Warning: indirect jmp without `*'
+bin//pr67218.asm:161: Warning: indirect jmp without `*'
+bin//pr67218.asm:171: Warning: indirect jmp without `*'
+as bin//pr84235.asm -o Output//pr84235.o 
+ld Output//pr84235.o -o Output//pr84235.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//pr84235.exec 1> Output//pr84235.xstate 2>&1 
+bin//pr84235.asm: Assembler messages:
+bin//pr84235.asm:150: Warning: indirect jmp without `*'
+bin//pr84235.asm:161: Warning: indirect jmp without `*'
+bin//pr84235.asm:171: Warning: indirect jmp without `*'
+as bin//unsafe-fp-assoc.asm -o Output//unsafe-fp-assoc.o 
+ld Output//unsafe-fp-assoc.o -o Output//unsafe-fp-assoc.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//unsafe-fp-assoc.exec 1> Output//unsafe-fp-assoc.xstate 2>&1 
+bin//unsafe-fp-assoc.asm: Assembler messages:
+bin//unsafe-fp-assoc.asm:150: Warning: indirect jmp without `*'
+bin//unsafe-fp-assoc.asm:161: Warning: indirect jmp without `*'
+bin//unsafe-fp-assoc.asm:171: Warning: indirect jmp without `*'
+as bin//unsafe-fp-assoc-1.asm -o Output//unsafe-fp-assoc-1.o 
+ld Output//unsafe-fp-assoc-1.o -o Output//unsafe-fp-assoc-1.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//unsafe-fp-assoc-1.exec 1> Output//unsafe-fp-assoc-1.xstate 2>&1 
+bin//unsafe-fp-assoc-1.asm: Assembler messages:
+bin//unsafe-fp-assoc-1.asm:150: Warning: indirect jmp without `*'
+bin//unsafe-fp-assoc-1.asm:161: Warning: indirect jmp without `*'
+bin//unsafe-fp-assoc-1.asm:171: Warning: indirect jmp without `*'
+as bin//rbug.asm -o Output//rbug.o 
+ld Output//rbug.o -o Output//rbug.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//rbug.exec 1> Output//rbug.xstate 2>&1 
+bin//rbug.asm: Assembler messages:
+bin//rbug.asm:150: Warning: indirect jmp without `*'
+bin//rbug.asm:161: Warning: indirect jmp without `*'
+bin//rbug.asm:171: Warning: indirect jmp without `*'
+as bin//980619-1.asm -o Output//980619-1.o 
+ld Output//980619-1.o -o Output//980619-1.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//980619-1.exec 1> Output//980619-1.xstate 2>&1 
+bin//980619-1.asm: Assembler messages:
+bin//980619-1.asm:150: Warning: indirect jmp without `*'
+bin//980619-1.asm:161: Warning: indirect jmp without `*'
+bin//980619-1.asm:171: Warning: indirect jmp without `*'
+as bin//compare-fp-3.asm -o Output//compare-fp-3.o 
+ld Output//compare-fp-3.o -o Output//compare-fp-3.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//compare-fp-3.exec 1> Output//compare-fp-3.xstate 2>&1 
+bin//compare-fp-3.asm: Assembler messages:
+bin//compare-fp-3.asm:150: Warning: indirect jmp without `*'
+bin//compare-fp-3.asm:161: Warning: indirect jmp without `*'
+bin//compare-fp-3.asm:171: Warning: indirect jmp without `*'
+as bin//mzero5.asm -o Output//mzero5.o 
+ld Output//mzero5.o -o Output//mzero5.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//mzero5.exec 1> Output//mzero5.xstate 2>&1 
+bin//mzero5.asm: Assembler messages:
+bin//mzero5.asm:150: Warning: indirect jmp without `*'
+bin//mzero5.asm:161: Warning: indirect jmp without `*'
+bin//mzero5.asm:171: Warning: indirect jmp without `*'
+as bin//pr30704.asm -o Output//pr30704.o 
+ld Output//pr30704.o -o Output//pr30704.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//pr30704.exec 1> Output//pr30704.xstate 2>&1 
+bin//pr30704.asm: Assembler messages:
+bin//pr30704.asm:150: Warning: indirect jmp without `*'
+bin//pr30704.asm:161: Warning: indirect jmp without `*'
+bin//pr30704.asm:171: Warning: indirect jmp without `*'
+as bin//mzero6.asm -o Output//mzero6.o 
+ld Output//mzero6.o -o Output//mzero6.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//mzero6.exec 1> Output//mzero6.xstate 2>&1 
+bin//mzero6.asm: Assembler messages:
+bin//mzero6.asm:150: Warning: indirect jmp without `*'
+bin//mzero6.asm:161: Warning: indirect jmp without `*'
+bin//mzero6.asm:171: Warning: indirect jmp without `*'
+as bin//mul-subnormal-single-1.asm -o Output//mul-subnormal-single-1.o 
+ld Output//mul-subnormal-single-1.o -o Output//mul-subnormal-single-1.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//mul-subnormal-single-1.exec 1> Output//mul-subnormal-single-1.xstate 2>&1 
+bin//mul-subnormal-single-1.asm: Assembler messages:
+bin//mul-subnormal-single-1.asm:150: Warning: indirect jmp without `*'
+bin//mul-subnormal-single-1.asm:161: Warning: indirect jmp without `*'
+bin//mul-subnormal-single-1.asm:171: Warning: indirect jmp without `*'
+as bin//pr72824.asm -o Output//pr72824.o 
+ld Output//pr72824.o -o Output//pr72824.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//pr72824.exec 1> Output//pr72824.xstate 2>&1 
+bin//pr72824.asm: Assembler messages:
+bin//pr72824.asm:150: Warning: indirect jmp without `*'
+bin//pr72824.asm:161: Warning: indirect jmp without `*'
+bin//pr72824.asm:171: Warning: indirect jmp without `*'
+as bin//mzero3.asm -o Output//mzero3.o 
+ld Output//mzero3.o -o Output//mzero3.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//mzero3.exec 1> Output//mzero3.xstate 2>&1 
+bin//mzero3.asm: Assembler messages:
+bin//mzero3.asm:150: Warning: indirect jmp without `*'
+bin//mzero3.asm:161: Warning: indirect jmp without `*'
+bin//mzero3.asm:171: Warning: indirect jmp without `*'
+as bin//20001122-1.asm -o Output//20001122-1.o 
+ld Output//20001122-1.o -o Output//20001122-1.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//20001122-1.exec 1> Output//20001122-1.xstate 2>&1 
+bin//20001122-1.asm: Assembler messages:
+bin//20001122-1.asm:150: Warning: indirect jmp without `*'
+bin//20001122-1.asm:161: Warning: indirect jmp without `*'
+bin//20001122-1.asm:171: Warning: indirect jmp without `*'
+as bin//fp-cmp-4.asm -o Output//fp-cmp-4.o 
+ld Output//fp-cmp-4.o -o Output//fp-cmp-4.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//fp-cmp-4.exec 1> Output//fp-cmp-4.xstate 2>&1 
+bin//fp-cmp-4.asm: Assembler messages:
+bin//fp-cmp-4.asm:150: Warning: indirect jmp without `*'
+bin//fp-cmp-4.asm:161: Warning: indirect jmp without `*'
+bin//fp-cmp-4.asm:171: Warning: indirect jmp without `*'
+as bin//fp-cmp-4l.asm -o Output//fp-cmp-4l.o 
+ld Output//fp-cmp-4l.o -o Output//fp-cmp-4l.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//fp-cmp-4l.exec 1> Output//fp-cmp-4l.xstate 2>&1 
+bin//fp-cmp-4l.asm: Assembler messages:
+bin//fp-cmp-4l.asm:150: Warning: indirect jmp without `*'
+bin//fp-cmp-4l.asm:161: Warning: indirect jmp without `*'
+bin//fp-cmp-4l.asm:171: Warning: indirect jmp without `*'
+as bin//mzero4.asm -o Output//mzero4.o 
+ld Output//mzero4.o -o Output//mzero4.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//mzero4.exec 1> Output//mzero4.xstate 2>&1 
+bin//mzero4.asm: Assembler messages:
+bin//mzero4.asm:150: Warning: indirect jmp without `*'
+bin//mzero4.asm:161: Warning: indirect jmp without `*'
+bin//mzero4.asm:171: Warning: indirect jmp without `*'
+as bin//fp-cmp-4f.asm -o Output//fp-cmp-4f.o 
+ld Output//fp-cmp-4f.o -o Output//fp-cmp-4f.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//fp-cmp-4f.exec 1> Output//fp-cmp-4f.xstate 2>&1 
+bin//fp-cmp-4f.asm: Assembler messages:
+bin//fp-cmp-4f.asm:150: Warning: indirect jmp without `*'
+bin//fp-cmp-4f.asm:161: Warning: indirect jmp without `*'
+bin//fp-cmp-4f.asm:171: Warning: indirect jmp without `*'
+as bin//compare-fp-1.asm -o Output//compare-fp-1.o 
+ld Output//compare-fp-1.o -o Output//compare-fp-1.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//compare-fp-1.exec 1> Output//compare-fp-1.xstate 2>&1 
+bin//compare-fp-1.asm: Assembler messages:
+bin//compare-fp-1.asm:150: Warning: indirect jmp without `*'
+bin//compare-fp-1.asm:161: Warning: indirect jmp without `*'
+bin//compare-fp-1.asm:171: Warning: indirect jmp without `*'
+as bin//compare-fp-4.asm -o Output//compare-fp-4.o 
+ld Output//compare-fp-4.o -o Output//compare-fp-4.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//compare-fp-4.exec 1> Output//compare-fp-4.xstate 2>&1 
+bin//compare-fp-4.asm: Assembler messages:
+bin//compare-fp-4.asm:150: Warning: indirect jmp without `*'
+bin//compare-fp-4.asm:161: Warning: indirect jmp without `*'
+bin//compare-fp-4.asm:171: Warning: indirect jmp without `*'
+as bin//copysign2.asm -o Output//copysign2.o 
+ld Output//copysign2.o -o Output//copysign2.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//copysign2.exec 1> Output//copysign2.xstate 2>&1 
+bin//copysign2.asm: Assembler messages:
+bin//copysign2.asm:150: Warning: indirect jmp without `*'
+bin//copysign2.asm:161: Warning: indirect jmp without `*'
+bin//copysign2.asm:171: Warning: indirect jmp without `*'
+as bin//mzero2.asm -o Output//mzero2.o 
+ld Output//mzero2.o -o Output//mzero2.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//mzero2.exec 1> Output//mzero2.xstate 2>&1 
+bin//mzero2.asm: Assembler messages:
+bin//mzero2.asm:150: Warning: indirect jmp without `*'
+bin//mzero2.asm:161: Warning: indirect jmp without `*'
+bin//mzero2.asm:171: Warning: indirect jmp without `*'
+as bin//pr50310.asm -o Output//pr50310.o 
+ld Output//pr50310.o -o Output//pr50310.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//pr50310.exec 1> Output//pr50310.xstate 2>&1 
+bin//pr50310.asm: Assembler messages:
+bin//pr50310.asm:150: Warning: indirect jmp without `*'
+bin//pr50310.asm:161: Warning: indirect jmp without `*'
+bin//pr50310.asm:171: Warning: indirect jmp without `*'
+as bin//fp-cmp-5.asm -o Output//fp-cmp-5.o 
+ld Output//fp-cmp-5.o -o Output//fp-cmp-5.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//fp-cmp-5.exec 1> Output//fp-cmp-5.xstate 2>&1 
+bin//fp-cmp-5.asm: Assembler messages:
+bin//fp-cmp-5.asm:150: Warning: indirect jmp without `*'
+bin//fp-cmp-5.asm:161: Warning: indirect jmp without `*'
+bin//fp-cmp-5.asm:171: Warning: indirect jmp without `*'
+bin//fp-cmp-5.asm:437: Warning: indirect call without `*'
+bin//fp-cmp-5.asm:447: Warning: indirect call without `*'
+as bin//copysign1.asm -o Output//copysign1.o 
+ld Output//copysign1.o -o Output//copysign1.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//copysign1.exec 1> Output//copysign1.xstate 2>&1 
+bin//copysign1.asm: Assembler messages:
+bin//copysign1.asm:150: Warning: indirect jmp without `*'
+bin//copysign1.asm:161: Warning: indirect jmp without `*'
+bin//copysign1.asm:171: Warning: indirect jmp without `*'
+as bin//fp-cmp-8f.asm -o Output//fp-cmp-8f.o 
+ld Output//fp-cmp-8f.o -o Output//fp-cmp-8f.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//fp-cmp-8f.exec 1> Output//fp-cmp-8f.xstate 2>&1 
+bin//fp-cmp-8f.asm: Assembler messages:
+bin//fp-cmp-8f.asm:150: Warning: indirect jmp without `*'
+bin//fp-cmp-8f.asm:161: Warning: indirect jmp without `*'
+bin//fp-cmp-8f.asm:171: Warning: indirect jmp without `*'
+bin//fp-cmp-8f.asm:521: Warning: indirect call without `*'
+bin//fp-cmp-8f.asm:541: Warning: indirect call without `*'
+as bin//fp-cmp-8l.asm -o Output//fp-cmp-8l.o 
+ld Output//fp-cmp-8l.o -o Output//fp-cmp-8l.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//fp-cmp-8l.exec 1> Output//fp-cmp-8l.xstate 2>&1 
+bin//fp-cmp-8l.asm: Assembler messages:
+bin//fp-cmp-8l.asm:150: Warning: indirect jmp without `*'
+bin//fp-cmp-8l.asm:161: Warning: indirect jmp without `*'
+bin//fp-cmp-8l.asm:171: Warning: indirect jmp without `*'
+bin//fp-cmp-8l.asm:547: Warning: indirect call without `*'
+bin//fp-cmp-8l.asm:573: Warning: indirect call without `*'
+as bin//pr38016.asm -o Output//pr38016.o 
+ld Output//pr38016.o -o Output//pr38016.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//pr38016.exec 1> Output//pr38016.xstate 2>&1 
+bin//pr38016.asm: Assembler messages:
+bin//pr38016.asm:150: Warning: indirect jmp without `*'
+bin//pr38016.asm:161: Warning: indirect jmp without `*'
+bin//pr38016.asm:171: Warning: indirect jmp without `*'
+bin//pr38016.asm:547: Warning: indirect call without `*'
+bin//pr38016.asm:573: Warning: indirect call without `*'
+as bin//fp-cmp-8.asm -o Output//fp-cmp-8.o 
+ld Output//fp-cmp-8.o -o Output//fp-cmp-8.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//fp-cmp-8.exec 1> Output//fp-cmp-8.xstate 2>&1 
+bin//fp-cmp-8.asm: Assembler messages:
+bin//fp-cmp-8.asm:150: Warning: indirect jmp without `*'
+bin//fp-cmp-8.asm:161: Warning: indirect jmp without `*'
+bin//fp-cmp-8.asm:171: Warning: indirect jmp without `*'
+bin//fp-cmp-8.asm:547: Warning: indirect call without `*'
+bin//fp-cmp-8.asm:573: Warning: indirect call without `*'
