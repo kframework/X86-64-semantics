@@ -26,17 +26,17 @@ module X86-ABSTRACT-SEMANTICS
   //shlMInt
   rule shlMInt(PV:PointerVal, I:Int) => ptr (getMemLoc(PV), shlMInt(getMIntVal(PV), I))
 
-  // Arithmetic
-  //rule addMInt(ptr(L:MemLoc, MI1:MInt), ptr(L:MemLoc, MI2:MInt)) => 
-  //  ptr(L, addMInt(MI1, MI2))
-  //rule addMInt(ptr(L:MemLoc, MI1:MInt), MI2:MInt) => 
-  //  ptr(L, addMInt(MI1, MI2))
-  //rule addMInt(MI1:MInt, ptr(L:MemLoc, MI2:MInt)) =>
-  //  ptr(L, addMInt(MI1, MI2))
+  // Arithmetic:add
   rule addMInt(PV:PointerVal, MI:MInt) => 
     ptr( getMemLoc(PV), addMInt(convertPV(PV), convertPV(MI)))
   rule addMInt(MI:MInt, PV:PointerVal) => 
     ptr( getMemLoc(PV), addMInt(convertPV(MI), convertPV(PV)))
+
+  // Arithmetic:and
+  rule andMInt(PV:PointerVal, MI:MInt) => 
+    ptr( getMemLoc(PV), andMInt(convertPV(PV), convertPV(MI)))
+  rule andMInt(MI:MInt, PV:PointerVal) => 
+    ptr( getMemLoc(PV), andMInt(convertPV(MI), convertPV(PV)))
 
   //rule mulMInt(ptr(L:MemLoc, MI1:MInt), ptr(L:MemLoc, MI2:MInt)) => 
   //  ptr(L, mulMInt(MI1, MI2))
