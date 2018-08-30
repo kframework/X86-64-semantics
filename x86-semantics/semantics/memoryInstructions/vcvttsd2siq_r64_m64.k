@@ -4,9 +4,9 @@ requires "x86-configuration.k"
 module VCVTTSD2SIQ-R64-M64
   imports X86-CONFIGURATION
 
-  rule <k>
-    execinstr (vcvttsd2si:Opcode M:Mem, R2:R64,  .Operands) => execinstr (vcvttsd2siq:Opcode M:Mem, R2:R64,  .Operands)
-  ...</k>
+  //rule <k>
+  //  execinstr (vcvttsd2si:Opcode M:Mem, R2:R64,  .Operands) => execinstr (vcvttsd2siq:Opcode M:Mem, R2:R64,  .Operands)
+  //...</k>
 
   context execinstr(vcvttsd2siq:Opcode HOLE:Mem, R2:R64,  .Operands) [result(MemOffset)]
   

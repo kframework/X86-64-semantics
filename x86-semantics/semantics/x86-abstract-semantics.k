@@ -176,6 +176,7 @@ module X86-ABSTRACT-SEMANTICS
 
   rule <k>  L:X86Id (R1:R64, R2:R64):Mem           =>  L + 0 (R1, R2, 1) ...</k>
   rule <k>  L:X86Id (R1:R64, R2:R64, S:Int):Mem    =>  L + 0 (R1, R2, S) ...</k>
+  rule <k>  L:X86Id + I:Int (R1:R64, R2:R64):Mem    =>  L + I (R1, R2, 1) ...</k>
   rule <k>  L:X86Id + I:Int (R1:R64, R2:R64, S:Int):Mem => 
     memOffset( addMInt(
           addMInt(LoadAddr, mi(bitwidthMInt(LoadAddr), I)), 

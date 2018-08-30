@@ -338,9 +338,9 @@ L47:
     subl	%eax, %edx
     movl	%edx, %eax
     vxorpd	%xmm1, %xmm1, %xmm1
-    vcvtsi2sd	%eax, %xmm1, %xmm1
+    vcvtsi2sdl	%eax, %xmm1, %xmm1
     vxorpd	%xmm0, %xmm0, %xmm0
-    vcvtsi2sd	-16(%rbp), %xmm0, %xmm0
+    vcvtsi2sdl	-16(%rbp), %xmm0, %xmm0
     vmulsd	%xmm0, %xmm1, %xmm0
     vmovsd	LC0(%rip), %xmm1
     vdivsd	%xmm1, %xmm0, %xmm0
@@ -353,7 +353,7 @@ L47:
     vxorpd	%xmm1, %xmm1, %xmm1
     vcvtsi2sd	%eax, %xmm1, %xmm1
     vxorpd	%xmm0, %xmm0, %xmm0
-    vcvtsi2sd	-12(%rbp), %xmm0, %xmm0
+    vcvtsi2sdl	-12(%rbp), %xmm0, %xmm0
     vmulsd	%xmm0, %xmm1, %xmm0
     vmovsd	LC0(%rip), %xmm1
     vdivsd	%xmm1, %xmm0, %xmm0
