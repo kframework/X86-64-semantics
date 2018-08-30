@@ -1,0 +1,130 @@
+grep  -A 40  "ListItem"  Output/pr84235.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfileh9JlI 2>&1 
+numOfInstrs: 34
+[4m[1m[34mpr84235 Compare Results :[0m
+Failed:[4m[1m[91mpr84235: kstate xstate count unequal[0m
+kstates = 1292
+xstates = 1140
+
+[4m[1m[34mNaN found[0m
+[4m[1m[34mNaN found[0m
+[4m[1m[34mNaN found[0m
+[4m[1m[34mNaN found[0m
+[4m[1m[34mNaN found[0m
+[4m[1m[34mNaN found[0m
+[4m[1m[34mNaN found[0m
+[4m[1m[34mNaN found[0m
+[4m[1m[34mNaN found[0m
+[4m[1m[34mNaN found[0m
+[4m[1m[34mNaN found[0m
+[4m[1m[34mNaN found[0m
+[4m[1m[34mNaN found[0m
+[4m[1m[34mNaN found[0m
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rax at instrcount: 20
+
+[4m[1m[34mNaN found[0m
+[4m[1m[34mNaN found[0m
+[4m[1m[34mNaN found[0m
+[4m[1m[34mNaN found[0m
+[4m[1m[34mNaN found[0m
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rax at instrcount: 21
+
+[4m[1m[34mNaN found[0m
+[4m[1m[34mNaN found[0m
+[4m[1m[34mNaN found[0m
+[4m[1m[34mNaN found[0m
+[4m[1m[34mNaN found[0m
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rax at instrcount: 22
+
+[4m[1m[34mNaN found[0m
+[4m[1m[34mNaN found[0m
+[4m[1m[34mNaN found[0m
+[4m[1m[34mNaN found[0m
+[4m[1m[34mNaN found[0m
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rax at instrcount: 23
+
+[4m[1m[34mNaN found[0m
+[4m[1m[34mNaN found[0m
+[4m[1m[34mNaN found[0m
+[4m[1m[34mNaN found[0m
+[4m[1m[34mNaN found[0m
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rax at instrcount: 24
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 25
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 25
+
+[4m[1m[34mNaN found[0m
+[4m[1m[34mNaN found[0m
+[4m[1m[34mNaN found[0m
+[4m[1m[34mNaN found[0m
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 0000000000000000
+rax at instrcount: 26
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 27
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 27
+
+[4m[1m[34mNaN found[0m
+[4m[1m[34mNaN found[0m
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 0000000000000000
+rax at instrcount: 27
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 28
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 28
+
+[4m[1m[34mNaN found[0m
+[4m[1m[34mNaN found[0m
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 0000000000000000
+rax at instrcount: 28
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 29
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 29
+
+[4m[1m[34mNaN found[0m
+[4m[1m[34mNaN found[0m
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 0000000000000000
+rax at instrcount: 29
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 30
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 30
+
+[4m[1m[34mNaN found[0m
+[4m[1m[34mNaN found[0m
+Passed:[4m[1m[92mPassed[0m

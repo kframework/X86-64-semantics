@@ -1,0 +1,4 @@
+grep  -A 40  "ListItem"  Output/fp-cmp-4e.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfile9zwBC 2>&1 
+numOfInstrs: 6
+[4m[1m[34mfp-cmp-4e Compare Results :[0m
+Passed:[4m[1m[92mPassed[0m

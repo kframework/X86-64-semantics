@@ -1,0 +1,24 @@
+grep  -A 40  "ListItem"  Output/unsafe-fp-assoc-1.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfileyc5V7 2>&1 
+numOfInstrs: 56
+[4m[1m[34munsafe-fp-assoc-1 Compare Results :[0m
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 9
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 10
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 11
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 12
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 13
+
+Passed:[4m[1m[92mPassed[0m

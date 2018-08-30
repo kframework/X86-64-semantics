@@ -1,0 +1,44 @@
+grep  -A 40  "ListItem"  Output/inf-3.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfileO2yOs 2>&1 
+numOfInstrs: 115
+[4m[1m[34minf-3 Compare Results :[0m
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 11
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 12
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 13
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 14
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 15
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 83
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 84
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 85
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 86
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 87
+
+Passed:[4m[1m[92mPassed[0m
