@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	f1
@@ -403,9 +386,9 @@ f1:
     movq	-32(%rbp), %rdx
     addq	%rax, %rdx
     cmpq	%rax, %rdx
-    jnb	L58
+    jnb	L54
     movl	$1, %ecx
-L58:
+L54:
     movq	%rdx, %rax
     movq	%rax, -24(%rbp)
     movq	%rcx, %rax
@@ -427,9 +410,9 @@ f2:
     movq	-32(%rbp), %rdx
     addq	%rax, %rdx
     cmpq	%rax, %rdx
-    jnb	L62
+    jnb	L58
     movl	$1, %ecx
-L62:
+L58:
     movq	%rdx, %rax
     movq	%rax, -24(%rbp)
     movq	%rcx, %rax
@@ -450,9 +433,9 @@ f3:
     movl	-24(%rbp), %edx
     addl	%eax, %edx
     cmpl	%eax, %edx
-    jnb	L66
+    jnb	L62
     movl	$1, %ecx
-L66:
+L62:
     movl	%edx, %eax
     movl	%eax, -20(%rbp)
     movl	%ecx, %eax
@@ -475,9 +458,9 @@ f4:
     movl	-24(%rbp), %edx
     addl	%eax, %edx
     cmpl	%eax, %edx
-    jnb	L70
+    jnb	L66
     movl	$1, %ecx
-L70:
+L66:
     movl	%edx, %eax
     movl	%eax, -20(%rbp)
     movl	%ecx, %eax
@@ -497,95 +480,95 @@ _start:
     movl	$16, %edi
     call	f1
     cmpq	$-2, %rax
-    jne	L74
+    jne	L70
     movq	$-17, %rsi
     movl	$16, %edi
     call	f1
     cmpq	$-1, %rax
-    jne	L74
+    jne	L70
     movq	$-16, %rsi
     movl	$16, %edi
     call	f1
     cmpq	$1, %rax
-    jne	L74
+    jne	L70
     movq	$-15, %rsi
     movl	$16, %edi
     call	f1
     cmpq	$2, %rax
-    jne	L74
+    jne	L70
     movq	$-26, %rsi
     movl	$24, %edi
     call	f2
     cmpq	$-2, %rax
-    jne	L74
+    jne	L70
     movq	$-25, %rsi
     movl	$24, %edi
     call	f2
     cmpq	$-1, %rax
-    jne	L74
+    jne	L70
     movq	$-24, %rsi
     movl	$24, %edi
     call	f2
     cmpq	$-1, %rax
-    jne	L74
+    jne	L70
     movq	$-23, %rsi
     movl	$24, %edi
     call	f2
     testq	%rax, %rax
-    jne	L74
+    jne	L70
     movl	$-34, %esi
     movl	$32, %edi
     call	f3
     movq	%rax, %rdx
     movl	$4294967294, %eax
     cmpq	%rax, %rdx
-    jne	L74
+    jne	L70
     movl	$-33, %esi
     movl	$32, %edi
     call	f3
     movq	%rax, %rdx
     movl	$4294967295, %eax
     cmpq	%rax, %rdx
-    jne	L74
+    jne	L70
     movl	$-32, %esi
     movl	$32, %edi
     call	f3
     cmpq	$1, %rax
-    jne	L74
+    jne	L70
     movl	$-31, %esi
     movl	$32, %edi
     call	f3
     cmpq	$2, %rax
-    jne	L74
+    jne	L70
     movl	$-37, %esi
     movl	$35, %edi
     call	f4
     movq	%rax, %rdx
     movl	$4294967294, %eax
     cmpq	%rax, %rdx
-    jne	L74
+    jne	L70
     movl	$-36, %esi
     movl	$35, %edi
     call	f4
     movq	%rax, %rdx
     movl	$4294967295, %eax
     cmpq	%rax, %rdx
-    jne	L74
+    jne	L70
     movl	$-35, %esi
     movl	$35, %edi
     call	f4
     movq	%rax, %rdx
     movl	$4294967295, %eax
     cmpq	%rax, %rdx
-    jne	L74
+    jne	L70
     movl	$-34, %esi
     movl	$35, %edi
     call	f4
     testq	%rax, %rax
-    je	L75
-L74:
+    je	L71
+L70:
     call	abort
-L75:
+L71:
     movl	$0, %eax
     popq	%rbp
     ret

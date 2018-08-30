@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,37 +351,37 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
-do_goto2448:
+do_goto2441:
     pushq	%rbp
     movq	%rsp, %rbp
     subq	$8, %rsp
     movq	%r10, %rax
     movq	%r10, -8(%rbp)
-    movl	$L58, %edx
+    movl	$L54, %edx
     movq	(%rax), %rbp
     movq	8(%rax), %rsp
     jmp	%rdx
@@ -422,14 +405,14 @@ recursive:
     leaq	-112(%rbp), %rax
     addq	$24, %rax
     leaq	-112(%rbp), %rdx
-    movl	$do_goto2448, %ecx
+    movl	$do_goto2441, %ecx
     movw	$-17599, (%rax)
     movl	%ecx, 2(%rax)
     movw	$-17847, 6(%rax)
     movq	%rdx, 8(%rax)
     movl	$-1864106167, 16(%rax)
     cmpl	$3, -116(%rbp)
-    jne	L60
+    jne	L56
     movl	-116(%rbp), %eax
     subl	$1, %eax
     leaq	-112(%rbp), %rdx
@@ -437,36 +420,36 @@ recursive:
     movq	%rdx, %rsi
     movl	%eax, %edi
     call	recursive
-    jmp	L59
-L60:
+    jmp	L55
+L56:
     cmpl	$0, -116(%rbp)
-    jle	L62
+    jle	L58
     movl	-116(%rbp), %eax
     leal	-1(%rax), %edx
     movq	-128(%rbp), %rax
     movq	%rax, %rsi
     movl	%edx, %edi
     call	recursive
-    jmp	L59
-L62:
+    jmp	L55
+L58:
     movq	-128(%rbp), %rax
     call	%rax
-    jmp	L59
-L58:
+    jmp	L55
+L54:
     leaq	48(%rbp), %rbp
-L64:
+L60:
     cmpl	$3, -116(%rbp)
-    jne	L65
+    jne	L61
     movl	$0, %edi
     call	exit
-L65:
+L61:
     call	abort
-L59:
+L55:
     movq	-56(%rbp), %rax
     xorq	$40, %rax
-    je	L66
+    je	L62
     call	__stack_chk_fail
-L66:
+L62:
     addq	$88, %rsp
     popq	%rbx
     popq	%r12

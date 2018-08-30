@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	foo
@@ -398,53 +381,53 @@ foo:
     movq	%rsp, %rbp
     movq	%rdi, -24(%rbp)
     movl	$1, -16(%rbp)
-L65:
+L61:
     movq	-24(%rbp), %rax
     movzbl	(%rax), %eax
     movsbl	%al, %eax
     movl	%eax, -12(%rbp)
     cmpl	$96, -12(%rbp)
-    jle	L58
+    jle	L54
     cmpl	$122, -12(%rbp)
-    jg	L58
+    jg	L54
     movl	-12(%rbp), %eax
     subl	$32, %eax
-    jmp	L59
-L58:
+    jmp	L55
+L54:
     movl	-12(%rbp), %eax
-L59:
+L55:
     movl	%eax, -12(%rbp)
     cmpl	$66, -12(%rbp)
-    jne	L60
+    jne	L56
     movq	-24(%rbp), %rax
     movq	%rax, -8(%rbp)
-    jmp	L61
-L60:
+    jmp	L57
+L56:
     cmpl	$65, -12(%rbp)
-    jne	L68
+    jne	L64
     movq	-24(%rbp), %rax
     movq	%rax, -8(%rbp)
-L63:
+L59:
     addq	$1, -24(%rbp)
     movq	-24(%rbp), %rax
     movzbl	(%rax), %eax
     cmpb	$43, %al
-    je	L63
-L61:
+    je	L59
+L57:
     addq	$1, -24(%rbp)
     addl	$1, -16(%rbp)
-    jmp	L65
-L68:
+    jmp	L61
+L64:
     nop
     cmpl	$2, -16(%rbp)
-    jle	L66
+    jle	L62
     movq	-24(%rbp), %rax
     movzbl	(%rax), %eax
     cmpb	$58, %al
-    jne	L66
+    jne	L62
     movq	-8(%rbp), %rax
     movq	%rax, -24(%rbp)
-L66:
+L62:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret

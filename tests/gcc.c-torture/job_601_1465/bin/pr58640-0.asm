@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .comm	a,4,4
@@ -407,67 +390,67 @@ foo:
     movl	a(%rip), %eax
     movl	%eax, -4(%rbp)
     movl	$1, -8(%rbp)
-    jmp	L58
-L71:
+    jmp	L54
+L67:
     movl	d(%rip), %eax
     testl	%eax, %eax
-    je	L60
+    je	L56
     movl	$0, c(%rip)
-    jmp	L61
-L68:
-    movl	$0, -8(%rbp)
-    jmp	L62
-L67:
-    movl	$0, e(%rip)
-    jmp	L63
+    jmp	L57
 L64:
+    movl	$0, -8(%rbp)
+    jmp	L58
+L63:
+    movl	$0, e(%rip)
+    jmp	L59
+L60:
     movl	-4(%rbp), %eax
     movl	%eax, a(%rip)
     movl	e(%rip), %eax
     addl	$1, %eax
     movl	%eax, e(%rip)
-L63:
+L59:
     movl	e(%rip), %eax
     testl	%eax, %eax
-    jle	L64
+    jle	L60
     cmpl	$0, -8(%rbp)
-    jne	L73
-    addl	$1, -8(%rbp)
-L62:
-    cmpl	$2, -8(%rbp)
-    jle	L67
-    jmp	L66
-L73:
-    nop
-L66:
-    movl	c(%rip), %eax
-    addl	$1, %eax
-    movl	%eax, c(%rip)
-L61:
-    movl	c(%rip), %eax
-    cmpl	$3, %eax
-    jle	L68
-    jmp	L69
-L60:
-    cmpl	$0, -8(%rbp)
-    je	L69
-    movl	b(%rip), %eax
-    addl	$1, %eax
-    movl	%eax, b(%rip)
-    jmp	L59
-L69:
-    movl	$0, %eax
-    jmp	L70
-L59:
-    movl	b(%rip), %eax
-    testl	%eax, %eax
-    jle	L71
+    jne	L69
     addl	$1, -8(%rbp)
 L58:
     cmpl	$2, -8(%rbp)
-    jle	L59
+    jle	L63
+    jmp	L62
+L69:
+    nop
+L62:
+    movl	c(%rip), %eax
+    addl	$1, %eax
+    movl	%eax, c(%rip)
+L57:
+    movl	c(%rip), %eax
+    cmpl	$3, %eax
+    jle	L64
+    jmp	L65
+L56:
+    cmpl	$0, -8(%rbp)
+    je	L65
+    movl	b(%rip), %eax
+    addl	$1, %eax
+    movl	%eax, b(%rip)
+    jmp	L55
+L65:
     movl	$0, %eax
-L70:
+    jmp	L66
+L55:
+    movl	b(%rip), %eax
+    testl	%eax, %eax
+    jle	L67
+    addl	$1, -8(%rbp)
+L54:
+    cmpl	$2, -8(%rbp)
+    jle	L55
+    movl	$0, %eax
+L66:
     popq	%rbp
     ret
     .globl	main

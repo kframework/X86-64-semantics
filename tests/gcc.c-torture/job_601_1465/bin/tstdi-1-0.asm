@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	feq
@@ -398,12 +381,12 @@ feq:
     movq	%rsp, %rbp
     movq	%rdi, -8(%rbp)
     cmpq	$0, -8(%rbp)
-    jne	L58
+    jne	L54
     movl	$13, %eax
-    jmp	L59
-L58:
+    jmp	L55
+L54:
     movl	$140, %eax
-L59:
+L55:
     popq	%rbp
     ret
     .globl	fne
@@ -412,12 +395,12 @@ fne:
     movq	%rsp, %rbp
     movq	%rdi, -8(%rbp)
     cmpq	$0, -8(%rbp)
-    je	L61
+    je	L57
     movl	$13, %eax
-    jmp	L62
-L61:
+    jmp	L58
+L57:
     movl	$140, %eax
-L62:
+L58:
     popq	%rbp
     ret
     .globl	flt
@@ -426,12 +409,12 @@ flt:
     movq	%rsp, %rbp
     movq	%rdi, -8(%rbp)
     cmpq	$0, -8(%rbp)
-    jns	L64
+    jns	L60
     movl	$13, %eax
-    jmp	L65
-L64:
+    jmp	L61
+L60:
     movl	$140, %eax
-L65:
+L61:
     popq	%rbp
     ret
     .globl	fge
@@ -440,12 +423,12 @@ fge:
     movq	%rsp, %rbp
     movq	%rdi, -8(%rbp)
     cmpq	$0, -8(%rbp)
-    js	L67
+    js	L63
     movl	$13, %eax
-    jmp	L68
-L67:
+    jmp	L64
+L63:
     movl	$140, %eax
-L68:
+L64:
     popq	%rbp
     ret
     .globl	fgt
@@ -454,12 +437,12 @@ fgt:
     movq	%rsp, %rbp
     movq	%rdi, -8(%rbp)
     cmpq	$0, -8(%rbp)
-    jle	L70
+    jle	L66
     movl	$13, %eax
-    jmp	L71
-L70:
+    jmp	L67
+L66:
     movl	$140, %eax
-L71:
+L67:
     popq	%rbp
     ret
     .globl	fle
@@ -468,12 +451,12 @@ fle:
     movq	%rsp, %rbp
     movq	%rdi, -8(%rbp)
     cmpq	$0, -8(%rbp)
-    jg	L73
+    jg	L69
     movl	$13, %eax
-    jmp	L74
-L73:
+    jmp	L70
+L69:
     movl	$140, %eax
-L74:
+L70:
     popq	%rbp
     ret
     .globl	main
@@ -485,253 +468,253 @@ _start:
     movl	$0, %eax
     call	feq
     cmpl	$13, %eax
+    je	L72
+    call	abort
+L72:
+    movq	$-1, %rdi
+    movl	$0, %eax
+    call	feq
+    cmpl	$140, %eax
+    je	L73
+    call	abort
+L73:
+    movabsq	$-9223372036854775808, %rdi
+    movl	$0, %eax
+    call	feq
+    cmpl	$140, %eax
+    je	L74
+    call	abort
+L74:
+    movabsq	$-9223372036854775807, %rdi
+    movl	$0, %eax
+    call	feq
+    cmpl	$140, %eax
+    je	L75
+    call	abort
+L75:
+    movl	$1, %edi
+    movl	$0, %eax
+    call	feq
+    cmpl	$140, %eax
     je	L76
     call	abort
 L76:
-    movq	$-1, %rdi
+    movabsq	$9223372036854775807, %rdi
     movl	$0, %eax
     call	feq
     cmpl	$140, %eax
     je	L77
     call	abort
 L77:
-    movabsq	$-9223372036854775808, %rdi
-    movl	$0, %eax
-    call	feq
-    cmpl	$140, %eax
-    je	L78
-    call	abort
-L78:
-    movabsq	$-9223372036854775807, %rdi
-    movl	$0, %eax
-    call	feq
-    cmpl	$140, %eax
-    je	L79
-    call	abort
-L79:
-    movl	$1, %edi
-    movl	$0, %eax
-    call	feq
-    cmpl	$140, %eax
-    je	L80
-    call	abort
-L80:
-    movabsq	$9223372036854775807, %rdi
-    movl	$0, %eax
-    call	feq
-    cmpl	$140, %eax
-    je	L81
-    call	abort
-L81:
     movl	$0, %edi
     movl	$0, %eax
     call	fne
     cmpl	$140, %eax
+    je	L78
+    call	abort
+L78:
+    movq	$-1, %rdi
+    movl	$0, %eax
+    call	fne
+    cmpl	$13, %eax
+    je	L79
+    call	abort
+L79:
+    movabsq	$-9223372036854775808, %rdi
+    movl	$0, %eax
+    call	fne
+    cmpl	$13, %eax
+    je	L80
+    call	abort
+L80:
+    movabsq	$-9223372036854775807, %rdi
+    movl	$0, %eax
+    call	fne
+    cmpl	$13, %eax
+    je	L81
+    call	abort
+L81:
+    movl	$1, %edi
+    movl	$0, %eax
+    call	fne
+    cmpl	$13, %eax
     je	L82
     call	abort
 L82:
-    movq	$-1, %rdi
+    movabsq	$9223372036854775807, %rdi
     movl	$0, %eax
     call	fne
     cmpl	$13, %eax
     je	L83
     call	abort
 L83:
-    movabsq	$-9223372036854775808, %rdi
+    movl	$0, %edi
     movl	$0, %eax
-    call	fne
-    cmpl	$13, %eax
+    call	flt
+    cmpl	$140, %eax
     je	L84
     call	abort
 L84:
-    movabsq	$-9223372036854775807, %rdi
+    movq	$-1, %rdi
     movl	$0, %eax
-    call	fne
+    call	flt
     cmpl	$13, %eax
     je	L85
     call	abort
 L85:
-    movl	$1, %edi
+    movabsq	$-9223372036854775808, %rdi
     movl	$0, %eax
-    call	fne
+    call	flt
     cmpl	$13, %eax
     je	L86
     call	abort
 L86:
-    movabsq	$9223372036854775807, %rdi
+    movabsq	$-9223372036854775807, %rdi
     movl	$0, %eax
-    call	fne
+    call	flt
     cmpl	$13, %eax
     je	L87
     call	abort
 L87:
-    movl	$0, %edi
+    movl	$1, %edi
     movl	$0, %eax
     call	flt
     cmpl	$140, %eax
     je	L88
     call	abort
 L88:
-    movq	$-1, %rdi
-    movl	$0, %eax
-    call	flt
-    cmpl	$13, %eax
-    je	L89
-    call	abort
-L89:
-    movabsq	$-9223372036854775808, %rdi
-    movl	$0, %eax
-    call	flt
-    cmpl	$13, %eax
-    je	L90
-    call	abort
-L90:
-    movabsq	$-9223372036854775807, %rdi
-    movl	$0, %eax
-    call	flt
-    cmpl	$13, %eax
-    je	L91
-    call	abort
-L91:
-    movl	$1, %edi
-    movl	$0, %eax
-    call	flt
-    cmpl	$140, %eax
-    je	L92
-    call	abort
-L92:
     movabsq	$9223372036854775807, %rdi
     movl	$0, %eax
     call	flt
     cmpl	$140, %eax
+    je	L89
+    call	abort
+L89:
+    movl	$0, %edi
+    movl	$0, %eax
+    call	fge
+    cmpl	$13, %eax
+    je	L90
+    call	abort
+L90:
+    movq	$-1, %rdi
+    movl	$0, %eax
+    call	fge
+    cmpl	$140, %eax
+    je	L91
+    call	abort
+L91:
+    movabsq	$-9223372036854775808, %rdi
+    movl	$0, %eax
+    call	fge
+    cmpl	$140, %eax
+    je	L92
+    call	abort
+L92:
+    movabsq	$-9223372036854775807, %rdi
+    movl	$0, %eax
+    call	fge
+    cmpl	$140, %eax
     je	L93
     call	abort
 L93:
-    movl	$0, %edi
+    movl	$1, %edi
     movl	$0, %eax
     call	fge
     cmpl	$13, %eax
     je	L94
     call	abort
 L94:
-    movq	$-1, %rdi
+    movabsq	$9223372036854775807, %rdi
     movl	$0, %eax
     call	fge
-    cmpl	$140, %eax
+    cmpl	$13, %eax
     je	L95
     call	abort
 L95:
-    movabsq	$-9223372036854775808, %rdi
+    movl	$0, %edi
     movl	$0, %eax
-    call	fge
+    call	fgt
     cmpl	$140, %eax
     je	L96
     call	abort
 L96:
-    movabsq	$-9223372036854775807, %rdi
+    movq	$-1, %rdi
     movl	$0, %eax
-    call	fge
+    call	fgt
     cmpl	$140, %eax
     je	L97
     call	abort
 L97:
-    movl	$1, %edi
-    movl	$0, %eax
-    call	fge
-    cmpl	$13, %eax
-    je	L98
-    call	abort
-L98:
-    movabsq	$9223372036854775807, %rdi
-    movl	$0, %eax
-    call	fge
-    cmpl	$13, %eax
-    je	L99
-    call	abort
-L99:
-    movl	$0, %edi
-    movl	$0, %eax
-    call	fgt
-    cmpl	$140, %eax
-    je	L100
-    call	abort
-L100:
-    movq	$-1, %rdi
-    movl	$0, %eax
-    call	fgt
-    cmpl	$140, %eax
-    je	L101
-    call	abort
-L101:
     movabsq	$-9223372036854775808, %rdi
     movl	$0, %eax
     call	fgt
     cmpl	$140, %eax
-    je	L102
+    je	L98
     call	abort
-L102:
+L98:
     movabsq	$-9223372036854775807, %rdi
     movl	$0, %eax
     call	fgt
     cmpl	$140, %eax
-    je	L103
+    je	L99
     call	abort
-L103:
+L99:
     movl	$1, %edi
     movl	$0, %eax
     call	fgt
+    cmpl	$13, %eax
+    je	L100
+    call	abort
+L100:
+    movabsq	$9223372036854775807, %rdi
+    movl	$0, %eax
+    call	fgt
+    cmpl	$13, %eax
+    je	L101
+    call	abort
+L101:
+    movl	$0, %edi
+    movl	$0, %eax
+    call	fle
+    cmpl	$13, %eax
+    je	L102
+    call	abort
+L102:
+    movq	$-1, %rdi
+    movl	$0, %eax
+    call	fle
+    cmpl	$13, %eax
+    je	L103
+    call	abort
+L103:
+    movabsq	$-9223372036854775808, %rdi
+    movl	$0, %eax
+    call	fle
     cmpl	$13, %eax
     je	L104
     call	abort
 L104:
-    movabsq	$9223372036854775807, %rdi
-    movl	$0, %eax
-    call	fgt
-    cmpl	$13, %eax
-    je	L105
-    call	abort
-L105:
-    movl	$0, %edi
-    movl	$0, %eax
-    call	fle
-    cmpl	$13, %eax
-    je	L106
-    call	abort
-L106:
-    movq	$-1, %rdi
-    movl	$0, %eax
-    call	fle
-    cmpl	$13, %eax
-    je	L107
-    call	abort
-L107:
-    movabsq	$-9223372036854775808, %rdi
-    movl	$0, %eax
-    call	fle
-    cmpl	$13, %eax
-    je	L108
-    call	abort
-L108:
     movabsq	$-9223372036854775807, %rdi
     movl	$0, %eax
     call	fle
     cmpl	$13, %eax
-    je	L109
+    je	L105
     call	abort
-L109:
+L105:
     movl	$1, %edi
     movl	$0, %eax
     call	fle
     cmpl	$140, %eax
-    je	L110
+    je	L106
     call	abort
-L110:
+L106:
     movabsq	$9223372036854775807, %rdi
     movl	$0, %eax
     call	fle
     cmpl	$140, %eax
-    je	L111
+    je	L107
     call	abort
-L111:
+L107:
     movl	$0, %edi
     call	exit

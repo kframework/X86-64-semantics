@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	f1
@@ -513,9 +496,9 @@ _start:
     movq	%rax, %rdi
     call	memcmp
     testl	%eax, %eax
-    je	L64
+    je	L60
     call	abort
-L64:
+L60:
     movl	-12(%rbp), %eax
     movl	%eax, %edi
     call	f2
@@ -527,9 +510,9 @@ L64:
     movq	%rax, %rdi
     call	memcmp
     testl	%eax, %eax
-    je	L65
+    je	L61
     call	abort
-L65:
+L61:
     movl	-20(%rbp), %edx
     movl	-12(%rbp), %eax
     movl	%edx, %esi
@@ -543,14 +526,14 @@ L65:
     movq	%rax, %rdi
     call	memcmp
     testl	%eax, %eax
-    je	L66
+    je	L62
     call	abort
-L66:
+L62:
     movl	$0, %eax
     movq	-8(%rbp), %rsi
     xorq	$40, %rsi
-    je	L68
+    je	L64
     call	__stack_chk_fail
-L68:
+L64:
     leave
     ret

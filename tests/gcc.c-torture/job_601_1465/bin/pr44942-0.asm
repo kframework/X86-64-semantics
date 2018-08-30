@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	test1
@@ -405,7 +388,7 @@ test1:
     movl	%r9d, -248(%rbp)
     vmovsd	%xmm0, -256(%rbp)
     testb	%al, %al
-    je	L58
+    je	L54
     vmovaps	%xmm1, -112(%rbp)
     vmovaps	%xmm2, -96(%rbp)
     vmovaps	%xmm3, -80(%rbp)
@@ -413,7 +396,7 @@ test1:
     vmovaps	%xmm5, -48(%rbp)
     vmovaps	%xmm6, -32(%rbp)
     vmovaps	%xmm7, -16(%rbp)
-L58:
+L54:
     movq	$40, %rax
     movq	%rax, -184(%rbp)
     xorl	%eax, %eax
@@ -425,7 +408,7 @@ L58:
     movq	%rax, -192(%rbp)
     movl	-208(%rbp), %eax
     cmpl	$48, %eax
-    jnb	L59
+    jnb	L55
     movq	-192(%rbp), %rax
     movl	-208(%rbp), %edx
     movl	%edx, %edx
@@ -433,24 +416,24 @@ L58:
     movl	-208(%rbp), %edx
     addl	$8, %edx
     movl	%edx, -208(%rbp)
-    jmp	L60
-L59:
+    jmp	L56
+L55:
     movq	-200(%rbp), %rax
     leaq	8(%rax), %rdx
     movq	%rdx, -200(%rbp)
-L60:
+L56:
     movl	(%rax), %eax
     movl	%eax, -212(%rbp)
     cmpl	$1234, -212(%rbp)
-    je	L63
+    je	L59
     call	abort
-L63:
+L59:
     nop
     movq	-184(%rbp), %rax
     xorq	$40, %rax
-    je	L62
+    je	L58
     call	__stack_chk_fail
-L62:
+L58:
     leave
     ret
     .globl	test2
@@ -469,12 +452,12 @@ test2:
     vmovsd	%xmm2, -272(%rbp)
     vmovsd	%xmm3, -280(%rbp)
     testb	%al, %al
-    je	L65
+    je	L61
     vmovaps	%xmm4, -64(%rbp)
     vmovaps	%xmm5, -48(%rbp)
     vmovaps	%xmm6, -32(%rbp)
     vmovaps	%xmm7, -16(%rbp)
-L65:
+L61:
     movq	$40, %rax
     movq	%rax, -184(%rbp)
     xorl	%eax, %eax
@@ -486,7 +469,7 @@ L65:
     movq	%rax, -192(%rbp)
     movl	-208(%rbp), %eax
     cmpl	$48, %eax
-    jnb	L66
+    jnb	L62
     movq	-192(%rbp), %rax
     movl	-208(%rbp), %edx
     movl	%edx, %edx
@@ -494,24 +477,24 @@ L65:
     movl	-208(%rbp), %edx
     addl	$8, %edx
     movl	%edx, -208(%rbp)
-    jmp	L67
-L66:
+    jmp	L63
+L62:
     movq	-200(%rbp), %rax
     leaq	8(%rax), %rdx
     movq	%rdx, -200(%rbp)
-L67:
+L63:
     movl	(%rax), %eax
     movl	%eax, -212(%rbp)
     cmpl	$1234, -212(%rbp)
-    je	L70
+    je	L66
     call	abort
-L70:
+L66:
     nop
     movq	-184(%rbp), %rax
     xorq	$40, %rax
-    je	L69
+    je	L65
     call	__stack_chk_fail
-L69:
+L65:
     leave
     ret
     .globl	test3
@@ -545,7 +528,7 @@ test3:
     movq	%rax, -192(%rbp)
     movl	-204(%rbp), %eax
     cmpl	$176, %eax
-    jnb	L73
+    jnb	L69
     movq	-192(%rbp), %rax
     movl	-204(%rbp), %edx
     movl	%edx, %edx
@@ -553,30 +536,30 @@ test3:
     movl	-204(%rbp), %edx
     addl	$16, %edx
     movl	%edx, -204(%rbp)
-    jmp	L74
-L73:
+    jmp	L70
+L69:
     movq	-200(%rbp), %rax
     leaq	8(%rax), %rdx
     movq	%rdx, -200(%rbp)
-L74:
+L70:
     vmovsd	(%rax), %xmm0
     vmovsd	%xmm0, -216(%rbp)
     vmovsd	LC0(%rip), %xmm0
     vucomisd	-216(%rbp), %xmm0
-    jp	L78
+    jp	L74
     vmovsd	LC0(%rip), %xmm0
     vucomisd	-216(%rbp), %xmm0
-    jne	L78
+    jne	L74
     nop
     movq	-184(%rbp), %rax
     xorq	$40, %rax
-    je	L77
-    jmp	L79
-L78:
+    je	L73
+    jmp	L75
+L74:
     call	abort
-L79:
+L75:
     call	__stack_chk_fail
-L77:
+L73:
     leave
     ret
     .globl	test4
@@ -610,7 +593,7 @@ test4:
     movq	%rax, -192(%rbp)
     movl	-204(%rbp), %eax
     cmpl	$176, %eax
-    jnb	L82
+    jnb	L78
     movq	-192(%rbp), %rax
     movl	-204(%rbp), %edx
     movl	%edx, %edx
@@ -618,30 +601,30 @@ test4:
     movl	-204(%rbp), %edx
     addl	$16, %edx
     movl	%edx, -204(%rbp)
-    jmp	L83
-L82:
+    jmp	L79
+L78:
     movq	-200(%rbp), %rax
     leaq	8(%rax), %rdx
     movq	%rdx, -200(%rbp)
-L83:
+L79:
     vmovsd	(%rax), %xmm0
     vmovsd	%xmm0, -216(%rbp)
     vmovsd	LC0(%rip), %xmm0
     vucomisd	-216(%rbp), %xmm0
-    jp	L87
+    jp	L83
     vmovsd	LC0(%rip), %xmm0
     vucomisd	-216(%rbp), %xmm0
-    jne	L87
+    jne	L83
     nop
     movq	-184(%rbp), %rax
     xorq	$40, %rax
-    je	L86
-    jmp	L88
-L87:
+    je	L82
+    jmp	L84
+L83:
     call	abort
-L88:
+L84:
     call	__stack_chk_fail
-L86:
+L82:
     leave
     ret
     .globl	main

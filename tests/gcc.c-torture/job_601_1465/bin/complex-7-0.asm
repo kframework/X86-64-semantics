@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	f1
@@ -544,7 +527,7 @@ check_float:
     cmovne	%ecx, %eax
     orl	%edx, %eax
     cmpb	$1, %al
-    je	L58
+    je	L54
     vmovss	f2(%rip), %xmm1
     vmovss	f2 + 4(%rip), %xmm0
     vucomiss	-32(%rbp), %xmm1
@@ -559,7 +542,7 @@ check_float:
     cmovne	%ecx, %eax
     orl	%edx, %eax
     cmpb	$1, %al
-    je	L58
+    je	L54
     vmovss	f3(%rip), %xmm1
     vmovss	f3 + 4(%rip), %xmm0
     vucomiss	-24(%rbp), %xmm1
@@ -574,7 +557,7 @@ check_float:
     cmovne	%ecx, %eax
     orl	%edx, %eax
     cmpb	$1, %al
-    je	L58
+    je	L54
     vmovss	f4(%rip), %xmm1
     vmovss	f4 + 4(%rip), %xmm0
     vucomiss	-16(%rbp), %xmm1
@@ -589,7 +572,7 @@ check_float:
     cmovne	%ecx, %eax
     orl	%edx, %eax
     cmpb	$1, %al
-    je	L58
+    je	L54
     vmovss	f5(%rip), %xmm1
     vmovss	f5 + 4(%rip), %xmm0
     vucomiss	-8(%rbp), %xmm1
@@ -604,10 +587,10 @@ check_float:
     cmovne	%ecx, %eax
     orl	%edx, %eax
     cmpb	$1, %al
-    jne	L60
-L58:
+    jne	L56
+L54:
     call	abort
-L60:
+L56:
     nop
     leave
     ret
@@ -675,7 +658,7 @@ check_double:
     cmovne	%ecx, %eax
     orl	%edx, %eax
     cmpb	$1, %al
-    je	L62
+    je	L58
     vmovsd	d2(%rip), %xmm1
     vmovsd	d2 + 8(%rip), %xmm0
     vucomisd	-64(%rbp), %xmm1
@@ -690,7 +673,7 @@ check_double:
     cmovne	%ecx, %eax
     orl	%edx, %eax
     cmpb	$1, %al
-    je	L62
+    je	L58
     vmovsd	d3(%rip), %xmm1
     vmovsd	d3 + 8(%rip), %xmm0
     vucomisd	-48(%rbp), %xmm1
@@ -705,7 +688,7 @@ check_double:
     cmovne	%ecx, %eax
     orl	%edx, %eax
     cmpb	$1, %al
-    je	L62
+    je	L58
     vmovsd	d4(%rip), %xmm1
     vmovsd	d4 + 8(%rip), %xmm0
     vucomisd	-32(%rbp), %xmm1
@@ -720,7 +703,7 @@ check_double:
     cmovne	%ecx, %eax
     orl	%edx, %eax
     cmpb	$1, %al
-    je	L62
+    je	L58
     vmovsd	d5(%rip), %xmm1
     vmovsd	d5 + 8(%rip), %xmm0
     vucomisd	-16(%rbp), %xmm1
@@ -735,10 +718,10 @@ check_double:
     cmovne	%ecx, %eax
     orl	%edx, %eax
     cmpb	$1, %al
-    jne	L64
-L62:
+    jne	L60
+L58:
     call	abort
-L64:
+L60:
     nop
     leave
     ret
@@ -806,7 +789,7 @@ check_long_double:
     cmovne	%ecx, %eax
     orl	%edx, %eax
     cmpb	$1, %al
-    je	L66
+    je	L62
     vmovsd	ld2(%rip), %xmm1
     vmovsd	ld2 + 8(%rip), %xmm0
     vucomisd	-64(%rbp), %xmm1
@@ -821,7 +804,7 @@ check_long_double:
     cmovne	%ecx, %eax
     orl	%edx, %eax
     cmpb	$1, %al
-    je	L66
+    je	L62
     vmovsd	ld3(%rip), %xmm1
     vmovsd	ld3 + 8(%rip), %xmm0
     vucomisd	-48(%rbp), %xmm1
@@ -836,7 +819,7 @@ check_long_double:
     cmovne	%ecx, %eax
     orl	%edx, %eax
     cmpb	$1, %al
-    je	L66
+    je	L62
     vmovsd	ld4(%rip), %xmm1
     vmovsd	ld4 + 8(%rip), %xmm0
     vucomisd	-32(%rbp), %xmm1
@@ -851,7 +834,7 @@ check_long_double:
     cmovne	%ecx, %eax
     orl	%edx, %eax
     cmpb	$1, %al
-    je	L66
+    je	L62
     vmovsd	ld5(%rip), %xmm1
     vmovsd	ld5 + 8(%rip), %xmm0
     vucomisd	-16(%rbp), %xmm1
@@ -866,10 +849,10 @@ check_long_double:
     cmovne	%ecx, %eax
     orl	%edx, %eax
     cmpb	$1, %al
-    jne	L68
-L66:
+    jne	L64
+L62:
     call	abort
-L68:
+L64:
     nop
     leave
     ret

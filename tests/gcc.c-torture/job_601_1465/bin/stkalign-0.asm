@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	test
@@ -409,23 +392,23 @@ test:
     leaq	-60(%rbp), %rax
     movl	%eax, -60(%rbp)
     cmpl	$0, -68(%rbp)
-    je	L58
+    je	L54
     movl	-60(%rbp), %eax
     movl	-68(%rbp), %edx
     subl	$1, %edx
     movl	%eax, %esi
     movl	%edx, %edi
     call	test
-    jmp	L60
-L58:
+    jmp	L56
+L54:
     movl	-60(%rbp), %eax
     xorl	-72(%rbp), %eax
-L60:
+L56:
     movq	-56(%rbp), %rcx
     xorq	$40, %rcx
-    je	L61
+    je	L57
     call	__stack_chk_fail
-L61:
+L57:
     addq	$104, %rsp
     popq	%r10
     popq	%rbp
@@ -444,23 +427,23 @@ test2:
     leaq	-12(%rbp), %rax
     movl	%eax, -12(%rbp)
     cmpl	$0, -20(%rbp)
-    je	L63
+    je	L59
     movl	-12(%rbp), %eax
     movl	-20(%rbp), %edx
     subl	$1, %edx
     movl	%eax, %esi
     movl	%edx, %edi
     call	test2
-    jmp	L65
-L63:
+    jmp	L61
+L59:
     movl	-12(%rbp), %eax
     xorl	-24(%rbp), %eax
-L65:
+L61:
     movq	-8(%rbp), %rcx
     xorq	$40, %rcx
-    je	L66
+    je	L62
     call	__stack_chk_fail
-L66:
+L62:
     leave
     ret
     .globl	main
@@ -508,18 +491,18 @@ _start:
     movl	-8(%rbp), %eax
     andl	$63, %eax
     testl	%eax, %eax
-    jne	L68
+    jne	L64
     movl	-4(%rbp), %eax
     andl	$63, %eax
     testl	%eax, %eax
-    je	L68
+    je	L64
     movl	$1, %eax
-    jmp	L69
-L68:
+    jmp	L65
+L64:
     movl	$0, %eax
-L69:
+L65:
     nop
     leave
     ret
-    .comm	s2456,64,64
-    .comm	s2465,1,1
+    .comm	s2449,64,64
+    .comm	s2458,1,1

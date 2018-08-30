@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	expect_do1
@@ -404,24 +387,24 @@ doit:
     pushq	%rbp
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
-    movl	jtab_init2443(%rip), %eax
+    movl	jtab_init2436(%rip), %eax
     testl	%eax, %eax
-    jne	L58
-    movq	$L59, jtab2444(%rip)
-    movq	$L60, jtab2444 + 8(%rip)
-    movl	$1, jtab_init2443(%rip)
-L58:
+    jne	L54
+    movq	$L55, jtab2437(%rip)
+    movq	$L56, jtab2437 + 8(%rip)
+    movl	$1, jtab_init2436(%rip)
+L54:
     movl	-4(%rbp), %eax
     cltq
-    movq	jtab2444(,%rax,8), %rax
+    movq	jtab2437(,%rax,8), %rax
     nop
     jmp	%rax
-L59:
+L55:
     movl	$1, %eax
-    jmp	L62
-L60:
+    jmp	L58
+L56:
     movl	$2, %eax
-L62:
+L58:
     popq	%rbp
     ret
 do1:
@@ -432,9 +415,9 @@ do1:
     movl	%eax, %edx
     movl	expect_do1(%rip), %eax
     cmpl	%eax, %edx
-    je	L65
+    je	L61
     call	abort
-L65:
+L61:
     nop
     popq	%rbp
     ret
@@ -446,9 +429,9 @@ do2:
     movl	%eax, %edx
     movl	expect_do2(%rip), %eax
     cmpl	%eax, %edx
-    je	L68
+    je	L64
     call	abort
-L68:
+L64:
     nop
     popq	%rbp
     ret
@@ -459,5 +442,5 @@ _start:
     movq	%rsp, %rbp
     movl	$0, %edi
     call	exit
-    .comm	jtab_init2443,4,4
-    .comm	jtab2444,16,16
+    .comm	jtab_init2436,4,4
+    .comm	jtab2437,16,16

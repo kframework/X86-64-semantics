@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	test1
@@ -401,13 +384,13 @@ test1:
     movl	%esi, -8(%rbp)
     movl	-4(%rbp), %eax
     cmpl	-8(%rbp), %eax
-    jne	L59
+    jne	L55
     movl	-4(%rbp), %eax
     cmpl	-8(%rbp), %eax
-    je	L59
+    je	L55
     movl	$0, %eax
     call	link_error0
-L59:
+L55:
     nop
     leave
     ret
@@ -420,13 +403,13 @@ test2:
     movl	%esi, -8(%rbp)
     movl	-4(%rbp), %eax
     cmpl	-8(%rbp), %eax
-    jge	L62
+    jge	L58
     movl	-4(%rbp), %eax
     cmpl	-8(%rbp), %eax
-    jle	L62
+    jle	L58
     movl	$0, %eax
     call	link_error0
-L62:
+L58:
     nop
     leave
     ret
@@ -439,13 +422,13 @@ test3:
     movl	%esi, -8(%rbp)
     movl	-4(%rbp), %eax
     cmpl	-8(%rbp), %eax
-    jge	L65
+    jge	L61
     movl	-8(%rbp), %eax
     cmpl	-4(%rbp), %eax
-    jge	L65
+    jge	L61
     movl	$0, %eax
     call	link_error0
-L65:
+L61:
     nop
     leave
     ret
@@ -458,13 +441,13 @@ test4:
     movl	%esi, -8(%rbp)
     movl	-4(%rbp), %eax
     cmpl	-8(%rbp), %eax
-    je	L68
+    je	L64
     movl	-4(%rbp), %eax
     cmpl	-8(%rbp), %eax
-    jne	L68
+    jne	L64
     movl	$0, %eax
     call	link_error1
-L68:
+L64:
     nop
     leave
     ret
@@ -477,13 +460,13 @@ test5:
     movl	%esi, -8(%rbp)
     movl	-4(%rbp), %eax
     cmpl	-8(%rbp), %eax
-    jge	L71
+    jge	L67
     movl	-4(%rbp), %eax
     cmpl	-8(%rbp), %eax
-    jl	L71
+    jl	L67
     movl	$0, %eax
     call	link_error1
-L71:
+L67:
     nop
     leave
     ret
@@ -496,13 +479,13 @@ test6:
     movl	%esi, -8(%rbp)
     movl	-4(%rbp), %eax
     cmpl	-8(%rbp), %eax
-    jle	L74
+    jle	L70
     movl	-8(%rbp), %eax
     cmpl	-4(%rbp), %eax
-    jl	L74
+    jl	L70
     movl	$0, %eax
     call	link_error1
-L74:
+L70:
     nop
     leave
     ret

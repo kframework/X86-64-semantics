@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	f
@@ -413,18 +396,18 @@ simulator_kernel:
     movq	(%rax), %r14
     movq	-88(%rbp), %rax
     leaq	8(%rax), %r12
-    movq	$L59, -96(%rbp)
+    movq	$L55, -96(%rbp)
     movq	-88(%rbp), %rax
     addq	$1040, %rax
     movq	%rax, -104(%rbp)
     cmpl	$0, -76(%rbp)
-    je	L59
+    je	L55
     movq	-88(%rbp), %rax
     movq	1032(%rax), %rax
     movq	%rax, -56(%rbp)
     movl	$0, -72(%rbp)
-    jmp	L61
-L62:
+    jmp	L57
+L58:
     movl	-72(%rbp), %eax
     cltq
     leaq	0(,%rax,8), %rdx
@@ -439,7 +422,7 @@ L62:
     sall	$14, %eax
     sarl	$14, %eax
     cltq
-    movq	op_map3064(,%rax,8), %rax
+    movq	op_map3054(,%rax,8), %rax
     movq	%rax, %rcx
     movq	-96(%rbp), %rax
     subq	%rax, %rcx
@@ -453,11 +436,11 @@ L62:
     orl	%ecx, %eax
     movl	%eax, (%rdx)
     addl	$1, -72(%rbp)
-L61:
+L57:
     movl	-72(%rbp), %eax
     cmpl	-76(%rbp), %eax
-    jl	L62
-L59:
+    jl	L58
+L55:
     movq	%r14, %rax
     leaq	8(%rax), %r14
     movq	(%rax), %rbx
@@ -480,9 +463,9 @@ L59:
     cltq
     addq	-96(%rbp), %rax
     nop
-L65:
+L61:
     jmp	%rax
-L63:
+L59:
     movl	%r15d, %eax
     shrl	$12, %eax
     movl	%eax, -64(%rbp)
@@ -492,7 +475,7 @@ L63:
     movq	%r14, %rax
     leaq	8(%rax), %r14
     movq	(%rax), %rbx
-L67:
+L63:
     movl	-68(%rbp), %eax
     salq	$4, %rax
     movq	-104(%rbp), %rsi
@@ -506,7 +489,7 @@ L67:
     movq	%rax, -48(%rbp)
     movl	-60(%rbp), %eax
     cmpl	-64(%rbp), %eax
-    jne	L64
+    jne	L60
     movslq	%r13d, %rax
     leaq	(%r12,%rax), %rdx
     movl	%r15d, %ecx
@@ -532,11 +515,11 @@ L67:
     sarl	$14, %eax
     cltq
     addq	-96(%rbp), %rax
-    jmp	L65
-L64:
+    jmp	L61
+L60:
     movl	-60(%rbp), %eax
     testl	%eax, %eax
-    jns	L66
+    jns	L62
     movslq	%r13d, %rax
     leaq	(%r12,%rax), %r13
     movl	$0, %eax
@@ -561,14 +544,14 @@ L64:
     sarl	$14, %eax
     cltq
     addq	-96(%rbp), %rax
-    jmp	L65
-L66:
+    jmp	L61
+L62:
     movl	-68(%rbp), %eax
     subl	$1, %eax
     andl	$255, %eax
     movl	%eax, -68(%rbp)
-    jmp	L67
-L68:
+    jmp	L63
+L64:
     movslq	%r13d, %rax
     addq	%r12, %rax
     movl	(%rax), %eax
@@ -644,16 +627,16 @@ _start:
     orb	$-128, %al
     movw	%ax, -5162(%rbp)
     movl	$0, -5184(%rbp)
-    jmp	L71
-L72:
+    jmp	L67
+L68:
     movl	-5184(%rbp), %eax
     cltq
     movq	-5168(%rbp), %rdx
     movq	%rdx, program(,%rax,8)
     addl	$1, -5184(%rbp)
-L71:
+L67:
     cmpl	$1, -5184(%rbp)
-    jle	L72
+    jle	L68
     movl	-5168(%rbp), %eax
     andl	$-262144, %eax
     orl	$1, %eax
@@ -671,12 +654,12 @@ L71:
     call	simulator_kernel
     movl	%eax, -5172(%rbp)
     cmpl	$88, -5172(%rbp)
-    je	L73
+    je	L69
     call	abort
-L73:
+L69:
     movl	$0, %edi
     call	exit
     .data
-op_map3064:
-    .quad	L63
-    .quad	L68
+op_map3054:
+    .quad	L59
+    .quad	L64

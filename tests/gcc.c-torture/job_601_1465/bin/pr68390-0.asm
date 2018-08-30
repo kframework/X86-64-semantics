@@ -153,9 +153,8 @@ LCOLDB7:
     .text
 LHOTB7:
     .p2align 4,,15
-    .globl	malloc
-malloc:
-    movl	$1000, %eax
+    .globl	free
+free:
     ret
     .section	.textunlikely
 LCOLDE7:
@@ -166,9 +165,19 @@ LCOLDB8:
     .text
 LHOTB8:
     .p2align 4,,15
-    .globl	calloc
-calloc:
-    movl	$1000, %eax
+    .globl	isprint
+isprint:
+    movl	%edi, %edx
+    movl	$1, %eax
+    andl	$-33, %edx
+    subl	$65, %edx
+    cmpl	$25, %edx
+    jbe	L34
+    subl	$48, %edi
+    xorl	%eax, %eax
+    cmpl	$9, %edi
+    setbe	%al
+L34:
     ret
     .section	.textunlikely
 LCOLDE8:
@@ -179,41 +188,6 @@ LCOLDB9:
     .text
 LHOTB9:
     .p2align 4,,15
-    .globl	free
-free:
-    ret
-    .section	.textunlikely
-LCOLDE9:
-    .text
-LHOTE9:
-    .section	.textunlikely
-LCOLDB10:
-    .text
-LHOTB10:
-    .p2align 4,,15
-    .globl	isprint
-isprint:
-    movl	%edi, %edx
-    movl	$1, %eax
-    andl	$-33, %edx
-    subl	$65, %edx
-    cmpl	$25, %edx
-    jbe	L36
-    subl	$48, %edi
-    xorl	%eax, %eax
-    cmpl	$9, %edi
-    setbe	%al
-L36:
-    ret
-    .section	.textunlikely
-LCOLDE10:
-    .text
-LHOTE10:
-    .section	.textunlikely
-LCOLDB11:
-    .text
-LHOTB11:
-    .p2align 4,,15
     .globl	broken
 broken:
     movq	%rdi, %rdx
@@ -221,13 +195,13 @@ broken:
     movl	%esi, %edi
     jmp	%rdx
     .section	.textunlikely
-LCOLDE11:
+LCOLDE9:
     .text
-LHOTE11:
+LHOTE9:
     .section	.textunlikely
-LCOLDB13:
+LCOLDB11:
     .section	.textstartup,"ax",@progbits
-LHOTB13:
+LHOTB11:
     .p2align 4,,15
     .globl	main
 .globl _start
@@ -236,19 +210,19 @@ _start:
     movl	$2, %esi
     movl	$direct, %edi
     call	broken
-    vucomisd	LC12(%rip), %xmm0
-    jp	L41
-    jne	L41
+    vucomisd	LC10(%rip), %xmm0
+    jp	L39
+    jne	L39
     xorl	%eax, %eax
     addq	$8, %rsp
     ret
-L41:
+L39:
     call	abort
     .section	.textunlikely
-LCOLDE13:
+LCOLDE11:
     .section	.textstartup
-LHOTE13:
+LHOTE11:
     .section	.rodatacst8,"aM",@progbits,8
-LC12:
+LC10:
     .long	0
     .long	1074790400

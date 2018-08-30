@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	check
@@ -401,9 +384,9 @@ check:
     movl	%esi, -8(%rbp)
     movl	%edx, -12(%rbp)
     cmpl	$0, -12(%rbp)
-    jne	L59
+    jne	L55
     call	abort
-L59:
+L55:
     nop
     leave
     ret
@@ -447,12 +430,12 @@ _fgetc:
     movl	i(%rip), %edx
     movl	l(%rip), %eax
     cmpl	%eax, %edx
-    jle	L62
+    jle	L58
     movl	$-1, %eax
-    jmp	L63
-L62:
+    jmp	L59
+L58:
     movzbl	-1(%rbp), %eax
-L63:
+L59:
     popq	%rbp
     ret
     .section	.rodata
@@ -472,8 +455,8 @@ _start:
     movq	%rax, %rdi
     call	_fputs
     movl	$0, -8(%rbp)
-    jmp	L65
-L66:
+    jmp	L61
+L62:
     movl	$0, %eax
     call	_fgetc
     movsbl	%al, %eax
@@ -498,7 +481,7 @@ L66:
     movl	%eax, %edi
     call	check
     addl	$1, -8(%rbp)
-L65:
+L61:
     movl	-8(%rbp), %eax
     movslq	%eax, %rsi
     movq	string(%rip), %rax
@@ -511,7 +494,7 @@ L65:
     notq	%rax
     subq	$1, %rax
     cmpq	%rax, %rsi
-    jb	L66
+    jb	L62
     movl	$0, %eax
     leave
     ret

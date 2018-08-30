@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	sub
@@ -538,29 +521,29 @@ _start:
     movzwl	tmp(%rip), %eax
     andw	$4095, %ax
     cmpw	$291, %ax
-    jne	L66
+    jne	L62
     movq	tmp(%rip), %rax
     andq	$-4096, %rax
     movq	%rax, %rdx
     movabsq	$-7687337405579571200, %rax
     cmpq	%rax, %rdx
-    je	L67
-L66:
+    je	L63
+L62:
     call	abort
-L67:
+L63:
     movzwl	tmp2 + 6(%rip), %eax
     andl	$-16, %eax
     cmpw	$4656, %ax
-    jne	L68
+    jne	L64
     movq	tmp2(%rip), %rdx
     movabsq	$4503599627370495, %rax
     andq	%rax, %rdx
     movabsq	$2626808268586421, %rax
     cmpq	%rax, %rdx
-    je	L69
-L68:
+    je	L65
+L64:
     call	abort
-L69:
+L65:
     movq	tmp3(%rip), %rdi
     call	sub3
     movq	%rax, tmp3(%rip)
@@ -570,28 +553,28 @@ L69:
     movzwl	tmp3(%rip), %eax
     andw	$2047, %ax
     cmpw	$291, %ax
-    jne	L70
+    jne	L66
     movq	tmp3(%rip), %rax
     andq	$-2048, %rax
     movq	%rax, %rdx
     movabsq	$-3725223934242340864, %rax
     cmpq	%rax, %rdx
-    je	L71
-L70:
+    je	L67
+L66:
     call	abort
-L71:
+L67:
     movzwl	tmp4 + 6(%rip), %eax
     andl	$-32, %eax
     cmpw	$9312, %ax
-    jne	L72
+    jne	L68
     movq	tmp4(%rip), %rdx
     movabsq	$9007199254740991, %rax
     andq	%rax, %rdx
     movabsq	$7188242255599224, %rax
     cmpq	%rax, %rdx
-    je	L73
-L72:
+    je	L69
+L68:
     call	abort
-L73:
+L69:
     movl	$0, %edi
     call	exit

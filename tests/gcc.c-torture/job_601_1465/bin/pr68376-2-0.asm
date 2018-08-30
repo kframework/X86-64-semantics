@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	f1
@@ -398,13 +381,13 @@ f1:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$0, -4(%rbp)
-    jns	L58
+    jns	L54
     movl	-4(%rbp), %eax
     notl	%eax
-    jmp	L60
-L58:
+    jmp	L56
+L54:
     movl	-4(%rbp), %eax
-L60:
+L56:
     popq	%rbp
     ret
     .globl	f2
@@ -413,13 +396,13 @@ f2:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$0, -4(%rbp)
-    js	L62
+    js	L58
     movl	-4(%rbp), %eax
     notl	%eax
-    jmp	L64
-L62:
+    jmp	L60
+L58:
     movl	-4(%rbp), %eax
-L64:
+L60:
     popq	%rbp
     ret
     .globl	f3
@@ -428,13 +411,13 @@ f3:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$0, -4(%rbp)
-    jg	L66
+    jg	L62
     movl	-4(%rbp), %eax
     notl	%eax
-    jmp	L68
-L66:
+    jmp	L64
+L62:
     movl	-4(%rbp), %eax
-L68:
+L64:
     popq	%rbp
     ret
     .globl	f4
@@ -443,13 +426,13 @@ f4:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$0, -4(%rbp)
-    jle	L70
+    jle	L66
     movl	-4(%rbp), %eax
     notl	%eax
-    jmp	L72
-L70:
+    jmp	L68
+L66:
     movl	-4(%rbp), %eax
-L72:
+L68:
     popq	%rbp
     ret
     .globl	f5
@@ -458,13 +441,13 @@ f5:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$0, -4(%rbp)
-    js	L74
+    js	L70
     movl	-4(%rbp), %eax
     notl	%eax
-    jmp	L76
-L74:
+    jmp	L72
+L70:
     movl	-4(%rbp), %eax
-L76:
+L72:
     popq	%rbp
     ret
     .globl	f6
@@ -473,13 +456,13 @@ f6:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$0, -4(%rbp)
-    jns	L78
+    jns	L74
     movl	-4(%rbp), %eax
     notl	%eax
-    jmp	L80
-L78:
+    jmp	L76
+L74:
     movl	-4(%rbp), %eax
-L80:
+L76:
     popq	%rbp
     ret
     .globl	f7
@@ -488,13 +471,13 @@ f7:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$0, -4(%rbp)
-    jle	L82
+    jle	L78
     movl	-4(%rbp), %eax
     notl	%eax
-    jmp	L84
-L82:
+    jmp	L80
+L78:
     movl	-4(%rbp), %eax
-L84:
+L80:
     popq	%rbp
     ret
     .globl	f8
@@ -503,13 +486,13 @@ f8:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$0, -4(%rbp)
-    jg	L86
+    jg	L82
     movl	-4(%rbp), %eax
     notl	%eax
-    jmp	L88
-L86:
+    jmp	L84
+L82:
     movl	-4(%rbp), %eax
-L88:
+L84:
     popq	%rbp
     ret
     .globl	main
@@ -520,123 +503,123 @@ _start:
     movl	$5, %edi
     call	f1
     cmpl	$5, %eax
-    jne	L90
+    jne	L86
     movl	$-5, %edi
     call	f1
     cmpl	$4, %eax
-    jne	L90
+    jne	L86
     movl	$0, %edi
     call	f1
     testl	%eax, %eax
+    je	L87
+L86:
+    call	abort
+L87:
+    movl	$5, %edi
+    call	f2
+    cmpl	$-6, %eax
+    jne	L88
+    movl	$-5, %edi
+    call	f2
+    cmpl	$-5, %eax
+    jne	L88
+    movl	$0, %edi
+    call	f2
+    cmpl	$-1, %eax
+    je	L89
+L88:
+    call	abort
+L89:
+    movl	$5, %edi
+    call	f3
+    cmpl	$5, %eax
+    jne	L90
+    movl	$-5, %edi
+    call	f3
+    cmpl	$4, %eax
+    jne	L90
+    movl	$0, %edi
+    call	f3
+    cmpl	$-1, %eax
     je	L91
 L90:
     call	abort
 L91:
     movl	$5, %edi
-    call	f2
+    call	f4
     cmpl	$-6, %eax
     jne	L92
     movl	$-5, %edi
-    call	f2
+    call	f4
     cmpl	$-5, %eax
     jne	L92
     movl	$0, %edi
-    call	f2
-    cmpl	$-1, %eax
+    call	f4
+    testl	%eax, %eax
     je	L93
 L92:
     call	abort
 L93:
     movl	$5, %edi
-    call	f3
-    cmpl	$5, %eax
+    call	f5
+    cmpl	$-6, %eax
     jne	L94
     movl	$-5, %edi
-    call	f3
-    cmpl	$4, %eax
+    call	f5
+    cmpl	$-5, %eax
     jne	L94
     movl	$0, %edi
-    call	f3
+    call	f5
     cmpl	$-1, %eax
     je	L95
 L94:
     call	abort
 L95:
     movl	$5, %edi
-    call	f4
-    cmpl	$-6, %eax
+    call	f6
+    cmpl	$5, %eax
     jne	L96
     movl	$-5, %edi
-    call	f4
-    cmpl	$-5, %eax
+    call	f6
+    cmpl	$4, %eax
     jne	L96
     movl	$0, %edi
-    call	f4
+    call	f6
     testl	%eax, %eax
     je	L97
 L96:
     call	abort
 L97:
     movl	$5, %edi
-    call	f5
+    call	f7
     cmpl	$-6, %eax
     jne	L98
     movl	$-5, %edi
-    call	f5
+    call	f7
     cmpl	$-5, %eax
     jne	L98
     movl	$0, %edi
-    call	f5
-    cmpl	$-1, %eax
+    call	f7
+    testl	%eax, %eax
     je	L99
 L98:
     call	abort
 L99:
     movl	$5, %edi
-    call	f6
+    call	f8
     cmpl	$5, %eax
     jne	L100
     movl	$-5, %edi
-    call	f6
+    call	f8
     cmpl	$4, %eax
     jne	L100
     movl	$0, %edi
-    call	f6
-    testl	%eax, %eax
+    call	f8
+    cmpl	$-1, %eax
     je	L101
 L100:
     call	abort
 L101:
-    movl	$5, %edi
-    call	f7
-    cmpl	$-6, %eax
-    jne	L102
-    movl	$-5, %edi
-    call	f7
-    cmpl	$-5, %eax
-    jne	L102
-    movl	$0, %edi
-    call	f7
-    testl	%eax, %eax
-    je	L103
-L102:
-    call	abort
-L103:
-    movl	$5, %edi
-    call	f8
-    cmpl	$5, %eax
-    jne	L104
-    movl	$-5, %edi
-    call	f8
-    cmpl	$4, %eax
-    jne	L104
-    movl	$0, %edi
-    call	f8
-    cmpl	$-1, %eax
-    je	L105
-L104:
-    call	abort
-L105:
     movl	$0, %eax
     popq	%rbp
     ret

@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .section	.rodata
@@ -468,24 +451,28 @@ stab_xcoff_builtin_type:
     movq	%rsp, %rbp
     movl	%edi, -20(%rbp)
     cmpl	$0, -20(%rbp)
-    jns	L58
+    jns	L54
     cmpl	$-34, -20(%rbp)
-    jge	L59
-L58:
+    jge	L55
+L54:
     movl	$0, %eax
-    jmp	L60
-L59:
+    jmp	L56
+L55:
     movl	-20(%rbp), %eax
     negl	%eax
     cmpl	$34, %eax
-    ja	L61
+    ja	L57
     movl	%eax, %eax
-    movq	L63(,%rax,8), %rax
+    movq	L59(,%rax,8), %rax
     jmp	%rax
     .section	.rodata
-L63:
+L59:
+    .quad	L57
+    .quad	L58
+    .quad	L60
     .quad	L61
     .quad	L62
+    .quad	L63
     .quad	L64
     .quad	L65
     .quad	L66
@@ -515,86 +502,82 @@ L63:
     .quad	L90
     .quad	L91
     .quad	L92
-    .quad	L93
-    .quad	L94
-    .quad	L95
-    .quad	L96
     .text
-L62:
+L58:
     movq	$LC0, -8(%rbp)
-    jmp	L61
-L64:
+    jmp	L57
+L60:
     movq	$LC1, -8(%rbp)
-L65:
-    movq	$LC2, -8(%rbp)
-    jmp	L61
-L66:
-    movq	$LC3, -8(%rbp)
-L67:
-    movq	$LC4, -8(%rbp)
-L68:
-    movq	$LC5, -8(%rbp)
-L69:
-    movq	$LC6, -8(%rbp)
-L70:
-    movq	$LC7, -8(%rbp)
-L71:
-    movq	$LC8, -8(%rbp)
-L72:
-    movq	$LC9, -8(%rbp)
-L73:
-    movq	$LC10, -8(%rbp)
-L74:
-    movq	$LC11, -8(%rbp)
-L75:
-    movq	$LC12, -8(%rbp)
-L76:
-    movq	$LC13, -8(%rbp)
-L77:
-    movq	$LC14, -8(%rbp)
-L78:
-    movq	$LC15, -8(%rbp)
-L79:
-    movq	$LC16, -8(%rbp)
-L80:
-    movq	$LC17, -8(%rbp)
-L81:
-    movq	$LC18, -8(%rbp)
-L82:
-    movq	$LC19, -8(%rbp)
-L83:
-    movq	$LC20, -8(%rbp)
-L84:
-    movq	$LC21, -8(%rbp)
-L85:
-    movq	$LC22, -8(%rbp)
-L86:
-    movq	$LC23, -8(%rbp)
-L87:
-    movq	$LC24, -8(%rbp)
-L88:
-    movq	$LC25, -8(%rbp)
-L89:
-    movq	$LC26, -8(%rbp)
-L90:
-    movq	$LC27, -8(%rbp)
-L91:
-    movq	$LC28, -8(%rbp)
-L92:
-    movq	$LC29, -8(%rbp)
-L93:
-    movq	$LC30, -8(%rbp)
-L94:
-    movq	$LC31, -8(%rbp)
-L95:
-    movq	$LC32, -8(%rbp)
-L96:
-    movq	$LC33, -8(%rbp)
 L61:
+    movq	$LC2, -8(%rbp)
+    jmp	L57
+L62:
+    movq	$LC3, -8(%rbp)
+L63:
+    movq	$LC4, -8(%rbp)
+L64:
+    movq	$LC5, -8(%rbp)
+L65:
+    movq	$LC6, -8(%rbp)
+L66:
+    movq	$LC7, -8(%rbp)
+L67:
+    movq	$LC8, -8(%rbp)
+L68:
+    movq	$LC9, -8(%rbp)
+L69:
+    movq	$LC10, -8(%rbp)
+L70:
+    movq	$LC11, -8(%rbp)
+L71:
+    movq	$LC12, -8(%rbp)
+L72:
+    movq	$LC13, -8(%rbp)
+L73:
+    movq	$LC14, -8(%rbp)
+L74:
+    movq	$LC15, -8(%rbp)
+L75:
+    movq	$LC16, -8(%rbp)
+L76:
+    movq	$LC17, -8(%rbp)
+L77:
+    movq	$LC18, -8(%rbp)
+L78:
+    movq	$LC19, -8(%rbp)
+L79:
+    movq	$LC20, -8(%rbp)
+L80:
+    movq	$LC21, -8(%rbp)
+L81:
+    movq	$LC22, -8(%rbp)
+L82:
+    movq	$LC23, -8(%rbp)
+L83:
+    movq	$LC24, -8(%rbp)
+L84:
+    movq	$LC25, -8(%rbp)
+L85:
+    movq	$LC26, -8(%rbp)
+L86:
+    movq	$LC27, -8(%rbp)
+L87:
+    movq	$LC28, -8(%rbp)
+L88:
+    movq	$LC29, -8(%rbp)
+L89:
+    movq	$LC30, -8(%rbp)
+L90:
+    movq	$LC31, -8(%rbp)
+L91:
+    movq	$LC32, -8(%rbp)
+L92:
+    movq	$LC33, -8(%rbp)
+L57:
     movq	-8(%rbp), %rax
     movzbl	(%rax), %eax
     movsbl	%al, %eax
-L60:
+L56:
     popq	%rbp
     ret
     .globl	main
@@ -606,47 +589,47 @@ _start:
     movl	$0, %edi
     call	stab_xcoff_builtin_type
     testl	%eax, %eax
-    je	L98
+    je	L94
     call	abort
-L98:
+L94:
     movl	$-1, %edi
+    call	stab_xcoff_builtin_type
+    cmpl	$105, %eax
+    je	L95
+    call	abort
+L95:
+    movl	$-2, %edi
+    call	stab_xcoff_builtin_type
+    cmpl	$115, %eax
+    je	L96
+    call	abort
+L96:
+    movl	$-3, %edi
+    call	stab_xcoff_builtin_type
+    cmpl	$115, %eax
+    je	L97
+    call	abort
+L97:
+    movl	$-4, -4(%rbp)
+    jmp	L98
+L100:
+    movl	-4(%rbp), %eax
+    movl	%eax, %edi
     call	stab_xcoff_builtin_type
     cmpl	$105, %eax
     je	L99
     call	abort
 L99:
-    movl	$-2, %edi
-    call	stab_xcoff_builtin_type
-    cmpl	$115, %eax
-    je	L100
-    call	abort
-L100:
-    movl	$-3, %edi
-    call	stab_xcoff_builtin_type
-    cmpl	$115, %eax
-    je	L101
-    call	abort
-L101:
-    movl	$-4, -4(%rbp)
-    jmp	L102
-L104:
-    movl	-4(%rbp), %eax
-    movl	%eax, %edi
-    call	stab_xcoff_builtin_type
-    cmpl	$105, %eax
-    je	L103
-    call	abort
-L103:
     subl	$1, -4(%rbp)
-L102:
+L98:
     cmpl	$-34, -4(%rbp)
-    jge	L104
+    jge	L100
     movl	$-35, %edi
     call	stab_xcoff_builtin_type
     testl	%eax, %eax
-    je	L105
+    je	L101
     call	abort
-L105:
+L101:
     movl	$0, %eax
     leave
     ret

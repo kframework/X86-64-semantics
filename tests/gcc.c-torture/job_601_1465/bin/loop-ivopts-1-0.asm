@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	main
@@ -407,9 +390,9 @@ _start:
     movl	$0, %eax
     movq	-8(%rbp), %rdx
     xorq	$40, %rdx
-    je	L59
+    je	L55
     call	__stack_chk_fail
-L59:
+L55:
     leave
     ret
     .globl	foo
@@ -418,8 +401,8 @@ foo:
     movq	%rsp, %rbp
     movq	%rdi, -24(%rbp)
     movl	$0, -16(%rbp)
-    jmp	L61
-L64:
+    jmp	L57
+L60:
     movl	$3, %eax
     subl	-16(%rbp), %eax
     movl	%eax, -8(%rbp)
@@ -428,51 +411,51 @@ L64:
     sall	$2, %eax
     addl	%edx, %eax
     cltq
-    vmovss	t162448(,%rax,4), %xmm0
+    vmovss	t162441(,%rax,4), %xmm0
     vmovss	%xmm0, -4(%rbp)
     movl	-8(%rbp), %eax
     addl	$1, %eax
     movl	%eax, -12(%rbp)
-    jmp	L62
-L63:
+    jmp	L58
+L59:
     movl	-12(%rbp), %eax
     leal	0(,%rax,4), %edx
     movl	-8(%rbp), %eax
     addl	%edx, %eax
     cltq
-    vmovss	t162448(,%rax,4), %xmm0
+    vmovss	t162441(,%rax,4), %xmm0
     vmulss	-4(%rbp), %xmm0, %xmm0
     movl	-8(%rbp), %eax
     cltq
-    vmovss	%xmm0, tmp2449(,%rax,4)
+    vmovss	%xmm0, tmp2442(,%rax,4)
     addl	$1, -12(%rbp)
-L62:
+L58:
     cmpl	$3, -12(%rbp)
-    jle	L63
+    jle	L59
     addl	$1, -16(%rbp)
-L61:
+L57:
     cmpl	$3, -16(%rbp)
-    jle	L64
-    vmovss	tmp2449(%rip), %xmm0
+    jle	L60
+    vmovss	tmp2442(%rip), %xmm0
     movq	-24(%rbp), %rax
     vmovss	%xmm0, (%rax)
     movq	-24(%rbp), %rax
     addq	$4, %rax
-    vmovss	tmp2449 + 4(%rip), %xmm0
+    vmovss	tmp2442 + 4(%rip), %xmm0
     vmovss	%xmm0, (%rax)
     movq	-24(%rbp), %rax
     addq	$8, %rax
-    vmovss	tmp2449 + 8(%rip), %xmm0
+    vmovss	tmp2442 + 8(%rip), %xmm0
     vmovss	%xmm0, (%rax)
     movq	-24(%rbp), %rax
     addq	$12, %rax
-    vmovss	tmp2449 + 12(%rip), %xmm0
+    vmovss	tmp2442 + 12(%rip), %xmm0
     vmovss	%xmm0, (%rax)
     nop
     popq	%rbp
     ret
     .data
-t162448:
+t162441:
     .long	1065353216
     .long	1073741824
     .long	1077936128
@@ -489,4 +472,4 @@ t162448:
     .long	1096810496
     .long	1097859072
     .long	1098907648
-    .comm	tmp2449,16,16
+    .comm	tmp2442,16,16

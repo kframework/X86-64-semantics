@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .comm	g,2,2
@@ -404,13 +387,13 @@ next_g:
     movzbl	%dl, %edx
     subl	$1, %edx
     cmpl	%edx, %eax
-    je	L58
+    je	L54
     movzwl	g(%rip), %eax
     addl	$1, %eax
-    jmp	L60
-L58:
+    jmp	L56
+L54:
     movl	$0, %eax
-L60:
+L56:
     popq	%rbp
     ret
 curr_p:
@@ -441,12 +424,12 @@ ring_empty:
     movl	%eax, %ebx
     call	curr_g
     cmpw	%ax, %bx
-    jne	L68
+    jne	L64
     movl	$1, %eax
-    jmp	L69
-L68:
+    jmp	L65
+L64:
     movl	$0, %eax
-L69:
+L65:
     popq	%rbx
     popq	%rbp
     ret
@@ -475,19 +458,19 @@ get_n:
     movw	$0, -4(%rbp)
     call	curr_g
     movw	%ax, -2(%rbp)
-    jmp	L73
-L75:
+    jmp	L69
+L71:
     call	inc_g
     movzwl	-4(%rbp), %eax
     addl	$1, %eax
     movw	%ax, -4(%rbp)
-L73:
+L69:
     call	ring_empty
     testb	%al, %al
-    jne	L74
+    jne	L70
     cmpw	$4, -4(%rbp)
-    jbe	L75
-L74:
+    jbe	L71
+L70:
     movzwl	-4(%rbp), %eax
     leave
     ret
@@ -501,27 +484,27 @@ _start:
     movl	$0, %edi
     call	frob
     testb	%al, %al
-    jne	L78
+    jne	L74
     movzwl	g(%rip), %eax
     cmpw	$1, %ax
-    jne	L78
+    jne	L74
     movzwl	p(%rip), %eax
     cmpw	$2, %ax
-    jne	L78
+    jne	L74
     movzbl	e(%rip), %eax
     cmpb	$3, %al
-    jne	L78
+    jne	L74
     call	get_n
     cmpw	$1, %ax
-    jne	L78
+    jne	L74
     movzwl	g(%rip), %eax
     cmpw	$2, %ax
-    jne	L78
+    jne	L74
     movzwl	p(%rip), %eax
     cmpw	$2, %ax
-    je	L79
-L78:
+    je	L75
+L74:
     call	abort
-L79:
+L75:
     movl	$0, %edi
     call	exit

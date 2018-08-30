@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .comm	a,8,8
@@ -398,27 +381,27 @@ foo:
     pushq	%rbp
     movq	%rsp, %rbp
     movq	%rdi, -24(%rbp)
-    jmp	L58
-L61:
+    jmp	L54
+L57:
     movq	a(%rip), %rax
     testq	%rax, %rax
-    je	L59
+    je	L55
     cmpq	$0, -24(%rbp)
-    je	L59
+    je	L55
     movl	$1, %eax
-    jmp	L60
-L59:
+    jmp	L56
+L55:
     movl	$0, %eax
-L60:
+L56:
     cltq
     movq	%rax, -8(%rbp)
     movq	a(%rip), %rax
     addq	$1, %rax
     movq	%rax, a(%rip)
-L58:
+L54:
     movq	a(%rip), %rax
     testq	%rax, %rax
-    jle	L61
+    jle	L57
     movq	-8(%rbp), %rax
     popq	%rbp
     ret
@@ -430,44 +413,44 @@ _start:
     movl	$0, %edi
     call	foo
     testq	%rax, %rax
+    je	L60
+    call	abort
+L60:
+    movq	$0, a(%rip)
+    movl	$1, %edi
+    call	foo
+    testq	%rax, %rax
+    je	L61
+    call	abort
+L61:
+    movq	$0, a(%rip)
+    movl	$25, %edi
+    call	foo
+    testq	%rax, %rax
+    je	L62
+    call	abort
+L62:
+    movq	$-64, a(%rip)
+    movl	$0, %edi
+    call	foo
+    testq	%rax, %rax
+    je	L63
+    call	abort
+L63:
+    movq	$-64, a(%rip)
+    movl	$1, %edi
+    call	foo
+    testq	%rax, %rax
     je	L64
     call	abort
 L64:
-    movq	$0, a(%rip)
-    movl	$1, %edi
+    movq	$-64, a(%rip)
+    movl	$25, %edi
     call	foo
     testq	%rax, %rax
     je	L65
     call	abort
 L65:
-    movq	$0, a(%rip)
-    movl	$25, %edi
-    call	foo
-    testq	%rax, %rax
-    je	L66
-    call	abort
-L66:
-    movq	$-64, a(%rip)
-    movl	$0, %edi
-    call	foo
-    testq	%rax, %rax
-    je	L67
-    call	abort
-L67:
-    movq	$-64, a(%rip)
-    movl	$1, %edi
-    call	foo
-    testq	%rax, %rax
-    je	L68
-    call	abort
-L68:
-    movq	$-64, a(%rip)
-    movl	$25, %edi
-    call	foo
-    testq	%rax, %rax
-    je	L69
-    call	abort
-L69:
     movl	$0, %eax
     popq	%rbp
     ret

@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .comm	a,36,32
@@ -404,10 +387,10 @@ bar:
     movq	$40, %rax
     movq	%rax, -8(%rbp)
     xorl	%eax, %eax
-    movl	n2447(%rip), %eax
+    movl	n2440(%rip), %eax
     addl	$1, %eax
-    movl	%eax, n2447(%rip)
-    movl	n2447(%rip), %eax
+    movl	%eax, n2440(%rip)
+    movl	n2440(%rip), %eax
     movl	%eax, -48(%rbp)
     leaq	-48(%rbp), %rax
     addq	$4, %rax
@@ -431,9 +414,9 @@ bar:
     movq	-56(%rbp), %rax
     movq	-8(%rbp), %rcx
     xorq	$40, %rcx
-    je	L59
+    je	L55
     call	__stack_chk_fail
-L59:
+L55:
     leave
     ret
     .globl	baz
@@ -459,7 +442,7 @@ foo:
     movq	%rax, -24(%rbp)
     xorl	%eax, %eax
     cmpl	$6, -44(%rbp)
-    jne	L62
+    jne	L58
     leaq	-112(%rbp), %rax
     movl	$7, %esi
     movq	%rax, %rdi
@@ -474,8 +457,8 @@ foo:
     movq	%rax, a + 24(%rip)
     movl	-80(%rbp), %eax
     movl	%eax, a + 32(%rip)
-    jmp	L63
-L62:
+    jmp	L59
+L58:
     movq	-40(%rbp), %rbx
     leaq	-112(%rbp), %rax
     movl	$7, %esi
@@ -491,14 +474,14 @@ L62:
     movq	%rax, 24(%rbx)
     movl	-80(%rbp), %eax
     movl	%eax, 32(%rbx)
-L63:
+L59:
     call	baz
     nop
     movq	-24(%rbp), %rax
     xorq	$40, %rax
-    je	L64
+    je	L60
     call	__stack_chk_fail
-L64:
+L60:
     addq	$96, %rsp
     popq	%rbx
     popq	%r10
@@ -548,64 +531,64 @@ _start:
     movl	%eax, b + 32(%rip)
     movl	a(%rip), %eax
     cmpl	$1, %eax
-    jne	L66
+    jne	L62
     movzbl	a + 4(%rip), %eax
     cmpb	$3, %al
-    jne	L66
+    jne	L62
     movl	b(%rip), %eax
     cmpl	$2, %eax
-    jne	L66
+    jne	L62
     movzbl	b + 4(%rip), %eax
     cmpb	$4, %al
-    je	L67
-L66:
+    je	L63
+L62:
     call	abort
-L67:
+L63:
     movl	$0, %esi
     movl	$b, %edi
     call	foo
     movl	a(%rip), %eax
     cmpl	$1, %eax
-    jne	L68
+    jne	L64
     movzbl	a + 4(%rip), %eax
     cmpb	$3, %al
-    jne	L68
+    jne	L64
     movl	b(%rip), %eax
     cmpl	$3, %eax
-    jne	L68
+    jne	L64
     movzbl	b + 4(%rip), %eax
     cmpb	$7, %al
-    je	L69
-L68:
+    je	L65
+L64:
     call	abort
-L69:
+L65:
     movl	$6, %esi
     movl	$b, %edi
     call	foo
     movl	a(%rip), %eax
     cmpl	$4, %eax
-    jne	L70
+    jne	L66
     movzbl	a + 4(%rip), %eax
     cmpb	$7, %al
-    jne	L70
+    jne	L66
     movl	b(%rip), %eax
     cmpl	$3, %eax
-    jne	L70
+    jne	L66
     movzbl	b + 4(%rip), %eax
     cmpb	$7, %al
-    je	L71
-L70:
+    je	L67
+L66:
     call	abort
-L71:
+L67:
     movl	$0, %eax
     movq	-24(%rbp), %rdx
     xorq	$40, %rdx
-    je	L73
+    je	L69
     call	__stack_chk_fail
-L73:
+L69:
     addq	$104, %rsp
     popq	%r10
     popq	%rbp
     leaq	-8(%r10), %rsp
     ret
-    .comm	n2447,4,4
+    .comm	n2440,4,4

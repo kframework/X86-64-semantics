@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .comm	buf,65,32
@@ -417,56 +400,56 @@ _start:
     subq	$16, %rsp
     movb	$2, buf + 64(%rip)
     movl	$0, -4(%rbp)
-    jmp	L59
-L61:
+    jmp	L55
+L57:
     movl	-4(%rbp), %eax
     cltq
     movzbl	buf(%rax), %eax
     testb	%al, %al
-    je	L60
+    je	L56
     call	abort
-L60:
+L56:
     addl	$1, -4(%rbp)
-L59:
+L55:
     cmpl	$63, -4(%rbp)
-    jle	L61
+    jle	L57
     movl	$0, %edi
     call	foo
     movl	$0, -4(%rbp)
-    jmp	L62
-L64:
+    jmp	L58
+L60:
     movl	-4(%rbp), %eax
     cltq
     movzbl	buf(%rax), %eax
     cmpb	$1, %al
-    je	L63
+    je	L59
     call	abort
-L63:
+L59:
     addl	$1, -4(%rbp)
-L62:
+L58:
     cmpl	$63, -4(%rbp)
-    jle	L64
+    jle	L60
     movl	$2, %edi
     call	foo
     movl	$0, -4(%rbp)
-    jmp	L65
-L67:
+    jmp	L61
+L63:
     movl	-4(%rbp), %eax
     cltq
     movzbl	buf(%rax), %eax
     testb	%al, %al
-    je	L66
+    je	L62
     call	abort
-L66:
+L62:
     addl	$1, -4(%rbp)
-L65:
+L61:
     cmpl	$63, -4(%rbp)
-    jle	L67
+    jle	L63
     movzbl	buf + 64(%rip), %eax
     cmpb	$2, %al
-    je	L68
+    je	L64
     call	abort
-L68:
+L64:
     movl	$0, %eax
     leave
     ret

@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	foo
@@ -400,13 +383,17 @@ foo:
     vmovsd	-24(%rbp), %xmm0
     vcvttsd2si	%xmm0, %eax
     cmpl	$93, %eax
-    ja	L58
+    ja	L54
     movl	%eax, %eax
-    movq	L60(,%rax,8), %rax
+    movq	L56(,%rax,8), %rax
     jmp	%rax
     .section	.rodata
-L60:
+L56:
+    .quad	L55
+    .quad	L57
+    .quad	L58
     .quad	L59
+    .quad	L60
     .quad	L61
     .quad	L62
     .quad	L63
@@ -429,43 +416,43 @@ L60:
     .quad	L80
     .quad	L81
     .quad	L82
+    .quad	L54
+    .quad	L54
+    .quad	L54
     .quad	L83
+    .quad	L54
+    .quad	L54
+    .quad	L54
+    .quad	L54
+    .quad	L54
+    .quad	L54
+    .quad	L54
+    .quad	L54
+    .quad	L54
     .quad	L84
+    .quad	L54
+    .quad	L54
+    .quad	L54
+    .quad	L54
+    .quad	L54
+    .quad	L54
+    .quad	L54
+    .quad	L54
+    .quad	L54
     .quad	L85
+    .quad	L54
+    .quad	L54
+    .quad	L54
+    .quad	L54
+    .quad	L54
+    .quad	L54
+    .quad	L54
+    .quad	L54
+    .quad	L54
     .quad	L86
-    .quad	L58
-    .quad	L58
-    .quad	L58
     .quad	L87
-    .quad	L58
-    .quad	L58
-    .quad	L58
-    .quad	L58
-    .quad	L58
-    .quad	L58
-    .quad	L58
-    .quad	L58
-    .quad	L58
     .quad	L88
-    .quad	L58
-    .quad	L58
-    .quad	L58
-    .quad	L58
-    .quad	L58
-    .quad	L58
-    .quad	L58
-    .quad	L58
-    .quad	L58
     .quad	L89
-    .quad	L58
-    .quad	L58
-    .quad	L58
-    .quad	L58
-    .quad	L58
-    .quad	L58
-    .quad	L58
-    .quad	L58
-    .quad	L58
     .quad	L90
     .quad	L91
     .quad	L92
@@ -496,12 +483,8 @@ L60:
     .quad	L117
     .quad	L118
     .quad	L119
-    .quad	L120
-    .quad	L121
-    .quad	L122
-    .quad	L123
     .text
-L59:
+L55:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC0(%rip), %xmm1
@@ -527,8 +510,8 @@ L59:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC7(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L61:
+    jmp	L120
+L57:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC8(%rip), %xmm1
@@ -554,8 +537,8 @@ L61:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC15(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L62:
+    jmp	L120
+L58:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC16(%rip), %xmm1
@@ -581,8 +564,8 @@ L62:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC23(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L63:
+    jmp	L120
+L59:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC24(%rip), %xmm1
@@ -608,8 +591,8 @@ L63:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC31(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L64:
+    jmp	L120
+L60:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC32(%rip), %xmm1
@@ -635,8 +618,8 @@ L64:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC39(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L65:
+    jmp	L120
+L61:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC40(%rip), %xmm1
@@ -662,8 +645,8 @@ L65:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC47(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L66:
+    jmp	L120
+L62:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC48(%rip), %xmm1
@@ -689,8 +672,8 @@ L66:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC55(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L67:
+    jmp	L120
+L63:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC56(%rip), %xmm1
@@ -716,8 +699,8 @@ L67:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC63(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L68:
+    jmp	L120
+L64:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC64(%rip), %xmm1
@@ -743,8 +726,8 @@ L68:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC71(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L69:
+    jmp	L120
+L65:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC72(%rip), %xmm1
@@ -770,8 +753,8 @@ L69:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC79(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L70:
+    jmp	L120
+L66:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC80(%rip), %xmm1
@@ -797,8 +780,8 @@ L70:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC87(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L71:
+    jmp	L120
+L67:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC88(%rip), %xmm1
@@ -824,8 +807,8 @@ L71:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC95(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L72:
+    jmp	L120
+L68:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC96(%rip), %xmm1
@@ -851,8 +834,8 @@ L72:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC103(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L73:
+    jmp	L120
+L69:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC104(%rip), %xmm1
@@ -878,8 +861,8 @@ L73:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC111(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L74:
+    jmp	L120
+L70:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC112(%rip), %xmm1
@@ -905,8 +888,8 @@ L74:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC119(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L75:
+    jmp	L120
+L71:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC120(%rip), %xmm1
@@ -932,8 +915,8 @@ L75:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC127(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L76:
+    jmp	L120
+L72:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC128(%rip), %xmm1
@@ -959,8 +942,8 @@ L76:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC135(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L77:
+    jmp	L120
+L73:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC136(%rip), %xmm1
@@ -986,8 +969,8 @@ L77:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC143(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L78:
+    jmp	L120
+L74:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC144(%rip), %xmm1
@@ -1013,8 +996,8 @@ L78:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC151(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L79:
+    jmp	L120
+L75:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC152(%rip), %xmm1
@@ -1040,8 +1023,8 @@ L79:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC159(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L80:
+    jmp	L120
+L76:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC160(%rip), %xmm1
@@ -1067,8 +1050,8 @@ L80:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC167(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L81:
+    jmp	L120
+L77:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC168(%rip), %xmm1
@@ -1094,8 +1077,8 @@ L81:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC175(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L82:
+    jmp	L120
+L78:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC176(%rip), %xmm1
@@ -1121,8 +1104,8 @@ L82:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC183(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L83:
+    jmp	L120
+L79:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC184(%rip), %xmm1
@@ -1148,8 +1131,8 @@ L83:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC191(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L84:
+    jmp	L120
+L80:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC192(%rip), %xmm1
@@ -1175,8 +1158,8 @@ L84:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC199(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L85:
+    jmp	L120
+L81:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC200(%rip), %xmm1
@@ -1202,8 +1185,8 @@ L85:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC207(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L86:
+    jmp	L120
+L82:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC208(%rip), %xmm1
@@ -1229,8 +1212,8 @@ L86:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC215(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L87:
+    jmp	L120
+L83:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC216(%rip), %xmm1
@@ -1256,8 +1239,8 @@ L87:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC223(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L88:
+    jmp	L120
+L84:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC224(%rip), %xmm1
@@ -1283,8 +1266,8 @@ L88:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC231(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L89:
+    jmp	L120
+L85:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC232(%rip), %xmm1
@@ -1310,8 +1293,8 @@ L89:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC239(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L90:
+    jmp	L120
+L86:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC240(%rip), %xmm1
@@ -1337,8 +1320,8 @@ L90:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC247(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L91:
+    jmp	L120
+L87:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC248(%rip), %xmm1
@@ -1364,8 +1347,8 @@ L91:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC255(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L92:
+    jmp	L120
+L88:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC256(%rip), %xmm1
@@ -1391,8 +1374,8 @@ L92:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC263(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L93:
+    jmp	L120
+L89:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC264(%rip), %xmm1
@@ -1418,8 +1401,8 @@ L93:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC271(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L94:
+    jmp	L120
+L90:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC272(%rip), %xmm1
@@ -1445,8 +1428,8 @@ L94:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC279(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L95:
+    jmp	L120
+L91:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC280(%rip), %xmm1
@@ -1472,8 +1455,8 @@ L95:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC287(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L96:
+    jmp	L120
+L92:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC288(%rip), %xmm1
@@ -1499,8 +1482,8 @@ L96:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC295(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L97:
+    jmp	L120
+L93:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC296(%rip), %xmm1
@@ -1526,8 +1509,8 @@ L97:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC303(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L98:
+    jmp	L120
+L94:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC304(%rip), %xmm1
@@ -1553,8 +1536,8 @@ L98:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC311(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L99:
+    jmp	L120
+L95:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC312(%rip), %xmm1
@@ -1580,8 +1563,8 @@ L99:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC319(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L100:
+    jmp	L120
+L96:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC320(%rip), %xmm1
@@ -1607,8 +1590,8 @@ L100:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC327(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L101:
+    jmp	L120
+L97:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC328(%rip), %xmm1
@@ -1634,8 +1617,8 @@ L101:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC335(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L102:
+    jmp	L120
+L98:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC336(%rip), %xmm1
@@ -1661,8 +1644,8 @@ L102:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC343(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L103:
+    jmp	L120
+L99:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC344(%rip), %xmm1
@@ -1688,8 +1671,8 @@ L103:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC351(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L104:
+    jmp	L120
+L100:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC352(%rip), %xmm1
@@ -1715,8 +1698,8 @@ L104:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC359(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L105:
+    jmp	L120
+L101:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC360(%rip), %xmm1
@@ -1742,8 +1725,8 @@ L105:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC367(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L106:
+    jmp	L120
+L102:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC368(%rip), %xmm1
@@ -1769,8 +1752,8 @@ L106:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC375(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L107:
+    jmp	L120
+L103:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC376(%rip), %xmm1
@@ -1796,8 +1779,8 @@ L107:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC383(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L108:
+    jmp	L120
+L104:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC384(%rip), %xmm1
@@ -1823,8 +1806,8 @@ L108:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC391(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L109:
+    jmp	L120
+L105:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC392(%rip), %xmm1
@@ -1850,8 +1833,8 @@ L109:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC399(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L110:
+    jmp	L120
+L106:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC400(%rip), %xmm1
@@ -1877,8 +1860,8 @@ L110:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC407(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L111:
+    jmp	L120
+L107:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC408(%rip), %xmm1
@@ -1904,8 +1887,8 @@ L111:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC415(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L112:
+    jmp	L120
+L108:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC416(%rip), %xmm1
@@ -1931,8 +1914,8 @@ L112:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC423(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L113:
+    jmp	L120
+L109:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC424(%rip), %xmm1
@@ -1958,8 +1941,8 @@ L113:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC431(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L114:
+    jmp	L120
+L110:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC432(%rip), %xmm1
@@ -1985,8 +1968,8 @@ L114:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC439(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L115:
+    jmp	L120
+L111:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC440(%rip), %xmm1
@@ -2012,8 +1995,8 @@ L115:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC447(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L116:
+    jmp	L120
+L112:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC448(%rip), %xmm1
@@ -2039,8 +2022,8 @@ L116:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC455(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L117:
+    jmp	L120
+L113:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC456(%rip), %xmm1
@@ -2066,8 +2049,8 @@ L117:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC463(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L118:
+    jmp	L120
+L114:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC464(%rip), %xmm1
@@ -2093,8 +2076,8 @@ L118:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC471(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L119:
+    jmp	L120
+L115:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC472(%rip), %xmm1
@@ -2120,8 +2103,8 @@ L119:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC479(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L120:
+    jmp	L120
+L116:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC480(%rip), %xmm1
@@ -2147,8 +2130,8 @@ L120:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC487(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L121:
+    jmp	L120
+L117:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC488(%rip), %xmm1
@@ -2174,8 +2157,8 @@ L121:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC495(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L122:
+    jmp	L120
+L118:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC496(%rip), %xmm1
@@ -2201,8 +2184,8 @@ L122:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC503(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L123:
+    jmp	L120
+L119:
     vmovsd	-24(%rbp), %xmm0
     vaddsd	%xmm0, %xmm0, %xmm0
     vmovsd	LC504(%rip), %xmm1
@@ -2228,10 +2211,10 @@ L123:
     vmulsd	-8(%rbp), %xmm0, %xmm0
     vmovsd	LC511(%rip), %xmm1
     vaddsd	%xmm1, %xmm0, %xmm0
-    jmp	L124
-L58:
+    jmp	L120
+L54:
     vmovsd	LC0(%rip), %xmm0
-L124:
+L120:
     vmovq	%xmm0, %rax
     vmovq	%rax, %xmm0
     popq	%rbp
@@ -2249,14 +2232,14 @@ _start:
     movq	%rax, -8(%rbp)
     vmovsd	LC513(%rip), %xmm0
     vucomisd	-8(%rbp), %xmm0
-    ja	L126
+    ja	L122
     vmovsd	-8(%rbp), %xmm0
     vmovsd	LC514(%rip), %xmm1
     vucomisd	%xmm1, %xmm0
-    jbe	L130
-L126:
+    jbe	L126
+L122:
     call	abort
-L130:
+L126:
     movl	$0, %eax
     leave
     ret

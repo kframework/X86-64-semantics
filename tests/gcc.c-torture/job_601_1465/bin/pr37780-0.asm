@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,32 +351,47 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	fooctz
 fooctz:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movl	%edi, -4(%rbp)
+    cmpl	$0, -4(%rbp)
+    je	L54
+    movl	-4(%rbp), %eax
+    tzcntl	%eax, %eax
+    jmp	L56
+L54:
+    movl	$32, %eax
+L56:
+    popq	%rbp
+    ret
+    .globl	fooctz2
+fooctz2:
     pushq	%rbp
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
@@ -407,38 +405,38 @@ L58:
 L60:
     popq	%rbp
     ret
-    .globl	fooctz2
-fooctz2:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movl	%edi, -4(%rbp)
-    cmpl	$0, -4(%rbp)
-    je	L62
-    movl	-4(%rbp), %eax
-    tzcntl	%eax, %eax
-    jmp	L64
-L62:
-    movl	$32, %eax
-L64:
-    popq	%rbp
-    ret
     .globl	fooctz3
 fooctz3:
     pushq	%rbp
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$0, -4(%rbp)
-    je	L66
+    je	L62
     xorl	%eax, %eax
     tzcntl	-4(%rbp), %eax
+    jmp	L64
+L62:
+    movl	$32, %eax
+L64:
+    popq	%rbp
+    ret
+    .globl	fooclz
+fooclz:
+    pushq	%rbp
+    movq	%rsp, %rbp
+    movl	%edi, -4(%rbp)
+    cmpl	$0, -4(%rbp)
+    je	L66
+    movl	-4(%rbp), %eax
+    lzcntl	%eax, %eax
     jmp	L68
 L66:
     movl	$32, %eax
 L68:
     popq	%rbp
     ret
-    .globl	fooclz
-fooclz:
+    .globl	fooclz2
+fooclz2:
     pushq	%rbp
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
@@ -452,34 +450,19 @@ L70:
 L72:
     popq	%rbp
     ret
-    .globl	fooclz2
-fooclz2:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movl	%edi, -4(%rbp)
-    cmpl	$0, -4(%rbp)
-    je	L74
-    movl	-4(%rbp), %eax
-    lzcntl	%eax, %eax
-    jmp	L76
-L74:
-    movl	$32, %eax
-L76:
-    popq	%rbp
-    ret
     .globl	fooclz3
 fooclz3:
     pushq	%rbp
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$0, -4(%rbp)
-    je	L78
+    je	L74
     xorl	%eax, %eax
     lzcntl	-4(%rbp), %eax
-    jmp	L80
-L78:
+    jmp	L76
+L74:
     movl	$32, %eax
-L80:
+L76:
     popq	%rbp
     ret
     .globl	main
@@ -490,30 +473,30 @@ _start:
     movl	$0, %edi
     call	fooctz
     cmpl	$32, %eax
-    jne	L82
+    jne	L78
     movl	$0, %edi
     call	fooctz2
     cmpl	$32, %eax
-    jne	L82
+    jne	L78
     movl	$0, %edi
     call	fooctz3
     cmpl	$32, %eax
-    jne	L82
+    jne	L78
     movl	$0, %edi
     call	fooclz
     cmpl	$32, %eax
-    jne	L82
+    jne	L78
     movl	$0, %edi
     call	fooclz2
     cmpl	$32, %eax
-    jne	L82
+    jne	L78
     movl	$0, %edi
     call	fooclz3
     cmpl	$32, %eax
-    je	L83
-L82:
+    je	L79
+L78:
     call	abort
-L83:
+L79:
     movl	$0, %eax
     popq	%rbp
     ret

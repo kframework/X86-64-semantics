@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	feq
@@ -400,15 +383,15 @@ feq:
     vmovss	%xmm1, -8(%rbp)
     vmovss	-4(%rbp), %xmm0
     vucomiss	-8(%rbp), %xmm0
-    jp	L58
+    jp	L54
     vmovss	-4(%rbp), %xmm0
     vucomiss	-8(%rbp), %xmm0
-    jne	L58
+    jne	L54
     movl	$13, %eax
-    jmp	L60
-L58:
+    jmp	L56
+L54:
     movl	$140, %eax
-L60:
+L56:
     popq	%rbp
     ret
     .globl	fne
@@ -419,16 +402,16 @@ fne:
     vmovss	%xmm1, -8(%rbp)
     vmovss	-4(%rbp), %xmm0
     vucomiss	-8(%rbp), %xmm0
-    jp	L66
+    jp	L62
     vmovss	-4(%rbp), %xmm0
     vucomiss	-8(%rbp), %xmm0
-    je	L67
-L66:
+    je	L63
+L62:
     movl	$13, %eax
-    jmp	L65
-L67:
+    jmp	L61
+L63:
     movl	$140, %eax
-L65:
+L61:
     popq	%rbp
     ret
     .globl	flt
@@ -439,12 +422,12 @@ flt:
     vmovss	%xmm1, -8(%rbp)
     vmovss	-8(%rbp), %xmm0
     vucomiss	-4(%rbp), %xmm0
-    jbe	L73
+    jbe	L69
     movl	$13, %eax
-    jmp	L71
-L73:
+    jmp	L67
+L69:
     movl	$140, %eax
-L71:
+L67:
     popq	%rbp
     ret
     .globl	fge
@@ -455,12 +438,12 @@ fge:
     vmovss	%xmm1, -8(%rbp)
     vmovss	-4(%rbp), %xmm0
     vucomiss	-8(%rbp), %xmm0
-    jb	L79
+    jb	L75
     movl	$13, %eax
-    jmp	L77
-L79:
+    jmp	L73
+L75:
     movl	$140, %eax
-L77:
+L73:
     popq	%rbp
     ret
     .globl	fgt
@@ -471,12 +454,12 @@ fgt:
     vmovss	%xmm1, -8(%rbp)
     vmovss	-4(%rbp), %xmm0
     vucomiss	-8(%rbp), %xmm0
-    jbe	L85
+    jbe	L81
     movl	$13, %eax
-    jmp	L83
-L85:
+    jmp	L79
+L81:
     movl	$140, %eax
-L83:
+L79:
     popq	%rbp
     ret
     .globl	fle
@@ -487,12 +470,12 @@ fle:
     vmovss	%xmm1, -8(%rbp)
     vmovss	-8(%rbp), %xmm0
     vucomiss	-4(%rbp), %xmm0
-    jb	L91
+    jb	L87
     movl	$13, %eax
-    jmp	L89
-L91:
+    jmp	L85
+L87:
     movl	$140, %eax
-L89:
+L85:
     popq	%rbp
     ret
     .globl	args
@@ -901,15 +884,15 @@ _start:
     subq	$32, %rsp
     movq	$correct_results, -8(%rbp)
     movl	$0, -24(%rbp)
-    jmp	L93
-L102:
+    jmp	L89
+L98:
     movl	-24(%rbp), %eax
     cltq
     vmovss	args(,%rax,4), %xmm0
     vmovss	%xmm0, -16(%rbp)
     movl	$0, -20(%rbp)
-    jmp	L94
-L101:
+    jmp	L90
+L97:
     movl	-20(%rbp), %eax
     cltq
     vmovss	args(,%rax,4), %xmm0
@@ -925,9 +908,9 @@ L101:
     movq	%rdx, -8(%rbp)
     movl	(%rax), %eax
     cmpl	%eax, %ecx
-    je	L95
+    je	L91
     call	abort
-L95:
+L91:
     vmovss	-12(%rbp), %xmm0
     movl	-16(%rbp), %eax
     vmovaps	%xmm0, %xmm1
@@ -939,9 +922,9 @@ L95:
     movq	%rdx, -8(%rbp)
     movl	(%rax), %eax
     cmpl	%eax, %ecx
-    je	L96
+    je	L92
     call	abort
-L96:
+L92:
     vmovss	-12(%rbp), %xmm0
     movl	-16(%rbp), %eax
     vmovaps	%xmm0, %xmm1
@@ -953,9 +936,9 @@ L96:
     movq	%rdx, -8(%rbp)
     movl	(%rax), %eax
     cmpl	%eax, %ecx
-    je	L97
+    je	L93
     call	abort
-L97:
+L93:
     vmovss	-12(%rbp), %xmm0
     movl	-16(%rbp), %eax
     vmovaps	%xmm0, %xmm1
@@ -967,9 +950,9 @@ L97:
     movq	%rdx, -8(%rbp)
     movl	(%rax), %eax
     cmpl	%eax, %ecx
-    je	L98
+    je	L94
     call	abort
-L98:
+L94:
     vmovss	-12(%rbp), %xmm0
     movl	-16(%rbp), %eax
     vmovaps	%xmm0, %xmm1
@@ -981,9 +964,9 @@ L98:
     movq	%rdx, -8(%rbp)
     movl	(%rax), %eax
     cmpl	%eax, %ecx
-    je	L99
+    je	L95
     call	abort
-L99:
+L95:
     vmovss	-12(%rbp), %xmm0
     movl	-16(%rbp), %eax
     vmovaps	%xmm0, %xmm1
@@ -995,16 +978,16 @@ L99:
     movq	%rdx, -8(%rbp)
     movl	(%rax), %eax
     cmpl	%eax, %ecx
-    je	L100
+    je	L96
     call	abort
-L100:
+L96:
     addl	$1, -20(%rbp)
-L94:
+L90:
     cmpl	$7, -20(%rbp)
-    jle	L101
+    jle	L97
     addl	$1, -24(%rbp)
-L93:
+L89:
     cmpl	$7, -24(%rbp)
-    jle	L102
+    jle	L98
     movl	$0, %edi
     call	exit

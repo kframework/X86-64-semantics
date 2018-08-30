@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	f_le
@@ -419,10 +402,10 @@ f_le:
     movq	%rax, -96(%rbp)
     movq	-144(%rbp), %rax
     cmpq	-96(%rbp), %rax
-    jnb	L58
+    jnb	L54
     negq	-96(%rbp)
     notl	-100(%rbp)
-L58:
+L54:
     movq	-128(%rbp), %rdx
     movq	-144(%rbp), %rax
     imulq	%rdx, %rax
@@ -488,10 +471,10 @@ f_be:
     movq	%rax, -96(%rbp)
     movq	-136(%rbp), %rax
     cmpq	-96(%rbp), %rax
-    jnb	L61
+    jnb	L57
     negq	-96(%rbp)
     notl	-100(%rbp)
-L61:
+L57:
     movq	-120(%rbp), %rdx
     movq	-136(%rbp), %rax
     imulq	%rdx, %rax
@@ -543,7 +526,7 @@ _start:
     movq	-32(%rbp), %rdx
     movabsq	$1152921508364943360, %rax
     cmpq	%rax, %rdx
-    jne	L64
+    jne	L60
     movl	$0, %ecx
     movl	$0, %ebx
     movabsq	$4294967296, %rcx
@@ -559,13 +542,13 @@ _start:
     movq	%rax, %rsi
     call	f_be
     cmpl	$-1, %eax
-    je	L64
+    je	L60
     call	abort
-L64:
+L60:
     movq	-32(%rbp), %rdx
     movabsq	$-2305843008945258496, %rax
     cmpq	%rax, %rdx
-    jne	L65
+    jne	L61
     movl	$0, %ecx
     movl	$0, %ebx
     movabsq	$4294967296, %rcx
@@ -581,8 +564,8 @@ L64:
     movq	%rax, %rsi
     call	f_le
     cmpl	$-1, %eax
-    je	L65
+    je	L61
     call	abort
-L65:
+L61:
     movl	$0, %edi
     call	exit

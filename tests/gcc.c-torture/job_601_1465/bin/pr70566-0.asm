@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	myfunc
@@ -421,16 +404,16 @@ set_f2:
     andl	$1, %eax
     movzbl	%al, %eax
     cmpl	-12(%rbp), %eax
-    je	L61
+    je	L57
     movl	$0, %edi
     call	myfunc2
     movl	$0, %esi
     movl	%eax, %edi
     call	myfunc
-    jmp	L63
-L61:
+    jmp	L59
+L57:
     call	abort
-L63:
+L59:
     leave
     ret
     .globl	foo
@@ -445,12 +428,12 @@ foo:
     movzbl	(%rax), %eax
     andl	$2, %eax
     testb	%al, %al
-    jne	L66
+    jne	L62
     movq	-8(%rbp), %rax
     movl	$1, %esi
     movq	%rax, %rdi
     call	set_f2
-L66:
+L62:
     nop
     leave
     ret
@@ -475,8 +458,8 @@ _start:
     movl	$0, %eax
     movq	-8(%rbp), %rdx
     xorq	$40, %rdx
-    je	L69
+    je	L65
     call	__stack_chk_fail
-L69:
+L65:
     leave
     ret

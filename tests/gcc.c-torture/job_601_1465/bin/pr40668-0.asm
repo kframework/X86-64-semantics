@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
 foo:
@@ -412,44 +395,44 @@ bar:
     movq	%rsi, -16(%rbp)
     movl	-4(%rbp), %eax
     cmpl	$7, %eax
-    je	L60
+    je	L56
     cmpl	$7, %eax
-    jg	L61
+    jg	L57
     cmpl	$1, %eax
-    je	L62
-    jmp	L65
-L61:
+    je	L58
+    jmp	L61
+L57:
     cmpl	$8, %eax
-    je	L63
+    je	L59
     cmpl	$9, %eax
-    je	L64
-    jmp	L65
-L62:
+    je	L60
+    jmp	L61
+L58:
     movq	-16(%rbp), %rax
     movq	%rax, %rsi
     movl	$305419896, %edi
     call	foo
-    jmp	L59
+    jmp	L55
+L56:
+    movq	-16(%rbp), %rax
+    movq	%rax, %rsi
+    movl	$0, %edi
+    call	foo
+    jmp	L55
+L59:
+    movq	-16(%rbp), %rax
+    movq	%rax, %rsi
+    movl	$0, %edi
+    call	foo
+    jmp	L55
 L60:
     movq	-16(%rbp), %rax
     movq	%rax, %rsi
     movl	$0, %edi
     call	foo
-    jmp	L59
-L63:
-    movq	-16(%rbp), %rax
-    movq	%rax, %rsi
-    movl	$0, %edi
-    call	foo
-    jmp	L59
-L64:
-    movq	-16(%rbp), %rax
-    movq	%rax, %rsi
-    movl	$0, %edi
-    call	foo
     nop
-L59:
-L65:
+L55:
+L61:
     nop
     leave
     ret
@@ -468,14 +451,14 @@ _start:
     call	bar
     movl	-12(%rbp), %eax
     cmpl	$305419896, %eax
-    je	L67
+    je	L63
     call	abort
-L67:
+L63:
     movl	$0, %eax
     movq	-8(%rbp), %rdx
     xorq	$40, %rdx
-    je	L69
+    je	L65
     call	__stack_chk_fail
-L69:
+L65:
     leave
     ret

@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	g
@@ -430,9 +413,9 @@ f:
     movq	-16(%rbp), %rax
     movq	-8(%rbp), %rdx
     xorq	$40, %rdx
-    je	L61
+    je	L57
     call	__stack_chk_fail
-L61:
+L57:
     leave
     ret
     .globl	main
@@ -448,72 +431,72 @@ _start:
     movl	$18, %edi
     call	g
     cmpq	%rax, %rbx
-    je	L63
+    je	L59
     call	abort
-L63:
+L59:
     movl	$4660, %edi
     call	f
     movq	%rax, %rbx
     movl	$4660, %edi
+    call	g
+    cmpq	%rax, %rbx
+    je	L60
+    call	abort
+L60:
+    movl	$1193046, %edi
+    call	f
+    movq	%rax, %rbx
+    movl	$1193046, %edi
+    call	g
+    cmpq	%rax, %rbx
+    je	L61
+    call	abort
+L61:
+    movl	$305419896, %edi
+    call	f
+    movq	%rax, %rbx
+    movl	$305419896, %edi
+    call	g
+    cmpq	%rax, %rbx
+    je	L62
+    call	abort
+L62:
+    movabsq	$78187493520, %rdi
+    call	f
+    movq	%rax, %rbx
+    movabsq	$78187493520, %rdi
+    call	g
+    cmpq	%rax, %rbx
+    je	L63
+    call	abort
+L63:
+    movabsq	$20015998341138, %rdi
+    call	f
+    movq	%rax, %rbx
+    movabsq	$20015998341138, %rdi
     call	g
     cmpq	%rax, %rbx
     je	L64
     call	abort
 L64:
-    movl	$1193046, %edi
+    movabsq	$5124095575331380, %rdi
     call	f
     movq	%rax, %rbx
-    movl	$1193046, %edi
+    movabsq	$5124095575331380, %rdi
     call	g
     cmpq	%rax, %rbx
     je	L65
     call	abort
 L65:
-    movl	$305419896, %edi
+    movabsq	$1311768467284833366, %rdi
     call	f
     movq	%rax, %rbx
-    movl	$305419896, %edi
+    movabsq	$1311768467284833366, %rdi
     call	g
     cmpq	%rax, %rbx
     je	L66
     call	abort
 L66:
-    movabsq	$78187493520, %rdi
-    call	f
-    movq	%rax, %rbx
-    movabsq	$78187493520, %rdi
-    call	g
-    cmpq	%rax, %rbx
-    je	L67
-    call	abort
-L67:
-    movabsq	$20015998341138, %rdi
-    call	f
-    movq	%rax, %rbx
-    movabsq	$20015998341138, %rdi
-    call	g
-    cmpq	%rax, %rbx
-    je	L68
-    call	abort
-L68:
-    movabsq	$5124095575331380, %rdi
-    call	f
-    movq	%rax, %rbx
-    movabsq	$5124095575331380, %rdi
-    call	g
-    cmpq	%rax, %rbx
-    je	L69
-    call	abort
-L69:
-    movabsq	$1311768467284833366, %rdi
-    call	f
-    movq	%rax, %rbx
-    movabsq	$1311768467284833366, %rdi
-    call	g
-    cmpq	%rax, %rbx
-    je	L70
-    call	abort
-L70:
     movl	$0, %eax
     addq	$8, %rsp
     popq	%rbx

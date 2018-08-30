@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .comm	a,4,4
@@ -407,54 +390,54 @@ _start:
     nop
     movl	d(%rip), %eax
     testl	%eax, %eax
-    je	L69
-L59:
-    jmp	L59
-L69:
+    je	L65
+L55:
+    jmp	L55
+L65:
     movl	$0, -16(%rbp)
     movl	$0, -8(%rbp)
-    jmp	L60
-L68:
+    jmp	L56
+L64:
     movl	$1, -4(%rbp)
     movl	$0, -12(%rbp)
-    jmp	L61
-L62:
+    jmp	L57
+L58:
     movl	-12(%rbp), %eax
     cltq
     movl	$1, f(,%rax,4)
     addl	$1, -12(%rbp)
-L61:
+L57:
     cmpl	$2, -12(%rbp)
-    jle	L62
-    jmp	L63
-L67:
+    jle	L58
+    jmp	L59
+L63:
     cmpl	$0, -8(%rbp)
-    je	L64
+    je	L60
     movl	b(%rip), %eax
     testl	%eax, %eax
-    jne	L64
+    jne	L60
     movl	c(%rip), %eax
     testl	%eax, %eax
-    je	L64
+    je	L60
     movl	$1, %eax
-    jmp	L65
-L64:
+    jmp	L61
+L60:
     movl	$0, %eax
-L65:
+L61:
     movl	%eax, d(%rip)
     movl	$1, -8(%rbp)
     cmpl	$0, -16(%rbp)
-    je	L66
+    je	L62
     movl	e(%rip), %eax
     movl	%eax, a(%rip)
-L66:
+L62:
     addl	$1, -4(%rbp)
-L63:
+L59:
     cmpl	$9, -4(%rbp)
-    jle	L67
+    jle	L63
     addl	$9, -16(%rbp)
-L60:
+L56:
     cmpl	$20, -16(%rbp)
-    jle	L68
+    jle	L64
     movl	$0, %edi
     call	exit

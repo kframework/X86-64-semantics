@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	test1
@@ -528,363 +511,363 @@ _start:
     movl	$-30, %edi
     call	test1
     testl	%eax, %eax
+    je	L78
+    call	abort
+L78:
+    movl	$-29, %edi
+    call	test1
+    cmpl	$1, %eax
+    je	L79
+    call	abort
+L79:
+    movl	$-20, %edi
+    call	test1
+    cmpl	$1, %eax
+    je	L80
+    call	abort
+L80:
+    movl	$-19, %edi
+    call	test1
+    testl	%eax, %eax
+    je	L81
+    call	abort
+L81:
+    movl	$0, %edi
+    call	test2
+    cmpl	$1, %eax
     je	L82
     call	abort
 L82:
-    movl	$-29, %edi
-    call	test1
+    movl	$9, %edi
+    call	test2
     cmpl	$1, %eax
     je	L83
     call	abort
 L83:
-    movl	$-20, %edi
-    call	test1
-    cmpl	$1, %eax
+    movl	$10, %edi
+    call	test2
+    testl	%eax, %eax
     je	L84
     call	abort
 L84:
-    movl	$-19, %edi
-    call	test1
-    testl	%eax, %eax
+    movl	$-1, %edi
+    call	test2
+    cmpl	$1, %eax
     je	L85
     call	abort
 L85:
-    movl	$0, %edi
+    movl	$-9, %edi
     call	test2
     cmpl	$1, %eax
     je	L86
     call	abort
 L86:
-    movl	$9, %edi
-    call	test2
-    cmpl	$1, %eax
-    je	L87
-    call	abort
-L87:
-    movl	$10, %edi
-    call	test2
-    testl	%eax, %eax
-    je	L88
-    call	abort
-L88:
-    movl	$-1, %edi
-    call	test2
-    cmpl	$1, %eax
-    je	L89
-    call	abort
-L89:
-    movl	$-9, %edi
-    call	test2
-    cmpl	$1, %eax
-    je	L90
-    call	abort
-L90:
     movl	$-10, %edi
     call	test2
     testl	%eax, %eax
-    je	L91
+    je	L87
     call	abort
-L91:
+L87:
     movl	$-30, %edi
     call	test3
     cmpl	$1, %eax
+    je	L88
+    call	abort
+L88:
+    movl	$-29, %edi
+    call	test3
+    testl	%eax, %eax
+    je	L89
+    call	abort
+L89:
+    movl	$-20, %edi
+    call	test3
+    testl	%eax, %eax
+    je	L90
+    call	abort
+L90:
+    movl	$-19, %edi
+    call	test3
+    cmpl	$1, %eax
+    je	L91
+    call	abort
+L91:
+    movl	$0, %edi
+    call	test4
+    testl	%eax, %eax
     je	L92
     call	abort
 L92:
-    movl	$-29, %edi
-    call	test3
+    movl	$9, %edi
+    call	test4
     testl	%eax, %eax
     je	L93
     call	abort
 L93:
-    movl	$-20, %edi
-    call	test3
-    testl	%eax, %eax
+    movl	$10, %edi
+    call	test4
+    cmpl	$1, %eax
     je	L94
     call	abort
 L94:
-    movl	$-19, %edi
-    call	test3
-    cmpl	$1, %eax
+    movl	$-1, %edi
+    call	test4
+    testl	%eax, %eax
     je	L95
     call	abort
 L95:
-    movl	$0, %edi
+    movl	$-9, %edi
     call	test4
     testl	%eax, %eax
     je	L96
     call	abort
 L96:
-    movl	$9, %edi
+    movl	$-10, %edi
     call	test4
-    testl	%eax, %eax
+    cmpl	$1, %eax
     je	L97
     call	abort
 L97:
-    movl	$10, %edi
-    call	test4
-    cmpl	$1, %eax
+    movl	$-30, %edi
+    call	test5
+    testl	%eax, %eax
     je	L98
     call	abort
 L98:
-    movl	$-1, %edi
-    call	test4
+    movl	$-29, %edi
+    call	test5
     testl	%eax, %eax
     je	L99
     call	abort
 L99:
-    movl	$-9, %edi
-    call	test4
+    movl	$-20, %edi
+    call	test5
     testl	%eax, %eax
     je	L100
     call	abort
 L100:
-    movl	$-10, %edi
-    call	test4
+    movl	$-19, %edi
+    call	test5
     cmpl	$1, %eax
     je	L101
     call	abort
 L101:
-    movl	$-30, %edi
-    call	test5
+    movl	$0, %edi
+    call	test6
     testl	%eax, %eax
     je	L102
     call	abort
 L102:
-    movl	$-29, %edi
-    call	test5
+    movl	$9, %edi
+    call	test6
     testl	%eax, %eax
     je	L103
     call	abort
 L103:
-    movl	$-20, %edi
-    call	test5
-    testl	%eax, %eax
+    movl	$10, %edi
+    call	test6
+    cmpl	$1, %eax
     je	L104
     call	abort
 L104:
-    movl	$-19, %edi
-    call	test5
-    cmpl	$1, %eax
+    movl	$-1, %edi
+    call	test6
+    testl	%eax, %eax
     je	L105
     call	abort
 L105:
-    movl	$0, %edi
+    movl	$-9, %edi
     call	test6
     testl	%eax, %eax
     je	L106
     call	abort
 L106:
-    movl	$9, %edi
+    movl	$-10, %edi
     call	test6
     testl	%eax, %eax
     je	L107
     call	abort
 L107:
-    movl	$10, %edi
-    call	test6
-    cmpl	$1, %eax
-    je	L108
-    call	abort
-L108:
-    movl	$-1, %edi
-    call	test6
-    testl	%eax, %eax
-    je	L109
-    call	abort
-L109:
-    movl	$-9, %edi
-    call	test6
-    testl	%eax, %eax
-    je	L110
-    call	abort
-L110:
-    movl	$-10, %edi
-    call	test6
-    testl	%eax, %eax
-    je	L111
-    call	abort
-L111:
     movl	$-30, %edi
     call	test7
     testl	%eax, %eax
+    je	L108
+    call	abort
+L108:
+    movl	$-29, %edi
+    call	test7
+    cmpl	$1, %eax
+    je	L109
+    call	abort
+L109:
+    movl	$-20, %edi
+    call	test7
+    cmpl	$1, %eax
+    je	L110
+    call	abort
+L110:
+    movl	$-19, %edi
+    call	test7
+    cmpl	$1, %eax
+    je	L111
+    call	abort
+L111:
+    movl	$0, %edi
+    call	test8
+    cmpl	$1, %eax
     je	L112
     call	abort
 L112:
-    movl	$-29, %edi
-    call	test7
+    movl	$9, %edi
+    call	test8
     cmpl	$1, %eax
     je	L113
     call	abort
 L113:
-    movl	$-20, %edi
-    call	test7
+    movl	$10, %edi
+    call	test8
     cmpl	$1, %eax
     je	L114
     call	abort
 L114:
-    movl	$-19, %edi
-    call	test7
+    movl	$-1, %edi
+    call	test8
     cmpl	$1, %eax
     je	L115
     call	abort
 L115:
-    movl	$0, %edi
+    movl	$-9, %edi
     call	test8
     cmpl	$1, %eax
     je	L116
     call	abort
 L116:
-    movl	$9, %edi
+    movl	$-10, %edi
     call	test8
-    cmpl	$1, %eax
+    testl	%eax, %eax
     je	L117
     call	abort
 L117:
-    movl	$10, %edi
-    call	test8
+    movl	$-30, %edi
+    call	test9
     cmpl	$1, %eax
     je	L118
     call	abort
 L118:
-    movl	$-1, %edi
-    call	test8
-    cmpl	$1, %eax
+    movl	$-29, %edi
+    call	test9
+    testl	%eax, %eax
     je	L119
     call	abort
 L119:
-    movl	$-9, %edi
-    call	test8
-    cmpl	$1, %eax
+    movl	$-20, %edi
+    call	test9
+    testl	%eax, %eax
     je	L120
     call	abort
 L120:
-    movl	$-10, %edi
-    call	test8
+    movl	$-19, %edi
+    call	test9
     testl	%eax, %eax
     je	L121
     call	abort
 L121:
-    movl	$-30, %edi
-    call	test9
-    cmpl	$1, %eax
+    movl	$0, %edi
+    call	test10
+    testl	%eax, %eax
     je	L122
     call	abort
 L122:
-    movl	$-29, %edi
-    call	test9
+    movl	$9, %edi
+    call	test10
     testl	%eax, %eax
     je	L123
     call	abort
 L123:
-    movl	$-20, %edi
-    call	test9
+    movl	$10, %edi
+    call	test10
     testl	%eax, %eax
     je	L124
     call	abort
 L124:
-    movl	$-19, %edi
-    call	test9
+    movl	$-1, %edi
+    call	test10
     testl	%eax, %eax
     je	L125
     call	abort
 L125:
-    movl	$0, %edi
+    movl	$-9, %edi
     call	test10
     testl	%eax, %eax
     je	L126
     call	abort
 L126:
-    movl	$9, %edi
-    call	test10
-    testl	%eax, %eax
-    je	L127
-    call	abort
-L127:
-    movl	$10, %edi
-    call	test10
-    testl	%eax, %eax
-    je	L128
-    call	abort
-L128:
-    movl	$-1, %edi
-    call	test10
-    testl	%eax, %eax
-    je	L129
-    call	abort
-L129:
-    movl	$-9, %edi
-    call	test10
-    testl	%eax, %eax
-    je	L130
-    call	abort
-L130:
     movl	$-10, %edi
     call	test10
     cmpl	$1, %eax
+    je	L127
+    call	abort
+L127:
+    movl	$-30, %edi
+    call	test11
+    cmpl	$1, %eax
+    je	L128
+    call	abort
+L128:
+    movl	$-29, %edi
+    call	test11
+    cmpl	$1, %eax
+    je	L129
+    call	abort
+L129:
+    movl	$-20, %edi
+    call	test11
+    cmpl	$1, %eax
+    je	L130
+    call	abort
+L130:
+    movl	$-19, %edi
+    call	test11
+    testl	%eax, %eax
     je	L131
     call	abort
 L131:
-    movl	$-30, %edi
-    call	test11
+    movl	$0, %edi
+    call	test12
     cmpl	$1, %eax
     je	L132
     call	abort
 L132:
-    movl	$-29, %edi
-    call	test11
+    movl	$9, %edi
+    call	test12
     cmpl	$1, %eax
     je	L133
     call	abort
 L133:
-    movl	$-20, %edi
-    call	test11
-    cmpl	$1, %eax
+    movl	$10, %edi
+    call	test12
+    testl	%eax, %eax
     je	L134
     call	abort
 L134:
-    movl	$-19, %edi
-    call	test11
-    testl	%eax, %eax
+    movl	$-1, %edi
+    call	test12
+    cmpl	$1, %eax
     je	L135
     call	abort
 L135:
-    movl	$0, %edi
+    movl	$-9, %edi
     call	test12
     cmpl	$1, %eax
     je	L136
     call	abort
 L136:
-    movl	$9, %edi
+    movl	$-10, %edi
     call	test12
     cmpl	$1, %eax
     je	L137
     call	abort
 L137:
-    movl	$10, %edi
-    call	test12
-    testl	%eax, %eax
-    je	L138
-    call	abort
-L138:
-    movl	$-1, %edi
-    call	test12
-    cmpl	$1, %eax
-    je	L139
-    call	abort
-L139:
-    movl	$-9, %edi
-    call	test12
-    cmpl	$1, %eax
-    je	L140
-    call	abort
-L140:
-    movl	$-10, %edi
-    call	test12
-    cmpl	$1, %eax
-    je	L141
-    call	abort
-L141:
     movl	$0, %eax
     popq	%rbp
     ret

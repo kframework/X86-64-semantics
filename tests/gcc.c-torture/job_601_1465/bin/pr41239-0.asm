@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .section	.rodata
@@ -412,15 +395,15 @@ test:
     movq	16(%rax), %rax
     movq	%rax, -24(%rbp)
     cmpq	$0, -24(%rbp)
-    jne	L58
+    jne	L54
     movl	$0, %r8d
-    movl	$__func__2461, %ecx
+    movl	$__func__2454, %ecx
     movl	$924, %edx
     movl	$LC0, %esi
     movl	$20, %edi
     call	fn1
     testb	%al, %al
-    je	L58
+    je	L54
     movl	$LC1, %edi
     movl	$0, %eax
     call	fn4
@@ -431,7 +414,7 @@ test:
     movl	%eax, %edi
     movl	$0, %eax
     call	fn2
-L58:
+L54:
     movl	-28(%rbp), %eax
     cltq
     cqto
@@ -496,7 +479,7 @@ fn4:
     movq	%r8, -144(%rbp)
     movq	%r9, -136(%rbp)
     testb	%al, %al
-    je	L69
+    je	L65
     vmovaps	%xmm0, -128(%rbp)
     vmovaps	%xmm1, -112(%rbp)
     vmovaps	%xmm2, -96(%rbp)
@@ -505,7 +488,7 @@ fn4:
     vmovaps	%xmm5, -48(%rbp)
     vmovaps	%xmm6, -32(%rbp)
     vmovaps	%xmm7, -16(%rbp)
-L69:
+L65:
     movq	-184(%rbp), %rax
     movq	%rax, -184(%rbp)
     movq	-184(%rbp), %rax
@@ -525,7 +508,7 @@ fn2:
     movq	%r8, -144(%rbp)
     movq	%r9, -136(%rbp)
     testb	%al, %al
-    je	L73
+    je	L69
     vmovaps	%xmm0, -128(%rbp)
     vmovaps	%xmm1, -112(%rbp)
     vmovaps	%xmm2, -96(%rbp)
@@ -534,17 +517,17 @@ fn2:
     vmovaps	%xmm5, -48(%rbp)
     vmovaps	%xmm6, -32(%rbp)
     vmovaps	%xmm7, -16(%rbp)
-L73:
+L69:
     movl	-180(%rbp), %eax
     movl	%eax, -180(%rbp)
     cmpl	$0, -180(%rbp)
-    je	L74
+    je	L70
     movl	$0, %edi
     call	exit
-L74:
+L70:
     nop
     leave
     ret
     .section	.rodata
-__func__2461:
+__func__2454:
     .string	"test"

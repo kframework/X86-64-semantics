@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	a
@@ -410,18 +393,18 @@ fn1:
     movq	%rsp, %rbp
     movl	a(%rip), %eax
     testl	%eax, %eax
-    jne	L58
+    jne	L54
     movl	a(%rip), %eax
     movl	$1, %edx
     sarx	%eax, %edx, %eax
     testl	%eax, %eax
-    je	L59
-L58:
+    je	L55
+L54:
     movl	$1, %eax
-    jmp	L60
-L59:
+    jmp	L56
+L55:
     movl	$0, %eax
-L60:
+L56:
     popq	%rbp
     ret
     .globl	fn2
@@ -431,13 +414,13 @@ fn2:
     movl	%edi, -4(%rbp)
     movl	%esi, -8(%rbp)
     cmpl	$1, -8(%rbp)
-    jg	L63
+    jg	L59
     movl	-4(%rbp), %eax
     sarl	%eax
-    jmp	L65
-L63:
+    jmp	L61
+L59:
     movl	-4(%rbp), %eax
-L65:
+L61:
     popq	%rbp
     ret
     .globl	fn3
@@ -467,15 +450,15 @@ fn4:
     movl	%eax, f(%rip)
     movl	f(%rip), %eax
     testl	%eax, %eax
-    jne	L69
+    jne	L65
     cmpl	$0, -16(%rbp)
-    je	L70
-L69:
+    je	L66
+L65:
     movl	$1, %edx
-    jmp	L71
-L70:
+    jmp	L67
+L66:
     movl	$0, %edx
-L71:
+L67:
     movl	-12(%rbp), %eax
     movl	%eax, %esi
     movl	%edx, %edi
@@ -498,9 +481,9 @@ _start:
     movl	$0, %edi
     call	fn4
     cmpl	$1, %eax
-    je	L74
+    je	L70
     call	abort
-L74:
+L70:
     movl	$0, %eax
     popq	%rbp
     ret

@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	baz
@@ -404,7 +387,7 @@ baz:
     movq	%r8, -144(%rbp)
     movq	%r9, -136(%rbp)
     testb	%al, %al
-    je	L60
+    je	L56
     vmovaps	%xmm0, -128(%rbp)
     vmovaps	%xmm1, -112(%rbp)
     vmovaps	%xmm2, -96(%rbp)
@@ -413,14 +396,14 @@ baz:
     vmovaps	%xmm5, -48(%rbp)
     vmovaps	%xmm6, -32(%rbp)
     vmovaps	%xmm7, -16(%rbp)
-L60:
+L56:
     movq	-184(%rbp), %rax
     movq	-184(%rbp), %rax
     movzbl	(%rax), %eax
     cmpb	$84, %al
-    jne	L61
+    jne	L57
     call	abort
-L61:
+L57:
     nop
     leave
     ret
@@ -450,35 +433,35 @@ foo:
     call	baz
     movsbl	-4(%rbp), %eax
     cmpl	$68, %eax
-    je	L64
+    je	L60
     cmpl	$73, %eax
-    je	L65
+    je	L61
     movl	$LC2, %edi
     movl	$0, %eax
     call	baz
     cmpb	$68, -4(%rbp)
-    je	L66
+    je	L62
     cmpb	$73, -4(%rbp)
-    jne	L67
-L66:
+    jne	L63
+L62:
     movl	$LC3, %edi
     movl	$0, %eax
     call	baz
-L67:
+L63:
     movl	$0, %eax
-    jmp	L68
-L64:
+    jmp	L64
+L60:
     movl	$LC4, %edi
     movl	$0, %eax
     call	baz
     movl	$0, %eax
-    jmp	L68
-L65:
+    jmp	L64
+L61:
     movl	$LC5, %edi
     movl	$0, %eax
     call	baz
     movl	$0, %eax
-L68:
+L64:
     leave
     ret
     .section	.rodata
@@ -929,8 +912,8 @@ bar:
     movzbl	-473(%rbp), %eax
     movb	%al, -474(%rbp)
     movl	$2, -460(%rbp)
-    jmp	L70
-L79:
+    jmp	L66
+L75:
     movl	-472(%rbp), %eax
     subl	-456(%rbp), %eax
     movl	%eax, -448(%rbp)
@@ -955,20 +938,20 @@ L79:
     movzbl	(%rax), %eax
     movsbl	%al, %eax
     cmpl	$5, %eax
-    ja	L71
+    ja	L67
     movl	%eax, %eax
-    movq	L73(,%rax,8), %rax
+    movq	L69(,%rax,8), %rax
     jmp	%rax
     .section	.rodata
-L73:
+L69:
+    .quad	L67
+    .quad	L68
+    .quad	L70
     .quad	L71
     .quad	L72
-    .quad	L74
-    .quad	L75
-    .quad	L76
-    .quad	L77
+    .quad	L73
     .text
-L72:
+L68:
     subl	$1, -472(%rbp)
     subl	$1, -468(%rbp)
     movl	$2, -460(%rbp)
@@ -980,8 +963,8 @@ L72:
     negq	%rax
     addq	%rax, -440(%rbp)
     movb	$77, -474(%rbp)
-    jmp	L71
-L74:
+    jmp	L67
+L70:
     subl	$1, -472(%rbp)
     movl	$0, -460(%rbp)
     movl	-452(%rbp), %edx
@@ -992,8 +975,8 @@ L74:
     negq	%rax
     addq	%rax, -440(%rbp)
     movb	$73, -474(%rbp)
-    jmp	L71
-L75:
+    jmp	L67
+L71:
     subl	$1, -472(%rbp)
     movl	$2, -460(%rbp)
     movl	-452(%rbp), %edx
@@ -1004,38 +987,38 @@ L75:
     negq	%rax
     addq	%rax, -440(%rbp)
     movb	$73, -474(%rbp)
-    jmp	L71
-L76:
+    jmp	L67
+L72:
     subl	$1, -468(%rbp)
     movl	$1, -460(%rbp)
     movb	$68, -474(%rbp)
-    jmp	L71
-L77:
+    jmp	L67
+L73:
     subl	$1, -468(%rbp)
     movl	$2, -460(%rbp)
     movb	$68, -474(%rbp)
     nop
-L71:
+L67:
     movzbl	-474(%rbp), %eax
     cmpb	-473(%rbp), %al
-    jne	L78
+    jne	L74
     addl	$1, -464(%rbp)
-    jmp	L70
-L78:
+    jmp	L66
+L74:
     movsbl	-473(%rbp), %eax
     movl	%eax, %edi
     call	foo
     movzbl	-474(%rbp), %eax
     movb	%al, -473(%rbp)
-L70:
+L66:
     cmpl	$0, -472(%rbp)
-    jg	L79
+    jg	L75
     nop
     movq	-8(%rbp), %rax
     xorq	$40, %rax
-    je	L80
+    je	L76
     call	__stack_chk_fail
-L80:
+L76:
     leave
     ret
     .globl	main

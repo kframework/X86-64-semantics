@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
 g1:
@@ -431,9 +414,9 @@ f:
     vmovq	%rax, %xmm0
     call	g2
     cmpq	%rax, %rbx
-    je	L62
+    je	L58
     call	abort
-L62:
+L58:
     vxorpd	%xmm3, %xmm3, %xmm3
     vcvtsi2sdq	-16(%rbp), %xmm3, %xmm3
     vmovq	%xmm3, %rax
@@ -459,14 +442,14 @@ _start:
     vmovsd	LC0(%rip), %xmm0
     vmovq	%rax, %xmm1
     vucomisd	%xmm0, %xmm1
-    jp	L69
+    jp	L65
     vmovsd	LC0(%rip), %xmm0
     vmovq	%rax, %xmm2
     vucomisd	%xmm0, %xmm2
-    je	L71
-L69:
+    je	L67
+L65:
     call	abort
-L71:
+L67:
     movl	$123456789, %edi
     call	f
     vmovq	%xmm0, %rbx
@@ -477,13 +460,13 @@ L71:
     vcvtsi2sdq	%rax, %xmm0, %xmm0
     vmovq	%rbx, %xmm3
     vucomisd	%xmm0, %xmm3
-    jp	L70
+    jp	L66
     vmovq	%rbx, %xmm4
     vucomisd	%xmm0, %xmm4
-    je	L72
-L70:
+    je	L68
+L66:
     call	abort
-L72:
+L68:
     movl	$0, %edi
     call	exit
     .section	.rodata

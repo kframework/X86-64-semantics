@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	ff
@@ -401,40 +384,40 @@ ff:
     movl	%esi, -8(%rbp)
     movl	%edx, -12(%rbp)
     cmpl	$0, -4(%rbp)
-    je	L58
+    je	L54
     cmpl	$0, -12(%rbp)
-    je	L61
+    je	L57
     call	f1
-    jmp	L61
-L58:
+    jmp	L57
+L54:
     movl	$2, -4(%rbp)
-    jmp	L61
-L64:
+    jmp	L57
+L60:
     cmpl	$0, -12(%rbp)
-    je	L61
+    je	L57
     call	f2
     testl	%eax, %eax
-    je	L61
+    je	L57
     call	f1
     movl	-8(%rbp), %eax
     movl	%eax, -12(%rbp)
     call	f3
     testl	%eax, %eax
-    je	L62
+    je	L58
     call	f1
-L62:
+L58:
     call	f1
-    jmp	L63
-L61:
+    jmp	L59
+L57:
     call	f3
     testl	%eax, %eax
-    jne	L64
-L63:
+    jne	L60
+L59:
     cmpl	$0, -12(%rbp)
-    je	L67
+    je	L63
     call	f1
     nop
-L67:
+L63:
     nop
     leave
     ret
@@ -454,12 +437,12 @@ _start:
 f3:
     pushq	%rbp
     movq	%rsp, %rbp
-    movl	x2456(%rip), %eax
+    movl	x2449(%rip), %eax
     testl	%eax, %eax
     sete	%al
     movzbl	%al, %eax
-    movl	%eax, x2456(%rip)
-    movl	x2456(%rip), %eax
+    movl	%eax, x2449(%rip)
+    movl	x2449(%rip), %eax
     popq	%rbp
     ret
     .globl	f1
@@ -472,4 +455,4 @@ f2:
     pushq	%rbp
     movq	%rsp, %rbp
     call	abort
-    .comm	x2456,4,4
+    .comm	x2449,4,4

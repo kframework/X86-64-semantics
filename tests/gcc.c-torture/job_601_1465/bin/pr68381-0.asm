@@ -195,14 +195,6 @@ L57:
     jne	L57
 L59:
     ret
-    .globl	malloc
-malloc:
-    movl	$1000, %eax
-    ret
-    .globl	calloc
-calloc:
-    movl	$1000, %eax
-    ret
     .globl	free
 free:
     ret
@@ -213,12 +205,12 @@ isprint:
     subl	$65, %edx
     movl	$1, %eax
     cmpl	$25, %edx
-    jbe	L66
+    jbe	L64
     subl	$48, %edi
     cmpl	$9, %edi
     setbe	%al
     movzbl	%al, %eax
-L66:
+L64:
     ret
     .globl	foo
 foo:
@@ -231,10 +223,10 @@ foo:
     movl	$1, %ecx
     cmovs	%ecx, %edx
     testl	%edx, %edx
-    je	L74
+    je	L72
     subq	$8, %rsp
     call	abort
-L74:
+L72:
     ret
     .globl	main
 .globl _start
@@ -244,9 +236,9 @@ _start:
     movl	$1, %edi
     call	foo
     cmpl	$2, %eax
-    je	L77
+    je	L75
     call	abort
-L77:
+L75:
     movl	$0, %eax
     addq	$8, %rsp
     ret

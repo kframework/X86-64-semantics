@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	bar
@@ -415,12 +398,12 @@ foo:
     movq	%rax, -8(%rbp)
     xorl	%eax, %eax
     cmpl	$0, -60(%rbp)
-    je	L59
+    je	L55
     leaq	-32(%rbp), %rax
-    jmp	L60
-L59:
+    jmp	L56
+L55:
     leaq	-36(%rbp), %rax
-L60:
+L56:
     movq	%rax, -24(%rbp)
     movq	-24(%rbp), %rax
     movq	%rax, %rdi
@@ -429,9 +412,9 @@ L60:
     vmovss	(%rax), %xmm0
     vxorps	%xmm1, %xmm1, %xmm1
     vucomiss	%xmm1, %xmm0
-    jbe	L61
+    jbe	L57
     movl	$1, -64(%rbp)
-L61:
+L57:
     movq	-56(%rbp), %rax
     movl	4(%rax), %eax
     movl	%eax, -28(%rbp)
@@ -447,9 +430,9 @@ L61:
     movl	-28(%rbp), %eax
     movq	-8(%rbp), %rcx
     xorq	$40, %rcx
-    je	L64
+    je	L60
     call	__stack_chk_fail
-L64:
+L60:
     leave
     ret
     .globl	main
@@ -469,15 +452,15 @@ _start:
     call	foo
     movl	%eax, -20(%rbp)
     cmpl	$1, -20(%rbp)
-    je	L67
+    je	L63
     call	abort
-L67:
+L63:
     movl	$0, %eax
     movq	-8(%rbp), %rcx
     xorq	$40, %rcx
-    je	L69
+    je	L65
     call	__stack_chk_fail
-L69:
+L65:
     leave
     ret
     .section	.rodata

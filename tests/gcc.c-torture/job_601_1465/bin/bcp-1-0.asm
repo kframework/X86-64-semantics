@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .comm	global,4,4
@@ -465,9 +448,9 @@ bad8:
     movl	$0, %eax
     movq	-8(%rbp), %rdx
     xorq	$40, %rdx
-    je	L75
+    je	L71
     call	__stack_chk_fail
-L75:
+L71:
     leave
     ret
     .globl	bad9
@@ -568,70 +551,70 @@ _start:
     movq	%rsp, %rbp
     subq	$16, %rsp
     movl	$0, -4(%rbp)
-    jmp	L93
-L95:
+    jmp	L89
+L91:
     movl	-4(%rbp), %eax
     cltq
     movq	bad_t0(,%rax,8), %rax
     call	%rax
     testl	%eax, %eax
-    je	L94
+    je	L90
     call	abort
-L94:
+L90:
     addl	$1, -4(%rbp)
-L93:
+L89:
     movl	-4(%rbp), %eax
     cmpl	$5, %eax
-    jbe	L95
+    jbe	L91
     movl	$0, -4(%rbp)
-    jmp	L96
-L98:
+    jmp	L92
+L94:
     movl	-4(%rbp), %eax
     cltq
     movq	bad_t1(,%rax,8), %rax
     movl	$1, %edi
     call	%rax
     testl	%eax, %eax
-    je	L97
+    je	L93
     call	abort
-L97:
+L93:
     addl	$1, -4(%rbp)
-L96:
+L92:
     movl	-4(%rbp), %eax
     cmpl	$2, %eax
-    jbe	L98
+    jbe	L94
     movl	$0, -4(%rbp)
-    jmp	L99
-L101:
+    jmp	L95
+L97:
     movl	-4(%rbp), %eax
     cltq
     movq	bad_t2(,%rax,8), %rax
     movl	$LC0, %edi
     call	%rax
     testl	%eax, %eax
-    je	L100
+    je	L96
     call	abort
-L100:
+L96:
     addl	$1, -4(%rbp)
-L99:
+L95:
     movl	-4(%rbp), %eax
     cmpl	$1, %eax
-    jbe	L101
+    jbe	L97
     movl	$0, -4(%rbp)
-    jmp	L102
-L104:
+    jmp	L98
+L100:
     movl	-4(%rbp), %eax
     cltq
     movq	good_t0(,%rax,8), %rax
     call	%rax
     testl	%eax, %eax
-    jne	L103
+    jne	L99
     call	abort
-L103:
+L99:
     addl	$1, -4(%rbp)
-L102:
+L98:
     movl	-4(%rbp), %eax
     cmpl	$2, %eax
-    jbe	L104
+    jbe	L100
     movl	$0, %edi
     call	exit

@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
 fixnum_neg:
@@ -424,12 +407,12 @@ foo:
     movl	%esi, -8(%rbp)
     movl	%edx, -12(%rbp)
     cmpl	$-128, -8(%rbp)
-    jl	L59
+    jl	L55
     cmpl	$127, -8(%rbp)
-    jle	L61
-L59:
+    jle	L57
+L55:
     call	abort
-L61:
+L57:
     nop
     leave
     ret
@@ -443,7 +426,7 @@ test_neg:
     xorl	%eax, %eax
     movl	$0, -12(%rbp)
     movb	$-128, -17(%rbp)
-L68:
+L64:
     movsbl	-17(%rbp), %eax
     leaq	-16(%rbp), %rdx
     leaq	-18(%rbp), %rcx
@@ -459,32 +442,32 @@ L68:
     call	foo
     movl	-16(%rbp), %eax
     testl	%eax, %eax
-    je	L63
+    je	L59
     cmpb	$-128, -17(%rbp)
-    jne	L64
-L63:
+    jne	L60
+L59:
     movl	-16(%rbp), %eax
     testl	%eax, %eax
-    jne	L65
+    jne	L61
     cmpb	$-128, -17(%rbp)
-    jne	L65
-L64:
+    jne	L61
+L60:
     addl	$1, -12(%rbp)
-L65:
+L61:
     cmpb	$127, -17(%rbp)
-    je	L72
+    je	L68
     movzbl	-17(%rbp), %eax
     addl	$1, %eax
     movb	%al, -17(%rbp)
-    jmp	L68
-L72:
+    jmp	L64
+L68:
     nop
     movl	-12(%rbp), %eax
     movq	-8(%rbp), %rsi
     xorq	$40, %rsi
-    je	L70
+    je	L66
     call	__stack_chk_fail
-L70:
+L66:
     leave
     ret
     .globl	main
@@ -494,9 +477,9 @@ _start:
     movq	%rsp, %rbp
     call	test_neg
     testl	%eax, %eax
-    je	L74
+    je	L70
     call	abort
-L74:
+L70:
     movl	$0, %eax
     popq	%rbp
     ret

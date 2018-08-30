@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	Link
@@ -408,67 +391,67 @@ f:
     movl	%esi, -24(%rbp)
     movl	$0, -8(%rbp)
     movl	$0, -12(%rbp)
-L70:
+L66:
     cmpl	$2, -12(%rbp)
-    jle	L58
-L59:
+    jle	L54
+L55:
     subl	$1, -8(%rbp)
     addl	$1, -12(%rbp)
     cmpl	$2, -8(%rbp)
-    jg	L59
-L58:
+    jg	L55
+L54:
     cmpl	$1, -8(%rbp)
-    je	L73
-    jmp	L62
-L63:
+    je	L69
+    jmp	L58
+L59:
     movl	-8(%rbp), %eax
     cmpl	-24(%rbp), %eax
-    jne	L62
+    jne	L58
     addl	$1, -12(%rbp)
-L62:
+L58:
     movl	-12(%rbp), %eax
     cmpl	-24(%rbp), %eax
-    jg	L63
-L66:
+    jg	L59
+L62:
     movl	-20(%rbp), %eax
     cltq
     movl	W(,%rax,4), %eax
     movl	%eax, -4(%rbp)
-L65:
+L61:
     cmpl	$0, -4(%rbp)
-    je	L64
+    je	L60
     movl	$1, -12(%rbp)
     movl	$0, -4(%rbp)
     movl	-20(%rbp), %eax
     cltq
     movl	-4(%rbp), %edx
     movl	%edx, W(,%rax,4)
-L64:
+L60:
     cmpl	$0, -24(%rbp)
-    jle	L65
+    jle	L61
     cmpl	$0, -20(%rbp)
-    jg	L66
-L69:
+    jg	L62
+L65:
     movl	$0, -24(%rbp)
     movl	-20(%rbp), %eax
     cltq
     movl	Link(,%rax,4), %eax
     movl	%eax, -20(%rbp)
-    jmp	L67
-L68:
+    jmp	L63
+L64:
     cmpl	$-1, -20(%rbp)
-    je	L67
+    je	L63
     addl	$1, -12(%rbp)
     addl	$1, -24(%rbp)
-L67:
+L63:
     movl	-24(%rbp), %eax
     cmpl	-8(%rbp), %eax
-    jl	L68
+    jl	L64
     cmpl	$-1, -20(%rbp)
-    jne	L69
+    jne	L65
     movl	$1, -8(%rbp)
-    jmp	L70
-L73:
+    jmp	L66
+L69:
     nop
     movl	-12(%rbp), %eax
     popq	%rbp
@@ -482,9 +465,9 @@ _start:
     movl	$0, %edi
     call	f
     testl	%eax, %eax
-    jne	L75
+    jne	L71
     call	abort
-L75:
+L71:
     movl	$0, %eax
     popq	%rbp
     ret

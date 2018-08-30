@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .globl	try_a
@@ -415,9 +398,9 @@ try_a:
     call	check_a
     movq	-8(%rbp), %rcx
     xorq	$40, %rcx
-    je	L59
+    je	L55
     call	__stack_chk_fail
-L59:
+L55:
     leave
     ret
     .globl	check_a
@@ -431,17 +414,17 @@ check_a:
     movq	-8(%rbp), %rax
     movq	(%rax), %rax
     cmpq	$42, %rax
-    jne	L61
+    jne	L57
     movq	-8(%rbp), %rax
     addq	$8, %rax
     movq	(%rax), %rax
     testq	%rax, %rax
-    jne	L61
+    jne	L57
     movl	$0, %eax
-    jmp	L62
-L61:
+    jmp	L58
+L57:
     movl	$-1, %eax
-L62:
+L58:
     popq	%rbp
     ret
     .globl	main
@@ -452,9 +435,9 @@ _start:
     movl	$42, %edi
     call	try_a
     testl	%eax, %eax
-    jns	L64
+    jns	L60
     call	abort
-L64:
+L60:
     movl	$0, %eax
     popq	%rbp
     ret

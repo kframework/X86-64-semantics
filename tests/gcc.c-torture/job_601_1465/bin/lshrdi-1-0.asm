@@ -337,23 +337,6 @@ L44:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -368,28 +351,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L53
+    jle	L49
     cmpl	$122, -4(%rbp)
-    jg	L53
+    jg	L49
     movl	$1, %eax
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     cmpl	$64, -4(%rbp)
-    jle	L55
+    jle	L51
     cmpl	$90, -4(%rbp)
-    jg	L55
+    jg	L51
     movl	$1, %eax
-    jmp	L54
-L55:
+    jmp	L50
+L51:
     cmpl	$47, -4(%rbp)
-    jle	L56
+    jle	L52
     cmpl	$57, -4(%rbp)
-    jg	L56
+    jg	L52
     movl	$1, %eax
-    jmp	L54
-L56:
+    jmp	L50
+L52:
     movl	$0, %eax
-L54:
+L50:
     popq	%rbp
     ret
     .section	.rodata
@@ -476,13 +459,17 @@ constant_shift:
     movq	%rdi, -8(%rbp)
     movl	%esi, -12(%rbp)
     cmpl	$63, -12(%rbp)
-    ja	L60
+    ja	L56
     movl	-12(%rbp), %eax
-    movq	L62(,%rax,8), %rax
+    movq	L58(,%rax,8), %rax
     jmp	%rax
     .section	.rodata
-L62:
-    .quad	L128
+L58:
+    .quad	L124
+    .quad	L59
+    .quad	L60
+    .quad	L61
+    .quad	L62
     .quad	L63
     .quad	L64
     .quad	L65
@@ -542,205 +529,201 @@ L62:
     .quad	L119
     .quad	L120
     .quad	L121
-    .quad	L122
-    .quad	L123
-    .quad	L124
-    .quad	L125
     .text
-L63:
+L59:
     shrq	-8(%rbp)
-    jmp	L126
-L64:
-    shrq	$2, -8(%rbp)
-    jmp	L126
-L65:
-    shrq	$3, -8(%rbp)
-    jmp	L126
-L66:
-    shrq	$4, -8(%rbp)
-    jmp	L126
-L67:
-    shrq	$5, -8(%rbp)
-    jmp	L126
-L68:
-    shrq	$6, -8(%rbp)
-    jmp	L126
-L69:
-    shrq	$7, -8(%rbp)
-    jmp	L126
-L70:
-    shrq	$8, -8(%rbp)
-    jmp	L126
-L71:
-    shrq	$9, -8(%rbp)
-    jmp	L126
-L72:
-    shrq	$10, -8(%rbp)
-    jmp	L126
-L73:
-    shrq	$11, -8(%rbp)
-    jmp	L126
-L74:
-    shrq	$12, -8(%rbp)
-    jmp	L126
-L75:
-    shrq	$13, -8(%rbp)
-    jmp	L126
-L76:
-    shrq	$14, -8(%rbp)
-    jmp	L126
-L77:
-    shrq	$15, -8(%rbp)
-    jmp	L126
-L78:
-    shrq	$16, -8(%rbp)
-    jmp	L126
-L79:
-    shrq	$17, -8(%rbp)
-    jmp	L126
-L80:
-    shrq	$18, -8(%rbp)
-    jmp	L126
-L81:
-    shrq	$19, -8(%rbp)
-    jmp	L126
-L82:
-    shrq	$20, -8(%rbp)
-    jmp	L126
-L83:
-    shrq	$21, -8(%rbp)
-    jmp	L126
-L84:
-    shrq	$22, -8(%rbp)
-    jmp	L126
-L85:
-    shrq	$23, -8(%rbp)
-    jmp	L126
-L86:
-    shrq	$24, -8(%rbp)
-    jmp	L126
-L87:
-    shrq	$25, -8(%rbp)
-    jmp	L126
-L88:
-    shrq	$26, -8(%rbp)
-    jmp	L126
-L89:
-    shrq	$27, -8(%rbp)
-    jmp	L126
-L90:
-    shrq	$28, -8(%rbp)
-    jmp	L126
-L91:
-    shrq	$29, -8(%rbp)
-    jmp	L126
-L92:
-    shrq	$30, -8(%rbp)
-    jmp	L126
-L93:
-    shrq	$31, -8(%rbp)
-    jmp	L126
-L94:
-    shrq	$32, -8(%rbp)
-    jmp	L126
-L95:
-    shrq	$33, -8(%rbp)
-    jmp	L126
-L96:
-    shrq	$34, -8(%rbp)
-    jmp	L126
-L97:
-    shrq	$35, -8(%rbp)
-    jmp	L126
-L98:
-    shrq	$36, -8(%rbp)
-    jmp	L126
-L99:
-    shrq	$37, -8(%rbp)
-    jmp	L126
-L100:
-    shrq	$38, -8(%rbp)
-    jmp	L126
-L101:
-    shrq	$39, -8(%rbp)
-    jmp	L126
-L102:
-    shrq	$40, -8(%rbp)
-    jmp	L126
-L103:
-    shrq	$41, -8(%rbp)
-    jmp	L126
-L104:
-    shrq	$42, -8(%rbp)
-    jmp	L126
-L105:
-    shrq	$43, -8(%rbp)
-    jmp	L126
-L106:
-    shrq	$44, -8(%rbp)
-    jmp	L126
-L107:
-    shrq	$45, -8(%rbp)
-    jmp	L126
-L108:
-    shrq	$46, -8(%rbp)
-    jmp	L126
-L109:
-    shrq	$47, -8(%rbp)
-    jmp	L126
-L110:
-    shrq	$48, -8(%rbp)
-    jmp	L126
-L111:
-    shrq	$49, -8(%rbp)
-    jmp	L126
-L112:
-    shrq	$50, -8(%rbp)
-    jmp	L126
-L113:
-    shrq	$51, -8(%rbp)
-    jmp	L126
-L114:
-    shrq	$52, -8(%rbp)
-    jmp	L126
-L115:
-    shrq	$53, -8(%rbp)
-    jmp	L126
-L116:
-    shrq	$54, -8(%rbp)
-    jmp	L126
-L117:
-    shrq	$55, -8(%rbp)
-    jmp	L126
-L118:
-    shrq	$56, -8(%rbp)
-    jmp	L126
-L119:
-    shrq	$57, -8(%rbp)
-    jmp	L126
-L120:
-    shrq	$58, -8(%rbp)
-    jmp	L126
-L121:
-    shrq	$59, -8(%rbp)
-    jmp	L126
-L122:
-    shrq	$60, -8(%rbp)
-    jmp	L126
-L123:
-    shrq	$61, -8(%rbp)
-    jmp	L126
-L124:
-    shrq	$62, -8(%rbp)
-    jmp	L126
-L125:
-    shrq	$63, -8(%rbp)
-    jmp	L126
+    jmp	L122
 L60:
+    shrq	$2, -8(%rbp)
+    jmp	L122
+L61:
+    shrq	$3, -8(%rbp)
+    jmp	L122
+L62:
+    shrq	$4, -8(%rbp)
+    jmp	L122
+L63:
+    shrq	$5, -8(%rbp)
+    jmp	L122
+L64:
+    shrq	$6, -8(%rbp)
+    jmp	L122
+L65:
+    shrq	$7, -8(%rbp)
+    jmp	L122
+L66:
+    shrq	$8, -8(%rbp)
+    jmp	L122
+L67:
+    shrq	$9, -8(%rbp)
+    jmp	L122
+L68:
+    shrq	$10, -8(%rbp)
+    jmp	L122
+L69:
+    shrq	$11, -8(%rbp)
+    jmp	L122
+L70:
+    shrq	$12, -8(%rbp)
+    jmp	L122
+L71:
+    shrq	$13, -8(%rbp)
+    jmp	L122
+L72:
+    shrq	$14, -8(%rbp)
+    jmp	L122
+L73:
+    shrq	$15, -8(%rbp)
+    jmp	L122
+L74:
+    shrq	$16, -8(%rbp)
+    jmp	L122
+L75:
+    shrq	$17, -8(%rbp)
+    jmp	L122
+L76:
+    shrq	$18, -8(%rbp)
+    jmp	L122
+L77:
+    shrq	$19, -8(%rbp)
+    jmp	L122
+L78:
+    shrq	$20, -8(%rbp)
+    jmp	L122
+L79:
+    shrq	$21, -8(%rbp)
+    jmp	L122
+L80:
+    shrq	$22, -8(%rbp)
+    jmp	L122
+L81:
+    shrq	$23, -8(%rbp)
+    jmp	L122
+L82:
+    shrq	$24, -8(%rbp)
+    jmp	L122
+L83:
+    shrq	$25, -8(%rbp)
+    jmp	L122
+L84:
+    shrq	$26, -8(%rbp)
+    jmp	L122
+L85:
+    shrq	$27, -8(%rbp)
+    jmp	L122
+L86:
+    shrq	$28, -8(%rbp)
+    jmp	L122
+L87:
+    shrq	$29, -8(%rbp)
+    jmp	L122
+L88:
+    shrq	$30, -8(%rbp)
+    jmp	L122
+L89:
+    shrq	$31, -8(%rbp)
+    jmp	L122
+L90:
+    shrq	$32, -8(%rbp)
+    jmp	L122
+L91:
+    shrq	$33, -8(%rbp)
+    jmp	L122
+L92:
+    shrq	$34, -8(%rbp)
+    jmp	L122
+L93:
+    shrq	$35, -8(%rbp)
+    jmp	L122
+L94:
+    shrq	$36, -8(%rbp)
+    jmp	L122
+L95:
+    shrq	$37, -8(%rbp)
+    jmp	L122
+L96:
+    shrq	$38, -8(%rbp)
+    jmp	L122
+L97:
+    shrq	$39, -8(%rbp)
+    jmp	L122
+L98:
+    shrq	$40, -8(%rbp)
+    jmp	L122
+L99:
+    shrq	$41, -8(%rbp)
+    jmp	L122
+L100:
+    shrq	$42, -8(%rbp)
+    jmp	L122
+L101:
+    shrq	$43, -8(%rbp)
+    jmp	L122
+L102:
+    shrq	$44, -8(%rbp)
+    jmp	L122
+L103:
+    shrq	$45, -8(%rbp)
+    jmp	L122
+L104:
+    shrq	$46, -8(%rbp)
+    jmp	L122
+L105:
+    shrq	$47, -8(%rbp)
+    jmp	L122
+L106:
+    shrq	$48, -8(%rbp)
+    jmp	L122
+L107:
+    shrq	$49, -8(%rbp)
+    jmp	L122
+L108:
+    shrq	$50, -8(%rbp)
+    jmp	L122
+L109:
+    shrq	$51, -8(%rbp)
+    jmp	L122
+L110:
+    shrq	$52, -8(%rbp)
+    jmp	L122
+L111:
+    shrq	$53, -8(%rbp)
+    jmp	L122
+L112:
+    shrq	$54, -8(%rbp)
+    jmp	L122
+L113:
+    shrq	$55, -8(%rbp)
+    jmp	L122
+L114:
+    shrq	$56, -8(%rbp)
+    jmp	L122
+L115:
+    shrq	$57, -8(%rbp)
+    jmp	L122
+L116:
+    shrq	$58, -8(%rbp)
+    jmp	L122
+L117:
+    shrq	$59, -8(%rbp)
+    jmp	L122
+L118:
+    shrq	$60, -8(%rbp)
+    jmp	L122
+L119:
+    shrq	$61, -8(%rbp)
+    jmp	L122
+L120:
+    shrq	$62, -8(%rbp)
+    jmp	L122
+L121:
+    shrq	$63, -8(%rbp)
+    jmp	L122
+L56:
     call	abort
-L128:
+L124:
     nop
-L126:
+L122:
     movq	-8(%rbp), %rax
     leave
     ret
@@ -751,8 +734,8 @@ _start:
     movq	%rsp, %rbp
     subq	$32, %rsp
     movl	$0, -20(%rbp)
-    jmp	L130
-L132:
+    jmp	L126
+L128:
     movabsq	$-8690466092652643696, %rax
     movl	-20(%rbp), %edx
     movl	%edx, %esi
@@ -763,16 +746,16 @@ L132:
     cltq
     movq	zext(,%rax,8), %rax
     cmpq	-16(%rbp), %rax
-    je	L131
+    je	L127
     call	abort
-L131:
+L127:
     addl	$1, -20(%rbp)
-L130:
+L126:
     cmpl	$63, -20(%rbp)
-    jle	L132
+    jle	L128
     movl	$0, -20(%rbp)
-    jmp	L133
-L135:
+    jmp	L129
+L131:
     movabsq	$-8690466092652643696, %rax
     movl	-20(%rbp), %edx
     movl	%edx, %esi
@@ -783,12 +766,12 @@ L135:
     cltq
     movq	zext(,%rax,8), %rax
     cmpq	-8(%rbp), %rax
-    je	L134
+    je	L130
     call	abort
-L134:
+L130:
     addl	$1, -20(%rbp)
-L133:
+L129:
     cmpl	$63, -20(%rbp)
-    jle	L135
+    jle	L131
     movl	$0, %edi
     call	exit
