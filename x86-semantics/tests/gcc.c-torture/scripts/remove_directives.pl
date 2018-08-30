@@ -27,7 +27,7 @@ for my $line (@lines) {
       $line = "    " . $line;
     }
 
-    if($line =~ m/\.type|\.size|\.ident|\.align|\.weak|\.local|\.file/) {
+    if($line =~ m/\.type|\.size|\.ident|\.align|\.weak|\.local|\.file|\.p2align/) {
       next;
     }
 
@@ -35,7 +35,13 @@ for my $line (@lines) {
     if($line =~ m/\#/) {
       next;
     }
+    
+    if($line =~ m/\.text|\.file|\.section|\.quad|\.value|\.long|\.zero|\.globl|\.comm|\.string|\.data|\.byte|\.bss|\.ascii/) {
 
+    } else {
+      $line =~ s/\.//g;
+
+    }
     $line =~ s/([\_a-zA-Z\d]+)\.([\_a-zA-Z\d]+)/$1$2/g;
 
     if($line =~ m/^\.L(.*)/) {

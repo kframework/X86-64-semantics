@@ -1,13 +1,8 @@
     .text
     .globl	strchr
 strchr:
-LFB0:
-    .cfi_startproc
     pushq	%rbp
-    .cfi_def_cfa_offset 16
-    .cfi_offset 6, -16
     movq	%rsp, %rbp
-    .cfi_def_cfa_register 6
     movq	%rdi, -8(%rbp)
     movl	%esi, -12(%rbp)
     nop
@@ -30,19 +25,11 @@ L3:
 L6:
 L1:
     popq	%rbp
-    .cfi_def_cfa 7, 8
     ret
-    .cfi_endproc
-LFE0:
     .globl	strlen
 strlen:
-LFB1:
-    .cfi_startproc
     pushq	%rbp
-    .cfi_def_cfa_offset 16
-    .cfi_offset 6, -16
     movq	%rsp, %rbp
-    .cfi_def_cfa_register 6
     movq	%rdi, -24(%rbp)
     movq	$0, -8(%rbp)
     jmp	L8
@@ -57,19 +44,11 @@ L8:
     jne	L9
     movq	-8(%rbp), %rax
     popq	%rbp
-    .cfi_def_cfa 7, 8
     ret
-    .cfi_endproc
-LFE1:
     .globl	strcpy
 strcpy:
-LFB2:
-    .cfi_startproc
     pushq	%rbp
-    .cfi_def_cfa_offset 16
-    .cfi_offset 6, -16
     movq	%rsp, %rbp
-    .cfi_def_cfa_register 6
     movq	%rdi, -24(%rbp)
     movq	%rsi, -32(%rbp)
     movq	-24(%rbp), %rax
@@ -89,19 +68,11 @@ L12:
     jne	L12
     movq	-8(%rbp), %rax
     popq	%rbp
-    .cfi_def_cfa 7, 8
     ret
-    .cfi_endproc
-LFE2:
     .globl	strcmp
 strcmp:
-LFB3:
-    .cfi_startproc
     pushq	%rbp
-    .cfi_def_cfa_offset 16
-    .cfi_offset 6, -16
     movq	%rsp, %rbp
-    .cfi_def_cfa_register 6
     movq	%rdi, -8(%rbp)
     movq	%rsi, -16(%rbp)
     jmp	L15
@@ -129,19 +100,11 @@ L16:
     subl	%eax, %edx
     movl	%edx, %eax
     popq	%rbp
-    .cfi_def_cfa 7, 8
     ret
-    .cfi_endproc
-LFE3:
     .globl	memcmp
 memcmp:
-LFB4:
-    .cfi_startproc
     pushq	%rbp
-    .cfi_def_cfa_offset 16
-    .cfi_offset 6, -16
     movq	%rsp, %rbp
-    .cfi_def_cfa_register 6
     movq	%rdi, -24(%rbp)
     movq	%rsi, -32(%rbp)
     movq	%rdx, -40(%rbp)
@@ -178,74 +141,42 @@ L20:
     movl	$0, %eax
 L22:
     popq	%rbp
-    .cfi_def_cfa 7, 8
     ret
-    .cfi_endproc
-LFE4:
     .globl	__stack_chk_fail
 __stack_chk_fail:
-LFB5:
-    .cfi_startproc
     pushq	%rbp
-    .cfi_def_cfa_offset 16
-    .cfi_offset 6, -16
     movq	%rsp, %rbp
-    .cfi_def_cfa_register 6
     movq $-1, %rax
     jmp %rax
     
     nop
     popq	%rbp
-    .cfi_def_cfa 7, 8
     ret
-    .cfi_endproc
-LFE5:
     .globl	exit
 exit:
-LFB6:
-    .cfi_startproc
     pushq	%rbp
-    .cfi_def_cfa_offset 16
-    .cfi_offset 6, -16
     movq	%rsp, %rbp
-    .cfi_def_cfa_register 6
     movl	%edi, -4(%rbp)
     movq $-1, %rax
     jmp %rax
     
     nop
     popq	%rbp
-    .cfi_def_cfa 7, 8
     ret
-    .cfi_endproc
-LFE6:
     .globl	abort
 abort:
-LFB7:
-    .cfi_startproc
     pushq	%rbp
-    .cfi_def_cfa_offset 16
-    .cfi_offset 6, -16
     movq	%rsp, %rbp
-    .cfi_def_cfa_register 6
     movq $-1, %rax
     jmp %rax
     
     nop
     popq	%rbp
-    .cfi_def_cfa 7, 8
     ret
-    .cfi_endproc
-LFE7:
     .globl	memset
 memset:
-LFB8:
-    .cfi_startproc
     pushq	%rbp
-    .cfi_def_cfa_offset 16
-    .cfi_offset 6, -16
     movq	%rsp, %rbp
-    .cfi_def_cfa_register 6
     movq	%rdi, -24(%rbp)
     movl	%esi, -28(%rbp)
     movq	%rdx, -40(%rbp)
@@ -266,19 +197,11 @@ L28:
     jne	L29
     movq	-24(%rbp), %rax
     popq	%rbp
-    .cfi_def_cfa 7, 8
     ret
-    .cfi_endproc
-LFE8:
     .globl	memcpy
 memcpy:
-LFB9:
-    .cfi_startproc
     pushq	%rbp
-    .cfi_def_cfa_offset 16
-    .cfi_offset 6, -16
     movq	%rsp, %rbp
-    .cfi_def_cfa_register 6
     movq	%rdi, -24(%rbp)
     movq	%rsi, -32(%rbp)
     movq	%rdx, -40(%rbp)
@@ -304,35 +227,19 @@ L32:
     jne	L33
     movq	-24(%rbp), %rax
     popq	%rbp
-    .cfi_def_cfa 7, 8
     ret
-    .cfi_endproc
-LFE9:
     .globl	free
 free:
-LFB10:
-    .cfi_startproc
     pushq	%rbp
-    .cfi_def_cfa_offset 16
-    .cfi_offset 6, -16
     movq	%rsp, %rbp
-    .cfi_def_cfa_register 6
     movq	%rdi, -8(%rbp)
     nop
     popq	%rbp
-    .cfi_def_cfa 7, 8
     ret
-    .cfi_endproc
-LFE10:
     .globl	isprint
 isprint:
-LFB11:
-    .cfi_startproc
     pushq	%rbp
-    .cfi_def_cfa_offset 16
-    .cfi_offset 6, -16
     movq	%rsp, %rbp
-    .cfi_def_cfa_register 6
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
     jle	L37
@@ -358,43 +265,26 @@ L40:
     movl	$0, %eax
 L38:
     popq	%rbp
-    .cfi_def_cfa 7, 8
     ret
-    .cfi_endproc
-LFE11:
     .globl	sigfpe
 sigfpe:
-LFB12:
-    .cfi_startproc
     pushq	%rbp
-    .cfi_def_cfa_offset 16
-    .cfi_offset 6, -16
     movq	%rsp, %rbp
-    .cfi_def_cfa_register 6
-    subq	$16, %rsp
+    subq	$8, %rsp
     movl	%edi, -4(%rbp)
     movl	$0, %edi
     call	exit
-    .cfi_endproc
-LFE12:
     .comm	i,4,4
     .comm	j,4,4
     .comm	k,4,4
     .globl	main
 .globl _start
 _start:
-LFB13:
-    .cfi_startproc
     pushq	%rbp
-    .cfi_def_cfa_offset 16
-    .cfi_offset 6, -16
     movq	%rsp, %rbp
-    .cfi_def_cfa_register 6
     movl	i(%rip), %eax
     movl	j(%rip), %ecx
     cltd
     idivl	%ecx
     movl	%eax, k(%rip)
     call	abort
-    .cfi_endproc
-LFE13:
