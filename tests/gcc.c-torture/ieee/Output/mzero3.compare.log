@@ -1,0 +1,20 @@
+grep  -A 40  "ListItem"  Output/mzero3.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfile2xSv6 2>&1 
+numOfInstrs: 551
+[4m[1m[34mmzero3 Compare Results :[0m
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 114
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 194
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 318
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 398
+
+Passed:[4m[1m[92mPassed[0m

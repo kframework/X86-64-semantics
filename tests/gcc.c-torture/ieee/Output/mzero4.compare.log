@@ -1,0 +1,796 @@
+grep  -A 40  "ListItem"  Output/mzero4.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfileq_w9u 2>&1 
+numOfInstrs: 1464
+[4m[1m[34mmzero4 Compare Results :[0m
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 9
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 10
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 11
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 12
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 13
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 28
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 29
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 30
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 31
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 38
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 39
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 40
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 41
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 48
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 49
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 50
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 51
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 58
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 59
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 60
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 61
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 68
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 69
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 70
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 71
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 78
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 79
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 80
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 81
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 88
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 89
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 90
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 91
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 117
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 118
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 119
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 120
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 121
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 136
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 137
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 138
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 139
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 146
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 147
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 148
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 149
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 156
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 157
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 158
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 159
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 166
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 167
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 168
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 169
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 176
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 177
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 178
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 179
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 186
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 187
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 188
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 189
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 196
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 197
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 198
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 199
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 225
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 226
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 227
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 228
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 229
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 244
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 245
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 246
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 247
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 254
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 255
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 256
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 257
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 264
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 265
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 266
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 267
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 274
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 275
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 276
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 277
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 284
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 285
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 286
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 287
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 294
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 295
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 296
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 297
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 304
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 305
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 306
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 307
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 335
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 336
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 337
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 338
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 339
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 354
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 355
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 356
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 357
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 364
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 365
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 366
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 367
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 374
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 375
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 376
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 377
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 384
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 385
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 386
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 387
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 394
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 395
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 396
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 397
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 404
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 405
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 406
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 407
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 414
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 415
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 416
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 417
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 445
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 446
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 447
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 448
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 449
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 464
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 465
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 466
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 467
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 474
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 475
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 476
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 477
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 484
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 485
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 486
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 487
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 494
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 495
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 496
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 497
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 504
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 505
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 506
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 507
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 514
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 515
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 516
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 517
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 524
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 525
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 526
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 527
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 555
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 556
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 557
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 558
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 559
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 574
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 575
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 576
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 577
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 584
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 585
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 586
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 587
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 594
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 595
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 596
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 597
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 604
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 605
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 606
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 607
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 614
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 615
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 616
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 617
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 624
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 625
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 626
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 627
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 634
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 635
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 636
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 637
+
+Passed:[4m[1m[92mPassed[0m
