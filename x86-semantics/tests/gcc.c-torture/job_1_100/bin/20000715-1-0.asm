@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .globl	test1
@@ -292,32 +275,32 @@ test1:
     movl	$2, -4(%rbp)
     movl	-8(%rbp), %eax
     cmpl	-4(%rbp), %eax
-    jge	L46
+    jge	L42
     movl	-8(%rbp), %eax
     leal	1(%rax), %edx
     movl	%edx, -8(%rbp)
     cmpl	$2, %eax
     setne	%al
-    jmp	L47
-L46:
+    jmp	L43
+L42:
     movl	-4(%rbp), %eax
     leal	1(%rax), %edx
     movl	%edx, -4(%rbp)
     cmpl	$2, %eax
     setne	%al
-L47:
+L43:
     testb	%al, %al
-    je	L48
+    je	L44
     call	abort
-L48:
+L44:
     cmpl	$3, -8(%rbp)
-    je	L49
+    je	L45
     call	abort
-L49:
+L45:
     cmpl	$3, -4(%rbp)
-    je	L51
+    je	L47
     call	abort
-L51:
+L47:
     nop
     leave
     ret
@@ -330,29 +313,29 @@ test2:
     movl	$2, -8(%rbp)
     movl	-12(%rbp), %eax
     cmpl	-8(%rbp), %eax
-    jge	L53
+    jge	L49
     movl	-12(%rbp), %eax
     leal	1(%rax), %edx
     movl	%edx, -12(%rbp)
-    jmp	L54
-L53:
+    jmp	L50
+L49:
     movl	-8(%rbp), %eax
     leal	1(%rax), %edx
     movl	%edx, -8(%rbp)
-L54:
+L50:
     movl	%eax, -4(%rbp)
     cmpl	$2, -4(%rbp)
-    je	L55
+    je	L51
     call	abort
-L55:
+L51:
     cmpl	$3, -12(%rbp)
-    je	L56
+    je	L52
     call	abort
-L56:
+L52:
     cmpl	$3, -8(%rbp)
-    je	L58
+    je	L54
     call	abort
-L58:
+L54:
     nop
     leave
     ret
@@ -367,32 +350,32 @@ test3:
     movl	$2, -4(%rbp)
     movl	-8(%rbp), %eax
     cmpl	-4(%rbp), %eax
-    jge	L60
+    jge	L56
     movl	-16(%rbp), %eax
     leal	1(%rax), %edx
     movl	%edx, -16(%rbp)
     cmpl	$2, %eax
     setne	%al
-    jmp	L61
-L60:
+    jmp	L57
+L56:
     movl	-12(%rbp), %eax
     leal	1(%rax), %edx
     movl	%edx, -12(%rbp)
     cmpl	$2, %eax
     setne	%al
-L61:
+L57:
     testb	%al, %al
-    je	L62
+    je	L58
     call	abort
-L62:
+L58:
     cmpl	$3, -16(%rbp)
-    je	L63
+    je	L59
     call	abort
-L63:
+L59:
     cmpl	$3, -12(%rbp)
-    je	L65
+    je	L61
     call	abort
-L65:
+L61:
     nop
     leave
     ret
@@ -414,34 +397,34 @@ test4:
     movl	x(%rip), %edx
     movl	y(%rip), %eax
     cmpl	%eax, %edx
-    jge	L68
+    jge	L64
     movl	x(%rip), %eax
     leal	1(%rax), %edx
     movl	%edx, x(%rip)
     cmpl	$2, %eax
     setne	%al
-    jmp	L69
-L68:
+    jmp	L65
+L64:
     movl	y(%rip), %eax
     leal	1(%rax), %edx
     movl	%edx, y(%rip)
     cmpl	$2, %eax
     setne	%al
-L69:
+L65:
     testb	%al, %al
-    je	L70
+    je	L66
     call	abort
-L70:
+L66:
     movl	x(%rip), %eax
     cmpl	$3, %eax
-    je	L71
+    je	L67
     call	abort
-L71:
+L67:
     movl	y(%rip), %eax
     cmpl	$3, %eax
-    je	L73
+    je	L69
     call	abort
-L73:
+L69:
     nop
     popq	%rbp
     ret
@@ -454,31 +437,31 @@ test5:
     movl	x(%rip), %edx
     movl	y(%rip), %eax
     cmpl	%eax, %edx
-    jge	L75
+    jge	L71
     movl	x(%rip), %eax
     leal	1(%rax), %edx
     movl	%edx, x(%rip)
-    jmp	L76
-L75:
+    jmp	L72
+L71:
     movl	y(%rip), %eax
     leal	1(%rax), %edx
     movl	%edx, y(%rip)
-L76:
+L72:
     movl	%eax, -4(%rbp)
     cmpl	$2, -4(%rbp)
-    je	L77
+    je	L73
     call	abort
-L77:
+L73:
     movl	x(%rip), %eax
     cmpl	$3, %eax
-    je	L78
+    je	L74
     call	abort
-L78:
+L74:
     movl	y(%rip), %eax
     cmpl	$3, %eax
-    je	L80
+    je	L76
     call	abort
-L80:
+L76:
     nop
     leave
     ret
@@ -492,31 +475,31 @@ test6:
     call	init_xy
     movl	y(%rip), %eax
     cmpl	%eax, -12(%rbp)
-    jge	L82
+    jge	L78
     movl	x(%rip), %eax
     leal	1(%rax), %edx
     movl	%edx, x(%rip)
-    jmp	L83
-L82:
+    jmp	L79
+L78:
     movl	y(%rip), %eax
     leal	1(%rax), %edx
     movl	%edx, y(%rip)
-L83:
+L79:
     movl	%eax, -4(%rbp)
     cmpl	$2, -4(%rbp)
-    je	L84
+    je	L80
     call	abort
-L84:
+L80:
     movl	x(%rip), %eax
     cmpl	$3, %eax
-    je	L85
+    je	L81
     call	abort
-L85:
+L81:
     movl	y(%rip), %eax
     cmpl	$3, %eax
-    je	L87
+    je	L83
     call	abort
-L87:
+L83:
     nop
     leave
     ret

@@ -295,9 +295,9 @@ _start:
     movl	$0, -24(%rbp)
     movl	$-5, -20(%rbp)
     vxorpd	%xmm0, %xmm0, %xmm0
-    vcvtsi2sdl	-24(%rbp), %xmm0, %xmm0
+    vcvtsi2sd	-24(%rbp), %xmm0, %xmm0
     vxorpd	%xmm1, %xmm1, %xmm1
-    vcvtsi2sdl	-20(%rbp), %xmm1, %xmm1
+    vcvtsi2sd	-20(%rbp), %xmm1, %xmm1
     vdivsd	%xmm1, %xmm0, %xmm0
     vmovsd	%xmm0, -16(%rbp)
     movl	$0, -28(%rbp)

@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
 bar:
@@ -304,7 +287,7 @@ render_image_rgb_a:
     vdivss	%xmm1, %xmm0, %xmm0
     vmovss	%xmm0, -4(%rbp)
     vxorps	%xmm0, %xmm0, %xmm0
-    vcvtsi2ssl	-16(%rbp), %xmm0, %xmm0
+    vcvtsi2ss	-16(%rbp), %xmm0, %xmm0
     vmulss	-4(%rbp), %xmm0, %xmm0
     vmovss	%xmm0, -12(%rbp)
     vmovss	-12(%rbp), %xmm0
@@ -315,12 +298,12 @@ render_image_rgb_a:
     vmovss	-12(%rbp), %xmm1
     vsubss	%xmm0, %xmm1, %xmm0
     vmovss	%xmm0, -12(%rbp)
-    jmp	L47
-L50:
+    jmp	L43
+L46:
     vmovss	-12(%rbp), %xmm0
     vmovss	LC0(%rip), %xmm1
     vucomiss	%xmm1, %xmm0
-    jb	L48
+    jb	L44
     movq	-24(%rbp), %rax
     movl	8(%rax), %edx
     vmovss	-12(%rbp), %xmm0
@@ -336,15 +319,15 @@ L50:
     vsubss	%xmm0, %xmm1, %xmm0
     vmovss	%xmm0, -12(%rbp)
     call	bar
-L48:
+L44:
     vmovss	-12(%rbp), %xmm0
     vaddss	-4(%rbp), %xmm0, %xmm0
     vmovss	%xmm0, -12(%rbp)
     addl	$1, -16(%rbp)
-L47:
+L43:
     movl	-16(%rbp), %eax
     cmpl	-8(%rbp), %eax
-    jl	L50
+    jl	L46
     movq	-24(%rbp), %rax
     movl	8(%rax), %eax
     leave
@@ -366,9 +349,9 @@ _start:
     movq	%rax, %rdi
     call	render_image_rgb_a
     cmpl	$256, %eax
-    je	L54
+    je	L50
     call	abort
-L54:
+L50:
     movl	$0, %edi
     call	exit
     .section	.rodata
