@@ -1,0 +1,536 @@
+grep  -A 40  "ListItem"  Output/20021010-2-0.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfileEJ19u 2>&1 
+numOfInstrs: 44
+[4m[1m[34m20021010-2-0 Compare Results :[0m
+Failed:[4m[1m[91m20021010-2-0: kstate xstate count unequal[0m
+kstates = 1672
+xstates = 1786
+
+Failed:[4m[1m[91mFail[0m
+000000af0000004b != 00af004b00af004b
+rax at instrcount: 4
+
+Failed:[4m[1m[91mFail[0m
+000000af0000004b != 00af004b00af004b
+rax at instrcount: 5
+
+Failed:[4m[1m[91mFail[0m
+0000009600000064 != 0096006400960064
+rax at instrcount: 6
+
+Failed:[4m[1m[91mFail[0m
+0000009600000064 != 0096006400960064
+rax at instrcount: 7
+
+Failed:[4m[1m[91mFail[0m
+0000009600000064 != 0096006400960064
+rax at instrcount: 8
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 00000000000000af
+rdx at instrcount: 15
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000096
+rax at instrcount: 15
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 00000000000000af
+rdx at instrcount: 16
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000096
+rax at instrcount: 16
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 00000000000000af
+rdx at instrcount: 17
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 17
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 17
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000096
+rax at instrcount: 17
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 00000000000000af
+rdx at instrcount: 18
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 18
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 18
+
+Failed:[4m[1m[91mFail[0m
+000000000000a000 != 0000000000000096
+rax at instrcount: 18
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 00000000000000af
+rdx at instrcount: 19
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 19
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 19
+
+Failed:[4m[1m[91mFail[0m
+000000000000a000 != 0000000000000096
+rax at instrcount: 19
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 20
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 20
+
+Failed:[4m[1m[91mFail[0m
+00000000000000af != 0000000000000000
+rcx at instrcount: 21
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 21
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 21
+
+Failed:[4m[1m[91mFail[0m
+00000000000000af != 0000000000000000
+rcx at instrcount: 22
+
+Failed:[4m[1m[91mFail[0m
+0000000000000096 != 000000000000004b
+rdx at instrcount: 22
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 22
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 22
+
+Failed:[4m[1m[91mFail[0m
+00000000000000af != 000000000000004b
+rcx at instrcount: 23
+
+Failed:[4m[1m[91mFail[0m
+0000000000000096 != 000000000000004b
+rdx at instrcount: 23
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 23
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 23
+
+Failed:[4m[1m[91mFail[0m
+0000000000000019 != 000000000000004b
+rcx at instrcount: 24
+
+Failed:[4m[1m[91mFail[0m
+0000000000000096 != 0000000000000064
+rdx at instrcount: 24
+
+Failed:[4m[1m[91mFail[0m
+0000000000000019 != 000000000000004b
+rcx at instrcount: 25
+
+Failed:[4m[1m[91mFail[0m
+0000000000000019 != 0000000000000064
+rdx at instrcount: 25
+
+Failed:[4m[1m[91mFail[0m
+0000000000000019 != 00000000ffffffe7
+rcx at instrcount: 26
+
+Failed:[4m[1m[91mFail[0m
+0000000000000019 != 0000000000000064
+rdx at instrcount: 26
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+cf at instrcount: 26
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 26
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+sf at instrcount: 26
+
+Failed:[4m[1m[91mFail[0m
+0000000000000019 != 00000000ffffffe7
+rcx at instrcount: 27
+
+Failed:[4m[1m[91mFail[0m
+0000000000000064 != 00000000ffffffe7
+rdx at instrcount: 27
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+cf at instrcount: 27
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 27
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+sf at instrcount: 27
+
+Failed:[4m[1m[91mFail[0m
+000000000000a064 != 000000000000a000
+rax at instrcount: 27
+
+Failed:[4m[1m[91mFail[0m
+0000000000000019 != 00000000ffffffe7
+rcx at instrcount: 28
+
+Failed:[4m[1m[91mFail[0m
+0000000000000064 != ffffffffffffffe7
+rdx at instrcount: 28
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+cf at instrcount: 28
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 28
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+sf at instrcount: 28
+
+Failed:[4m[1m[91mFail[0m
+000000000000a064 != 000000000000a000
+rax at instrcount: 28
+
+Failed:[4m[1m[91mFail[0m
+0000000000000019 != 00000000ffffffe7
+rcx at instrcount: 29
+
+Failed:[4m[1m[91mFail[0m
+0000000000000064 != ffffffffffffff9c
+rdx at instrcount: 29
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+cf at instrcount: 29
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 29
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+sf at instrcount: 29
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000009f9c
+rax at instrcount: 29
+
+Failed:[4m[1m[91mFail[0m
+0000000000000019 != 00000000ffffffe7
+rcx at instrcount: 30
+
+Failed:[4m[1m[91mFail[0m
+0000000000000064 != ffffffffffffff9c
+rdx at instrcount: 30
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+cf at instrcount: 30
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 30
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000009f9c
+rax at instrcount: 30
+
+Failed:[4m[1m[91mFail[0m
+0000000000000019 != 00000000ffffffe7
+rcx at instrcount: 31
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != ffffffffffffff9c
+rdx at instrcount: 31
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+cf at instrcount: 31
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 31
+
+Failed:[4m[1m[91mFail[0m
+0000000000000064 != 0000000000000096
+rax at instrcount: 31
+
+Failed:[4m[1m[91mFail[0m
+0000000000000019 != 00000000ffffffe7
+rcx at instrcount: 32
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != ffffffffffffff9c
+rdx at instrcount: 32
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+cf at instrcount: 32
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 32
+
+Failed:[4m[1m[91mFail[0m
+0000000000000064 != 0000000000000096
+rax at instrcount: 32
+
+Failed:[4m[1m[91mFail[0m
+0000000000000019 != 00000000ffffffe7
+rcx at instrcount: 33
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000096
+rdx at instrcount: 33
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+cf at instrcount: 33
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 33
+
+Failed:[4m[1m[91mFail[0m
+0000000000000019 != 00000000ffffffe7
+rcx at instrcount: 34
+
+Failed:[4m[1m[91mFail[0m
+00000000ffffff9c != 0000000000000096
+rdx at instrcount: 34
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+af at instrcount: 34
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 34
+
+Failed:[4m[1m[91mFail[0m
+00000000ffffff9c != 0000000000000064
+rax at instrcount: 34
+
+Failed:[4m[1m[91mFail[0m
+0000000000000019 != 00000000ffffffe7
+rcx at instrcount: 35
+
+Failed:[4m[1m[91mFail[0m
+00000000ffffff9c != 0000000000000096
+rdx at instrcount: 35
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+af at instrcount: 35
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 35
+
+Failed:[4m[1m[91mFail[0m
+00000000ffffff9c != 0000000000000064
+rax at instrcount: 35
+
+Failed:[4m[1m[91mFail[0m
+0000000000000019 != 00000000ffffffe7
+rcx at instrcount: 36
+
+Failed:[4m[1m[91mFail[0m
+00000000ffffff9c != 0000000000000032
+rdx at instrcount: 36
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+cf at instrcount: 36
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 36
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+af at instrcount: 36
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 36
+
+Failed:[4m[1m[91mFail[0m
+0000000000000019 != 00000000ffffffe7
+rcx at instrcount: 37
+
+Failed:[4m[1m[91mFail[0m
+00000000ffffff9c != 0000000000000032
+rdx at instrcount: 37
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+cf at instrcount: 37
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 37
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+af at instrcount: 37
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 37
+
+Failed:[4m[1m[91mFail[0m
+0000000000000019 != 00000000ffffffe7
+rcx at instrcount: 38
+
+Failed:[4m[1m[91mFail[0m
+00000000ffffff9c != 0000000000000032
+rdx at instrcount: 38
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 38
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 38
+
+Failed:[4m[1m[91mFail[0m
+0000000000000019 != 00000000ffffffe7
+rcx at instrcount: 39
+
+Failed:[4m[1m[91mFail[0m
+00000000ffffff9c != 0000000000000032
+rdx at instrcount: 39
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 39
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 39
+
+Failed:[4m[1m[91mFail[0m
+0000000000000019 != 00000000ffffffe7
+rcx at instrcount: 40
+
+Failed:[4m[1m[91mFail[0m
+00000000ffffff9c != 0000000000000032
+rdx at instrcount: 40
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 40
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 40
+
+Failed:[4m[1m[91mFail[0m
+0000000000000019 != 00000000ffffffe7
+rcx at instrcount: 41
+
+Failed:[4m[1m[91mFail[0m
+00000000ffffff9c != 0000000000000032
+rdx at instrcount: 41
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 41
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 41
+
+Failed:[4m[1m[91mFail[0m
+0000000000000019 != 00000000ffffffe7
+rcx at instrcount: 42
+
+Failed:[4m[1m[91mFail[0m
+00000000ffffff9c != 0000000000000032
+rdx at instrcount: 42
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 42
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 42
+
+Failed:[4m[1m[91mFail[0m
+ffffffffffffffff != 0000000000000032
+rax at instrcount: 42
+
+Failed:[4m[1m[91mFail[0m
+0000000000000019 != 00000000ffffffe7
+rcx at instrcount: 43
+
+Failed:[4m[1m[91mFail[0m
+00000000ffffff9c != 0000000000000032
+rdx at instrcount: 43
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 43
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 43
+
+Failed:[4m[1m[91mFail[0m
+ffffffffffffffff != 0000000000000032
+rax at instrcount: 43
+
+Failed:[4m[1m[91mFail[0m
+0000000000000019 != 00000000ffffffe7
+rcx at instrcount: 44
+
+Failed:[4m[1m[91mFail[0m
+00000000ffffff9c != 0000000000000032
+rdx at instrcount: 44
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 44
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 44
+
+Passed:[4m[1m[92mPassed[0m

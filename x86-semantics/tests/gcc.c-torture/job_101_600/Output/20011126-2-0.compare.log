@@ -1,0 +1,36 @@
+grep  -A 40  "ListItem"  Output/20011126-2-0.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfileIJFLG 2>&1 
+numOfInstrs: 72
+[4m[1m[34m20011126-2-0 Compare Results :[0m
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 4
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 5
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 6
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 19
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 19
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 19
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 19
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 20
+
+Passed:[4m[1m[92mPassed[0m

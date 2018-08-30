@@ -1,0 +1,24 @@
+grep  -A 40  "ListItem"  Output/20020328-1-0.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfileMocCp 2>&1 
+numOfInstrs: 29
+[4m[1m[34m20020328-1-0 Compare Results :[0m
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 4
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 5
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 6
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 16
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 17
+
+Passed:[4m[1m[92mPassed[0m

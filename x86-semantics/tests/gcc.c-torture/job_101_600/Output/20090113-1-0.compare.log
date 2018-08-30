@@ -1,0 +1,2960 @@
+grep  -A 40  "ListItem"  Output/20090113-1-0.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfileZJSSs 2>&1 
+numOfInstrs: 255
+[4m[1m[34m20090113-1-0 Compare Results :[0m
+Failed:[4m[1m[91m20090113-1-0: kstate xstate count unequal[0m
+kstates = 9690
+xstates = 10488
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 000000000000000b
+rcx at instrcount: 12
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 000000000000000a
+rcx at instrcount: 12
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000009
+rcx at instrcount: 12
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000008
+rcx at instrcount: 12
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000007
+rcx at instrcount: 12
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000006
+rcx at instrcount: 12
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000005
+rcx at instrcount: 12
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000004
+rcx at instrcount: 12
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000003
+rcx at instrcount: 13
+
+Failed:[4m[1m[91mFail[0m
+000000000000000c != 0000000000000002
+rcx at instrcount: 14
+
+Failed:[4m[1m[91mFail[0m
+000000000000000c != 0000000000000001
+rcx at instrcount: 15
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 000000000000000c
+rcx at instrcount: 16
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 000000000000000c
+rcx at instrcount: 16
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 000000000000000b
+rcx at instrcount: 16
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 16
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 16
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 16
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 16
+
+Failed:[4m[1m[91mFail[0m
+0000000000000028 != 00007fffffffd8e8
+rax at instrcount: 16
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 17
+
+Failed:[4m[1m[91mFail[0m
+0000000000000028 != 00007fffffffd8e8
+rax at instrcount: 17
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 18
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 00007fffffffd8e8
+rax at instrcount: 18
+
+Failed:[4m[1m[91mFail[0m
+0000000000000002 != 00007fffffffd8e8
+rax at instrcount: 19
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 00007fffffffd8e8
+rax at instrcount: 20
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 21
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 21
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 00007fffffffd8e8
+rax at instrcount: 21
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 22
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 22
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 00007fffffffd8e8
+rax at instrcount: 22
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 23
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 23
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 00007fffffffd8e8
+rax at instrcount: 23
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 24
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 24
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 00007fffffffd8e8
+rax at instrcount: 24
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 00007fffffffd978
+rdx at instrcount: 25
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 25
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 25
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 00007fffffffd8e8
+rax at instrcount: 25
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 00007fffffffd8d4
+rdx at instrcount: 26
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 26
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 26
+
+Failed:[4m[1m[91mFail[0m
+0000000000000002 != 00007fffffffd8e8
+rax at instrcount: 26
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 00007fffffffd8d4
+rdx at instrcount: 27
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 27
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 27
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 00007fffffffd918
+rax at instrcount: 27
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 00007fffffffd8d4
+rdx at instrcount: 28
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 28
+
+Failed:[4m[1m[91mFail[0m
+000000000000000c != 00007fffffffd918
+rax at instrcount: 28
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 00007fffffffd8d4
+rdx at instrcount: 29
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 29
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 00007fffffffd8d4
+rdx at instrcount: 29
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 29
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 29
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 00007fffffffd8d4
+rdx at instrcount: 29
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 29
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 00007fffffffd918
+rax at instrcount: 29
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 00007fffffffd8d4
+rdx at instrcount: 30
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 30
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 00007fffffffd918
+rax at instrcount: 30
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 00007fffffffd8d4
+rdx at instrcount: 31
+
+Failed:[4m[1m[91mFail[0m
+0000000000000004 != 00007fffffffd978
+rsi at instrcount: 31
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 31
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 00007fffffffd918
+rax at instrcount: 31
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 00007fffffffd8d4
+rdx at instrcount: 32
+
+Failed:[4m[1m[91mFail[0m
+0000000000000004 != 00007fffffffd978
+rsi at instrcount: 32
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 00007fffffffd918
+rax at instrcount: 32
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 00007fffffffd8d4
+rdx at instrcount: 33
+
+Failed:[4m[1m[91mFail[0m
+0000000000000004 != 00007fffffffd978
+rsi at instrcount: 33
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 00007fffffffd918
+rax at instrcount: 33
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 00007fffffffd8d4
+rdx at instrcount: 34
+
+Failed:[4m[1m[91mFail[0m
+0000000000000004 != 00007fffffffd978
+rsi at instrcount: 34
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 00007fffffffd918
+rax at instrcount: 34
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 00007fffffffd8d4
+rdx at instrcount: 35
+
+Failed:[4m[1m[91mFail[0m
+0000000000000004 != 00007fffffffd978
+rsi at instrcount: 35
+
+Failed:[4m[1m[91mFail[0m
+0000000000000002 != 0000000000000028
+rax at instrcount: 35
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 00007fffffffd8d4
+rdx at instrcount: 36
+
+Failed:[4m[1m[91mFail[0m
+0000000000000004 != 00007fffffffd978
+rsi at instrcount: 36
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 36
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000028
+rax at instrcount: 36
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 00007fffffffd8d4
+rdx at instrcount: 37
+
+Failed:[4m[1m[91mFail[0m
+0000000000000004 != 00007fffffffd978
+rsi at instrcount: 37
+
+Failed:[4m[1m[91mFail[0m
+000000000000000c != 0000000000000000
+rax at instrcount: 37
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 00007fffffffd8d4
+rdx at instrcount: 38
+
+Failed:[4m[1m[91mFail[0m
+0000000000000004 != 00007fffffffd978
+rsi at instrcount: 38
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 38
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 00007fffffffd8d4
+rdx at instrcount: 38
+
+Failed:[4m[1m[91mFail[0m
+0000000000000004 != 00007fffffffd978
+rsi at instrcount: 38
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 38
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 38
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 00007fffffffd8d4
+rdx at instrcount: 38
+
+Failed:[4m[1m[91mFail[0m
+0000000000000004 != 00007fffffffd978
+rsi at instrcount: 38
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 38
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 00007fffffffd8d4
+rdx at instrcount: 39
+
+Failed:[4m[1m[91mFail[0m
+0000000000000004 != 00007fffffffd978
+rsi at instrcount: 39
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 39
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 00007fffffffd8d4
+rdx at instrcount: 40
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 00007fffffffd978
+rsi at instrcount: 40
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 40
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000001
+rax at instrcount: 40
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 00007fffffffd8d4
+rdx at instrcount: 41
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 00007fffffffd978
+rsi at instrcount: 41
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 41
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000001
+rax at instrcount: 41
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 00007fffffffd8d4
+rdx at instrcount: 42
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 00007fffffffd978
+rsi at instrcount: 42
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 42
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000001
+rax at instrcount: 42
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 00007fffffffd978
+rsi at instrcount: 43
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 43
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000001
+rax at instrcount: 43
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 00007fffffffd978
+rsi at instrcount: 44
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 44
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000002
+rax at instrcount: 44
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 00007fffffffd978
+rsi at instrcount: 45
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 45
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000003
+rax at instrcount: 45
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 00007fffffffd978
+rsi at instrcount: 46
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+cf at instrcount: 46
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+af at instrcount: 46
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 46
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 000000000000000c
+rax at instrcount: 46
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 00007fffffffd978
+rsi at instrcount: 47
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+cf at instrcount: 47
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+af at instrcount: 47
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 47
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 00007fffffffd984
+rax at instrcount: 47
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 00007fffffffd978
+rsi at instrcount: 48
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+cf at instrcount: 48
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 48
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 00007fffffffd998
+rax at instrcount: 48
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 00007fffffffd978
+rsi at instrcount: 49
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+cf at instrcount: 49
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 49
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+af at instrcount: 49
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 49
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000003
+rax at instrcount: 49
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rdx at instrcount: 50
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 00007fffffffd978
+rsi at instrcount: 50
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+cf at instrcount: 50
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 50
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+af at instrcount: 50
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 50
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000003
+rax at instrcount: 50
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rdx at instrcount: 51
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000004
+rsi at instrcount: 51
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+cf at instrcount: 51
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 51
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+af at instrcount: 51
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 51
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000003
+rax at instrcount: 51
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rdx at instrcount: 52
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000004
+rsi at instrcount: 52
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 52
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 52
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rax at instrcount: 52
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rdx at instrcount: 53
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000004
+rsi at instrcount: 53
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 53
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 53
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rax at instrcount: 53
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rdx at instrcount: 54
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000004
+rsi at instrcount: 54
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 54
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 54
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rdx at instrcount: 54
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000004
+rsi at instrcount: 54
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rdx at instrcount: 54
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000004
+rsi at instrcount: 54
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rdx at instrcount: 55
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000004
+rsi at instrcount: 55
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 55
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 000000000000000c
+rax at instrcount: 55
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rdx at instrcount: 56
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 56
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 00007fffffffd984
+rax at instrcount: 56
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rdx at instrcount: 57
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 57
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 00007fffffffd994
+rax at instrcount: 57
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rdx at instrcount: 58
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rax at instrcount: 58
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rdx at instrcount: 59
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rax at instrcount: 59
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rdx at instrcount: 60
+
+Failed:[4m[1m[91mFail[0m
+0000000000000004 != 0000000000000003
+rsi at instrcount: 60
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 60
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000003
+rax at instrcount: 60
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rdx at instrcount: 61
+
+Failed:[4m[1m[91mFail[0m
+0000000000000004 != 0000000000000003
+rsi at instrcount: 61
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 61
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000003
+rax at instrcount: 61
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rdx at instrcount: 62
+
+Failed:[4m[1m[91mFail[0m
+0000000000000004 != 0000000000000003
+rsi at instrcount: 62
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 62
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000003
+rax at instrcount: 62
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rdx at instrcount: 63
+
+Failed:[4m[1m[91mFail[0m
+0000000000000004 != 0000000000000003
+rsi at instrcount: 63
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 63
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rdx at instrcount: 63
+
+Failed:[4m[1m[91mFail[0m
+0000000000000004 != 0000000000000003
+rsi at instrcount: 63
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 63
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rdx at instrcount: 63
+
+Failed:[4m[1m[91mFail[0m
+0000000000000004 != 0000000000000003
+rsi at instrcount: 63
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 0000000000000000
+rax at instrcount: 63
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rdx at instrcount: 64
+
+Failed:[4m[1m[91mFail[0m
+0000000000000004 != 0000000000000003
+rsi at instrcount: 64
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 0000000000000000
+rax at instrcount: 64
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rdx at instrcount: 65
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+cf at instrcount: 65
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+af at instrcount: 65
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+sf at instrcount: 65
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 0000000000000000
+rax at instrcount: 65
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000001
+rdx at instrcount: 66
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+cf at instrcount: 66
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+af at instrcount: 66
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+sf at instrcount: 66
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000001
+rdx at instrcount: 67
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+cf at instrcount: 67
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+af at instrcount: 67
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+sf at instrcount: 67
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000000
+rdx at instrcount: 68
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+cf at instrcount: 68
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+af at instrcount: 68
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+sf at instrcount: 68
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000000
+rdx at instrcount: 69
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+cf at instrcount: 69
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+af at instrcount: 69
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+sf at instrcount: 69
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000000
+rdx at instrcount: 70
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 70
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000000
+rdx at instrcount: 71
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 71
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000000
+rdx at instrcount: 72
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 72
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 00007fffffffd978
+rax at instrcount: 72
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000000
+rdx at instrcount: 73
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 73
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 00007fffffffd98c
+rax at instrcount: 73
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000000
+rdx at instrcount: 74
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 0000000000000003
+rax at instrcount: 74
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000000
+rdx at instrcount: 75
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 75
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 75
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 0000000000000003
+rax at instrcount: 75
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000000
+rdx at instrcount: 76
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000004
+rsi at instrcount: 76
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 76
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 76
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000000
+rdx at instrcount: 76
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000004
+rsi at instrcount: 76
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 76
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 76
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000000
+rdx at instrcount: 76
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000004
+rsi at instrcount: 76
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 76
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 76
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000000
+rdx at instrcount: 76
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000004
+rsi at instrcount: 76
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 76
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 76
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000000
+rdx at instrcount: 76
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000004
+rsi at instrcount: 76
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 76
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 76
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000000
+rdx at instrcount: 76
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000004
+rsi at instrcount: 76
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000000
+rdx at instrcount: 76
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000004
+rsi at instrcount: 76
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000000
+rdx at instrcount: 76
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000004
+rsi at instrcount: 76
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000000
+rdx at instrcount: 76
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000004
+rsi at instrcount: 76
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 76
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000000
+rdx at instrcount: 76
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000004
+rsi at instrcount: 76
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 76
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rax at instrcount: 76
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000000
+rdx at instrcount: 77
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000004
+rsi at instrcount: 77
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 77
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rax at instrcount: 77
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000000
+rdx at instrcount: 78
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+cf at instrcount: 78
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 78
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+af at instrcount: 78
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 78
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rax at instrcount: 78
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+cf at instrcount: 79
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 79
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+af at instrcount: 79
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 79
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+cf at instrcount: 79
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 79
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+af at instrcount: 79
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 79
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+cf at instrcount: 80
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 80
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+af at instrcount: 80
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 80
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 81
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 82
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 83
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 0000000000000000
+rax at instrcount: 83
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 84
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 0000000000000000
+rax at instrcount: 84
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+cf at instrcount: 85
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+af at instrcount: 85
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 85
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+cf at instrcount: 86
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+af at instrcount: 86
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 86
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+cf at instrcount: 86
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 86
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+af at instrcount: 86
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 86
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 86
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rax at instrcount: 86
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+cf at instrcount: 87
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 87
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+af at instrcount: 87
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 87
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 87
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 00007fffffffd918
+rax at instrcount: 87
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 00007fffffffd8d8
+rax at instrcount: 88
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 89
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 89
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 00007fffffffd8d8
+rax at instrcount: 89
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 90
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 90
+
+Failed:[4m[1m[91mFail[0m
+0000000000000002 != 00007fffffffd978
+rax at instrcount: 90
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 91
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 91
+
+Failed:[4m[1m[91mFail[0m
+0000000000000002 != 00007fffffffd8e8
+rax at instrcount: 91
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+cf at instrcount: 92
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+af at instrcount: 92
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 92
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 92
+
+Failed:[4m[1m[91mFail[0m
+0000000000000002 != 00007fffffffd8e8
+rax at instrcount: 92
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+cf at instrcount: 93
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+af at instrcount: 93
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 93
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 93
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+cf at instrcount: 93
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+af at instrcount: 93
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 93
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 93
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 00007fffffffd8e8
+rax at instrcount: 93
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+cf at instrcount: 94
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+af at instrcount: 94
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 94
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 94
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 00007fffffffd8e8
+rax at instrcount: 94
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 96
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 97
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000000
+rax at instrcount: 97
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 98
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 00007fffffffd8e8
+rax at instrcount: 98
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+cf at instrcount: 99
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 99
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+af at instrcount: 99
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 99
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+sf at instrcount: 99
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000000
+rax at instrcount: 99
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+cf at instrcount: 100
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 100
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+af at instrcount: 100
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 100
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+sf at instrcount: 100
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000003
+rdx at instrcount: 100
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 100
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 100
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000003
+rdx at instrcount: 100
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 100
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 100
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rax at instrcount: 100
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000003
+rdx at instrcount: 101
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 101
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 101
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000003
+rdx at instrcount: 102
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+cf at instrcount: 102
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+af at instrcount: 102
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+sf at instrcount: 102
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000003
+rdx at instrcount: 103
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+cf at instrcount: 103
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+af at instrcount: 103
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+sf at instrcount: 103
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 00007fffffffd8ec
+rax at instrcount: 103
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000003
+rdx at instrcount: 104
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 104
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 0000000000000000
+rax at instrcount: 104
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 0000000000000003
+rdx at instrcount: 105
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 105
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000000
+rax at instrcount: 105
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 0000000000000003
+rdx at instrcount: 106
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 106
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000000
+rax at instrcount: 106
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 0000000000000003
+rdx at instrcount: 107
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+cf at instrcount: 107
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+af at instrcount: 107
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 107
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000000
+rax at instrcount: 107
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 0000000000000003
+rdx at instrcount: 108
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+cf at instrcount: 108
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 108
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 108
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000002
+rax at instrcount: 108
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 0000000000000003
+rdx at instrcount: 109
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+cf at instrcount: 109
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 109
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 109
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000002
+rax at instrcount: 109
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 0000000000000003
+rdx at instrcount: 110
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 110
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000002
+rax at instrcount: 110
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 0000000000000003
+rdx at instrcount: 111
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 111
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 00007fffffffd8f0
+rax at instrcount: 111
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 0000000000000003
+rdx at instrcount: 112
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 112
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 0000000000000003
+rdx at instrcount: 113
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 113
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 0000000000000003
+rdx at instrcount: 114
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+cf at instrcount: 114
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 114
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+af at instrcount: 114
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 114
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 114
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 0000000000000003
+rdx at instrcount: 114
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+cf at instrcount: 114
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 114
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+af at instrcount: 114
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 114
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 0000000000000003
+rdx at instrcount: 115
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+cf at instrcount: 115
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+af at instrcount: 115
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 115
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000003
+rax at instrcount: 115
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 0000000000000003
+rdx at instrcount: 116
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 116
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 116
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000003
+rax at instrcount: 116
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 0000000000000003
+rdx at instrcount: 117
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 117
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 117
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000003
+rax at instrcount: 117
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 0000000000000003
+rdx at instrcount: 118
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 118
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 00007fffffffd8d8
+rax at instrcount: 118
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 0000000000000003
+rdx at instrcount: 119
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 119
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 00007fffffffd8d8
+rax at instrcount: 119
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 0000000000000000
+rdx at instrcount: 120
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+cf at instrcount: 120
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 120
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+af at instrcount: 120
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 120
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 120
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 00007fffffffd8d8
+rax at instrcount: 120
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 0000000000000000
+rdx at instrcount: 121
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+cf at instrcount: 121
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 121
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+af at instrcount: 121
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 121
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 121
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 0000000000000000
+rdx at instrcount: 121
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+cf at instrcount: 121
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 121
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+af at instrcount: 121
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 121
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 121
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rax at instrcount: 121
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 0000000000000000
+rdx at instrcount: 122
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+cf at instrcount: 122
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+af at instrcount: 122
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 122
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rax at instrcount: 122
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 0000000000000000
+rdx at instrcount: 123
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 123
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 123
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rax at instrcount: 123
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 0000000000000000
+rdx at instrcount: 124
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rax at instrcount: 124
+
+Failed:[4m[1m[91mFail[0m
+0000000000000002 != 0000000000000003
+rax at instrcount: 125
+
+Failed:[4m[1m[91mFail[0m
+0000000000000002 != 0000000000000003
+rax at instrcount: 126
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 127
+
+Failed:[4m[1m[91mFail[0m
+0000000000000002 != 0000000000000003
+rax at instrcount: 127
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 128
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 128
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000003
+rax at instrcount: 128
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 129
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000003
+rax at instrcount: 129
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+cf at instrcount: 130
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 130
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+af at instrcount: 130
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 130
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+sf at instrcount: 130
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+cf at instrcount: 131
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 131
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+af at instrcount: 131
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+sf at instrcount: 131
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000000
+rax at instrcount: 132
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 00007fffffffd8f4
+rax at instrcount: 133
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+cf at instrcount: 134
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 134
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+af at instrcount: 134
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 134
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+sf at instrcount: 134
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000000
+rax at instrcount: 134
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+cf at instrcount: 135
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 135
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+af at instrcount: 135
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 135
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+sf at instrcount: 135
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rdx at instrcount: 135
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 135
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 135
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rdx at instrcount: 135
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 135
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 135
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rdx at instrcount: 136
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 136
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 136
+
+Failed:[4m[1m[91mFail[0m
+0000000000000002 != 0000000000000001
+rax at instrcount: 136
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rdx at instrcount: 137
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+cf at instrcount: 137
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+af at instrcount: 137
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+sf at instrcount: 137
+
+Failed:[4m[1m[91mFail[0m
+0000000000000002 != 0000000000000001
+rax at instrcount: 137
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rdx at instrcount: 138
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+cf at instrcount: 138
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+af at instrcount: 138
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+sf at instrcount: 138
+
+Failed:[4m[1m[91mFail[0m
+0000000000000002 != 00007fffffffd8f8
+rax at instrcount: 138
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rdx at instrcount: 139
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 139
+
+Failed:[4m[1m[91mFail[0m
+0000000000000002 != 0000000000000000
+rax at instrcount: 139
+
+Failed:[4m[1m[91mFail[0m
+0000000000000002 != 0000000000000001
+rdx at instrcount: 140
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 140
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000000
+rax at instrcount: 140
+
+Failed:[4m[1m[91mFail[0m
+0000000000000002 != 0000000000000001
+rdx at instrcount: 141
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 141
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000000
+rax at instrcount: 141
+
+Failed:[4m[1m[91mFail[0m
+0000000000000002 != 0000000000000001
+rdx at instrcount: 142
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+cf at instrcount: 142
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 142
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+af at instrcount: 142
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 142
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000000
+rax at instrcount: 142
+
+Failed:[4m[1m[91mFail[0m
+0000000000000002 != 0000000000000001
+rdx at instrcount: 143
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+cf at instrcount: 143
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+af at instrcount: 143
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 143
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000002
+rax at instrcount: 143
+
+Failed:[4m[1m[91mFail[0m
+0000000000000002 != 0000000000000001
+rdx at instrcount: 144
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+cf at instrcount: 144
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+af at instrcount: 144
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 144
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000002
+rax at instrcount: 144
+
+Failed:[4m[1m[91mFail[0m
+0000000000000002 != 0000000000000001
+rdx at instrcount: 145
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000002
+rax at instrcount: 145
+
+Failed:[4m[1m[91mFail[0m
+0000000000000002 != 0000000000000001
+rdx at instrcount: 146
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 00007fffffffd8fc
+rax at instrcount: 146
+
+Failed:[4m[1m[91mFail[0m
+0000000000000002 != 0000000000000001
+rdx at instrcount: 147
+
+Failed:[4m[1m[91mFail[0m
+0000000000000002 != 0000000000000001
+rdx at instrcount: 148
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 148
+
+Failed:[4m[1m[91mFail[0m
+0000000000000002 != 0000000000000001
+rdx at instrcount: 149
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+cf at instrcount: 149
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 149
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+af at instrcount: 149
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 149
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 149
+
+Failed:[4m[1m[91mFail[0m
+0000000000000002 != 0000000000000001
+rdx at instrcount: 149
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+cf at instrcount: 149
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 149
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+af at instrcount: 149
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 149
+
+Failed:[4m[1m[91mFail[0m
+0000000000000002 != 0000000000000001
+rdx at instrcount: 150
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+cf at instrcount: 150
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 150
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 150
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000003
+rax at instrcount: 150
+
+Failed:[4m[1m[91mFail[0m
+0000000000000002 != 0000000000000001
+rdx at instrcount: 151
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+af at instrcount: 151
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 151
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000003
+rax at instrcount: 151
+
+Failed:[4m[1m[91mFail[0m
+0000000000000002 != 0000000000000001
+rdx at instrcount: 152
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 152
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 152
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000003
+rax at instrcount: 152
+
+Failed:[4m[1m[91mFail[0m
+0000000000000002 != 0000000000000001
+rdx at instrcount: 153
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 153
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 00007fffffffd8dc
+rax at instrcount: 153
+
+Failed:[4m[1m[91mFail[0m
+0000000000000002 != 0000000000000001
+rdx at instrcount: 154
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 154
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 00007fffffffd8dc
+rax at instrcount: 154
+
+Failed:[4m[1m[91mFail[0m
+0000000000000002 != 0000000000000000
+rdx at instrcount: 155
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+cf at instrcount: 155
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 155
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+af at instrcount: 155
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 155
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 155
+
+Failed:[4m[1m[91mFail[0m
+0000000000000001 != 00007fffffffd8dc
+rax at instrcount: 155
+
+Failed:[4m[1m[91mFail[0m
+0000000000000002 != 0000000000000000
+rdx at instrcount: 156
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+cf at instrcount: 156
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 156
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+af at instrcount: 156
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 156
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 156
+
+Failed:[4m[1m[91mFail[0m
+0000000000000002 != 0000000000000000
+rdx at instrcount: 156
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+cf at instrcount: 156
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 156
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+af at instrcount: 156
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 156
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 156
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000002
+rax at instrcount: 156
+
+Failed:[4m[1m[91mFail[0m
+0000000000000002 != 0000000000000000
+rdx at instrcount: 157
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+cf at instrcount: 157
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+af at instrcount: 157
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 157
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000002
+rax at instrcount: 157
+
+Failed:[4m[1m[91mFail[0m
+0000000000000002 != 0000000000000000
+rdx at instrcount: 158
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 158
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 158
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000002
+rax at instrcount: 158
+
+Failed:[4m[1m[91mFail[0m
+0000000000000002 != 0000000000000000
+rdx at instrcount: 159
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+af at instrcount: 159
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000002
+rax at instrcount: 159
+
+Failed:[4m[1m[91mFail[0m
+0000000000000002 != 0000000000000003
+rax at instrcount: 160
+
+Failed:[4m[1m[91mFail[0m
+0000000000000002 != 0000000000000003
+rax at instrcount: 161
+
+Failed:[4m[1m[91mFail[0m
+0000000000000002 != 0000000000000003
+rax at instrcount: 162
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000003
+rax at instrcount: 163
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000003
+rax at instrcount: 164
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+cf at instrcount: 165
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+af at instrcount: 165
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 165
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+sf at instrcount: 165
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+cf at instrcount: 166
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+af at instrcount: 166
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+sf at instrcount: 166
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 167
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000000
+rax at instrcount: 167
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 168
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 00007fffffffd900
+rax at instrcount: 168
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+cf at instrcount: 169
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 169
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+af at instrcount: 169
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 169
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+sf at instrcount: 169
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000000
+rax at instrcount: 169
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+cf at instrcount: 170
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 170
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+af at instrcount: 170
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 170
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+sf at instrcount: 170
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000002
+rdx at instrcount: 170
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 170
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 170
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000002
+rdx at instrcount: 170
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 170
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 170
+
+Failed:[4m[1m[91mFail[0m
+0000000000000002 != 0000000000000001
+rax at instrcount: 170
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000002
+rdx at instrcount: 171
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 171
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 171
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000001
+rax at instrcount: 171
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000002
+rdx at instrcount: 172
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+cf at instrcount: 172
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 172
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+af at instrcount: 172
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+sf at instrcount: 172
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000001
+rax at instrcount: 172
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000002
+rdx at instrcount: 173
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+cf at instrcount: 173
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 173
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+af at instrcount: 173
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+sf at instrcount: 173
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 00007fffffffd904
+rax at instrcount: 173
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000002
+rdx at instrcount: 174
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000000
+rax at instrcount: 174
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000002
+rdx at instrcount: 175
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000000
+rax at instrcount: 175
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000002
+rdx at instrcount: 176
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 176
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 176
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000000
+rax at instrcount: 176
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000002
+rdx at instrcount: 177
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 177
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 177
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000000
+rax at instrcount: 177
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000002
+rdx at instrcount: 178
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 178
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 178
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000002
+rax at instrcount: 178
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000002
+rdx at instrcount: 179
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 179
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 179
+
+Failed:[4m[1m[91mFail[0m
+0000000000000028 != 0000000000000002
+rax at instrcount: 179
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000002
+rdx at instrcount: 180
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+cf at instrcount: 180
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+af at instrcount: 180
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 180
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+sf at instrcount: 180
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000002
+rax at instrcount: 180
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000002
+rdx at instrcount: 181
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+cf at instrcount: 181
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 181
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+sf at instrcount: 181
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 00007fffffffd908
+rax at instrcount: 181
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000002
+rdx at instrcount: 182
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+cf at instrcount: 182
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 182
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+sf at instrcount: 182
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000002
+rdx at instrcount: 183
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+cf at instrcount: 183
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 183
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+sf at instrcount: 183
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000002
+rdx at instrcount: 184
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000002
+rdx at instrcount: 185
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 185
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000002
+rdx at instrcount: 186
+
+Failed:[4m[1m[91mFail[0m
+0000000000000028 != 0000000000000003
+rsi at instrcount: 186
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 186
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000003
+rax at instrcount: 186
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000002
+rdx at instrcount: 187
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000003
+rsi at instrcount: 187
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 187
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000003
+rax at instrcount: 187
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000002
+rdx at instrcount: 188
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000003
+rsi at instrcount: 188
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000003
+rax at instrcount: 188
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000002
+rdx at instrcount: 189
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000003
+rsi at instrcount: 189
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 00007fffffffd8e0
+rax at instrcount: 189
+
+Failed:[4m[1m[91mFail[0m
+0000000000000003 != 0000000000000002
+rdx at instrcount: 190
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000003
+rsi at instrcount: 190
+
+Passed:[4m[1m[92mPassed[0m

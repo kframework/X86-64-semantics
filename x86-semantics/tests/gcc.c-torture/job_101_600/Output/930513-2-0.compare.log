@@ -1,0 +1,68 @@
+grep  -A 40  "ListItem"  Output/930513-2-0.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfilegZyX5 2>&1 
+numOfInstrs: 166
+[4m[1m[34m930513-2-0 Compare Results :[0m
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 32
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 33
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 34
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 35
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 67
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 68
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 69
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 70
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 102
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 103
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 104
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 105
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 137
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 138
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 139
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 140
+
+Passed:[4m[1m[92mPassed[0m
