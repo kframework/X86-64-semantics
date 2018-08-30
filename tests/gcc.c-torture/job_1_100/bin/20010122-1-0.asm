@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .comm	save_ret1,48,32
@@ -341,9 +324,9 @@ test4:
     call	test4a
     movq	-8(%rbp), %rcx
     xorq	$40, %rcx
-    je	L53
+    je	L49
     call	__stack_chk_fail
-L53:
+L49:
     leave
     ret
     .globl	test4a
@@ -383,9 +366,9 @@ test5:
     call	test5a
     movq	-8(%rbp), %rcx
     xorq	$40, %rcx
-    je	L58
+    je	L54
     call	__stack_chk_fail
-L58:
+L54:
     leave
     ret
     .globl	test5a
@@ -427,9 +410,9 @@ test6:
     call	test6a
     movq	-8(%rbp), %rcx
     xorq	$40, %rcx
-    je	L63
+    je	L59
     call	__stack_chk_fail
-L63:
+L59:
     leave
     ret
     .globl	test6a
@@ -530,9 +513,9 @@ test10:
     nop
     movq	-8(%rbp), %rax
     xorq	$40, %rax
-    je	L74
+    je	L70
     call	__stack_chk_fail
-L74:
+L70:
     leave
     ret
     .globl	test10a
@@ -573,9 +556,9 @@ test11:
     nop
     movq	-8(%rbp), %rax
     xorq	$40, %rax
-    je	L78
+    je	L74
     call	__stack_chk_fail
-L78:
+L74:
     leave
     ret
     .globl	test11a
@@ -618,9 +601,9 @@ test12:
     nop
     movq	-8(%rbp), %rax
     xorq	$40, %rax
-    je	L82
+    je	L78
     call	__stack_chk_fail
-L82:
+L78:
     leave
     ret
     .globl	test12a
@@ -660,9 +643,9 @@ dummy:
     movq	-16(%rbp), %rax
     movq	-8(%rbp), %rcx
     xorq	$40, %rcx
-    je	L87
+    je	L83
     call	__stack_chk_fail
-L87:
+L83:
     leave
     ret
     .globl	func2
@@ -699,86 +682,86 @@ _start:
     movq	%rsp, %rbp
     subq	$16, %rsp
     movl	$0, -4(%rbp)
-    jmp	L90
-L91:
+    jmp	L86
+L87:
     movl	-4(%rbp), %eax
     movl	%eax, %edi
     call	call_func1
     addl	$1, -4(%rbp)
-L90:
+L86:
     cmpl	$5, -4(%rbp)
-    jle	L91
+    jle	L87
     movq	save_ret1(%rip), %rdx
     movq	save_ret1 + 8(%rip), %rax
     cmpq	%rax, %rdx
-    jne	L92
+    jne	L88
     movq	save_ret1 + 8(%rip), %rdx
     movq	save_ret1 + 16(%rip), %rax
     cmpq	%rax, %rdx
-    je	L93
-L92:
+    je	L89
+L88:
     call	abort
-L93:
+L89:
     movq	save_ret1 + 24(%rip), %rdx
     movq	save_ret1 + 32(%rip), %rax
     cmpq	%rax, %rdx
-    jne	L94
+    jne	L90
     movq	save_ret1 + 32(%rip), %rdx
     movq	save_ret1 + 40(%rip), %rax
     cmpq	%rax, %rdx
-    je	L95
-L94:
+    je	L91
+L90:
     call	abort
-L95:
+L91:
     movq	save_ret1 + 24(%rip), %rax
     testq	%rax, %rax
-    je	L96
+    je	L92
     movq	save_ret1(%rip), %rdx
     movq	save_ret1 + 24(%rip), %rax
     cmpq	%rax, %rdx
-    je	L96
+    je	L92
     call	abort
-L96:
+L92:
     movl	$0, -4(%rbp)
-    jmp	L97
-L98:
+    jmp	L93
+L94:
     movl	-4(%rbp), %eax
     movl	%eax, %edi
     call	call_func2
     addl	$1, -4(%rbp)
-L97:
+L93:
     cmpl	$5, -4(%rbp)
-    jle	L98
+    jle	L94
     movq	save_ret2(%rip), %rdx
     movq	save_ret2 + 8(%rip), %rax
     cmpq	%rax, %rdx
-    jne	L99
+    jne	L95
     movq	save_ret2 + 8(%rip), %rdx
     movq	save_ret2 + 16(%rip), %rax
     cmpq	%rax, %rdx
-    je	L100
-L99:
+    je	L96
+L95:
     call	abort
-L100:
+L96:
     movq	save_ret2 + 24(%rip), %rdx
     movq	save_ret2 + 32(%rip), %rax
     cmpq	%rax, %rdx
-    jne	L101
+    jne	L97
     movq	save_ret2 + 32(%rip), %rdx
     movq	save_ret2 + 40(%rip), %rax
     cmpq	%rax, %rdx
-    je	L102
-L101:
+    je	L98
+L97:
     call	abort
-L102:
+L98:
     movq	save_ret2 + 24(%rip), %rax
     testq	%rax, %rax
-    je	L103
+    je	L99
     movq	save_ret2(%rip), %rdx
     movq	save_ret2 + 24(%rip), %rax
     cmpq	%rax, %rdx
-    je	L103
+    je	L99
     call	abort
-L103:
+L99:
     movl	$0, %edi
     call	exit

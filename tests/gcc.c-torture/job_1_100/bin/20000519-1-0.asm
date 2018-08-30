@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .globl	bar
@@ -289,11 +272,11 @@ bar:
     movq	%rsp, %rbp
     movl	%edi, -20(%rbp)
     movq	%rsi, -32(%rbp)
-L48:
+L44:
     movq	-32(%rbp), %rax
     movl	(%rax), %eax
     cmpl	$48, %eax
-    jnb	L46
+    jnb	L42
     movq	-32(%rbp), %rax
     movq	16(%rax), %rdx
     movq	-32(%rbp), %rax
@@ -305,18 +288,18 @@ L48:
     leal	8(%rdx), %ecx
     movq	-32(%rbp), %rdx
     movl	%ecx, (%rdx)
-    jmp	L47
-L46:
+    jmp	L43
+L42:
     movq	-32(%rbp), %rax
     movq	8(%rax), %rax
     leaq	8(%rax), %rcx
     movq	-32(%rbp), %rdx
     movq	%rcx, 8(%rdx)
-L47:
+L43:
     movl	(%rax), %eax
     movl	%eax, -4(%rbp)
     cmpl	$10, -4(%rbp)
-    jg	L48
+    jg	L44
     movl	-20(%rbp), %edx
     movl	-4(%rbp), %eax
     addl	%edx, %eax
@@ -334,7 +317,7 @@ foo:
     movq	%r8, -144(%rbp)
     movq	%r9, -136(%rbp)
     testb	%al, %al
-    je	L51
+    je	L47
     vmovaps	%xmm0, -128(%rbp)
     vmovaps	%xmm1, -112(%rbp)
     vmovaps	%xmm2, -96(%rbp)
@@ -343,7 +326,7 @@ foo:
     vmovaps	%xmm5, -48(%rbp)
     vmovaps	%xmm6, -32(%rbp)
     vmovaps	%xmm7, -16(%rbp)
-L51:
+L47:
     movq	$40, %rax
     movq	%rax, -184(%rbp)
     xorl	%eax, %eax
@@ -360,9 +343,9 @@ L51:
     call	bar
     movq	-184(%rbp), %rcx
     xorq	$40, %rcx
-    je	L53
+    je	L49
     call	__stack_chk_fail
-L53:
+L49:
     leave
     ret
     .globl	main
@@ -376,9 +359,9 @@ _start:
     movl	$0, %eax
     call	foo
     cmpl	$3, %eax
-    je	L55
+    je	L51
     call	abort
-L55:
+L51:
     movl	$0, %eax
     popq	%rbp
     ret

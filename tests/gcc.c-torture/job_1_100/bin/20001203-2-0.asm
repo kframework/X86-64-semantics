@@ -228,23 +228,6 @@ L32:
     movq	-24(%rbp), %rax
     popq	%rbp
     ret
-    .globl	malloc
-malloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
-    .globl	calloc
-calloc:
-    pushq	%rbp
-    movq	%rsp, %rbp
-    movq	%rdi, -8(%rbp)
-    movq	%rsi, -16(%rbp)
-    movl	$1000, %eax
-    popq	%rbp
-    ret
     .globl	free
 free:
     pushq	%rbp
@@ -259,28 +242,28 @@ isprint:
     movq	%rsp, %rbp
     movl	%edi, -4(%rbp)
     cmpl	$96, -4(%rbp)
-    jle	L41
+    jle	L37
     cmpl	$122, -4(%rbp)
-    jg	L41
+    jg	L37
     movl	$1, %eax
-    jmp	L42
-L41:
+    jmp	L38
+L37:
     cmpl	$64, -4(%rbp)
-    jle	L43
+    jle	L39
     cmpl	$90, -4(%rbp)
-    jg	L43
+    jg	L39
     movl	$1, %eax
-    jmp	L42
-L43:
+    jmp	L38
+L39:
     cmpl	$47, -4(%rbp)
-    jle	L44
+    jle	L40
     cmpl	$57, -4(%rbp)
-    jg	L44
+    jg	L40
     movl	$1, %eax
-    jmp	L42
-L44:
+    jmp	L38
+L40:
     movl	$0, %eax
-L42:
+L38:
     popq	%rbp
     ret
     .globl	create_array_type
@@ -294,10 +277,10 @@ create_array_type:
     movq	%rax, -8(%rbp)
     xorl	%eax, %eax
     cmpq	$0, -72(%rbp)
-    jne	L46
+    jne	L42
     call	alloc_type
     movq	%rax, -72(%rbp)
-L46:
+L42:
     leaq	-48(%rbp), %rdx
     leaq	-56(%rbp), %rax
     movq	%rdx, %rsi
@@ -318,7 +301,7 @@ L46:
     movq	-72(%rbp), %rax
     movq	8(%rax), %rax
     testq	%rax, %rax
-    je	L47
+    je	L43
     movq	-72(%rbp), %rax
     movq	8(%rax), %rax
     addq	$8, %rax
@@ -335,13 +318,13 @@ L46:
     movl	-60(%rbp), %eax
     cltq
     cmpq	%rax, %rdx
-    jge	L48
+    jge	L44
     movl	-60(%rbp), %edx
     movq	-32(%rbp), %rax
     movl	%edx, %esi
     movq	%rax, %rdi
     call	_obstack_newchunk
-L48:
+L44:
     movq	-32(%rbp), %rax
     movq	24(%rax), %rdx
     movl	-60(%rbp), %eax
@@ -357,10 +340,10 @@ L48:
     movq	-24(%rbp), %rax
     movq	24(%rax), %rax
     cmpq	-16(%rbp), %rax
-    jne	L49
+    jne	L45
     movq	-24(%rbp), %rax
     movl	$1, 44(%rax)
-L49:
+L45:
     movq	-24(%rbp), %rax
     movq	24(%rax), %rax
     movq	%rax, %rdx
@@ -390,30 +373,30 @@ L49:
     subq	%rax, %rcx
     movq	%rcx, %rax
     cmpq	%rax, %rdx
-    jle	L50
+    jle	L46
     movq	-24(%rbp), %rax
     movq	32(%rax), %rdx
     movq	-24(%rbp), %rax
     movq	%rdx, 24(%rax)
-L50:
+L46:
     movq	-24(%rbp), %rax
     movq	24(%rax), %rdx
     movq	-24(%rbp), %rax
     movq	%rdx, 16(%rax)
     movq	-16(%rbp), %rax
-    jmp	L51
-L47:
+    jmp	L47
+L43:
     movl	$32, %edi
     call	xmalloc
-L51:
+L47:
     movq	-72(%rbp), %rdx
     movq	%rax, 24(%rdx)
     movq	-72(%rbp), %rax
     movq	-8(%rbp), %rsi
     xorq	$40, %rsi
-    je	L53
+    je	L49
     call	__stack_chk_fail
-L53:
+L49:
     leave
     ret
     .globl	alloc_type
@@ -477,8 +460,8 @@ _start:
     call	create_array_type
     movl	-48(%rbp), %eax
     cmpl	$12, %eax
-    je	L60
+    je	L56
     call	abort
-L60:
+L56:
     movl	$0, %edi
     call	exit
