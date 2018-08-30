@@ -304,7 +304,7 @@ render_image_rgb_a:
     vdivss	%xmm1, %xmm0, %xmm0
     vmovss	%xmm0, -4(%rbp)
     vxorps	%xmm0, %xmm0, %xmm0
-    vcvtsi2ss	-16(%rbp), %xmm0, %xmm0
+    vcvtsi2ssl	-16(%rbp), %xmm0, %xmm0
     vmulss	-4(%rbp), %xmm0, %xmm0
     vmovss	%xmm0, -12(%rbp)
     vmovss	-12(%rbp), %xmm0

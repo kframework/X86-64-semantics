@@ -132,3 +132,5 @@ vxorpd
 vxorps
 xorl
 xorq
+setle
+shldq

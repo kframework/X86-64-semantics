@@ -609,7 +609,7 @@ sub processKFile {
 
         }
         else {
-            print("Skipped::$line\n");
+          #print("Skipped::$line\n");
         }
     }
 
