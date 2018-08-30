@@ -1,0 +1,472 @@
+
+20011123-1
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20011123-1.asm   --output-file Output/20011123-1.kstate 
+cat Output/20011123-1.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileq5b9k  2>&1 &&  mv /tmp/tmpfileq5b9k Output/20011123-1.kstate 
+Passed:[4m[1m[92mOutput/20011123-1.kstate: Pass: krun[0m
+809.29user 44.58system 5:33.27elapsed 256%CPU (0avgtext+0avgdata 11682648maxresident)k
+45712inputs+14256outputs (176major+9457104minor)pagefaults 0swaps
+
+20010226-1
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20010226-1.asm   --output-file Output/20010226-1.kstate 
+cat Output/20010226-1.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileoGV2l  2>&1 &&  mv /tmp/tmpfileoGV2l Output/20010226-1.kstate 
+Passed:[4m[1m[92mOutput/20010226-1.kstate: Pass: krun[0m
+931.97user 21.32system 5:42.61elapsed 278%CPU (0avgtext+0avgdata 11277948maxresident)k
+11128inputs+14304outputs (46major+5719626minor)pagefaults 0swaps
+
+20010114-2
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20010114-2.asm   --output-file Output/20010114-2.kstate 
+cat Output/20010114-2.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilefkFid  2>&1 &&  mv /tmp/tmpfilefkFid Output/20010114-2.kstate 
+Passed:[4m[1m[92mOutput/20010114-2.kstate: Pass: krun[0m
+886.10user 56.08system 5:47.92elapsed 270%CPU (0avgtext+0avgdata 11725284maxresident)k
+41152inputs+14392outputs (78major+9503568minor)pagefaults 0swaps
+
+20000320-1
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20000320-1.asm   --output-file Output/20000320-1.kstate 
+cat Output/20000320-1.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileBoERM  2>&1 &&  mv /tmp/tmpfileBoERM Output/20000320-1.kstate 
+Passed:[4m[1m[92mOutput/20000320-1.kstate: Pass: krun[0m
+925.01user 42.44system 6:02.03elapsed 267%CPU (0avgtext+0avgdata 11072536maxresident)k
+61632inputs+15040outputs (41major+10596783minor)pagefaults 0swaps
+
+20001122-1
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20001122-1.asm   --output-file Output/20001122-1.kstate 
+cat Output/20001122-1.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfile6pLnM  2>&1 &&  mv /tmp/tmpfile6pLnM Output/20001122-1.kstate 
+Passed:[4m[1m[92mOutput/20001122-1.kstate: Pass: krun[0m
+961.02user 39.70system 6:37.23elapsed 251%CPU (0avgtext+0avgdata 11036548maxresident)k
+10584inputs+16176outputs (33major+12792354minor)pagefaults 0swaps
+
+20030331-1
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20030331-1.asm   --output-file Output/20030331-1.kstate 
+cat Output/20030331-1.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilevZk4h  2>&1 &&  mv /tmp/tmpfilevZk4h Output/20030331-1.kstate 
+Passed:[4m[1m[92mOutput/20030331-1.kstate: Pass: krun[0m
+770.28user 63.54system 5:13.02elapsed 266%CPU (0avgtext+0avgdata 12431756maxresident)k
+16inputs+14264outputs (0major+13349399minor)pagefaults 0swaps
+
+920518-1
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//920518-1.asm   --output-file Output/920518-1.kstate 
+cat Output/920518-1.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfile9zH2Q  2>&1 &&  mv /tmp/tmpfile9zH2Q Output/920518-1.kstate 
+Passed:[4m[1m[92mOutput/920518-1.kstate: Pass: krun[0m
+711.59user 41.17system 5:12.21elapsed 241%CPU (0avgtext+0avgdata 12127292maxresident)k
+16inputs+14208outputs (0major+11934212minor)pagefaults 0swaps
+
+20041213-1
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20041213-1.asm   --output-file Output/20041213-1.kstate 
+cat Output/20041213-1.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilejxPM3  2>&1 &&  mv /tmp/tmpfilejxPM3 Output/20041213-1.kstate 
+Failed:[4m[1m[91mOutput/20041213-1.kstate: Non exit status[0m
+[Warning] Internal: Ignored exception thrown by hook Float2MInt (NaN payload is
+undefined)
+839.49user 65.11system 5:19.65elapsed 282%CPU (0avgtext+0avgdata 12514480maxresident)k
+16inputs+14208outputs (0major+13673383minor)pagefaults 0swaps
+
+920810-1
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//920810-1.asm   --output-file Output/920810-1.kstate 
+cat Output/920810-1.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilef84RP  2>&1 &&  mv /tmp/tmpfilef84RP Output/920810-1.kstate 
+Passed:[4m[1m[92mOutput/920810-1.kstate: Pass: krun[0m
+726.69user 67.43system 5:02.29elapsed 262%CPU (0avgtext+0avgdata 12539988maxresident)k
+16inputs+14176outputs (0major+11960743minor)pagefaults 0swaps
+
+930529-1
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//930529-1.asm   --output-file Output/930529-1.kstate 
+cat Output/930529-1.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileUAyHa  2>&1 &&  mv /tmp/tmpfileUAyHa Output/930529-1.kstate 
+Passed:[4m[1m[92mOutput/930529-1.kstate: Pass: krun[0m
+778.44user 68.56system 4:50.30elapsed 291%CPU (0avgtext+0avgdata 13017772maxresident)k
+16inputs+14144outputs (0major+12881090minor)pagefaults 0swaps
+
+builtin-nan-1
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//builtin-nan-1.asm   --output-file Output/builtin-nan-1.kstate 
+cat Output/builtin-nan-1.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfile17u4T  2>&1 &&  mv /tmp/tmpfile17u4T Output/builtin-nan-1.kstate 
+Passed:[4m[1m[92mOutput/builtin-nan-1.kstate: Pass: krun[0m
+888.64user 55.20system 5:38.29elapsed 278%CPU (0avgtext+0avgdata 13266028maxresident)k
+16inputs+14480outputs (0major+12553266minor)pagefaults 0swaps
+
+980619-1
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//980619-1.asm   --output-file Output/980619-1.kstate 
+cat Output/980619-1.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilepISzA  2>&1 &&  mv /tmp/tmpfilepISzA Output/980619-1.kstate 
+Passed:[4m[1m[92mOutput/980619-1.kstate: Pass: krun[0m
+844.66user 28.21system 6:01.26elapsed 241%CPU (0avgtext+0avgdata 12348568maxresident)k
+16inputs+15048outputs (0major+6216196minor)pagefaults 0swaps
+
+acc1
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//acc1.asm   --output-file Output/acc1.kstate 
+cat Output/acc1.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilebw1gK  2>&1 &&  mv /tmp/tmpfilebw1gK Output/acc1.kstate 
+Passed:[4m[1m[92mOutput/acc1.kstate: Pass: krun[0m
+831.83user 53.07system 5:51.43elapsed 251%CPU (0avgtext+0avgdata 12443680maxresident)k
+16inputs+14520outputs (0major+11346191minor)pagefaults 0swaps
+
+acc2
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//acc2.asm   --output-file Output/acc2.kstate 
+cat Output/acc2.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileLu5x_  2>&1 &&  mv /tmp/tmpfileLu5x_ Output/acc2.kstate 
+Passed:[4m[1m[92mOutput/acc2.kstate: Pass: krun[0m
+858.96user 61.25system 6:05.23elapsed 251%CPU (0avgtext+0avgdata 12416228maxresident)k
+16inputs+14536outputs (0major+15828220minor)pagefaults 0swaps
+
+compare-fp-2
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//compare-fp-2.asm   --output-file Output/compare-fp-2.kstate 
+cat Output/compare-fp-2.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfile2D9Rv  2>&1 &&  mv /tmp/tmpfile2D9Rv Output/compare-fp-2.kstate 
+Passed:[4m[1m[92mOutput/compare-fp-2.kstate: Pass: krun[0m
+808.86user 74.16system 5:52.44elapsed 250%CPU (0avgtext+0avgdata 12830804maxresident)k
+16inputs+14336outputs (0major+13617147minor)pagefaults 0swaps
+
+compare-fp-1
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//compare-fp-1.asm   --output-file Output/compare-fp-1.kstate 
+cat Output/compare-fp-1.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileUXbAG  2>&1 &&  mv /tmp/tmpfileUXbAG Output/compare-fp-1.kstate 
+Passed:[4m[1m[92mOutput/compare-fp-1.kstate: Pass: krun[0m
+4419.08user 94.13system 11:10.40elapsed 673%CPU (0avgtext+0avgdata 12642356maxresident)k
+64inputs+20104outputs (0major+22973856minor)pagefaults 0swaps
+
+compare-fp-3
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//compare-fp-3.asm   --output-file Output/compare-fp-3.kstate 
+cat Output/compare-fp-3.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfile1VkB4  2>&1 &&  mv /tmp/tmpfile1VkB4 Output/compare-fp-3.kstate 
+Passed:[4m[1m[92mOutput/compare-fp-3.kstate: Pass: krun[0m
+1005.28user 54.84system 6:41.29elapsed 264%CPU (0avgtext+0avgdata 10910784maxresident)k
+24inputs+15232outputs (0major+12774253minor)pagefaults 0swaps
+
+copysign1
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//copysign1.asm   --output-file Output/copysign1.kstate 
+cat Output/copysign1.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfile33IRP  2>&1 &&  mv /tmp/tmpfile33IRP Output/copysign1.kstate 
+Passed:[4m[1m[92mOutput/copysign1.kstate: Pass: krun[0m
+1159.65user 85.79system 9:58.40elapsed 208%CPU (0avgtext+0avgdata 12702160maxresident)k
+24inputs+23528outputs (0major+22346557minor)pagefaults 0swaps
+
+fp-cmp-1
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//fp-cmp-1.asm   --output-file Output/fp-cmp-1.kstate 
+cat Output/fp-cmp-1.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilezBnkc  2>&1 &&  mv /tmp/tmpfilezBnkc Output/fp-cmp-1.kstate 
+Passed:[4m[1m[92mOutput/fp-cmp-1.kstate: Pass: krun[0m
+839.46user 51.95system 5:09.76elapsed 287%CPU (0avgtext+0avgdata 12783444maxresident)k
+16inputs+14280outputs (0major+11687074minor)pagefaults 0swaps
+
+compare-fp-4
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//compare-fp-4.asm   --output-file Output/compare-fp-4.kstate 
+cat Output/compare-fp-4.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfile4z1Ev  2>&1 &&  mv /tmp/tmpfile4z1Ev Output/compare-fp-4.kstate 
+Passed:[4m[1m[92mOutput/compare-fp-4.kstate: Pass: krun[0m
+4582.72user 92.36system 10:58.08elapsed 710%CPU (0avgtext+0avgdata 12655068maxresident)k
+56inputs+20224outputs (0major+27771349minor)pagefaults 0swaps
+
+fp-cmp-2
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//fp-cmp-2.asm   --output-file Output/fp-cmp-2.kstate 
+cat Output/fp-cmp-2.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilexRpXf  2>&1 &&  mv /tmp/tmpfilexRpXf Output/fp-cmp-2.kstate 
+Passed:[4m[1m[92mOutput/fp-cmp-2.kstate: Pass: krun[0m
+753.70user 55.09system 5:18.26elapsed 254%CPU (0avgtext+0avgdata 12422452maxresident)k
+16inputs+14304outputs (0major+13804690minor)pagefaults 0swaps
+
+copysign2
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//copysign2.asm   --output-file Output/copysign2.kstate 
+cat Output/copysign2.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileD9Yll  2>&1 &&  mv /tmp/tmpfileD9Yll Output/copysign2.kstate 
+Passed:[4m[1m[92mOutput/copysign2.kstate: Pass: krun[0m
+1265.50user 91.15system 8:38.03elapsed 261%CPU (0avgtext+0avgdata 12567060maxresident)k
+32inputs+21512outputs (0major+20239415minor)pagefaults 0swaps
+
+fp-cmp-3
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//fp-cmp-3.asm   --output-file Output/fp-cmp-3.kstate 
+cat Output/fp-cmp-3.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileUw7uv  2>&1 &&  mv /tmp/tmpfileUw7uv Output/fp-cmp-3.kstate 
+Passed:[4m[1m[92mOutput/fp-cmp-3.kstate: Pass: krun[0m
+772.35user 44.98system 5:01.05elapsed 271%CPU (0avgtext+0avgdata 11583416maxresident)k
+16inputs+14200outputs (0major+6237424minor)pagefaults 0swaps
+
+fp-cmp-4e
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//fp-cmp-4e.asm   --output-file Output/fp-cmp-4e.kstate 
+cat Output/fp-cmp-4e.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilev34Sm  2>&1 &&  mv /tmp/tmpfilev34Sm Output/fp-cmp-4e.kstate 
+Passed:[4m[1m[92mOutput/fp-cmp-4e.kstate: Pass: krun[0m
+767.27user 64.64system 5:12.75elapsed 265%CPU (0avgtext+0avgdata 12454636maxresident)k
+16inputs+14176outputs (0major+13059111minor)pagefaults 0swaps
+
+fp-cmp-4f
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//fp-cmp-4f.asm   --output-file Output/fp-cmp-4f.kstate 
+cat Output/fp-cmp-4f.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfile3HCby  2>&1 &&  mv /tmp/tmpfile3HCby Output/fp-cmp-4f.kstate 
+Passed:[4m[1m[92mOutput/fp-cmp-4f.kstate: Pass: krun[0m
+1182.94user 47.01system 5:38.57elapsed 363%CPU (0avgtext+0avgdata 12793384maxresident)k
+24inputs+14592outputs (0major+14840174minor)pagefaults 0swaps
+
+fp-cmp-4l
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//fp-cmp-4l.asm   --output-file Output/fp-cmp-4l.kstate 
+cat Output/fp-cmp-4l.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfile42vnY  2>&1 &&  mv /tmp/tmpfile42vnY Output/fp-cmp-4l.kstate 
+Passed:[4m[1m[92mOutput/fp-cmp-4l.kstate: Pass: krun[0m
+1106.99user 38.64system 5:19.73elapsed 358%CPU (0avgtext+0avgdata 12424176maxresident)k
+32inputs+14640outputs (0major+7955609minor)pagefaults 0swaps
+
+fp-cmp-4
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//fp-cmp-4.asm   --output-file Output/fp-cmp-4.kstate 
+cat Output/fp-cmp-4.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileETIv5  2>&1 &&  mv /tmp/tmpfileETIv5 Output/fp-cmp-4.kstate 
+Passed:[4m[1m[92mOutput/fp-cmp-4.kstate: Pass: krun[0m
+1151.39user 69.99system 5:40.52elapsed 358%CPU (0avgtext+0avgdata 12225992maxresident)k
+32inputs+14704outputs (0major+15691249minor)pagefaults 0swaps
+
+fp-cmp-6
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//fp-cmp-6.asm   --output-file Output/fp-cmp-6.kstate 
+cat Output/fp-cmp-6.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileai1id  2>&1 &&  mv /tmp/tmpfileai1id Output/fp-cmp-6.kstate 
+Passed:[4m[1m[92mOutput/fp-cmp-6.kstate: Pass: krun[0m
+803.18user 34.15system 4:56.21elapsed 282%CPU (0avgtext+0avgdata 12187100maxresident)k
+16inputs+14304outputs (0major+10292222minor)pagefaults 0swaps
+
+fp-cmp-7
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//fp-cmp-7.asm   --output-file Output/fp-cmp-7.kstate 
+cat Output/fp-cmp-7.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfile71FMJ  2>&1 &&  mv /tmp/tmpfile71FMJ Output/fp-cmp-7.kstate 
+Passed:[4m[1m[92mOutput/fp-cmp-7.kstate: Pass: krun[0m
+739.08user 70.68system 4:51.10elapsed 278%CPU (0avgtext+0avgdata 12187608maxresident)k
+16inputs+14184outputs (0major+11642533minor)pagefaults 0swaps
+
+fp-cmp-8e
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//fp-cmp-8e.asm   --output-file Output/fp-cmp-8e.kstate 
+cat Output/fp-cmp-8e.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileXBaio  2>&1 &&  mv /tmp/tmpfileXBaio Output/fp-cmp-8e.kstate 
+Passed:[4m[1m[92mOutput/fp-cmp-8e.kstate: Pass: krun[0m
+748.50user 75.70system 5:10.14elapsed 265%CPU (0avgtext+0avgdata 12201900maxresident)k
+16inputs+14120outputs (0major+12906047minor)pagefaults 0swaps
+
+fp-cmp-5
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//fp-cmp-5.asm   --output-file Output/fp-cmp-5.kstate 
+cat Output/fp-cmp-5.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfile6AEr3  2>&1 &&  mv /tmp/tmpfile6AEr3 Output/fp-cmp-5.kstate 
+Passed:[4m[1m[92mOutput/fp-cmp-5.kstate: Pass: krun[0m
+1195.50user 72.42system 9:03.80elapsed 233%CPU (0avgtext+0avgdata 12224400maxresident)k
+24inputs+22088outputs (0major+21887134minor)pagefaults 0swaps
+
+hugeval
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//hugeval.asm   --output-file Output/hugeval.kstate 
+cat Output/hugeval.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilehZGn6  2>&1 &&  mv /tmp/tmpfilehZGn6 Output/hugeval.kstate 
+Passed:[4m[1m[92mOutput/hugeval.kstate: Pass: krun[0m
+746.54user 68.84system 4:49.06elapsed 282%CPU (0avgtext+0avgdata 12241016maxresident)k
+16inputs+14232outputs (0major+10415205minor)pagefaults 0swaps
+
+inf-1
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//inf-1.asm   --output-file Output/inf-1.kstate 
+cat Output/inf-1.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileGijxw  2>&1 &&  mv /tmp/tmpfileGijxw Output/inf-1.kstate 
+Passed:[4m[1m[92mOutput/inf-1.kstate: Pass: krun[0m
+765.55user 46.30system 4:44.95elapsed 284%CPU (0avgtext+0avgdata 12178764maxresident)k
+16inputs+14144outputs (0major+10990701minor)pagefaults 0swaps
+
+inf-2
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//inf-2.asm   --output-file Output/inf-2.kstate 
+cat Output/inf-2.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileMKnKF  2>&1 &&  mv /tmp/tmpfileMKnKF Output/inf-2.kstate 
+Passed:[4m[1m[92mOutput/inf-2.kstate: Pass: krun[0m
+823.36user 33.69system 5:00.10elapsed 285%CPU (0avgtext+0avgdata 12442936maxresident)k
+16inputs+14352outputs (0major+8544008minor)pagefaults 0swaps
+
+inf-3
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//inf-3.asm   --output-file Output/inf-3.kstate 
+cat Output/inf-3.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfile2Zlu7  2>&1 &&  mv /tmp/tmpfile2Zlu7 Output/inf-3.kstate 
+Passed:[4m[1m[92mOutput/inf-3.kstate: Pass: krun[0m
+820.57user 42.82system 4:56.81elapsed 290%CPU (0avgtext+0avgdata 11928188maxresident)k
+16inputs+14280outputs (0major+7212398minor)pagefaults 0swaps
+
+fp-cmp-8f
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//fp-cmp-8f.asm   --output-file Output/fp-cmp-8f.kstate 
+cat Output/fp-cmp-8f.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilePC3OF  2>&1 &&  mv /tmp/tmpfilePC3OF Output/fp-cmp-8f.kstate 
+Passed:[4m[1m[92mOutput/fp-cmp-8f.kstate: Pass: krun[0m
+1515.15user 123.41system 15:47.39elapsed 172%CPU (0avgtext+0avgdata 12149896maxresident)k
+32inputs+34440outputs (0major+33732498minor)pagefaults 0swaps
+
+minuszero
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//minuszero.asm   --output-file Output/minuszero.kstate 
+cat Output/minuszero.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfile81R4M  2>&1 &&  mv /tmp/tmpfile81R4M Output/minuszero.kstate 
+Passed:[4m[1m[92mOutput/minuszero.kstate: Pass: krun[0m
+757.76user 59.01system 4:54.47elapsed 277%CPU (0avgtext+0avgdata 12064956maxresident)k
+16inputs+14216outputs (0major+10830455minor)pagefaults 0swaps
+
+fp-cmp-8l
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//fp-cmp-8l.asm   --output-file Output/fp-cmp-8l.kstate 
+cat Output/fp-cmp-8l.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileBWKxn  2>&1 &&  mv /tmp/tmpfileBWKxn Output/fp-cmp-8l.kstate 
+Passed:[4m[1m[92mOutput/fp-cmp-8l.kstate: Pass: krun[0m
+1792.34user 147.86system 17:51.24elapsed 181%CPU (0avgtext+0avgdata 13326576maxresident)k
+32inputs+41432outputs (0major+34108926minor)pagefaults 0swaps
+
+fp-cmp-8
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//fp-cmp-8.asm   --output-file Output/fp-cmp-8.kstate 
+cat Output/fp-cmp-8.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfile4RJcI  2>&1 &&  mv /tmp/tmpfile4RJcI Output/fp-cmp-8.kstate 
+Passed:[4m[1m[92mOutput/fp-cmp-8.kstate: Pass: krun[0m
+1800.76user 176.53system 17:43.94elapsed 185%CPU (0avgtext+0avgdata 12194332maxresident)k
+32inputs+41264outputs (0major+41744918minor)pagefaults 0swaps
+
+mul-subnormal-single-1
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//mul-subnormal-single-1.asm   --output-file Output/mul-subnormal-single-1.kstate 
+cat Output/mul-subnormal-single-1.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilee478y  2>&1 &&  mv /tmp/tmpfilee478y Output/mul-subnormal-single-1.kstate 
+Passed:[4m[1m[92mOutput/mul-subnormal-single-1.kstate: Pass: krun[0m
+802.32user 72.21system 5:31.72elapsed 263%CPU (0avgtext+0avgdata 12383064maxresident)k
+16inputs+15088outputs (0major+13734699minor)pagefaults 0swaps
+
+mzero3
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//mzero3.asm   --output-file Output/mzero3.kstate 
+cat Output/mzero3.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileRhfCS  2>&1 &&  mv /tmp/tmpfileRhfCS Output/mzero3.kstate 
+Passed:[4m[1m[92mOutput/mzero3.kstate: Pass: krun[0m
+822.17user 40.16system 5:28.95elapsed 262%CPU (0avgtext+0avgdata 11789436maxresident)k
+16inputs+15424outputs (0major+5753223minor)pagefaults 0swaps
+
+mzero2
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//mzero2.asm   --output-file Output/mzero2.kstate 
+cat Output/mzero2.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileXMZzx  2>&1 &&  mv /tmp/tmpfileXMZzx Output/mzero2.kstate 
+Failed:[4m[1m[91mOutput/mzero2.kstate: Non exit status[0m
+[Warning] Internal: Ignored exception thrown by hook Float2MInt (NaN payload is
+undefined)
+1095.76user 78.59system 7:37.56elapsed 256%CPU (0avgtext+0avgdata 12167116maxresident)k
+24inputs+20080outputs (0major+12624438minor)pagefaults 0swaps
+
+mzero5
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//mzero5.asm   --output-file Output/mzero5.kstate 
+cat Output/mzero5.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfiled2dr9  2>&1 &&  mv /tmp/tmpfiled2dr9 Output/mzero5.kstate 
+Passed:[4m[1m[92mOutput/mzero5.kstate: Pass: krun[0m
+752.08user 32.47system 5:08.20elapsed 254%CPU (0avgtext+0avgdata 12406520maxresident)k
+16inputs+14568outputs (0major+6964852minor)pagefaults 0swaps
+
+mzero6
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//mzero6.asm   --output-file Output/mzero6.kstate 
+cat Output/mzero6.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfiler9nFt  2>&1 &&  mv /tmp/tmpfiler9nFt Output/mzero6.kstate 
+Passed:[4m[1m[92mOutput/mzero6.kstate: Pass: krun[0m
+789.51user 43.37system 5:01.30elapsed 276%CPU (0avgtext+0avgdata 12671588maxresident)k
+16inputs+14576outputs (0major+11520827minor)pagefaults 0swaps
+
+mzero4
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//mzero4.asm   --output-file Output/mzero4.kstate 
+cat Output/mzero4.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilevX19D  2>&1 &&  mv /tmp/tmpfilevX19D Output/mzero4.kstate 
+Passed:[4m[1m[92mOutput/mzero4.kstate: Pass: krun[0m
+852.25user 36.62system 6:24.03elapsed 231%CPU (0avgtext+0avgdata 11736800maxresident)k
+16inputs+17384outputs (0major+7247889minor)pagefaults 0swaps
+
+pr28634
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//pr28634.asm   --output-file Output/pr28634.kstate 
+cat Output/pr28634.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilek4T7g  2>&1 &&  mv /tmp/tmpfilek4T7g Output/pr28634.kstate 
+Passed:[4m[1m[92mOutput/pr28634.kstate: Pass: krun[0m
+722.62user 37.32system 4:58.19elapsed 254%CPU (0avgtext+0avgdata 12415240maxresident)k
+16inputs+14096outputs (0major+9781264minor)pagefaults 0swaps
+
+pr29302-1
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//pr29302-1.asm   --output-file Output/pr29302-1.kstate 
+cat Output/pr29302-1.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileMqkfu  2>&1 &&  mv /tmp/tmpfileMqkfu Output/pr29302-1.kstate 
+Passed:[4m[1m[92mOutput/pr29302-1.kstate: Pass: krun[0m
+764.19user 56.41system 5:12.19elapsed 262%CPU (0avgtext+0avgdata 11129148maxresident)k
+16inputs+14240outputs (0major+11104319minor)pagefaults 0swaps
+
+pr36332
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//pr36332.asm   --output-file Output/pr36332.kstate 
+cat Output/pr36332.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilezKi8s  2>&1 &&  mv /tmp/tmpfilezKi8s Output/pr36332.kstate 
+Passed:[4m[1m[92mOutput/pr36332.kstate: Pass: krun[0m
+714.24user 71.00system 4:51.09elapsed 269%CPU (0avgtext+0avgdata 12349432maxresident)k
+16inputs+14096outputs (0major+12546387minor)pagefaults 0swaps
+
+pr30704
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//pr30704.asm   --output-file Output/pr30704.kstate 
+cat Output/pr30704.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileTePug  2>&1 &&  mv /tmp/tmpfileTePug Output/pr30704.kstate 
+Passed:[4m[1m[92mOutput/pr30704.kstate: Pass: krun[0m
+853.39user 78.25system 5:38.15elapsed 275%CPU (0avgtext+0avgdata 13238668maxresident)k
+16inputs+14768outputs (0major+13782113minor)pagefaults 0swaps
+
+pr67218
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//pr67218.asm   --output-file Output/pr67218.kstate 
+cat Output/pr67218.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileh258a  2>&1 &&  mv /tmp/tmpfileh258a Output/pr67218.kstate 
+Passed:[4m[1m[92mOutput/pr67218.kstate: Pass: krun[0m
+715.32user 28.73system 4:55.14elapsed 252%CPU (0avgtext+0avgdata 12697104maxresident)k
+16inputs+14176outputs (0major+5889365minor)pagefaults 0swaps
+
+pr72824-2
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//pr72824-2.asm   --output-file Output/pr72824-2.kstate 
+cat Output/pr72824-2.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilepdKHX  2>&1 &&  mv /tmp/tmpfilepdKHX Output/pr72824-2.kstate 
+Passed:[4m[1m[92mOutput/pr72824-2.kstate: Pass: krun[0m
+855.55user 52.32system 5:04.11elapsed 298%CPU (0avgtext+0avgdata 12500276maxresident)k
+16inputs+14912outputs (0major+7142398minor)pagefaults 0swaps
+
+pr72824
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//pr72824.asm   --output-file Output/pr72824.kstate 
+cat Output/pr72824.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileR5gs3  2>&1 &&  mv /tmp/tmpfileR5gs3 Output/pr72824.kstate 
+Passed:[4m[1m[92mOutput/pr72824.kstate: Pass: krun[0m
+708.21user 52.63system 5:12.23elapsed 243%CPU (0avgtext+0avgdata 12617384maxresident)k
+16inputs+14880outputs (0major+11159878minor)pagefaults 0swaps
+
+pr50310
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//pr50310.asm   --output-file Output/pr50310.kstate 
+cat Output/pr50310.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfile_vmQd  2>&1 &&  mv /tmp/tmpfile_vmQd Output/pr50310.kstate 
+Passed:[4m[1m[92mOutput/pr50310.kstate: Pass: krun[0m
+1603.69user 139.41system 8:41.88elapsed 333%CPU (0avgtext+0avgdata 13011380maxresident)k
+32inputs+20736outputs (0major+21718670minor)pagefaults 0swaps
+
+pr84235
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//pr84235.asm   --output-file Output/pr84235.kstate 
+cat Output/pr84235.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileMzUmw  2>&1 &&  mv /tmp/tmpfileMzUmw Output/pr84235.kstate 
+Passed:[4m[1m[92mOutput/pr84235.kstate: Pass: krun[0m
+[Warning] Critical: missing SMTLib translation for _(_,_)_MINT-WRAPPER-SYNTAX
+(missing SMTLib translation for _(_,_)_MINT-WRAPPER-SYNTAX)
+[Warning] Internal: Ignored exception thrown by hook Float2MInt (NaN payload is
+undefined)
+783.88user 49.15system 5:07.77elapsed 270%CPU (0avgtext+0avgdata 11677464maxresident)k
+25320inputs+14512outputs (32major+11986964minor)pagefaults 0swaps
+
+rbug
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//rbug.asm   --output-file Output/rbug.kstate 
+cat Output/rbug.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilewnNhk  2>&1 &&  mv /tmp/tmpfilewnNhk Output/rbug.kstate 
+Passed:[4m[1m[92mOutput/rbug.kstate: Pass: krun[0m
+685.76user 58.62system 4:47.39elapsed 259%CPU (0avgtext+0avgdata 12151860maxresident)k
+16inputs+14360outputs (0major+11360305minor)pagefaults 0swaps
+
+unsafe-fp-assoc-1
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//unsafe-fp-assoc-1.asm   --output-file Output/unsafe-fp-assoc-1.kstate 
+cat Output/unsafe-fp-assoc-1.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileW3S7G  2>&1 &&  mv /tmp/tmpfileW3S7G Output/unsafe-fp-assoc-1.kstate 
+Passed:[4m[1m[92mOutput/unsafe-fp-assoc-1.kstate: Pass: krun[0m
+715.78user 63.20system 4:59.63elapsed 259%CPU (0avgtext+0avgdata 12807612maxresident)k
+16inputs+14224outputs (0major+12093387minor)pagefaults 0swaps
+
+unsafe-fp-assoc
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//unsafe-fp-assoc.asm   --output-file Output/unsafe-fp-assoc.kstate 
+cat Output/unsafe-fp-assoc.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileh0zmU  2>&1 &&  mv /tmp/tmpfileh0zmU Output/unsafe-fp-assoc.kstate 
+Passed:[4m[1m[92mOutput/unsafe-fp-assoc.kstate: Pass: krun[0m
+722.21user 65.88system 4:49.16elapsed 272%CPU (0avgtext+0avgdata 12186864maxresident)k
+16inputs+14136outputs (0major+12360295minor)pagefaults 0swaps
+
+pr38016
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//pr38016.asm   --output-file Output/pr38016.kstate 
+cat Output/pr38016.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilefAxvR  2>&1 &&  mv /tmp/tmpfilefAxvR Output/pr38016.kstate 
+Passed:[4m[1m[92mOutput/pr38016.kstate: Pass: krun[0m
+1772.96user 183.79system 18:29.56elapsed 176%CPU (0avgtext+0avgdata 13402236maxresident)k
+32inputs+41440outputs (0major+37420281minor)pagefaults 0swaps
