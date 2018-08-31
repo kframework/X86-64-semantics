@@ -10,7 +10,7 @@ cat bin_worklist.txt | parallel -j5 "echo; echo {}; echo ======; ../../../script
 cat bin_worklist.txt | parallel "../../../scripts/run.pl --file bin/{}.asm --xrun --output Output/{}.xstate --nopathsplit" |& tee runlog.xstate.txt
 cat pass_worklist.txt | parallel "echo ; echo {}; echo =======;  ../../../scripts/run.pl --file bin/{}.asm --compare |& tee Output/{}.compare.log" |& tee runlog.compare.txt
 
-// TO clean the compare log
+// To clean the compare log
 // g/Pass\|Fail\|pf at\|af at\|states\|0 != 1\|1 != 0\|Compare\|grep\|numOf/d
 
 // Allow vebose outpput
