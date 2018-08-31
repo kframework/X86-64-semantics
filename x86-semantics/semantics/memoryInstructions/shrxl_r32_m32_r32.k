@@ -3,6 +3,9 @@ requires "x86-configuration.k"
 
 module SHRXL-R32-M32-R32
   imports X86-CONFIGURATION
+  rule <k>
+    execinstr (shrx:Opcode R1:R32, M:Mem, R3:R32,  .Operands) => execinstr (shrxl:Opcode R1:R32, M:Mem, R3:R32,  .Operands)
+  ...</k>
 
   context execinstr(shrxl:Opcode R1:R32, HOLE:Mem, R3:R32,  .Operands) [result(MemOffset)]
   

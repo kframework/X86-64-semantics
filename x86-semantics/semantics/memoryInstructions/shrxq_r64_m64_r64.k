@@ -3,6 +3,9 @@ requires "x86-configuration.k"
 
 module SHRXQ-R64-M64-R64
   imports X86-CONFIGURATION
+  rule <k>
+    execinstr (shrx:Opcode R1:R64, M:Mem, R3:R64,  .Operands) => execinstr (shrxq:Opcode R1:R64, M:Mem, R3:R64,  .Operands) 
+  ...</k>
 
   context execinstr(shrxq:Opcode R1:R64, HOLE:Mem, R3:R64,  .Operands) [result(MemOffset)]
   

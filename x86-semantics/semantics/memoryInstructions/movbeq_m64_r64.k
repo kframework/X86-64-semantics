@@ -3,6 +3,9 @@ requires "x86-configuration.k"
 
 module MOVBEQ-M64-R64
   imports X86-CONFIGURATION
+  rule <k>
+    execinstr (movbe:Opcode R1:R64, M:Mem,  .Operands) => execinstr (movbeq:Opcode R1:R64, M:Mem,  .Operands) 
+  ...</k>
 
   context execinstr(movbeq:Opcode R1:R64, HOLE:Mem,  .Operands) [result(MemOffset)]
   
