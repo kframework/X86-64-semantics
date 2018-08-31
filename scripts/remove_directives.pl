@@ -32,11 +32,16 @@ for my $line (@lines) {
     }
 
     # Ignore comments
-    if($line =~ m/\#/) {
+    #if($line =~ m/\#/) {
+    #  next;
+    #}
+    if($line =~ m/\s+\#.*/g) {
       next;
     }
+      
+    $line =~ s/\#.*//g;
     
-    if($line =~ m/\.text|\.file|\.section|\.quad|\.value|\.long|\.zero|\.globl|\.comm|\.string|\.data|\.byte|\.bss|\.ascii|\.set/) {
+    if($line =~ m/\.text|\.file|\.section|\.quad|\.value|\.long|\.zero|\.globl|\.comm|\.string|\.data|\.byte|\.bss|\.ascii|\.asciz|\.set/) {
 
     } else {
       $line =~ s/\.//g;

@@ -378,7 +378,9 @@ L50:
     .comm	a,4,4
     .section	.rodata
 LC0:
+    .string	"%
 LC1:
+    .string	"%
     .text
     .globl	main
 .globl _start
