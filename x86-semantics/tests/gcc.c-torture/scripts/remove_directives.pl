@@ -36,7 +36,7 @@ for my $line (@lines) {
       next;
     }
     
-    if($line =~ m/\.text|\.file|\.section|\.quad|\.value|\.long|\.zero|\.globl|\.comm|\.string|\.data|\.byte|\.bss|\.ascii/) {
+    if($line =~ m/\.text|\.file|\.section|\.quad|\.value|\.long|\.zero|\.globl|\.comm|\.string|\.data|\.byte|\.bss|\.ascii|\.set/) {
 
     } else {
       $line =~ s/\.//g;
