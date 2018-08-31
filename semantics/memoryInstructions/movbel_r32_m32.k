@@ -3,6 +3,9 @@ requires "x86-configuration.k"
 
 module MOVBEL-R32-M32
   imports X86-CONFIGURATION
+  rule <k>
+    execinstr (movbe:Opcode M:Mem, R2:R32,  .Operands) => execinstr (movbel:Opcode M:Mem, R2:R32,  .Operands) 
+  ...</k>
 
   context execinstr(movbel:Opcode HOLE:Mem, R2:R32,  .Operands) [result(MemOffset)]
   
