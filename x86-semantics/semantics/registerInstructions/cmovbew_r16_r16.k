@@ -3,6 +3,9 @@ requires "x86-configuration.k"
 
 module CMOVBEW-R16-R16
   imports X86-CONFIGURATION
+  rule <k>
+    execinstr (cmovbe R1:R16, R2:R16,  .Operands) => execinstr (cmovbew R1:R16, R2:R16,  .Operands)
+  ...</k>
 
   rule <k>
     execinstr (cmovbew R1:R16, R2:R16,  .Operands) => .

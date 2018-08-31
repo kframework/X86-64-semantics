@@ -4,6 +4,11 @@ requires "x86-configuration.k"
 module CMOVBEW-R16-M16
   imports X86-CONFIGURATION
 
+  rule <k>
+    execinstr (cmovbe:Opcode M:Mem, R2:R16,  .Operands) => execinstr (cmovbew:Opcode M:Mem, R2:R16,  .Operands)
+  ...</k>
+
+
   context execinstr(cmovbew:Opcode HOLE:Mem, R2:R16,  .Operands) [result(MemOffset)]
   
   rule <k>
