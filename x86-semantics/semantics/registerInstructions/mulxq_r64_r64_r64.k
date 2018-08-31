@@ -5,6 +5,9 @@ module MULXQ-R64-R64-R64
   imports X86-CONFIGURATION
 
   rule <k>
+    execinstr (mulx R1:R64, R2:R64, R3:R64,  .Operands) =>  execinstr (mulxq R1:R64, R2:R64, R3:R64,  .Operands) 
+  ...</k>
+  rule <k>
     execinstr (mulxq R1:R64, R2:R64, R3:R64,  .Operands) => .
   ...</k>
     <regstate>
