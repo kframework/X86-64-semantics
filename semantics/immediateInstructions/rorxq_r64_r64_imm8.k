@@ -5,7 +5,7 @@ module RORXQ-R64-R64-IMM8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (rorxq Imm8:Imm, R2:R64, R3:R64,  .Operands) => .
+    execinstr (rorx Imm8:Imm, R2:R64, R3:R64,  .Operands) =>   execinstr (rorxq Imm8:Imm, R2:R64, R3:R64,  .Operands) 
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
