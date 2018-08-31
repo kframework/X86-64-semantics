@@ -107,8 +107,8 @@ module X86-LOADER
           BaseOffset:MInt, 
           NextOffset:MInt => addMInt(NextOffset, mi(addrSize, I))) 
     </database>
-    //<currentsection> SectionName:String </currentsection>
-      requires notBool LabelId in_keys (DMap) //andBool SectionName ==String "data"
+    <currentsection> SectionName:String </currentsection>
+      requires notBool LabelId in_keys (DMap) andBool SectionName ==String "data"
 
   rule <k> .zero I:Int  =>  
     storeToMemory(
@@ -124,8 +124,45 @@ module X86-LOADER
           BaseOffset:MInt, 
           NextOffset:MInt => addMInt(NextOffset, mi(addrSize, I))) 
     </database>
-    //<currentsection> SectionName:String </currentsection>
-      requires  LabelId in_keys (DMap) //andBool SectionName ==String "data"    
+    <currentsection> SectionName:String </currentsection>
+      requires  LabelId in_keys (DMap) andBool SectionName ==String "data"    
+
+  // .zero I in .rodata section
+  rule <k> .zero I:Int  =>  
+    storeToMemory(
+        mi(I *Int 8 , 0),
+        ptr(L, NextOffset), 
+       I *Int 8)
+  ...</k>
+    <functargets> FMap:Map => FMap[LabelId <- ptr(L, NextOffset)] </functargets>
+    <rotargets> ROMap:Map => ROMap[LabelId <- ptr(L, NextOffset)] </rotargets>
+    <lastseenlabel> LabelId:X86Id </lastseenlabel>
+    <robase> 
+      roBaseInfo(
+          L:MemLoc, 
+          BaseOffset:MInt, 
+          NextOffset:MInt => addMInt(NextOffset, mi(addrSize, I))) 
+    </robase>
+    <currentsection> SectionName:String </currentsection>
+      requires notBool LabelId in_keys (ROMap) andBool SectionName ==String "rodata"
+
+  rule <k> .zero I:Int  =>  
+    storeToMemory(
+        mi(I *Int 8 , 0),
+        ptr(L, NextOffset), 
+       I *Int 8)
+  ...</k>
+    <rotargets> ROMap:Map </rotargets>
+    <lastseenlabel> LabelId:X86Id </lastseenlabel>
+    <robase> 
+      roBaseInfo(
+          L:MemLoc, 
+          BaseOffset:MInt, 
+          NextOffset:MInt => addMInt(NextOffset, mi(addrSize, I))) 
+    </robase>
+    <currentsection> SectionName:String </currentsection>
+      requires  LabelId in_keys (ROMap) andBool SectionName ==String "rodata"    
+
 
   // .quad in .rodata section
   // .quad I
@@ -378,7 +415,7 @@ module X86-LOADER
       roBaseInfo(
           L:MemLoc, 
           BaseOffset:MInt, 
-          NextOffset:MInt => addMInt(NextOffset, mi(addrSize, 4))) 
+          NextOffset:MInt => addMInt(NextOffset, mi(addrSize, 1))) 
     </robase>
     <currentsection> SectionName:String </currentsection>
       requires notBool LabelId in_keys (ROMap) andBool SectionName ==String "rodata" andBool SectionName =/=String "bss"
@@ -395,7 +432,7 @@ module X86-LOADER
       roBaseInfo(
           L:MemLoc, 
           BaseOffset:MInt, 
-          NextOffset:MInt => addMInt(NextOffset, mi(addrSize, 4))) 
+          NextOffset:MInt => addMInt(NextOffset, mi(addrSize, 1))) 
     </robase>
     <currentsection> SectionName:String </currentsection>
       requires  LabelId in_keys (ROMap) andBool SectionName ==String "rodata" andBool SectionName =/=String "bss"
@@ -414,7 +451,7 @@ module X86-LOADER
       dataBaseInfo(
           L:MemLoc, 
           BaseOffset:MInt, 
-          NextOffset:MInt => addMInt(NextOffset, mi(addrSize, 4))) 
+          NextOffset:MInt => addMInt(NextOffset, mi(addrSize, 1))) 
     </database>
     <currentsection> SectionName:String </currentsection>
       requires notBool LabelId in_keys (DMap) andBool SectionName ==String "data" andBool SectionName =/=String "bss"
@@ -431,7 +468,7 @@ module X86-LOADER
       dataBaseInfo(
           L:MemLoc, 
           BaseOffset:MInt, 
-          NextOffset:MInt => addMInt(NextOffset, mi(addrSize, 4))) 
+          NextOffset:MInt => addMInt(NextOffset, mi(addrSize, 1))) 
     </database>
     <currentsection> SectionName:String </currentsection>
       requires  LabelId in_keys (DMap) andBool SectionName ==String "data" andBool SectionName =/=String "bss"
@@ -450,7 +487,7 @@ module X86-LOADER
       roBaseInfo(
           L:MemLoc, 
           BaseOffset:MInt, 
-          NextOffset:MInt => addMInt(NextOffset, mi(addrSize, 4))) 
+          NextOffset:MInt => addMInt(NextOffset, mi(addrSize, 2))) 
     </robase>
     <currentsection> SectionName:String </currentsection>
       requires notBool LabelId in_keys (ROMap) andBool SectionName ==String "rodata" andBool SectionName =/=String "bss"
@@ -467,7 +504,7 @@ module X86-LOADER
       roBaseInfo(
           L:MemLoc, 
           BaseOffset:MInt, 
-          NextOffset:MInt => addMInt(NextOffset, mi(addrSize, 4))) 
+          NextOffset:MInt => addMInt(NextOffset, mi(addrSize, 2))) 
     </robase>
     <currentsection> SectionName:String </currentsection>
       requires  LabelId in_keys (ROMap) andBool SectionName ==String "rodata" andBool SectionName =/=String "bss"
@@ -486,7 +523,7 @@ module X86-LOADER
       dataBaseInfo(
           L:MemLoc, 
           BaseOffset:MInt, 
-          NextOffset:MInt => addMInt(NextOffset, mi(addrSize, 4))) 
+          NextOffset:MInt => addMInt(NextOffset, mi(addrSize, 2))) 
     </database>
     <currentsection> SectionName:String </currentsection>
       requires notBool LabelId in_keys (DMap) andBool SectionName ==String "data" andBool SectionName =/=String "bss"
@@ -503,7 +540,7 @@ module X86-LOADER
       dataBaseInfo(
           L:MemLoc, 
           BaseOffset:MInt, 
-          NextOffset:MInt => addMInt(NextOffset, mi(addrSize, 4))) 
+          NextOffset:MInt => addMInt(NextOffset, mi(addrSize, 2))) 
     </database>
     <currentsection> SectionName:String </currentsection>
       requires  LabelId in_keys (DMap) andBool SectionName ==String "data" andBool SectionName =/=String "bss"
