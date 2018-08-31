@@ -855,7 +855,7 @@ L88:
 LC0:
     .string	"\0017\202\247UI\235\277\370D\266U\027\216\371"
 LC1:
-    .string	"\0017\202\247UI\320\363\267*m
+    .string	"\0017\202\247UI\320\363\267*m#qIj"
     .text
     .globl	main
 .globl _start

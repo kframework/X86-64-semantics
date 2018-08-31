@@ -1,0 +1,2 @@
+RUN: 444.namd --input namd.input --iterations 1 
+VERIFY: /home/sdasgup3/Github/test-suite/build/tools/fpcmp -a 0.00001 /home/sdasgup3/Install/llvm/projects/test-suite/test-suite-externals/speccpu2006/benchspec/CPU2006/444.namd/data/train/output/namd.out /home/sdasgup3/Github/test-suite/build/External/SPEC/CFP2006/444.namd/namd.out

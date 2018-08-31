@@ -1,0 +1,1 @@
+clang 444.namd.bc    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables  -mno-80387 -S -o 444.namd.s

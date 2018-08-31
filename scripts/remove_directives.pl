@@ -27,7 +27,7 @@ for my $line (@lines) {
       $line = "    " . $line;
     }
 
-    if($line =~ m/\.type|\.size|\.ident|\.align|\.weak|\.local|\.file|\.p2align/) {
+    if($line =~ m/\.type|\.size|\.ident|\.align|\.weak|\.local|\.file|\.p2align|\.cfi\_/) {
       next;
     }
 
@@ -40,6 +40,7 @@ for my $line (@lines) {
     }
       
     $line =~ s/\#.*//g;
+    $line =~ s/\.rodata.*/.rodata/g;
     
     if($line =~ m/\.text|\.file|\.section|\.quad|\.value|\.long|\.zero|\.globl|\.comm|\.string|\.data|\.byte|\.bss|\.ascii|\.asciz|\.set/) {
 
