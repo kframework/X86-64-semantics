@@ -1,0 +1,8 @@
+grep  -A 40  "ListItem"  Output/nest-stdar-1-0.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfileMe5ZO 2>&1 
+numOfInstrs: 80
+[4m[1m[34mnest-stdar-1-0 Compare Results :[0m
+Failed:[4m[1m[91mnest-stdar-1-0: kstate xstate count unequal[0m
+kstates = 3040
+xstates = 988
+
+Passed:[4m[1m[92mPassed[0m

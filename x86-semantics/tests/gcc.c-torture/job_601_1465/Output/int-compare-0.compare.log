@@ -1,0 +1,4 @@
+grep  -A 40  "ListItem"  Output/int-compare-0.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfileN8kgJ 2>&1 
+numOfInstrs: 1265
+[4m[1m[34mint-compare-0 Compare Results :[0m
+Passed:[4m[1m[92mPassed[0m

@@ -1,0 +1,244 @@
+grep  -A 40  "ListItem"  Output/cvt-1-0.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfileqagKH 2>&1 
+numOfInstrs: 153
+[4m[1m[34mcvt-1-0 Compare Results :[0m
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 10
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 11
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 12
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 13
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 14
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 15
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 16
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 17
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 18
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 19
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 20
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 21
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 22
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 23
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 24
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 25
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 26
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 27
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 28
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 29
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 30
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 31
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 32
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 33
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 34
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 35
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 36
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 37
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 38
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 39
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 76
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 77
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 78
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 79
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 80
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 81
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 82
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 83
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 84
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 85
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 86
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 87
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 88
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 89
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 90
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 91
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 92
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 93
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 94
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 95
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 96
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 97
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 98
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 99
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 100
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 101
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 102
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 103
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 104
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 105
+
+Passed:[4m[1m[92mPassed[0m

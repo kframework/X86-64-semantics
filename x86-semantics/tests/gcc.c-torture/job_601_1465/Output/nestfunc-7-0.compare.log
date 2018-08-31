@@ -1,0 +1,4 @@
+grep  -A 40  "ListItem"  Output/nestfunc-7-0.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfilea2Ibx 2>&1 
+numOfInstrs: 80
+[4m[1m[34mnestfunc-7-0 Compare Results :[0m
+Passed:[4m[1m[92mPassed[0m

@@ -1,0 +1,52 @@
+grep  -A 40  "ListItem"  Output/align-nest-0.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfilegtR0w 2>&1 
+numOfInstrs: 152
+[4m[1m[34malign-nest-0 Compare Results :[0m
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 98
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 98
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 98
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 98
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 98
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 98
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 98
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 102
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 102
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 102
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 106
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 106
+
+Passed:[4m[1m[92mPassed[0m

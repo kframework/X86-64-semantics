@@ -1,0 +1,4 @@
+grep  -A 40  "ListItem"  Output/multi-ix-0.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfileH2TFR 2>&1 
+numOfInstrs: 10
+[4m[1m[34mmulti-ix-0 Compare Results :[0m
+Passed:[4m[1m[92mPassed[0m

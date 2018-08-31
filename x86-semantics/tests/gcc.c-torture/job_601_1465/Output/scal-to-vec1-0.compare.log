@@ -1,0 +1,12 @@
+grep  -A 40  "ListItem"  Output/scal-to-vec1-0.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfileCwgP2 2>&1 
+numOfInstrs: 68
+[4m[1m[34mscal-to-vec1-0 Compare Results :[0m
+Failed:[4m[1m[91mscal-to-vec1-0: kstate xstate count unequal[0m
+kstates = 2584
+xstates = 456
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000000000000000000000000003000000020000000100000000 != 0000000000000000000000000000000000000000000000000000000000000000
+ymm0 at instrcount: 12
+
+Passed:[4m[1m[92mPassed[0m

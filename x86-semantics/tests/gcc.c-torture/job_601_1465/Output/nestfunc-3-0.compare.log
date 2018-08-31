@@ -1,0 +1,132 @@
+grep  -A 40  "ListItem"  Output/nestfunc-3-0.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfileFKPTX 2>&1 
+numOfInstrs: 62
+[4m[1m[34mnestfunc-3-0 Compare Results :[0m
+Failed:[4m[1m[91mnestfunc-3-0: kstate xstate count unequal[0m
+kstates = 2356
+xstates = 358112
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 7
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 7
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 7
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 7
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 7
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 7
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 7
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 7
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 8
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 9
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 10
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 11
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 28
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 29
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 30
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 31
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 32
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 33
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 34
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 35
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 36
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 37
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 38
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 39
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 40
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 40
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 40
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 40
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 00007fffffffd9a8
+r10 at instrcount: 40
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 00000000004005ae
+r11 at instrcount: 40
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 40
+
+Passed:[4m[1m[92mPassed[0m

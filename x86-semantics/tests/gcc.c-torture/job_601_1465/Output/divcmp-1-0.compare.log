@@ -1,0 +1,4 @@
+grep  -A 40  "ListItem"  Output/divcmp-1-0.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfileT_LnH 2>&1 
+numOfInstrs: 1358
+[4m[1m[34mdivcmp-1-0 Compare Results :[0m
+Passed:[4m[1m[92mPassed[0m

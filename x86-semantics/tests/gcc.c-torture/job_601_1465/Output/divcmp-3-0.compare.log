@@ -1,0 +1,20 @@
+grep  -A 40  "ListItem"  Output/divcmp-3-0.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfilewupPl 2>&1 
+numOfInstrs: 61067
+[4m[1m[34mdivcmp-3-0 Compare Results :[0m
+Failed:[4m[1m[91mdivcmp-3-0: kstate xstate count unequal[0m
+kstates = 2320546
+xstates = 380000
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 4
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 5
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 6
+
+Passed:[4m[1m[92mPassed[0m
