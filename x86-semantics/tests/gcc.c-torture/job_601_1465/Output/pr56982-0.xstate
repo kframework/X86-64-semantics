@@ -1,0 +1,3 @@
+Output//pr56982-0.exec: No such file or directory.
+/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb:52: Error in sourced command file:
+No symbol table is loaded.  Use the "file" command.

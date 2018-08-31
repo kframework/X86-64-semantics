@@ -1,4 +1,4 @@
-grep  -A 40  "ListItem"  Output/20010422-1-0.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfilezBH27 2>&1 
+grep  -A 40  "ListItem"  Output/20010422-1-0.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfileoMj86 2>&1 
 numOfInstrs: 23
 [4m[1m[34m20010422-1-0 Compare Results :[0m
 Passed:[4m[1m[92mPassed[0m
