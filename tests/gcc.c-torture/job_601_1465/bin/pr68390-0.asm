@@ -2,7 +2,6 @@
 LCOLDB0:
     .text
 LHOTB0:
-    .p2align 4,,15
     .globl	direct
 direct:
     imull	%edi, %edi
@@ -17,7 +16,6 @@ LHOTE0:
 LCOLDB1:
     .text
 LHOTB1:
-    .p2align 4,,15
     .globl	memcmp
 memcmp:
     leaq	-1(%rdx), %r8
@@ -29,8 +27,6 @@ memcmp:
     jne	L4
     xorl	%eax, %eax
     jmp	L5
-    .p2align 4,,10
-    .p2align 3
 L6:
     movzbl	1(%rdi,%rax), %edx
     addq	$1, %rax
@@ -43,8 +39,6 @@ L5:
 L7:
     xorl	%eax, %eax
     ret
-    .p2align 4,,10
-    .p2align 3
 L4:
     movzbl	%dl, %eax
     subl	%ecx, %eax
@@ -57,7 +51,6 @@ LHOTE1:
 LCOLDB2:
     .text
 LHOTB2:
-    .p2align 4,,15
     .globl	__stack_chk_fail
 __stack_chk_fail:
     movq $-1, %rax
@@ -72,7 +65,6 @@ LHOTE2:
 LCOLDB3:
     .text
 LHOTB3:
-    .p2align 4,,15
     .globl	exit
 exit:
     movq $-1, %rax
@@ -87,7 +79,6 @@ LHOTE3:
 LCOLDB4:
     .text
 LHOTB4:
-    .p2align 4,,15
     .globl	abort
 abort:
     movq $-1, %rax
@@ -102,7 +93,6 @@ LHOTE4:
 LCOLDB5:
     .text
 LHOTB5:
-    .p2align 4,,15
     .globl	memset
 memset:
     leaq	(%rdi,%rdx), %r8
@@ -110,8 +100,6 @@ memset:
     movq	%rdi, %rcx
     testq	%rdx, %rdx
     je	L21
-    .p2align 4,,10
-    .p2align 3
 L18:
     addq	$1, %rcx
     movb	%sil, -1(%rcx)
@@ -127,15 +115,12 @@ LHOTE5:
 LCOLDB6:
     .text
 LHOTB6:
-    .p2align 4,,15
     .globl	memcpy
 memcpy:
     movq	%rdi, %rax
     xorl	%ecx, %ecx
     testq	%rdx, %rdx
     je	L29
-    .p2align 4,,10
-    .p2align 3
 L26:
     movzbl	(%rsi,%rcx), %r8d
     movb	%r8b, (%rax,%rcx)
@@ -152,7 +137,6 @@ LHOTE6:
 LCOLDB7:
     .text
 LHOTB7:
-    .p2align 4,,15
     .globl	free
 free:
     ret
@@ -164,7 +148,6 @@ LHOTE7:
 LCOLDB8:
     .text
 LHOTB8:
-    .p2align 4,,15
     .globl	isprint
 isprint:
     movl	%edi, %edx
@@ -187,7 +170,6 @@ LHOTE8:
 LCOLDB9:
     .text
 LHOTB9:
-    .p2align 4,,15
     .globl	broken
 broken:
     movq	%rdi, %rdx
@@ -202,7 +184,6 @@ LHOTE9:
 LCOLDB11:
     .section	.textstartup,"ax",@progbits
 LHOTB11:
-    .p2align 4,,15
     .globl	main
 .globl _start
 _start:
