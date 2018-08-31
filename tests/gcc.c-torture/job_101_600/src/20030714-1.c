@@ -6,7 +6,7 @@ extern void abort (void);
 extern void exit (int);
 
 typedef _Bool bool;
-const bool false = 0;
+const bool xfalse = 0;
 const bool true = 1;
 
 enum EPosition 
@@ -124,7 +124,7 @@ void RenderBox_setStyle(RenderBox *thisin, RenderStyle *_style)
 	      removeFromSpecialObjects(this);
 	    }
 	    {
-	      bool lfalse = false;
+	      bool lfalse = xfalse;
 	      this->m_positioned = lfalse;
 	    }
 
@@ -168,15 +168,15 @@ void removeFromSpecialObjects(RenderBox *this)
 bool RenderBox_isTableCell (RenderBox *this)
 {
   (void) this;
-  return false;
+  return xfalse;
 }
 
 int main (void)
 {
 
-  g_this.m_relPositioned = false;
-  g_this.m_positioned = false;
-  g_this.m_floating = false;
+  g_this.m_relPositioned = xfalse;
+  g_this.m_positioned = xfalse;
+  g_this.m_floating = xfalse;
   g_this.isTableCell = RenderBox_isTableCell;
 
   g__style.noninherited_flags.f._position = FIXED;
@@ -186,9 +186,9 @@ int main (void)
   
   if (g_this.m_positioned != true)
     abort ();
-  if (g_this.m_relPositioned != false)
+  if (g_this.m_relPositioned != xfalse)
     abort ();
-  if (g_this.m_floating != false)
+  if (g_this.m_floating != xfalse)
     abort ();
 
   exit (0);

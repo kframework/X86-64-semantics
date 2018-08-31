@@ -843,6 +843,7 @@ module X86-SYNTAX
                   | "rorw"
                   | "rorxl"
                   | "rorxq"
+                  | "rorx"
                   | "roundpd"
                   | "roundps"
                   | "roundsd"

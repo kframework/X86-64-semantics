@@ -4241,3 +4241,783 @@ cat Output/941025-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/t
 Passed:[4m[1m[92mOutput/941025-1-0.kstate: Pass: krun[0m
 901.14user 59.32system 5:49.73elapsed 274%CPU (0avgtext+0avgdata 13416952maxresident)k
 0inputs+14280outputs (0major+9138750minor)pagefaults 0swaps
+
+================================================================================================================================================
+================================================================================================================================================
+
+20010904-2-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20010904-2-0.asm   --output-file Output/20010904-2-0.kstate 
+cat Output/20010904-2-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilefY1qg  2>&1 &&  mv /tmp/tmpfilefY1qg Output/20010904-2-0.kstate 
+Failed:[4m[1m[91mOutput/20010904-2-0.kstate: Non exit status[0m
+1034.23user 67.31system 7:54.47elapsed 232%CPU (0avgtext+0avgdata 13284084maxresident)k
+990560inputs+14656outputs (121952major+8358028minor)pagefaults 0swaps
+
+20011219-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20011219-1-0.asm   --output-file Output/20011219-1-0.kstate 
+cat Output/20011219-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileUDbpP  2>&1 &&  mv /tmp/tmpfileUDbpP Output/20011219-1-0.kstate 
+Failed:[4m[1m[91mOutput/20011219-1-0.kstate: Non exit status[0m
+1088.34user 108.78system 7:57.00elapsed 250%CPU (0avgtext+0avgdata 12840700maxresident)k
+1244952inputs+14728outputs (152922major+11879121minor)pagefaults 0swaps
+
+20011109-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20011109-1-0.asm   --output-file Output/20011109-1-0.kstate 
+cat Output/20011109-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileDXEtR  2>&1 &&  mv /tmp/tmpfileDXEtR Output/20011109-1-0.kstate 
+Failed:[4m[1m[91mOutput/20011109-1-0.kstate: Non exit status[0m
+1060.94user 158.44system 8:14.06elapsed 246%CPU (0avgtext+0avgdata 12979340maxresident)k
+1129112inputs+14704outputs (140682major+12221233minor)pagefaults 0swaps
+
+20020213-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20020213-1-0.asm   --output-file Output/20020213-1-0.kstate 
+cat Output/20020213-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileLJbYk  2>&1 &&  mv /tmp/tmpfileLJbYk Output/20020213-1-0.kstate 
+Passed:[4m[1m[92mOutput/20020213-1-0.kstate: Pass: krun[0m
+969.34user 83.04system 8:19.72elapsed 210%CPU (0avgtext+0avgdata 13243504maxresident)k
+1445936inputs+14792outputs (179911major+15771184minor)pagefaults 0swaps
+
+20020226-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20020226-1-0.asm   --output-file Output/20020226-1-0.kstate 
+cat Output/20020226-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileAaXGU  2>&1 &&  mv /tmp/tmpfileAaXGU Output/20020226-1-0.kstate 
+Failed:[4m[1m[91mOutput/20020226-1-0.kstate: Non exit status[0m
+1467.64user 137.69system 8:21.59elapsed 320%CPU (0avgtext+0avgdata 13312380maxresident)k
+707128inputs+14960outputs (87499major+15746083minor)pagefaults 0swaps
+
+20020402-2-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20020402-2-0.asm   --output-file Output/20020402-2-0.kstate 
+cat Output/20020402-2-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileEkaUP  2>&1 &&  mv /tmp/tmpfileEkaUP Output/20020402-2-0.kstate 
+Failed:[4m[1m[91mOutput/20020402-2-0.kstate: Non exit status[0m
+1059.97user 39.26system 7:31.41elapsed 243%CPU (0avgtext+0avgdata 13157904maxresident)k
+79384inputs+14616outputs (7major+8148112minor)pagefaults 0swaps
+
+20020201-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20020201-1-0.asm   --output-file Output/20020201-1-0.kstate 
+cat Output/20020201-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileuWpYY  2>&1 &&  mv /tmp/tmpfileuWpYY Output/20020201-1-0.kstate 
+Passed:[4m[1m[92mOutput/20020201-1-0.kstate: Pass: krun[0m
+1092.88user 59.43system 8:12.74elapsed 233%CPU (0avgtext+0avgdata 13079832maxresident)k
+137576inputs+14968outputs (231major+15406716minor)pagefaults 0swaps
+
+20020406-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20020406-1-0.asm   --output-file Output/20020406-1-0.kstate 
+cat Output/20020406-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilesthk7  2>&1 &&  mv /tmp/tmpfilesthk7 Output/20020406-1-0.kstate 
+Failed:[4m[1m[91mOutput/20020406-1-0.kstate: Non exit status[0m
+1256.17user 117.85system 7:51.12elapsed 291%CPU (0avgtext+0avgdata 13220604maxresident)k
+24inputs+14752outputs (0major+14034271minor)pagefaults 0swaps
+
+20020508-2-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20020508-2-0.asm   --output-file Output/20020508-2-0.kstate 
+cat Output/20020508-2-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileCFtuh  2>&1 &&  mv /tmp/tmpfileCFtuh Output/20020508-2-0.kstate 
+Passed:[4m[1m[92mOutput/20020508-2-0.kstate: Pass: krun[0m
+1230.21user 89.95system 7:58.15elapsed 276%CPU (0avgtext+0avgdata 13370536maxresident)k
+24inputs+15296outputs (0major+17667884minor)pagefaults 0swaps
+
+20030714-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20030714-1-0.asm   --output-file Output/20030714-1-0.kstate 
+cat Output/20030714-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilemEnzS  2>&1 &&  mv /tmp/tmpfilemEnzS Output/20030714-1-0.kstate 
+Failed:[4m[1m[91mOutput/20030714-1-0.kstate: K cell missing[0m
+[Error] Critical: Parser returned a non-zero exit code: 113
+Stdout:
+
+Stderr:
+[Error] Inner Parser: Parse error: unexpected token 'false'.
+	Source(/home/sdasgup3/Github/binary-decompilation/x86-semantics/tests/gcc.c-torture/job_101_600/./bin/20030714-1-0.asm)
+	Location(269,12,269,17)
+Command exited with non-zero status 113
+93.21user 5.14system 0:13.85elapsed 710%CPU (0avgtext+0avgdata 1072456maxresident)k
+32inputs+9568outputs (0major+734948minor)pagefaults 0swaps
+
+20020508-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20020508-1-0.asm   --output-file Output/20020508-1-0.kstate 
+cat Output/20020508-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileo0IPd  2>&1 &&  mv /tmp/tmpfileo0IPd Output/20020508-1-0.kstate 
+Failed:[4m[1m[91mOutput/20020508-1-0.kstate: Non exit status[0m
+1364.62user 57.55system 8:23.54elapsed 282%CPU (0avgtext+0avgdata 13203756maxresident)k
+24inputs+14960outputs (0major+16163066minor)pagefaults 0swaps
+
+20021024-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20021024-1-0.asm   --output-file Output/20021024-1-0.kstate 
+cat Output/20021024-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileRomJI  2>&1 &&  mv /tmp/tmpfileRomJI Output/20021024-1-0.kstate 
+Passed:[4m[1m[92mOutput/20021024-1-0.kstate: Pass: krun[0m
+1171.60user 30.37system 9:42.37elapsed 206%CPU (0avgtext+0avgdata 13116612maxresident)k
+70363inputs+15304outputs (3560major+7044416minor)pagefaults 0swaps
+
+20020508-3-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20020508-3-0.asm   --output-file Output/20020508-3-0.kstate 
+cat Output/20020508-3-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfile_uDNs  2>&1 &&  mv /tmp/tmpfile_uDNs Output/20020508-3-0.kstate 
+Passed:[4m[1m[92mOutput/20020508-3-0.kstate: Pass: krun[0m
+1478.69user 67.54system 10:23.34elapsed 248%CPU (0avgtext+0avgdata 13043116maxresident)k
+602064inputs+15744outputs (73324major+15316357minor)pagefaults 0swaps
+
+20030920-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20030920-1-0.asm   --output-file Output/20030920-1-0.kstate 
+cat Output/20030920-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileQJAGL  2>&1 &&  mv /tmp/tmpfileQJAGL Output/20030920-1-0.kstate 
+Failed:[4m[1m[91mOutput/20030920-1-0.kstate: K cell missing[0m
+[Error] Critical: Parser returned a non-zero exit code: 113
+Stdout:
+
+Stderr:
+[Error] Inner Parser: Scanner error: unexpected character sequence '"'.
+	Source(/home/sdasgup3/Github/binary-decompilation/x86-semantics/tests/gcc.c-torture/job_101_600/./bin/20030920-1-0.asm)
+	Location(271,13,271,14)
+Command exited with non-zero status 113
+55.89user 2.20system 0:15.77elapsed 368%CPU (0avgtext+0avgdata 715168maxresident)k
+50768inputs+9616outputs (167major+473767minor)pagefaults 0swaps
+
+20030209-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20030209-1-0.asm   --output-file Output/20030209-1-0.kstate 
+cat Output/20030209-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileceHPZ  2>&1 &&  mv /tmp/tmpfileceHPZ Output/20030209-1-0.kstate 
+Failed:[4m[1m[91mOutput/20030209-1-0.kstate: Non exit status[0m
+1408.29user 214.28system 11:18.46elapsed 239%CPU (0avgtext+0avgdata 13645972maxresident)k
+591568inputs+15448outputs (72869major+15626221minor)pagefaults 0swaps
+
+20030626-2-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20030626-2-0.asm   --output-file Output/20030626-2-0.kstate 
+cat Output/20030626-2-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilerU2Zv  2>&1 &&  mv /tmp/tmpfilerU2Zv Output/20030626-2-0.kstate 
+Failed:[4m[1m[91mOutput/20030626-2-0.kstate: Non exit status[0m
+1300.30user 175.87system 11:08.95elapsed 220%CPU (0avgtext+0avgdata 13702244maxresident)k
+207808inputs+15384outputs (24264major+13306864minor)pagefaults 0swaps
+
+20030811-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20030811-1-0.asm   --output-file Output/20030811-1-0.kstate 
+cat Output/20030811-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilegYo8E  2>&1 &&  mv /tmp/tmpfilegYo8E Output/20030811-1-0.kstate 
+Failed:[4m[1m[91mOutput/20030811-1-0.kstate: K cell missing[0m
+[Error] Internal: Uncaught exception thrown of type AssertionError.
+Please rerun your program with the --debug flag to generate a stack trace, and
+file a bug report at https://github.com/kframework/k/issues (null)
+Command exited with non-zero status 1
+827.41user 22.16system 11:32.34elapsed 122%CPU (0avgtext+0avgdata 4535396maxresident)k
+170752inputs+14912outputs (87major+9844263minor)pagefaults 0swaps
+
+20040709-2-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20040709-2-0.asm   --output-file Output/20040709-2-0.kstate 
+cat Output/20040709-2-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileJdvTC  2>&1 &&  mv /tmp/tmpfileJdvTC Output/20040709-2-0.kstate 
+Failed:[4m[1m[91mOutput/20040709-2-0.kstate: K cell missing[0m
+[Error] Critical: Parser returned a non-zero exit code: 137
+Stdout:
+
+Stderr:
+/home/sdasgup3/Github/k5/k-distribution/target/release/k/bin/../lib/k: line 7: 
+8114 Killed                  java -Dfile.encoding=UTF-8
+-Djava.awt.headless=true -Xms64m -Xmx4096m -Xss32m -XX:+TieredCompilation
+-Xms64m -Xmx4096m -Xss32m -XX:+TieredCompilation -Xmx32g -ea -cp
+"/home/sdasgup3/Github/k5/k-distribution/target/release/k/lib/java/*"
+org.kframework.main.Main "$@"
+Command exited with non-zero status 113
+10924.84user 101.23system 12:27.18elapsed 1475%CPU (0avgtext+0avgdata 24326416maxresident)k
+46307inputs+12488outputs (4324major+32543094minor)pagefaults 0swaps
+
+20031214-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20031214-1-0.asm   --output-file Output/20031214-1-0.kstate 
+cat Output/20031214-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileOsilv  2>&1 &&  mv /tmp/tmpfileOsilv Output/20031214-1-0.kstate 
+Passed:[4m[1m[92mOutput/20031214-1-0.kstate: Pass: krun[0m
+1265.92user 88.40system 14:52.58elapsed 151%CPU (0avgtext+0avgdata 12980616maxresident)k
+877096inputs+16320outputs (107328major+17114934minor)pagefaults 0swaps
+
+20040703-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20040703-1-0.asm   --output-file Output/20040703-1-0.kstate 
+cat Output/20040703-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileSLyav  2>&1 &&  mv /tmp/tmpfileSLyav Output/20040703-1-0.kstate 
+Passed:[4m[1m[92mOutput/20040703-1-0.kstate: Pass: krun[0m
+1722.59user 133.48system 17:51.80elapsed 173%CPU (0avgtext+0avgdata 13307048maxresident)k
+544984inputs+17400outputs (65952major+18664498minor)pagefaults 0swaps
+
+20040805-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20040805-1-0.asm   --output-file Output/20040805-1-0.kstate 
+cat Output/20040805-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilerKu0Z  2>&1 &&  mv /tmp/tmpfilerKu0Z Output/20040805-1-0.kstate 
+Failed:[4m[1m[91mOutput/20040805-1-0.kstate: Non exit status[0m
+1332.19user 29.24system 13:24.41elapsed 169%CPU (0avgtext+0avgdata 13537868maxresident)k
+14872inputs+16032outputs (128major+12089062minor)pagefaults 0swaps
+
+20041124-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20041124-1-0.asm   --output-file Output/20041124-1-0.kstate 
+cat Output/20041124-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileRsYxI  2>&1 &&  mv /tmp/tmpfileRsYxI Output/20041124-1-0.kstate 
+Passed:[4m[1m[92mOutput/20041124-1-0.kstate: Pass: krun[0m
+1234.78user 19.36system 12:17.93elapsed 169%CPU (0avgtext+0avgdata 13147908maxresident)k
+520inputs+15512outputs (0major+7092400minor)pagefaults 0swaps
+
+20050826-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20050826-1-0.asm   --output-file Output/20050826-1-0.kstate 
+cat Output/20050826-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfile46sU4  2>&1 &&  mv /tmp/tmpfile46sU4 Output/20050826-1-0.kstate 
+Failed:[4m[1m[91mOutput/20050826-1-0.kstate: K cell missing[0m
+[Error] Critical: Parser returned a non-zero exit code: 113
+Stdout:
+
+Stderr:
+[Error] Inner Parser: Scanner error: unexpected character sequence '"'.
+	Source(/home/sdasgup3/Github/binary-decompilation/x86-semantics/tests/gcc.c-torture/job_101_600/./bin/20050826-1-0.asm)
+	Location(272,13,272,14)
+Command exited with non-zero status 113
+45.14user 1.83system 0:14.36elapsed 327%CPU (0avgtext+0avgdata 715356maxresident)k
+16inputs+9568outputs (0major+545622minor)pagefaults 0swaps
+
+20030323-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20030323-1-0.asm   --output-file Output/20030323-1-0.kstate 
+cat Output/20030323-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileeyJ0S  2>&1 &&  mv /tmp/tmpfileeyJ0S Output/20030323-1-0.kstate 
+Failed:[4m[1m[91mOutput/20030323-1-0.kstate: K cell missing[0m
+[Error] Critical: Parser returned a non-zero exit code: 1
+Stdout:
+
+Stderr:
+[Error] Internal: Uncaught exception thrown of type OutOfMemoryError.
+Please rerun your program with the --debug flag to generate a stack trace, and
+file a bug report at https://github.com/kframework/k/issues (Java heap space)
+Command exited with non-zero status 113
+60430.13user 343.20system 44:49.01elapsed 2260%CPU (0avgtext+0avgdata 23673884maxresident)k
+11023976inputs+18672outputs (1395991major+80110813minor)pagefaults 0swaps
+
+20070724-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20070724-1-0.asm   --output-file Output/20070724-1-0.kstate 
+cat Output/20070724-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileA5jIt  2>&1 &&  mv /tmp/tmpfileA5jIt Output/20070724-1-0.kstate 
+Failed:[4m[1m[91mOutput/20070724-1-0.kstate: K cell missing[0m
+[Error] Critical: Parser returned a non-zero exit code: 113
+Stdout:
+
+Stderr:
+[Error] Inner Parser: Scanner error: unexpected character sequence '"'.
+	Source(/home/sdasgup3/Github/binary-decompilation/x86-semantics/tests/gcc.c-torture/job_101_600/./bin/20070724-1-0.asm)
+	Location(271,13,271,14)
+Command exited with non-zero status 113
+60.51user 2.74system 0:09.57elapsed 660%CPU (0avgtext+0avgdata 662072maxresident)k
+16inputs+9568outputs (0major+472207minor)pagefaults 0swaps
+
+20050121-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20050121-1-0.asm   --output-file Output/20050121-1-0.kstate 
+cat Output/20050121-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfile06wab  2>&1 &&  mv /tmp/tmpfile06wab Output/20050121-1-0.kstate 
+Passed:[4m[1m[92mOutput/20050121-1-0.kstate: Pass: krun[0m
+1953.37user 41.08system 13:35.03elapsed 244%CPU (0avgtext+0avgdata 13272108maxresident)k
+40inputs+17448outputs (0major+12634750minor)pagefaults 0swaps
+
+20060420-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20060420-1-0.asm   --output-file Output/20060420-1-0.kstate 
+cat Output/20060420-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfile0NOi2  2>&1 &&  mv /tmp/tmpfile0NOi2 Output/20060420-1-0.kstate 
+Passed:[4m[1m[92mOutput/20060420-1-0.kstate: Pass: krun[0m
+1677.04user 78.89system 12:57.67elapsed 225%CPU (0avgtext+0avgdata 13841420maxresident)k
+32inputs+17952outputs (0major+20055204minor)pagefaults 0swaps
+
+20071030-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20071030-1-0.asm   --output-file Output/20071030-1-0.kstate 
+cat Output/20071030-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileeqrqD  2>&1 &&  mv /tmp/tmpfileeqrqD Output/20071030-1-0.kstate 
+Failed:[4m[1m[91mOutput/20071030-1-0.kstate: Non exit status[0m
+1111.44user 22.38system 9:31.22elapsed 198%CPU (0avgtext+0avgdata 13213652maxresident)k
+16inputs+14976outputs (0major+8050234minor)pagefaults 0swaps
+
+20041011-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20041011-1-0.asm   --output-file Output/20041011-1-0.kstate 
+cat Output/20041011-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileguVmt  2>&1 &&  mv /tmp/tmpfileguVmt Output/20041011-1-0.kstate 
+Passed:[4m[1m[92mOutput/20041011-1-0.kstate: Pass: krun[0m
+6688.32user 197.81system 36:02.64elapsed 318%CPU (0avgtext+0avgdata 20960776maxresident)k
+219160inputs+35088outputs (245major+47511014minor)pagefaults 0swaps
+
+20071120-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20071120-1-0.asm   --output-file Output/20071120-1-0.kstate 
+cat Output/20071120-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilecbFB_  2>&1 &&  mv /tmp/tmpfilecbFB_ Output/20071120-1-0.kstate 
+Failed:[4m[1m[91mOutput/20071120-1-0.kstate: Non exit status[0m
+1197.16user 37.45system 10:11.09elapsed 202%CPU (0avgtext+0avgdata 13144732maxresident)k
+16inputs+15080outputs (0major+10290955minor)pagefaults 0swaps
+
+20071211-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20071211-1-0.asm   --output-file Output/20071211-1-0.kstate 
+cat Output/20071211-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileB6VBk  2>&1 &&  mv /tmp/tmpfileB6VBk Output/20071211-1-0.kstate 
+Passed:[4m[1m[92mOutput/20071211-1-0.kstate: Pass: krun[0m
+1240.97user 25.66system 10:50.42elapsed 194%CPU (0avgtext+0avgdata 13225720maxresident)k
+16inputs+15288outputs (0major+11408489minor)pagefaults 0swaps
+
+20080424-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20080424-1-0.asm   --output-file Output/20080424-1-0.kstate 
+cat Output/20080424-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileIfzgP  2>&1 &&  mv /tmp/tmpfileIfzgP Output/20080424-1-0.kstate 
+Failed:[4m[1m[91mOutput/20080424-1-0.kstate: Non exit status[0m
+1181.28user 36.82system 10:17.88elapsed 197%CPU (0avgtext+0avgdata 13407996maxresident)k
+16inputs+15024outputs (0major+8824734minor)pagefaults 0swaps
+
+20040811-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20040811-1-0.asm   --output-file Output/20040811-1-0.kstate 
+cat Output/20040811-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileF_59P  2>&1 &&  mv /tmp/tmpfileF_59P Output/20040811-1-0.kstate 
+Failed:[4m[1m[91mOutput/20040811-1-0.kstate: Non exit status[0m
+2674.57user 210.15system 41:10.71elapsed 116%CPU (0avgtext+0avgdata 13338992maxresident)k
+16inputs+49920outputs (0major+37274186minor)pagefaults 0swaps
+
+20111208-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20111208-1-0.asm   --output-file Output/20111208-1-0.kstate 
+cat Output/20111208-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileQo3k1  2>&1 &&  mv /tmp/tmpfileQo3k1 Output/20111208-1-0.kstate 
+Failed:[4m[1m[91mOutput/20111208-1-0.kstate: K cell missing[0m
+[Error] Critical: Parser returned a non-zero exit code: 113
+Stdout:
+
+Stderr:
+[Error] Inner Parser: Scanner error: unexpected character sequence '"'.
+	Source(/home/sdasgup3/Github/binary-decompilation/x86-semantics/tests/gcc.c-torture/job_101_600/./bin/20111208-1-0.asm)
+	Location(368,13,368,14)
+Command exited with non-zero status 113
+55.65user 2.09system 0:19.56elapsed 295%CPU (0avgtext+0avgdata 729292maxresident)k
+16inputs+9568outputs (0major+505095minor)pagefaults 0swaps
+
+20090113-2-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20090113-2-0.asm   --output-file Output/20090113-2-0.kstate 
+cat Output/20090113-2-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileoonc6  2>&1 &&  mv /tmp/tmpfileoonc6 Output/20090113-2-0.kstate 
+Passed:[4m[1m[92mOutput/20090113-2-0.kstate: Pass: krun[0m
+1569.04user 27.57system 12:10.84elapsed 218%CPU (0avgtext+0avgdata 13282840maxresident)k
+24inputs+16144outputs (0major+8131578minor)pagefaults 0swaps
+
+20090113-3-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20090113-3-0.asm   --output-file Output/20090113-3-0.kstate 
+cat Output/20090113-3-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileyFqGs  2>&1 &&  mv /tmp/tmpfileyFqGs Output/20090113-3-0.kstate 
+Passed:[4m[1m[92mOutput/20090113-3-0.kstate: Pass: krun[0m
+1388.28user 24.35system 11:23.28elapsed 206%CPU (0avgtext+0avgdata 13365152maxresident)k
+24inputs+15840outputs (0major+8782016minor)pagefaults 0swaps
+
+20101011-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20101011-1-0.asm   --output-file Output/20101011-1-0.kstate 
+cat Output/20101011-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilewCGka  2>&1 &&  mv /tmp/tmpfilewCGka Output/20101011-1-0.kstate 
+Passed:[4m[1m[92mOutput/20101011-1-0.kstate: Pass: krun[0m
+1239.18user 37.19system 11:23.45elapsed 186%CPU (0avgtext+0avgdata 13193668maxresident)k
+16inputs+15312outputs (0major+8420270minor)pagefaults 0swaps
+
+20120919-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20120919-1-0.asm   --output-file Output/20120919-1-0.kstate 
+cat Output/20120919-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileqkXFI  2>&1 &&  mv /tmp/tmpfileqkXFI Output/20120919-1-0.kstate 
+Failed:[4m[1m[91mOutput/20120919-1-0.kstate: Non exit status[0m
+1334.28user 40.23system 11:28.06elapsed 199%CPU (0avgtext+0avgdata 13221040maxresident)k
+16inputs+15408outputs (0major+11351956minor)pagefaults 0swaps
+
+20131127-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20131127-1-0.asm   --output-file Output/20131127-1-0.kstate 
+cat Output/20131127-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilenu4bU  2>&1 &&  mv /tmp/tmpfilenu4bU Output/20131127-1-0.kstate 
+Passed:[4m[1m[92mOutput/20131127-1-0.kstate: Pass: krun[0m
+1195.63user 49.94system 11:01.23elapsed 188%CPU (0avgtext+0avgdata 12895128maxresident)k
+16inputs+15336outputs (0major+11991072minor)pagefaults 0swaps
+
+920501-3-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//920501-3-0.asm   --output-file Output/920501-3-0.kstate 
+cat Output/920501-3-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilexoOW1  2>&1 &&  mv /tmp/tmpfilexoOW1 Output/920501-3-0.kstate 
+Failed:[4m[1m[91mOutput/920501-3-0.kstate: Non exit status[0m
+1217.45user 21.49system 11:07.62elapsed 185%CPU (0avgtext+0avgdata 13094516maxresident)k
+16inputs+15672outputs (0major+7016447minor)pagefaults 0swaps
+
+920501-7-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//920501-7-0.asm   --output-file Output/920501-7-0.kstate 
+cat Output/920501-7-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileAogxZ  2>&1 &&  mv /tmp/tmpfileAogxZ Output/920501-7-0.kstate 
+Failed:[4m[1m[91mOutput/920501-7-0.kstate: Non exit status[0m
+1307.11user 29.25system 11:32.13elapsed 193%CPU (0avgtext+0avgdata 13402064maxresident)k
+16inputs+16160outputs (0major+7902407minor)pagefaults 0swaps
+
+920506-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//920506-1-0.asm   --output-file Output/920506-1-0.kstate 
+cat Output/920506-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileFu_Lo  2>&1 &&  mv /tmp/tmpfileFu_Lo Output/920506-1-0.kstate 
+Failed:[4m[1m[91mOutput/920506-1-0.kstate: Non exit status[0m
+1230.91user 19.34system 10:43.58elapsed 194%CPU (0avgtext+0avgdata 13880964maxresident)k
+16inputs+15200outputs (0major+7514677minor)pagefaults 0swaps
+
+920721-4-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//920721-4-0.asm   --output-file Output/920721-4-0.kstate 
+cat Output/920721-4-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileBINiO  2>&1 &&  mv /tmp/tmpfileBINiO Output/920721-4-0.kstate 
+Failed:[4m[1m[91mOutput/920721-4-0.kstate: Non exit status[0m
+1225.46user 24.50system 10:44.75elapsed 193%CPU (0avgtext+0avgdata 13107420maxresident)k
+16inputs+15120outputs (0major+6366427minor)pagefaults 0swaps
+
+920909-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//920909-1-0.asm   --output-file Output/920909-1-0.kstate 
+cat Output/920909-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileCzm45  2>&1 &&  mv /tmp/tmpfileCzm45 Output/920909-1-0.kstate 
+Failed:[4m[1m[91mOutput/920909-1-0.kstate: Non exit status[0m
+1109.25user 19.25system 10:17.67elapsed 182%CPU (0avgtext+0avgdata 13606432maxresident)k
+16inputs+15104outputs (0major+7274464minor)pagefaults 0swaps
+
+921113-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//921113-1-0.asm   --output-file Output/921113-1-0.kstate 
+cat Output/921113-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilexVoH2  2>&1 &&  mv /tmp/tmpfilexVoH2 Output/921113-1-0.kstate 
+Failed:[4m[1m[91mOutput/921113-1-0.kstate: Non exit status[0m
+1146.31user 25.51system 10:19.42elapsed 189%CPU (0avgtext+0avgdata 13253244maxresident)k
+16inputs+15128outputs (0major+6929185minor)pagefaults 0swaps
+
+921202-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//921202-1-0.asm   --output-file Output/921202-1-0.kstate 
+cat Output/921202-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileDNsq5  2>&1 &&  mv /tmp/tmpfileDNsq5 Output/921202-1-0.kstate 
+Failed:[4m[1m[91mOutput/921202-1-0.kstate: Non exit status[0m
+1261.18user 21.24system 10:38.79elapsed 200%CPU (0avgtext+0avgdata 13095596maxresident)k
+16inputs+15128outputs (0major+7216466minor)pagefaults 0swaps
+
+921208-2-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//921208-2-0.asm   --output-file Output/921208-2-0.kstate 
+cat Output/921208-2-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilealhyL  2>&1 &&  mv /tmp/tmpfilealhyL Output/921208-2-0.kstate 
+Failed:[4m[1m[91mOutput/921208-2-0.kstate: Non exit status[0m
+1168.73user 41.00system 10:45.62elapsed 187%CPU (0avgtext+0avgdata 13081804maxresident)k
+16inputs+15256outputs (0major+15369360minor)pagefaults 0swaps
+
+930106-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//930106-1-0.asm   --output-file Output/930106-1-0.kstate 
+cat Output/930106-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilev7smv  2>&1 &&  mv /tmp/tmpfilev7smv Output/930106-1-0.kstate 
+Failed:[4m[1m[91mOutput/930106-1-0.kstate: Non exit status[0m
+1269.83user 20.99system 10:43.33elapsed 200%CPU (0avgtext+0avgdata 13561872maxresident)k
+16inputs+15144outputs (0major+7172455minor)pagefaults 0swaps
+
+930111-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//930111-1-0.asm   --output-file Output/930111-1-0.kstate 
+cat Output/930111-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfile20rZC  2>&1 &&  mv /tmp/tmpfile20rZC Output/930111-1-0.kstate 
+Failed:[4m[1m[91mOutput/930111-1-0.kstate: Non exit status[0m
+1303.13user 24.41system 10:49.77elapsed 204%CPU (0avgtext+0avgdata 13413272maxresident)k
+16inputs+15136outputs (0major+7056360minor)pagefaults 0swaps
+
+930513-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//930513-1-0.asm   --output-file Output/930513-1-0.kstate 
+cat Output/930513-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfile7JwNH  2>&1 &&  mv /tmp/tmpfile7JwNH Output/930513-1-0.kstate 
+Failed:[4m[1m[91mOutput/930513-1-0.kstate: Non exit status[0m
+1179.66user 20.21system 10:37.29elapsed 188%CPU (0avgtext+0avgdata 13455560maxresident)k
+16inputs+15128outputs (0major+6863045minor)pagefaults 0swaps
+
+930614-2-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//930614-2-0.asm   --output-file Output/930614-2-0.kstate 
+cat Output/930614-2-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileOv4X8  2>&1 &&  mv /tmp/tmpfileOv4X8 Output/930614-2-0.kstate 
+Failed:[4m[1m[91mOutput/930614-2-0.kstate: Non exit status[0m
+1192.46user 24.73system 10:21.31elapsed 195%CPU (0avgtext+0avgdata 13315664maxresident)k
+16inputs+15080outputs (0major+8143373minor)pagefaults 0swaps
+
+931018-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//931018-1-0.asm   --output-file Output/931018-1-0.kstate 
+cat Output/931018-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfile0zJIK  2>&1 &&  mv /tmp/tmpfile0zJIK Output/931018-1-0.kstate 
+Failed:[4m[1m[91mOutput/931018-1-0.kstate: Non exit status[0m
+1195.84user 18.97system 10:44.35elapsed 188%CPU (0avgtext+0avgdata 13276504maxresident)k
+16inputs+15152outputs (0major+5836582minor)pagefaults 0swaps
+
+931110-2-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//931110-2-0.asm   --output-file Output/931110-2-0.kstate 
+cat Output/931110-2-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileX4qbx  2>&1 &&  mv /tmp/tmpfileX4qbx Output/931110-2-0.kstate 
+Passed:[4m[1m[92mOutput/931110-2-0.kstate: Pass: krun[0m
+1222.79user 23.96system 10:55.84elapsed 190%CPU (0avgtext+0avgdata 13262920maxresident)k
+16inputs+15200outputs (0major+7741620minor)pagefaults 0swaps
+
+931110-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//931110-1-0.asm   --output-file Output/931110-1-0.kstate 
+cat Output/931110-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilex5Lmd  2>&1 &&  mv /tmp/tmpfilex5Lmd Output/931110-1-0.kstate 
+Passed:[4m[1m[92mOutput/931110-1-0.kstate: Pass: krun[0m
+1121.29user 23.63system 10:38.62elapsed 179%CPU (0avgtext+0avgdata 13010688maxresident)k
+16inputs+15264outputs (0major+7327954minor)pagefaults 0swaps
+
+20040705-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20040705-1-0.asm   --output-file Output/20040705-1-0.kstate 
+cat Output/20040705-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileh079E  2>&1 &&  mv /tmp/tmpfileh079E Output/20040705-1-0.kstate 
+Failed:[4m[1m[91mOutput/20040705-1-0.kstate: K cell missing[0m
+[Error] Critical: Parser returned a non-zero exit code: 1
+Stdout:
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 752353280 bytes for committing
+reserved memory.
+# An error report file with more information is saved as:
+#
+/home/sdasgup3/Github/binary-decompilation/x86-semantics/tests/gcc.c-torture/job_101_600/hs_err_pid31532.log
+
+Stderr:
+Java HotSpot(TM) 64-Bit Server VM warning: INFO:
+os::commit_memory(0x00001506f3580000, 752353280, 0) failed; error='Cannot
+allocate memory' (errno=12)
+Command exited with non-zero status 113
+1981.76user 80.42system 2:54.75elapsed 1180%CPU (0avgtext+0avgdata 7726256maxresident)k
+47939inputs+10448outputs (281major+9213821minor)pagefaults 0swaps
+
+941014-2-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//941014-2-0.asm   --output-file Output/941014-2-0.kstate 
+cat Output/941014-2-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileAzdaK  2>&1 &&  mv /tmp/tmpfileAzdaK Output/941014-2-0.kstate 
+Failed:[4m[1m[91mOutput/941014-2-0.kstate: Non exit status[0m
+1268.19user 99.21system 11:37.46elapsed 196%CPU (0avgtext+0avgdata 13200632maxresident)k
+32368inputs+15320outputs (238major+7660857minor)pagefaults 0swaps
+
+20040709-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20040709-1-0.asm   --output-file Output/20040709-1-0.kstate 
+cat Output/20040709-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileuM2eT  2>&1 &&  mv /tmp/tmpfileuM2eT Output/20040709-1-0.kstate 
+Failed:[4m[1m[91mOutput/20040709-1-0.kstate: K cell missing[0m
+[Error] Critical: Parser returned a non-zero exit code: 137
+Stdout:
+
+Stderr:
+/home/sdasgup3/Github/k5/k-distribution/target/release/k/bin/../lib/k: line 7:
+19565 Killed                  java -Dfile.encoding=UTF-8
+-Djava.awt.headless=true -Xms64m -Xmx4096m -Xss32m -XX:+TieredCompilation
+-Xms64m -Xmx4096m -Xss32m -XX:+TieredCompilation -Xmx32g -ea -cp
+"/home/sdasgup3/Github/k5/k-distribution/target/release/k/lib/java/*"
+org.kframework.main.Main "$@"
+Command exited with non-zero status 113
+202318.30user 838.44system 2:10:06elapsed 2602%CPU (0avgtext+0avgdata 24000496maxresident)k
+899738inputs+34752outputs (97225major+195390966minor)pagefaults 0swaps
+
+20040709-3-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20040709-3-0.asm   --output-file Output/20040709-3-0.kstate 
+cat Output/20040709-3-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfile58Pvq  2>&1 &&  mv /tmp/tmpfile58Pvq Output/20040709-3-0.kstate 
+Failed:[4m[1m[91mOutput/20040709-3-0.kstate: K cell missing[0m
+[Error] Critical: Parser returned a non-zero exit code: 1
+Stdout:
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 2177892352 bytes for committing
+reserved memory.
+# An error report file with more information is saved as:
+#
+/home/sdasgup3/Github/binary-decompilation/x86-semantics/tests/gcc.c-torture/job_101_600/hs_err_pid32462.log
+
+Stderr:
+Java HotSpot(TM) 64-Bit Server VM warning: INFO:
+os::commit_memory(0x0000148f5b880000, 2177892352, 0) failed; error='Cannot
+allocate memory' (errno=12)
+Command exited with non-zero status 113
+6711.89user 130.21system 8:53.55elapsed 1282%CPU (0avgtext+0avgdata 20655580maxresident)k
+67923inputs+12472outputs (1282major+25003147minor)pagefaults 0swaps
+
+20051113-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20051113-1-0.asm   --output-file Output/20051113-1-0.kstate 
+cat Output/20051113-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilepW8JR  2>&1 &&  mv /tmp/tmpfilepW8JR Output/20051113-1-0.kstate 
+Failed:[4m[1m[91mOutput/20051113-1-0.kstate: Non exit status[0m
+1239.60user 33.39system 11:08.33elapsed 190%CPU (0avgtext+0avgdata 13286712maxresident)k
+226000inputs+15264outputs (283major+17029090minor)pagefaults 0swaps
+
+20071018-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20071018-1-0.asm   --output-file Output/20071018-1-0.kstate 
+cat Output/20071018-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilevGSky  2>&1 &&  mv /tmp/tmpfilevGSky Output/20071018-1-0.kstate 
+Failed:[4m[1m[91mOutput/20071018-1-0.kstate: Non exit status[0m
+1257.61user 39.73system 10:50.52elapsed 199%CPU (0avgtext+0avgdata 13270016maxresident)k
+164104inputs+15168outputs (203major+17250398minor)pagefaults 0swaps
+
+20040308-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20040308-1-0.asm   --output-file Output/20040308-1-0.kstate 
+cat Output/20040308-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfile7BS5b  2>&1 &&  mv /tmp/tmpfile7BS5b Output/20040308-1-0.kstate 
+Passed:[4m[1m[92mOutput/20040308-1-0.kstate: Pass: krun[0m
+1256.88user 38.53system 11:46.88elapsed 183%CPU (0avgtext+0avgdata 13337352maxresident)k
+16inputs+15576outputs (0major+19908404minor)pagefaults 0swaps
+
+20040629-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20040629-1-0.asm   --output-file Output/20040629-1-0.kstate 
+cat Output/20040629-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilefsHZ2  2>&1 &&  mv /tmp/tmpfilefsHZ2 Output/20040629-1-0.kstate 
+Failed:[4m[1m[91mOutput/20040629-1-0.kstate: K cell missing[0m
+[Error] Critical: Parser returned a non-zero exit code: 137
+Stdout:
+
+Stderr:
+/home/sdasgup3/Github/k5/k-distribution/target/release/k/bin/../lib/k: line 7:
+32094 Killed                  java -Dfile.encoding=UTF-8
+-Djava.awt.headless=true -Xms64m -Xmx4096m -Xss32m -XX:+TieredCompilation
+-Xms64m -Xmx4096m -Xss32m -XX:+TieredCompilation -Xmx32g -ea -cp
+"/home/sdasgup3/Github/k5/k-distribution/target/release/k/lib/java/*"
+org.kframework.main.Main "$@"
+Command exited with non-zero status 113
+40336.17user 325.03system 31:11.75elapsed 2172%CPU (0avgtext+0avgdata 23924748maxresident)k
+349627inputs+16648outputs (8511major+59304130minor)pagefaults 0swaps
+
+20040423-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20040423-1-0.asm   --output-file Output/20040423-1-0.kstate 
+cat Output/20040423-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfile3CYcL  2>&1 &&  mv /tmp/tmpfile3CYcL Output/20040423-1-0.kstate 
+Passed:[4m[1m[92mOutput/20040423-1-0.kstate: Pass: krun[0m
+1602.17user 156.74system 12:20.55elapsed 237%CPU (0avgtext+0avgdata 14118908maxresident)k
+46640inputs+15584outputs (2602major+18972425minor)pagefaults 0swaps
+
+20020108-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20020108-1-0.asm   --output-file Output/20020108-1-0.kstate 
+cat Output/20020108-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilejzEmQ  2>&1 &&  mv /tmp/tmpfilejzEmQ Output/20020108-1-0.kstate 
+Failed:[4m[1m[91mOutput/20020108-1-0.kstate: K cell missing[0m
+[Error] Critical: Parser returned a non-zero exit code: 1
+Stdout:
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 1695023104 bytes for committing
+reserved memory.
+# An error report file with more information is saved as:
+#
+/home/sdasgup3/Github/binary-decompilation/x86-semantics/tests/gcc.c-torture/job_101_600/hs_err_pid12485.log
+
+Stderr:
+Java HotSpot(TM) 64-Bit Server VM warning: INFO:
+os::commit_memory(0x0000151e86d00000, 1695023104, 0) failed; error='Cannot
+allocate memory' (errno=12)
+Command exited with non-zero status 113
+4999.70user 106.55system 5:44.88elapsed 1480%CPU (0avgtext+0avgdata 16169616maxresident)k
+25450inputs+11104outputs (139major+15384071minor)pagefaults 0swaps
+
+20020418-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20020418-1-0.asm   --output-file Output/20020418-1-0.kstate 
+cat Output/20020418-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfile4uUrX  2>&1 &&  mv /tmp/tmpfile4uUrX Output/20020418-1-0.kstate 
+Passed:[4m[1m[92mOutput/20020418-1-0.kstate: Pass: krun[0m
+1273.09user 29.83system 11:31.67elapsed 188%CPU (0avgtext+0avgdata 13477620maxresident)k
+244336inputs+15392outputs (376major+12522345minor)pagefaults 0swaps
+
+20030717-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20030717-1-0.asm   --output-file Output/20030717-1-0.kstate 
+cat Output/20030717-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilekliwK  2>&1 &&  mv /tmp/tmpfilekliwK Output/20030717-1-0.kstate 
+Passed:[4m[1m[92mOutput/20030717-1-0.kstate: Pass: krun[0m
+1255.55user 28.14system 11:29.68elapsed 186%CPU (0avgtext+0avgdata 13349360maxresident)k
+215344inputs+16128outputs (242major+9208455minor)pagefaults 0swaps
+
+20031011-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20031011-1-0.asm   --output-file Output/20031011-1-0.kstate 
+cat Output/20031011-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileXZVWP  2>&1 &&  mv /tmp/tmpfileXZVWP Output/20031011-1-0.kstate 
+Passed:[4m[1m[92mOutput/20031011-1-0.kstate: Pass: krun[0m
+1259.68user 21.98system 11:11.74elapsed 190%CPU (0avgtext+0avgdata 13543448maxresident)k
+16inputs+15344outputs (0major+6751086minor)pagefaults 0swaps
+
+20040311-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20040311-1-0.asm   --output-file Output/20040311-1-0.kstate 
+cat Output/20040311-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilekESNT  2>&1 &&  mv /tmp/tmpfilekESNT Output/20040311-1-0.kstate 
+Passed:[4m[1m[92mOutput/20040311-1-0.kstate: Pass: krun[0m
+1336.17user 25.27system 11:09.72elapsed 203%CPU (0avgtext+0avgdata 13150956maxresident)k
+16inputs+15504outputs (0major+7149185minor)pagefaults 0swaps
+
+20010904-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20010904-1-0.asm   --output-file Output/20010904-1-0.kstate 
+cat Output/20010904-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileWeOVR  2>&1 &&  mv /tmp/tmpfileWeOVR Output/20010904-1-0.kstate 
+Failed:[4m[1m[91mOutput/20010904-1-0.kstate: Non exit status[0m
+1198.02user 24.14system 11:01.74elapsed 184%CPU (0avgtext+0avgdata 13223304maxresident)k
+16inputs+15120outputs (0major+7516427minor)pagefaults 0swaps
+
+20040705-2-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20040705-2-0.asm   --output-file Output/20040705-2-0.kstate 
+cat Output/20040705-2-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileWSUtW  2>&1 &&  mv /tmp/tmpfileWSUtW Output/20040705-2-0.kstate 
+Failed:[4m[1m[91mOutput/20040705-2-0.kstate: K cell missing[0m
+[Error] Critical: Parser returned a non-zero exit code: 137
+Stdout:
+
+Stderr:
+/home/sdasgup3/Github/k5/k-distribution/target/release/k/bin/../lib/k: line 7:
+10701 Killed                  java -Dfile.encoding=UTF-8
+-Djava.awt.headless=true -Xms64m -Xmx4096m -Xss32m -XX:+TieredCompilation
+-Xms64m -Xmx4096m -Xss32m -XX:+TieredCompilation -Xmx32g -ea -cp
+"/home/sdasgup3/Github/k5/k-distribution/target/release/k/lib/java/*"
+org.kframework.main.Main "$@"
+Command exited with non-zero status 113
+64763.80user 999.35system 45:23.38elapsed 2414%CPU (0avgtext+0avgdata 24731736maxresident)k
+1915114inputs+18928outputs (203992major+80539105minor)pagefaults 0swaps
+
+20030916-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20030916-1-0.asm   --output-file Output/20030916-1-0.kstate 
+cat Output/20030916-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileR_Co4  2>&1 &&  mv /tmp/tmpfileR_Co4 Output/20030916-1-0.kstate 
+Failed:[4m[1m[91mOutput/20030916-1-0.kstate: Non exit status[0m
+1417.24user 171.32system 12:19.04elapsed 214%CPU (0avgtext+0avgdata 13799240maxresident)k
+206928inputs+15760outputs (10928major+10916573minor)pagefaults 0swaps
+
+20070623-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20070623-1-0.asm   --output-file Output/20070623-1-0.kstate 
+cat Output/20070623-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileZpNQM  2>&1 &&  mv /tmp/tmpfileZpNQM Output/20070623-1-0.kstate 
+Passed:[4m[1m[92mOutput/20070623-1-0.kstate: Pass: krun[0m
+1295.14user 202.26system 11:23.40elapsed 219%CPU (0avgtext+0avgdata 13348976maxresident)k
+88168inputs+16144outputs (2120major+15584814minor)pagefaults 0swaps
+
+20100805-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20100805-1-0.asm   --output-file Output/20100805-1-0.kstate 
+cat Output/20100805-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileX2IYq  2>&1 &&  mv /tmp/tmpfileX2IYq Output/20100805-1-0.kstate 
+Failed:[4m[1m[91mOutput/20100805-1-0.kstate: Non exit status[0m
+1042.80user 54.21system 7:05.42elapsed 257%CPU (0avgtext+0avgdata 13205968maxresident)k
+22104inputs+14520outputs (71major+7246455minor)pagefaults 0swaps
+
+20080506-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20080506-1-0.asm   --output-file Output/20080506-1-0.kstate 
+cat Output/20080506-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilea14sW  2>&1 &&  mv /tmp/tmpfilea14sW Output/20080506-1-0.kstate 
+Failed:[4m[1m[91mOutput/20080506-1-0.kstate: Non exit status[0m
+1013.50user 46.91system 7:07.85elapsed 247%CPU (0avgtext+0avgdata 13177164maxresident)k
+197752inputs+14512outputs (193major+15673788minor)pagefaults 0swaps
+
+20180112-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//20180112-1-0.asm   --output-file Output/20180112-1-0.kstate 
+cat Output/20180112-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilenxc7D  2>&1 &&  mv /tmp/tmpfilenxc7D Output/20180112-1-0.kstate 
+Failed:[4m[1m[91mOutput/20180112-1-0.kstate: Non exit status[0m
+1078.89user 29.11system 7:36.32elapsed 242%CPU (0avgtext+0avgdata 13445092maxresident)k
+16inputs+14584outputs (0major+7838516minor)pagefaults 0swaps
+
+921016-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//921016-1-0.asm   --output-file Output/921016-1-0.kstate 
+cat Output/921016-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileIhl5L  2>&1 &&  mv /tmp/tmpfileIhl5L Output/921016-1-0.kstate 
+Passed:[4m[1m[92mOutput/921016-1-0.kstate: Pass: krun[0m
+1020.05user 67.63system 7:13.64elapsed 250%CPU (0avgtext+0avgdata 13147352maxresident)k
+16inputs+14544outputs (0major+13714284minor)pagefaults 0swaps
+
+920810-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//920810-1-0.asm   --output-file Output/920810-1-0.kstate 
+cat Output/920810-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfiletcUMz  2>&1 &&  mv /tmp/tmpfiletcUMz Output/920810-1-0.kstate 
+Failed:[4m[1m[91mOutput/920810-1-0.kstate: Non exit status[0m
+1052.69user 84.92system 7:20.87elapsed 258%CPU (0avgtext+0avgdata 13285388maxresident)k
+16inputs+14952outputs (0major+13983523minor)pagefaults 0swaps
+
+930621-1-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//930621-1-0.asm   --output-file Output/930621-1-0.kstate 
+cat Output/930621-1-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileqmGum  2>&1 &&  mv /tmp/tmpfileqmGum Output/930621-1-0.kstate 
+Passed:[4m[1m[92mOutput/930621-1-0.kstate: Pass: krun[0m
+904.44user 27.08system 6:58.38elapsed 222%CPU (0avgtext+0avgdata 13066216maxresident)k
+16inputs+14504outputs (0major+5676201minor)pagefaults 0swaps
+
+920501-2-0
+======
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ bin//920501-2-0.asm   --output-file Output/920501-2-0.kstate 
+cat Output/920501-2-0.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfileBYBWr  2>&1 &&  mv /tmp/tmpfileBYBWr Output/920501-2-0.kstate 
+Failed:[4m[1m[91mOutput/920501-2-0.kstate: Non exit status[0m
+[Error] Internal: Uncaught exception thrown of type StackOverflowError.
+Please rerun your program with the --debug flag to generate a stack trace, and
+file a bug report at https://github.com/kframework/k/issues (null)
+Command exited with non-zero status 1
+19487.35user 1197.78system 5:46:18elapsed 99%CPU (0avgtext+0avgdata 16956412maxresident)k
+10798200inputs+55352outputs (1338563major+592566470minor)pagefaults 0swaps

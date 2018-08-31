@@ -3,6 +3,9 @@ requires "x86-configuration.k"
 
 module CMOVBEL-R32-R32
   imports X86-CONFIGURATION
+  rule <k>
+    execinstr (cmovbe R1:R32, R2:R32,  .Operands) => execinstr (cmovbel R1:R32, R2:R32,  .Operands)
+  ...</k>
 
   rule <k>
     execinstr (cmovbel R1:R32, R2:R32,  .Operands) => .

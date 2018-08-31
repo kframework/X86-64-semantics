@@ -50,5 +50,3 @@ pr84339-0
 pr85169-0
 shiftdi-0
 va-arg-22-0
-arith-rand-0
-arith-rand-ll-0

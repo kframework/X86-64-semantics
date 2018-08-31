@@ -5,6 +5,9 @@ module CMOVBEQ-R64-R64
   imports X86-CONFIGURATION
 
   rule <k>
+    execinstr (cmovbe R1:R64, R2:R64,  .Operands) => execinstr (cmovbeq R1:R64, R2:R64,  .Operands)
+  ...</k>
+  rule <k>
     execinstr (cmovbeq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
