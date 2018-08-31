@@ -20,23 +20,21 @@
     L29 |-> ptr ( symloc ( -1 , 0 ) , 64'150 )
     L32 |-> ptr ( symloc ( -1 , 0 ) , 64'181 )
     L33 |-> ptr ( symloc ( -1 , 0 ) , 64'173 )
-    L41 |-> ptr ( symloc ( -1 , 0 ) , 64'217 )
-    L42 |-> ptr ( symloc ( -1 , 0 ) , 64'230 )
-    L43 |-> ptr ( symloc ( -1 , 0 ) , 64'223 )
-    L44 |-> ptr ( symloc ( -1 , 0 ) , 64'229 )
-    L49 |-> ptr ( symloc ( -1 , 0 ) , 64'272 )
-    L51 |-> ptr ( symloc ( -1 , 0 ) , 64'281 )
+    L37 |-> ptr ( symloc ( -1 , 0 ) , 64'204 )
+    L38 |-> ptr ( symloc ( -1 , 0 ) , 64'217 )
+    L39 |-> ptr ( symloc ( -1 , 0 ) , 64'210 )
+    L40 |-> ptr ( symloc ( -1 , 0 ) , 64'216 )
+    L45 |-> ptr ( symloc ( -1 , 0 ) , 64'259 )
+    L47 |-> ptr ( symloc ( -1 , 0 ) , 64'268 )
     __stack_chk_fail |-> ptr ( symloc ( -1 , 0 ) , 64'120 )
-    _start |-> ptr ( symloc ( -1 , 0 ) , 64'274 )
+    _start |-> ptr ( symloc ( -1 , 0 ) , 64'261 )
     a |-> ptr ( symloc ( 3 , 128 ) , 64'0 )
     abort |-> ptr ( symloc ( -1 , 0 ) , 64'135 )
-    bar |-> ptr ( symloc ( -1 , 0 ) , 64'232 )
-    calloc |-> ptr ( symloc ( -1 , 0 ) , 64'195 )
+    bar |-> ptr ( symloc ( -1 , 0 ) , 64'219 )
     exit |-> ptr ( symloc ( -1 , 0 ) , 64'127 )
-    foo |-> ptr ( symloc ( -1 , 0 ) , 64'242 )
-    free |-> ptr ( symloc ( -1 , 0 ) , 64'202 )
-    isprint |-> ptr ( symloc ( -1 , 0 ) , 64'208 )
-    malloc |-> ptr ( symloc ( -1 , 0 ) , 64'189 )
+    foo |-> ptr ( symloc ( -1 , 0 ) , 64'229 )
+    free |-> ptr ( symloc ( -1 , 0 ) , 64'189 )
+    isprint |-> ptr ( symloc ( -1 , 0 ) , 64'195 )
     memcmp |-> ptr ( symloc ( -1 , 0 ) , 64'85 )
     memcpy |-> ptr ( symloc ( -1 , 0 ) , 64'163 )
     memset |-> ptr ( symloc ( -1 , 0 ) , 64'142 )
@@ -56,13 +54,13 @@
     .Map
   </bsstargets>
   <entrypoint>
-    ptr ( symloc ( -1 , 0 ) , 64'274 )
+    ptr ( symloc ( -1 , 0 ) , 64'261 )
   </entrypoint>
   <nextLocPc>
-    64'283
+    64'270
   </nextLocPc>
   <lastseenlabel>
-    L51
+    L47
   </lastseenlabel>
   <currentsection>
     "text"
@@ -261,97 +259,84 @@
       ptr ( symloc ( -1 , 0 ) , 64'189 ) |-> storedInstr ( pushq %rbp , .Operands )
       ptr ( symloc ( -1 , 0 ) , 64'190 ) |-> storedInstr ( movq %rsp , %rbp , .Operands )
       ptr ( symloc ( -1 , 0 ) , 64'191 ) |-> storedInstr ( movq %rdi , -8 ( %rbp ) , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'192 ) |-> storedInstr ( movl $ 1000 , %eax , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'192 ) |-> storedInstr ( nop .Operands )
       ptr ( symloc ( -1 , 0 ) , 64'193 ) |-> storedInstr ( popq %rbp , .Operands )
       ptr ( symloc ( -1 , 0 ) , 64'194 ) |-> storedInstr ( ret .Operands )
       ptr ( symloc ( -1 , 0 ) , 64'195 ) |-> storedInstr ( pushq %rbp , .Operands )
       ptr ( symloc ( -1 , 0 ) , 64'196 ) |-> storedInstr ( movq %rsp , %rbp , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'197 ) |-> storedInstr ( movq %rdi , -8 ( %rbp ) , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'198 ) |-> storedInstr ( movq %rsi , -16 ( %rbp ) , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'199 ) |-> storedInstr ( movl $ 1000 , %eax , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'200 ) |-> storedInstr ( popq %rbp , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'201 ) |-> storedInstr ( ret .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'202 ) |-> storedInstr ( pushq %rbp , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'203 ) |-> storedInstr ( movq %rsp , %rbp , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'204 ) |-> storedInstr ( movq %rdi , -8 ( %rbp ) , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'205 ) |-> storedInstr ( nop .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'206 ) |-> storedInstr ( popq %rbp , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'207 ) |-> storedInstr ( ret .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'208 ) |-> storedInstr ( pushq %rbp , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'209 ) |-> storedInstr ( movq %rsp , %rbp , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'210 ) |-> storedInstr ( movl %edi , -4 ( %rbp ) , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'211 ) |-> storedInstr ( cmpl $ 96 , -4 ( %rbp ) , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'212 ) |-> storedInstr ( jle L41 , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'213 ) |-> storedInstr ( cmpl $ 122 , -4 ( %rbp ) , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'214 ) |-> storedInstr ( jg L41 , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'215 ) |-> storedInstr ( movl $ 1 , %eax , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'216 ) |-> storedInstr ( jmp L42 , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'217 ) |-> storedInstr ( cmpl $ 64 , -4 ( %rbp ) , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'218 ) |-> storedInstr ( jle L43 , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'219 ) |-> storedInstr ( cmpl $ 90 , -4 ( %rbp ) , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'220 ) |-> storedInstr ( jg L43 , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'221 ) |-> storedInstr ( movl $ 1 , %eax , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'222 ) |-> storedInstr ( jmp L42 , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'223 ) |-> storedInstr ( cmpl $ 47 , -4 ( %rbp ) , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'224 ) |-> storedInstr ( jle L44 , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'225 ) |-> storedInstr ( cmpl $ 57 , -4 ( %rbp ) , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'226 ) |-> storedInstr ( jg L44 , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'227 ) |-> storedInstr ( movl $ 1 , %eax , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'228 ) |-> storedInstr ( jmp L42 , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'229 ) |-> storedInstr ( movl $ 0 , %eax , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'230 ) |-> storedInstr ( popq %rbp , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'231 ) |-> storedInstr ( ret .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'232 ) |-> storedInstr ( pushq %rbp , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'233 ) |-> storedInstr ( movq %rsp , %rbp , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'234 ) |-> storedInstr ( movl %edi , -4 ( %rbp ) , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'235 ) |-> storedInstr ( movq %rsi , -16 ( %rbp ) , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'197 ) |-> storedInstr ( movl %edi , -4 ( %rbp ) , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'198 ) |-> storedInstr ( cmpl $ 96 , -4 ( %rbp ) , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'199 ) |-> storedInstr ( jle L37 , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'200 ) |-> storedInstr ( cmpl $ 122 , -4 ( %rbp ) , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'201 ) |-> storedInstr ( jg L37 , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'202 ) |-> storedInstr ( movl $ 1 , %eax , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'203 ) |-> storedInstr ( jmp L38 , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'204 ) |-> storedInstr ( cmpl $ 64 , -4 ( %rbp ) , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'205 ) |-> storedInstr ( jle L39 , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'206 ) |-> storedInstr ( cmpl $ 90 , -4 ( %rbp ) , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'207 ) |-> storedInstr ( jg L39 , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'208 ) |-> storedInstr ( movl $ 1 , %eax , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'209 ) |-> storedInstr ( jmp L38 , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'210 ) |-> storedInstr ( cmpl $ 47 , -4 ( %rbp ) , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'211 ) |-> storedInstr ( jle L40 , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'212 ) |-> storedInstr ( cmpl $ 57 , -4 ( %rbp ) , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'213 ) |-> storedInstr ( jg L40 , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'214 ) |-> storedInstr ( movl $ 1 , %eax , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'215 ) |-> storedInstr ( jmp L38 , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'216 ) |-> storedInstr ( movl $ 0 , %eax , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'217 ) |-> storedInstr ( popq %rbp , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'218 ) |-> storedInstr ( ret .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'219 ) |-> storedInstr ( pushq %rbp , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'220 ) |-> storedInstr ( movq %rsp , %rbp , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'221 ) |-> storedInstr ( movl %edi , -4 ( %rbp ) , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'222 ) |-> storedInstr ( movq %rsi , -16 ( %rbp ) , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'223 ) |-> storedInstr ( movl a ( %rip ) , %eax , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'224 ) |-> storedInstr ( addl $ 1 , %eax , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'225 ) |-> storedInstr ( movl %eax , a ( %rip ) , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'226 ) |-> storedInstr ( movl -4 ( %rbp ) , %eax , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'227 ) |-> storedInstr ( popq %rbp , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'228 ) |-> storedInstr ( ret .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'229 ) |-> storedInstr ( pushq %rbp , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'230 ) |-> storedInstr ( movq %rsp , %rbp , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'231 ) |-> storedInstr ( subq $ 65584 , %rsp , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'232 ) |-> storedInstr ( movl %edi , -65572 ( %rbp ) , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'233 ) |-> storedInstr ( movq $ 40 , %rax , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'234 ) |-> storedInstr ( movq %rax , -8 ( %rbp ) , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'235 ) |-> storedInstr ( xorl %eax , %eax , .Operands )
       ptr ( symloc ( -1 , 0 ) , 64'236 ) |-> storedInstr ( movl a ( %rip ) , %eax , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'237 ) |-> storedInstr ( addl $ 1 , %eax , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'238 ) |-> storedInstr ( movl %eax , a ( %rip ) , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'239 ) |-> storedInstr ( movl -4 ( %rbp ) , %eax , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'240 ) |-> storedInstr ( popq %rbp , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'241 ) |-> storedInstr ( ret .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'242 ) |-> storedInstr ( pushq %rbp , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'243 ) |-> storedInstr ( movq %rsp , %rbp , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'244 ) |-> storedInstr ( subq $ 65584 , %rsp , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'245 ) |-> storedInstr ( movl %edi , -65572 ( %rbp ) , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'246 ) |-> storedInstr ( movq $ 40 , %rax , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'247 ) |-> storedInstr ( movq %rax , -8 ( %rbp ) , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'248 ) |-> storedInstr ( xorl %eax , %eax , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'249 ) |-> storedInstr ( movl a ( %rip ) , %eax , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'250 ) |-> storedInstr ( movl %eax , -65556 ( %rbp ) , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'251 ) |-> storedInstr ( movl -65556 ( %rbp ) , %eax , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'252 ) |-> storedInstr ( movl %eax , a + 4 ( %rip ) , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'253 ) |-> storedInstr ( leaq -65552 ( %rbp ) , %rdx , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'254 ) |-> storedInstr ( movl -65572 ( %rbp ) , %eax , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'255 ) |-> storedInstr ( movq %rdx , %rsi , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'256 ) |-> storedInstr ( movl %eax , %edi , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'257 ) |-> storedInstr ( call bar , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'258 ) |-> storedInstr ( movl %eax , -65572 ( %rbp ) , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'259 ) |-> storedInstr ( leaq -65552 ( %rbp ) , %rdx , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'260 ) |-> storedInstr ( movl -65556 ( %rbp ) , %eax , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'261 ) |-> storedInstr ( movq %rdx , %rsi , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'262 ) |-> storedInstr ( movl %eax , %edi , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'263 ) |-> storedInstr ( call bar , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'264 ) |-> storedInstr ( movl %eax , -65556 ( %rbp ) , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'265 ) |-> storedInstr ( movl -65572 ( %rbp ) , %edx , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'266 ) |-> storedInstr ( movl -65556 ( %rbp ) , %eax , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'267 ) |-> storedInstr ( addl %edx , %eax , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'268 ) |-> storedInstr ( movq -8 ( %rbp ) , %rcx , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'269 ) |-> storedInstr ( xorq $ 40 , %rcx , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'270 ) |-> storedInstr ( je L49 , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'271 ) |-> storedInstr ( call __stack_chk_fail , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'272 ) |-> storedInstr ( leave .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'273 ) |-> storedInstr ( ret .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'274 ) |-> storedInstr ( pushq %rbp , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'275 ) |-> storedInstr ( movq %rsp , %rbp , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'276 ) |-> storedInstr ( movl $ 100 , %edi , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'277 ) |-> storedInstr ( call foo , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'278 ) |-> storedInstr ( cmpl $ 102 , %eax , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'279 ) |-> storedInstr ( je L51 , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'280 ) |-> storedInstr ( call abort , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'281 ) |-> storedInstr ( movl $ 0 , %edi , .Operands )
-      ptr ( symloc ( -1 , 0 ) , 64'282 ) |-> storedInstr ( call exit , .Operands ) )
+      ptr ( symloc ( -1 , 0 ) , 64'237 ) |-> storedInstr ( movl %eax , -65556 ( %rbp ) , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'238 ) |-> storedInstr ( movl -65556 ( %rbp ) , %eax , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'239 ) |-> storedInstr ( movl %eax , a + 4 ( %rip ) , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'240 ) |-> storedInstr ( leaq -65552 ( %rbp ) , %rdx , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'241 ) |-> storedInstr ( movl -65572 ( %rbp ) , %eax , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'242 ) |-> storedInstr ( movq %rdx , %rsi , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'243 ) |-> storedInstr ( movl %eax , %edi , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'244 ) |-> storedInstr ( call bar , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'245 ) |-> storedInstr ( movl %eax , -65572 ( %rbp ) , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'246 ) |-> storedInstr ( leaq -65552 ( %rbp ) , %rdx , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'247 ) |-> storedInstr ( movl -65556 ( %rbp ) , %eax , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'248 ) |-> storedInstr ( movq %rdx , %rsi , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'249 ) |-> storedInstr ( movl %eax , %edi , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'250 ) |-> storedInstr ( call bar , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'251 ) |-> storedInstr ( movl %eax , -65556 ( %rbp ) , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'252 ) |-> storedInstr ( movl -65572 ( %rbp ) , %edx , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'253 ) |-> storedInstr ( movl -65556 ( %rbp ) , %eax , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'254 ) |-> storedInstr ( addl %edx , %eax , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'255 ) |-> storedInstr ( movq -8 ( %rbp ) , %rcx , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'256 ) |-> storedInstr ( xorq $ 40 , %rcx , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'257 ) |-> storedInstr ( je L45 , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'258 ) |-> storedInstr ( call __stack_chk_fail , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'259 ) |-> storedInstr ( leave .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'260 ) |-> storedInstr ( ret .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'261 ) |-> storedInstr ( pushq %rbp , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'262 ) |-> storedInstr ( movq %rsp , %rbp , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'263 ) |-> storedInstr ( movl $ 100 , %edi , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'264 ) |-> storedInstr ( call foo , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'265 ) |-> storedInstr ( cmpl $ 102 , %eax , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'266 ) |-> storedInstr ( je L47 , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'267 ) |-> storedInstr ( call abort , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'268 ) |-> storedInstr ( movl $ 0 , %edi , .Operands )
+      ptr ( symloc ( -1 , 0 ) , 64'269 ) |-> storedInstr ( call exit , .Operands ) )
     </text>
     <stack>
       <memory>
@@ -1359,14 +1344,14 @@
           997 |-> byte ( 5 , ptr ( symloc ( 1 , 128 ) , 64'1008 ) )
           998 |-> byte ( 6 , ptr ( symloc ( 1 , 128 ) , 64'1008 ) )
           999 |-> byte ( 7 , ptr ( symloc ( 1 , 128 ) , 64'1008 ) )
-          1000 |-> byte ( 0 , ptr ( symloc ( -1 , 0 ) , 64'278 ) )
-          1001 |-> byte ( 1 , ptr ( symloc ( -1 , 0 ) , 64'278 ) )
-          1002 |-> byte ( 2 , ptr ( symloc ( -1 , 0 ) , 64'278 ) )
-          1003 |-> byte ( 3 , ptr ( symloc ( -1 , 0 ) , 64'278 ) )
-          1004 |-> byte ( 4 , ptr ( symloc ( -1 , 0 ) , 64'278 ) )
-          1005 |-> byte ( 5 , ptr ( symloc ( -1 , 0 ) , 64'278 ) )
-          1006 |-> byte ( 6 , ptr ( symloc ( -1 , 0 ) , 64'278 ) )
-          1007 |-> byte ( 7 , ptr ( symloc ( -1 , 0 ) , 64'278 ) )
+          1000 |-> byte ( 0 , ptr ( symloc ( -1 , 0 ) , 64'265 ) )
+          1001 |-> byte ( 1 , ptr ( symloc ( -1 , 0 ) , 64'265 ) )
+          1002 |-> byte ( 2 , ptr ( symloc ( -1 , 0 ) , 64'265 ) )
+          1003 |-> byte ( 3 , ptr ( symloc ( -1 , 0 ) , 64'265 ) )
+          1004 |-> byte ( 4 , ptr ( symloc ( -1 , 0 ) , 64'265 ) )
+          1005 |-> byte ( 5 , ptr ( symloc ( -1 , 0 ) , 64'265 ) )
+          1006 |-> byte ( 6 , ptr ( symloc ( -1 , 0 ) , 64'265 ) )
+          1007 |-> byte ( 7 , ptr ( symloc ( -1 , 0 ) , 64'265 ) )
           1008 |-> byte ( 0 , ptr ( symloc ( 1 , 128 ) , 64'1016 ) )
           1009 |-> byte ( 1 , ptr ( symloc ( 1 , 128 ) , 64'1016 ) )
           1010 |-> byte ( 2 , ptr ( symloc ( 1 , 128 ) , 64'1016 ) )
@@ -4504,7 +4489,7 @@
     "RCX" |-> 64'0
     "RDI" |-> 64'100
     "RDX" |-> 64'0
-    "RIP" |-> ptr ( symloc ( -1 , 0 ) , 64'246 )
+    "RIP" |-> ptr ( symloc ( -1 , 0 ) , 64'233 )
     "RSI" |-> 64'0
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'18446744073709487024 )
     "SF" |-> ptr ( symloc ( 1 , 128 ) , 1'1 )
@@ -4547,7 +4532,7 @@
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
-    "RIP" |-> ptr ( symloc ( -1 , 0 ) , 64'274 )
+    "RIP" |-> ptr ( symloc ( -1 , 0 ) , 64'261 )
     "RSI" |-> 64'0
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'1016 )
     "SF" |-> 1'0
@@ -4588,7 +4573,7 @@
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
-    "RIP" |-> ptr ( symloc ( -1 , 0 ) , 64'275 )
+    "RIP" |-> ptr ( symloc ( -1 , 0 ) , 64'262 )
     "RSI" |-> 64'0
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'1008 )
     "SF" |-> 1'0
@@ -4629,7 +4614,7 @@
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
-    "RIP" |-> ptr ( symloc ( -1 , 0 ) , 64'276 )
+    "RIP" |-> ptr ( symloc ( -1 , 0 ) , 64'263 )
     "RSI" |-> 64'0
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'1008 )
     "SF" |-> 1'0
@@ -4670,7 +4655,7 @@
     "RCX" |-> 64'0
     "RDI" |-> 64'100
     "RDX" |-> 64'0
-    "RIP" |-> ptr ( symloc ( -1 , 0 ) , 64'277 )
+    "RIP" |-> ptr ( symloc ( -1 , 0 ) , 64'264 )
     "RSI" |-> 64'0
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'1008 )
     "SF" |-> 1'0
@@ -4711,7 +4696,7 @@
     "RCX" |-> 64'0
     "RDI" |-> 64'100
     "RDX" |-> 64'0
-    "RIP" |-> ptr ( symloc ( -1 , 0 ) , 64'242 )
+    "RIP" |-> ptr ( symloc ( -1 , 0 ) , 64'229 )
     "RSI" |-> 64'0
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'1000 )
     "SF" |-> 1'0
@@ -4752,7 +4737,7 @@
     "RCX" |-> 64'0
     "RDI" |-> 64'100
     "RDX" |-> 64'0
-    "RIP" |-> ptr ( symloc ( -1 , 0 ) , 64'243 )
+    "RIP" |-> ptr ( symloc ( -1 , 0 ) , 64'230 )
     "RSI" |-> 64'0
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'992 )
     "SF" |-> 1'0
@@ -4793,7 +4778,7 @@
     "RCX" |-> 64'0
     "RDI" |-> 64'100
     "RDX" |-> 64'0
-    "RIP" |-> ptr ( symloc ( -1 , 0 ) , 64'244 )
+    "RIP" |-> ptr ( symloc ( -1 , 0 ) , 64'231 )
     "RSI" |-> 64'0
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'992 )
     "SF" |-> 1'0
@@ -4834,7 +4819,7 @@
     "RCX" |-> 64'0
     "RDI" |-> 64'100
     "RDX" |-> 64'0
-    "RIP" |-> ptr ( symloc ( -1 , 0 ) , 64'245 )
+    "RIP" |-> ptr ( symloc ( -1 , 0 ) , 64'232 )
     "RSI" |-> 64'0
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'18446744073709487024 )
     "SF" |-> ptr ( symloc ( 1 , 128 ) , 1'1 )
