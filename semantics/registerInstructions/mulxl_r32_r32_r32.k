@@ -3,6 +3,9 @@ requires "x86-configuration.k"
 
 module MULXL-R32-R32-R32
   imports X86-CONFIGURATION
+  rule <k>
+    execinstr (mulx R1:R32, R2:R32, R3:R32,  .Operands) =>   execinstr (mulxl R1:R32, R2:R32, R3:R32,  .Operands) 
+  ...</k>
 
   rule <k>
     execinstr (mulxl R1:R32, R2:R32, R3:R32,  .Operands) => .

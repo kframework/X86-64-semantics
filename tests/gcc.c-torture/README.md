@@ -9,6 +9,9 @@ OR
 cat bin_worklist.txt | parallel -j5 "echo; echo {}; echo ======; ../../../scripts/run.pl --file bin/{}.asm --krun --output Output/{}.kstate --nopathsplit" |& tee runlog.kstate.txt
 cat bin_worklist.txt | parallel "../../../scripts/run.pl --file bin/{}.asm --xrun --output Output/{}.xstate --nopathsplit" |& tee runlog.xstate.txt
 cat pass_worklist.txt | parallel "echo ; echo {}; echo =======;  ../../../scripts/run.pl --file bin/{}.asm --compare |& tee Output/{}.compare.log" |& tee runlog.compare.txt
+
+// Allow vebose outpput
+cat diff_worklist.txt | parallel "echo ; echo {}; echo =======;  ../../../scripts/run.pl --file bin/{}.asm --compare |& tee Output/{}.compare.log"
 ```
 
 # Modify source (One time)

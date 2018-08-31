@@ -4,6 +4,9 @@ requires "x86-configuration.k"
 module MULXQ-R64-R64-M64
   imports X86-CONFIGURATION
 
+  rule <k>
+    execinstr (mulx:Opcode M:Mem, R2:R64, R3:R64,  .Operands) => execinstr (mulxq:Opcode M:Mem, R2:R64, R3:R64,  .Operands) 
+  ...</k>
   context execinstr(mulxq:Opcode HOLE:Mem, R2:R64, R3:R64,  .Operands) [result(MemOffset)]
   
   rule <k>

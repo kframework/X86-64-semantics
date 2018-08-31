@@ -3,6 +3,9 @@ requires "x86-configuration.k"
 
 module MULXL-R32-R32-M32
   imports X86-CONFIGURATION
+  rule <k>
+    execinstr (mulx:Opcode M:Mem, R2:R32, R3:R32,  .Operands) => execinstr (mulxl:Opcode M:Mem, R2:R32, R3:R32,  .Operands)
+  ...</k>
 
   context execinstr(mulxl:Opcode HOLE:Mem, R2:R32, R3:R32,  .Operands) [result(MemOffset)]
   
