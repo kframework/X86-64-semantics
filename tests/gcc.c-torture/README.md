@@ -156,7 +156,9 @@ wc ./job_101_600/blacklist.txt ./ieee/blacklist.txt ./builtins/blacklist.txt ./j
   - 20101011-1.c
 
 ## Latest sttas
-|   |   |  |  |
-------
-
-
+| Job  | Total | KRun Pass | KRun Fail | Diff Pass | Diff Fail |
+|------|-------|-----------|-----------|-----------|-----------|
+| ieee | 58    | 56        | 2         | 47        | 11        |
+| job1 | 100   | 96        | 4         | 90        | 6         |
+| job2 | 500   | 446       | 54        | 443       | 43        |
+| job3 | 466   | 412       | 54        | 393       | 19        |

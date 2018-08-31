@@ -1,0 +1,140 @@
+grep  -A 40  "ListItem"  Output/pr63641-0.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfile4eHQV 2>&1 
+numOfInstrs: 66
+[4m[1m[34mpr63641-0 Compare Results :[0m
+Failed:[4m[1m[91mpr63641-0: kstate xstate count unequal[0m
+kstates = 2508
+xstates = 380000
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 4
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 5
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 6
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rax at instrcount: 56
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rax at instrcount: 57
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rax at instrcount: 58
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rax at instrcount: 59
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 60
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 60
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rax at instrcount: 60
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 61
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+zf at instrcount: 61
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rax at instrcount: 61
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rax at instrcount: 62
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+cf at instrcount: 63
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 63
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+af at instrcount: 63
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+sf at instrcount: 63
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != 0000000000000001
+rax at instrcount: 63
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+cf at instrcount: 64
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 64
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+af at instrcount: 64
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+sf at instrcount: 64
+
+Failed:[4m[1m[91mFail[0m
+ffffffffffffffff != 0000000000000002
+rax at instrcount: 64
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+cf at instrcount: 65
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 65
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+af at instrcount: 65
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+sf at instrcount: 65
+
+Failed:[4m[1m[91mFail[0m
+ffffffffffffffff != 0000000000000002
+rax at instrcount: 65
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+cf at instrcount: 66
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 66
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+af at instrcount: 66
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+sf at instrcount: 66
+
+Passed:[4m[1m[92mPassed[0m

@@ -1,0 +1,4 @@
+grep  -A 40  "ListItem"  Output/pr20466-1-0.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfileLQTsD 2>&1 
+numOfInstrs: 78
+[4m[1m[34mpr20466-1-0 Compare Results :[0m
+Passed:[4m[1m[92mPassed[0m

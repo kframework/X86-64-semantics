@@ -1,0 +1,36 @@
+grep  -A 40  "ListItem"  Output/va-arg-5-0.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfileURgXP 2>&1 
+numOfInstrs: 244
+[4m[1m[34mva-arg-5-0 Compare Results :[0m
+Failed:[4m[1m[91mva-arg-5-0: kstate xstate count unequal[0m
+kstates = 9272
+xstates = 988
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 17
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 18
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 19
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 20
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 21
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 22
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 23
+
+Passed:[4m[1m[92mPassed[0m

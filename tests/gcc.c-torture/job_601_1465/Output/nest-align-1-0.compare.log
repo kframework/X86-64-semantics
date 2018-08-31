@@ -1,0 +1,100 @@
+grep  -A 40  "ListItem"  Output/nest-align-1-0.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfiletFv50 2>&1 
+numOfInstrs: 63
+[4m[1m[34mnest-align-1-0 Compare Results :[0m
+Failed:[4m[1m[91mnest-align-1-0: kstate xstate count unequal[0m
+kstates = 2394
+xstates = 1976
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 7
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 8
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 9
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 25
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 25
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 25
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 25
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 25
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 25
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 25
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 25
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 25
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 25
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 25
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 25
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 25
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 25
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 25
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 25
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 25
+
+Failed:[4m[1m[91mFail[0m
+0000000000000014 != ffffffffffffffff
+rax at instrcount: 25
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 26
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+zf at instrcount: 26
+
+Passed:[4m[1m[92mPassed[0m

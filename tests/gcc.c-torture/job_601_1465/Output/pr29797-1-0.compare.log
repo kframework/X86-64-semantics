@@ -1,0 +1,40 @@
+grep  -A 40  "ListItem"  Output/pr29797-1-0.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfilexHasZ 2>&1 
+numOfInstrs: 21
+[4m[1m[34mpr29797-1-0 Compare Results :[0m
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 4
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 5
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 6
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 7
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 8
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 9
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 10
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 11
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 12
+
+Passed:[4m[1m[92mPassed[0m

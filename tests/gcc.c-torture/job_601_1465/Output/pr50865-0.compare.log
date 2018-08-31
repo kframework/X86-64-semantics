@@ -1,0 +1,12 @@
+grep  -A 40  "ListItem"  Output/pr50865-0.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfileRdAFX 2>&1 
+numOfInstrs: 27
+[4m[1m[34mpr50865-0 Compare Results :[0m
+Failed:[4m[1m[91mpr50865-0: kstate xstate count unequal[0m
+kstates = 1026
+xstates = 798
+
+Failed:[4m[1m[91mFail[0m
+0000000000000000 != ffffffffffffffff
+rdx at instrcount: 21
+
+Passed:[4m[1m[92mPassed[0m

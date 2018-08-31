@@ -1,0 +1,132 @@
+grep  -A 40  "ListItem"  Output/991216-1-0.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfilektUnz 2>&1 
+numOfInstrs: 279
+[4m[1m[34m991216-1-0 Compare Results :[0m
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 31
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 32
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 33
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 34
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 35
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 56
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 57
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 58
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 59
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 60
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 61
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 118
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 119
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 120
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 121
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 122
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 123
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 124
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 156
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 157
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 158
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 159
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 160
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 161
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 162
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 241
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 242
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 243
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 244
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 245
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 246
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 247
+
+Passed:[4m[1m[92mPassed[0m

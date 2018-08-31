@@ -1,0 +1,128 @@
+grep  -A 40  "ListItem"  Output/pr39233-0.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfilegr7_1 2>&1 
+numOfInstrs: 158
+[4m[1m[34mpr39233-0 Compare Results :[0m
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 4
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 5
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 6
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 14
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 15
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 16
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 17
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 35
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 36
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 37
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 38
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 56
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 57
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 58
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 59
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 77
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 78
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 79
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 80
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 98
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 99
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 100
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 101
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 119
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 120
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 121
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 122
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 140
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 141
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 142
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 143
+
+Passed:[4m[1m[92mPassed[0m

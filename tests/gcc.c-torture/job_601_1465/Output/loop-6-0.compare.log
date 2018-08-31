@@ -1,0 +1,20 @@
+grep  -A 40  "ListItem"  Output/loop-6-0.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfilepwNua 2>&1 
+numOfInstrs: 104
+[4m[1m[34mloop-6-0 Compare Results :[0m
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 4
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 5
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 6
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 7
+
+Passed:[4m[1m[92mPassed[0m
