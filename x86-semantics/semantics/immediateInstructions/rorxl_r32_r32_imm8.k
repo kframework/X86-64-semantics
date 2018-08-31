@@ -5,6 +5,9 @@ module RORXL-R32-R32-IMM8
   imports X86-CONFIGURATION
 
   rule <k>
+    execinstr (rorx Imm8:Imm, R2:R32, R3:R32,  .Operands) =>   execinstr (rorxl Imm8:Imm, R2:R32, R3:R32,  .Operands) 
+  ...</k>
+  rule <k>
     execinstr (rorxl Imm8:Imm, R2:R32, R3:R32,  .Operands) => .
   ...</k>
     <regstate>

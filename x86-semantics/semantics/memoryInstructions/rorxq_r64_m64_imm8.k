@@ -4,6 +4,9 @@ requires "x86-configuration.k"
 module RORXQ-R64-M64-IMM8
   imports X86-CONFIGURATION
 
+  rule <k>
+    execinstr (rorx:Opcode Imm8:Imm, M:Mem, R3:R64,  .Operands) => execinstr (rorxq:Opcode Imm8:Imm, M:Mem, R3:R64,  .Operands) 
+  ...</k>
   context execinstr(rorxq:Opcode Imm8:Imm, HOLE:Mem, R3:R64,  .Operands) [result(MemOffset)]
   
   rule <k>
