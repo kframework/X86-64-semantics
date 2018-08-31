@@ -266,9 +266,9 @@ L40:
 L38:
     popq	%rbp
     ret
-    .globl	false
+    .globl	xfalse
     .section	.rodata
-false:
+xfalse:
     .zero	1
     .globl	true
 true:

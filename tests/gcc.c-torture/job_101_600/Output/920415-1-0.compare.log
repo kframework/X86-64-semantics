@@ -1,4 +1,4 @@
-grep  -A 40  "ListItem"  Output/920415-1-0.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfileqL16T 2>&1 
+grep  -A 40  "ListItem"  Output/920415-1-0.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfileZYsDD 2>&1 
 numOfInstrs: 25
 [4m[1m[34m920415-1-0 Compare Results :[0m
 Failed:[4m[1m[91mFail[0m
