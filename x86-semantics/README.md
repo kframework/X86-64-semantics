@@ -23,9 +23,9 @@ cd  binary-decompilation/x86-semantics/tests/Programs/bubblesort/
 ../../../scripts/collect_instructions_semantics.pl --file test.s
 make cleankstate; make kstate  // Checks successful completion of krun and stores the final state in Output/test.kstate
 ```
+[//]: # (This may be the most platform independent comment)
 
-[comment]: <> ### XXX
-[comment]: <> (This is a comment, it will not be included)
+
 ```
 make xstate // Executes gdb scrip to collect the hardware register states (we call xstate)
 make compare // compare the above two states
