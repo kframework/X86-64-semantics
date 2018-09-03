@@ -5,16 +5,17 @@ use Getopt::Long;
 use File::Compare;
 use File::Basename;
 use File::Temp qw/ tempfile tempdir /;
-#use File::Find::Rule;
+use Cwd 'abs_path';
 
-use lib qw( /home/sdasgup3/x86-semantics/scripts/ );
+
+use lib qw( /home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/);
 use kutils;
-use lib qw( /home/sdasgup3/scripts-n-docs/scripts/perl/ );
 use utils;
 
 my $help       = "";
 my $file       = "";
-my $baseDir = "/home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics";
+my $script_path =  dirname(abs_path($0));
+my $baseDir = "$script_path/../semantics";
 my $regDir = $baseDir . "/registerInstructions/";
 my $immDir = $baseDir . "/immediateInstructions/";
 my $memDir = $baseDir . "/memoryInstructions/";
@@ -34,6 +35,7 @@ if ($help) {
 
 open( my $fp, "<", $file ) or die "Can't open $file: $!";
 my @lines   = <$fp>;
+my %opcodeMap = ();
 
 for my $line (@lines) {
   chomp $line;
@@ -41,18 +43,22 @@ for my $line (@lines) {
 
   if($line =~ m/:/) {
     next;
+  } 
+
+  if($line =~ m/\.type|\.size|\.ident|\.align|\.weak|\.local|\.file|\.p2align|\.cfi\_|\.text|\.file|\.section|\.quad|\.value|\.long|\.zero|\.globl|\.comm|\.string|\.data|\.byte|\.bss|\.ascii|\.asciz|\.set/) {
+    next;  
   }
 
   my $opcode = $line =~ s/\s.*//gr; 
+  if("" ne $opcode) {
+    $opcodeMap{$opcode} = "";
+  }
+
+}
+
+for my $opcode (keys %opcodeMap) {
   print $opcode ."\n";
   populate($opcode);
-
-  #my @files = File::Find::Rule->file->name("$opcode\_*.k")->in($regDir);
-  #foreach (@files) {
-  #  print $file . "\n";
-  #}
-
-
 }
 
 sub populate {

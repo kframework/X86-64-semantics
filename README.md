@@ -3,15 +3,30 @@
 ## To compile the x86-64 semantics encoded in K
 
 ```
-cd x86-semantics
+cd x86-semantics/semantics
+mkdir -p underTestInstructions/    
+# Populate  underTestInstructions with all the k rules 
+# corresponding to all the instructions that we want
+# to include in the compiled model
+# If we try to compile with all the instruction rules, 
+# the build and subsequent run will be VERY slow.
 ./scripts/process_spec.pl --compile
 ```
 
 
-## To test
+## Running X86 programs with the semantics
+
+### Running single program: buublesort 
 ```
-cd  tests
-make kstate // Checks successful completion of krun and stores the final state (we call kstate).
+cd  binary-decompilation/x86-semantics/tests/Programs/bubblesort/
+// Populate the underTestInstructions directory with relevant instructions rules
+../../../scripts/collect_instructions_semantics.pl --file test.s
+make cleankstate; make kstate  // Checks successful completion of krun and stores the final state in Output/test.kstate
+```
+
+[comment]: <> ### XXX
+[comment]: <> (This is a comment, it will not be included)
+```
 make xstate // Executes gdb scrip to collect the hardware register states (we call xstate)
 make compare // compare the above two states
 make // All the above
