@@ -1,8 +1,8 @@
 comisd
 comiss
-cvt_single_to_fp16_rm
-cvt_single_to_int32_rm
-cvt_double_to_int64_rm
+cvt_single_to_fp16_rm  **
+cvt_single_to_int32_rm  **
+cvt_double_to_int64_rm  **
 cvt_half_to_single
 cvt_double_to_int64_truncate
 cvt_single_to_int64_truncate
@@ -46,12 +46,12 @@ div_quotient_int32
 div_remainder_int32
 div_quotient_int64
 div_remainder_int64
-approx_reciprocal_double
-approx_reciprocal_single
+approx_reciprocal_double **
+approx_reciprocal_single **
 sqrt_double
 sqrt_single
-approx_reciprocal_sqrt_double
-approx_reciprocal_sqrt_single
+approx_reciprocal_sqrt_double **
+approx_reciprocal_sqrt_single **
 cmp_double_pred
 cmp_single_pred
 vfmadd132_double
