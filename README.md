@@ -5,7 +5,7 @@
 ```
 cd x86-semantics/semantics
 mkdir -p underTestInstructions/    
-./scripts/process_spec.pl --compile
+../scripts/process_spec.pl --compile
 ```
 
 
