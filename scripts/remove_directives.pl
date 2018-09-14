@@ -4,18 +4,32 @@
 use strict;
 use warnings;
 use Getopt::Long;
-use lib qw( /home/sdasgup3/scripts-n-docs/scripts/perl/ );
+use lib qw( /home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts );
 use utils;
+use File::Temp qw/ tempfile tempdir /;
 
 my $file = "";
+my $inplace = "";
 
 GetOptions(
     "file:s" => \$file,
+    "i" => \$inplace,
 ) or die("Error in command line arguments\n");
 
 open( my $fp, "<", $file ) or die "cannot open: $!";
 my @lines = <$fp>;
 close $fp;
+
+my ( $fh, $tmpfile ) = tempfile( "tmpfileXXXXX", DIR => "/tmp/" );
+sub defer_print {
+  my $msg = shift @_;
+
+  if("" ne $inplace) {
+    print $fh $msg;
+  } else {
+    print $msg;
+  }
+}
 
 
 my %LS = ();
@@ -49,29 +63,30 @@ for my $line (@lines) {
 
     }
     $line =~ s/([\_a-zA-Z\d]+)\.([\_a-zA-Z\d]+)/$1$2/g;
+    $line =~ s/\@PLT//g;
 
     if($line =~ m/^\.L(.*)/) {
-      print "L". $1. "\n";
+      defer_print "L". $1. "\n";
       next;
     }
 
     if($line =~ m/^    call/) {
       $line =~ s/\.//g;
       $line =~ s/\*//g;
-      print "". $line ."\n";
+      defer_print "". $line ."\n";
       next;
     }
 
     if($line =~ m/^    j.*/) {
       $line =~ s/\.//g;
       $line =~ s/\*//g;
-      print "". $line ."\n";
+      defer_print "". $line ."\n";
       next;
     }
 
     if($line =~ m/(.*)stdout\(%rip\)(.*)/) {
-      print $1. "\$stdout" . $2. "\n";
-      #print $1. "stdout" . $2. "\n";
+      defer_print $1. "\$stdout" . $2. "\n";
+      #defer_print $1. "stdout" . $2. "\n";
       next;
     }
 
@@ -83,7 +98,7 @@ for my $line (@lines) {
     # Case quad
     if($line =~ m/\.quad/g) {
       $line =~ s/\.L/L/g;
-      print "". $line ."\n";
+      defer_print "". $line ."\n";
       next;
     }
 
@@ -100,11 +115,11 @@ for my $line (@lines) {
       #  $text = $pre."\$L". $post;
       #}
 
-      print "". $text. "\n";
+      defer_print "". $text. "\n";
       next;
     }
 
-    #print $line. "\n";
+    #defer_print $line. "\n";
     #if($line =~ m/^(.*)\s+([a-zA-Z]+[0-9]*) \+ (\d+)(.*)/) {
     #  my $pre = $1;
     #  my $base = $2;
@@ -113,7 +128,7 @@ for my $line (@lines) {
 
     #    $base = "\$". $base;
     #  $line = $pre . " $base + $const$post";
-    #  print "" . "$line". "\n";
+    #  defer_print "" . "$line". "\n";
     #  next;
     #}
 
@@ -125,7 +140,7 @@ for my $line (@lines) {
 
     #  $base = "\$". $base;
     #  $line = $pre . " $base(%$reg)$post";
-    #  print "". "$line". "\n";
+    #  defer_print "". "$line". "\n";
     #  next;
     #}
 
@@ -138,7 +153,7 @@ for my $line (@lines) {
 
     #  $base = "\$". $base;
     #  $line = $pre . " $base(,%$reg1,$reg2)$post";
-    #  print "". "$line". "\n";
+    #  defer_print "". "$line". "\n";
     #  next;
     #}
 
@@ -151,32 +166,35 @@ for my $line (@lines) {
     }
 
     if($line =~ m/(.*)\%fs:(.*)/) {
-      print $1. "\$" . $2. "\n";
+      defer_print $1. "\$" . $2. "\n";
       next;
     }
 
 
     #if($line =~ m/(.*)\s+(\S+)\(%rip\)(.*)/) {
-    #  print $1. " \$$2(%rip)" . $3. "\n";
+    #  defer_print $1. " \$$2(%rip)" . $3. "\n";
     #  next;
     #}
 
     if($line =~ m/^main:/) {
-      print ".globl _start\n";
-      print "_start:". "\n";
+      defer_print ".globl _start\n";
+      defer_print "_start:". "\n";
       next;
     }
 
     if($line =~ m/(.*)call\s*\*(.*)/) {
-      print  $1. "call $2". "\n";
+      defer_print  $1. "call $2". "\n";
       next;
     }
 
     if($line =~ m/(.*)jmp\s*\*(.*)/) {
-      print  $1. "jmp $2". "\n";
+      defer_print  $1. "jmp $2". "\n";
       next;
     }
 
-    print $line . "\n";
+    defer_print $line . "\n";
 }
 
+if("" ne $inplace) {
+  execute("mv $tmpfile $file");
+}
