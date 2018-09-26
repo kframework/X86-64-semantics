@@ -12,7 +12,6 @@ BEGIN{
 	unshift @INC, "$home/Github/binary-decompilation/x86-semantics/scripts/";
 }
 use utils;
-use kutils;
 
 my $help       = "";
 my $file       = "";
