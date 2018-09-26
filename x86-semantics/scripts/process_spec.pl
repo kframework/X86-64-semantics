@@ -10,9 +10,8 @@ use File::Basename;
 #use File::chdir;
 use Cwd;
 use File::Path qw(make_path remove_tree);
-use lib qw( /home/sdasgup3/scripts-n-docs/scripts/perl/ );
-use utils;
 use lib qw( /home/sdasgup3/x86-semantics/scripts/ );
+use utils;
 use kutils;
 use File::Find;
 
