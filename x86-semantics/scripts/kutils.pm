@@ -20,8 +20,11 @@ $VERSION = 1.00;
   qw(processKFile checkKRunStatus processXFile compareStates pprint find_stratum getReadMod spec_template getSpecCode selectbraces mixfix2infix processSpecOutput sanitizeSpecOutput writeKDefn opcHasOperand instrGetOperands runkprove postProcess createSpecFile checkSupported checkManuallyGenerated getImmInstrs getMemInstrs generateZ3Formula modelInstructions assocateMcSemaXed assocateMcSemaAvail assocIntelATT getTargetInstr getStrataBVFormula getRegVaraint  mem_modify_testcases getInstrsFolder getDummyRegsForOperands getOperandListFromOpcode getOperandListFromInstr sanitizeBVF parseKFile);
 @EXPORT_OK = qw();
 
-my $home = $ENV{"HOME"};
-use lib qw( $home/Github/binary-decompilation/x86-semantics/scripts/ );
+my $home = "";
+BEGIN{
+	$home = $ENV{"HOME"};
+	unshift @INC, "$home/Github/binary-decompilation/x86-semantics/scripts/";
+}
 use utils;
 
 our $stoke_debug_circuit = "";

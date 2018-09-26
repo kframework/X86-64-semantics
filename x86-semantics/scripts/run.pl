@@ -6,10 +6,13 @@ use File::Compare;
 use File::Basename;
 use File::Temp qw/ tempfile tempdir /;
 
-my $home = $ENV{"HOME"};
-use lib qw( $home/Github/binary-decompilation/x86-semantics/scripts/ );
-use kutils;
+my $home = "";
+BEGIN{
+	$home = $ENV{"HOME"};
+	unshift @INC, "$home/Github/binary-decompilation/x86-semantics/scripts/";
+}
 use utils;
+use kutils;
 
 my $help       = "";
 my $file       = "";
