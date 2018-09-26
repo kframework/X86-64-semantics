@@ -8,7 +8,6 @@ use File::Temp qw/ tempfile tempdir /;
 
 use lib qw( /home/sdasgup3/x86-semantics/scripts/ );
 use kutils;
-use lib qw( /home/sdasgup3/scripts-n-docs/scripts/perl/ );
 use utils;
 
 my $help       = "";
