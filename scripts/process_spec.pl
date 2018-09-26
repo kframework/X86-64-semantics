@@ -10,8 +10,12 @@ use File::Basename;
 #use File::chdir;
 use Cwd;
 use File::Path qw(make_path remove_tree);
-my $home = $ENV{"HOME"};
-use lib qw( $home/Github/binary-decompilation/x86-semantics/scripts/ );
+
+my $home = "";
+BEGIN{
+	$home = $ENV{"HOME"};
+	unshift @INC, "$home/Github/binary-decompilation/x86-semantics/scripts/";
+}
 use utils;
 use kutils;
 use File::Find;

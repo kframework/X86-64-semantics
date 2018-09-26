@@ -11,12 +11,16 @@ use Cwd;
 use File::Path qw(make_path remove_tree);
 use Env;
 Getopt::Long::Configure('prefix=+');
+my $home = "";
+BEGIN{
+	$home = $ENV{"HOME"};
+	unshift @INC, "$home/Github/binary-decompilation/x86-semantics/scripts/";
+}
 
-use lib qw( /home/sdasgup3/scripts-n-docs/scripts/perl/ );
+
 use utils;
 
 # Get environment Variable
-my $home         = $ENV{'HOME'};
 my $hexPattern   = qr/0x([0-9A-Za-z]+)/;
 my $binPattern   = qr/0b([01]+)/;
 my $floatPattern = qr/(\d*\.\d+)|(inf)|(-inf)/;

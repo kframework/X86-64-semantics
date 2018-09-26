@@ -7,8 +7,12 @@ use File::Basename;
 use File::Temp qw/ tempfile tempdir /;
 #use File::Find::Rule;
 
-my $home = $ENV{"HOME"};
-use lib qw( $home/Github/binary-decompilation/x86-semantics/scripts/ );
+my $home = "";
+BEGIN{
+	$home = $ENV{"HOME"};
+	unshift @INC, "$home/binary-decompilation/x86-semantics/scripts/";
+}
+
 use kutils;
 use utils;
 
