@@ -10,7 +10,8 @@ use File::Basename;
 #use File::chdir;
 use Cwd;
 use File::Path qw(make_path remove_tree);
-use lib qw( /home/sdasgup3/x86-semantics/scripts/ );
+my $home = $ENV{"HOME"};
+use lib qw( $home/Github/binary-decompilation/x86-semantics/scripts/ );
 use utils;
 use kutils;
 use File::Find;
@@ -22,7 +23,7 @@ use threads;
 # Using GetOPtions
 my $file = "";
 my $instantiated_instr_path =
-  "/home/sdasgup3/Github/strata-data/data-regs/instructions/";
+  "$home/Github/strata-data/data-regs/instructions/";
 my $script = "~/x86-semantics/scripts/process_spec.pl";
 
 my $help                 = "";
@@ -136,29 +137,27 @@ if ( "" ne $compareintel ) {
     ## file names
     my $availfile = "docs/instruction_manuals/all.instrs";
     my $intelatt =
-"/home/sdasgup3/Github/strata-data/output-strata/instruction-summary/misc-documents/intel_att.txt";
-#my $idealfile = "/home/sdasgup3/Github/strata-data/output-strata/instruction-summary/clasification/all.txt";
-    my $idealfile = "/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/k-semantics/current_support.txt";
+"$home/Github/strata-data/output-strata/instruction-summary/misc-documents/intel_att.txt";
+#my $idealfile = "$home/Github/strata-data/output-strata/instruction-summary/clasification/all.txt";
+    my $idealfile = "$home/Github/binary-decompilation/x86-semantics/docs/relatedwork/k-semantics/current_support.txt";
 
     my $stratafile =
-"/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/strata/strata_orig_supported.txt";
+"$home/Github/binary-decompilation/x86-semantics/docs/relatedwork/strata/strata_orig_supported.txt";
     my $currentfile =
-"/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/k-semantics/current_support.txt";
+"$home/Github/binary-decompilation/x86-semantics/docs/relatedwork/k-semantics/current_support.txt";
     my $bapfile =
-"/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/bap/baprunlog.txt";
+"$home/Github/binary-decompilation/x86-semantics/docs/relatedwork/bap/baprunlog.txt";
     my $angrfile =
-"/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/angrVex/support.txt";
+"$home/Github/binary-decompilation/x86-semantics/docs/relatedwork/angrVex/support.txt";
     my $stratavecimmfile =
-"/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/strata/Immediates/stratum_vector_immediates.txt";
-    my $mcsemafile =
-#"/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/mcsema/amd64.txt";
-"/home/sdasgup3/x86-semantics/docs/relatedwork/mcsema/reportlist.txt";
+"$home/Github/binary-decompilation/x86-semantics/docs/relatedwork/strata/Immediates/stratum_vector_immediates.txt";
+    my $mcsemafile = "$home/Github/binary-decompilation/x86-semantics/docs/relatedwork/mcsema/reportlist.txt";
+#"$home/Github/binary-decompilation/x86-semantics/docs/relatedwork/mcsema/amd64.txt";
     my $xedfile =
-"/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/mcsema/xed.txt";
-    my $acl2file = "/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/acl2/implemented.txt";
-#"/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/acl2/supportedOPcodes.txt";
-    my $r2file =
-"/home/sdasgup3/x86-semantics/docs/relatedwork/radare2/r2log.txt";
+"$home/Github/binary-decompilation/x86-semantics/docs/relatedwork/mcsema/xed.txt";
+    my $acl2file = "$home/Github/binary-decompilation/x86-semantics/docs/relatedwork/acl2/implemented.txt";
+#"$home/Github/binary-decompilation/x86-semantics/docs/relatedwork/acl2/supportedOPcodes.txt";
+    my $r2file = "$home/Github/binary-decompilation/x86-semantics/docs/relatedwork/radare2/r2log.txt";
     my $stoke_strata_unsup_file =
       "docs/relatedwork/strata/strata_stoke_unsupported.txt";
     my $ungeneralized_memory =
@@ -307,7 +306,7 @@ if ( "" ne $compile ) {
     createSingleFileDefn();
     execute("git status x86-instructions-semantics.k");
     execute(
-"time  kompile x86-semantics.k --syntax-module X86-SYNTAX --main-module X86-SEMANTICS --debug -v --backend java -I /home/sdasgup3/Github/llvm-verified-backend/ -I /home/sdasgup3/Github/llvm-verified-backend/common/x86-config/",
+"time  kompile x86-semantics.k --syntax-module X86-SYNTAX --main-module X86-SEMANTICS --debug -v --backend java -I $home/Github/llvm-verified-backend/ -I $home/Github/l lvm-verified-backend/common/x86-config/",
         1
     );
 
@@ -843,7 +842,7 @@ sub threadop_match_stoke {
 }
 
 if ( "" ne $match_stoke ) {
-    my $specgen = "/home/sdasgup3/Github/strata/stoke/bin/specgen";
+    my $specgen = "$home/Github/strata/stoke/bin/specgen";
     for my $line (@lines) {
         chomp $line;
         execute(

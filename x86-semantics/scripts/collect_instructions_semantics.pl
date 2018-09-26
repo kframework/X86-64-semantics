@@ -8,7 +8,7 @@ use File::Temp qw/ tempfile tempdir /;
 use Cwd 'abs_path';
 
 ## REPLACE THIS PATH WITH YOUR OWN
-use lib qw( /home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/);
+use lib qw( $home/Github/binary-decompilation/x86-semantics/scripts/);
 use kutils;
 use utils;
 

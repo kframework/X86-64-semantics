@@ -20,16 +20,17 @@ $VERSION = 1.00;
   qw(processKFile checkKRunStatus processXFile compareStates pprint find_stratum getReadMod spec_template getSpecCode selectbraces mixfix2infix processSpecOutput sanitizeSpecOutput writeKDefn opcHasOperand instrGetOperands runkprove postProcess createSpecFile checkSupported checkManuallyGenerated getImmInstrs getMemInstrs generateZ3Formula modelInstructions assocateMcSemaXed assocateMcSemaAvail assocIntelATT getTargetInstr getStrataBVFormula getRegVaraint  mem_modify_testcases getInstrsFolder getDummyRegsForOperands getOperandListFromOpcode getOperandListFromInstr sanitizeBVF parseKFile);
 @EXPORT_OK = qw();
 
-use lib qw( /home/sdasgup3/scripts-n-docs/scripts/perl/ );
+my $home = $ENV{"HOME"};
+use lib qw( $home/Github/binary-decompilation/x86-semantics/scripts/ );
 use utils;
 
-our $stoke_debug_circuit =
-  "/home/sdasgup3/Github/stoke/./bin/stoke_debug_formula";
-our $strata_path = "/home/sdasgup3/Github/strata-data/circuits";
-our $stoke_check_circuit =
-  "/home/sdasgup3/Github/strata/stoke/./bin/stoke_check_circuit";
-our $functions_dir = "/home/sdasgup3/Github/strata-data/data-regs/functions";
-our $testcases     = "/home/sdasgup3/Github/strata-data/data-regs/testcases.tc";
+our $stoke_debug_circuit = "";
+#  "/home/sdasgup3/Github/stoke/./bin/stoke_debug_formula";
+our $strata_path = "$home/Github/strata-data/circuits";
+our $stoke_check_circuit = "";
+#  "/home/sdasgup3/Github/strata/stoke/./bin/stoke_check_circuit";
+our $functions_dir = "$home/Github/strata-data/data-regs/functions";
+our $testcases     = "$home/Github/strata-data/data-regs/testcases.tc";
 
 my $uif_binop = (
 qr/add_double|add_single|sub_double|sub_single|maxcmp_double|maxcmp_single|mincmp_double|mincmp_single|mul_double|mul_single|div_double|div_single/
@@ -1055,7 +1056,7 @@ sub getTargetInstr {
     my $path       = shift @_;
 
     if ( !defined($path) ) {
-        $path = "/home/sdasgup3/Github/strata-data/data-regs/instructions/";
+        $path = "$home/Github/strata-data/data-regs/instructions/";
     }
     my $filepath = $path . "/" . $opcode . "/" . $opcode . ".s";
     my $metapath = $path . "/" . $opcode . "/" . $opcode . ".meta.json";
@@ -1089,7 +1090,7 @@ sub getMDFromOpcode {
 #############################################
     my $opcode     = shift @_;
     my $debugprint = shift @_;
-    my $path = "/home/sdasgup3/Github/strata-data/data-regs/instructions/";
+    my $path = "$home/Github/strata-data/data-regs/instructions/";
 
     my $metapath = $path . "/" . $opcode . "/" . $opcode . ".meta.json";
     my $metadata = "";
@@ -3440,7 +3441,7 @@ sub runkprove {
     my $specfile   = "$specdir/x86-semantics_${opcode}_spec.k";
     my $specoutput = "$specoutdir/x86-semantics_${opcode}_spec.output";
     execute(
-"time krun --prove $specfile ~/Junk/dummy.k  --smt_prelude /home/sdasgup3/Github/k/k-distribution/include/z3/basic.smt2 1>$specoutput 2>&1",
+"time krun --prove $specfile ~/Junk/dummy.k  --smt_prelude $home/Github/k/k-distribution/include/z3/basic.smt2 1>$specoutput 2>&1",
         1
     );
 }

@@ -4,7 +4,8 @@
 use strict;
 use warnings;
 use Getopt::Long;
-use lib qw( /home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts );
+my $home = $ENV{"HOME"};
+use lib qw( $home/Github/binary-decompilation/x86-semantics/scripts/ );
 use utils;
 use File::Temp qw/ tempfile tempdir /;
 
