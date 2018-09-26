@@ -7,15 +7,15 @@ use File::Basename;
 use File::Temp qw/ tempfile tempdir /;
 #use File::Find::Rule;
 
-use lib qw( /home/sdasgup3/x86-semantics/scripts/ );
+my $home = $ENV{"HOME"};
+use lib qw( $home/Github/binary-decompilation/x86-semantics/scripts/ );
 use kutils;
-use lib qw( /home/sdasgup3/scripts-n-docs/scripts/perl/ );
 use utils;
 
 my $help       = "";
 my $file       = "";
 my $diff       = "";
-my $baseDir = "/home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics";
+my $baseDir = "$home/Github/binary-decompilation/x86-semantics/semantics";
 my $regDir = $baseDir . "/registerInstructions/";
 my $immDir = $baseDir . "/immediateInstructions/";
 my $memDir = $baseDir . "/memoryInstructions/";

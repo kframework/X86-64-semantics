@@ -6,7 +6,8 @@ use File::Compare;
 use File::Basename;
 use File::Temp qw/ tempfile tempdir /;
 
-use lib qw( /home/sdasgup3/x86-semantics/scripts/ );
+my $home = $ENV{"HOME"};
+use lib qw( $home/Github/binary-decompilation/x86-semantics/scripts/ );
 use kutils;
 use utils;
 
