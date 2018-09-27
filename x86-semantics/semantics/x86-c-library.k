@@ -10,7 +10,7 @@ module X86-C-LIBRARY-SYNTAX
   syntax StringPointer ::= PointerVal
   syntax BufferPointer ::= PointerVal
   syntax VoidFunctionPointer ::= PointerVal
-  syntax LibCValue ::= MInt
+  syntax LibCValue ::= MInt | Int
 endmodule
 
 module X86-C-LIBRARY
@@ -29,7 +29,7 @@ module X86-C-LIBRARY
   rule isNullStrPtr(PV:PointerVal) => isPointerValNull(PV)
   rule isNullBufPtr(PV:PointerVal) => isPointerValNull(PV)
 
-  rule PV:PointerVal +chars Offs:Int => PV +bytes Offs
+  rule PV:PointerVal +chars Offs:Int => {PV +bytes Offs}:>PointerVal
   rule ptr(L:MemLoc, Offs:MInt) +bytes Offs2:Int
        =>
        ptr(L, 
