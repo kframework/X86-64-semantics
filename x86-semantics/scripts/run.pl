@@ -28,7 +28,7 @@ my $testinput  = "";
 my $nopathsplit  = "";
 my @args       = ();
 my $kstateskip = 0;
-my $home   = $ENV{'HOME'};
+#my $home   = $ENV{'HOME'};
 my $kdefn =
   "/home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/";
 my $outdir = "Output/";
