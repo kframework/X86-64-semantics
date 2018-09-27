@@ -8,9 +8,12 @@ use File::Temp qw/ tempfile tempdir /;
 use Cwd 'abs_path';
 
 ## REPLACE THIS PATH WITH YOUR OWN
-use lib qw( $home/Github/binary-decompilation/x86-semantics/scripts/);
+my $home = "";
+BEGIN{
+	$home = $ENV{"HOME"};
+	unshift @INC, "$home/Github/binary-decompilation/x86-semantics/scripts/";
+}
 use kutils;
-use utils;
 
 my $help       = "";
 my $file       = "";
