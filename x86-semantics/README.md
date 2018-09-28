@@ -19,25 +19,15 @@ cd !$
 2. git clone https://github.com/sdasgup3/x86-64-instruction-summary.git    
 3. git clone --recursive  https://github.com/sdasgup3/strata-data-private.git  strata-data
 
-// We should have your own 'llvm-verified-backend' instead. As the path of your
-// clone are different, so we have to fix the paths in binary-decompilation/x86-semantics/process_spec.pl (search for compile)
-// so that the proper modules are picked from your path.
-4. git clone https://github.com/sdasgup3/llvm-verified-backend.git [k5-migration]
+// We can sue wither of the following repos for 'llvm-verified-backend'. As the path of your
+// clones are different, so we have to fix the paths in binary-decompilation/x86-semantics/process_spec.pl to include the correct module paths(search for compile and and update the include paths)
+
+4. git clone https://github.com/theo25/llvm-verified-backend.git [f_llvm_parser]  (preferred)
+5. git clone https://github.com/sdasgup3/llvm-verified-backend.git [k5-migration] or 
 
 // I have a K5 branch which I maintain mainly for
-// 1. All the floating points hooks that I have to support. All my changes can be rebased to current master. I will
-create a pull request to merge all my changes to master k5, so that you do not
-have to use different repos. Here are the changes
-    https://github.com/sdasgup3/k5/commit/27ee855dadef5351cc8e87e1b7ef82aa0c464045
-    https://github.com/sdasgup3/k5/commit/ee360bb1611d781af5747f8d4ba822d13a5c74e1
-    https://github.com/sdasgup3/k5/commit/b826c0984e4881f0d775a894af3ff252dc314895
-// 2. Some changes that we need for verification purposes: https://github.com/sdasgup3/k5/commit/37c4e76f04dbbd21260e3cc6ba16a44e7bfe4d48
 git clone https://github.com/sdasgup3/k5.git [working branch]
 
-Note: You will need 1, otherwise the kompile will fail.  You may not need 2.
-For the time being, you may use my k5 repo and I will gives you a patch (by tomorrow) that you
-need to apply to the public k5 master. I know you can get the patch by urself,
-but that an extra work.
 ```
 
 ## To compile the x86-64 semantics encoded in K
