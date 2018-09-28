@@ -22,8 +22,8 @@ cd !$
 // We can sue wither of the following repos for 'llvm-verified-backend'. As the path of your
 // clones are different, so we have to fix the paths in binary-decompilation/x86-semantics/process_spec.pl to include the correct module paths(search for compile and and update the include paths)
 
-4. git clone https://github.com/theo25/llvm-verified-backend.git [f_llvm_parser]  (preferred)
-5. git clone https://github.com/sdasgup3/llvm-verified-backend.git [k5-migration] or 
+4. git clone https://github.com/theo25/llvm-verified-backend.git [f_llvm_parser]  (preferred) OR
+5. git clone https://github.com/sdasgup3/llvm-verified-backend.git [k5-migration] 
 
 // I have a K5 branch which I maintain mainly for
 git clone https://github.com/sdasgup3/k5.git [working branch]
