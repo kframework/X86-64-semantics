@@ -53,6 +53,11 @@ for my $line (@lines) {
     next;  
   }
 
+  if($line =~ m/rep\s*(.*)/g) {
+    $opcodeMap{"rep_". $1} = "";
+    next;
+  }
+
   my $opcode = $line =~ s/\s.*//gr; 
   if("" ne $opcode) {
     $opcodeMap{$opcode} = "";
