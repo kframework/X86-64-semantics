@@ -19,8 +19,8 @@
   1. git clone https://github.com/sdasgup3/binary-decompilation.git [master]
   2. git clone https://github.com/sdasgup3/x86-64-instruction-summary.git    
   3. git clone --recursive  https://github.com/sdasgup3/strata-data-private.git  strata-data
-  4. git clone https://github.com/theo25/llvm-verified-backend.git [f_llvm_parser]  (preferred) OR
-      OR git clone https://github.com/sdasgup3/llvm-verified-backend.git [f_llvm_parser], 
+  4.  git clone https://github.com/sdasgup3/llvm-verified-backend.git [f_llvm_parser] (preferred) OR
+      git clone https://github.com/theo25/llvm-verified-backend.git [f_llvm_parser]  
      // In case the llvm-verified-backend is cloned in places other than
      // Github, then fix the paths in binary-decompilation/x86-semantics/process_spec.pl to 
      // include the correct module paths (search for compile and and update the include paths).
