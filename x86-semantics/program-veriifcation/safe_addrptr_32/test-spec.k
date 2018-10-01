@@ -5,16 +5,21 @@ module TEST-SPEC
   rule
     <k> fetch => exit_0 </k>
       <functargets>  
-        L2    |-> mi(64, 10)
-        L3    |-> mi(64, 11)
-        main  |-> mi(64, 0)
+        L2    |-> ptr ( symloc ( -1 , 0 ) , mi(64, 10))
+        L3    |-> ptr ( symloc ( -1 , 0 ) , mi(64, 11))
+        main  |-> ptr ( symloc ( -1 , 0 ) , mi(64, 0))
       </functargets> 
+      <rotargets> .Map </rotargets> 
+      <bsstargets> .Map </bsstargets> 
+      <datatargets> .Map </datatargets> 
       <entrypoint> .K </entrypoint>
       <nextLocPc>  _:MInt  </nextLocPc>
+      <lastseenlabel> .K </lastseenlabel>
+      <currentsection> "text" </currentsection>
       <regstate>
-        "RIP" |-> (mi(64, 0) => mi(64, 18446744073709551615))
-        "RSP" |-> (mi(64, 56) => mi(64, 64))
-        "RBP" |-> (mi(64, 56))
+        "RIP" |-> ( ptr (symloc(-1, 0), mi(64, 0))  => mi(64, 18446744073709551615))
+        "RSP" |-> ( ptr (symloc(1, 128), mi(64, 56))  => ptr(symloc(1, 128), mi(64, 64)))
+        "RBP" |-> ( ptr (symloc(1, 128), mi(64, 56)))
         "AF" |-> (_:MInt => _:MInt)
         "CF" |-> (_:MInt => _:MInt)
         "OF" |-> (_:MInt => _:MInt)
@@ -29,18 +34,18 @@ module TEST-SPEC
       <memstate>
         <text> 
           code ( 
-                iloc(mi(64, 0)) |-> storedInstr(movl -8(%rbp), %edx, .Operands)
-                iloc(mi(64, 1)) |-> storedInstr(movl -16(%rbp), %eax, .Operands)
-                iloc(mi(64, 2)) |-> storedInstr(addl %edx, %eax, .Operands)
-                iloc(mi(64, 3)) |-> storedInstr(movl $0, %edx, .Operands)
-                iloc(mi(64, 4)) |-> storedInstr(cmpl -8(%rbp), %eax, .Operands)
-                iloc(mi(64, 5)) |-> storedInstr(movl %edx, %eax, .Operands)
-                iloc(mi(64, 6)) |-> storedInstr(sbbl -4(%rbp), %eax, .Operands)
-                iloc(mi(64, 7)) |-> storedInstr(jnc L2, .Operands)
-                iloc(mi(64, 8)) |-> storedInstr(movl $1, %eax, .Operands)
-                iloc(mi(64, 9)) |-> storedInstr(jmp L3, .Operands)
-                iloc(mi(64, 10)) |-> storedInstr(movl $0, %eax, .Operands)
-                iloc(mi(64, 11)) |-> storedInstr(ret .Operands)
+                ptr ( symloc (-1, 0), mi(64, 0)) |-> storedInstr(movl -8(%rbp), %edx, .Operands)
+                ptr ( symloc (-1, 0), mi(64, 1)) |-> storedInstr(movl -16(%rbp), %eax, .Operands)
+                ptr ( symloc (-1, 0), mi(64, 2)) |-> storedInstr(addl %edx, %eax, .Operands)
+                ptr ( symloc (-1, 0), mi(64, 3)) |-> storedInstr(movl $0, %edx, .Operands)
+                ptr ( symloc (-1, 0), mi(64, 4)) |-> storedInstr(cmpl -8(%rbp), %eax, .Operands)
+                ptr ( symloc (-1, 0), mi(64, 5)) |-> storedInstr(movl %edx, %eax, .Operands)
+                ptr ( symloc (-1, 0), mi(64, 6)) |-> storedInstr(sbbl -4(%rbp), %eax, .Operands)
+                ptr ( symloc (-1, 0), mi(64, 7)) |-> storedInstr(jnc L2, .Operands)
+                ptr ( symloc (-1, 0), mi(64, 8)) |-> storedInstr(movl $1, %eax, .Operands)
+                ptr ( symloc (-1, 0), mi(64, 9)) |-> storedInstr(jmp L3, .Operands)
+                ptr ( symloc (-1, 0), mi(64, 10)) |-> storedInstr(movl $0, %eax, .Operands)
+                ptr ( symloc (-1, 0), mi(64, 11)) |-> storedInstr(ret .Operands)
              )
         </text>
         <stack> 
@@ -83,6 +88,9 @@ module TEST-SPEC
           <stackbase>
             stackBaseInfo ( symloc ( 1 , 128 ) , _ )
           </stackbase>
+          <robase>    roBaseInfo(.K , .K , .K  ) </robase>
+          <database>  dataBaseInfo(.K , .K , .K ) </database>
+          <bssbase>   bssBaseInfo(.K , .K , .K ) </bssbase>
         </stack>
       </memstate>
 
