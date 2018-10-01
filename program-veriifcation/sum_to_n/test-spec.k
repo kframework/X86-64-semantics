@@ -95,7 +95,7 @@ module TEST-SPEC
       </environment>
         requires N >=Int 0 andBool N <Int 255
         andBool (N *Int (N +Int 1)) /Int 2 >=Int 0  
-        andBool (N *Int (N +Int 1)) /Int 2 <Int 255 
+        andBool (N *Int (N +Int 1)) /Int 2 <Int 255 //[trusted]
 
 
   // Other Configuration
@@ -197,7 +197,7 @@ module TEST-SPEC
         andBool B >=Int 0 andBool B <Int 255 
 
         andBool B +Int ((A *Int (A +Int 1)) /Int 2) >=Int 0  
-        andBool B +Int ((A *Int (A +Int 1)) /Int 2) <Int 255
+        andBool B +Int ((A *Int (A +Int 1)) /Int 2) <Int 255 
 
 
 endmodule
