@@ -730,6 +730,9 @@ module PROG-VERIFICATION-LEMMAS
   rule svalueMInt(mi(M:Int, N:Int)) => N
     requires M ==Int 1
 
+  /*@
+    Concatenate with 0
+  */  
   rule concatenateMInt(MI1, MI2) => 
       mi(bitwidthMInt(MI1) +Int bitwidthMInt(MI2), uvalueMInt(MI2))
     requires eqMInt(MI1, mi(bitwidthMInt(MI1), 0))
@@ -743,13 +746,24 @@ module PROG-VERIFICATION-LEMMAS
     andBool   bitwidthMInt(MI) >Int (E -Int S)
     andBool   uvalueMInt(MI) >=Int 0    
     andBool   uvalueMInt(MI) <Int (2 ^Int (E -Int S))    
+    andBool   S ==Int 32 andBool E ==Int 64 
 
+  rule extractMInt(MI:MInt, S:Int, E:Int) => mi(E -Int S, uvalueMInt(MI))
+    requires  bitwidthMInt(MI) ==Int E
+    andBool   E >Int S
+    andBool   bitwidthMInt(MI) >Int (E -Int S)
+    andBool   uvalueMInt(MI) >=Int 0    
+    andBool   uvalueMInt(MI) <Int (2 ^Int (E -Int S))    
+    andBool   S ==Int 1 andBool E ==Int 33 
+
+    /*
   rule extractMInt(MI:MInt, S:Int, E:Int) => mi(E -Int S, 0)
     requires  E<Int bitwidthMInt(MI)
     andBool   E >Int S
     andBool   bitwidthMInt(MI) >Int (E -Int S)
     andBool   uvalueMInt(MI) >=Int 0    
     andBool   uvalueMInt(MI) <Int (2 ^Int (bitwidthMInt(MI) -Int E))    
+    */
 
   /*@
     L10: redundant ite
@@ -773,6 +787,13 @@ module PROG-VERIFICATION-LEMMAS
   /*@
     L11: mi semantics
   */
+  rule mi(M, A +Int B) ==K mi(M, J) => A +Int B ==Int J
+    requires  
+              J >=Int -1 *Int (2 ^Int (M -Int 1)) andBool J <Int (2 ^Int (M -Int 1))
+
+      andBool B +Int ((A *Int (A +Int 1)) /Int 2) >=Int   -1 *Int (2 ^Int (M -Int 1))
+      andBool B +Int ((A *Int (A +Int 1)) /Int 2) <Int   (2 ^Int (M -Int 1))
+
   rule mi(M, I) ==K mi(M, J) => I ==Int J
     requires  I >=Int -1 *Int (2 ^Int (M -Int 1))
       andBool
@@ -803,6 +824,11 @@ module PROG-VERIFICATION-LEMMAS
     requires  bitwidthMInt(MI2) ==Int M
     andBool   #isConcrete(MI2)
 
+  rule lshrMInt(lshrMInt(M:MInt, I:Int), J:Int) => lshrMInt(M, I +Int J)
+    requires I <=Int bitwidthMInt(M) andBool J <=Int bitwidthMInt(M)
+
+  rule lshrMInt(M:MInt, I:Int) => mi(bitwidthMInt(M), 0)
+    requires I ==Int bitwidthMInt(M)
 
 endmodule
 
