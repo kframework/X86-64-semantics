@@ -67,7 +67,7 @@ binary-decompilation/x86-semantics/scripts/remove_directives.pl --i --file test.
 ## Running kprove
  - Currently, krove is supported on a different branch 'progVerication'. I am planning to merge 'progVerication' with master soon(ETD: tomorrow).
   ```
-  git clone https://github.com/sdasgup3/binary-decompilation.git [progVerication]
+  git clone https://github.com/sdasgup3/binary-decompilation.git [programV]
 
   ```
  - All the program verification example are there in program-veriifcation
