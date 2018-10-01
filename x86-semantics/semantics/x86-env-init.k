@@ -38,9 +38,9 @@ module X86-INIT
   rule initEnvironment(L:List) =>
      //allocateStackMemory(64, 16 *Int 8) ~> allocateROMemory(64, 16 *Int 8) ~> initReturnFromEntryFunction ~> initArgc(mySize(L)) ~> initArgv(L)
      allocateStackMemory(256, 16 *Int 8) ~> 
-     allocateROMemory(64, 16 *Int 8) ~> 
-     allocateDataMemory(64, 16 *Int 8) ~> 
-     allocateBssMemory(64, 16 *Int 8) ~> 
+     allocateROMemory(256, 16 *Int 8) ~> 
+     allocateDataMemory(256, 16 *Int 8) ~> 
+     allocateBssMemory(256, 16 *Int 8) ~> 
      initReturnFromEntryFunction ~> 
      initIOStreams ~> 
      initBuiltin
