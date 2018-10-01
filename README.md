@@ -65,12 +65,12 @@ binary-decompilation/x86-semantics/scripts/remove_directives.pl --i --file test.
 
 
 ## Running kprove
- - Currently, krove is supported on a different branch 'programV'. 
+ 1. Download branch 'programV' supporting symbolic executon. 
   ```
   git clone https://github.com/sdasgup3/binary-decompilation.git [branch programV]
 
   ```
- - All the program verification example are there in program-veriifcation
+ 2. All the program verification example are there in program-veriifcation
    folder.
    ```
     cd binary-decompilation/x86-semantics/program-veriifcation
