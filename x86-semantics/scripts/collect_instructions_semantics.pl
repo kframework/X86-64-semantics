@@ -55,6 +55,7 @@ for my $line (@lines) {
 
   if($line =~ m/rep\s*(.*)/g) {
     $opcodeMap{"rep_". $1} = "";
+    $opcodeMap{$1} = "";
     next;
   }
 
