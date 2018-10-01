@@ -1,45 +1,50 @@
 ![Dependency tree of Source Code](https://github.com/sdasgup3/binary-decompilation/blob/master/x86-semantics/docs/reports/import_graph.png)
 
-## Preparation - Download packages
-```
-mkdir Github // The reason for enforcing this directory is that the scripts are
-             // hardcoded to pick from $home/Github/...
-             // If you decide to put things in different place, you may need to
-             // fix paths in the following scripts
-             //
-             // binary-decompilation/x86-semantics/process_spec.pl
-             // binary-decompilation/x86-semantics/update_instructions_sematics.pl
-             // binary-decompilation/x86-semantics/run.pl
-             // binary-decompilation/x86-semantics/remove_directives.pl
+## Preparation 
+ - Download X86 and LLVM Semantics. 
+  ```
+  mkdir Github // The reason for enforcing this directory is that the scripts are
+               // hardcoded to pick from $home/Github/...
+               // If you decide to put things in different place, you may need to
+               // fix paths in the following scripts
+               //
+               // binary-decompilation/x86-semantics/process_spec.pl
+               // binary-decompilation/x86-semantics/update_instructions_sematics.pl
+               // binary-decompilation/x86-semantics/run.pl
+               // binary-decompilation/x86-semantics/remove_directives.pl
+  
+  cd !$
+  // Clone the following
+  // 2 and 3 are requred incase we need to gather statistics.
+  1. git clone https://github.com/sdasgup3/binary-decompilation.git [master]
+  2. git clone https://github.com/sdasgup3/x86-64-instruction-summary.git    
+  3. git clone --recursive  https://github.com/sdasgup3/strata-data-private.git  strata-data
+  4. git clone https://github.com/theo25/llvm-verified-backend.git [f_llvm_parser]  (preferred) OR
+      OR git clone https://github.com/sdasgup3/llvm-verified-backend.git [f_llvm_parser], 
+     // In case the llvm-verified-backend is cloned in places other than
+     // Github, then fix the paths in binary-decompilation/x86-semantics/process_spec.pl to 
+     // include the correct module paths (search for compile and and update the include paths).
+  ```
 
-cd !$
-// Clone the following
-// 2 and 3 are requred incase we need to gather statistics.
-1. git clone https://github.com/sdasgup3/binary-decompilation.git [master]
-2. git clone https://github.com/sdasgup3/x86-64-instruction-summary.git    
-3. git clone --recursive  https://github.com/sdasgup3/strata-data-private.git  strata-data
+ - Download the K tool
+  ```
+  git clone https://github.com/sdasgup3/k5.git [working branch]
 
-// We can sue wither of the following repos for 'llvm-verified-backend'. As the path of your
-// clones are different, so we have to fix the paths in binary-decompilation/x86-semantics/process_spec.pl to include the correct module paths(search for compile and and update the include paths)
+  ```
 
-4. git clone https://github.com/theo25/llvm-verified-backend.git [f_llvm_parser]  (preferred) OR
-5. git clone https://github.com/sdasgup3/llvm-verified-backend.git [k5-migration] 
-
-// I have a K5 branch which I maintain mainly for
-git clone https://github.com/sdasgup3/k5.git [working branch]
-
-```
-
-## To compile the x86-64 semantics encoded in K
-The following will compile the semantics WITHOUT any rules for instructions (as the 'underTestInstructions' is empty). 
-The reason is if we include all the instruction's rules, then the kompile/krun/kprove all will be
-super slow. Hence, depending on which instructions sequences we are working on, we
-include their rules in the 'underTestInstructions' directory and compile them.
-```
-cd binary-decompilation/x86-semantics/semantics
-mkdir -p underTestInstructions/
-../scripts/process_spec.pl --compile
-```
+## To compile the x86-64 semantics
+  - The following commands will compile the semantics WITHOUT any rules for
+  instructions (as the 'underTestInstructions' is empty).  The reason is if we
+  include all the instruction's rules, then the kompile/krun/kprove all will be
+  super slow. Hence, depending on which instructions sequences we are working
+  on, we include their rules in the 'underTestInstructions' directory and
+  compile them.  
+  
+  ``` 
+  cd binary-decompilation/x86-semantics/semantics 
+  mkdir -p underTestInstructions/ 
+  ../scripts/process_spec.pl --compile 
+  ```
 
 ## Running X86 programs with the semantics
 
