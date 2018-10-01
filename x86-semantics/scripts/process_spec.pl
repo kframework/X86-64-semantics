@@ -29,6 +29,7 @@ my $file = "";
 my $instantiated_instr_path =
   "$home/Github/strata-data/data-regs/instructions/";
 my $script = "~/x86-semantics/scripts/process_spec.pl";
+my $UTInstructionsPath        = "underTestInstructions/";
 
 my $help                 = "";
 my $stratum              = "";
@@ -307,6 +308,7 @@ if ( "" ne $compareintel ) {
 }
 
 if ( "" ne $compile ) {
+    execute("mkdir -p $UTInstructionsPath");
     createSingleFileDefn();
     execute("git status x86-instructions-semantics.k");
     execute(
@@ -344,7 +346,6 @@ sub createSingleFileDefn {
     my $memoryInstructionsPath    = "memoryInstructions/";
     my $systemInstructionsPath    = "systemInstructions/";
     my $customInstructionsPath    = "customInstructions/";
-    my $UTInstructionsPath        = "underTestInstructions/";
 
     if ( "" ne $useuif ) {
         $baseInstrPath    = "instructions_with_uif/baseInstructions/";
