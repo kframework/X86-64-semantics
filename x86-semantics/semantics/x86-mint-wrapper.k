@@ -370,7 +370,7 @@ module MINT-WRAPPER
 
   rule makeUndefMIntMapAux(N:Int, N, M:Map) => mimap(M)
   rule makeUndefMIntMapAux(N:Int, I, M:Map) =>
-    makeUndefMIntMapAux(N, I +Int 1, M[I <- mi(8, 0)])
+    makeUndefMIntMapAux(N, I +Int 1, M[I <- undefMInt8])
       requires I <Int N
 
   /*@
