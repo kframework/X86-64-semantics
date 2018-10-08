@@ -30,6 +30,18 @@ requires "x86-mint-wrapper.k"
   //
   rule mi(W:Int, svalueMInt(concatenateMInt(MI1, MI2))) => zeroExtend(MI2, W)
     requires zeroMInt(MI1)
+
+  //
+  // Distribute Extract over Boolean operations
+  //
+  rule extractMInt(andMInt(MI1, MI2), S, E) =>  andMInt(extractMInt(MI1, S, E), extractMInt(MI2, S, E))
+  rule extractMInt(orMInt( MI1, MI2), S, E) =>   orMInt(extractMInt(MI1, S, E), extractMInt(MI2, S, E))
+  rule extractMInt(xorMInt(MI1, MI2), S, E) =>  xorMInt(extractMInt(MI1, S, E), extractMInt(MI2, S, E))
+
+  // 
+  // Merges two consecutive extracts.
+  //
+  rule extractMInt(extractMInt(MI, S1, E1), S2, E2) => extractMInt(MI, S1 +Int S2, S1 +Int E2)
 */   
 
 module MINT-LEMMAS
@@ -141,12 +153,6 @@ module MINT-LEMMAS
     requires S <Int bitwidthMInt(MI1) andBool E >Int bitwidthMInt(MI1)  
 
   /* 
-  ** Merges two consecutive extracts.
-  rule extractMInt(extractMInt(MI, S1, E1), S2, E2) => extractMInt(MI, S1 +Int S2, S1 +Int E2)
-  */
-
-  
-  /* 
   ** Concatenate zeroes
   */
   rule concatenateMInt(MI1, MI2) => mi(bitwidthMInt(MI1) +Int bitwidthMInt(MI2), 0) 
@@ -154,13 +160,6 @@ module MINT-LEMMAS
 
   rule concatenateMInt(MI1, concatenateMInt(MI2, MI3)) => concatenateMInt(mi(bitwidthMInt(MI1) +Int bitwidthMInt(MI2), 0), MI3)
     requires zeroMInt(MI1) andBool zeroMInt(MI2)
-
-  /*
-  ** Distribute Extract over Boolean operations
-  rule extractMInt(andMInt(MI1, MI2), S, E) =>  andMInt(extractMInt(MI1, S, E), extractMInt(MI2, S, E))
-  rule extractMInt(orMInt( MI1, MI2), S, E) =>   orMInt(extractMInt(MI1, S, E), extractMInt(MI2, S, E))
-  rule extractMInt(xorMInt(MI1, MI2), S, E) =>  xorMInt(extractMInt(MI1, S, E), extractMInt(MI2, S, E))
-  */
 
 endmodule
 
