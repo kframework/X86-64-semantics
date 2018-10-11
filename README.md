@@ -68,7 +68,6 @@ binary-decompilation/x86-semantics/scripts/remove_directives.pl --i --file test.
   ```
   git clone https://github.com/sdasgup3/binary-decompilation.git 
   git checkout programV 
-
   ```
  2. All the program verification example are there in program-veriifcation
    folder.
@@ -76,8 +75,11 @@ binary-decompilation/x86-semantics/scripts/remove_directives.pl --i --file test.
    ```
     cd binary-decompilation/x86-semantics/program-veriifcation/sum_to_n_32_bit
     cp instruction_semantics/* ../../semantics/underTestInstructions/
+    
+    // The following instructions are used to compile and are same same (2)
     cd ../../semantics/
     ../scripts/process_spec.pl --compile
     cd ../program-veriifcation/sum_to_n_32_bit/
+    
     kprove test-spec.k ~/Junk/dummy.k --directory ~/Github/binary-decompilation/x86-semantics/semantics --smt_prelude /home/sdasgup3/Github/k5/k-distribution/include/z3/basic.smt2
    ```
