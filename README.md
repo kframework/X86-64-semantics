@@ -46,9 +46,7 @@
   ../scripts/process_spec.pl --compile 
   ```
 
-## Running X86 programs with the semantics
-
-### Running single program: bubblesort 
+## Running X86 programs concretely with the semantics
 ```
 cd  binary-decompilation/x86-semantics/tests/Programs/bubblesort/
 
@@ -64,7 +62,7 @@ binary-decompilation/x86-semantics/scripts/remove_directives.pl --i --file test.
 ```
 
 
-## Running kprove
+## Running Symbolic Execution using kprove
  1. Download branch 'programV' supporting symbolic executon. 
   ```
   git clone https://github.com/sdasgup3/binary-decompilation.git [branch programV]
