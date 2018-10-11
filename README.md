@@ -76,7 +76,7 @@ binary-decompilation/x86-semantics/scripts/remove_directives.pl --i --file test.
     cd binary-decompilation/x86-semantics/program-veriifcation/sum_to_n_32_bit
     cp instruction_semantics/* ../../semantics/underTestInstructions/
     
-    // The following instructions are used to compile and are same same (2)
+    // The following instructions are used to compile the semantics and are same as (2)
     cd ../../semantics/
     ../scripts/process_spec.pl --compile
     cd ../program-veriifcation/sum_to_n_32_bit/
