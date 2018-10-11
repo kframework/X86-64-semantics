@@ -1,6 +1,6 @@
 ![Dependency tree of Source Code](https://github.com/sdasgup3/binary-decompilation/blob/master/x86-semantics/docs/reports/import_graph.png)
 
-## Preparation 
+## 1. Preparation 
  - Download X86 and LLVM Semantics. 
   ```
   mkdir Github // The reason for enforcing this directory is that the scripts are
@@ -33,7 +33,7 @@
   mvn package 
   ```
 
-## To compile the x86-64 semantics
+## 2. To compile the x86-64 semantics
   - The following commands will compile the semantics WITHOUT any rules for
   instructions (as the 'underTestInstructions' is empty).  The reason is if we
   include all the instruction's rules, then the kompile/krun/kprove all will be
@@ -47,7 +47,7 @@
   ../scripts/process_spec.pl --compile 
   ```
 
-## Running X86 programs concretely with the semantics
+## 3. Running X86 programs concretely with the semantics
 ```
 cd  binary-decompilation/x86-semantics/tests/Programs/bubblesort/
 
@@ -63,7 +63,7 @@ binary-decompilation/x86-semantics/scripts/remove_directives.pl --i --file test.
 ```
 
 
-## Running Symbolic Execution using kprove
+## 4. Running Symbolic Execution using kprove
  1. Download branch 'programV' supporting symbolic executon. 
   ```
   git clone https://github.com/sdasgup3/binary-decompilation.git 
