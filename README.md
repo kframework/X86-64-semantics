@@ -20,7 +20,7 @@
   2. git clone https://github.com/sdasgup3/x86-64-instruction-summary.git    
   3. git clone --recursive  https://github.com/sdasgup3/strata-data-private.git  strata-data
   4.  git clone https://github.com/sdasgup3/llvm-verified-backend.git [f_llvm_parser] (preferred) OR
-      git clone https://github.com/theo25/llvm-verified-backend.git [f_llvm_parser]  
+      git clone https://github.com/theo25/llvm-verified-backend.git [f_llvm_parser] (prepare to get get warnings) 
      // In case the llvm-verified-backend is cloned in places other than
      // Github, then fix the paths in binary-decompilation/x86-semantics/process_spec.pl to 
      // include the correct module paths (search for compile and and update the include paths).
@@ -29,7 +29,8 @@
  - Download the K tool
   ```
   git clone https://github.com/sdasgup3/k5.git [working branch]
-
+  cd k5
+  mvn package 
   ```
 
 ## To compile the x86-64 semantics
@@ -65,12 +66,18 @@ binary-decompilation/x86-semantics/scripts/remove_directives.pl --i --file test.
 ## Running Symbolic Execution using kprove
  1. Download branch 'programV' supporting symbolic executon. 
   ```
-  git clone https://github.com/sdasgup3/binary-decompilation.git [branch programV]
+  git clone https://github.com/sdasgup3/binary-decompilation.git 
+  git checkout programV 
 
   ```
  2. All the program verification example are there in program-veriifcation
    folder.
+   - Running sun2N
    ```
-    cd binary-decompilation/x86-semantics/program-veriifcation
-    gvim README.md // instructions for execution
+    cd binary-decompilation/x86-semantics/program-veriifcation/sum_to_n_32_bit
+    cp instruction_semantics/* ../../semantics/underTestInstructions/
+    cd ../../semantics/
+    ../scripts/process_spec.pl --compile
+    cd ../program-veriifcation/sum_to_n_32_bit/
+    kprove test-spec.k ~/Junk/dummy.k --directory ~/Github/binary-decompilation/x86-semantics/semantics --smt_prelude /home/sdasgup3/Github/k5/k-distribution/include/z3/basic.smt2
    ```
