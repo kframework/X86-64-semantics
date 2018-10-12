@@ -33,15 +33,29 @@ module TEST-SPEC
 
       <memstate>
         <text> 
+        /*
+          .text
+          pushq   %rbp
+        L1:
+          movq    %rsp, %rbp
+        L2:
+          movl    (%rdi), %eax
+          movl    (%rsi), %ecx
+          movl    %ecx, (%rdi)
+          movl    %eax, (%rsi)
+          popq    %rbp
+          retq
+        */
+
           code ( 
             ptr( symloc (-1, 0), mi(64, 0)) |-> storedInstr (pushq          %rbp, .Operands )
-            ptr( symloc (-1, 0), mi(64, 0)) |-> storedInstr (movq     %rsp, %rbp, .Operands )
-            ptr( symloc (-1, 0), mi(64, 0)) |-> storedInstr (movl   (%rdi), %eax, .Operands )
-            ptr( symloc (-1, 0), mi(64, 0)) |-> storedInstr (movl   (%rsi), %ecx, .Operands )
-            ptr( symloc (-1, 0), mi(64, 0)) |-> storedInstr (movl   %ecx, (%rdi), .Operands )
-            ptr( symloc (-1, 0), mi(64, 0)) |-> storedInstr (movl   %eax, (%rsi), .Operands )
-            ptr( symloc (-1, 0), mi(64, 0)) |-> storedInstr (popq           %rbp, .Operands )
-            ptr( symloc (-1, 0), mi(64, 0)) |-> storedInstr (retq                 .Operands )
+            ptr( symloc (-1, 0), mi(64, 1)) |-> storedInstr (movq     %rsp, %rbp, .Operands )
+            ptr( symloc (-1, 0), mi(64, 2)) |-> storedInstr (movl   (%rdi), %eax, .Operands )
+            ptr( symloc (-1, 0), mi(64, 3)) |-> storedInstr (movl   (%rsi), %ecx, .Operands )
+            ptr( symloc (-1, 0), mi(64, 4)) |-> storedInstr (movl   %ecx, (%rdi), .Operands )
+            ptr( symloc (-1, 0), mi(64, 5)) |-> storedInstr (movl   %eax, (%rsi), .Operands )
+            ptr( symloc (-1, 0), mi(64, 6)) |-> storedInstr (popq           %rbp, .Operands )
+            ptr( symloc (-1, 0), mi(64, 7)) |-> storedInstr (retq                 .Operands )
           )
         </text>
         <stack> 
