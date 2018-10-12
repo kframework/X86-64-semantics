@@ -86,7 +86,7 @@ module TEST-SPEC
             </freed>
           </memory>
           <stackbase>
-            stackBaseInfo ( symloc ( 1 , 128 ) , _ )
+            stackBaseInfo ( symloc ( 1 , 128, 64, 8, 0 ) , _ )
           </stackbase>
           <robase>    roBaseInfo(.K , .K , .K  ) </robase>
           <database>  dataBaseInfo(.K , .K , .K ) </database>
