@@ -53,37 +53,37 @@ module TEST-SPEC
             <nextLoc> 1 </nextLoc> 
             <objects>  
                mem( 
-              symloc ( 1 , 128 ) |-> 
-                mVector(64, 8, 
-                   
-                    40 |-> (byte ( 0 , mi(64, B)))
-                    41 |-> (byte ( 1 , mi(64, B)))
-                    42 |-> (byte ( 2 , mi(64, B)))
-                    43 |-> (byte ( 3 , mi(64, B)))
-                    44 |-> (byte ( 4 , mi(64, B)))
-                    45 |-> (byte ( 5 , mi(64, B)))
-                    46 |-> (byte ( 6 , mi(64, B)))
-                    47 |-> (byte ( 7 , mi(64, B)))
+                    symloc(1, 128, 64, 8, 40) |-> (byte ( 0 , mi(64, B)))
+                    symloc(1, 128, 64, 8, 41) |-> (byte ( 1 , mi(64, B)))
+                    symloc(1, 128, 64, 8, 42) |-> (byte ( 2 , mi(64, B)))
+                    symloc(1, 128, 64, 8, 43) |-> (byte ( 3 , mi(64, B)))
+                    symloc(1, 128, 64, 8, 44) |-> (byte ( 4 , mi(64, B)))
+                    symloc(1, 128, 64, 8, 45) |-> (byte ( 5 , mi(64, B)))
+                    symloc(1, 128, 64, 8, 46) |-> (byte ( 6 , mi(64, B)))
+                    symloc(1, 128, 64, 8, 47) |-> (byte ( 7 , mi(64, B)))
 
-                    48 |-> (byte ( 0 , mi(64, A))) 
-                    49 |-> (byte ( 1 , mi(64, A))) 
-                    50 |-> (byte ( 2 , mi(64, A))) 
-                    51 |-> (byte ( 3 , mi(64, A))) 
-                    52 |-> (byte ( 4 , mi(64, A))) 
-                    53 |-> (byte ( 5 , mi(64, A))) 
-                    54 |-> (byte ( 6 , mi(64, A))) 
-                    55 |-> (byte ( 7 , mi(64, A))) 
+                    symloc(1, 128, 64, 8, 48) |-> (byte ( 0 , mi(64, A))) 
+                    symloc(1, 128, 64, 8, 49) |-> (byte ( 1 , mi(64, A))) 
+                    symloc(1, 128, 64, 8, 50) |-> (byte ( 2 , mi(64, A))) 
+                    symloc(1, 128, 64, 8, 51) |-> (byte ( 3 , mi(64, A))) 
+                    symloc(1, 128, 64, 8, 52) |-> (byte ( 4 , mi(64, A))) 
+                    symloc(1, 128, 64, 8, 53) |-> (byte ( 5 , mi(64, A))) 
+                    symloc(1, 128, 64, 8, 54) |-> (byte ( 6 , mi(64, A))) 
+                    symloc(1, 128, 64, 8, 55) |-> (byte ( 7 , mi(64, A))) 
 
-                    56 |-> byte ( 0 , mi(64,-1) )
-                    57 |-> byte ( 1 , mi(64,-1) )
-                    58 |-> byte ( 2 , mi(64,-1) )
-                    59 |-> byte ( 3 , mi(64,-1) )
-                    60 |-> byte ( 4 , mi(64,-1) )
-                    61 |-> byte ( 5 , mi(64,-1) )
-                    62 |-> byte ( 6 , mi(64,-1) )
-                    63 |-> byte ( 7 , mi(64,-1) ) 
-                  ))
+                    symloc(1, 128, 64, 8, 56) |-> byte ( 0 , mi(64,-1) )
+                    symloc(1, 128, 64, 8, 57) |-> byte ( 1 , mi(64,-1) )
+                    symloc(1, 128, 64, 8, 58) |-> byte ( 2 , mi(64,-1) )
+                    symloc(1, 128, 64, 8, 59) |-> byte ( 3 , mi(64,-1) )
+                    symloc(1, 128, 64, 8, 60) |-> byte ( 4 , mi(64,-1) )
+                    symloc(1, 128, 64, 8, 61) |-> byte ( 5 , mi(64,-1) )
+                    symloc(1, 128, 64, 8, 62) |-> byte ( 6 , mi(64,-1) )
+                    symloc(1, 128, 64, 8, 63) |-> byte ( 7 , mi(64,-1) ) 
+                  )
             </objects>
+            <freed>
+              .Set
+            </freed>
           </memory>
           <stackbase>
             stackBaseInfo ( symloc ( 1 , 128 ) , _ )

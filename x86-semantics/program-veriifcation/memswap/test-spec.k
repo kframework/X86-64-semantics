@@ -48,14 +48,14 @@ module TEST-SPEC
         */
 
           code ( 
-            ptr( symloc (-1, 0), mi(64, 0)) |-> storedInstr (pushq          %rbp, .Operands )
-            ptr( symloc (-1, 0), mi(64, 1)) |-> storedInstr (movq     %rsp, %rbp, .Operands )
-            ptr( symloc (-1, 0), mi(64, 2)) |-> storedInstr (movl   (%rdi), %eax, .Operands )
-            ptr( symloc (-1, 0), mi(64, 3)) |-> storedInstr (movl   (%rsi), %ecx, .Operands )
-            ptr( symloc (-1, 0), mi(64, 4)) |-> storedInstr (movl   %ecx, (%rdi), .Operands )
-            ptr( symloc (-1, 0), mi(64, 5)) |-> storedInstr (movl   %eax, (%rsi), .Operands )
-            ptr( symloc (-1, 0), mi(64, 6)) |-> storedInstr (popq           %rbp, .Operands )
-            ptr( symloc (-1, 0), mi(64, 7)) |-> storedInstr (retq                 .Operands )
+            ptr( symloc (-1, 0, 0, 0, 0), mi(64, 0)) |-> storedInstr (pushq          %rbp, .Operands )
+            ptr( symloc (-1, 0, 0, 0, 0), mi(64, 1)) |-> storedInstr (movq     %rsp, %rbp, .Operands )
+            ptr( symloc (-1, 0, 0, 0, 0), mi(64, 2)) |-> storedInstr (movl   (%rdi), %eax, .Operands )
+            ptr( symloc (-1, 0, 0, 0, 0), mi(64, 3)) |-> storedInstr (movl   (%rsi), %ecx, .Operands )
+            ptr( symloc (-1, 0, 0, 0, 0), mi(64, 4)) |-> storedInstr (movl   %ecx, (%rdi), .Operands )
+            ptr( symloc (-1, 0, 0, 0, 0), mi(64, 5)) |-> storedInstr (movl   %eax, (%rsi), .Operands )
+            ptr( symloc (-1, 0, 0, 0, 0), mi(64, 6)) |-> storedInstr (popq           %rbp, .Operands )
+            ptr( symloc (-1, 0, 0, 0, 0), mi(64, 7)) |-> storedInstr (retq                 .Operands )
           )
         </text>
         <stack> 
@@ -63,37 +63,38 @@ module TEST-SPEC
             <nextLoc> 1 </nextLoc> 
             <objects>  
                mem( 
-              symloc ( 1 , 128 ) |-> 
-                mVector(64, 8, 
-                    36 |-> (byte ( 0 , undefMInt ))
-                    37 |-> (byte ( 0 , undefMInt ))
-                    38 |-> (byte ( 0 , undefMInt ))
-                    39 |-> (byte ( 0 , undefMInt ))
-                    40 |-> (byte ( 0 , undefMInt ))
-                    41 |-> (byte ( 0 , undefMInt ))
-                    42 |-> (byte ( 0 , undefMInt ))
-                    43 |-> (byte ( 0 , undefMInt ))
-                    44 |-> (byte ( 0 , undefMInt ))
-                    45 |-> (byte ( 0 , undefMInt ))
-                    46 |-> (byte ( 0 , undefMInt ))
-                    47 |-> (byte ( 0 , undefMInt ))
-                    48 |-> (byte ( 0 , undefMInt ))
-                    49 |-> (byte ( 0 , undefMInt ))
-                    50 |-> (byte ( 0 , undefMInt ))
-                    51 |-> (byte ( 0 , undefMInt ))
-                    52 |-> (byte ( 0 , undefMInt ))
-                    53 |-> (byte ( 0 , undefMInt ))
-                    54 |-> (byte ( 0 , undefMInt ))
-                    55 |-> (byte ( 0 , undefMInt ))
-                    56 |-> byte ( 0 , mi(64,-1) )
-                    57 |-> byte ( 1 , mi(64,-1) )
-                    58 |-> byte ( 2 , mi(64,-1) )
-                    59 |-> byte ( 3 , mi(64,-1) )
-                    60 |-> byte ( 4 , mi(64,-1) )
-                    61 |-> byte ( 5 , mi(64,-1) )
-                    62 |-> byte ( 6 , mi(64,-1) )
-                    63 |-> byte ( 7 , mi(64,-1) ) ) )
+                    symloc( 1, 128, 64, 8, 36) |-> (byte ( 0 , undefMInt ))
+                    symloc( 1, 128, 64, 8, 37) |-> (byte ( 0 , undefMInt ))
+                    symloc( 1, 128, 64, 8, 38) |-> (byte ( 0 , undefMInt ))
+                    symloc( 1, 128, 64, 8, 39) |-> (byte ( 0 , undefMInt ))
+                    symloc( 1, 128, 64, 8, 40) |-> (byte ( 0 , undefMInt ))
+                    symloc( 1, 128, 64, 8, 41) |-> (byte ( 0 , undefMInt ))
+                    symloc( 1, 128, 64, 8, 42) |-> (byte ( 0 , undefMInt ))
+                    symloc( 1, 128, 64, 8, 43) |-> (byte ( 0 , undefMInt ))
+                    symloc( 1, 128, 64, 8, 44) |-> (byte ( 0 , undefMInt ))
+                    symloc( 1, 128, 64, 8, 45) |-> (byte ( 0 , undefMInt ))
+                    symloc( 1, 128, 64, 8, 46) |-> (byte ( 0 , undefMInt ))
+                    symloc( 1, 128, 64, 8, 47) |-> (byte ( 0 , undefMInt ))
+                    symloc( 1, 128, 64, 8, 48) |-> (byte ( 0 , undefMInt ))
+                    symloc( 1, 128, 64, 8, 49) |-> (byte ( 0 , undefMInt ))
+                    symloc( 1, 128, 64, 8, 50) |-> (byte ( 0 , undefMInt ))
+                    symloc( 1, 128, 64, 8, 51) |-> (byte ( 0 , undefMInt ))
+                    symloc( 1, 128, 64, 8, 52) |-> (byte ( 0 , undefMInt ))
+                    symloc( 1, 128, 64, 8, 53) |-> (byte ( 0 , undefMInt ))
+                    symloc( 1, 128, 64, 8, 54) |-> (byte ( 0 , undefMInt ))
+                    symloc( 1, 128, 64, 8, 55) |-> (byte ( 0 , undefMInt ))
+                    symloc( 1, 128, 64, 8, 56) |-> byte ( 0 , mi(64,-1) )
+                    symloc( 1, 128, 64, 8, 57) |-> byte ( 1 , mi(64,-1) )
+                    symloc( 1, 128, 64, 8, 58) |-> byte ( 2 , mi(64,-1) )
+                    symloc( 1, 128, 64, 8, 59) |-> byte ( 3 , mi(64,-1) )
+                    symloc( 1, 128, 64, 8, 60) |-> byte ( 4 , mi(64,-1) )
+                    symloc( 1, 128, 64, 8, 61) |-> byte ( 5 , mi(64,-1) )
+                    symloc( 1, 128, 64, 8, 62) |-> byte ( 6 , mi(64,-1) )
+                    symloc( 1, 128, 64, 8, 63) |-> byte ( 7 , mi(64,-1) ) ) 
             </objects>
+            <freed>
+              .Set
+            </freed>
           </memory>
           <stackbase>
             stackBaseInfo ( symloc ( 1 , 128 ) , _ )

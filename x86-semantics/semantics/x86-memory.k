@@ -98,6 +98,7 @@ endmodule
 
 
 module X86-MEMORY
+  imports COMMON-MEMORY-OPAQUE-SYNTAX
   imports COMMON-MEMORY-SYNTAX
   imports X86-CONFIGURATION
 
@@ -109,6 +110,8 @@ module X86-MEMORY
 
   // AbstractValue sort defintion for x86 semantics
   syntax AbstractValue ::= ByteVal
+
+  rule getDefaultAbstractValue() => byte(0, undefMInt8)
 
   // x86 memory helper API implementation for allocation and store.
 
@@ -279,18 +282,9 @@ module X86-MEMORY
   */
   rule <k> allocateLocalMemory(N:Int, A:Int) => 
           mAlloc(
-            toMemValue(makeUndefMIntMap(N), N *Int 8),
-            A)
+            //toMemValue(makeUndefMIntMap(N), N *Int 8),
+            N, 8, A)
   ... </k>
-  /*
-  rule <k> allocateLocalMemory(N:Int, A:Int) => 
-          mAlloc(
-            toMemValue(
-              makeUndefMIntMap(N, uvalueMInt({RSMap["RSP"]}:>MInt) +Int StackSpaceForEnvs -Int N), 
-              N *Int 8), A)
-  ... </k>
-  <regstate> RSMap </regstate>
-  */
 
   rule <k> freeMemory(PV:PointerVal) => mClear(getMemLoc(PV)) ... </k>
     //<stackbase> stackBaseInfo( Loc:MemLoc, _:K) </stackbase>
