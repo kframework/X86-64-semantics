@@ -19,8 +19,8 @@ module TEST-SPEC
 
       <regstate>
         "RIP" |-> ( ptr (symloc(-1, 0, 0, 0, 0), mi(64, 0))  => mi(64, 18446744073709551615))
-        "RSP" |-> ( ptr (symloc(1, 128, 64, 8, 56), mi(64, 56))  => ptr(symloc(1, 128, 64, 8, 64), mi(64, 64)))
-        "RBP" |-> ( ptr (symloc(1, 128, 64, 8, 56), mi(64, 56)))
+        "RSP" |-> ( ptr (symloc(1, 128, 64, 8, 0), mi(64, 56))  => ptr(symloc(1, 128, 64, 8, 0), mi(64, 64)))
+        "RBP" |-> ( ptr (symloc(1, 128, 64, 8, 0), mi(64, 56)))
         "AF" |-> (_:MInt => _:MInt)
         "CF" |-> (_:MInt => _:MInt)
         "OF" |-> (_:MInt => _:MInt)
@@ -91,7 +91,8 @@ module TEST-SPEC
             </freed>
           </memory>
           <stackbase>
-            stackBaseInfo (_ ,  _ )
+            stackBaseInfo ( symloc ( 1 , 128, 64, 8, 0 ) , _ )
+
           </stackbase>
           <robase>    roBaseInfo(.K , .K , .K  ) </robase>
           <database>  dataBaseInfo(.K , .K , .K ) </database>
@@ -125,8 +126,8 @@ module TEST-SPEC
       <currentsection> "text" </currentsection>
       <regstate>
         "RIP" |-> ( ptr (symloc(-1, 0, 0, 0, 0 ), mi(64, 4))  => ptr(symloc(-1, 0, 0, 0, 0 ), mi(64, 10)))
-        "RSP" |-> ( ptr (symloc(1, 128, 64, 8, 56), mi(64, 56)))
-        "RBP" |-> ( ptr (symloc(1, 128, 64, 8, 56), mi(64, 56)))
+        "RSP" |-> ( ptr (symloc(1, 128, 64, 8, 0), mi(64, 56)))
+        "RBP" |-> ( ptr (symloc(1, 128, 64, 8, 0), mi(64, 56)))
         "AF" |-> (_:MInt => _:MInt)
         "CF" |-> (_:MInt => _:MInt)
         "OF" |-> (_:MInt => _:MInt)
@@ -198,7 +199,7 @@ module TEST-SPEC
             </freed>
           </memory>
           <stackbase>
-            stackBaseInfo (_ ,  _ )
+            stackBaseInfo ( symloc ( 1 , 128, 64, 8, 0 ) , _ )
           </stackbase>
           <robase>    roBaseInfo(.K , .K , .K  ) </robase>
           <database>  dataBaseInfo(.K , .K , .K ) </database>

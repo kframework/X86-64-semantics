@@ -5,9 +5,9 @@ module TEST-SPEC
   rule
     <k> fetch => exit_0 </k>
       <functargets>  
-        L2    |-> ptr ( symloc ( -1 , 0 ) , mi(64, 10))
-        L3    |-> ptr ( symloc ( -1 , 0 ) , mi(64, 11))
-        main  |-> ptr ( symloc ( -1 , 0 ) , mi(64, 0))
+        L2    |-> ptr ( symloc ( -1 , 0, 0, 0, 0 ) , mi(64, 10))
+        L3    |-> ptr ( symloc ( -1 , 0, 0, 0, 0 ) , mi(64, 11))
+        main  |-> ptr ( symloc ( -1 , 0, 0, 0, 0 ) , mi(64, 0))
       </functargets> 
       <rotargets> .Map </rotargets> 
       <bsstargets> .Map </bsstargets> 
@@ -17,9 +17,9 @@ module TEST-SPEC
       <lastseenlabel> .K </lastseenlabel>
       <currentsection> "text" </currentsection>
       <regstate>
-        "RIP" |-> ( ptr (symloc(-1, 0), mi(64, 0))  => mi(64, 18446744073709551615))
-        "RSP" |-> ( ptr (symloc(1, 128), mi(64, 56))  => ptr(symloc(1, 128), mi(64, 64)))
-        "RBP" |-> ( ptr (symloc(1, 128), mi(64, 56)))
+        "RIP" |-> ( ptr (symloc(-1, 0, 0, 0, 0), mi(64, 0))  => mi(64, 18446744073709551615))
+        "RSP" |-> ( ptr (symloc(1, 128, 64, 8, 0), mi(64, 56))  => ptr(symloc(1, 128, 64, 8, 0), mi(64, 64)))
+        "RBP" |-> ( ptr (symloc(1, 128, 64, 8, 0), mi(64, 56)))
         "AF" |-> (_:MInt => _:MInt)
         "CF" |-> (_:MInt => _:MInt)
         "OF" |-> (_:MInt => _:MInt)
