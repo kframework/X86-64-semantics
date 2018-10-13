@@ -1,4 +1,4 @@
-.section .text
+ .text
 .globl main
 
 main:
