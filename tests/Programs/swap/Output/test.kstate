@@ -3,328 +3,165 @@
     exit_0
   </k>
   <functargets>
-    main |-> 64'17
-    swap |-> 64'0
+    main |-> ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'17 )
+    stdout |-> ptr ( symloc ( 5 , 0 , 5 , 8 , 0 ) , 64'1 )
+    swap |-> ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'0 )
   </functargets>
+  <rotargets>
+    .Map
+  </rotargets>
+  <datatargets>
+    .Map
+  </datatargets>
+  <bsstargets>
+    .Map
+  </bsstargets>
   <entrypoint>
-    64'17
+    ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'17 )
   </entrypoint>
   <nextLocPc>
     64'30
   </nextLocPc>
+  <lastseenlabel>
+    main
+  </lastseenlabel>
+  <currentsection>
+    "text"
+  </currentsection>
   <memstate>
     <text>
-      code ( iloc ( 64'0 ) |-> storedInstr ( pushq %rbp , .Operands )
-      iloc ( 64'1 ) |-> storedInstr ( movq %rsp , %rbp , .Operands )
-      iloc ( 64'2 ) |-> storedInstr ( movq %rdi , -24 ( %rbp ) , .Operands )
-      iloc ( 64'3 ) |-> storedInstr ( movq %rsi , -32 ( %rbp ) , .Operands )
-      iloc ( 64'4 ) |-> storedInstr ( movq -24 ( %rbp ) , %rax , .Operands )
-      iloc ( 64'5 ) |-> storedInstr ( movl ( %rax ) , %eax , .Operands )
-      iloc ( 64'6 ) |-> storedInstr ( movl %eax , -4 ( %rbp ) , .Operands )
-      iloc ( 64'7 ) |-> storedInstr ( movq -32 ( %rbp ) , %rax , .Operands )
-      iloc ( 64'8 ) |-> storedInstr ( movl ( %rax ) , %edx , .Operands )
-      iloc ( 64'9 ) |-> storedInstr ( movq -24 ( %rbp ) , %rax , .Operands )
-      iloc ( 64'10 ) |-> storedInstr ( movl %edx , ( %rax ) , .Operands )
-      iloc ( 64'11 ) |-> storedInstr ( movq -32 ( %rbp ) , %rax , .Operands )
-      iloc ( 64'12 ) |-> storedInstr ( movl -4 ( %rbp ) , %edx , .Operands )
-      iloc ( 64'13 ) |-> storedInstr ( movl %edx , ( %rax ) , .Operands )
-      iloc ( 64'14 ) |-> storedInstr ( nop .Operands )
-      iloc ( 64'15 ) |-> storedInstr ( popq %rbp , .Operands )
-      iloc ( 64'16 ) |-> storedInstr ( ret .Operands )
-      iloc ( 64'17 ) |-> storedInstr ( pushq %rbp , .Operands )
-      iloc ( 64'18 ) |-> storedInstr ( movq %rsp , %rbp , .Operands )
-      iloc ( 64'19 ) |-> storedInstr ( subq $ 16 , %rsp , .Operands )
-      iloc ( 64'20 ) |-> storedInstr ( movl $ 1 , -4 ( %rbp ) , .Operands )
-      iloc ( 64'21 ) |-> storedInstr ( movl $ 2 , -8 ( %rbp ) , .Operands )
-      iloc ( 64'22 ) |-> storedInstr ( leaq -8 ( %rbp ) , %rdx , .Operands )
-      iloc ( 64'23 ) |-> storedInstr ( leaq -4 ( %rbp ) , %rax , .Operands )
-      iloc ( 64'24 ) |-> storedInstr ( movq %rdx , %rsi , .Operands )
-      iloc ( 64'25 ) |-> storedInstr ( movq %rax , %rdi , .Operands )
-      iloc ( 64'26 ) |-> storedInstr ( call swap , .Operands )
-      iloc ( 64'27 ) |-> storedInstr ( movl $ 0 , %eax , .Operands )
-      iloc ( 64'28 ) |-> storedInstr ( leave .Operands )
-      iloc ( 64'29 ) |-> storedInstr ( ret .Operands ) )
+      code ( ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'0 ) |-> storedInstr ( pushq %rbp , .Operands )
+      ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'1 ) |-> storedInstr ( movq %rsp , %rbp , .Operands )
+      ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'2 ) |-> storedInstr ( movq %rdi , -24 ( %rbp ) , .Operands )
+      ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'3 ) |-> storedInstr ( movq %rsi , -32 ( %rbp ) , .Operands )
+      ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'4 ) |-> storedInstr ( movq -24 ( %rbp ) , %rax , .Operands )
+      ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'5 ) |-> storedInstr ( movl ( %rax ) , %eax , .Operands )
+      ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'6 ) |-> storedInstr ( movl %eax , -4 ( %rbp ) , .Operands )
+      ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'7 ) |-> storedInstr ( movq -32 ( %rbp ) , %rax , .Operands )
+      ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'8 ) |-> storedInstr ( movl ( %rax ) , %edx , .Operands )
+      ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'9 ) |-> storedInstr ( movq -24 ( %rbp ) , %rax , .Operands )
+      ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'10 ) |-> storedInstr ( movl %edx , ( %rax ) , .Operands )
+      ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'11 ) |-> storedInstr ( movq -32 ( %rbp ) , %rax , .Operands )
+      ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'12 ) |-> storedInstr ( movl -4 ( %rbp ) , %edx , .Operands )
+      ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'13 ) |-> storedInstr ( movl %edx , ( %rax ) , .Operands )
+      ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'14 ) |-> storedInstr ( nop .Operands )
+      ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'15 ) |-> storedInstr ( popq %rbp , .Operands )
+      ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'16 ) |-> storedInstr ( ret .Operands )
+      ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'17 ) |-> storedInstr ( pushq %rbp , .Operands )
+      ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'18 ) |-> storedInstr ( movq %rsp , %rbp , .Operands )
+      ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'19 ) |-> storedInstr ( subq $ 16 , %rsp , .Operands )
+      ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'20 ) |-> storedInstr ( movl $ 1 , -4 ( %rbp ) , .Operands )
+      ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'21 ) |-> storedInstr ( movl $ 2 , -8 ( %rbp ) , .Operands )
+      ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'22 ) |-> storedInstr ( leaq -8 ( %rbp ) , %rdx , .Operands )
+      ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'23 ) |-> storedInstr ( leaq -4 ( %rbp ) , %rax , .Operands )
+      ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'24 ) |-> storedInstr ( movq %rdx , %rsi , .Operands )
+      ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'25 ) |-> storedInstr ( movq %rax , %rdi , .Operands )
+      ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'26 ) |-> storedInstr ( call swap , .Operands )
+      ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'27 ) |-> storedInstr ( movl $ 0 , %eax , .Operands )
+      ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'28 ) |-> storedInstr ( leave .Operands )
+      ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'29 ) |-> storedInstr ( ret .Operands ) )
     </text>
     <stack>
       <memory>
         <nextLoc>
-          2
+          6
         </nextLoc>
         <objects>
-          mem ( symloc ( 1 , 128 ) |-> mVector ( 256 , 8 , 0 |-> byte ( 0 , undefMInt )
-          1 |-> byte ( 0 , undefMInt )
-          2 |-> byte ( 0 , undefMInt )
-          3 |-> byte ( 0 , undefMInt )
-          4 |-> byte ( 0 , undefMInt )
-          5 |-> byte ( 0 , undefMInt )
-          6 |-> byte ( 0 , undefMInt )
-          7 |-> byte ( 0 , undefMInt )
-          8 |-> byte ( 0 , undefMInt )
-          9 |-> byte ( 0 , undefMInt )
-          10 |-> byte ( 0 , undefMInt )
-          11 |-> byte ( 0 , undefMInt )
-          12 |-> byte ( 0 , undefMInt )
-          13 |-> byte ( 0 , undefMInt )
-          14 |-> byte ( 0 , undefMInt )
-          15 |-> byte ( 0 , undefMInt )
-          16 |-> byte ( 0 , undefMInt )
-          17 |-> byte ( 0 , undefMInt )
-          18 |-> byte ( 0 , undefMInt )
-          19 |-> byte ( 0 , undefMInt )
-          20 |-> byte ( 0 , undefMInt )
-          21 |-> byte ( 0 , undefMInt )
-          22 |-> byte ( 0 , undefMInt )
-          23 |-> byte ( 0 , undefMInt )
-          24 |-> byte ( 0 , undefMInt )
-          25 |-> byte ( 0 , undefMInt )
-          26 |-> byte ( 0 , undefMInt )
-          27 |-> byte ( 0 , undefMInt )
-          28 |-> byte ( 0 , undefMInt )
-          29 |-> byte ( 0 , undefMInt )
-          30 |-> byte ( 0 , undefMInt )
-          31 |-> byte ( 0 , undefMInt )
-          32 |-> byte ( 0 , undefMInt )
-          33 |-> byte ( 0 , undefMInt )
-          34 |-> byte ( 0 , undefMInt )
-          35 |-> byte ( 0 , undefMInt )
-          36 |-> byte ( 0 , undefMInt )
-          37 |-> byte ( 0 , undefMInt )
-          38 |-> byte ( 0 , undefMInt )
-          39 |-> byte ( 0 , undefMInt )
-          40 |-> byte ( 0 , undefMInt )
-          41 |-> byte ( 0 , undefMInt )
-          42 |-> byte ( 0 , undefMInt )
-          43 |-> byte ( 0 , undefMInt )
-          44 |-> byte ( 0 , undefMInt )
-          45 |-> byte ( 0 , undefMInt )
-          46 |-> byte ( 0 , undefMInt )
-          47 |-> byte ( 0 , undefMInt )
-          48 |-> byte ( 0 , undefMInt )
-          49 |-> byte ( 0 , undefMInt )
-          50 |-> byte ( 0 , undefMInt )
-          51 |-> byte ( 0 , undefMInt )
-          52 |-> byte ( 0 , undefMInt )
-          53 |-> byte ( 0 , undefMInt )
-          54 |-> byte ( 0 , undefMInt )
-          55 |-> byte ( 0 , undefMInt )
-          56 |-> byte ( 0 , undefMInt )
-          57 |-> byte ( 0 , undefMInt )
-          58 |-> byte ( 0 , undefMInt )
-          59 |-> byte ( 0 , undefMInt )
-          60 |-> byte ( 0 , undefMInt )
-          61 |-> byte ( 0 , undefMInt )
-          62 |-> byte ( 0 , undefMInt )
-          63 |-> byte ( 0 , undefMInt )
-          64 |-> byte ( 0 , undefMInt )
-          65 |-> byte ( 0 , undefMInt )
-          66 |-> byte ( 0 , undefMInt )
-          67 |-> byte ( 0 , undefMInt )
-          68 |-> byte ( 0 , undefMInt )
-          69 |-> byte ( 0 , undefMInt )
-          70 |-> byte ( 0 , undefMInt )
-          71 |-> byte ( 0 , undefMInt )
-          72 |-> byte ( 0 , undefMInt )
-          73 |-> byte ( 0 , undefMInt )
-          74 |-> byte ( 0 , undefMInt )
-          75 |-> byte ( 0 , undefMInt )
-          76 |-> byte ( 0 , undefMInt )
-          77 |-> byte ( 0 , undefMInt )
-          78 |-> byte ( 0 , undefMInt )
-          79 |-> byte ( 0 , undefMInt )
-          80 |-> byte ( 0 , undefMInt )
-          81 |-> byte ( 0 , undefMInt )
-          82 |-> byte ( 0 , undefMInt )
-          83 |-> byte ( 0 , undefMInt )
-          84 |-> byte ( 0 , undefMInt )
-          85 |-> byte ( 0 , undefMInt )
-          86 |-> byte ( 0 , undefMInt )
-          87 |-> byte ( 0 , undefMInt )
-          88 |-> byte ( 0 , undefMInt )
-          89 |-> byte ( 0 , undefMInt )
-          90 |-> byte ( 0 , undefMInt )
-          91 |-> byte ( 0 , undefMInt )
-          92 |-> byte ( 0 , undefMInt )
-          93 |-> byte ( 0 , undefMInt )
-          94 |-> byte ( 0 , undefMInt )
-          95 |-> byte ( 0 , undefMInt )
-          96 |-> byte ( 0 , undefMInt )
-          97 |-> byte ( 0 , undefMInt )
-          98 |-> byte ( 0 , undefMInt )
-          99 |-> byte ( 0 , undefMInt )
-          100 |-> byte ( 0 , undefMInt )
-          101 |-> byte ( 0 , undefMInt )
-          102 |-> byte ( 0 , undefMInt )
-          103 |-> byte ( 0 , undefMInt )
-          104 |-> byte ( 0 , undefMInt )
-          105 |-> byte ( 0 , undefMInt )
-          106 |-> byte ( 0 , undefMInt )
-          107 |-> byte ( 0 , undefMInt )
-          108 |-> byte ( 0 , undefMInt )
-          109 |-> byte ( 0 , undefMInt )
-          110 |-> byte ( 0 , undefMInt )
-          111 |-> byte ( 0 , undefMInt )
-          112 |-> byte ( 0 , undefMInt )
-          113 |-> byte ( 0 , undefMInt )
-          114 |-> byte ( 0 , undefMInt )
-          115 |-> byte ( 0 , undefMInt )
-          116 |-> byte ( 0 , undefMInt )
-          117 |-> byte ( 0 , undefMInt )
-          118 |-> byte ( 0 , undefMInt )
-          119 |-> byte ( 0 , undefMInt )
-          120 |-> byte ( 0 , 64'176 )
-          121 |-> byte ( 1 , 64'176 )
-          122 |-> byte ( 2 , 64'176 )
-          123 |-> byte ( 3 , 64'176 )
-          124 |-> byte ( 4 , 64'176 )
-          125 |-> byte ( 5 , 64'176 )
-          126 |-> byte ( 6 , 64'176 )
-          127 |-> byte ( 7 , 64'176 )
-          128 |-> byte ( 0 , 64'180 )
-          129 |-> byte ( 1 , 64'180 )
-          130 |-> byte ( 2 , 64'180 )
-          131 |-> byte ( 3 , 64'180 )
-          132 |-> byte ( 4 , 64'180 )
-          133 |-> byte ( 5 , 64'180 )
-          134 |-> byte ( 6 , 64'180 )
-          135 |-> byte ( 7 , 64'180 )
-          136 |-> byte ( 0 , undefMInt )
-          137 |-> byte ( 0 , undefMInt )
-          138 |-> byte ( 0 , undefMInt )
-          139 |-> byte ( 0 , undefMInt )
-          140 |-> byte ( 0 , undefMInt )
-          141 |-> byte ( 0 , undefMInt )
-          142 |-> byte ( 0 , undefMInt )
-          143 |-> byte ( 0 , undefMInt )
-          144 |-> byte ( 0 , undefMInt )
-          145 |-> byte ( 0 , undefMInt )
-          146 |-> byte ( 0 , undefMInt )
-          147 |-> byte ( 0 , undefMInt )
-          148 |-> byte ( 0 , 32'1 )
-          149 |-> byte ( 1 , 32'1 )
-          150 |-> byte ( 2 , 32'1 )
-          151 |-> byte ( 3 , 32'1 )
-          152 |-> byte ( 0 , 64'184 )
-          153 |-> byte ( 1 , 64'184 )
-          154 |-> byte ( 2 , 64'184 )
-          155 |-> byte ( 3 , 64'184 )
-          156 |-> byte ( 4 , 64'184 )
-          157 |-> byte ( 5 , 64'184 )
-          158 |-> byte ( 6 , 64'184 )
-          159 |-> byte ( 7 , 64'184 )
-          160 |-> byte ( 0 , 64'27 )
-          161 |-> byte ( 1 , 64'27 )
-          162 |-> byte ( 2 , 64'27 )
-          163 |-> byte ( 3 , 64'27 )
-          164 |-> byte ( 4 , 64'27 )
-          165 |-> byte ( 5 , 64'27 )
-          166 |-> byte ( 6 , 64'27 )
-          167 |-> byte ( 7 , 64'27 )
-          168 |-> byte ( 0 , undefMInt )
-          169 |-> byte ( 0 , undefMInt )
-          170 |-> byte ( 0 , undefMInt )
-          171 |-> byte ( 0 , undefMInt )
-          172 |-> byte ( 0 , undefMInt )
-          173 |-> byte ( 0 , undefMInt )
-          174 |-> byte ( 0 , undefMInt )
-          175 |-> byte ( 0 , undefMInt )
-          176 |-> byte ( 0 , 32'1 )
-          177 |-> byte ( 1 , 32'1 )
-          178 |-> byte ( 2 , 32'1 )
-          179 |-> byte ( 3 , 32'1 )
-          180 |-> byte ( 0 , 32'2 )
-          181 |-> byte ( 1 , 32'2 )
-          182 |-> byte ( 2 , 32'2 )
-          183 |-> byte ( 3 , 32'2 )
-          184 |-> byte ( 0 , 64'192 )
-          185 |-> byte ( 1 , 64'192 )
-          186 |-> byte ( 2 , 64'192 )
-          187 |-> byte ( 3 , 64'192 )
-          188 |-> byte ( 4 , 64'192 )
-          189 |-> byte ( 5 , 64'192 )
-          190 |-> byte ( 6 , 64'192 )
-          191 |-> byte ( 7 , 64'192 )
-          192 |-> byte ( 0 , 64'-1 )
-          193 |-> byte ( 1 , 64'-1 )
-          194 |-> byte ( 2 , 64'-1 )
-          195 |-> byte ( 3 , 64'-1 )
-          196 |-> byte ( 4 , 64'-1 )
-          197 |-> byte ( 5 , 64'-1 )
-          198 |-> byte ( 6 , 64'-1 )
-          199 |-> byte ( 7 , 64'-1 )
-          200 |-> byte ( 0 , undefMInt )
-          201 |-> byte ( 0 , undefMInt )
-          202 |-> byte ( 0 , undefMInt )
-          203 |-> byte ( 0 , undefMInt )
-          204 |-> byte ( 0 , undefMInt )
-          205 |-> byte ( 0 , undefMInt )
-          206 |-> byte ( 0 , undefMInt )
-          207 |-> byte ( 0 , undefMInt )
-          208 |-> byte ( 0 , undefMInt )
-          209 |-> byte ( 0 , undefMInt )
-          210 |-> byte ( 0 , undefMInt )
-          211 |-> byte ( 0 , undefMInt )
-          212 |-> byte ( 0 , undefMInt )
-          213 |-> byte ( 0 , undefMInt )
-          214 |-> byte ( 0 , undefMInt )
-          215 |-> byte ( 0 , undefMInt )
-          216 |-> byte ( 0 , undefMInt )
-          217 |-> byte ( 0 , undefMInt )
-          218 |-> byte ( 0 , undefMInt )
-          219 |-> byte ( 0 , undefMInt )
-          220 |-> byte ( 0 , undefMInt )
-          221 |-> byte ( 0 , undefMInt )
-          222 |-> byte ( 0 , undefMInt )
-          223 |-> byte ( 0 , undefMInt )
-          224 |-> byte ( 0 , undefMInt )
-          225 |-> byte ( 0 , undefMInt )
-          226 |-> byte ( 0 , undefMInt )
-          227 |-> byte ( 0 , undefMInt )
-          228 |-> byte ( 0 , undefMInt )
-          229 |-> byte ( 0 , undefMInt )
-          230 |-> byte ( 0 , undefMInt )
-          231 |-> byte ( 0 , undefMInt )
-          232 |-> byte ( 0 , undefMInt )
-          233 |-> byte ( 0 , undefMInt )
-          234 |-> byte ( 0 , undefMInt )
-          235 |-> byte ( 0 , undefMInt )
-          236 |-> byte ( 0 , undefMInt )
-          237 |-> byte ( 0 , undefMInt )
-          238 |-> byte ( 0 , undefMInt )
-          239 |-> byte ( 0 , undefMInt )
-          240 |-> byte ( 0 , undefMInt )
-          241 |-> byte ( 0 , undefMInt )
-          242 |-> byte ( 0 , undefMInt )
-          243 |-> byte ( 0 , undefMInt )
-          244 |-> byte ( 0 , undefMInt )
-          245 |-> byte ( 0 , undefMInt )
-          246 |-> byte ( 0 , undefMInt )
-          247 |-> byte ( 0 , undefMInt )
-          248 |-> byte ( 0 , undefMInt )
-          249 |-> byte ( 0 , undefMInt )
-          250 |-> byte ( 0 , undefMInt )
-          251 |-> byte ( 0 , undefMInt )
-          252 |-> byte ( 0 , undefMInt )
-          253 |-> byte ( 0 , undefMInt )
-          254 |-> byte ( 0 , undefMInt )
-          255 |-> byte ( 0 , undefMInt ) ) )
+          mem ( symloc ( 1 , 128 , 256 , 8 , 176 ) |-> byte ( 0 , ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 ) )
+          symloc ( 1 , 128 , 256 , 8 , 177 ) |-> byte ( 1 , ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 ) )
+          symloc ( 1 , 128 , 256 , 8 , 178 ) |-> byte ( 2 , ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 ) )
+          symloc ( 1 , 128 , 256 , 8 , 179 ) |-> byte ( 3 , ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 ) )
+          symloc ( 1 , 128 , 256 , 8 , 180 ) |-> byte ( 4 , ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 ) )
+          symloc ( 1 , 128 , 256 , 8 , 181 ) |-> byte ( 5 , ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 ) )
+          symloc ( 1 , 128 , 256 , 8 , 182 ) |-> byte ( 6 , ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 ) )
+          symloc ( 1 , 128 , 256 , 8 , 183 ) |-> byte ( 7 , ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 ) )
+          symloc ( 1 , 128 , 256 , 8 , 184 ) |-> byte ( 0 , ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'236 ) )
+          symloc ( 1 , 128 , 256 , 8 , 185 ) |-> byte ( 1 , ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'236 ) )
+          symloc ( 1 , 128 , 256 , 8 , 186 ) |-> byte ( 2 , ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'236 ) )
+          symloc ( 1 , 128 , 256 , 8 , 187 ) |-> byte ( 3 , ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'236 ) )
+          symloc ( 1 , 128 , 256 , 8 , 188 ) |-> byte ( 4 , ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'236 ) )
+          symloc ( 1 , 128 , 256 , 8 , 189 ) |-> byte ( 5 , ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'236 ) )
+          symloc ( 1 , 128 , 256 , 8 , 190 ) |-> byte ( 6 , ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'236 ) )
+          symloc ( 1 , 128 , 256 , 8 , 191 ) |-> byte ( 7 , ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'236 ) )
+          symloc ( 1 , 128 , 256 , 8 , 204 ) |-> byte ( 0 , 32'1 )
+          symloc ( 1 , 128 , 256 , 8 , 205 ) |-> byte ( 1 , 32'1 )
+          symloc ( 1 , 128 , 256 , 8 , 206 ) |-> byte ( 2 , 32'1 )
+          symloc ( 1 , 128 , 256 , 8 , 207 ) |-> byte ( 3 , 32'1 )
+          symloc ( 1 , 128 , 256 , 8 , 208 ) |-> byte ( 0 , ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'240 ) )
+          symloc ( 1 , 128 , 256 , 8 , 209 ) |-> byte ( 1 , ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'240 ) )
+          symloc ( 1 , 128 , 256 , 8 , 210 ) |-> byte ( 2 , ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'240 ) )
+          symloc ( 1 , 128 , 256 , 8 , 211 ) |-> byte ( 3 , ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'240 ) )
+          symloc ( 1 , 128 , 256 , 8 , 212 ) |-> byte ( 4 , ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'240 ) )
+          symloc ( 1 , 128 , 256 , 8 , 213 ) |-> byte ( 5 , ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'240 ) )
+          symloc ( 1 , 128 , 256 , 8 , 214 ) |-> byte ( 6 , ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'240 ) )
+          symloc ( 1 , 128 , 256 , 8 , 215 ) |-> byte ( 7 , ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'240 ) )
+          symloc ( 1 , 128 , 256 , 8 , 216 ) |-> byte ( 0 , ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'27 ) )
+          symloc ( 1 , 128 , 256 , 8 , 217 ) |-> byte ( 1 , ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'27 ) )
+          symloc ( 1 , 128 , 256 , 8 , 218 ) |-> byte ( 2 , ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'27 ) )
+          symloc ( 1 , 128 , 256 , 8 , 219 ) |-> byte ( 3 , ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'27 ) )
+          symloc ( 1 , 128 , 256 , 8 , 220 ) |-> byte ( 4 , ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'27 ) )
+          symloc ( 1 , 128 , 256 , 8 , 221 ) |-> byte ( 5 , ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'27 ) )
+          symloc ( 1 , 128 , 256 , 8 , 222 ) |-> byte ( 6 , ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'27 ) )
+          symloc ( 1 , 128 , 256 , 8 , 223 ) |-> byte ( 7 , ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'27 ) )
+          symloc ( 1 , 128 , 256 , 8 , 232 ) |-> byte ( 0 , 32'1 )
+          symloc ( 1 , 128 , 256 , 8 , 233 ) |-> byte ( 1 , 32'1 )
+          symloc ( 1 , 128 , 256 , 8 , 234 ) |-> byte ( 2 , 32'1 )
+          symloc ( 1 , 128 , 256 , 8 , 235 ) |-> byte ( 3 , 32'1 )
+          symloc ( 1 , 128 , 256 , 8 , 236 ) |-> byte ( 0 , 32'2 )
+          symloc ( 1 , 128 , 256 , 8 , 237 ) |-> byte ( 1 , 32'2 )
+          symloc ( 1 , 128 , 256 , 8 , 238 ) |-> byte ( 2 , 32'2 )
+          symloc ( 1 , 128 , 256 , 8 , 239 ) |-> byte ( 3 , 32'2 )
+          symloc ( 1 , 128 , 256 , 8 , 240 ) |-> byte ( 0 , ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'248 ) )
+          symloc ( 1 , 128 , 256 , 8 , 241 ) |-> byte ( 1 , ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'248 ) )
+          symloc ( 1 , 128 , 256 , 8 , 242 ) |-> byte ( 2 , ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'248 ) )
+          symloc ( 1 , 128 , 256 , 8 , 243 ) |-> byte ( 3 , ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'248 ) )
+          symloc ( 1 , 128 , 256 , 8 , 244 ) |-> byte ( 4 , ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'248 ) )
+          symloc ( 1 , 128 , 256 , 8 , 245 ) |-> byte ( 5 , ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'248 ) )
+          symloc ( 1 , 128 , 256 , 8 , 246 ) |-> byte ( 6 , ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'248 ) )
+          symloc ( 1 , 128 , 256 , 8 , 247 ) |-> byte ( 7 , ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'248 ) )
+          symloc ( 1 , 128 , 256 , 8 , 248 ) |-> byte ( 0 , 64'-1 )
+          symloc ( 1 , 128 , 256 , 8 , 249 ) |-> byte ( 1 , 64'-1 )
+          symloc ( 1 , 128 , 256 , 8 , 250 ) |-> byte ( 2 , 64'-1 )
+          symloc ( 1 , 128 , 256 , 8 , 251 ) |-> byte ( 3 , 64'-1 )
+          symloc ( 1 , 128 , 256 , 8 , 252 ) |-> byte ( 4 , 64'-1 )
+          symloc ( 1 , 128 , 256 , 8 , 253 ) |-> byte ( 5 , 64'-1 )
+          symloc ( 1 , 128 , 256 , 8 , 254 ) |-> byte ( 6 , 64'-1 )
+          symloc ( 1 , 128 , 256 , 8 , 255 ) |-> byte ( 7 , 64'-1 )
+          symloc ( 5 , 0 , 5 , 8 , 1 ) |-> byte ( 0 , 32'1 )
+          symloc ( 5 , 0 , 5 , 8 , 2 ) |-> byte ( 1 , 32'1 )
+          symloc ( 5 , 0 , 5 , 8 , 3 ) |-> byte ( 2 , 32'1 )
+          symloc ( 5 , 0 , 5 , 8 , 4 ) |-> byte ( 3 , 32'1 ) )
         </objects>
+        <freed>
+          .Set
+        </freed>
       </memory>
       <stackbase>
-        stackBaseInfo ( symloc ( 1 , 128 ) , 64'192 )
+        stackBaseInfo ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'248 )
       </stackbase>
+      <robase>
+        roBaseInfo ( symloc ( 2 , 128 , 256 , 8 , 0 ) , 64'0 , 64'0 )
+      </robase>
+      <database>
+        dataBaseInfo ( symloc ( 3 , 128 , 256 , 8 , 0 ) , 64'0 , 64'0 )
+      </database>
+      <bssbase>
+        bssBaseInfo ( symloc ( 4 , 128 , 256 , 8 , 0 ) , 64'0 , 64'0 )
+      </bssbase>
     </stack>
   </memstate>
   <environment>
     <argc>
-      0
+      .
     </argc>
     <argv>
-      64'200
+      64'256
     </argv>
   </environment>
   <regstate>
-    "AF" |-> 1'0
+    "AF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "CF" |-> 1'0
+    "DF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
     "R8" |-> 64'0
@@ -336,15 +173,15 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'0
-    "RBP" |-> 64'192
+    "RBP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'248 )
     "RBX" |-> 64'0
     "RCX" |-> 64'0
-    "RDI" |-> 64'180
+    "RDI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'236 )
     "RDX" |-> 64'1
     "RIP" |-> 64'18446744073709551615
-    "RSI" |-> 64'176
-    "RSP" |-> 64'200
-    "SF" |-> 1'0
+    "RSI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'256 )
+    "SF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -367,6 +204,7 @@
     ListItem (
 "AF" |-> 1'0
     "CF" |-> 1'0
+    "DF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
     "R8" |-> 64'0
@@ -378,14 +216,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'0
-    "RBP" |-> 64'192
+    "RBP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'248 )
     "RBX" |-> 64'0
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
-    "RIP" |-> 64'17
+    "RIP" |-> ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'17 )
     "RSI" |-> 64'0
-    "RSP" |-> 64'192
+    "RSP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'248 )
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -407,6 +245,7 @@
     ListItem (
 "AF" |-> 1'0
     "CF" |-> 1'0
+    "DF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
     "R8" |-> 64'0
@@ -418,14 +257,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'0
-    "RBP" |-> 64'192
+    "RBP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'248 )
     "RBX" |-> 64'0
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
-    "RIP" |-> 64'18
+    "RIP" |-> ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'18 )
     "RSI" |-> 64'0
-    "RSP" |-> 64'184
+    "RSP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'240 )
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -447,6 +286,7 @@
     ListItem (
 "AF" |-> 1'0
     "CF" |-> 1'0
+    "DF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
     "R8" |-> 64'0
@@ -458,14 +298,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'0
-    "RBP" |-> 64'184
+    "RBP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'240 )
     "RBX" |-> 64'0
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
-    "RIP" |-> 64'19
+    "RIP" |-> ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'19 )
     "RSI" |-> 64'0
-    "RSP" |-> 64'184
+    "RSP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'240 )
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -485,8 +325,9 @@
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
     ListItem (
-"AF" |-> 1'0
+"AF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "CF" |-> 1'0
+    "DF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
     "R8" |-> 64'0
@@ -498,15 +339,15 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'0
-    "RBP" |-> 64'184
+    "RBP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'240 )
     "RBX" |-> 64'0
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
-    "RIP" |-> 64'20
+    "RIP" |-> ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'20 )
     "RSI" |-> 64'0
-    "RSP" |-> 64'168
-    "SF" |-> 1'0
+    "RSP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'224 )
+    "SF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -525,8 +366,9 @@
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
     ListItem (
-"AF" |-> 1'0
+"AF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "CF" |-> 1'0
+    "DF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
     "R8" |-> 64'0
@@ -538,15 +380,15 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'0
-    "RBP" |-> 64'184
+    "RBP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'240 )
     "RBX" |-> 64'0
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
-    "RIP" |-> 64'21
+    "RIP" |-> ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'21 )
     "RSI" |-> 64'0
-    "RSP" |-> 64'168
-    "SF" |-> 1'0
+    "RSP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'224 )
+    "SF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -565,8 +407,9 @@
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
     ListItem (
-"AF" |-> 1'0
+"AF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "CF" |-> 1'0
+    "DF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
     "R8" |-> 64'0
@@ -578,15 +421,15 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'0
-    "RBP" |-> 64'184
+    "RBP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'240 )
     "RBX" |-> 64'0
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
-    "RIP" |-> 64'22
+    "RIP" |-> ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'22 )
     "RSI" |-> 64'0
-    "RSP" |-> 64'168
-    "SF" |-> 1'0
+    "RSP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'224 )
+    "SF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -605,8 +448,9 @@
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
     ListItem (
-"AF" |-> 1'0
+"AF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "CF" |-> 1'0
+    "DF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
     "R8" |-> 64'0
@@ -618,15 +462,15 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'0
-    "RBP" |-> 64'184
+    "RBP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'240 )
     "RBX" |-> 64'0
     "RCX" |-> 64'0
     "RDI" |-> 64'0
-    "RDX" |-> 64'176
-    "RIP" |-> 64'23
+    "RDX" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RIP" |-> ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'23 )
     "RSI" |-> 64'0
-    "RSP" |-> 64'168
-    "SF" |-> 1'0
+    "RSP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'224 )
+    "SF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -645,8 +489,9 @@
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
     ListItem (
-"AF" |-> 1'0
+"AF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "CF" |-> 1'0
+    "DF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
     "R8" |-> 64'0
@@ -657,16 +502,16 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> 64'180
-    "RBP" |-> 64'184
+    "RAX" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'236 )
+    "RBP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'240 )
     "RBX" |-> 64'0
     "RCX" |-> 64'0
     "RDI" |-> 64'0
-    "RDX" |-> 64'176
-    "RIP" |-> 64'24
+    "RDX" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RIP" |-> ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'24 )
     "RSI" |-> 64'0
-    "RSP" |-> 64'168
-    "SF" |-> 1'0
+    "RSP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'224 )
+    "SF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -685,8 +530,9 @@
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
     ListItem (
-"AF" |-> 1'0
+"AF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "CF" |-> 1'0
+    "DF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
     "R8" |-> 64'0
@@ -697,16 +543,16 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> 64'180
-    "RBP" |-> 64'184
+    "RAX" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'236 )
+    "RBP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'240 )
     "RBX" |-> 64'0
     "RCX" |-> 64'0
     "RDI" |-> 64'0
-    "RDX" |-> 64'176
-    "RIP" |-> 64'25
-    "RSI" |-> 64'176
-    "RSP" |-> 64'168
-    "SF" |-> 1'0
+    "RDX" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RIP" |-> ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'25 )
+    "RSI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'224 )
+    "SF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -725,8 +571,9 @@
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
     ListItem (
-"AF" |-> 1'0
+"AF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "CF" |-> 1'0
+    "DF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
     "R8" |-> 64'0
@@ -737,16 +584,16 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> 64'180
-    "RBP" |-> 64'184
+    "RAX" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'236 )
+    "RBP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'240 )
     "RBX" |-> 64'0
     "RCX" |-> 64'0
-    "RDI" |-> 64'180
-    "RDX" |-> 64'176
-    "RIP" |-> 64'26
-    "RSI" |-> 64'176
-    "RSP" |-> 64'168
-    "SF" |-> 1'0
+    "RDI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'236 )
+    "RDX" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RIP" |-> ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'26 )
+    "RSI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'224 )
+    "SF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -765,8 +612,9 @@
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
     ListItem (
-"AF" |-> 1'0
+"AF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "CF" |-> 1'0
+    "DF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
     "R8" |-> 64'0
@@ -777,16 +625,16 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> 64'180
-    "RBP" |-> 64'184
+    "RAX" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'236 )
+    "RBP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'240 )
     "RBX" |-> 64'0
     "RCX" |-> 64'0
-    "RDI" |-> 64'180
-    "RDX" |-> 64'176
-    "RIP" |-> 64'0
-    "RSI" |-> 64'176
-    "RSP" |-> 64'160
-    "SF" |-> 1'0
+    "RDI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'236 )
+    "RDX" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RIP" |-> ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'0 )
+    "RSI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'216 )
+    "SF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -805,8 +653,9 @@
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
     ListItem (
-"AF" |-> 1'0
+"AF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "CF" |-> 1'0
+    "DF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
     "R8" |-> 64'0
@@ -817,16 +666,16 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> 64'180
-    "RBP" |-> 64'184
+    "RAX" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'236 )
+    "RBP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'240 )
     "RBX" |-> 64'0
     "RCX" |-> 64'0
-    "RDI" |-> 64'180
-    "RDX" |-> 64'176
-    "RIP" |-> 64'1
-    "RSI" |-> 64'176
-    "RSP" |-> 64'152
-    "SF" |-> 1'0
+    "RDI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'236 )
+    "RDX" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RIP" |-> ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'1 )
+    "RSI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'208 )
+    "SF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -845,8 +694,9 @@
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
     ListItem (
-"AF" |-> 1'0
+"AF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "CF" |-> 1'0
+    "DF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
     "R8" |-> 64'0
@@ -857,16 +707,16 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> 64'180
-    "RBP" |-> 64'152
+    "RAX" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'236 )
+    "RBP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'208 )
     "RBX" |-> 64'0
     "RCX" |-> 64'0
-    "RDI" |-> 64'180
-    "RDX" |-> 64'176
-    "RIP" |-> 64'2
-    "RSI" |-> 64'176
-    "RSP" |-> 64'152
-    "SF" |-> 1'0
+    "RDI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'236 )
+    "RDX" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RIP" |-> ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'2 )
+    "RSI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'208 )
+    "SF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -885,8 +735,9 @@
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
     ListItem (
-"AF" |-> 1'0
+"AF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "CF" |-> 1'0
+    "DF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
     "R8" |-> 64'0
@@ -897,16 +748,16 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> 64'180
-    "RBP" |-> 64'152
+    "RAX" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'236 )
+    "RBP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'208 )
     "RBX" |-> 64'0
     "RCX" |-> 64'0
-    "RDI" |-> 64'180
-    "RDX" |-> 64'176
-    "RIP" |-> 64'3
-    "RSI" |-> 64'176
-    "RSP" |-> 64'152
-    "SF" |-> 1'0
+    "RDI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'236 )
+    "RDX" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RIP" |-> ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'3 )
+    "RSI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'208 )
+    "SF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -925,8 +776,9 @@
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
     ListItem (
-"AF" |-> 1'0
+"AF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "CF" |-> 1'0
+    "DF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
     "R8" |-> 64'0
@@ -937,16 +789,16 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> 64'180
-    "RBP" |-> 64'152
+    "RAX" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'236 )
+    "RBP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'208 )
     "RBX" |-> 64'0
     "RCX" |-> 64'0
-    "RDI" |-> 64'180
-    "RDX" |-> 64'176
-    "RIP" |-> 64'4
-    "RSI" |-> 64'176
-    "RSP" |-> 64'152
-    "SF" |-> 1'0
+    "RDI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'236 )
+    "RDX" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RIP" |-> ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'4 )
+    "RSI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'208 )
+    "SF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -965,8 +817,9 @@
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
     ListItem (
-"AF" |-> 1'0
+"AF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "CF" |-> 1'0
+    "DF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
     "R8" |-> 64'0
@@ -977,16 +830,16 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> 64'180
-    "RBP" |-> 64'152
+    "RAX" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'236 )
+    "RBP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'208 )
     "RBX" |-> 64'0
     "RCX" |-> 64'0
-    "RDI" |-> 64'180
-    "RDX" |-> 64'176
-    "RIP" |-> 64'5
-    "RSI" |-> 64'176
-    "RSP" |-> 64'152
-    "SF" |-> 1'0
+    "RDI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'236 )
+    "RDX" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RIP" |-> ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'5 )
+    "RSI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'208 )
+    "SF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -1005,8 +858,9 @@
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
     ListItem (
-"AF" |-> 1'0
+"AF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "CF" |-> 1'0
+    "DF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
     "R8" |-> 64'0
@@ -1018,15 +872,15 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'1
-    "RBP" |-> 64'152
+    "RBP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'208 )
     "RBX" |-> 64'0
     "RCX" |-> 64'0
-    "RDI" |-> 64'180
-    "RDX" |-> 64'176
-    "RIP" |-> 64'6
-    "RSI" |-> 64'176
-    "RSP" |-> 64'152
-    "SF" |-> 1'0
+    "RDI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'236 )
+    "RDX" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RIP" |-> ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'6 )
+    "RSI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'208 )
+    "SF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -1045,8 +899,9 @@
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
     ListItem (
-"AF" |-> 1'0
+"AF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "CF" |-> 1'0
+    "DF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
     "R8" |-> 64'0
@@ -1058,15 +913,15 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'1
-    "RBP" |-> 64'152
+    "RBP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'208 )
     "RBX" |-> 64'0
     "RCX" |-> 64'0
-    "RDI" |-> 64'180
-    "RDX" |-> 64'176
-    "RIP" |-> 64'7
-    "RSI" |-> 64'176
-    "RSP" |-> 64'152
-    "SF" |-> 1'0
+    "RDI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'236 )
+    "RDX" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RIP" |-> ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'7 )
+    "RSI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'208 )
+    "SF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -1085,8 +940,9 @@
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
     ListItem (
-"AF" |-> 1'0
+"AF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "CF" |-> 1'0
+    "DF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
     "R8" |-> 64'0
@@ -1097,16 +953,16 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> 64'176
-    "RBP" |-> 64'152
+    "RAX" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RBP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'208 )
     "RBX" |-> 64'0
     "RCX" |-> 64'0
-    "RDI" |-> 64'180
-    "RDX" |-> 64'176
-    "RIP" |-> 64'8
-    "RSI" |-> 64'176
-    "RSP" |-> 64'152
-    "SF" |-> 1'0
+    "RDI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'236 )
+    "RDX" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RIP" |-> ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'8 )
+    "RSI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'208 )
+    "SF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -1125,8 +981,9 @@
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
     ListItem (
-"AF" |-> 1'0
+"AF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "CF" |-> 1'0
+    "DF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
     "R8" |-> 64'0
@@ -1137,16 +994,16 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> 64'176
-    "RBP" |-> 64'152
+    "RAX" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RBP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'208 )
     "RBX" |-> 64'0
     "RCX" |-> 64'0
-    "RDI" |-> 64'180
+    "RDI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'236 )
     "RDX" |-> 64'2
-    "RIP" |-> 64'9
-    "RSI" |-> 64'176
-    "RSP" |-> 64'152
-    "SF" |-> 1'0
+    "RIP" |-> ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'9 )
+    "RSI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'208 )
+    "SF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -1165,8 +1022,9 @@
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
     ListItem (
-"AF" |-> 1'0
+"AF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "CF" |-> 1'0
+    "DF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
     "R8" |-> 64'0
@@ -1177,16 +1035,16 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> 64'180
-    "RBP" |-> 64'152
+    "RAX" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'236 )
+    "RBP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'208 )
     "RBX" |-> 64'0
     "RCX" |-> 64'0
-    "RDI" |-> 64'180
+    "RDI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'236 )
     "RDX" |-> 64'2
-    "RIP" |-> 64'10
-    "RSI" |-> 64'176
-    "RSP" |-> 64'152
-    "SF" |-> 1'0
+    "RIP" |-> ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'10 )
+    "RSI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'208 )
+    "SF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -1205,8 +1063,9 @@
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
     ListItem (
-"AF" |-> 1'0
+"AF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "CF" |-> 1'0
+    "DF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
     "R8" |-> 64'0
@@ -1217,16 +1076,16 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> 64'180
-    "RBP" |-> 64'152
+    "RAX" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'236 )
+    "RBP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'208 )
     "RBX" |-> 64'0
     "RCX" |-> 64'0
-    "RDI" |-> 64'180
+    "RDI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'236 )
     "RDX" |-> 64'2
-    "RIP" |-> 64'11
-    "RSI" |-> 64'176
-    "RSP" |-> 64'152
-    "SF" |-> 1'0
+    "RIP" |-> ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'11 )
+    "RSI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'208 )
+    "SF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -1245,8 +1104,9 @@
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
     ListItem (
-"AF" |-> 1'0
+"AF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "CF" |-> 1'0
+    "DF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
     "R8" |-> 64'0
@@ -1257,16 +1117,16 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> 64'176
-    "RBP" |-> 64'152
+    "RAX" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RBP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'208 )
     "RBX" |-> 64'0
     "RCX" |-> 64'0
-    "RDI" |-> 64'180
+    "RDI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'236 )
     "RDX" |-> 64'2
-    "RIP" |-> 64'12
-    "RSI" |-> 64'176
-    "RSP" |-> 64'152
-    "SF" |-> 1'0
+    "RIP" |-> ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'12 )
+    "RSI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'208 )
+    "SF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -1285,8 +1145,9 @@
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
     ListItem (
-"AF" |-> 1'0
+"AF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "CF" |-> 1'0
+    "DF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
     "R8" |-> 64'0
@@ -1297,16 +1158,16 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> 64'176
-    "RBP" |-> 64'152
+    "RAX" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RBP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'208 )
     "RBX" |-> 64'0
     "RCX" |-> 64'0
-    "RDI" |-> 64'180
+    "RDI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'236 )
     "RDX" |-> 64'1
-    "RIP" |-> 64'13
-    "RSI" |-> 64'176
-    "RSP" |-> 64'152
-    "SF" |-> 1'0
+    "RIP" |-> ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'13 )
+    "RSI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'208 )
+    "SF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -1325,8 +1186,9 @@
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
     ListItem (
-"AF" |-> 1'0
+"AF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "CF" |-> 1'0
+    "DF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
     "R8" |-> 64'0
@@ -1337,16 +1199,16 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> 64'176
-    "RBP" |-> 64'152
+    "RAX" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RBP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'208 )
     "RBX" |-> 64'0
     "RCX" |-> 64'0
-    "RDI" |-> 64'180
+    "RDI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'236 )
     "RDX" |-> 64'1
-    "RIP" |-> 64'14
-    "RSI" |-> 64'176
-    "RSP" |-> 64'152
-    "SF" |-> 1'0
+    "RIP" |-> ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'14 )
+    "RSI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'208 )
+    "SF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -1365,8 +1227,9 @@
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
     ListItem (
-"AF" |-> 1'0
+"AF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "CF" |-> 1'0
+    "DF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
     "R8" |-> 64'0
@@ -1377,16 +1240,16 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> 64'176
-    "RBP" |-> 64'152
+    "RAX" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RBP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'208 )
     "RBX" |-> 64'0
     "RCX" |-> 64'0
-    "RDI" |-> 64'180
+    "RDI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'236 )
     "RDX" |-> 64'1
-    "RIP" |-> 64'15
-    "RSI" |-> 64'176
-    "RSP" |-> 64'152
-    "SF" |-> 1'0
+    "RIP" |-> ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'15 )
+    "RSI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'208 )
+    "SF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -1405,8 +1268,9 @@
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
     ListItem (
-"AF" |-> 1'0
+"AF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "CF" |-> 1'0
+    "DF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
     "R8" |-> 64'0
@@ -1417,16 +1281,16 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> 64'176
-    "RBP" |-> 64'184
+    "RAX" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RBP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'240 )
     "RBX" |-> 64'0
     "RCX" |-> 64'0
-    "RDI" |-> 64'180
+    "RDI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'236 )
     "RDX" |-> 64'1
-    "RIP" |-> 64'16
-    "RSI" |-> 64'176
-    "RSP" |-> 64'160
-    "SF" |-> 1'0
+    "RIP" |-> ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'16 )
+    "RSI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'216 )
+    "SF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -1445,8 +1309,9 @@
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
     ListItem (
-"AF" |-> 1'0
+"AF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "CF" |-> 1'0
+    "DF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
     "R8" |-> 64'0
@@ -1457,16 +1322,16 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> 64'176
-    "RBP" |-> 64'184
+    "RAX" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RBP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'240 )
     "RBX" |-> 64'0
     "RCX" |-> 64'0
-    "RDI" |-> 64'180
+    "RDI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'236 )
     "RDX" |-> 64'1
-    "RIP" |-> 64'27
-    "RSI" |-> 64'176
-    "RSP" |-> 64'168
-    "SF" |-> 1'0
+    "RIP" |-> ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'27 )
+    "RSI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'224 )
+    "SF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -1485,8 +1350,9 @@
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
     ListItem (
-"AF" |-> 1'0
+"AF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "CF" |-> 1'0
+    "DF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
     "R8" |-> 64'0
@@ -1498,15 +1364,15 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'0
-    "RBP" |-> 64'184
+    "RBP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'240 )
     "RBX" |-> 64'0
     "RCX" |-> 64'0
-    "RDI" |-> 64'180
+    "RDI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'236 )
     "RDX" |-> 64'1
-    "RIP" |-> 64'28
-    "RSI" |-> 64'176
-    "RSP" |-> 64'168
-    "SF" |-> 1'0
+    "RIP" |-> ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'28 )
+    "RSI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'224 )
+    "SF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -1525,8 +1391,9 @@
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
     ListItem (
-"AF" |-> 1'0
+"AF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "CF" |-> 1'0
+    "DF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
     "R8" |-> 64'0
@@ -1538,15 +1405,15 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'0
-    "RBP" |-> 64'192
+    "RBP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'248 )
     "RBX" |-> 64'0
     "RCX" |-> 64'0
-    "RDI" |-> 64'180
+    "RDI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'236 )
     "RDX" |-> 64'1
-    "RIP" |-> 64'29
-    "RSI" |-> 64'176
-    "RSP" |-> 64'192
-    "SF" |-> 1'0
+    "RIP" |-> ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'29 )
+    "RSI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'248 )
+    "SF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -1564,5 +1431,268 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
+    ListItem (
+"AF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
+    "CF" |-> 1'0
+    "DF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'0
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> 64'0
+    "RBP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'248 )
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'236 )
+    "RDX" |-> 64'1
+    "RIP" |-> 64'18446744073709551615
+    "RSI" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'232 )
+    "RSP" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 64'256 )
+    "SF" |-> ptr ( symloc ( 1 , 128 , 256 , 8 , 0 ) , 1'0 )
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'0 )
+    ListItem ( main |-> ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'17 )
+    stdout |-> ptr ( symloc ( 5 , 0 , 5 , 8 , 0 ) , 64'1 )
+    swap |-> ptr ( symloc ( -1 , 0 , 0 , 0 , 0 ) , 64'0 ) )
   </regstatequeue>
+  <formatcountint>
+    0
+  </formatcountint>
+  <formatcountfloat>
+    0
+  </formatcountfloat>
+  <c-library>
+    <malloced>
+      .Map
+    </malloced>
+    <atexit>
+      flush ( 1 ) ~> flush ( 2 )
+    </atexit>
+    <at-quick-exit>
+      .
+    </at-quick-exit>
+    <va-lists>
+      .Map
+    </va-lists>
+    <jmp-bufs>
+      .Map
+    </jmp-bufs>
+    <open-files>
+      SetItem ( 0 )
+      SetItem ( 1 )
+      SetItem ( 2 )
+    </open-files>
+    <files>
+      <file>
+        <fid>
+          0
+        </fid>
+        <uri>
+          "stdin:///"
+        </uri>
+        <pos>
+          0
+        </pos>
+        <mode>
+          "r"
+        </mode>
+        <next-byte>
+          .
+        </next-byte>
+        <read-buffer>
+          ""
+        </read-buffer>
+        <write-buffer>
+          ""
+        </write-buffer>
+        <buffer-mode>
+          lineBuf
+        </buffer-mode>
+        <buffer-size>
+          8192
+        </buffer-size>
+        <sending>
+          .List
+        </sending>
+        <done>
+          ""
+        </done>
+        <feof>
+          false
+        </feof>
+        <ferror>
+          0
+        </ferror>
+        <last-op>
+          noLastOp
+        </last-op>
+      </file> <file>
+        <fid>
+          1
+        </fid>
+        <uri>
+          "stdout:///"
+        </uri>
+        <pos>
+          0
+        </pos>
+        <mode>
+          "w"
+        </mode>
+        <next-byte>
+          .
+        </next-byte>
+        <read-buffer>
+          ""
+        </read-buffer>
+        <write-buffer>
+          ""
+        </write-buffer>
+        <buffer-mode>
+          lineBuf
+        </buffer-mode>
+        <buffer-size>
+          8192
+        </buffer-size>
+        <sending>
+          .List
+        </sending>
+        <done>
+          ""
+        </done>
+        <feof>
+          false
+        </feof>
+        <ferror>
+          0
+        </ferror>
+        <last-op>
+          noLastOp
+        </last-op>
+      </file> <file>
+        <fid>
+          2
+        </fid>
+        <uri>
+          "stdout:///"
+        </uri>
+        <pos>
+          0
+        </pos>
+        <mode>
+          "w"
+        </mode>
+        <next-byte>
+          .
+        </next-byte>
+        <read-buffer>
+          ""
+        </read-buffer>
+        <write-buffer>
+          ""
+        </write-buffer>
+        <buffer-mode>
+          noBuf
+        </buffer-mode>
+        <buffer-size>
+          8192
+        </buffer-size>
+        <sending>
+          .List
+        </sending>
+        <done>
+          ""
+        </done>
+        <feof>
+          false
+        </feof>
+        <ferror>
+          0
+        </ferror>
+        <last-op>
+          noLastOp
+        </last-op>
+      </file>
+    </files>
+    <input>
+      .List
+    </input>
+    <output>
+      .List
+    </output>
+    <strerror-cache>
+      .Map
+    </strerror-cache>
+    <sig-handling-state>
+      .
+    </sig-handling-state>
+    <setlocale>
+      .
+    </setlocale>
+    <localeconv>
+      .
+    </localeconv>
+    <getenv>
+      .
+    </getenv>
+  </c-library>
+  <formatting>
+    <format>
+      .List
+    </format>
+    <format-arg>
+      .
+    </format-arg>
+    <format-result>
+      .List
+    </format-result>
+    <format-state>
+      "normal"
+    </format-state>
+    <format-pad-zero>
+      false
+    </format-pad-zero>
+    <format-alt-form>
+      false
+    </format-alt-form>
+    <format-field-width>
+      ""
+    </format-field-width>
+    <format-length>
+      ""
+    </format-length>
+    <format-precision>
+      ""
+    </format-precision>
+    <format-matched>
+      0
+    </format-matched>
+    <format-nread>
+      0
+    </format-nread>
+    <format-item>
+      ""
+    </format-item>
+  </formatting>
 </generatedTop>

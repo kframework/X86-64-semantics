@@ -1,10 +1,3 @@
-malloc:
-  pushq %rbp
-  movq %rsp, %rbp
-  movq %rdi, -8(%rbp)
-  movl $100, %eax
-  popq %rbp
-  ret
 main:
   pushq %rbp
   movq %rsp, %rbp
