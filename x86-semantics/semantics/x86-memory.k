@@ -281,9 +281,8 @@ module X86-MEMORY
     in byte granularity, which are then store in memory.
   */
   rule <k> allocateLocalMemory(N:Int, A:Int) => 
-          mAlloc(
+          mAlloc( N, 8, A)
             //toMemValue(makeUndefMIntMap(N), N *Int 8),
-            N, 8, A)
   ... </k>
 
   rule <k> freeMemory(PV:PointerVal) => mClear(getMemLoc(PV)) ... </k>
