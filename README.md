@@ -14,16 +14,13 @@
                // binary-decompilation/x86-semantics/remove_directives.pl
   
   cd !$
+
   // Clone the following
   // 2 and 3 are requred incase we need to gather statistics.
   1. git clone https://github.com/sdasgup3/binary-decompilation.git [master]
   2. git clone https://github.com/sdasgup3/x86-64-instruction-summary.git    
   3. git clone --recursive  https://github.com/sdasgup3/strata-data-private.git  strata-data
-  4.  git clone https://github.com/sdasgup3/llvm-verified-backend.git [f_llvm_parser] (preferred) OR
-      git clone https://github.com/theo25/llvm-verified-backend.git [f_llvm_parser] (prepare to get get warnings) 
-     // In case the llvm-verified-backend is cloned in places other than
-     // Github, then fix the paths in binary-decompilation/x86-semantics/process_spec.pl to 
-     // include the correct module paths (search for compile and and update the include paths).
+  4. git clone https://github.com/theo25/llvm-verified-backend.git [f_llvm_parser]
   ```
 
  - Download the K tool
