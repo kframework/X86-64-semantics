@@ -5,7 +5,7 @@ module TEST-SPEC
   rule
     <k> fetch => exit_0 </k>
       <functargets>  
-        L2    |-> ptr ( symloc ( -1 , 0, 0, 0, 0 ) , mi(64, 1))
+        L1    |-> ptr ( symloc ( -1 , 0, 0, 0, 0 ) , mi(64, 0))
         main  |-> ptr ( symloc ( -1 , 0, 0, 0, 0 ) , mi(64, 0))
       </functargets> 
       <rotargets> .Map </rotargets> 
@@ -27,41 +27,39 @@ module TEST-SPEC
         "ZF" |-> (_:MInt => _:MInt)
            
          // Main Claim
-        "RDI" |-> (mi(64, X:Int):MInt => mi(64, 0))
-        "RAX" |-> (mi(64, _:Int):MInt => mi(64, _))
-        "RDX" |-> (mi(64, _:Int):MInt => mi(64, _))
-        "RCX" |-> (mi(64, _:Int):MInt => mi(64, _))
+        "RAX" |-> (mi(64, _:Int):MInt => mi(64, 0))
       </regstate>
 
       <memstate>
         <text> 
           code ( 
-
-            ptr ( symloc (-1, 0, 0, 0, 0), mi(64,0)) |-> storedInstr(xorl    %eax, %eax, .Operands)
-            ptr ( symloc (-1, 0, 0, 0, 0), mi(64,1)) |-> storedInstr(movl    %edi, %edx, .Operands)
-            ptr ( symloc (-1, 0, 0, 0, 0), mi(64,2)) |-> storedInstr(andl    $1, %edx, .Operands)
-            ptr ( symloc (-1, 0, 0, 0, 0), mi(64,3)) |-> storedInstr(addl    %edx, %eax, .Operands)
-            ptr ( symloc (-1, 0, 0, 0, 0), mi(64,4)) |-> storedInstr(shrq  $0x1,  %rdi, .Operands)
-
-            ptr ( symloc (-1, 0, 0, 0, 0), mi(64,5)) |-> storedInstr(jne     L2, .Operands)
-            ptr ( symloc (-1, 0, 0, 0, 0), mi(64,6)) |-> storedInstr(ret .Operands)
+                ptr ( symloc (-1, 0, 0, 0, 0), mi(64, 0)) |-> storedInstr(movl -8(%rbp), %edx, .Operands)
+                ptr ( symloc (-1, 0, 0, 0, 0), mi(64, 1)) |-> storedInstr(ret .Operands)
              )
         </text>
         <stack> 
           <memory>
             <nextLoc> 1 </nextLoc> 
             <objects>  
-            mem( 
-                    symloc( 1, 128, 64, 8, 56) |-> byte ( 0 , mi(64,-1) )
-                    symloc( 1, 128, 64, 8, 57) |-> byte ( 1 , mi(64,-1) )
-                    symloc( 1, 128, 64, 8, 58) |-> byte ( 2 , mi(64,-1) )
-                    symloc( 1, 128, 64, 8, 59) |-> byte ( 3 , mi(64,-1) )
-                    symloc( 1, 128, 64, 8, 60) |-> byte ( 4 , mi(64,-1) )
-                    symloc( 1, 128, 64, 8, 61) |-> byte ( 5 , mi(64,-1) )
-                    symloc( 1, 128, 64, 8, 62) |-> byte ( 6 , mi(64,-1) )
-                    symloc( 1, 128, 64, 8, 63) |-> byte ( 7 , mi(64,-1) )
-                  )
+               mem( 
+                    symloc(1, 128, 64, 8, 48) |-> (byte ( 0 , mi(64, A))) 
+                    symloc(1, 128, 64, 8, 49) |-> (byte ( 1 , mi(64, A))) 
+                    symloc(1, 128, 64, 8, 50) |-> (byte ( 2 , mi(64, A))) 
+                    symloc(1, 128, 64, 8, 51) |-> (byte ( 3 , mi(64, A))) 
+                    symloc(1, 128, 64, 8, 52) |-> (byte ( 4 , mi(64, A))) 
+                    symloc(1, 128, 64, 8, 53) |-> (byte ( 5 , mi(64, A))) 
+                    symloc(1, 128, 64, 8, 54) |-> (byte ( 6 , mi(64, A))) 
+                    symloc(1, 128, 64, 8, 55) |-> (byte ( 7 , mi(64, A))) 
 
+                    symloc(1, 128, 64, 8, 56) |-> byte ( 0 , mi(64,-1) )
+                    symloc(1, 128, 64, 8, 57) |-> byte ( 1 , mi(64,-1) )
+                    symloc(1, 128, 64, 8, 58) |-> byte ( 2 , mi(64,-1) )
+                    symloc(1, 128, 64, 8, 59) |-> byte ( 3 , mi(64,-1) )
+                    symloc(1, 128, 64, 8, 60) |-> byte ( 4 , mi(64,-1) )
+                    symloc(1, 128, 64, 8, 61) |-> byte ( 5 , mi(64,-1) )
+                    symloc(1, 128, 64, 8, 62) |-> byte ( 6 , mi(64,-1) )
+                    symloc(1, 128, 64, 8, 63) |-> byte ( 7 , mi(64,-1) ) 
+                  )
             </objects>
             <freed>
               .Set
@@ -80,6 +78,6 @@ module TEST-SPEC
         <argc> .K  </argc>
         <argv> .K  </argv>
       </environment>
-        requires   X >=Int 0 andBool X <Int (2 ^Int 64)
+        requires  A >=Int 0 andBool A <Int 2 ^Int 64 
 endmodule
 
