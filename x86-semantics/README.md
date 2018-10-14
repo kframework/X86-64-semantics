@@ -1,6 +1,6 @@
 ![Dependency tree of Source Code](https://github.com/sdasgup3/binary-decompilation/blob/master/x86-semantics/docs/reports/import_graph.png)
 
-## Preparation 
+## 1. Preparation 
  - Download X86 and LLVM Semantics. 
   ```
   mkdir Github // The reason for enforcing this directory is that the scripts are
@@ -14,25 +14,23 @@
                // binary-decompilation/x86-semantics/remove_directives.pl
   
   cd !$
+
   // Clone the following
   // 2 and 3 are requred incase we need to gather statistics.
   1. git clone https://github.com/sdasgup3/binary-decompilation.git [master]
   2. git clone https://github.com/sdasgup3/x86-64-instruction-summary.git    
   3. git clone --recursive  https://github.com/sdasgup3/strata-data-private.git  strata-data
-  4.  git clone https://github.com/sdasgup3/llvm-verified-backend.git [f_llvm_parser] (preferred) OR
-      git clone https://github.com/theo25/llvm-verified-backend.git [f_llvm_parser]  
-     // In case the llvm-verified-backend is cloned in places other than
-     // Github, then fix the paths in binary-decompilation/x86-semantics/process_spec.pl to 
-     // include the correct module paths (search for compile and and update the include paths).
+  4. git clone https://github.com/theo25/llvm-verified-backend.git [f_llvm_parser]
   ```
 
  - Download the K tool
   ```
   git clone https://github.com/sdasgup3/k5.git [working branch]
-
+  cd k5
+  mvn package 
   ```
 
-## To compile the x86-64 semantics
+## 2. To compile the x86-64 semantics
   - The following commands will compile the semantics WITHOUT any rules for
   instructions (as the 'underTestInstructions' is empty).  The reason is if we
   include all the instruction's rules, then the kompile/krun/kprove all will be
@@ -46,9 +44,7 @@
   ../scripts/process_spec.pl --compile 
   ```
 
-## Running X86 programs with the semantics
-
-### Running single program: bubblesort 
+## 3. Running X86 programs concretely with the semantics
 ```
 cd  binary-decompilation/x86-semantics/tests/Programs/bubblesort/
 
@@ -64,15 +60,23 @@ binary-decompilation/x86-semantics/scripts/remove_directives.pl --i --file test.
 ```
 
 
-## Running kprove
- - Currently, krove is supported on a different branch 'progVerication'. I am planning to merge 'progVerication' with master soon(ETD: tomorrow).
+## 4. Running Symbolic Execution using kprove
+ 1. Download branch 'programV' supporting symbolic executon. 
   ```
-  git clone https://github.com/sdasgup3/binary-decompilation.git [progVerication]
-
+  git clone https://github.com/sdasgup3/binary-decompilation.git 
+  git checkout programV 
   ```
- - All the program verification example are there in program-veriifcation
+ 2. All the program verification example are there in program-veriifcation
    folder.
+   - Running sun2N
    ```
-    cd binary-decompilation/x86-semantics/program-veriifcation
-    gvim README.md // instructions for execution
+    cd binary-decompilation/x86-semantics/program-veriifcation/sum_to_n_32_bit
+    cp instruction_semantics/* ../../semantics/underTestInstructions/
+    
+    // The following instructions are used to compile the semantics and are same as (2)
+    cd ../../semantics/
+    ../scripts/process_spec.pl --compile
+    cd ../program-veriifcation/sum_to_n_32_bit/
+    
+    kprove test-spec.k ~/Junk/dummy.k --directory ~/Github/binary-decompilation/x86-semantics/semantics --smt_prelude /home/sdasgup3/Github/k5/k-distribution/include/z3/basic.smt2
    ```
