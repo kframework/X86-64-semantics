@@ -620,7 +620,8 @@ module X86-LOADER
     Record the PC corresponding to labels. 
   */  
   rule <k> (LabelId:X86Id:):Label => . ...</k>
-        <functargets> FMap:Map => FMap[LabelId <- ptr(symloc(-1, 0, 0, 0, 0), L)] </functargets>
+        <functargets> FMap:Map => FMap[LabelId <- ptr(symloc(-1, 0), L)] </functargets>
+        //<functargets> FMap:Map => FMap[LabelId <- ptr(symloc(-1, 0, 0, 0, 0), L)] </functargets>
         <nextLocPc> L </nextLocPc>
         <lastseenlabel> _:K => LabelId </lastseenlabel>
 
@@ -631,7 +632,8 @@ module X86-LOADER
   */
   rule  <k> OpC:Opcode OpR:Operands => . ...</k>
         //<text> code(M:Map => M[iloc(L) <- storedInstr(OpC OpR)])</text>
-        <text> code(M:Map => M[ ptr(symloc(-1, 0, 0, 0, 0), L) <- storedInstr(OpC OpR)])</text>
+        <text> code(M:Map => M[ ptr(symloc(-1, 0), L) <- storedInstr(OpC OpR)])</text>
+        //<text> code(M:Map => M[ ptr(symloc(-1, 0, 0, 0, 0), L) <- storedInstr(OpC OpR)])</text>
         <nextLocPc> L:MInt => addMInt(L, mi(64, 1)) </nextLocPc>
 
   rule  <k>.Instructions => .K ...</k>

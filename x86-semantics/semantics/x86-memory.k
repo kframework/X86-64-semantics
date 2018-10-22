@@ -98,7 +98,7 @@ endmodule
 
 
 module X86-MEMORY
-  imports COMMON-MEMORY-OPAQUE-SYNTAX
+  //imports COMMON-MEMORY-OPAQUE-SYNTAX
   imports COMMON-MEMORY-SYNTAX
   imports X86-CONFIGURATION
 
@@ -111,7 +111,7 @@ module X86-MEMORY
   // AbstractValue sort defintion for x86 semantics
   syntax AbstractValue ::= ByteVal
 
-  rule getDefaultAbstractValue() => byte(0, undefMInt8)
+  //rule getDefaultAbstractValue() => byte(0, undefMInt8)
 
   // x86 memory helper API implementation for allocation and store.
 
@@ -281,8 +281,11 @@ module X86-MEMORY
     in byte granularity, which are then store in memory.
   */
   rule <k> allocateLocalMemory(N:Int, A:Int) => 
-          mAlloc( N, 8, A)
+          //mAlloc( N, 8, A)
             //toMemValue(makeUndefMIntMap(N), N *Int 8),
+     mAlloc(
+            toMemValue(makeUndefMIntMap(N), N *Int 8),
+            A)
   ... </k>
 
   rule <k> freeMemory(PV:PointerVal) => mClear(getMemLoc(PV)) ... </k>

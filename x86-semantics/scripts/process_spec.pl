@@ -312,7 +312,7 @@ if ( "" ne $compile ) {
     createSingleFileDefn();
     execute("git status x86-instructions-semantics.k");
     execute(
-"time  kompile x86-semantics.k --syntax-module X86-SYNTAX --main-module X86-SEMANTICS --debug -v --backend java -I ~/Github/llvm-verified-backend/ -I ~/Github/llvm-verified-backend/common/x86-config/",
+"time  kompile x86-semantics.k --syntax-module X86-SYNTAX --main-module X86-SEMANTICS --debug -v --backend java -I ~/Github/llvm-verified-backend.old/ -I ~/Github/llvm-verified-backend.old/common/x86-config/",
         1
     );
 
