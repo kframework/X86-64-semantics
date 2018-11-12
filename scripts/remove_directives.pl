@@ -54,9 +54,9 @@ for my $line (@lines) {
     #if($line =~ m/\#/) {
     #  next;
     #}
-    if($line =~ m/\s+\#.*/g) {
-      next;
-    }
+    #if($line =~ m/\s+\#.*/g) {
+    #  next;
+    #}
       
     $line =~ s/\#.*//g;
     $line =~ s/\.rodata.*/.rodata/g;

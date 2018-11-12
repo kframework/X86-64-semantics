@@ -56,6 +56,7 @@ make cleankstate; make kstate  // Checks successful completion of krun and store
 
 If you want to generate a freash .s file:
 gcc test.c -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -mlong-double-64 -mno-80387 -S -o test.asm
+// With clang pass, -march=x86-64 -mcpu=haswell
 binary-decompilation/x86-semantics/scripts/remove_directives.pl --i --file test.s 
 ```
 
