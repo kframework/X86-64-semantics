@@ -8,14 +8,6 @@ module MOVNTPD-M128-XMM
   
   rule <k>
     execinstr (movntpd:Opcode R1:Xmm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-      loadFromMemory( MemOff, 128) ~>
-      execinstr (movntpd R1:Xmm, memOffset( MemOff),  .Operands)
-  ...</k>
-    <regstate> RSMap:Map </regstate>
-          
-  rule <k>
-    memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (movntpd:Opcode R1:Xmm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-      
             storeToMemory(
               extractMInt( getParentValue(R1, RSMap), 128, 256),
               MemOff,

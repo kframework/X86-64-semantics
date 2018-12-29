@@ -8,14 +8,6 @@ module MOVNTI-M64-R64
   
   rule <k>
     execinstr (movnti:Opcode R1:R64, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-      loadFromMemory( MemOff, 64) ~>
-      execinstr (movnti R1, memOffset( MemOff),  .Operands)
-  ...</k>
-    <regstate> RSMap:Map </regstate>
-          
-  rule <k>
-    memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (movnti:Opcode R1:R64, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-      
             storeToMemory(
               getParentValue(R1, RSMap),
               MemOff,

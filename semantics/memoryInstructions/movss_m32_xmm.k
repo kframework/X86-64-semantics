@@ -8,14 +8,6 @@ module MOVSS-M32-XMM
   
   rule <k>
     execinstr (movss:Opcode R1:Xmm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-      loadFromMemory( MemOff, 32) ~>
-      execinstr (movss R1:Xmm, memOffset( MemOff),  .Operands)
-  ...</k>
-    <regstate> RSMap:Map </regstate>
-          
-  rule <k>
-    memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (movss:Opcode R1:Xmm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-      
             storeToMemory(
               extractMInt( getParentValue(R1, RSMap), 224, 256),
               MemOff,

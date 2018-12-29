@@ -8,14 +8,6 @@ module MOVNTDQ-M256-YMM
   
   rule <k>
     execinstr (movntdq:Opcode R1:Ymm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-      loadFromMemory( MemOff, 256) ~>
-      execinstr (movntdq R1:Ymm, memOffset( MemOff),  .Operands)
-  ...</k>
-    <regstate> RSMap:Map </regstate>
-          
-  rule <k>
-    memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (movntdq:Opcode R1:Ymm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-      
             storeToMemory(
               getParentValue(R1, RSMap),
               MemOff,

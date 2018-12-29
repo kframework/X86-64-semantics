@@ -11,14 +11,6 @@ module MOVBEL-M32-R32
   
   rule <k>
     execinstr (movbel:Opcode R1:R32, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-      loadFromMemory( MemOff, 32) ~>
-      execinstr (movbel R1, memOffset( MemOff),  .Operands)
-  ...</k>
-    <regstate> RSMap:Map </regstate>
-          
-  rule <k>
-    memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (movbel:Opcode R1:R32, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-      
             storeToMemory(
               concatenateMInt( concatenateMInt( concatenateMInt( extractMInt( getParentValue(R1, RSMap), 56, 64), extractMInt( getParentValue(R1, RSMap), 48, 56)), extractMInt( getParentValue(R1, RSMap), 40, 48)), extractMInt( getParentValue(R1, RSMap), 32, 40)),
               MemOff,
