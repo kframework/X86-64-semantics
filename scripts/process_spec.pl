@@ -14,7 +14,7 @@ use File::Path qw(make_path remove_tree);
 my $home = "";
 BEGIN{
 	$home = $ENV{"HOME"};
-	unshift @INC, "$home/Github/binary-decompilation/x86-semantics/scripts/";
+	unshift @INC, "$home/Documents/University/Grad/binary-decompilation/x86-semantics/scripts/";
 }
 use utils;
 use kutils;
@@ -27,7 +27,7 @@ use threads;
 # Using GetOPtions
 my $file = "";
 my $instantiated_instr_path =
-  "$home/Github/strata-data/data-regs/instructions/";
+  "$home/Documents/University/Grad/strata-data/data-regs/instructions/";
 my $script = "~/x86-semantics/scripts/process_spec.pl";
 my $UTInstructionsPath        = "underTestInstructions/";
 
@@ -142,27 +142,27 @@ if ( "" ne $compareintel ) {
     ## file names
     my $availfile = "docs/instruction_manuals/all.instrs";
     my $intelatt =
-"$home/Github/strata-data/output-strata/instruction-summary/misc-documents/intel_att.txt";
-#my $idealfile = "$home/Github/strata-data/output-strata/instruction-summary/clasification/all.txt";
-    my $idealfile = "$home/Github/binary-decompilation/x86-semantics/docs/relatedwork/k-semantics/current_support.txt";
+"$home/Documents/University/Grad/strata-data/output-strata/instruction-summary/misc-documents/intel_att.txt";
+#my $idealfile = "$home/Documents/University/Grad/strata-data/output-strata/instruction-summary/clasification/all.txt";
+    my $idealfile = "$home/Documents/University/Grad/binary-decompilation/x86-semantics/docs/relatedwork/k-semantics/current_support.txt";
 
     my $stratafile =
-"$home/Github/binary-decompilation/x86-semantics/docs/relatedwork/strata/strata_orig_supported.txt";
+"$home/Documents/University/Grad/binary-decompilation/x86-semantics/docs/relatedwork/strata/strata_orig_supported.txt";
     my $currentfile =
-"$home/Github/binary-decompilation/x86-semantics/docs/relatedwork/k-semantics/current_support.txt";
+"$home/Documents/University/Grad/binary-decompilation/x86-semantics/docs/relatedwork/k-semantics/current_support.txt";
     my $bapfile =
-"$home/Github/binary-decompilation/x86-semantics/docs/relatedwork/bap/baprunlog.txt";
+"$home/Documents/University/Grad/binary-decompilation/x86-semantics/docs/relatedwork/bap/baprunlog.txt";
     my $angrfile =
-"$home/Github/binary-decompilation/x86-semantics/docs/relatedwork/angrVex/support.txt";
+"$home/Documents/University/Grad/binary-decompilation/x86-semantics/docs/relatedwork/angrVex/support.txt";
     my $stratavecimmfile =
-"$home/Github/binary-decompilation/x86-semantics/docs/relatedwork/strata/Immediates/stratum_vector_immediates.txt";
-    my $mcsemafile = "$home/Github/binary-decompilation/x86-semantics/docs/relatedwork/mcsema/reportlist.txt";
-#"$home/Github/binary-decompilation/x86-semantics/docs/relatedwork/mcsema/amd64.txt";
+"$home/Documents/University/Grad/binary-decompilation/x86-semantics/docs/relatedwork/strata/Immediates/stratum_vector_immediates.txt";
+    my $mcsemafile = "$home/Documents/University/Grad/binary-decompilation/x86-semantics/docs/relatedwork/mcsema/reportlist.txt";
+#"$home/Documents/University/Grad/binary-decompilation/x86-semantics/docs/relatedwork/mcsema/amd64.txt";
     my $xedfile =
-"$home/Github/binary-decompilation/x86-semantics/docs/relatedwork/mcsema/xed.txt";
-    my $acl2file = "$home/Github/binary-decompilation/x86-semantics/docs/relatedwork/acl2/implemented.txt";
-#"$home/Github/binary-decompilation/x86-semantics/docs/relatedwork/acl2/supportedOPcodes.txt";
-    my $r2file = "$home/Github/binary-decompilation/x86-semantics/docs/relatedwork/radare2/r2log.txt";
+"$home/Documents/University/Grad/binary-decompilation/x86-semantics/docs/relatedwork/mcsema/xed.txt";
+    my $acl2file = "$home/Documents/University/Grad/binary-decompilation/x86-semantics/docs/relatedwork/acl2/implemented.txt";
+#"$home/Documents/University/Grad/binary-decompilation/x86-semantics/docs/relatedwork/acl2/supportedOPcodes.txt";
+    my $r2file = "$home/Documents/University/Grad/binary-decompilation/x86-semantics/docs/relatedwork/radare2/r2log.txt";
     my $stoke_strata_unsup_file =
       "docs/relatedwork/strata/strata_stoke_unsupported.txt";
     my $ungeneralized_memory =
@@ -312,7 +312,7 @@ if ( "" ne $compile ) {
     createSingleFileDefn();
     execute("git status x86-instructions-semantics.k");
     execute(
-"time  kompile x86-semantics.k --syntax-module X86-SYNTAX --main-module X86-SEMANTICS --debug -v --backend java -I ~/Github/llvm-verified-backend/ -I ~/Github/llvm-verified-backend/common/x86-config/",
+"time  kompile x86-semantics.k --syntax-module X86-SYNTAX --main-module X86-SEMANTICS --debug -v --backend ocaml -I ~/Documents/University/Grad/llvm-verified-backend/ -I ~/Documents/University/Grad/llvm-verified-backend/common/x86-config/",
         1
     );
 
@@ -453,7 +453,7 @@ if ( "" ne $getmem ) {
 }
 
 if ( "" ne $prepare_concrete ) {
-    my $specgen_setup = "~/Github/strata/stoke/bin/specgen_setup";
+    my $specgen_setup = "~/Documents/University/Grad/strata/stoke/bin/specgen_setup";
     if ( "" eq $workdir ) {
         utils::failInfo("Provide workdir arg");
         exit(0);
@@ -501,7 +501,7 @@ if ( "" ne $update_tc ) {
 }
 
 if ( "" ne $prepare_concrete_imm ) {
-    my $specgen_setup = "~/Github/strata/stoke/bin/specgen_setup";
+    my $specgen_setup = "~/Documents/University/Grad/strata/stoke/bin/specgen_setup";
     if ( "" eq $prefix ) {
         $prefix = "check_stoke";
     }
@@ -529,7 +529,7 @@ if ( "" ne $prepare_concrete_imm ) {
 }
 
 if ( "" ne $prepare_concrete_mem ) {
-    my $specgen_setup = "~/Github/strata/stoke/bin/specgen_setup";
+    my $specgen_setup = "~/Documents/University/Grad/strata/stoke/bin/specgen_setup";
     if ( "" eq $prefix ) {
         $prefix = "check_stoke";
     }
@@ -847,7 +847,7 @@ sub threadop_match_stoke {
 }
 
 if ( "" ne $match_stoke ) {
-    my $specgen = "$home/Github/strata/stoke/bin/specgen";
+    my $specgen = "$home/Documents/University/Grad/strata/stoke/bin/specgen";
     for my $line (@lines) {
         chomp $line;
         execute(
@@ -1279,7 +1279,7 @@ if ( "" ne $getoplist ) {
 
 ################## radare2_support ########################################
 if ( "" ne $radare2_support ) {
-    my $specgen_setup = "~/Github/strata/stoke/bin/specgen_setup";
+    my $specgen_setup = "~/Documents/University/Grad/strata/stoke/bin/specgen_setup";
 
     for my $line (@lines) {
         chomp $line;

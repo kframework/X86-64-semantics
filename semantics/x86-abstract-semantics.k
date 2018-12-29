@@ -15,7 +15,7 @@ module X86-ABSTRACT-SEMANTICS
     Redefining functions over PointerVal
   */
 
-  rule mi(W:Int, svalueMInt(PV:PointerVal)) => ptr(getMemLoc(PV), mi(W, svalueMInt(getMIntVal(PV))))
+  //rule mi(W:Int, svalueMInt(PV:PointerVal)) => ptr(getMemLoc(PV), mi(W, svalueMInt(getMIntVal(PV))))
 
   rule getMemLoc(ptr(L:MemLoc, MI:MInt)) => L
   rule getMIntVal(ptr(L:MemLoc, MI:MInt)) => MI
