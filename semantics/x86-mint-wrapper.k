@@ -1,3 +1,5 @@
+require "float-conversions.k"
+
 module MINT-WRAPPER-SORT
   syntax MIntMap
   syntax MInts
@@ -12,6 +14,7 @@ module MINT-WRAPPER-SYNTAX
   imports STRING
   imports MAP
   imports INT
+  imports FLOAT-CONVERSIONS
 
   syntax MInt ::= "undefMInt"
   syntax MInt ::= "undefMInt8"
