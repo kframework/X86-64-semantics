@@ -85,6 +85,8 @@ module X86-SYNTAX
 
   syntax X86Ids ::= List{X86Id, ","} [klabel(X86Idlist)]
 
+  syntax Mem ::= MemOffset
+
   syntax AssemblerDirective ::=  ".section" ".rodata"
                             | ".data"
                             | ".text" 

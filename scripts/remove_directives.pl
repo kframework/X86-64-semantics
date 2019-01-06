@@ -8,7 +8,7 @@ use Getopt::Long;
 my $home = "";
 BEGIN{
 	$home = $ENV{"HOME"};
-	unshift @INC, "$home/Documents/University/Grad/binary-decompilation/x86-semantics/scripts/";
+	unshift @INC, "$home/Github/binary-decompilation/x86-semantics/scripts/";
 }
 use utils;
 use File::Temp qw/ tempfile tempdir /;
