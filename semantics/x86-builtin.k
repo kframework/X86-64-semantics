@@ -11,7 +11,7 @@ module X86-BUILTIN
   imports X86-CONFIGURATION
   imports X86-C-LIBRARY-SYNTAX
   imports COMMON-C-LIBRARY-STDIO-SYNTAX
-  imports X86-ASBTRACT-SORTS
+  imports X86-ABSTRACT-SORTS
 
   //imports K-IO
   //syntax KItem ::= "stackCheckFail"

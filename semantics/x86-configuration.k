@@ -7,7 +7,7 @@ require "x86-mint-wrapper.k"
 
 module X86-CONFIGURATION
   imports X86-SYNTAX
-  imports X86-ASBTRACT-SYNTAX
+  imports X86-ABSTRACT-SYNTAX
   imports COMMON-MEMORY-CONFIGURATION
   imports X86-MEMORY-SYNTAX
   imports X86-INIT-SYNTAX

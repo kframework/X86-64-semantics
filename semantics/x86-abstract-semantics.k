@@ -14,20 +14,26 @@ module X86-ABSTRACT-SEMANTICS
   /*@
     Redefining functions over PointerVal
   */
-
-  //rule mi(W:Int, svalueMInt(PV:PointerVal)) => ptr(getMemLoc(PV), mi(W, svalueMInt(getMIntVal(PV))))
-
   rule getMemLoc(ptr(L:MemLoc, MI:MInt)) => L
   rule getMIntVal(ptr(L:MemLoc, MI:MInt)) => MI
 
+  syntax MInt ::= "convertPV" "(" MInt ")" [function]
+  rule convertPV(PV:PointerVal) => getMIntVal(PV)
+  rule convertPV(MI:MInt) => MI  [owise]
+
+  //rule mi(W:Int, svalueMInt(PV:PointerVal)) => ptr(getMemLoc(PV), mi(W, svalueMInt(getMIntVal(PV))))
+
   //negMInt
-  rule negMInt(PV:PointerVal) => ptr (getMemLoc(PV), negMInt(getMIntVal(PV)))
+  rule negMInt(PV:PointerVal) =>
+    ptr (getMemLoc(PV), negMInt(getMIntVal(PV)))
 
   //lshrMInt
-  rule lshrMInt(PV:PointerVal, I:Int) => ptr (getMemLoc(PV), lshrMInt(getMIntVal(PV), I))
+  rule lshrMInt(PV:PointerVal, I:Int) =>
+    ptr (getMemLoc(PV), lshrMInt(getMIntVal(PV), I))
 
   //shlMInt
-  rule shlMInt(PV:PointerVal, I:Int) => ptr (getMemLoc(PV), shlMInt(getMIntVal(PV), I))
+  rule shlMInt(PV:PointerVal, I:Int) =>
+    ptr (getMemLoc(PV), shlMInt(getMIntVal(PV), I))
 
   // Arithmetic:add
   rule addMInt(PV:PointerVal, MI:MInt) => 
@@ -41,64 +47,43 @@ module X86-ABSTRACT-SEMANTICS
   rule andMInt(MI:MInt, PV:PointerVal) => 
     ptr( getMemLoc(PV), andMInt(convertPV(MI), convertPV(PV)))
 
-  //rule mulMInt(ptr(L:MemLoc, MI1:MInt), ptr(L:MemLoc, MI2:MInt)) => 
-  //  ptr(L, mulMInt(MI1, MI2))
-  //rule mulMInt(ptr(L:MemLoc, MI1:MInt), MI2:MInt) => 
-  //  ptr(L, mulMInt(MI1, MI2))
-  //rule mulMInt(MI1:MInt, ptr(L:MemLoc, MI2:MInt)) =>
-  //  ptr(L, mulMInt(MI1, MI2))
+  // Mul
   rule mulMInt(PV:PointerVal, MI:MInt) => 
     ptr( getMemLoc(PV), mulMInt(convertPV(PV), convertPV(MI)))
   rule mulMInt(MI:MInt, PV:PointerVal) => 
     ptr( getMemLoc(PV), mulMInt(convertPV(MI), convertPV(PV)))
 
-  //rule xorMInt(ptr(L:MemLoc, MI1:MInt), ptr(L:MemLoc, MI2:MInt)) => 
-  //  ptr(L, xorMInt(MI1, MI2))
-  //rule xorMInt(ptr(L:MemLoc, MI1:MInt), MI2:MInt) => 
-  //  ptr(L, xorMInt(MI1, MI2))
-  //rule xorMInt(MI1:MInt, ptr(L:MemLoc, MI2:MInt)) =>
-  //  ptr(L, xorMInt(MI1, MI2))
+  // Xor
   rule xorMInt(PV:PointerVal, MI:MInt) => 
     ptr( getMemLoc(PV), xorMInt(convertPV(PV), convertPV(MI)))
   rule xorMInt(MI:MInt, PV:PointerVal) => 
     ptr( getMemLoc(PV), xorMInt(convertPV(MI), convertPV(PV)))
 
-  //rule subMInt(ptr(L:MemLoc, MI1:MInt), ptr(L:MemLoc, MI2:MInt)) => 
-  //  ptr(L, subMInt(MI1, MI2))
-  //rule subMInt(ptr(L:MemLoc, MI1:MInt), MI2:MInt) => 
-  //  ptr(L, subMInt(MI1, MI2))
+  // Sub
   rule subMInt(PV:PointerVal, MI:MInt) => 
     ptr( getMemLoc(PV), subMInt(convertPV(PV), convertPV(MI)))
   
   // Bitwidth
-  rule bitwidthMInt(ptr(L:MemLoc, MI:MInt)) => bitwidthMInt(MI)
+  //rule bitwidthMInt(ptr(L:MemLoc, MI:MInt)) => bitwidthMInt(MI)
+  rule bitwidthMInt(PV:PointerVal) => bitwidthMInt(getMIntVal(PV))
+
   // Extract
-  rule extractMInt(ptr(L:MemLoc, MI:MInt), S:Int, E:Int) => ptr(L, extractMInt(MI, S, E))
+  //rule extractMInt(ptr(L:MemLoc, MI:MInt), S:Int, E:Int) => ptr(L, extractMInt(MI, S, E))
+  rule extractMInt(PV:PointerVal, S:Int, E:Int) =>
+    ptr(getMemLoc(PV), extractMInt(getMIntVal(PV), S, E))
 
   // Concatenate
-  syntax MInt ::= "convertPV" "(" MInt ")" [function]
-  rule convertPV(PV:PointerVal) => getMIntVal(PV)
-  rule convertPV(MI:MInt) => MI  [owise]
-
   rule concatenateMInt(PV:PointerVal, MI:MInt) => 
     ptr( getMemLoc(PV), concatenateMInt(convertPV(PV), convertPV(MI)))
   rule concatenateMInt(MI:MInt, PV:PointerVal) => 
     ptr( getMemLoc(PV), concatenateMInt(convertPV(MI), convertPV(PV)))
 
 
-  /*
-  rule concatenateMInt(ptr(L:MemLoc, MI1:MInt), ptr(L:MemLoc, MI2:MInt)) => 
-    ptr(L, concatenateMInt(MI1, MI2)) 
-  rule concatenateMInt(ptr(L:MemLoc, MI1:MInt), MI2:MInt) => 
-    ptr(L, concatenateMInt(MI1, MI2)) 
-  rule concatenateMInt(MI1:MInt, ptr(L:MemLoc, MI2:MInt)) => 
-    ptr(L, concatenateMInt(MI1, MI2)) 
-    */
-
   // eqMInt
   rule eqMInt(ptr(L:MemLoc, MI1:MInt), MI2:MInt) => eqMInt(MI1, MI2)
   rule eqMInt(MI1:MInt, ptr(L:MemLoc, MI2:MInt)) => eqMInt(MI1, MI2)
-  rule eqMInt(ptr(L:MemLoc, MI1:MInt), ptr(L:MemLoc, MI2:MInt)) => eqMInt(MI1, MI2)
+  rule eqMInt(ptr(L:MemLoc, MI1:MInt), ptr(L:MemLoc, MI2:MInt)) =>
+    eqMInt(MI1, MI2)
 
   // Sign Extension
   //rule mi(W:Int, svalueMInt(PV:PointerVal)) => 

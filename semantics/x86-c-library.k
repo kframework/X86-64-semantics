@@ -1,7 +1,7 @@
 require "x86-configuration.k"
 module X86-C-LIBRARY-SYNTAX
   imports COMMON-C-LIBRARY-OPAQUE-SORTS
-  imports X86-ASBTRACT-SORTS
+  imports X86-ABSTRACT-SORTS
   imports MINT
 
   // Implementation of the common C library sorts for LLVM

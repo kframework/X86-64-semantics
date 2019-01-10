@@ -8,7 +8,7 @@ endmodule
 
 module X86-MEMORY-SYNTAX
   imports X86-MEMORY-SORT
-  imports X86-ASBTRACT-SORTS
+  imports X86-ABSTRACT-SORTS
   imports MINT-WRAPPER-SORT
   imports MINT
   imports INT

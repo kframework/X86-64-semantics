@@ -6,7 +6,6 @@ module X86-SORT
   syntax Operands
   syntax MemOffset
   syntax Operand
-  syntax Simpleoperand
   syntax Operand
   syntax Register
   syntax Offset
@@ -32,6 +31,7 @@ module X86-SYNTAX
   imports STRING
   imports MINT
   imports ID
+  imports MINT
 
   /*@ 
     The following captures  the At&t syntax of x86 assembly.
@@ -85,8 +85,6 @@ module X86-SYNTAX
 
   syntax X86Ids ::= List{X86Id, ","} [klabel(X86Idlist)]
 
-  syntax Mem ::= MemOffset
-
   syntax AssemblerDirective ::=  ".section" ".rodata"
                             | ".data"
                             | ".text" 
@@ -103,8 +101,6 @@ module X86-SYNTAX
                             | ".zero" Int 
                             | ".byte" Int 
                             | ".value" Int 
-                            //| ".zero" Int 
- // syntax SectionName ::= ".rodata"   [token]
 
   syntax Label ::= X86Id ":"
         
@@ -113,23 +109,29 @@ module X86-SYNTAX
   syntax Operands ::= List{Operand, ","} [klabel(operandlist)]
 
   syntax Operand ::=    Imm
-//                     | Mm
                        | Sreg
-//                     | St
-//                       | Memoffs
                        | Mem 
                        | Register
                        | MemOffset
                        | X86Id 
                        | Builtin
-                       //| "$" X86Id
-                       //| "$" X86Id "+" Int
                        | "$" X86Id
                        | "$" X86Id "+" Int
+                       /*@ 
+                        *  execinstr(Opcode (R:Operand .Operands):Operands) 
+                        *  are sometimes writen as 
+                        *  execinstr(Opcode getRegisterValue(R) .Operands)
+                        *  which requires MInt to be a subSort of Operand.  
+                        */
+                       | MInt
+//                     | Mm
+//                     | St
+//                     | Memoffs
 
+  syntax MemOffset ::= memOffset ( MInt )
 
-  syntax Simpleoperand ::= Register | Imm | MemOffset 
-  syntax Operand ::= Simpleoperand
+//syntax Simpleoperand ::= Register | Imm | MemOffset 
+//syntax Operand ::= Simpleoperand
 
   syntax Register ::= Rh
                     | R8
@@ -138,12 +140,18 @@ module X86-SYNTAX
                     | R64
                     | Xmm
                     | Ymm
-//                    | Mm
+//                  | Mm
 //  syntax Memoffs ::= Offset
 //                   | Sreg ":" Offset
   syntax Offset ::= Int
   syntax Imm ::= "$" Int
                | HexConstant
+
+  /*@
+   * `Mem` can be evaluated to a KResult `MemOffset`
+   * Hence making MemOffset a subsort of Mem. 
+   */
+  syntax Mem ::= MemOffset             
   syntax Mem ::=  "(" Rip ")"
                //| "$" X86Id "(" Rip ")"
                //| "$" X86Id "+" Int "(" Rip ")"
@@ -221,14 +229,9 @@ module X86-SYNTAX
 //               | Sreg ":" Offset "(" R64 "," R64 "," Scale ")"
 //               | Sreg ":" Offset "(" R32 "," R32 ")"
 //               | Sreg ":" Offset "(" R64 "," R64 ")"
+
   syntax Rip ::= "%rip"
   syntax Scale ::= Int
-  /*
-  syntax Scale ::= "1"
-                 | "2"
-                 | "3"
-                 | "4"
-  */
 
   /*
   syntax Mm ::= "%mm0"

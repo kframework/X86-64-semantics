@@ -1,17 +1,17 @@
 require "x86-syntax.k"
 require "x86-memory.k"
-module  X86-ASBTRACT-SORTS
+module  X86-ABSTRACT-SORTS
   syntax PointerVal
   syntax NullVal
 endmodule
 
-module X86-ASBTRACT-SYNTAX
+module X86-ABSTRACT-SYNTAX
   imports MAP
   imports MINT
   imports X86-SORT
   imports X86-MEMORY-SORT
   imports COMMON-MEMORY-SORTS
-  imports X86-ASBTRACT-SORTS
+  imports X86-ABSTRACT-SORTS
 
 
   syntax PointerVal ::= ptr(MemLoc, /* offset in bits */ MInt)
@@ -21,7 +21,6 @@ module X86-ASBTRACT-SYNTAX
   syntax Bool ::= isPointerValNull(PointerVal) [function]
   syntax MemLoc ::= getMemLoc(PointerVal) [function]
   syntax MInt ::= getMIntVal(PointerVal) [function]
-
 
   /*@
     Sorts of config cell entities
@@ -43,7 +42,6 @@ module X86-ASBTRACT-SYNTAX
     like popq_m64
   */
   syntax KItem ::= evaluateMemOffset (K) [strict(1)] 
-  syntax MemOffset ::= memOffset ( MInt )
 
   syntax Int ::= "addrSize"
   rule addrSize => 64 [macro]
@@ -52,16 +50,6 @@ module X86-ASBTRACT-SYNTAX
 
   syntax KItem ::= "fetch" [token]
   syntax KItem ::= "inforegisters" [token]
-
-  /*@
-    Functions like getRegisterValue 
-      execinstr(Opcode (R:Operand .Operands):Operands) are sometimes writen to 
-        execinstr(Opcode getRegisterValue(R) .Operands) 
-      which requires MInt to be a subSort of Operand.  
-
-      TODO: We can avoid such writes in baseInstruction and hence this subsorting.
-  */  
-  syntax Operand ::= MInt
 
   /*@
     Subregs to Regs
@@ -88,9 +76,20 @@ module X86-ASBTRACT-SYNTAX
   */
   syntax KItem ::= setRegisterValue(K, Register) [strict(1)]
 
-  syntax KResult ::= MInt               // joinVector evaluates to MInt 
-                    | MemLoadValue      // loadFromMemory evaluates to MemLoadValue 
-                    | MemOffset         // evaluateMemOffset evaluate to MemOffset
+  syntax KResult ::= MInt
+                    /*@
+                     * For re-writes like 
+                     * rule getValidFD(ptr(L:MemLoc, Offs:MInt)) =>
+                     *  checkFD(loadFromMemory(...
+                     * loadFromMemory will not occur at the top of the K cell
+                     * and hence requires to evaluate first to a MemLoadValue.
+                     */
+                    | MemLoadValue
+                    /*@
+                     *  Mem Can occur as an operand of an instruction and hence
+                     * need to be evaluated strictly to a MemOffset
+                     */
+                    | MemOffset
 
   /*@
     Setting the Parent register's values.
