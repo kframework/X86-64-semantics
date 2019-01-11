@@ -56,6 +56,7 @@ my $z3prove              = "";
 my $useuif               = "";
 my $getregvariant        = "";
 my $compile              = "";
+my $backend              = "ocaml";
 my $compareintel         = "";
 my $comparemaps          = "";
 my $getbvfs              = "";
@@ -130,6 +131,7 @@ GetOptions(
     "testid:s"             => \$testid,
     "workdir:s"            => \$workdir,
     "opcode:s"             => \$opcode,
+    "backend:s"            => \$backend,
     "samereg"              => \$samereg,
 ) or die("Error in command line arguments\n");
 
@@ -312,7 +314,7 @@ if ( "" ne $compile ) {
     createSingleFileDefn();
     execute("git status x86-instructions-semantics.k");
     execute(
-"time  kompile x86-semantics.k --syntax-module X86-SYNTAX --main-module X86-SEMANTICS --debug -v --backend java -I ~/Github/llvm-verified-backend/ -I ~/Github/llvm-verified-backend/common/x86-config/",
+"time  kompile x86-semantics.k --syntax-module X86-SYNTAX --main-module X86-SEMANTICS --debug -v --backend $backend -I ~/Github/llvm-verified-backend/ -I ~/Github/llvm-verified-backend/common/x86-config/",
         1
     );
 
