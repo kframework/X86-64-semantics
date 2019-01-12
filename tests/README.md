@@ -10,7 +10,3 @@ cat filelist.txt | parallel -j5 "echo ; echo {}; echo ===; cd {}; make kstate ;c
 
 ### Compare
 cat filelist.txt | parallel -j15 "echo ; echo {}; echo ===; cd {}; make compare ;cd ../" |& tee ~/Junk/log
-
-
-### Instruction for adding tests
- - If we pass env variables, then we cannot compare rsi/rdi with the gdb output. Otherwise we can cpmpare those registers as well. 

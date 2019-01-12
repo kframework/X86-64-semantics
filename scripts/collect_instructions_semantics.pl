@@ -81,6 +81,10 @@ sub populate {
     my $opcode = shift @_;
     my $doit   = shift @_;
 
+    if ( $opcode eq "" || $opcode eq "//" ) {
+        return;
+    }
+
     execute(
 "cp $regDir/$opcode* $immDir/$opcode* $memDir/$opcode* $sysDir/$opcode* $target 1> /dev/null 2>&1",
         $doit
@@ -126,8 +130,8 @@ sub populate {
     execute( "rm  $target/orw_*imm8*",   $doit );
     execute( "rm  $target/xorw_*imm8*",  $doit );
     execute( "rm  $target/imulw_*imm8*", $doit );
-    execute( "rm  $target/subl_*imm8*");
-    execute( "rm  $target/subw_*imm8*");
+    execute("rm  $target/subl_*imm8*");
+    execute("rm  $target/subw_*imm8*");
     execute( "rm  $target/addq_*imm8*",      $doit );
     execute( "rm  $target/adcq_*imm8*",      $doit );
     execute( "rm  $target/andq_*imm8*",      $doit );
