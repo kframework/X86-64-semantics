@@ -18,7 +18,7 @@ module X86-SORT
   syntax R16
   syntax R32
   syntax R64
-  syntax Sreg
+  //syntax Sreg
   syntax Xmm
   syntax Ymm
   syntax Opcode
@@ -28,6 +28,7 @@ endmodule
 module X86-SYNTAX
   imports X86-SORT
   imports INT
+  imports FLOAT
   imports STRING
   imports MINT
   imports ID
@@ -71,19 +72,14 @@ module X86-SYNTAX
                    | "malloc"  [token]
                    | "free"  [token]
                    | "sqrt"  [token]
-                   //| "stdout"  [token]
-                 //  | "__stack_chk_fail"  [token]
-  syntax X86Id ::= Id
-  //syntax X86Id ::= Builtin
 
+  syntax X86Id ::= Id
   /*@
     Special symbols.
   */  
   syntax X86Id ::= "main" [token]
                 | "_start" [token] 
                 | "stdout" [token] 
-
-  syntax X86Ids ::= List{X86Id, ","} [klabel(X86Idlist)]
 
   syntax AssemblerDirective ::=  ".section" ".rodata"
                             | ".data"
@@ -109,15 +105,20 @@ module X86-SYNTAX
   syntax Operands ::= List{Operand, ","} [klabel(operandlist)]
 
   syntax Operand ::=    Imm
-                       | Sreg
-                       | Mem 
+                       | Mem
                        | Register
                        | MemOffset
-                       | X86Id 
+                       | X86Id
                        | Builtin
                        | "$" X86Id
                        | "$" X86Id "+" Int
-                       /*@ 
+                       /*@
+                        * Adding Int and Float as operands helps in
+                        * testing float-conversion directly.
+                        */ 
+                       | Int
+                       | Float
+                       /*@
                         *  execinstr(Opcode (R:Operand .Operands):Operands) 
                         *  are sometimes writen as 
                         *  execinstr(Opcode getRegisterValue(R) .Operands)
@@ -127,10 +128,11 @@ module X86-SYNTAX
 //                     | Mm
 //                     | St
 //                     | Memoffs
+//                     | Sreg
 
   syntax MemOffset ::= memOffset ( MInt )
 
-//syntax Simpleoperand ::= Register | Imm | MemOffset 
+//syntax Simpleoperand ::= Register | Imm | MemOffset
 //syntax Operand ::= Simpleoperand
 
   syntax Register ::= Rh
@@ -153,15 +155,11 @@ module X86-SYNTAX
    */
   syntax Mem ::= MemOffset             
   syntax Mem ::=  "(" Rip ")"
-               //| "$" X86Id "(" Rip ")"
-               //| "$" X86Id "+" Int "(" Rip ")"
                | X86Id "(" Rip ")"
                | X86Id "+" Int "(" Rip ")"
                //------------------------------------
                | "(" R64 ")"
                | Offset "(" R64 ")"
-               //| "$" X86Id "(" R64 ")"
-               //| "$" X86Id "+" Int "(" R64 ")"
                | X86Id "(" R64 ")"
                | X86Id "+" Int "(" R64 ")"
                //------------------------------------
@@ -169,10 +167,6 @@ module X86-SYNTAX
                | "(" "," R64 ")"
                | Offset "(" "," R64 "," Scale ")"
                | Offset "(" "," R64 ")"
-               //| "$" X86Id "(" "," R64 "," Scale ")"
-               //| "$" X86Id "(" "," R64 ")"
-               //| "$" X86Id "+" Int "(" "," R64 "," Scale ")"
-               //| "$" X86Id "+" Int "(" "," R64 ")"
                | X86Id "(" "," R64 "," Scale ")"
                | X86Id "(" "," R64 ")"
                | X86Id "+" Int "(" "," R64 "," Scale ")"
@@ -182,31 +176,11 @@ module X86-SYNTAX
                | "(" R64 "," R64 ")"
                | Offset "(" R64 "," R64 "," Scale ")"
                | Offset "(" R64 "," R64 ")"
-               //| "$" X86Id "(" R64 "," R64 "," Scale ")"
-               //| "$" X86Id "(" R64 "," R64 ")"
-               //| "$" X86Id "+" Int "(" R64 "," R64 "," Scale ")"
-               //| "$" X86Id "+" Int "(" R64 "," R64 ")"
                | X86Id "(" R64 "," R64 "," Scale ")"
                | X86Id "(" R64 "," R64 ")"
                | X86Id "+" Int "(" R64 "," R64 "," Scale ")"
                | X86Id "+" Int "(" R64 "," R64 ")"
-               //------------------------------------
 
-
-
-//               | Offset "(" Rip ")"
-//               | "$" X86Id "(" R32 ")"
-//               | "$" X86Id "+" Int "(" R32 ")"
-               //| Offset "(" R32 ")"
-               //| "(" "," R32 "," Scale ")"
-               //| "(" "," R32 ")"
-               //| Offset "(" "," R32 "," Scale ")"
-               //| Offset "(" "," R32 ")"
-               //| "(" R32 "," R32 "," Scale ")"
-               //| "(" R32 "," R32 ")"
-               //| Offset "(" R32 "," R32 "," Scale ")"
-               //| Offset "(" R32 "," R32 ")"
-//              | "(" R32 ")"
 //              | Sreg ":" "(" R32 ")"
 //              | Sreg ":" "(" R64 ")"
 //              | Sreg ":" "(" Rip ")"
@@ -311,13 +285,14 @@ module X86-SYNTAX
                | "%r13"
                | "%r14"
                | "%r15"
+/*
   syntax Sreg ::= "%es"
                 | "%cs"
                 | "%ss"
                 | "%ds"
                 | "%fs"
                 | "%gs"
-/*                
+
   syntax St ::= "%st"
               | "%st(0)"
               | "%st(1)"
@@ -370,20 +345,7 @@ module X86-SYNTAX
                | "%ymm13"
                | "%ymm14"
                | "%ymm15"
-
-
-  /* Testing individual derived instructions
-  syntax Opcode ::= TestOpcode
-  syntax TestOpcode ::= "rolq" [token]
-                       | "rolw" [token]   
-                       | "popcntw" [token]   
-                       | "popcntq" [token]   
-                       | "sarxq" [token]   
-                       | "movq" [token]   
-                       | "vcvtdq2pd" [token]
-                       | "nop" [token]   
-  */
-               
+    
   syntax Opcode ::=  "adcb"
                   | "adcl"
                   | "adcq"
@@ -1446,4 +1408,5 @@ module X86-SYNTAX
                   | "callq"
                   | "jmpq"
                   | "leaveq"
+                  | "pseudofloattestopcode1"
 endmodule

@@ -1,0 +1,100 @@
+main:
+  pseudofloattestopcode1 0, 0f,32,24,8
+  pseudofloattestopcode1 2147483648, -0f, 32,24,8
+  pseudofloattestopcode1 -2147483648, -0f, 32,24,8
+  pseudofloattestopcode1 1040187392, 0.125f, 32,24,8
+  pseudofloattestopcode1 1048576000, 0.25f, 32,24,8
+  pseudofloattestopcode1 1056964608, 0.5f, 32,24,8
+  pseudofloattestopcode1 1065353216, 1f, 32,24,8
+  pseudofloattestopcode1 1073741824, 2f, 32,24,8
+  pseudofloattestopcode1 1082130432, 4f, 32,24,8
+  pseudofloattestopcode1 1090519040, 8f, 32,24,8
+  pseudofloattestopcode1 1052770304, 0.375f, 32,24,8
+  pseudofloattestopcode1 1061158912, 0.75f, 32,24,8
+  pseudofloattestopcode1 1069547520, 1.5f, 32,24,8
+  pseudofloattestopcode1 1077936128, 3f, 32,24,8
+  pseudofloattestopcode1 1086324736, 6f, 32,24,8
+  pseudofloattestopcode1 1036831949,0.10000000149011612f,  32,24,8
+  pseudofloattestopcode1 1045220557, 0.20000000298023224f, 32,24,8
+  pseudofloattestopcode1 1053609165, 0.40000000596046448f, 32,24,8
+  pseudofloattestopcode1 1061997773, 0.80000001192092896f, 32,24,8
+  pseudofloattestopcode1 1399379109, 999999995904f, 32,24,8
+  pseudofloattestopcode1 1733542428, 1.0000000138484279e+24f,  32,24,8
+  pseudofloattestopcode1 2067830734, 9.9999996169031625e+35f, 32,24,8
+  pseudofloattestopcode1 2139095040, 1.0f /Float 0.0f, 32,24,8
+  pseudofloattestopcode1 -8388608, -1.0f /Float 0.0f, 32,24,8
+  pseudofloattestopcode1 4286578688, -1.0f /Float 0.0f, 32,24,8
+  pseudofloattestopcode1 -1073741824, -2f, 32,24,8
+  pseudofloattestopcode1 3221225472, -2f, 32,24,8
+  pseudofloattestopcode1 1103626240, 25f, 32,24,8
+  pseudofloattestopcode1 2139095039, 3.402823466E+38f, 32,24,8
+  pseudofloattestopcode1 8388608, 1.17549435E-38f, 32,24,8
+  pseudofloattestopcode1 1078530011, 3.1415927410f, 32,24,8
+  pseudofloattestopcode1 1051372203, 0.333333333333333f, 32,24,8
+  pseudofloattestopcode1 1095106560, 12.375f, 32,24,8
+  pseudofloattestopcode1 1116225274, 68.123f, 32,24,8
+  pseudofloattestopcode1 1077936128, 3f, 32,24,8
+  pseudofloattestopcode1 3225419776, -3f, 32,24,8
+  pseudofloattestopcode1 -1069547520, -3f, 32,24,8
+  pseudofloattestopcode1 1073741825, 2.0000002f, 32,24,8
+  pseudofloattestopcode1 3221225473, -2.0000002f, 32,24,8
+  pseudofloattestopcode1 -1073741823, -2.0000002f, 32,24,8
+  pseudofloattestopcode1 4194304, 5.877472E-39f, 32,24,8
+  pseudofloattestopcode1 -2143289343, -5.877473E-39f, 32,24,8
+  pseudofloattestopcode1 2151677953, -5.877473E-39f, 32,24,8
+  pseudofloattestopcode1 2139095039, 3.4028235E38f, 32,24,8
+  pseudofloattestopcode1 -8388609, -3.4028235E38f, 32,24,8
+  pseudofloattestopcode1 4286578687, -3.4028235E38f, 32,24,8
+  pseudofloattestopcode1 8388607, 1.1754942E-38f, 32,24,8
+  pseudofloattestopcode1 -2139095041, -1.1754942E-38f, 32,24,8
+  pseudofloattestopcode1 2155872255, -1.1754942E-38f, 32,24,8
+  pseudofloattestopcode1 8388608, 1.17549435E-38f, 32,24,8
+  pseudofloattestopcode1 12582912, 1.7632415E-38f, 32,24,8
+  pseudofloattestopcode1 16777215, 2.3509886E-38f, 32,24,8
+  pseudofloattestopcode1 0, 0d,64,53,11
+  pseudofloattestopcode1 9223372036854775808, -0d, 64,53,11
+  pseudofloattestopcode1 -9223372036854775808, -0d, 64,53,11
+  pseudofloattestopcode1 4593671619917905920, 0.125d, 64,53,11
+  pseudofloattestopcode1 4598175219545276416, 0.25d, 64,53,11
+  pseudofloattestopcode1 4602678819172646912, 0.5d, 64,53,11
+  pseudofloattestopcode1 4607182418800017408, 1d, 64,53,11
+  pseudofloattestopcode1 4611686018427387904, 2d, 64,53,11
+  pseudofloattestopcode1 4616189618054758400, 4d, 64,53,11
+  pseudofloattestopcode1 4620693217682128896, 8d, 64,53,11
+  pseudofloattestopcode1 4600427019358961664, 0.375d, 64,53,11
+  pseudofloattestopcode1 4604930618986332160, 0.75d, 64,53,11
+  pseudofloattestopcode1 4609434218613702656, 1.5d, 64,53,11
+  pseudofloattestopcode1 4613937818241073152, 3d, 64,53,11
+  pseudofloattestopcode1 4618441417868443648, 6d, 64,53,11
+  pseudofloattestopcode1 4591870180174331904, 0.10000000149011612d,  64,53,11
+  pseudofloattestopcode1 4596373779801702400, 0.20000000298023224d, 64,53,11
+  pseudofloattestopcode1 4600877379429072896, 0.40000000596046448d, 64,53,11
+  pseudofloattestopcode1 4605380979056443392, 0.80000001192092896d, 64,53,11
+  pseudofloattestopcode1 4786511204606541824, 999999995904d, 64,53,11
+  pseudofloattestopcode1 4965913770435018752, 1.0000000138484279e+24d,  64,53,11
+  pseudofloattestopcode1 5145383438148173824, 9.9999996169031625e+35d, 64,53,11
+  pseudofloattestopcode1 9218868437227405312, 1.0d /Float 0.0d, 64,53,11
+  pseudofloattestopcode1 -4503599627370496, -1.0d /Float 0.0d, 64,53,11
+  pseudofloattestopcode1 18442240474082181120, -1.0d /Float 0.0d, 64,53,11
+  pseudofloattestopcode1 -4611686018427387904, -2d, 64,53,11
+  pseudofloattestopcode1 13835058055282163712, -2d, 64,53,11
+  pseudofloattestopcode1 4627730092099895296, 25d, 64,53,11
+  pseudofloattestopcode1 5183643170565550134, 3.402823466E+38d, 64,53,11
+  pseudofloattestopcode1 4039728865745034152, 1.17549435E-38d, 64,53,11
+  pseudofloattestopcode1 4614256656748876136, 3.1415927410d, 64,53,11
+  pseudofloattestopcode1 4599676419421066575, 0.333333333333333d, 64,53,11
+  pseudofloattestopcode1 4623156123728347136, 12.375d, 64,53,11
+  pseudofloattestopcode1 4634494146896484893, 68.123d, 64,53,11
+  pseudofloattestopcode1 4503599627370496, 2.2250738585072014E-308d, 64,53,11
+  pseudofloattestopcode1 9227875636482146304, -2.2250738585072014E-308d, 64,53,11
+  pseudofloattestopcode1 -9218868437227405312, -2.2250738585072014E-308d, 64,53,11
+  pseudofloattestopcode1 9007199254740991, 4.4501477170144023E-308d, 64,53,11
+  pseudofloattestopcode1 9232379236109516799, -4.4501477170144023E-308d, 64,53,11
+  pseudofloattestopcode1 -9214364837600034817, -4.4501477170144023E-308d, 64,53,11
+  pseudofloattestopcode1 9227875636482146303, -2.225073858507201E-308d, 64,53,11
+  pseudofloattestopcode1 -9218868437227405313, -2.225073858507201E-308d, 64,53,11
+  pseudofloattestopcode1 9218868437227405311, 1.7976931348623157E308d, 64,53,11
+  pseudofloattestopcode1 9214364837600034816, 8.98846567431158E307d, 64,53,11
+  pseudofloattestopcode1 2251799813685248, 1.1125369292536007E-308d, 64,53,11
+  pseudofloattestopcode1 9216616637413720064, 1.348269851146737E308d, 64,53,11
+
