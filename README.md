@@ -12,8 +12,7 @@
 ## To compile the x86-64 semantics
   ```
   cd X86-semantics/semantics
-  mkdir -p underTestInstructions/
-  ../scripts/process_spec.pl --compile [--backend java]
+  ../scripts/kompile.pl [--backend java]
   ```
   - Note: The above command will compile the semantics **WITHOUT** any
   semantics rules for instructions (as the 'underTestInstructions' is empty).

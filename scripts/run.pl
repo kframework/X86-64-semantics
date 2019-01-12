@@ -5,33 +5,34 @@ use Getopt::Long;
 use File::Compare;
 use File::Basename;
 use File::Temp qw/ tempfile tempdir /;
+use Cwd 'abs_path';
 
 my $home = "";
-BEGIN{
-	$home = $ENV{"HOME"};
-	unshift @INC, "$home/Github/binary-decompilation/x86-semantics/scripts/";
+
+BEGIN {
+    my $script_dir = dirname(__FILE__);
+    unshift @INC, $script_dir;
 }
 use kutils;
 use utils;
 
-my $help       = "";
-my $file       = "";
-my $print      = "";
-my $clean      = "";
-my $compile    = "";
-my $krun       = "";
-my $xrun       = "";
-my $compare    = "";
-my $output     = "";
-my $linker     = "";
-my $testinput  = "";
-my $nopathsplit  = "";
-my @args       = ();
-my $kstateskip = 0;
-#my $home   = $ENV{'HOME'};
-my $kdefn =
-  "~/Github/binary-decompilation/x86-semantics/semantics/";
-my $outdir = "Output/";
+my $help        = "";
+my $file        = "";
+my $print       = "";
+my $clean       = "";
+my $compile     = "";
+my $krun        = "";
+my $xrun        = "";
+my $compare     = "";
+my $output      = "";
+my $linker      = "";
+my $testinput   = "";
+my $nopathsplit = "";
+my @args        = ();
+my $kstateskip  = 0;
+my $script_dir  = dirname(abs_path($0) );
+my $kdefn       = "$script_dir/../semantics";
+my $outdir      = "Output/";
 
 GetOptions(
     "help"         => \$help,
@@ -42,7 +43,7 @@ GetOptions(
     "krun"         => \$krun,
     "xrun"         => \$xrun,
     "compare"      => \$compare,
-    "nopathsplit"      => \$nopathsplit,
+    "nopathsplit"  => \$nopathsplit,
     "clean"        => \$clean,
     "outdir:s"     => \$outdir,
     "testinput:s"  => \$testinput,
@@ -133,13 +134,13 @@ if ( "" ne $krun ) {
 
     #$output = "$outdir/$basename.kstate";
 
-#my $envArgs = createEnv( \@args );
-#my $regArgs = createRegArgs();
+    #my $envArgs = createEnv( \@args );
+    #my $regArgs = createRegArgs();
     my $envArgs = "";
     my $regArgs = "";
 
-    if($nopathsplit ne "") {
-      $basename =  $dir. "/" . $basename; 
+    if ( $nopathsplit ne "" ) {
+        $basename = $dir . "/" . $basename;
     }
 
     execute(
@@ -170,11 +171,11 @@ if ( "" ne $xrun ) {
         $linker = "ld";
     }
 
-    if($nopathsplit ne "") {
-      $srcname =  $dir. "/" . $basename; 
+    if ( $nopathsplit ne "" ) {
+        $srcname = $dir . "/" . $basename;
     }
 
-    execute( "as $srcname.$ext -o $outdir/$basename.o",              1 );
+    execute( "as $srcname.$ext -o $outdir/$basename.o",               1 );
     execute( "$linker $outdir/$basename.o -o $outdir/$basename.exec", 1 );
     execute(
 "gdb --batch --command=~/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args $outdir/$basename.exec 1> $output 2>&1",
