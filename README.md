@@ -60,13 +60,13 @@ cd tests/program-tests
 
 ## Directory structure
 
-  - docs: Hosts miscelleneous documents.
-  - program-veriifcation: Hosts few applications of our formal semantics.
+  - docs: Hosts miscellaneous documents.
+  - program-verification: Hosts few applications of our formal semantics.
   - tests: Hosts test-cases for testing the semantics.
   - scripts: Hosts scripts used for compiling/executing/testing he semantics.
-  - semantics: Hosts the semantics of indivividual instruction and execution
+  - semantics: Hosts the semantics of individual instruction and execution
   environment.
-    - Following are the K-defintion files specifying the semantics of execution environment.
+    - Following are the K-definition files specifying the semantics of execution environment.
       - float-conversions.k
       - x86-builtin.k
       - x86-env-init.k
@@ -83,7 +83,7 @@ cd tests/program-tests
       - x86-flag-checks.k
       - x86-loader.k
       - x86-semantics.k
-    - Following are the K-defintion files specifying the semantics of individual instructions.
+    - Following are the K-definition files specifying the semantics of individual instructions.
       - registerInstructions/\*.k: Semantics of register only instructions
       - immediateInstructions/\*.k: Semantics of immediate  instructions
       - memoryInstructions/\*.k: Semantics of memory instructions
