@@ -29807,9 +29807,7 @@
       SetItem ( 2 )
     </open-files>
     <files>
-      <fid>
-        0
-      </fid> |-> <file>
+      <file>
         <fid>
           0
         </fid>
@@ -29852,10 +29850,7 @@
         <last-op>
           noLastOp
         </last-op>
-      </file>
-      <fid>
-        1
-      </fid> |-> <file>
+      </file> <file>
         <fid>
           1
         </fid>
@@ -29898,10 +29893,7 @@
         <last-op>
           outputOp
         </last-op>
-      </file>
-      <fid>
-        2
-      </fid> |-> <file>
+      </file> <file>
         <fid>
           2
         </fid>
