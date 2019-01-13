@@ -317,7 +317,7 @@ module X86-SYNTAX
                 | "%ds"
                 | "%fs"
                 | "%gs"
-/*                
+                
   syntax St ::= "%st"
               | "%st(0)"
               | "%st(1)"
@@ -327,7 +327,7 @@ module X86-SYNTAX
               | "%st(5)"
               | "%st(6)"
               | "%st(7)"
-*/
+
   syntax Xmm ::= "%xmm0"
                | "%xmm1"
                | "%xmm2"
@@ -344,7 +344,7 @@ module X86-SYNTAX
                | "%xmm13"
                | "%xmm14"
                | "%xmm15"
-/*
+
   syntax Mm ::= "%mm0"
                | "%mm1"
                | "%mm2"
@@ -353,7 +353,7 @@ module X86-SYNTAX
                | "%mm5"
                | "%mm6"
                | "%mm7"
-*/
+
   syntax Ymm ::= "%ymm0"
                | "%ymm1"
                | "%ymm2"
