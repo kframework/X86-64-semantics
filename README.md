@@ -91,6 +91,3 @@ cd tests/program-tests
       - extras/\*.k: Semantics of instruction having multiple possible
       representations. For example, `movabsq movabsq:Opcode  Imm64:Imm, R2:R64`
       is semantically equivalent to `movq  Imm64, R2`.
-![Dependency tree of Source Code](https://github.com/kframework/X86-64-semantics/blob/master/docs/reports/import_graph.png)
-
-
