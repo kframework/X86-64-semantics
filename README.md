@@ -56,7 +56,7 @@ cd tests/program-tests
 ```
 
 # Developer Guide
-![Dependency tree of Source Code](https://github.com/sdasgup3/binary-decompilation/blob/master/x86-semantics/docs/reports/import_graph.png)
+![Dependency tree of Source Code](https://github.com/kframework/X86-64-semantics/blob/master/docs/reports/import_graph.png)
 
 ## Directory structure
 
