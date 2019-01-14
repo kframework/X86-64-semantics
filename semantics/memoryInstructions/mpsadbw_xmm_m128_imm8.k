@@ -138,20 +138,6 @@ module MPSADBW-XMM-M128-IMM8
       )) , R3)
 
   ...</k>
-
-  // Utils
-
-  syntax MInt ::= absoluteUnsignedDifference(MInt, MInt) [function]
-  rule absoluteUnsignedDifference(A:MInt, B:MInt) => subMInt(A, B)
-    requires ugtMInt(A, B)
-
-  rule absoluteUnsignedDifference(A:MInt, B:MInt) => subMInt(B, A)
-    requires notBool ugtMInt(A, B)
-
-  syntax MInt ::= selectSliceMPSAD(MInt, MInt, Int, Int) [function]
-  rule selectSliceMPSAD(DEST:MInt, Offset:MInt, High:Int, Low:Int) =>
-    concatenateMInt(mi(8, 0), extractMInt(DEST, (uvalueMInt(Offset) *Int 32)
-          +Int High, (uvalueMInt(Offset) *Int 32) +Int Low))
 endmodule
 
 module MPSADBW-XMM-XMM-IMM8-SEMANTICS
