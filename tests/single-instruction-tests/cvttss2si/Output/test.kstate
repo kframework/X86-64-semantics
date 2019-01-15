@@ -1728,7 +1728,7 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> cvt_single_to_int64_truncate ( 32'2139095040 )
+    "RAX" |-> 64'-9223372036854775808
     "RBP" |-> ptr ( symloc ( 1 , 128 , 1024 , 8 , 0 ) , 64'1016 )
     "RBX" |-> 64'2147483648
     "RCX" |-> 64'0
@@ -1769,9 +1769,9 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> cvt_single_to_int64_truncate ( 32'2139095040 )
+    "RAX" |-> 64'-9223372036854775808
     "RBP" |-> ptr ( symloc ( 1 , 128 , 1024 , 8 , 0 ) , 64'1016 )
-    "RBX" |-> concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'2139095040 ) )
+    "RBX" |-> 64'2147483648
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -1812,7 +1812,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'4286578688
     "RBP" |-> ptr ( symloc ( 1 , 128 , 1024 , 8 , 0 ) , 64'1016 )
-    "RBX" |-> concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'2139095040 ) )
+    "RBX" |-> 64'2147483648
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -1853,7 +1853,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'4286578688
     "RBP" |-> ptr ( symloc ( 1 , 128 , 1024 , 8 , 0 ) , 64'1016 )
-    "RBX" |-> concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'2139095040 ) )
+    "RBX" |-> 64'2147483648
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -1892,9 +1892,9 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> cvt_single_to_int64_truncate ( 32'-8388608 )
+    "RAX" |-> 64'-9223372036854775808
     "RBP" |-> ptr ( symloc ( 1 , 128 , 1024 , 8 , 0 ) , 64'1016 )
-    "RBX" |-> concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'2139095040 ) )
+    "RBX" |-> 64'2147483648
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -1933,9 +1933,9 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> cvt_single_to_int64_truncate ( 32'-8388608 )
+    "RAX" |-> 64'-9223372036854775808
     "RBP" |-> ptr ( symloc ( 1 , 128 , 1024 , 8 , 0 ) , 64'1016 )
-    "RBX" |-> concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'-8388608 ) )
+    "RBX" |-> 64'2147483648
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -1976,7 +1976,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'4286578688
     "RBP" |-> ptr ( symloc ( 1 , 128 , 1024 , 8 , 0 ) , 64'1016 )
-    "RBX" |-> concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'-8388608 ) )
+    "RBX" |-> 64'2147483648
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -2017,7 +2017,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'4286578688
     "RBP" |-> ptr ( symloc ( 1 , 128 , 1024 , 8 , 0 ) , 64'1016 )
-    "RBX" |-> concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'-8388608 ) )
+    "RBX" |-> 64'2147483648
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -2056,9 +2056,9 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> cvt_single_to_int64_truncate ( 32'-8388608 )
+    "RAX" |-> 64'-9223372036854775808
     "RBP" |-> ptr ( symloc ( 1 , 128 , 1024 , 8 , 0 ) , 64'1016 )
-    "RBX" |-> concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'-8388608 ) )
+    "RBX" |-> 64'2147483648
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -2097,9 +2097,9 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> cvt_single_to_int64_truncate ( 32'-8388608 )
+    "RAX" |-> 64'-9223372036854775808
     "RBP" |-> ptr ( symloc ( 1 , 128 , 1024 , 8 , 0 ) , 64'1016 )
-    "RBX" |-> concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'-8388608 ) )
+    "RBX" |-> 64'2147483648
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -2140,7 +2140,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'2139095039
     "RBP" |-> ptr ( symloc ( 1 , 128 , 1024 , 8 , 0 ) , 64'1016 )
-    "RBX" |-> concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'-8388608 ) )
+    "RBX" |-> 64'2147483648
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -2181,7 +2181,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'2139095039
     "RBP" |-> ptr ( symloc ( 1 , 128 , 1024 , 8 , 0 ) , 64'1016 )
-    "RBX" |-> concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'-8388608 ) )
+    "RBX" |-> 64'2147483648
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -2222,7 +2222,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'-9223372036854775808
     "RBP" |-> ptr ( symloc ( 1 , 128 , 1024 , 8 , 0 ) , 64'1016 )
-    "RBX" |-> concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'-8388608 ) )
+    "RBX" |-> 64'2147483648
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -5828,7 +5828,7 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> cvt_single_to_int64_truncate ( 32'2139095040 )
+    "RAX" |-> 64'-9223372036854775808
     "RBP" |-> ptr ( symloc ( 1 , 128 , 1024 , 8 , 0 ) , 64'1016 )
     "RBX" |-> 64'0
     "RCX" |-> 64'0
@@ -5869,9 +5869,9 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> cvt_single_to_int64_truncate ( 32'2139095040 )
+    "RAX" |-> 64'-9223372036854775808
     "RBP" |-> ptr ( symloc ( 1 , 128 , 1024 , 8 , 0 ) , 64'1016 )
-    "RBX" |-> concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'2139095040 ) )
+    "RBX" |-> 64'2147483648
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -5912,7 +5912,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'4286578688
     "RBP" |-> ptr ( symloc ( 1 , 128 , 1024 , 8 , 0 ) , 64'1016 )
-    "RBX" |-> concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'2139095040 ) )
+    "RBX" |-> 64'2147483648
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -5953,7 +5953,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'4286578688
     "RBP" |-> ptr ( symloc ( 1 , 128 , 1024 , 8 , 0 ) , 64'1016 )
-    "RBX" |-> concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'2139095040 ) )
+    "RBX" |-> 64'2147483648
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -5992,9 +5992,9 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> cvt_single_to_int64_truncate ( 32'-8388608 )
+    "RAX" |-> 64'-9223372036854775808
     "RBP" |-> ptr ( symloc ( 1 , 128 , 1024 , 8 , 0 ) , 64'1016 )
-    "RBX" |-> concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'2139095040 ) )
+    "RBX" |-> 64'2147483648
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -6033,9 +6033,9 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> cvt_single_to_int64_truncate ( 32'-8388608 )
+    "RAX" |-> 64'-9223372036854775808
     "RBP" |-> ptr ( symloc ( 1 , 128 , 1024 , 8 , 0 ) , 64'1016 )
-    "RBX" |-> concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'-8388608 ) )
+    "RBX" |-> 64'2147483648
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -6076,7 +6076,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'2147483647
     "RBP" |-> ptr ( symloc ( 1 , 128 , 1024 , 8 , 0 ) , 64'1016 )
-    "RBX" |-> concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'-8388608 ) )
+    "RBX" |-> 64'2147483648
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -6117,7 +6117,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'2147483647
     "RBP" |-> ptr ( symloc ( 1 , 128 , 1024 , 8 , 0 ) , 64'1016 )
-    "RBX" |-> concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'-8388608 ) )
+    "RBX" |-> 64'2147483648
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -6156,9 +6156,9 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> cvt_single_to_int64_truncate ( 32'2147483647 )
+    "RAX" |-> 64'-9223372036854775808
     "RBP" |-> ptr ( symloc ( 1 , 128 , 1024 , 8 , 0 ) , 64'1016 )
-    "RBX" |-> concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'-8388608 ) )
+    "RBX" |-> 64'2147483648
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -6197,9 +6197,9 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> cvt_single_to_int64_truncate ( 32'2147483647 )
+    "RAX" |-> 64'-9223372036854775808
     "RBP" |-> ptr ( symloc ( 1 , 128 , 1024 , 8 , 0 ) , 64'1016 )
-    "RBX" |-> concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'2147483647 ) )
+    "RBX" |-> 64'2147483648
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -6240,7 +6240,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'2139095038
     "RBP" |-> ptr ( symloc ( 1 , 128 , 1024 , 8 , 0 ) , 64'1016 )
-    "RBX" |-> concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'2147483647 ) )
+    "RBX" |-> 64'2147483648
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -6281,7 +6281,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'2139095038
     "RBP" |-> ptr ( symloc ( 1 , 128 , 1024 , 8 , 0 ) , 64'1016 )
-    "RBX" |-> concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'2147483647 ) )
+    "RBX" |-> 64'2147483648
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -6322,7 +6322,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'-9223372036854775808
     "RBP" |-> ptr ( symloc ( 1 , 128 , 1024 , 8 , 0 ) , 64'1016 )
-    "RBX" |-> concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'2147483647 ) )
+    "RBX" |-> 64'2147483648
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -6952,7 +6952,9 @@
       SetItem ( 2 )
     </open-files>
     <files>
-      <file>
+      <fid>
+        0
+      </fid> |-> <file>
         <fid>
           0
         </fid>
@@ -6995,7 +6997,10 @@
         <last-op>
           noLastOp
         </last-op>
-      </file> <file>
+      </file>
+      <fid>
+        1
+      </fid> |-> <file>
         <fid>
           1
         </fid>
@@ -7038,7 +7043,10 @@
         <last-op>
           noLastOp
         </last-op>
-      </file> <file>
+      </file>
+      <fid>
+        2
+      </fid> |-> <file>
         <fid>
           2
         </fid>

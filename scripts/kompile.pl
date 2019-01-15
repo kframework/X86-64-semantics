@@ -6,7 +6,9 @@ use warnings;
 use Getopt::Long;
 use File::Compare;
 use File::Basename;
+use File::chdir;
 use Cwd;
+use Cwd 'abs_path';
 
 BEGIN {
     my $script_dir = dirname(__FILE__);
@@ -17,7 +19,9 @@ use kutils;
 use File::Find;
 
 # Using GetOPtions
-my $UTInstructionsPath = "underTestInstructions/";
+my $script_path = dirname( abs_path($0) );
+my $baseDir     = "$script_path/../semantics";
+my $UTInstructionsPath = "$baseDir/underTestInstructions/";
 my $help               = "";
 my $backend            = "ocaml";
 my $sfp;
@@ -33,6 +37,10 @@ if ( $help ne "" ) {
     exit(0);
 }
 
+# Get current dir
+my $current = getcwd();
+$CWD = $baseDir;
+
 execute("mkdir -p $UTInstructionsPath");
 createSingleFileDefn();
 execute("git status x86-instructions-semantics.k");
@@ -42,6 +50,7 @@ execute(
     ~/Github/llvm-verified-backend/common", 1
 );
 
+$CWD = $current;
 exit(0);
 
 sub createSingleFileDefn {

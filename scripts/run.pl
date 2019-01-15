@@ -30,7 +30,7 @@ my $testinput   = "";
 my $nopathsplit = "";
 my @args        = ();
 my $kstateskip  = 0;
-my $script_dir  = dirname(abs_path($0) );
+my $script_dir  = dirname( abs_path($0) );
 my $kdefn       = "$script_dir/../semantics";
 my $outdir      = "Output/";
 
@@ -132,8 +132,6 @@ sub createRegArgs {
 if ( "" ne $krun ) {
     my ( $dir, $basename, $ext ) = utils::split_filename($file);
 
-    #$output = "$outdir/$basename.kstate";
-
     #my $envArgs = createEnv( \@args );
     #my $regArgs = createRegArgs();
     my $envArgs = "";
@@ -154,7 +152,6 @@ if ( "" ne $krun ) {
         1
     );
 
-    #checkKRunStatus("$outdir/$basename.kstate");
     checkKRunStatus("$output");
 
     #generateOutTC($output);

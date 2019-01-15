@@ -22,26 +22,28 @@ execute() {
 	fi
 
 	if [ "$kstate" == "1" ]; then
-                rm -rf $K_DIR/underTestInstructions/*
+		# Collect  instructon semantics
+		rm -rf $K_DIR/underTestInstructions/*
                 cp $K_DIR/pseudoTestInstructions/* $K_DIR/underTestInstructions/
-		cat filelist.txt | parallel "../../scripts/collect_instructions_semantics.pl --file {}/test.s"
-                cd $K_DIR
-                ../scripts/kompile.pl --backend java
+		cat filelist.txt | parallel "echo; echo collect semantics: {}; echo ====; cd {}; make collect; cd -"
+		
+		# Compile the collected semantics
+                ../../scripts/kompile.pl --backend java
 
-                cd $THIS_DIR
-                cat filelist.txt | parallel -j 5 "echo; echo running kstate: {}; echo ====; cd {}; make kstate; cd .."
+		# Parallel test runs
+                cat filelist.txt | parallel -j 5 "echo; echo running kstate: {}; echo ====; cd {}; make kstate; cd -"
 	fi
 
 	if [ "$cleanxstate" == "1" ]; then
-		cat filelist.txt | parallel "echo; echo cleaning: {}; echo ====; cd {}; make cleanxstate; cd .."
+		cat filelist.txt | parallel "echo; echo cleaning: {}; echo ====; cd {}; make cleanxstate; cd -"
 	fi
 
 	if [ "$xstate" == "1" ]; then
-		cat filelist.txt | parallel "echo; echo runing xstate: {}; echo ====; cd {}; make xstate; cd .."
+		cat filelist.txt | parallel "echo; echo runing xstate: {}; echo ====; cd {}; make xstate; cd -"
 	fi
 
 	if [ "$compare" == "1" ]; then
-		cat filelist.txt | parallel "echo; echo running compare: {}; echo ====; cd {}; make compare; cd .."
+		cat filelist.txt | parallel "echo; echo running compare: {}; echo ====; cd {}; make compare; cd -"
 	fi
 	echo
 }

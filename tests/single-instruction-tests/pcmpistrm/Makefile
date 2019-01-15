@@ -10,8 +10,9 @@ RUN_SH=../../../scripts/run.pl
 
 
 
-all:	kstate xstate compare
+all:	kstate xstate compare collect
 
+collect: ${TESTS}
 kstate: ${KSTATES}
 xstate: ${XSTATES}
 compare:${CSTATES}
@@ -49,6 +50,14 @@ cleankstate:
 cleanxstate:
 	@echo "X Cleaning"
 	rm -rf ${OUTDIR}/*.xstate
+
+collect:
+	@echo "Collect instruction semantics"
+	@../../../scripts/collect_instructions_semantics.pl --file test.s
+
+kompile:
+	@echo "Kompile instruction semantics"
+	@../../../scripts/kompile.pl --backend java
 
 test:
 	@echo "T Cleaning"
