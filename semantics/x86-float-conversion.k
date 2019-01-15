@@ -21,7 +21,8 @@ module FLOAT-CONVERSIONS
 
   rule MantissaFloat(F) => 0 requires isInfinite(F)
 
-  rule MantissaFloat(F) => 1 requires isNaN(F)
+  //rule MantissaFloat(F) => 1 requires isNaN(F)
+  rule MantissaFloat(F) => 1 <<Int (precisionFloat(F) -Int 2) requires isNaN(F)
   // Actually the Mantissa probably isn't 1 but we can't tell what it is from the value NaN
 
   rule MantissaFloat(F) => MantissaFloat(absFloat(F) +Float MinimumNormalizedFloat(precisionFloat(F), exponentBitsFloat(F)))
