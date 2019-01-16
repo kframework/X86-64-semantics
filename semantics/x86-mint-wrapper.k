@@ -1,4 +1,4 @@
-require "float-conversions.k"
+require "x86-float-conversions.k"
 
 module MINT-WRAPPER-SORT
   syntax MIntMap
@@ -934,53 +934,80 @@ module MINT-WRAPPER
 
   // double -> int64
   rule cvt_double_to_int64_truncate(MI:MInt) =>  mi(64, Float2Int(MInt2Float(MI, 53,11)))
-    requires Float2Int(MInt2Float(MI, 53,11)) <=Int (2 ^Int 63 -Int 1) 
+    requires  notBool isInfinite(MInt2Float(MI, 53,11)) // Not Inf               
+      andBool notBool isNaN(MInt2Float(MI, 53,11))  // Not NaN
+      andBool Float2Int(MInt2Float(MI, 53,11)) <=Int (2 ^Int 63 -Int 1) // Within Int limits
       andBool Float2Int(MInt2Float(MI, 53,11)) >=Int (-1 *Int 2 ^Int 63) 
-      // andBool check if not Infinity or NaN
 
   rule cvt_double_to_int64_truncate(MI:MInt) =>  mi(64, -9223372036854775808)
-    requires Float2Int(MInt2Float(MI, 53,11)) >Int (2 ^Int 63 -Int 1) 
-      orBool Float2Int(MInt2Float(MI, 53,11)) <Int (-1 *Int 2 ^Int 63) 
-      // orBool if Inf or NaN
+    requires  isInfinite(MInt2Float(MI, 53,11)) //  Inf               
+       orBool isNaN(MInt2Float(MI, 53,11))  // or NaN
+       orBool Float2Int(MInt2Float(MI, 53,11)) >Int (2 ^Int 63 -Int 1) // or beyond Int limits
+       orBool Float2Int(MInt2Float(MI, 53,11)) <Int (-1 *Int 2 ^Int 63) 
 
   // double -> int32
-  rule cvt_double_to_int32_truncate(MI:MInt) =>  mi(32, Float2Int(MInt2Float(MI, 53,11)))
-    requires Float2Int(MInt2Float(MI, 53,11)) <=Int (2 ^Int 31 -Int 1) 
+  rule cvt_double_to_int32_truncate(MI:MInt) =>  mi(32,
+      Float2Int(MInt2Float(MI, 53,11)))
+    requires  notBool isInfinite(MInt2Float(MI, 53,11)) // Not Inf               
+      andBool notBool isNaN(MInt2Float(MI, 53,11))  // Not NaN
+      andBool Float2Int(MInt2Float(MI, 53,11)) <=Int (2 ^Int 31 -Int 1) // Within Int limits
       andBool Float2Int(MInt2Float(MI, 53,11)) >=Int (-1 *Int 2 ^Int 31) 
-      // andBool check if not Infinity or NaN
 
   rule cvt_double_to_int32_truncate(MI:MInt) =>  mi(32, -2147483648)
-    requires Float2Int(MInt2Float(MI, 53,11)) >Int (2 ^Int 31 -Int 1) 
-      orBool Float2Int(MInt2Float(MI, 53,11)) <Int (-1 *Int 2 ^Int 31) 
-      // orBool if Inf or NaN
+    requires  isInfinite(MInt2Float(MI, 53,11)) //  Inf               
+       orBool isNaN(MInt2Float(MI, 53,11))  // or NaN
+       orBool Float2Int(MInt2Float(MI, 53,11)) >Int (2 ^Int 31 -Int 1) // or beyond Int limits
+       orBool Float2Int(MInt2Float(MI, 53,11)) <Int (-1 *Int 2 ^Int 31) 
 
   // float -> int64
-  rule cvt_single_to_int64_truncate(MI:MInt) =>  mi(64, Float2Int(MInt2Float(MI, 24,8)))
-    requires  Float2Int(MInt2Float(MI, 24,8)) <=Int (2 ^Int 63 -Int 1) 
+  rule cvt_single_to_int64_truncate(MI:MInt) =>  mi(64,
+      Float2Int(MInt2Float(MI, 24,8)))
+    requires  notBool isInfinite(MInt2Float(MI, 24,8)) // Not Inf               
+      andBool notBool isNaN(MInt2Float(MI, 24,8))  // Not NaN
+      andBool Float2Int(MInt2Float(MI, 24,8)) <=Int (2 ^Int 63 -Int 1) // Within Int limits
       andBool Float2Int(MInt2Float(MI, 24,8)) >=Int (-1 *Int 2 ^Int 63) 
-      // andBool check if not Inf or NaN
 
   rule cvt_single_to_int64_truncate(MI:MInt) =>  mi(64, -9223372036854775808)
-    requires Float2Int(MInt2Float(MI, 24,8)) >Int (2 ^Int 63 -Int 1) 
-      orBool Float2Int(MInt2Float(MI, 24,8)) <Int (-1 *Int 2 ^Int 63) 
-      // orBool check if  Inf or NaN
+    requires  isInfinite(MInt2Float(MI, 24,8)) //  Inf               
+       orBool isNaN(MInt2Float(MI, 24,8))  // or NaN
+       orBool Float2Int(MInt2Float(MI, 24,8)) >Int (2 ^Int 63 -Int 1) // or beyond Int limits
+       orBool Float2Int(MInt2Float(MI, 24,8)) <Int (-1 *Int 2 ^Int 63) 
 
   // float -> int32
-  rule cvt_single_to_int32_truncate(MI:MInt) =>  mi(32, Float2Int(MInt2Float(MI, 24,8)))
-    requires  Float2Int(MInt2Float(MI, 24,8)) <=Int (2 ^Int 31 -Int 1) 
+  rule cvt_single_to_int32_truncate(MI:MInt) =>  mi(32,
+      Float2Int(MInt2Float(MI, 24,8)))
+    requires  notBool isInfinite(MInt2Float(MI, 24,8)) // Not Inf               
+      andBool notBool isNaN(MInt2Float(MI, 24,8))  // Not NaN
+      andBool Float2Int(MInt2Float(MI, 24,8)) <=Int (2 ^Int 31 -Int 1) // Within Int limits
       andBool Float2Int(MInt2Float(MI, 24,8)) >=Int (-1 *Int 2 ^Int 31) 
-      // andBool check if not Inf or NaN
 
   rule cvt_single_to_int32_truncate(MI:MInt) =>  mi(32, -2147483648)
-    requires Float2Int(MInt2Float(MI, 24,8)) >Int (2 ^Int 31 -Int 1) 
+    requires  isInfinite(MInt2Float(MI, 24,8)) //  Inf               
+      orBool  isNaN(MInt2Float(MI, 24,8))  // or NaN
+      orBool Float2Int(MInt2Float(MI, 24,8)) >Int (2 ^Int 31 -Int 1) // or beyond Int limits
       orBool Float2Int(MInt2Float(MI, 24,8)) <Int (-1 *Int 2 ^Int 31) 
-      // orBool check if  Inf or NaN
 
+  // sqrt double
+  rule sqrt_double(MI:MInt) => MI
+    requires isNaN(MInt2Float(MI, 53, 11))
 
   rule sqrt_double(MI:MInt) => Float2MInt(sqrtFloat(MInt2Float(MI, 53, 11)), 64)
+    requires notBool isNaN(MInt2Float(MI, 53, 11)) // Handles Inf
+
+  // sqrt single
+  rule sqrt_single(MI:MInt) => MI
+    requires isNaN(MInt2Float(MI, 24, 8))
+
   rule sqrt_single(MI:MInt) => Float2MInt(sqrtFloat(MInt2Float(MI, 24, 8)), 32)
-  rule approx_reciprocal_double(MI:MInt) => Float2MInt(1.0 /Float MInt2Float(MI, 53, 11), 64)
-  rule approx_reciprocal_single(MI:MInt) => Float2MInt(1.0 /Float MInt2Float(MI, 24, 8), 32)
+    requires notBool isNaN(MInt2Float(MI, 24, 8)) // Handles Inf
+
+  // approx reciprocal
+  rule approx_reciprocal_double(MI:MInt) => Float2MInt(1.0d /Float MInt2Float(MI, 53, 11), 64)
+  rule approx_reciprocal_single(MI:MInt) => Float2MInt(1.0f /Float MInt2Float(MI, 24, 8), 32)
+
+  // approx reciprocal sqrt
+  rule approx_reciprocal_sqrt_double(MI:MInt) => Float2MInt(1.0d /Float MInt2Float(sqrt_double(MI), 53, 11), 64)
+  rule approx_reciprocal_sqrt_single(MI:MInt) => Float2MInt(1.0f /Float MInt2Float(sqrt_single(MI), 24, 8), 32)
 
   rule cvt_half_to_single(MI:MInt) =>  Float2MInt(Half2Float(MInt2Float(MI, 11,5)), 32)
   rule cvt_single_to_fp16_rm(MI:MInt, RM:MInt) =>  
