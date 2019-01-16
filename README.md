@@ -23,9 +23,9 @@ of x86-64 to date. Our semantics faithfully formalizes all the non-deprecated,
   cd X86-semantics/semantics
   ../scripts/kompile.pl [--backend java]  // Default is ocaml backend
   ```
-## Concrete execution of a binary (compiled from a C program)
+## A simple test run -- Concrete execution of a binary (compiled from a C program)
 ```
-../scripts/run-single-c-file.sh ../tests/Programs/bubblesort/test.c |& tee /tmp/run.log
+../scripts/run-single-c-file.sh ../tests/program-tests/bubblesort/test.c |& tee /tmp/run.log
 ```
 
 ## Testing the semantics

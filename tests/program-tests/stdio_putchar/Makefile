@@ -3,15 +3,16 @@ TESTS=$(shell find . -maxdepth 1   -name "*.s" | sort -V)
 OUTDIR=Output
 KSTATES=$(patsubst %.s, ${OUTDIR}/%.kstate, $(TESTS))
 XSTATES=$(patsubst %.s, ${OUTDIR}/%.xstate, $(TESTS))
-CSTATES=$(patsubst %.s, %.cstate, $(TESTS))
+CSTATES=$(patsubst %.s, ${OUTDIR}/%.cstate, $(TESTS))
 
 Mkdir=@mkdir -p $(@D)
 RUN_SH=../../../scripts/run.pl
 
 
 
-all:	kstate xstate compare
+all:	kstate xstate compare collect
 
+collect: ${TESTS}
 kstate: ${KSTATES}
 xstate: ${XSTATES}
 compare:${CSTATES}
@@ -26,12 +27,12 @@ ${OUTDIR}/%.xstate: %.s
 	@echo ""
 	@echo  "Generate: $@ "
 	@mkdir -p ${OUTDIR}
-	${RUN_SH} --file $< --xrun --output $@ #--linker gcc
+	${RUN_SH} --file $< --xrun --output $@
 
-%.cstate: ${OUTDIR}/%.kstate ${OUTDIR}/%.xstate
+${OUTDIR}/%.cstate: ${OUTDIR}/%.kstate ${OUTDIR}/%.xstate
 	@echo ""
 	@echo  "Compare: ${OUTDIR}/$@ "
-	${RUN_SH} --file $< --compare
+	${RUN_SH} --file $< --compare 1>$@ 2>&1
 
 allclean:
 	@echo "All Cleaning"
@@ -49,6 +50,18 @@ cleankstate:
 cleanxstate:
 	@echo "X Cleaning"
 	rm -rf ${OUTDIR}/*.xstate
+
+cleancstate:
+	@echo "X Cleaning"
+	rm -rf ${OUTDIR}/*.cstate
+
+collect:
+	@echo "Collect instruction semantics"
+	@../../../scripts/collect_instructions_semantics.pl --file test.s
+
+kompile:
+	@echo "Kompile instruction semantics"
+	@../../../scripts/kompile.pl --backend java
 
 test:
 	@echo "T Cleaning"
