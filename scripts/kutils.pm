@@ -606,12 +606,7 @@ sub processKFile {
         elsif ( $line =~ m/$kpatterns[1]/ ) {
             my $reg = $1;
             my $val = utils::trim($2);
-            if ( $val =~ m/NaN/ ) {
-                push @{ $kstateMap{$reg} }, "NaN";
-            }
-            else {
-                push @{ $kstateMap{$reg} }, $val;
-            }
+            push @{ $kstateMap{$reg} }, $val;
         }
         elsif ( $line =~ m/ListItem/g ) {
 
@@ -722,6 +717,22 @@ sub parseFlags {
     return @arrflags;
 }
 
+sub containsNaN {
+
+    my $hexnum = shift @_;
+
+    if ( $hexnum =~ m/7fffffff|7fc00000|ffc00000|ffffffff/ ) {
+        return 1;
+    }
+    if ( $hexnum =~
+        m/7fffffffffffffff|7ff8000000000000|ffffffffffffffff|fff800000000000/ )
+    {
+        return 1;
+    }
+
+    return 0;
+}
+
 sub compareInts {
     my $knum = shift @_;
     my $xnum = shift @_;
@@ -758,6 +769,12 @@ sub compareInts {
         return 1;
     }
     else {
+        if ( containsNaN($khexnum) and containsNaN($xhexnum) ) {
+
+            #           print "KNaN: " . $khexnum . "\n";
+            #           print "XNaN: " . $xhexnum . "\n";
+            return 1;
+        }
         failInfo("Fail");
         print "$khexnum != $xhexnum\n";
     }

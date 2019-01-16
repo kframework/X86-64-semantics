@@ -987,11 +987,27 @@ module MINT-WRAPPER
       orBool Float2Int(MInt2Float(MI, 24,8)) >Int (2 ^Int 31 -Int 1) // or beyond Int limits
       orBool Float2Int(MInt2Float(MI, 24,8)) <Int (-1 *Int 2 ^Int 31) 
 
+  // sqrt double
+  rule sqrt_double(MI:MInt) => MI
+    requires isNaN(MInt2Float(MI, 53, 11))
 
   rule sqrt_double(MI:MInt) => Float2MInt(sqrtFloat(MInt2Float(MI, 53, 11)), 64)
+    requires notBool isNaN(MInt2Float(MI, 53, 11)) // Handles Inf
+
+  // sqrt single
+  rule sqrt_single(MI:MInt) => MI
+    requires isNaN(MInt2Float(MI, 24, 8))
+
   rule sqrt_single(MI:MInt) => Float2MInt(sqrtFloat(MInt2Float(MI, 24, 8)), 32)
-  rule approx_reciprocal_double(MI:MInt) => Float2MInt(1.0 /Float MInt2Float(MI, 53, 11), 64)
-  rule approx_reciprocal_single(MI:MInt) => Float2MInt(1.0 /Float MInt2Float(MI, 24, 8), 32)
+    requires notBool isNaN(MInt2Float(MI, 24, 8)) // Handles Inf
+
+  // approx reciprocal
+  rule approx_reciprocal_double(MI:MInt) => Float2MInt(1.0d /Float MInt2Float(MI, 53, 11), 64)
+  rule approx_reciprocal_single(MI:MInt) => Float2MInt(1.0f /Float MInt2Float(MI, 24, 8), 32)
+
+  // approx reciprocal sqrt
+  rule approx_reciprocal_sqrt_double(MI:MInt) => Float2MInt(1.0d /Float MInt2Float(sqrt_double(MI), 53, 11), 64)
+  rule approx_reciprocal_sqrt_single(MI:MInt) => Float2MInt(1.0f /Float MInt2Float(sqrt_single(MI), 24, 8), 32)
 
   rule cvt_half_to_single(MI:MInt) =>  Float2MInt(Half2Float(MInt2Float(MI, 11,5)), 32)
   rule cvt_single_to_fp16_rm(MI:MInt, RM:MInt) =>  

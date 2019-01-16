@@ -6,8 +6,10 @@ K_DIR=$THIS_DIR/../../semantics/
 
 cleanxstate=
 cleankstate=
+cleancstate=
 xstate=
 kstate=
+pjobs=5
 
 usage() {
 	echo "Usage: run_tests.sh --cleankstate | --cleanxstate | --xstate \
@@ -31,7 +33,7 @@ execute() {
                 ../../scripts/kompile.pl --backend java
 
 		# Parallel test runs
-                cat filelist.txt | parallel -j 5 "echo; echo running kstate: {}; echo ====; cd {}; make kstate; cd -"
+                cat filelist.txt | parallel -j $pjobs "echo; echo running kstate: {}; echo ====; cd {}; make kstate; cd -"
 	fi
 
 	if [ "$cleanxstate" == "1" ]; then
@@ -40,6 +42,10 @@ execute() {
 
 	if [ "$xstate" == "1" ]; then
 		cat filelist.txt | parallel "echo; echo runing xstate: {}; echo ====; cd {}; make xstate; cd -"
+	fi
+
+	if [ "$cleancstate" == "1" ]; then
+		cat filelist.txt | parallel "echo; echo cleaning: {}; echo ====; cd {}; make cleancstate; cd -"
 	fi
 
 	if [ "$compare" == "1" ]; then
@@ -58,6 +64,10 @@ while [ "$1" != "" ]; do
 		shift
 		cleankstate=1
 		;;
+	--cleancstate)
+		shift
+		cleancstate=1
+		;;
 	--xstate)
 		shift
 		xstate=1
@@ -69,6 +79,11 @@ while [ "$1" != "" ]; do
 	--compare)
 		shift
 		compare=1
+		;;
+	--jobs)
+		shift
+		pjobs=$1
+		shift
 		;;
 	--all)
 		shift
