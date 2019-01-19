@@ -933,6 +933,7 @@ module MINT-WRAPPER
   rule cvt_int32_to_single(MI:MInt) =>  Float2MInt(Int2Float(svalueMInt(MI), 24, 8), 32)
 
   // double -> int64
+  rule cvt_double_to_int64(MI:MInt) => cvt_double_to_int64_truncate(MI)
   rule cvt_double_to_int64_truncate(MI:MInt) =>  mi(64, Float2Int(MInt2Float(MI, 53,11)))
     requires  notBool isInfinite(MInt2Float(MI, 53,11)) // Not Inf               
       andBool notBool isNaN(MInt2Float(MI, 53,11))  // Not NaN
@@ -946,6 +947,7 @@ module MINT-WRAPPER
        orBool Float2Int(MInt2Float(MI, 53,11)) <Int (-1 *Int 2 ^Int 63) 
 
   // double -> int32
+  rule cvt_double_to_int32(MI:MInt) => cvt_double_to_int32_truncate(MI)
   rule cvt_double_to_int32_truncate(MI:MInt) =>  mi(32,
       Float2Int(MInt2Float(MI, 53,11)))
     requires  notBool isInfinite(MInt2Float(MI, 53,11)) // Not Inf               
@@ -960,6 +962,7 @@ module MINT-WRAPPER
        orBool Float2Int(MInt2Float(MI, 53,11)) <Int (-1 *Int 2 ^Int 31) 
 
   // float -> int64
+  rule cvt_single_to_int64(MI:MInt) => cvt_single_to_int64_truncate(MI)
   rule cvt_single_to_int64_truncate(MI:MInt) =>  mi(64,
       Float2Int(MInt2Float(MI, 24,8)))
     requires  notBool isInfinite(MInt2Float(MI, 24,8)) // Not Inf               
@@ -974,6 +977,7 @@ module MINT-WRAPPER
        orBool Float2Int(MInt2Float(MI, 24,8)) <Int (-1 *Int 2 ^Int 63) 
 
   // float -> int32
+  rule cvt_single_to_int32(MI:MInt) => cvt_single_to_int32_truncate(MI)
   rule cvt_single_to_int32_truncate(MI:MInt) =>  mi(32,
       Float2Int(MInt2Float(MI, 24,8)))
     requires  notBool isInfinite(MInt2Float(MI, 24,8)) // Not Inf               
