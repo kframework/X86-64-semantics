@@ -7,14 +7,19 @@
 (=  ((_ extract 32 32) 
      (ite 
         
+       ; Let R = A[31:0] + B[31:0]
+       ; check if (R - A ) < 0
        (not (=
           ((_ extract 32 32)
+            ; A + B - A
             (bvadd
+              ; -A
               (bvadd 
                 (concat #b0 (bvxor #xffffffff ((_ extract 31 0) A))) 
                 (concat #b0 #x00000001)
               )
         
+              ; A + B
               (concat #b0
                 ((_ extract 31 0)
                   (bvadd 

@@ -18,7 +18,7 @@ uintptr_t safe_addptr(int *of, uint64_t a, uint64_t b) {
 int main() {
     int of = 0;
     
-    safe_addptr(&of, 1, 4294967297);
+    safe_addptr(&of, 4294967295, 18446744069414584320);
     printf("Overflow: %d\n", of); 
     return 0;
 }    
