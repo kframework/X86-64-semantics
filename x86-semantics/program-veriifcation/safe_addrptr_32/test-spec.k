@@ -5,9 +5,9 @@ module TEST-SPEC
   rule
     <k> fetch => exit_0 </k>
       <functargets>  
-        L2    |-> ptr ( symloc ( -1 , 0, 0, 0, 0 ) , mi(64, 10))
-        L3    |-> ptr ( symloc ( -1 , 0, 0, 0, 0 ) , mi(64, 11))
-        main  |-> ptr ( symloc ( -1 , 0, 0, 0, 0 ) , mi(64, 0))
+        L2    |-> ptr ( symloc ( -1 , 0) , mi(64, 10))
+        L3    |-> ptr ( symloc ( -1 , 0) , mi(64, 11))
+        main  |-> ptr ( symloc ( -1 , 0) , mi(64, 0))
       </functargets> 
       <rotargets> .Map </rotargets> 
       <bsstargets> .Map </bsstargets> 
@@ -17,9 +17,9 @@ module TEST-SPEC
       <lastseenlabel> .K </lastseenlabel>
       <currentsection> "text" </currentsection>
       <regstate>
-        "RIP" |-> ( ptr (symloc(-1, 0, 0, 0, 0), mi(64, 0))  => mi(64, 18446744073709551615))
-        "RSP" |-> ( ptr (symloc(1, 128, 64, 8, 0), mi(64, 56))  => ptr(symloc(1, 128, 64, 8, 0), mi(64, 64)))
-        "RBP" |-> ( ptr (symloc(1, 128, 64, 8, 0), mi(64, 56)))
+        "RIP" |-> ( ptr (symloc(-1, 0), mi(64, 0))  => mi(64, 18446744073709551615))
+        "RSP" |-> ( ptr (symloc(1, 128), mi(64, 56))  => ptr(symloc(1, 128), mi(64, 64)))
+        "RBP" |-> ( ptr (symloc(1, 128), mi(64, 56)))
         "AF" |-> (_:MInt => _:MInt)
         "CF" |-> (_:MInt => _:MInt)
         "OF" |-> (_:MInt => _:MInt)
@@ -53,40 +53,39 @@ module TEST-SPEC
             <nextLoc> 1 </nextLoc> 
             <objects>  
                mem( 
-                    symloc(1, 128, 64, 8, 40) |-> (byte ( 0 , mi(64, B)))
-                    symloc(1, 128, 64, 8, 41) |-> (byte ( 1 , mi(64, B)))
-                    symloc(1, 128, 64, 8, 42) |-> (byte ( 2 , mi(64, B)))
-                    symloc(1, 128, 64, 8, 43) |-> (byte ( 3 , mi(64, B)))
-                    symloc(1, 128, 64, 8, 44) |-> (byte ( 4 , mi(64, B)))
-                    symloc(1, 128, 64, 8, 45) |-> (byte ( 5 , mi(64, B)))
-                    symloc(1, 128, 64, 8, 46) |-> (byte ( 6 , mi(64, B)))
-                    symloc(1, 128, 64, 8, 47) |-> (byte ( 7 , mi(64, B)))
+                    symloc ( 1 , 128 ) |-> 
+                mVector(64, 8, 
+                    40 |-> (byte ( 0 , mi(64, B)))
+                    41 |-> (byte ( 1 , mi(64, B)))
+                    42 |-> (byte ( 2 , mi(64, B)))
+                    43 |-> (byte ( 3 , mi(64, B)))
+                    44 |-> (byte ( 4 , mi(64, B)))
+                    45 |-> (byte ( 5 , mi(64, B)))
+                    46 |-> (byte ( 6 , mi(64, B)))
+                    47 |-> (byte ( 7 , mi(64, B)))
 
-                    symloc(1, 128, 64, 8, 48) |-> (byte ( 0 , mi(64, A))) 
-                    symloc(1, 128, 64, 8, 49) |-> (byte ( 1 , mi(64, A))) 
-                    symloc(1, 128, 64, 8, 50) |-> (byte ( 2 , mi(64, A))) 
-                    symloc(1, 128, 64, 8, 51) |-> (byte ( 3 , mi(64, A))) 
-                    symloc(1, 128, 64, 8, 52) |-> (byte ( 4 , mi(64, A))) 
-                    symloc(1, 128, 64, 8, 53) |-> (byte ( 5 , mi(64, A))) 
-                    symloc(1, 128, 64, 8, 54) |-> (byte ( 6 , mi(64, A))) 
-                    symloc(1, 128, 64, 8, 55) |-> (byte ( 7 , mi(64, A))) 
+                    48 |-> (byte ( 0 , mi(64, A))) 
+                    49 |-> (byte ( 1 , mi(64, A))) 
+                    50 |-> (byte ( 2 , mi(64, A))) 
+                    51 |-> (byte ( 3 , mi(64, A))) 
+                    52 |-> (byte ( 4 , mi(64, A))) 
+                    53 |-> (byte ( 5 , mi(64, A))) 
+                    54 |-> (byte ( 6 , mi(64, A))) 
+                    55 |-> (byte ( 7 , mi(64, A))) 
 
-                    symloc(1, 128, 64, 8, 56) |-> byte ( 0 , mi(64,-1) )
-                    symloc(1, 128, 64, 8, 57) |-> byte ( 1 , mi(64,-1) )
-                    symloc(1, 128, 64, 8, 58) |-> byte ( 2 , mi(64,-1) )
-                    symloc(1, 128, 64, 8, 59) |-> byte ( 3 , mi(64,-1) )
-                    symloc(1, 128, 64, 8, 60) |-> byte ( 4 , mi(64,-1) )
-                    symloc(1, 128, 64, 8, 61) |-> byte ( 5 , mi(64,-1) )
-                    symloc(1, 128, 64, 8, 62) |-> byte ( 6 , mi(64,-1) )
-                    symloc(1, 128, 64, 8, 63) |-> byte ( 7 , mi(64,-1) ) 
-                  )
+                    56 |-> byte ( 0 , mi(64,-1) )
+                    57 |-> byte ( 1 , mi(64,-1) )
+                    58 |-> byte ( 2 , mi(64,-1) )
+                    59 |-> byte ( 3 , mi(64,-1) )
+                    60 |-> byte ( 4 , mi(64,-1) )
+                    61 |-> byte ( 5 , mi(64,-1) )
+                    62 |-> byte ( 6 , mi(64,-1) )
+                    63 |-> byte ( 7 , mi(64,-1) ) 
+                  ))
             </objects>
-            <freed>
-              .Set
-            </freed>
           </memory>
           <stackbase>
-            stackBaseInfo ( symloc ( 1 , 128, 64, 8, 0 ) , _ )
+            stackBaseInfo ( symloc ( 1 , 128) , _ )
           </stackbase>
           <robase>    roBaseInfo(.K , .K , .K  ) </robase>
           <database>  dataBaseInfo(.K , .K , .K ) </database>
