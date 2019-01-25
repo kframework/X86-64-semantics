@@ -1,4 +1,4 @@
-.section .text
+ .text
 .globl _start
 
 _start:

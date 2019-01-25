@@ -7,7 +7,8 @@ require "x86-flag-checks.k"
 require "x86-instructions-semantics.k"
 require "x86-memory.k"
 require "x86-mint-wrapper.k"
-require "common/common.k"
+//require "common.k"
+require "x86-commom-memory-clib-interface.k"
 require "x86-builtin.k"
 require "x86-c-library.k"
 
@@ -21,7 +22,7 @@ module X86-SEMANTICS
   imports X86-INSTRUCTIONS-SEMANTICS
   imports X86-MEMORY
   imports MINT-WRAPPER
-  imports COMMON
+  imports COMMON-MEMORY-CLIB-INTERFACE
   imports X86-BUILTIN
   imports X86-C-LIBRARY
 endmodule

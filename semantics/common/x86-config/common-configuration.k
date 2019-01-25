@@ -1,0 +1,3 @@
+module COMMON-CONFIGURATION
+  imports X86-CONFIGURATION
+endmodule

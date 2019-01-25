@@ -67,6 +67,11 @@ m/\.type|\.size|\.ident|\.align|\.weak|\.local|\.file|\.p2align|\.cfi\_|\.text|\
 
     my $opcode = $line =~ s/\s.*//gr;
     if ( "" ne $opcode ) {
+
+        if ( $opcode eq "leave" ) {
+            $opcodeMap{"popq"} = "";
+        }
+
         $opcodeMap{$opcode} = "";
     }
 
@@ -112,46 +117,43 @@ sub populate {
         $doit
     );
 
-    #execute("cp $immDir/$opcode* $target 1> /dev/null 2>&1",  $doit);
-    #execute("cp $memDir/$opcode* $target 1> /dev/null 2>&1",  $doit);
-    #execute("cp $sysDir/$opcode* $target 1> /dev/null 2>&1",  $doit);
-    execute( "cp $extraDir/* $target ",       $doit );
-    execute( "cp $sysDir/callq* $target ",    $doit );
-    execute( "cp $sysDir/jmpq* $target ",     $doit );
-    execute( "cp $sysDir/retq.k* $target ",   $doit );
-    execute( "cp $sysDir/leaveq.k* $target ", $doit );
+    execute( "cp $extraDir/* $target        1> /dev/null 2>&1", $doit );
+    execute( "cp $sysDir/callq* $target     1> /dev/null 2>&1", $doit );
+    execute( "cp $sysDir/jmpq* $target      1> /dev/null 2>&1", $doit );
+    execute( "cp $sysDir/retq.k* $target    1> /dev/null 2>&1", $doit );
+    execute( "cp $sysDir/leaveq.k* $target  1> /dev/null 2>&1", $doit );
 
-    execute( "rm  $target/cmpl_*imm8*",  $doit );
-    execute( "rm  $target/cmpq_*imm8*",  $doit );
-    execute( "rm  $target/cmpw_*imm8*",  $doit );
-    execute( "rm  $target/addl_*imm8*",  $doit );
-    execute( "rm  $target/addw_*imm8*",  $doit );
-    execute( "rm  $target/andw_*imm8*",  $doit );
-    execute( "rm  $target/orw_*imm8*",   $doit );
-    execute( "rm  $target/xorw_*imm8*",  $doit );
-    execute( "rm  $target/imulw_*imm8*", $doit );
-    execute("rm  $target/subl_*imm8*");
-    execute("rm  $target/subw_*imm8*");
-    execute( "rm  $target/addq_*imm8*",      $doit );
-    execute( "rm  $target/adcq_*imm8*",      $doit );
-    execute( "rm  $target/andq_*imm8*",      $doit );
-    execute( "rm  $target/andl_*imm8*",      $doit );
-    execute( "rm  $target/leaq_*m16*",       $doit );
-    execute( "rm  $target/leaq_*m32*",       $doit );
-    execute( "rm  $target/movq_r64_imm32.k", $doit );
-    execute( "rm  $target/xorq_*imm8*",      $doit );
-    execute( "rm  $target/subq_*imm8*",      $doit );
-    execute( "rm  $target/xorl_*imm8*",      $doit );
-    execute( "rm  $target/orl_*imm8*",       $doit );
-    execute( "rm  $target/orq_*imm8*",       $doit );
-    execute( "rm  $target/pushq_*imm8*",     $doit );
-    execute( "rm  $target/pushq_*imm16*",    $doit );
-    execute( "rm  $target/imulq_*imm8*",     $doit );
-    execute( "rm  $target/imull_*imm8*",     $doit );
-    execute( "rm  $target/*_rax_*",          $doit );
-    execute( "rm  $target/*_eax_*",          $doit );
-    execute( "rm  $target/*_ax_*",           $doit );
-    execute( "rm  $target/*_al_*",           $doit );
+    execute( "rm  $target/cmpl_*imm8*     1> /dev/null 2>&1",    $doit );
+    execute( "rm  $target/cmpq_*imm8*     1> /dev/null 2>&1",    $doit );
+    execute( "rm  $target/cmpw_*imm8*     1> /dev/null 2>&1",    $doit );
+    execute( "rm  $target/addl_*imm8*     1> /dev/null 2>&1",    $doit );
+    execute( "rm  $target/addw_*imm8*     1> /dev/null 2>&1",    $doit );
+    execute( "rm  $target/andw_*imm8*     1> /dev/null 2>&1",    $doit );
+    execute( "rm  $target/orw_*imm8*      1> /dev/null 2>&1",    $doit );
+    execute( "rm  $target/xorw_*imm8*     1> /dev/null 2>&1",    $doit );
+    execute( "rm  $target/imulw_*imm8*    1> /dev/null 2>&1",    $doit );
+    execute( "rm  $target/subl_*imm8*      1> /dev/null 2>&1",   $doit );
+    execute( "rm  $target/subw_*imm8*      1> /dev/null 2>&1",   $doit );
+    execute( "rm  $target/addq_*imm8*     1> /dev/null 2>&1",    $doit );
+    execute( "rm  $target/adcq_*imm8*     1> /dev/null 2>&1",    $doit );
+    execute( "rm  $target/andq_*imm8*     1> /dev/null 2>&1",    $doit );
+    execute( "rm  $target/andl_*imm8*     1> /dev/null 2>&1",    $doit );
+    execute( "rm  $target/leaq_*m16*      1> /dev/null 2>&1",    $doit );
+    execute( "rm  $target/leaq_*m32*      1> /dev/null 2>&1",    $doit );
+    execute( "rm  $target/movq_r64_imm32.k   1> /dev/null 2>&1", $doit );
+    execute( "rm  $target/xorq_*imm8*     1> /dev/null 2>&1",    $doit );
+    execute( "rm  $target/subq_*imm8*     1> /dev/null 2>&1",    $doit );
+    execute( "rm  $target/xorl_*imm8*     1> /dev/null 2>&1",    $doit );
+    execute( "rm  $target/orl_*imm8*      1> /dev/null 2>&1",    $doit );
+    execute( "rm  $target/orq_*imm8*      1> /dev/null 2>&1",    $doit );
+    execute( "rm  $target/pushq_*imm8*    1> /dev/null 2>&1",    $doit );
+    execute( "rm  $target/pushq_*imm16*   1> /dev/null 2>&1",    $doit );
+    execute( "rm  $target/imulq_*imm8*    1> /dev/null 2>&1",    $doit );
+    execute( "rm  $target/imull_*imm8*    1> /dev/null 2>&1",    $doit );
+    execute( "rm  $target/*_rax_*         1> /dev/null 2>&1",    $doit );
+    execute( "rm  $target/*_eax_*         1> /dev/null 2>&1",    $doit );
+    execute( "rm  $target/*_ax_*          1> /dev/null 2>&1",    $doit );
+    execute( "rm  $target/*_al_*          1> /dev/null 2>&1",    $doit );
 
 }
 
