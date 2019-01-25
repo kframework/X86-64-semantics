@@ -8,29 +8,35 @@ module FLOAT-CONVERSIONS
   syntax Float ::= GetInfinity(Int, Int) [function] // Dumb hack because Kompile won't parse Infinity/NaN as a float.
   rule GetInfinity(Mlen, Elen) => roundFloat(1.0 /Float 0.0, Mlen, Elen)
   
-  syntax Float ::= GetNaN(Int, Int) [function]
+  syntax Float ::= GetNaN(Int, Int) [function] // See above.
   rule GetNaN(Mlen, Elen) => roundFloat(0.0 /Float 0.0, Mlen, Elen)
 
-  syntax Int ::= MinimumFloatingPointExponent(Int) [function]
+  syntax Int ::= MinimumFloatingPointExponent(Int) [function] // Gets the smallest floating point exponent representable with E bits.
   rule MinimumFloatingPointExponent(E) => 2 -Int (2 ^Int (E -Int 1))
 
-  syntax Float ::= MinimumNormalizedFloat(Int, Int) [function]
+  syntax Float ::= MinimumNormalizedFloat(Int, Int) [function] // Gets the smallest normalized floating point representable with P bits of precision and E bits of exponent
   rule MinimumNormalizedFloat(P, E) => roundFloat(2.0, P, E) ^Float Int2Float(MinimumFloatingPointExponent(E), P, E)
 
   syntax Int ::= MantissaFloat(Float) [function]
 
-  rule MantissaFloat(F) => 0 requires isInfinite(F)
+  rule MantissaFloat(F) => 0 requires isInfinite(F) // Infinities' mantissas must be zero.
 
-  rule MantissaFloat(F) => 1 requires isNaN(F)
+  rule MantissaFloat(F) => 1 <<Int (precisionFloat(F) -Int 1) requires isNaN(F) // NaN's mantissas must not be zero, but without 
   // Actually the Mantissa probably isn't 1 but we can't tell what it is from the value NaN
 
   rule MantissaFloat(F) => MantissaFloat(absFloat(F) +Float MinimumNormalizedFloat(precisionFloat(F), exponentBitsFloat(F)))
-  requires absFloat(F) <Float MinimumNormalizedFloat(precisionFloat(F), exponentBitsFloat(F))
+  requires absFloat(F) <Float MinimumNormalizedFloat(precisionFloat(F), exponentBitsFloat(F)) 
+  // We simply avoid dealing with denormalized floating point numbers by transforming them to normalized floats with the same mantissa.
 
   rule MantissaFloat(F) => Float2Int(
     roundFloat(absFloat(F), precisionFloat(F), exponentBitsFloat(F) +Int 2) 
     *Float (roundFloat(2.0, precisionFloat(F), exponentBitsFloat(F) +Int 2) ^Float Int2Float(precisionFloat(F) -Int 1 -Int exponentFloat(F), precisionFloat(F), exponentBitsFloat(F) +Int 2))
   ) &Int ((1 <<Int (precisionFloat(F) -Int 1)) -Int 1) [owise]
+  // First, get rid of the sign bit.  
+  // Next, multiply by 2^-Exponent to zero the exponent (getting a fixed point of 1.MantissaBits)
+  // Then multiply by 2^#NumMantissaBits (Getting a float of 1(MantissaBits).0)
+  // Then, convert to an int.
+  // Then Mask out the uppermost 1.  This yields an int containing the Mantissa of the original float.
 
   syntax Int ::= MIntToSignBit(MInt) [function]
   rule MIntToSignBit(MI) => uvalueMInt(extractMInt(MI, 0, 1)) 
@@ -55,8 +61,6 @@ module FLOAT-CONVERSIONS
 
   syntax Int ::= ExponentBitsToExponent(Int, Int) [function] 
   rule ExponentBitsToExponent(Elen, E) => minInt(maxInt(E -Int MaxExponent(Elen) +Int 1, MinExponent(Elen)), MaxExponent(Elen))
-
-  syntax Float ::= Stucker(Int) 
 
   syntax Float ::= ExponentBitsToExponentMultiplier(Int, Int, Int) [function]
   rule ExponentBitsToExponentMultiplier(Mlen, Elen, E) 

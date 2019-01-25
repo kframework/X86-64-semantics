@@ -20,6 +20,7 @@ module X86-SORT
   syntax R64
   //syntax Sreg
   syntax Xmm
+  syntax Mm
   syntax Ymm
   syntax Opcode
   syntax Builtin
@@ -142,7 +143,7 @@ module X86-SYNTAX
                     | R64
                     | Xmm
                     | Ymm
-//                  | Mm
+                    | Mm
 //  syntax Memoffs ::= Offset
 //                   | Sreg ":" Offset
   syntax Offset ::= Int
@@ -207,16 +208,6 @@ module X86-SYNTAX
   syntax Rip ::= "%rip"
   syntax Scale ::= Int
 
-  /*
-  syntax Mm ::= "%mm0"
-              | "%mm1"
-              | "%mm2"
-              | "%mm3"
-              | "%mm4"
-              | "%mm5"
-              | "%mm6"
-              | "%mm7"
-  */
   syntax Rh ::= "%ah"
               | "%bh"
               | "%ch"
@@ -285,7 +276,7 @@ module X86-SYNTAX
                | "%r13"
                | "%r14"
                | "%r15"
-/*
+
   syntax Sreg ::= "%es"
                 | "%cs"
                 | "%ss"
@@ -302,7 +293,7 @@ module X86-SYNTAX
               | "%st(5)"
               | "%st(6)"
               | "%st(7)"
-*/
+
   syntax Xmm ::= "%xmm0"
                | "%xmm1"
                | "%xmm2"
@@ -319,16 +310,16 @@ module X86-SYNTAX
                | "%xmm13"
                | "%xmm14"
                | "%xmm15"
-/*
-  syntax Mm ::= "%mm0"
-               | "%mm1"
-               | "%mm2"
-               | "%mm3"
-               | "%mm4"
-               | "%mm5"
-               | "%mm6"
-               | "%mm7"
-*/
+
+  syntax Mm ::= "%mmx0"
+               | "%mmx1"
+               | "%mmx2"
+               | "%mmx3"
+               | "%mmx4"
+               | "%mmx5"
+               | "%mmx6"
+               | "%mmx7"
+
   syntax Ymm ::= "%ymm0"
                | "%ymm1"
                | "%ymm2"
