@@ -4,17 +4,17 @@ requires "x86-configuration.k"
 module VCVTPD2DQ-XMM-M256
   imports X86-CONFIGURATION
 
-  context execinstr(vcvtpd2dq:Opcode HOLE:Mem, R2:Xmm,  .Operands) [result(MemOffset)]
+  context execinstr(vcvtpd2dqy:Opcode HOLE:Mem, R2:Xmm,  .Operands) [result(MemOffset)]
   
   rule <k>
-    execinstr (vcvtpd2dq:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>
+    execinstr (vcvtpd2dqy:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>
       loadFromMemory( MemOff, 256) ~>
-      execinstr (vcvtpd2dq memOffset( MemOff), R2:Xmm,  .Operands)
+      execinstr (vcvtpd2dqy memOffset( MemOff), R2:Xmm,  .Operands)
   ...</k>
     <regstate> RSMap:Map </regstate>
           
   rule <k>
-    memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vcvtpd2dq:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>
+    memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vcvtpd2dqy:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>
       .
   ...</k>
     <regstate>
