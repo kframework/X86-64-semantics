@@ -1115,6 +1115,7 @@ module X86-SYNTAX
                   | "vpinsrb"
                   | "vpinsrd"
                   | "vpinsrq"
+                  | "pinsrq"
                   | "vpinsrw"
                   | "vpmaddubsw"
                   | "vpmaddwd"
