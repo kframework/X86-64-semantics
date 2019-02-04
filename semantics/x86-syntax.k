@@ -337,6 +337,7 @@ module X86-SYNTAX
                | "%ymm14" [token]
                | "%ymm15" [token]
     
+<<<<<<< HEAD
   syntax Opcode ::=  "adcb" [token]
                   | "adcl" [token]
                   | "adcq" [token]
