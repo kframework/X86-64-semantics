@@ -144,11 +144,15 @@ module X86-SYNTAX
                     | Xmm
                     | Ymm
                     | Mm
+                    | Sreg
+                    | Rip
+                    | St
 //  syntax Memoffs ::= Offset
 //                   | Sreg ":" Offset
   syntax Offset ::= Int
   syntax Imm ::= "$" Int
                | HexConstant
+
 
   /*@
    * `Mem` can be evaluated to a KResult `MemOffset`
@@ -181,7 +185,7 @@ module X86-SYNTAX
                | X86Id "(" R64 "," R64 ")"
                | X86Id "+" Int "(" R64 "," R64 "," Scale ")"
                | X86Id "+" Int "(" R64 "," R64 ")"
-
+               // | Int ? How should we do this for absolute addressing?
 //              | Sreg ":" "(" R32 ")"
 //              | Sreg ":" "(" R64 ")"
 //              | Sreg ":" "(" Rip ")"
@@ -337,7 +341,6 @@ module X86-SYNTAX
                | "%ymm14" [token]
                | "%ymm15" [token]
     
-<<<<<<< HEAD
   syntax Opcode ::=  "adcb" [token]
                   | "adcl" [token]
                   | "adcq" [token]
