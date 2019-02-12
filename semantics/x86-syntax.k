@@ -1,7 +1,8 @@
+require "hex-token.k"
+
 module X86-SORT
   syntax Instructions
   syntax Instruction
-  syntax Label
   syntax HexConstant
   syntax Operands
   syntax MemOffset
@@ -32,16 +33,13 @@ module X86-SYNTAX
   imports FLOAT
   imports STRING
   imports MINT
-  imports ID
-  imports MINT
+  imports HEX-TOKEN-SYNTAX
 
   /*@ 
     The following captures  the At&t syntax of x86 assembly.
   */
   syntax Instructions ::= List{Instruction, ""} [klabel(instructionlist)]
-  syntax Instruction ::=  Opcode Operands
-                       | AssemblerDirective
-                       | Label
+  syntax Instruction ::= Opcode Operands
 
   syntax Builtin ::= "putchar" [token]                     
                    | "getchar"  [token]
@@ -74,45 +72,13 @@ module X86-SYNTAX
                    | "free"  [token]
                    | "sqrt"  [token]
 
-  syntax X86Id ::= Id
-  /*@
-    Special symbols.
-  */  
-  syntax X86Id ::= "main" [token]
-                | "_start" [token] 
-                | "stdout" [token] 
-
-  syntax AssemblerDirective ::=  ".section" ".rodata"
-                            | ".data" [token]
-                            | ".text" 
-                            | ".bss" 
-                            | ".file" String 
-                            | ".globl" X86Id 
-                            | ".string" String 
-                            | ".ascii" String 
-                            | ".long" Int 
-                            | ".quad" Int 
-                            | ".quad" X86Id
-                            | ".quad" X86Id "+" Int 
-                            | ".comm" X86Id "," Int "," Int 
-                            | ".zero" Int 
-                            | ".byte" Int 
-                            | ".value" Int 
-
-  syntax Label ::= X86Id ":"
-        
-  syntax HexConstant ::=  r"$0x[0-9a-fA-F]+" [token]
-
   syntax Operands ::= List{Operand, ","} [klabel(operandlist)]
 
-  syntax Operand ::=    Imm
-                       | Mem
-                       | Register
-                       | MemOffset
-                       | X86Id
-                       | Builtin
-                       | "$" X86Id
-                       | "$" X86Id "+" Int
+  syntax Operand ::= Imm
+                   | Mem
+                   | Register
+                   | MemOffset
+                   | Builtin
                        /*@
                         * Adding Int and Float as operands helps in
                         * testing float-conversion directly.
@@ -126,15 +92,8 @@ module X86-SYNTAX
                         *  which requires MInt to be a subSort of Operand.  
                         */
                        | MInt
-//                     | Mm
-//                     | St
-//                     | Memoffs
-//                     | Sreg
 
   syntax MemOffset ::= memOffset ( MInt )
-
-//syntax Simpleoperand ::= Register | Imm | MemOffset
-//syntax Operand ::= Simpleoperand
 
   syntax R64OrRIP ::= R64 | Rip
 
@@ -148,11 +107,9 @@ module X86-SYNTAX
                     | Mm
                     | Sreg
                     | St
-//  syntax Memoffs ::= Offset
-//                   | Sreg ":" Offset
+
   syntax Offset ::= Int
-  syntax Imm ::= "$" Int
-               | HexConstant
+  syntax Imm ::= "$" Int | "$" HexConstant
 
 
   /*@
@@ -160,55 +117,20 @@ module X86-SYNTAX
    * Hence making MemOffset a subsort of Mem. 
    */
   syntax Mem ::= MemOffset             
-  syntax Mem ::=  /*"(" Rip ")"
-               | X86Id "(" Rip ")"
-               | X86Id "+" Int "(" Rip ")"
-               //------------------------------------
-               |*/ "(" R64OrRIP ")"
+  syntax Mem ::= "(" R64OrRIP ")"
                | Offset "(" R64OrRIP ")"
-               | X86Id "(" R64OrRIP ")"
-               | X86Id "+" Int "(" R64OrRIP ")"
                //------------------------------------
                | "(" "," R64 "," Scale ")"
                | "(" "," R64 ")"
                | Offset "(" "," R64 "," Scale ")"
                | Offset "(" "," R64 ")"
-               | X86Id "(" "," R64 "," Scale ")"
-               | X86Id "(" "," R64 ")"
-               | X86Id "+" Int "(" "," R64 "," Scale ")"
-               | X86Id "+" Int "(" "," R64 ")"
                //------------------------------------
                | "(" R64 "," R64 "," Scale ")"
                | "(" R64 "," R64 ")"
                | Offset "(" R64 "," R64 "," Scale ")"
                | Offset "(" R64 "," R64 ")"
-               | X86Id "(" R64 "," R64 "," Scale ")"
-               | X86Id "(" R64 "," R64 ")"
-               | X86Id "+" Int "(" R64 "," R64 "," Scale ")"
-               | X86Id "+" Int "(" R64 "," R64 ")"
-               // | Int ? How should we do this for absolute addressing?
-//              | Sreg ":" "(" R32 ")"
-//              | Sreg ":" "(" R64 ")"
-//              | Sreg ":" "(" Rip ")"
-//               | Sreg ":" Offset "(" R32 ")"
-//               | Sreg ":" Offset "(" R64 ")"
-//               | Sreg ":" Offset "(" Rip ")"
-//               | Sreg ":" "(" "," R32 "," Scale ")"
-//               | Sreg ":" "(" "," R64 "," Scale ")"
-//               | Sreg ":" "(" "," R32 ")"
-//               | Sreg ":" "(" "," R64 ")"
-//               | Sreg ":" Offset "(" "," R32 "," Scale ")"
-//               | Sreg ":" Offset "(" "," R64 "," Scale ")"
-//               | Sreg ":" Offset "(" "," R32 ")"
-//               | Sreg ":" Offset "(" "," R64 ")"
-//               | Sreg ":" "(" R32 "," R32 "," Scale ")"
-//               | Sreg ":" "(" R64 "," R64 "," Scale ")"
-//               | Sreg ":" "(" R32 "," R32 ")"
-//               | Sreg ":" "(" R64 "," R64 ")"
-//               | Sreg ":" Offset "(" R32 "," R32 "," Scale ")"
-//               | Sreg ":" Offset "(" R64 "," R64 "," Scale ")"
-//               | Sreg ":" Offset "(" R32 "," R32 ")"
-//               | Sreg ":" Offset "(" R64 "," R64 ")"
+               //------------------------------------
+               | Offset /* For absolute addressing... not sure I like this solution */
 
   syntax Rip ::= "%rip" [token]
   syntax Scale ::= Int

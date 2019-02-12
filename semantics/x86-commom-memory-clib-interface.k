@@ -1,4 +1,3 @@
-requires "common-memory.k"
 requires "common-utils.k"
 requires "common-error.k"
 requires "library/common-c-library.k"
@@ -8,7 +7,6 @@ module COMMON-CONFIGURATION
 endmodule
 
 module COMMON-MEMORY-CLIB-INTERFACE
-  imports COMMON-MEMORY
   imports COMMON-UTILS
   imports COMMON-C-LIBRARY
 endmodule

@@ -36,7 +36,7 @@ module X86-INIT
     2. Setting up argc and argv in environment memory.
   */  
   rule initEnvironment(L:List) =>
-     //allocateStackMemory(64, 16 *Int 8) ~> allocateROMemory(64, 16 *Int 8) ~> initReturnFromEntryFunction ~> initArgc(mySize(L)) ~> initArgv(L)
+     //allocateStackMemory(64, 16 *Int 8) ~> allocateROMemory(64, 16 *Int 8) ~> initReturnFromEntryFunction ~> initArgc(size(L)) ~> initArgv(L)
      allocateStackMemory(1024, 16 *Int 8) ~> 
      allocateROMemory(256, 16 *Int 8) ~> 
      allocateDataMemory(256, 16 *Int 8) ~> 
@@ -91,13 +91,8 @@ module X86-INIT
     Store a fake return adress mi(64, -1) which signals program executaion halt. 
   */  
   syntax KItem ::=  "initReturnFromEntryFunction"
-  rule <k> initReturnFromEntryFunction => storeToMemory(mi(64, -1), ptr(L, BaseOffset), 64)
-  ...</k>
-      <stackbase> stackBaseInfo( L:MemLoc, BaseOffset:MInt) </stackbase>
-
-  syntax Int ::= mySize(List) [function]
-  rule mySize(.List) => 0
-  rule mySize(ListItem(_) L:List) => mySize(L) +Int 1
+  rule <k> initReturnFromEntryFunction => storeToMemory(mi(64, -1), BaseOffset, 64) ...</k>
+      <stackbase> stackBaseInfo(BaseOffset:MInt) </stackbase>
 
   /*@
     Initialize argc  

@@ -1,4 +1,5 @@
 require "x86-syntax.k"
+require "elf-syntax.k"
 require "x86-abstract-syntax.k"
 require "common-memory.k"
 require "x86-memory.k"
@@ -9,44 +10,32 @@ module X86-CONFIGURATION
   imports X86-SYNTAX
   imports X86-ABSTRACT-SYNTAX
   imports COMMON-MEMORY-CONFIGURATION
-  imports X86-MEMORY-SYNTAX
   imports X86-INIT-SYNTAX
   imports MINT-WRAPPER-SYNTAX
   imports X86-LOADER-SYNTAX
   imports COMMON-C-LIBRARY-CONFIGURATION
+  imports ELF-SYNTAX
+  imports ELF-LOADER
 
 
-  // configuration <T>
   configuration
-//initEnvironment(ListItem("a.out") ListItem("HelloWorld!") .List) ~> 
     <k> 
 	//initRegisters($REGV:RegValPairList) ~> 
 	//initEnvironment($ARGV:List) ~> 
 	initEnvironment(.List) ~> 
-	$PGM:Instructions ~> 
-        loadEntryPoint ~>
+        $PGM:Elf ~> 
 	inforegisters ~> 
 	fetch 
     </k>
 
-    <functargets> .Map </functargets> 
-    <rotargets> .Map </rotargets> 
-    <datatargets> .Map </datatargets> 
-    <bsstargets> .Map </bsstargets> 
-    <entrypoint> .K </entrypoint>
-    <nextLocPc> mi(64, 0) </nextLocPc>
-    <lastseenlabel> .K </lastseenlabel>
-    <currentsection> "text" </currentsection>
+
+    <symbols> .Map </symbols> 
+
+    <stackbase> mi(64, -1) </stackbase>
 
     <memstate>
-      <text> code( .Map ) </text>
-      <stack>
-        <memory/>
-        <stackbase> stackBaseInfo(.K, .K) </stackbase>
-        <robase> roBaseInfo(.K /* Alocation id*/, .K /*Base Pointer*/, .K /*Next Location*/ ) </robase>
-        <database> dataBaseInfo(.K , .K , .K ) </database>
-        <bssbase>   bssBaseInfo(.K , .K , .K ) </bssbase>
-      </stack>
+      <memory> .Map </memory>
+      <ROM> .List </ROM> 
     </memstate>
 
     <environment>
@@ -106,7 +95,6 @@ module X86-CONFIGURATION
       regstatequeue: For testing purposes
     */
 
-    // <itracer> .List </itracer>
     <regstatequeue> .List </regstatequeue>
 
     <formatcountint> 0 </formatcountint>

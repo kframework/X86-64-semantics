@@ -441,7 +441,7 @@ module MINT-WRAPPER
   /*@
     Covert Ints to MInts.
   */
-  rule convertIntsToMInts(I Is, W) => mi(I, W) convertIntsToMInts(Is, W)
+  rule convertIntsToMInts(I Is, W) => mi(W, I) convertIntsToMInts(Is, W)
   rule convertIntsToMInts(.Ints, _) => .MInts
 
   /*@

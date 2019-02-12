@@ -1,6 +1,5 @@
 requires "verification-lemmas.k"
 requires "common-configuration.k"
-requires "common-memory.k"
 requires "common-utils.k"
 requires "common-error.k"
 requires "library/common-c-library.k"
@@ -8,7 +7,6 @@ requires "library/common-c-library.k"
 module COMMON
   imports COMMON-CONFIGURATION
   imports VERIFICATION-LEMMAS
-  imports COMMON-MEMORY
   imports COMMON-UTILS
   imports COMMON-C-LIBRARY
 
