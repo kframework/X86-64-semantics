@@ -136,16 +136,17 @@ module X86-SYNTAX
 //syntax Simpleoperand ::= Register | Imm | MemOffset
 //syntax Operand ::= Simpleoperand
 
+  syntax R64OrRIP ::= R64 | Rip
+
   syntax Register ::= Rh
                     | R8
                     | R16
                     | R32
-                    | R64
+                    | R64OrRIP
                     | Xmm
                     | Ymm
                     | Mm
                     | Sreg
-                    | Rip
                     | St
 //  syntax Memoffs ::= Offset
 //                   | Sreg ":" Offset
@@ -159,14 +160,14 @@ module X86-SYNTAX
    * Hence making MemOffset a subsort of Mem. 
    */
   syntax Mem ::= MemOffset             
-  syntax Mem ::=  "(" Rip ")"
+  syntax Mem ::=  /*"(" Rip ")"
                | X86Id "(" Rip ")"
                | X86Id "+" Int "(" Rip ")"
                //------------------------------------
-               | "(" R64 ")"
-               | Offset "(" R64 ")"
-               | X86Id "(" R64 ")"
-               | X86Id "+" Int "(" R64 ")"
+               |*/ "(" R64OrRIP ")"
+               | Offset "(" R64OrRIP ")"
+               | X86Id "(" R64OrRIP ")"
+               | X86Id "+" Int "(" R64OrRIP ")"
                //------------------------------------
                | "(" "," R64 "," Scale ")"
                | "(" "," R64 ")"
