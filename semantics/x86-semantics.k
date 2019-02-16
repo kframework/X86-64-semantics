@@ -1,4 +1,4 @@
-require "x86-loader.k"
+require "elf-loader.k"
 require "x86-env-init.k"
 require "x86-fetch-execute.k"
 require "x86-abstract-semantics.k"
@@ -11,7 +11,8 @@ require "x86-builtin.k"
 require "x86-c-library.k"
 
 module X86-SEMANTICS
-  imports X86-LOADER
+  imports ELF-SYNTAX
+  imports ELF-LOADER
   imports X86-INIT
   imports X86-FETCH-EXECUTE
   imports X86-ABSTRACT-SEMANTICS

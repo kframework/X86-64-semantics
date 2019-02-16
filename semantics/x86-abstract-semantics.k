@@ -308,8 +308,7 @@ module X86-ABSTRACT-SEMANTICS
 
   // Or a HexConstant: For hexconstants like 0x800, we have to provide the substr 800
   // as an argument to  String2Base
-  rule handleImmediateWithSignExtend(($ H:HexConstant):Imm, M:Int, N:Int) =>
-    signExtend(mi(M, HexConstant2Int(H)), N)
+  rule handleImmediateWithSignExtend(($ H:HexConstant):Imm, M:Int, N:Int) => signExtend(mi(M, HexConstant2Int(H)), N)
 
   /*@ 
     Check if two registers are the same

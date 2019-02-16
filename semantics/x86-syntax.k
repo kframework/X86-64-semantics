@@ -1,3 +1,5 @@
+require "builtins.k"
+require "elf-syntax.k"
 require "hex-token.k"
 
 module X86-SORT
@@ -34,6 +36,7 @@ module X86-SYNTAX
   imports STRING
   imports MINT
   imports HEX-TOKEN-SYNTAX
+  imports BUILTINS
 
   /*@ 
     The following captures  the At&t syntax of x86 assembly.
@@ -111,6 +114,7 @@ module X86-SYNTAX
   syntax Offset ::= Int
   syntax Imm ::= "$" Int | "$" HexConstant
 
+  syntax K ::= execinstr(Instruction)
 
   /*@
    * `Mem` can be evaluated to a KResult `MemOffset`
@@ -130,7 +134,7 @@ module X86-SYNTAX
                | Offset "(" R64 "," R64 "," Scale ")"
                | Offset "(" R64 "," R64 ")"
                //------------------------------------
-               | Offset /* For absolute addressing... not sure I like this solution */
+               //| Offset /* This solution would cause about a million problems with Mem matching incorrectly.  I'll find a better way later (maybe wrap all Mems with some label).
 
   syntax Rip ::= "%rip" [token]
   syntax Scale ::= Int

@@ -15,6 +15,7 @@ endmodule
 
 module X86-INIT
   imports X86-CONFIGURATION
+  imports MINT
 
   /*@
     Initialize register with user supplied values.
@@ -28,7 +29,11 @@ module X86-INIT
   ...</k>
       <regstate>...  .Map => R |-> V    ...</regstate>
 
-
+  syntax Int ::= "StackAlignment" | "HeapAlignment" | "StackSize" | "HeapSize"
+  rule StackAlignment => 16 [macro] // Base alignment in bytes
+  rule HeapAlignment => 16 [macro]
+  rule StackSize => (1024 *Int 1024) [macro]
+  rule HeapSize => (1024 *Int 1024) [macro]
 
   /*@
     Initialization involves:
@@ -36,20 +41,18 @@ module X86-INIT
     2. Setting up argc and argv in environment memory.
   */  
   rule initEnvironment(L:List) =>
-     //allocateStackMemory(64, 16 *Int 8) ~> allocateROMemory(64, 16 *Int 8) ~> initReturnFromEntryFunction ~> initArgc(size(L)) ~> initArgv(L)
-     allocateStackMemory(1024, 16 *Int 8) ~> 
-     allocateROMemory(256, 16 *Int 8) ~> 
-     allocateDataMemory(256, 16 *Int 8) ~> 
-     allocateBssMemory(256, 16 *Int 8) ~> 
+     initStackMemory(StackSize, StackAlignment) ~>
+     //initArgc(size(L)) ~> initArgv(L) // Need to do these *after* stack creation, else we don't know where the base of the stack is so we don't know where to put these.
+     initHeapMemory(HeapSize, HeapAlignment) ~> 
      initReturnFromEntryFunction ~> 
      initIOStreams ~> 
      initBuiltin
 
   /*@ 
-    Initialize STDOUT File pointer   
+    Initialize STDOUT File pointer //What does this *do*?  
   */
   syntax KItem ::= "initBuiltin"
-  rule initBuiltin => allocateSTDOUTMemory(5, 0)
+  rule initBuiltin => . //allocateSTDOUTMemory(5, 0)
 
 
   /*@ 
@@ -92,7 +95,7 @@ module X86-INIT
   */  
   syntax KItem ::=  "initReturnFromEntryFunction"
   rule <k> initReturnFromEntryFunction => storeToMemory(mi(64, -1), BaseOffset, 64) ...</k>
-      <stackbase> stackBaseInfo(BaseOffset:MInt) </stackbase>
+       <stackbase> BaseOffset </stackbase>
 
   /*@
     Initialize argc  
@@ -100,7 +103,7 @@ module X86-INIT
   syntax KItem ::= initArgc(Int)
   rule <k> initArgc(N:Int) => . ...</k>
     <argc> _ => N </argc>
-    <regstate> RSMAP => RSMAP["RDI" <- mi(addrSize, N)] </regstate>
+    <regstate> RSMAP => RSMAP["RDI" <- mi(logicalAddressWidth, N)] </regstate>
 
   /*@
     Initialize argv  
@@ -111,14 +114,14 @@ module X86-INIT
     For empty argv list , do nothing
   */
   rule <k> initArgv(.List) => . ...</k>
-    <regstate> RSMAP => RSMAP["RSI" <- mi(addrSize, 0)] </regstate>
+    <regstate> RSMAP => RSMAP["RSI" <- mi(logicalAddressWidth, 0)] </regstate>
   
   /*@
     For non-empty argv list, start initializing memory with individual strings and keep collecting the 
       corresponding start offsets in a map.
   */
   rule <k> initArgv(ListItem(Arg:String) Rest:List) => 
-      initArgs(0, .Map, ListItem(Arg:String) Rest:List, addMInt(ArgvP, mi(addrSize, Argc *Int 8)) ) ...</k>
+      initArgs(0, .Map, ListItem(Arg:String) Rest:List, addMInt(ArgvP, mi(logicalAddressWidth, Argc *Int 8)) ) ...</k>
     <argv> ArgvP:MInt </argv>
     <argc> Argc:Int </argc>
     <regstate> RSMAP => RSMAP["RSI" <- ArgvP] </regstate>
@@ -148,6 +151,6 @@ module X86-INIT
 
   rule storeAndRecord(C:Int, AddrAccum:Map, ListItem(Arg:String) Rest:List, NextAddress:MInt, LenStr:Int, mimap(MapFromStr):MIntMap) =>
     storeToMemory(mimap(MapFromStr[LenStr <- mi(8, 0)]), NextAddress, (LenStr +Int 1) *Int 8) ~>
-    initArgs(C +Int 1, AddrAccum[C <- NextAddress], Rest, addMInt(NextAddress, mi(addrSize, LenStr +Int 1)) )
+    initArgs(C +Int 1, AddrAccum[C <- NextAddress], Rest, addMInt(NextAddress, mi(logicalAddressWidth, LenStr +Int 1)) )
 
 endmodule

@@ -10,7 +10,7 @@ module X86-C-LIBRARY-SYNTAX
   syntax StringPointer ::= PointerVal
   syntax BufferPointer ::= PointerVal
   syntax VoidFunctionPointer ::= PointerVal
-  syntax LibCValue ::= MInt | Int
+  syntax LibCValue ::= PointerVal | Int
 endmodule
 
 module X86-C-LIBRARY
@@ -30,19 +30,14 @@ module X86-C-LIBRARY
   rule isNullBufPtr(PV:PointerVal) => isPointerValNull(PV)
 
   rule PV:PointerVal +chars Offs:Int => {PV +bytes Offs}:>PointerVal
-  rule ptr(L:MemLoc, Offs:MInt) +bytes Offs2:Int
-       =>
-       ptr(L, 
-           mi(bitwidthMInt(Offs), uvalueMInt(Offs) +Int Offs2 /**Int 8*/))
+  rule Offs:MInt +bytes Offs2:Int => mi(bitwidthMInt(Offs), uvalueMInt(Offs) +Int Offs2 /**Int 8*/)
     requires uvalueMInt(Offs) +Int Offs2 /**Int 8*/ <Int (2 ^Int bitwidthMInt(Offs) -Int 1)
 
   // FD
   syntax MInt ::= "fdBitOffset" [function]
   rule fdBitOffset => mi(64, 0)
 
-  rule getValidFD(ptr(L:MemLoc, Offs:MInt))
-       =>
-       checkFD(loadFromMemory(ptr(L, addMInt(Offs, fdBitOffset)), 32))
+  rule getValidFD(Offs:MInt) => checkFD(loadFromMemory(addMInt(Offs, fdBitOffset), 32))
 
   syntax KItem ::= checkFD(K) [strict]
   rule checkFD(memLoadValue(FD:MInt)) => svalueMInt(FD)
@@ -50,10 +45,7 @@ module X86-C-LIBRARY
   rule checkFD(FD:MInt) => invalidLibCValue
     requires svalueMInt(FD) ==Int 0
 
-  rule setValidFD(ptr(L:MemLoc, Offs:MInt), FD:Int)
-       =>
-       storeToMemory(mi(32, FD), 
-           ptr(L, addMInt(Offs, fdBitOffset)), 32)
+  rule setValidFD(Offs:MInt, FD:Int) => storeToMemory(mi(32, FD), addMInt(Offs, fdBitOffset), 32)
 
   /*
   syntax Int ::= "fposBitOffset" [function]
@@ -81,7 +73,7 @@ module X86-C-LIBRARY
   rule readBytes(PV:PointerVal, N:Int) => readBytesAux(PV, N, "")
 
   syntax KItem ::= readBytesAux(PointerVal, Int, String)
-  rule (.K => loadFromMemory(PV, 8)) ~>
+  rule (.K => loadFromMemory({PV}:>MInt, 8)) ~>
        readBytesAux(PV:PointerVal => {PV +bytes 1}:>PointerVal,
                      N:Int => N -Int 1, _:String)
     requires N =/=Int 0
@@ -94,7 +86,7 @@ module X86-C-LIBRARY
   rule readString(PV:PointerVal, N:Int) => readStringAux(PV, N, "")
 
   syntax KItem ::= readStringAux(PointerVal, Int, String)
-  rule (.K => loadFromMemory(PV, 8)) ~>
+  rule (.K => loadFromMemory({PV}:>MInt, 8)) ~>
        readStringAux(PV:PointerVal => {PV +bytes 1}:>PointerVal,
                      N:Int => N -Int 1, _:String)
     requires N =/=Int 0
@@ -113,17 +105,17 @@ module X86-C-LIBRARY
 
   rule writeCharBytes(PV:PointerVal, S:String)
        =>
-       storeToMemory(mi(8, ordChar(firstChar(S))), PV, 8) ~>
+       storeToMemory(mi(8, ordChar(firstChar(S))), {PV}:>MInt, 8) ~>
        writeCharBytes({PV +bytes 1}:>PointerVal, butFirstChar(S))
     requires S =/=String ""
   rule writeCharBytes(PV:PointerVal, "") => .
 
   rule writeString(PV:PointerVal, S:String)
        =>
-       storeToMemory(mi(8, ordChar(firstChar(S))), PV, 8) ~>
+       storeToMemory(mi(8, ordChar(firstChar(S))), {PV}:>MInt, 8) ~>
        writeString({PV +bytes 1}:>PointerVal, butFirstChar(S))
     requires S =/=String ""//
-  rule writeString(PV:PointerVal, "") => storeToMemory(mi(8,0), PV, 8)
+  rule writeString(PV:PointerVal, "") => storeToMemory(mi(8,0), {PV}:>MInt, 8)
 
   // write chars 
   rule <k> writeAsChars(C:MInt, S:String) => writeCharBytes({C}:>PointerVal, S)
@@ -411,14 +403,13 @@ module X86-C-LIBRARY
 
   rule allocFile
        =>
-       allocateLocalMemory(5, 0) ~>
+       allocateHeapMemory(5) ~>
        allocFile
-  rule L:MemLoc ~> allocFile => ptr(L, mi(64, 1))
+  rule MI:MInt ~> allocFile => addMInt(MI, mi(64, 1))
 
-  rule freeFile(FPtr:PointerVal) => freeMemory(FPtr)
+  rule freeFile(FPtr:PointerVal) => freeMemory({FPtr}:>MInt)
 
 
-  //rule asCInt(I:Int) => setRegisterValue(mi(64, I), %rax)
   rule asCInt(I:Int) => I
   rule <k> I:Int  ~> inforegisters ~> fetch =>  
     setRegisterValue(mi(64, I), %rax) ~> inforegisters ~> fetch
@@ -430,14 +421,10 @@ module X86-C-LIBRARY
   rule asCLongInt(I:Int) => I
   rule asCSize(I:Int) => I
   rule asCFILEPtr(PV:PointerVal) => PV
-  //rule asCCharPtr(PV:PointerVal) => setRegisterValue(PV, %rax)
   rule asCCharPtr(PV:PointerVal) => PV
-  rule nullFilePointer => null
-  rule nullStringPointer => null
-  //rule nullFilePointer => setRegisterValue(null, %rax)
-  //rule nullStringPointer => setRegisterValue(null, %rax)
+  rule nullFilePointer => mi(logicalAddressWidth, 0)
+  rule nullStringPointer => mi(logicalAddressWidth, 0)
 
-  //rule isEqToOne(MI:MInt) => eqMInt(MI, mi(bitwidthMInt(MI), 1))
   rule isEqToOne(I:Int) => I ==Int 1
   rule <k> setErrno(E:Int) => . ...</k>
 endmodule

@@ -10,33 +10,16 @@ module X86-ABSTRACT-SYNTAX
   imports MINT
   imports X86-SORT
   imports X86-MEMORY-SORT
-  imports COMMON-MEMORY-SORTS
   imports X86-ABSTRACT-SORTS
 
   syntax PointerVal ::= MInt
   syntax Bool ::= isPointerValNull(PointerVal) [function]
-
-  syntax ROMSegment ::= StringSegment(Int, Int, String)
-
-  /*@
-    Sorts of config cell entities
-  */  
-  syntax CodeInMemory ::= code(/*PointerVal -> storeInstr(Instruction)*/ Map)
-
-  syntax Abstractinstruction ::= storedInstr(Instruction)
-  syntax Abstractinstruction ::= execinstr(Instruction)
-  syntax Abstractinstruction ::= "IllegalInstructionException" [token]
 
   /*@
     Used for late evaluation of memory offset in case of instructions
     like popq_m64
   */
   syntax KItem ::= evaluateMemOffset (K) [strict(1)] 
-
-  syntax Int ::= "addrSize"
-  rule addrSize => 64 [macro]
-
-  // syntax Int ::= getISize(Instruction) [function]
 
   syntax KItem ::= "fetch" [token]
   syntax KItem ::= "inforegisters" [token]

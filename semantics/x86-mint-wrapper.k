@@ -38,6 +38,12 @@ module MINT-WRAPPER-SYNTAX
   syntax Ints ::= List{Int, ""} [klabel(intlist)]
 
   /*@
+    Reverse a list of Ints
+   */
+
+  syntax Ints ::= reverseInts(Ints) [function]
+
+  /*@
     Create a map of size N:Int with "undefMInt" MInt
   */
   syntax MIntMap ::= makeUndefMIntMap (Int) [function]
@@ -346,6 +352,13 @@ module MINT-WRAPPER
   imports MINT-WRAPPER-SYNTAX
 
 
+  syntax Ints ::= reverseIntsAux(Ints, Ints) [function]
+
+  rule reverseInts(Is) => reverseIntsAux(Is, .Ints)
+  rule reverseIntsAux(I:Int Is, R) => reverseIntsAux(Is, I R)
+  rule reverseIntsAux(.Ints, R) => R
+
+
   rule zeroMIntW1   =>  mi(1,  0) [macro]
   rule zeroMIntW64  =>  mi(64, 0) [macro]
   rule zeroMIntW256 =>  mi(256,0) [macro]
@@ -372,9 +385,8 @@ module MINT-WRAPPER
   syntax MIntMap ::=  makeUndefMIntMapAux(Int, Int, Map) [function]
 
   rule makeUndefMIntMapAux(N:Int, N, M:Map) => mimap(M)
-  rule makeUndefMIntMapAux(N:Int, I, M:Map) =>
-    makeUndefMIntMapAux(N, I +Int 1, M[I <- mi(8, 0)])
-      requires I <Int N
+  rule makeUndefMIntMapAux(N:Int, I, M:Map) => makeUndefMIntMapAux(N, I +Int 1, M[I <- mi(8, 0)])
+       requires I <Int N
 
   /*@
     Create a map of MInt from the elems of String.

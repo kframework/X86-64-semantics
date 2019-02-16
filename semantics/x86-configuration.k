@@ -1,39 +1,44 @@
 require "x86-syntax.k"
 require "elf-syntax.k"
 require "x86-abstract-syntax.k"
-require "common-memory.k"
 require "x86-memory.k"
 require "x86-env-init.k"
 require "x86-mint-wrapper.k"
+require "decoder-configuration.k"
 
 module X86-CONFIGURATION
   imports X86-SYNTAX
   imports X86-ABSTRACT-SYNTAX
-  imports COMMON-MEMORY-CONFIGURATION
   imports X86-INIT-SYNTAX
   imports MINT-WRAPPER-SYNTAX
-  imports X86-LOADER-SYNTAX
   imports COMMON-C-LIBRARY-CONFIGURATION
+  imports X86-MEMORY-SYNTAX
   imports ELF-SYNTAX
-  imports ELF-LOADER
+  imports DECODER-CONFIGURATION
 
 
   configuration
     <k> 
 	//initRegisters($REGV:RegValPairList) ~> 
-	//initEnvironment($ARGV:List) ~> 
-	initEnvironment(.List) ~> 
+	//initEnvironment($ARGV:List) ~>
         $PGM:Elf ~> 
-	inforegisters ~> 
+	initEnvironment(.List) ~> 
+        inforegisters ~> 
 	fetch 
     </k>
 
 
     <symbols> .Map </symbols> 
 
-    <stackbase> mi(64, -1) </stackbase>
-
     <memstate>
+      <stack>
+        <stackbase> mi(64, -1) </stackbase>
+        <stackcap> mi(64, -1) </stackcap>
+      </stack>
+      <heap>
+        <heapbase> mi(64, -1) </heapbase>
+        <brk> mi(64, -1) </brk>
+      </heap>
       <memory> .Map </memory>
       <ROM> .List </ROM> 
     </memstate>
@@ -101,4 +106,5 @@ module X86-CONFIGURATION
     <formatcountfloat> 0 </formatcountfloat>
     <c-library/>
     <formatting/>
+    <decoder/>
 endmodule
