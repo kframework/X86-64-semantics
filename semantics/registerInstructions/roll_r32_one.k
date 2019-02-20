@@ -4,7 +4,7 @@ requires "x86-configuration.k"
 module ROLL-M32-ONE
   imports X86-CONFIGURATION
   rule <k>
-    execinstr (roll:Opcode  M:mem,  .Operands) => execinstr (roll:Opcode $0x1, M:mem,  .Operands)
+    execinstr (roll:Opcode  M:Mem,  .Operands) => execinstr (roll:Opcode $0x1, M:Mem,  .Operands)
   ...</k>
 
   context execinstr(roll:Opcode $0x1, HOLE:Mem,  .Operands) [result(MemOffset)]

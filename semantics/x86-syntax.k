@@ -139,6 +139,8 @@ module X86-SYNTAX
   syntax Rip ::= "%rip" [token]
   syntax Scale ::= Int
 
+  syntax K ::= "IllegalInstructionException"
+
   syntax Rh ::= "%ah" [token]
               | "%bh" [token]
               | "%ch" [token]

@@ -29,6 +29,11 @@ module MINT-WRAPPER-SYNTAX
   syntax MInt ::= "oneMIntW64"
   syntax MInt ::= "divideError"
 
+//  rule B1:Bool andBool undefBool => undefBool
+//  rule undefBool andBool B2:Bool => undefBool
+//
+  rule undefBool => false [macro]
+
   /*@
     Sort List
   */
