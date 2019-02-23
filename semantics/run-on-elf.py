@@ -2,7 +2,7 @@
 import xml.etree.ElementTree as et
 import subprocess, sys, os, shutil, re, signal
 from collections import defaultdict
-from functools import reduce
+import functools
 
 default_backend = "ocaml"
 
@@ -104,51 +104,14 @@ def delete_old_instructions():
     shutil.rmtree(under_test_directory)
     os.mkdir(under_test_directory) 
 
-def read_inum_instruction_map():
-    inums = None
-    instructions = None
-    with open(os.path.join(decoder_directory, "generator", "datafiles", "inums.txt"), "r") as f:
-        inums = [int(line) for line in f.readlines()]
-    with open(os.path.join(decoder_directory, "generator", "datafiles", "instructions.s"), "r") as f:
-        instructions = f.readlines()
-    assert len(inums) == len(instructions)
-    multimap = defaultdict(list)
-    for (inum, inst) in zip(inums, instructions):
-        multimap[inum].append(inst.strip())
-    return multimap
+def inum_file_pair_from_line(line):
+    split = line.split("|")
+    assert len(split) == 3
+    return (int(split[2]), split[0])
 
 def get_instructions_from_inums(inums):
-    inum_instruction_map = read_inum_instruction_map()
-    return sorted(list(reduce(lambda s1, s2: s1.union(s2), map(lambda inum: set(inum_instruction_map[inum]), inums))))
-
-
-def flatten(lst):
-    ret = []
-    for l in lst:
-        ret.extend(l)
-    return ret
-
-def find_instructions():
-    return sorted(flatten(map(lambda directory: [os.path.join(directory, name) for name in os.listdir(os.path.join(semantics_directory, instruction_directory_prefix, directory))], instruction_directories)), key=lambda x: os.path.basename(x))
-
-# needed_names is of the form addb_r8_r8 ... available is of the form registerInstructions/addb_r8_r8.k.  Need to match these up.
-# It's important that both of these are sorted by the file name (aka the basename) so we can match efficiently.
-def match_names(needed_names, available_names):
-    ret = []
-    still_available_names = available_names
-    for needed in needed_names:
-        found = False
-        for i in range(len(still_available_names)):
-            available_name = still_available_names[i]
-            if available_name.find(needed) > -1: 
-                ret.append(available_name)
-                still_available_names = still_available_names[i:]
-                found = True
-                break
-        if not found:
-            print("Could not find {0} in\n[{1}]".format(needed, ",\n".join(still_available_names)), file=sys.stderr)
-            assert False
-    return ret   
+    with open(os.path.join(decoder_directory, "generator", "datafiles", "full-map.txt"), "r") as f:
+        return list(map(lambda pair: pair[1], filter(lambda pair: pair[0] in inums,  map(inum_file_pair_from_line, f.readlines()))))
 
 def copy_instructions(full_names):
     for name in full_names:
@@ -167,7 +130,7 @@ module X86-INSTRUCTIONS-SEMANTICS
   imports X86-FLAG-CHECKS-SYNTAX
 
 """
-    epilogue = "endmodule"
+    epilogue = "endmodule"    
     with open(single_file_definition, "w") as out_f:
         print(prologue, file=out_f)
         for name in full_names:
@@ -179,10 +142,11 @@ module X86-INSTRUCTIONS-SEMANTICS
         
 
 def regenerate_semantics(inums):
+    assert len(inums) > 0
     delete_old_instructions()
-    needed_names = get_instructions_from_inums(inums)
-    available_names = find_instructions()
-    full_names = match_names(needed_names, available_names)
+    full_names = get_instructions_from_inums(inums)
+    print(full_names)
+    assert len(full_names) > 0
     copy_instructions(full_names) # This step is actually not necessary (we create the single file definition without using the copied files), but it's useful for debugging.
     make_single_file_definition(full_names)
 
