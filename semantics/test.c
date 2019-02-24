@@ -1,30 +1,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+size_t fib(const int n) {
+    if (n == 0) {
+        return 0;
+    } else if (n == 1) {
+        return 1;
+    } else {
+        size_t nums[n + 1];
+        nums[0] = 0;
+        nums[1] = 1;
+        for (int i = 2; i <= n; ++i) {
+            nums[i] = nums[i - 1] + nums[i - 2];
+        }
+        return nums[n];
+    }
+}
+
+const int elems[] = {0, 1, 5, 10, 20, 40};
+
 int main() {
-    const int sz = 5;
-    int * a = (int*)malloc(sz*sizeof(int));
-    for (int i = 0; i < sz; ++i) {
-        a[i] = i;
+    for (int i = 0; i < sizeof(elems) / sizeof(int); ++i) {
+        printf("%d: %lu\n", elems[i], fib(elems[i]));
     }
-    int * b = (int*)malloc(sz*sizeof(int));
-    for (int i = 0; i < sz; ++i) {
-        b[i] = i;
-    }
-    for (int i = 0; i < sz; ++i) {
-        printf("%d\n", a[i]);
-    }
-    for (int i = 0; i < sz; ++i) {
-        printf("%d\n", b[i]);
-    }
-    free(a);
-    a = (int*)malloc(2*sz*sizeof(int));
-    for (int i = 0; i < 2*sz; ++i) {
-        a[i] = 10*i;
-    }
-    for (int i = 0; i < sz; ++i) {
-        printf("%d\n", a[i]);
-    }
-    free(a);
-    free(b);
 }

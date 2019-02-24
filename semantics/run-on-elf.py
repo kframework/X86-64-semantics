@@ -171,7 +171,7 @@ def invoke_kompile(backend):
 
 
 def invoke_krun(elf_file, extra_args):
-    command = ["time", "krun", "--parser", parser_script, elf_file]
+    command = ["time", "krun", "-o", "none", "--parser", parser_script, elf_file]
     command.extend(extra_args)
     krun_process = subprocess.Popen(command, stdin=sys.stdin, stdout=sys.stdout, stderr=sys.stderr, cwd=definition_directory)
     await_process_or_interrupt("KRun", krun_process)
