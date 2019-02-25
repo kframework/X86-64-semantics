@@ -5,13 +5,14 @@ module PINSRQ-XMM-R64-IMM8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (pinsrq Imm8:Imm, R2:R64, R3:Xmm  .Operands) => .
+    execinstr (pinsrq Imm8:MInt, R2:R64, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), orMInt( andMInt( extractMInt( getParentValue(R3, RSMap), 128, 256), negMInt( shiftLeftMInt( mi(128, 18446744073709551615), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(127, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 7, 8)), uvalueMInt(mi(128, 6))))))), andMInt( shiftLeftMInt( concatenateMInt( mi(64, 0), getParentValue(R2, RSMap)), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(127, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 7, 8)), uvalueMInt(mi(128, 6))))), shiftLeftMInt( mi(128, 18446744073709551615), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(127, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 7, 8)), uvalueMInt(mi(128, 6))))))))
+convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), orMInt( andMInt( extractMInt( getParentValue(R3, RSMap), 128, 256), negMInt( shiftLeftMInt( mi(128, 18446744073709551615), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(127, 0), extractMInt( Imm8, 7, 8)), uvalueMInt(mi(128, 6))))))), andMInt( shiftLeftMInt( concatenateMInt( mi(64, 0), getParentValue(R2, RSMap)), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(127, 0), extractMInt( Imm8, 7, 8)), uvalueMInt(mi(128, 6))))), shiftLeftMInt( mi(128, 18446744073709551615), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(127, 0), extractMInt( Imm8, 7, 8)), uvalueMInt(mi(128, 6))))))))
 )
 
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
     
 endmodule

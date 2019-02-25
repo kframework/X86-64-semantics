@@ -5,14 +5,15 @@ module VCMPSS-XMM-XMM-XMM-IMM8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (vcmpss Imm8:Imm, R2:Xmm, R3:Xmm, R4:Xmm,  .Operands) => .
+    execinstr (vcmpss Imm8:MInt, R2:Xmm, R3:Xmm, R4:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R4) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt( getParentValue(R3, RSMap), 128, 224), (#ifMInt eqMInt( cmp_single_pred(extractMInt( getParentValue(R3, RSMap), 224, 256), extractMInt( getParentValue(R2, RSMap), 224, 256), handleImmediateWithSignExtend(Imm8, 8, 8)), mi(1, 1)) #then mi(32, 4294967295) #else mi(32, 0) #fi)))
+convToRegKeys(R4) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt( getParentValue(R3, RSMap), 128, 224), (#ifMInt eqMInt( cmp_single_pred(extractMInt( getParentValue(R3, RSMap), 224, 256), extractMInt( getParentValue(R2, RSMap), 224, 256), Imm8), mi(1, 1)) #then mi(32, 4294967295) #else mi(32, 0) #fi)))
 )
 
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
     
 endmodule
 

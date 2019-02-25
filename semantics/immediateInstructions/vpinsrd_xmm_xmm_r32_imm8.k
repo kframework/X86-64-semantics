@@ -5,14 +5,15 @@ module VPINSRD-XMM-XMM-R32-IMM8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (vpinsrd Imm8:Imm, R2:R32, R3:Xmm, R4:Xmm,  .Operands) => .
+    execinstr (vpinsrd Imm8:MInt, R2:R32, R3:Xmm, R4:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R4) |-> concatenateMInt( mi(128, 0), orMInt( andMInt( extractMInt( getParentValue(R3, RSMap), 128, 256), negMInt( shiftLeftMInt( mi(128, 4294967295), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(126, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 6, 8)), uvalueMInt(mi(128, 5))))))), andMInt( shiftLeftMInt( concatenateMInt( mi(96, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(126, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 6, 8)), uvalueMInt(mi(128, 5))))), shiftLeftMInt( mi(128, 4294967295), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(126, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 6, 8)), uvalueMInt(mi(128, 5))))))))
+convToRegKeys(R4) |-> concatenateMInt( mi(128, 0), orMInt( andMInt( extractMInt( getParentValue(R3, RSMap), 128, 256), negMInt( shiftLeftMInt( mi(128, 4294967295), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(126, 0), extractMInt( Imm8, 6, 8)), uvalueMInt(mi(128, 5))))))), andMInt( shiftLeftMInt( concatenateMInt( mi(96, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(126, 0), extractMInt( Imm8, 6, 8)), uvalueMInt(mi(128, 5))))), shiftLeftMInt( mi(128, 4294967295), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(126, 0), extractMInt( Imm8, 6, 8)), uvalueMInt(mi(128, 5))))))))
 )
 
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
     
 endmodule
 

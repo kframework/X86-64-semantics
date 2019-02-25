@@ -4,22 +4,24 @@ requires "x86-configuration.k"
 module DPPD-XMM-M128-IMM8
   imports X86-CONFIGURATION
 
-  context execinstr(dppd:Opcode Imm8:Imm, HOLE:Mem, R3:Xmm,  .Operands) [result(MemOffset)]
+  context execinstr(dppd:Opcode Imm8:MInt, HOLE:Mem, R3:Xmm,  .Operands) [result(MemOffset)]
   
   rule <k>
-    execinstr (dppd:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm,  .Operands) =>
+    execinstr (dppd:Opcode Imm8:MInt, memOffset( MemOff:MInt):MemOffset, R3:Xmm,  .Operands) =>
       loadFromMemory( MemOff, 128) ~>
       execinstr (dppd Imm8, memOffset( MemOff), R3:Xmm,  .Operands)
   ...</k>
     <regstate> RSMap:Map </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
           
   rule <k>
-    memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (dppd:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm,  .Operands) =>
+    memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (dppd:Opcode Imm8:MInt, memOffset( MemOff:MInt):MemOffset, R3:Xmm,  .Operands) =>
       .
   ...</k>
     <regstate>
       RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( extractMInt( getParentValue(R3, RSMap), 0, 128), concatenateMInt( (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 6, 7), mi(1, 1)) #then add_double((#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 3, 4), mi(1, 1)) #then mul_double(extractMInt( getParentValue(R3, RSMap), 192, 256), extractMInt( Mem128, 64, 128)) #else mi(64, 0) #fi), (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 2, 3), mi(1, 1)) #then mul_double(extractMInt( getParentValue(R3, RSMap), 128, 192), extractMInt( Mem128, 0, 64)) #else mi(64, 0) #fi)) #else mi(64, 0) #fi), (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 7, 8), mi(1, 1)) #then add_double((#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 3, 4), mi(1, 1)) #then mul_double(extractMInt( getParentValue(R3, RSMap), 192, 256), extractMInt( Mem128, 64, 128)) #else mi(64, 0) #fi), (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 2, 3), mi(1, 1)) #then mul_double(extractMInt( getParentValue(R3, RSMap), 128, 192), extractMInt( Mem128, 0, 64)) #else mi(64, 0) #fi)) #else mi(64, 0) #fi)))
+convToRegKeys(R3) |-> concatenateMInt( extractMInt( getParentValue(R3, RSMap), 0, 128), concatenateMInt( (#ifMInt eqMInt( extractMInt( Imm8, 6, 7), mi(1, 1)) #then add_double((#ifMInt eqMInt( extractMInt( Imm8, 3, 4), mi(1, 1)) #then mul_double(extractMInt( getParentValue(R3, RSMap), 192, 256), extractMInt( Mem128, 64, 128)) #else mi(64, 0) #fi), (#ifMInt eqMInt( extractMInt( Imm8, 2, 3), mi(1, 1)) #then mul_double(extractMInt( getParentValue(R3, RSMap), 128, 192), extractMInt( Mem128, 0, 64)) #else mi(64, 0) #fi)) #else mi(64, 0) #fi), (#ifMInt eqMInt( extractMInt( Imm8, 7, 8), mi(1, 1)) #then add_double((#ifMInt eqMInt( extractMInt( Imm8, 3, 4), mi(1, 1)) #then mul_double(extractMInt( getParentValue(R3, RSMap), 192, 256), extractMInt( Mem128, 64, 128)) #else mi(64, 0) #fi), (#ifMInt eqMInt( extractMInt( Imm8, 2, 3), mi(1, 1)) #then mul_double(extractMInt( getParentValue(R3, RSMap), 128, 192), extractMInt( Mem128, 0, 64)) #else mi(64, 0) #fi)) #else mi(64, 0) #fi)))
       )
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
 endmodule

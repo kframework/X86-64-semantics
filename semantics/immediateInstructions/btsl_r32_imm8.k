@@ -5,13 +5,13 @@ module BTSL-R32-IMM8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (btsl Imm8:Imm, R2:R32,  .Operands) => .
+    execinstr (btsl Imm8:MInt, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), orMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), shiftLeftMInt( mi(32, 1), uvalueMInt(mi(32, svalueMInt(andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31))))))))
+convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), orMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), shiftLeftMInt( mi(32, 1), uvalueMInt(mi(32, svalueMInt(andMInt( Imm8, mi(8, 31))))))))
 
-"CF" |-> extractMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), uvalueMInt(mi(32, svalueMInt(andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)))))), 31, 32)
+"CF" |-> extractMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), uvalueMInt(mi(32, svalueMInt(andMInt( Imm8, mi(8, 31)))))), 31, 32)
 
 "PF" |-> (undefMInt)
 
@@ -23,6 +23,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), orMInt( extractMInt( getParent
 )
 
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
     
 endmodule
 

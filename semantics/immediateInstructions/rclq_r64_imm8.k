@@ -5,18 +5,19 @@ module RCLQ-R64-IMM8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (rclq Imm8:Imm, R2:R64,  .Operands) => .
+    execinstr (rclq Imm8:MInt, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), getParentValue(R2, RSMap)), uremMInt( concatenateMInt( mi(57, 0), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 63))), mi(65, 65))), 1, 65)
+convToRegKeys(R2) |-> extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), getParentValue(R2, RSMap)), uremMInt( concatenateMInt( mi(57, 0), andMInt( Imm8, mi(8, 63))), mi(65, 65))), 1, 65)
 
-"CF" |-> extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), getParentValue(R2, RSMap)), uremMInt( concatenateMInt( mi(57, 0), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 63))), mi(65, 65))), 0, 1)
+"CF" |-> extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), getParentValue(R2, RSMap)), uremMInt( concatenateMInt( mi(57, 0), andMInt( Imm8, mi(8, 63))), mi(65, 65))), 0, 1)
 
-"OF" |-> (#ifMInt ((eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 63))), mi(65, 65)), 57, 65), mi(8, 1)) andBool (eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), getParentValue(R2, RSMap)), uremMInt( concatenateMInt( mi(57, 0), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 63))), mi(65, 65))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), getParentValue(R2, RSMap)), uremMInt( concatenateMInt( mi(57, 0), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 63))), mi(65, 65))), 1, 2), mi(1, 1)))) orBool ((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 63))), mi(65, 65)), 57, 65), mi(8, 1))) andBool (((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 63))), mi(65, 65)), 57, 65), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 63))), mi(65, 65)), 57, 65), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), andMInt( Imm8, mi(8, 63))), mi(65, 65)), 57, 65), mi(8, 1)) andBool (eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), getParentValue(R2, RSMap)), uremMInt( concatenateMInt( mi(57, 0), andMInt( Imm8, mi(8, 63))), mi(65, 65))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), getParentValue(R2, RSMap)), uremMInt( concatenateMInt( mi(57, 0), andMInt( Imm8, mi(8, 63))), mi(65, 65))), 1, 2), mi(1, 1)))) orBool ((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), andMInt( Imm8, mi(8, 63))), mi(65, 65)), 57, 65), mi(8, 1))) andBool (((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), andMInt( Imm8, mi(8, 63))), mi(65, 65)), 57, 65), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), andMInt( Imm8, mi(8, 63))), mi(65, 65)), 57, 65), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
     
 endmodule
 

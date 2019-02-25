@@ -5,14 +5,15 @@ module MOVL-R32-IMM32
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (movl Imm32:Imm, R2:R32,  .Operands) => .
+    execinstr (movl Imm32:MInt, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), handleImmediateWithSignExtend(Imm32, 32, 32))
+convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), Imm32)
 )
 
     </regstate>
+      requires bitwidthMInt(Imm32) ==Int 32
     
 endmodule
 

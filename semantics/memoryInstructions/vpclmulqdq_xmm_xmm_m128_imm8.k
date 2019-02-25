@@ -25,15 +25,14 @@ module VPCLMULQDQ-XMM-XMM-M128-IMM8
   */   
   rule <k>
     memLoadValue(MemVal:MInt):MemLoadValue ~>
-    execinstr (vpclmulqdq Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm, R4:Xmm, .Operands) => 
+    execinstr (vpclmulqdq Imm8:MInt, memOffset( MemOff:MInt):MemOffset, R3:Xmm, R4:Xmm, .Operands) => 
       execinstr(vpclmulqdq 
-          selectSlice(getRegisterValue(R3, RSMap), handleImmediateWithSignExtend(Imm8,
-              8, 8), 7, 64, 0),
-          selectSlice(MemVal, handleImmediateWithSignExtend(Imm8,
-              8, 8), 3, 64, 0), R4
+          selectSlice(getRegisterValue(R3, RSMap), Imm8, 7, 64, 0),
+          selectSlice(MemVal,                      Imm8, 3, 64, 0), R4
           , .Operands)
   ...</k>
     <regstate> RSMap </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
 
   rule <k>
     execinstr (vpclmulqdq TEMP1:MInt, TEMP2:MInt, R4:Xmm,   .Operands) => 

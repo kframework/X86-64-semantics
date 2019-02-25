@@ -4,22 +4,24 @@ requires "x86-configuration.k"
 module VCMPPD-YMM-YMM-M256-IMM8
   imports X86-CONFIGURATION
 
-  context execinstr(vcmppd:Opcode Imm8:Imm, HOLE:Mem, R3:Ymm, R4:Ymm,  .Operands) [result(MemOffset)]
+  context execinstr(vcmppd:Opcode Imm8:MInt, HOLE:Mem, R3:Ymm, R4:Ymm,  .Operands) [result(MemOffset)]
   
   rule <k>
-    execinstr (vcmppd:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Ymm, R4:Ymm,  .Operands) =>
+    execinstr (vcmppd:Opcode Imm8:MInt, memOffset( MemOff:MInt):MemOffset, R3:Ymm, R4:Ymm,  .Operands) =>
       loadFromMemory( MemOff, 256) ~>
       execinstr (vcmppd Imm8, memOffset( MemOff), R3:Ymm, R4:Ymm,  .Operands)
   ...</k>
     <regstate> RSMap:Map </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
           
   rule <k>
-    memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vcmppd:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Ymm, R4:Ymm,  .Operands) =>
+    memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vcmppd:Opcode Imm8:MInt, memOffset( MemOff:MInt):MemOffset, R3:Ymm, R4:Ymm,  .Operands) =>
       .
   ...</k>
     <regstate>
       RSMap:Map => updateMap(RSMap,
-convToRegKeys(R4) |-> concatenateMInt( (#ifMInt eqMInt( cmp_double_pred(extractMInt( getParentValue(R3, RSMap), 0, 64), extractMInt( Mem256, 0, 64), handleImmediateWithSignExtend(Imm8, 8, 8)), mi(1, 1)) #then mi(64, 18446744073709551615) #else mi(64, 0) #fi), concatenateMInt( (#ifMInt eqMInt( cmp_double_pred(extractMInt( getParentValue(R3, RSMap), 64, 128), extractMInt( Mem256, 64, 128), handleImmediateWithSignExtend(Imm8, 8, 8)), mi(1, 1)) #then mi(64, 18446744073709551615) #else mi(64, 0) #fi), concatenateMInt( (#ifMInt eqMInt( cmp_double_pred(extractMInt( getParentValue(R3, RSMap), 128, 192), extractMInt( Mem256, 128, 192), handleImmediateWithSignExtend(Imm8, 8, 8)), mi(1, 1)) #then mi(64, 18446744073709551615) #else mi(64, 0) #fi), (#ifMInt eqMInt( cmp_double_pred(extractMInt( getParentValue(R3, RSMap), 192, 256), extractMInt( Mem256, 192, 256), handleImmediateWithSignExtend(Imm8, 8, 8)), mi(1, 1)) #then mi(64, 18446744073709551615) #else mi(64, 0) #fi))))
+convToRegKeys(R4) |-> concatenateMInt( (#ifMInt eqMInt( cmp_double_pred(extractMInt( getParentValue(R3, RSMap), 0, 64), extractMInt( Mem256, 0, 64), Imm8), mi(1, 1)) #then mi(64, 18446744073709551615) #else mi(64, 0) #fi), concatenateMInt( (#ifMInt eqMInt( cmp_double_pred(extractMInt( getParentValue(R3, RSMap), 64, 128), extractMInt( Mem256, 64, 128), Imm8), mi(1, 1)) #then mi(64, 18446744073709551615) #else mi(64, 0) #fi), concatenateMInt( (#ifMInt eqMInt( cmp_double_pred(extractMInt( getParentValue(R3, RSMap), 128, 192), extractMInt( Mem256, 128, 192), Imm8), mi(1, 1)) #then mi(64, 18446744073709551615) #else mi(64, 0) #fi), (#ifMInt eqMInt( cmp_double_pred(extractMInt( getParentValue(R3, RSMap), 192, 256), extractMInt( Mem256, 192, 256), Imm8), mi(1, 1)) #then mi(64, 18446744073709551615) #else mi(64, 0) #fi))))
       )
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
 endmodule

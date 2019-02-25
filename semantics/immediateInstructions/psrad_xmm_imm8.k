@@ -5,14 +5,15 @@ module PSRAD-XMM-IMM8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (psrad Imm8:Imm, R2:Xmm,  .Operands) => .
+    execinstr (psrad Imm8:MInt, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 128), concatenateMInt( aShiftRightMInt( extractMInt( getParentValue(R2, RSMap), 128, 160), uvalueMInt((#ifMInt ugtMInt( concatenateMInt( mi(56, 0), handleImmediateWithSignExtend(Imm8, 8, 8)), mi(64, 31)) #then mi(32, 32) #else concatenateMInt( mi(24, 0), handleImmediateWithSignExtend(Imm8, 8, 8)) #fi))), concatenateMInt( aShiftRightMInt( extractMInt( getParentValue(R2, RSMap), 160, 192), uvalueMInt((#ifMInt ugtMInt( concatenateMInt( mi(56, 0), handleImmediateWithSignExtend(Imm8, 8, 8)), mi(64, 31)) #then mi(32, 32) #else concatenateMInt( mi(24, 0), handleImmediateWithSignExtend(Imm8, 8, 8)) #fi))), concatenateMInt( aShiftRightMInt( extractMInt( getParentValue(R2, RSMap), 192, 224), uvalueMInt((#ifMInt ugtMInt( concatenateMInt( mi(56, 0), handleImmediateWithSignExtend(Imm8, 8, 8)), mi(64, 31)) #then mi(32, 32) #else concatenateMInt( mi(24, 0), handleImmediateWithSignExtend(Imm8, 8, 8)) #fi))), aShiftRightMInt( extractMInt( getParentValue(R2, RSMap), 224, 256), uvalueMInt((#ifMInt ugtMInt( concatenateMInt( mi(56, 0), handleImmediateWithSignExtend(Imm8, 8, 8)), mi(64, 31)) #then mi(32, 32) #else concatenateMInt( mi(24, 0), handleImmediateWithSignExtend(Imm8, 8, 8)) #fi)))))))
+convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 128), concatenateMInt( aShiftRightMInt( extractMInt( getParentValue(R2, RSMap), 128, 160), uvalueMInt((#ifMInt ugtMInt( concatenateMInt( mi(56, 0), Imm8), mi(64, 31)) #then mi(32, 32) #else concatenateMInt( mi(24, 0), Imm8) #fi))), concatenateMInt( aShiftRightMInt( extractMInt( getParentValue(R2, RSMap), 160, 192), uvalueMInt((#ifMInt ugtMInt( concatenateMInt( mi(56, 0), Imm8), mi(64, 31)) #then mi(32, 32) #else concatenateMInt( mi(24, 0), Imm8) #fi))), concatenateMInt( aShiftRightMInt( extractMInt( getParentValue(R2, RSMap), 192, 224), uvalueMInt((#ifMInt ugtMInt( concatenateMInt( mi(56, 0), Imm8), mi(64, 31)) #then mi(32, 32) #else concatenateMInt( mi(24, 0), Imm8) #fi))), aShiftRightMInt( extractMInt( getParentValue(R2, RSMap), 224, 256), uvalueMInt((#ifMInt ugtMInt( concatenateMInt( mi(56, 0), Imm8), mi(64, 31)) #then mi(32, 32) #else concatenateMInt( mi(24, 0), Imm8) #fi)))))))
 )
 
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
     
 endmodule
 

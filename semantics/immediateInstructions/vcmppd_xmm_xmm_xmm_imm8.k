@@ -5,14 +5,15 @@ module VCMPPD-XMM-XMM-XMM-IMM8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (vcmppd Imm8:Imm, R2:Xmm, R3:Xmm, R4:Xmm,  .Operands) => .
+    execinstr (vcmppd Imm8:MInt, R2:Xmm, R3:Xmm, R4:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R4) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt eqMInt( cmp_double_pred(extractMInt( getParentValue(R3, RSMap), 128, 192), extractMInt( getParentValue(R2, RSMap), 128, 192), handleImmediateWithSignExtend(Imm8, 8, 8)), mi(1, 1)) #then mi(64, 18446744073709551615) #else mi(64, 0) #fi), (#ifMInt eqMInt( cmp_double_pred(extractMInt( getParentValue(R3, RSMap), 192, 256), extractMInt( getParentValue(R2, RSMap), 192, 256), handleImmediateWithSignExtend(Imm8, 8, 8)), mi(1, 1)) #then mi(64, 18446744073709551615) #else mi(64, 0) #fi)))
+convToRegKeys(R4) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt eqMInt( cmp_double_pred(extractMInt( getParentValue(R3, RSMap), 128, 192), extractMInt( getParentValue(R2, RSMap), 128, 192), Imm8), mi(1, 1)) #then mi(64, 18446744073709551615) #else mi(64, 0) #fi), (#ifMInt eqMInt( cmp_double_pred(extractMInt( getParentValue(R3, RSMap), 192, 256), extractMInt( getParentValue(R2, RSMap), 192, 256), Imm8), mi(1, 1)) #then mi(64, 18446744073709551615) #else mi(64, 0) #fi)))
 )
 
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
     
 endmodule
 

@@ -4,22 +4,24 @@ requires "x86-configuration.k"
 module ROUNDSD-XMM-M64-IMM8
   imports X86-CONFIGURATION
 
-  context execinstr(roundsd:Opcode Imm8:Imm, HOLE:Mem, R3:Xmm,  .Operands) [result(MemOffset)]
+  context execinstr(roundsd:Opcode Imm8:MInt, HOLE:Mem, R3:Xmm,  .Operands) [result(MemOffset)]
   
   rule <k>
-    execinstr (roundsd:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm,  .Operands) =>
+    execinstr (roundsd:Opcode Imm8:MInt, memOffset( MemOff:MInt):MemOffset, R3:Xmm,  .Operands) =>
       loadFromMemory( MemOff, 64) ~>
       execinstr (roundsd Imm8, memOffset( MemOff), R3:Xmm,  .Operands)
   ...</k>
     <regstate> RSMap:Map </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
           
   rule <k>
-    memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (roundsd:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm,  .Operands) =>
+    memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (roundsd:Opcode Imm8:MInt, memOffset( MemOff:MInt):MemOffset, R3:Xmm,  .Operands) =>
       .
   ...</k>
     <regstate>
       RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( extractMInt( getParentValue(R3, RSMap), 0, 192), cvt_double_to_int64_rm(Mem64, handleImmediateWithSignExtend(Imm8, 8, 8)))
+convToRegKeys(R3) |-> concatenateMInt( extractMInt( getParentValue(R3, RSMap), 0, 192), cvt_double_to_int64_rm(Mem64, Imm8))
       )
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
 endmodule

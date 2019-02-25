@@ -5,13 +5,13 @@ module BTCQ-R64-IMM8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (btcq Imm8:Imm, R2:R64,  .Operands) => .
+    execinstr (btcq Imm8:MInt, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> xorMInt( getParentValue(R2, RSMap), shiftLeftMInt( mi(64, 1), uvalueMInt(mi(64, svalueMInt(andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 63)))))))
+convToRegKeys(R2) |-> xorMInt( getParentValue(R2, RSMap), shiftLeftMInt( mi(64, 1), uvalueMInt(mi(64, svalueMInt(andMInt( Imm8, mi(8, 63)))))))
 
-"CF" |-> extractMInt( lshrMInt( getParentValue(R2, RSMap), uvalueMInt(mi(64, svalueMInt(andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 63)))))), 63, 64)
+"CF" |-> extractMInt( lshrMInt( getParentValue(R2, RSMap), uvalueMInt(mi(64, svalueMInt(andMInt( Imm8, mi(8, 63)))))), 63, 64)
 
 "PF" |-> (undefMInt)
 
@@ -23,6 +23,7 @@ convToRegKeys(R2) |-> xorMInt( getParentValue(R2, RSMap), shiftLeftMInt( mi(64, 
 )
 
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
     
 endmodule
 

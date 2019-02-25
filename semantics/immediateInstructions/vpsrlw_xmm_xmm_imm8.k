@@ -5,14 +5,15 @@ module VPSRLW-XMM-XMM-IMM8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (vpsrlw Imm8:Imm, R2:Xmm, R3:Xmm,  .Operands) => .
+    execinstr (vpsrlw Imm8:MInt, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> (#ifMInt ugtMInt( concatenateMInt( mi(56, 0), handleImmediateWithSignExtend(Imm8, 8, 8)), mi(64, 15)) #then concatenateMInt( mi(128, 0), mi(128, 0)) #else concatenateMInt( mi(128, 0), concatenateMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 128, 144), uvalueMInt(concatenateMInt( mi(8, 0), handleImmediateWithSignExtend(Imm8, 8, 8)))), concatenateMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 144, 160), uvalueMInt(concatenateMInt( mi(8, 0), handleImmediateWithSignExtend(Imm8, 8, 8)))), concatenateMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 160, 176), uvalueMInt(concatenateMInt( mi(8, 0), handleImmediateWithSignExtend(Imm8, 8, 8)))), concatenateMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 176, 192), uvalueMInt(concatenateMInt( mi(8, 0), handleImmediateWithSignExtend(Imm8, 8, 8)))), concatenateMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 192, 208), uvalueMInt(concatenateMInt( mi(8, 0), handleImmediateWithSignExtend(Imm8, 8, 8)))), concatenateMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 208, 224), uvalueMInt(concatenateMInt( mi(8, 0), handleImmediateWithSignExtend(Imm8, 8, 8)))), concatenateMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 224, 240), uvalueMInt(concatenateMInt( mi(8, 0), handleImmediateWithSignExtend(Imm8, 8, 8)))), lshrMInt( extractMInt( getParentValue(R2, RSMap), 240, 256), uvalueMInt(concatenateMInt( mi(8, 0), handleImmediateWithSignExtend(Imm8, 8, 8)))))))))))) #fi)
+convToRegKeys(R3) |-> (#ifMInt ugtMInt( concatenateMInt( mi(56, 0), Imm8), mi(64, 15)) #then concatenateMInt( mi(128, 0), mi(128, 0)) #else concatenateMInt( mi(128, 0), concatenateMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 128, 144), uvalueMInt(concatenateMInt( mi(8, 0), Imm8))), concatenateMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 144, 160), uvalueMInt(concatenateMInt( mi(8, 0), Imm8))), concatenateMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 160, 176), uvalueMInt(concatenateMInt( mi(8, 0), Imm8))), concatenateMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 176, 192), uvalueMInt(concatenateMInt( mi(8, 0), Imm8))), concatenateMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 192, 208), uvalueMInt(concatenateMInt( mi(8, 0), Imm8))), concatenateMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 208, 224), uvalueMInt(concatenateMInt( mi(8, 0), Imm8))), concatenateMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 224, 240), uvalueMInt(concatenateMInt( mi(8, 0), Imm8))), lshrMInt( extractMInt( getParentValue(R2, RSMap), 240, 256), uvalueMInt(concatenateMInt( mi(8, 0), Imm8))))))))))) #fi)
 )
 
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
     
 endmodule
 

@@ -4,24 +4,25 @@ requires "x86-configuration.k"
 module IMULW-R16-M16-IMM8
   imports X86-CONFIGURATION
 
-  context execinstr(imulw:Opcode Imm8:Imm, HOLE:Mem, R3:R16,  .Operands) [result(MemOffset)]
+  context execinstr(imulw:Opcode Imm8:MInt, HOLE:Mem, R3:R16,  .Operands) [result(MemOffset)]
   
   rule <k>
-    execinstr (imulw:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:R16,  .Operands) =>
+    execinstr (imulw:Opcode Imm8:MInt, memOffset( MemOff:MInt):MemOffset, R3:R16,  .Operands) =>
       loadFromMemory( MemOff, 16) ~>
       execinstr (imulw Imm8, memOffset( MemOff), R3,  .Operands)
   ...</k>
     <regstate> RSMap:Map </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
           
   rule <k>
-    memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (imulw:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:R16,  .Operands) =>
+    memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (imulw:Opcode Imm8:MInt, memOffset( MemOff:MInt):MemOffset, R3:R16,  .Operands) =>
       .
   ...</k>
     <regstate>
       RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( extractMInt( getParentValue(R3, RSMap), 0, 48), extractMInt( mulMInt( mi(32, svalueMInt(Mem16)), mi(32, svalueMInt(handleImmediateWithSignExtend(Imm8, 8, 8)))), 16, 32))
+convToRegKeys(R3) |-> concatenateMInt( extractMInt( getParentValue(R3, RSMap), 0, 48), extractMInt( mulMInt( mi(32, svalueMInt(Mem16)), mi(32, svalueMInt(Imm8))), 16, 32))
 
-"CF" |-> (#ifMInt (notBool eqMInt( mulMInt( mi(32, svalueMInt(Mem16)), mi(32, svalueMInt(handleImmediateWithSignExtend(Imm8, 8, 8)))), mi(32, svalueMInt(extractMInt( mulMInt( mi(32, svalueMInt(Mem16)), mi(32, svalueMInt(handleImmediateWithSignExtend(Imm8, 8, 8)))), 16, 32))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"CF" |-> (#ifMInt (notBool eqMInt( mulMInt( mi(32, svalueMInt(Mem16)), mi(32, svalueMInt(Imm8))), mi(32, svalueMInt(extractMInt( mulMInt( mi(32, svalueMInt(Mem16)), mi(32, svalueMInt(Imm8))), 16, 32))))) #then mi(1, 1) #else mi(1, 0) #fi)
 
 "PF" |-> (undefMInt)
 
@@ -31,7 +32,8 @@ convToRegKeys(R3) |-> concatenateMInt( extractMInt( getParentValue(R3, RSMap), 0
 
 "SF" |-> (undefMInt)
 
-"OF" |-> (#ifMInt (notBool eqMInt( mulMInt( mi(32, svalueMInt(Mem16)), mi(32, svalueMInt(handleImmediateWithSignExtend(Imm8, 8, 8)))), mi(32, svalueMInt(extractMInt( mulMInt( mi(32, svalueMInt(Mem16)), mi(32, svalueMInt(handleImmediateWithSignExtend(Imm8, 8, 8)))), 16, 32))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt (notBool eqMInt( mulMInt( mi(32, svalueMInt(Mem16)), mi(32, svalueMInt(Imm8))), mi(32, svalueMInt(extractMInt( mulMInt( mi(32, svalueMInt(Mem16)), mi(32, svalueMInt(Imm8))), 16, 32))))) #then mi(1, 1) #else mi(1, 0) #fi)
       )
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
 endmodule

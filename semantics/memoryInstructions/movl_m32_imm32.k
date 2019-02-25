@@ -4,17 +4,18 @@ requires "x86-configuration.k"
 module MOVL-M32-IMM32
   imports X86-CONFIGURATION
 
-  context execinstr(movl:Opcode Imm32:Imm, HOLE:Mem,  .Operands) [result(MemOffset)]
+  context execinstr(movl:Opcode Imm32:MInt, HOLE:Mem,  .Operands) [result(MemOffset)]
   
   rule <k>
-     execinstr (movl:Opcode Imm32:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+     execinstr (movl:Opcode Imm32:MInt, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       
             storeToMemory(
-              handleImmediateWithSignExtend(Imm32, 32, 32),
+              Imm32,
               MemOff,
               32
             )
           
   ...</k>
     <regstate> RSMap:Map </regstate>
+      requires bitwidthMInt(Imm32) ==Int 32
 endmodule

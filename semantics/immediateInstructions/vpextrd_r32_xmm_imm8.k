@@ -5,14 +5,15 @@ module VPEXTRD-R32-XMM-IMM8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (vpextrd Imm8:Imm, R2:Xmm, R3:R32,  .Operands) => .
+    execinstr (vpextrd Imm8:MInt, R2:Xmm, R3:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( mi(32, 0), extractMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 128, 256), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(126, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 6, 8)), uvalueMInt(mi(128, 5))))), 96, 128))
+convToRegKeys(R3) |-> concatenateMInt( mi(32, 0), extractMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 128, 256), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(126, 0), extractMInt( Imm8, 6, 8)), uvalueMInt(mi(128, 5))))), 96, 128))
 )
 
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
     
 endmodule
 

@@ -4,20 +4,21 @@ requires "x86-configuration.k"
 module SARW-M16-IMM8
   imports X86-CONFIGURATION
 
-  context execinstr(sarw:Opcode Imm8:Imm, HOLE:Mem,  .Operands) [result(MemOffset)]
+  context execinstr(sarw:Opcode Imm8:MInt, HOLE:Mem,  .Operands) [result(MemOffset)]
   
   rule <k>
-    execinstr (sarw:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+    execinstr (sarw:Opcode Imm8:MInt, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       loadFromMemory( MemOff, 16) ~>
       execinstr (sarw Imm8, memOffset( MemOff),  .Operands)
   ...</k>
     <regstate> RSMap:Map </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
           
   rule <k>
-    memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (sarw:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+    memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (sarw:Opcode Imm8:MInt, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       
             storeToMemory(
-              extractMInt( aShiftRightMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(concatenateMInt( mi(9, 0), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31))))), 0, 16),
+              extractMInt( aShiftRightMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(concatenateMInt( mi(9, 0), andMInt( Imm8, mi(8, 31))))), 0, 16),
               MemOff,
               16
             )
@@ -25,17 +26,18 @@ module SARW-M16-IMM8
   ...</k>
     <regstate>
       RSMap:Map => updateMap(RSMap,
-"CF" |-> (#ifMInt (((notBool eqMInt( andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( aShiftRightMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(concatenateMInt( mi(9, 0), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31))))), 16, 17), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"CF" |-> (#ifMInt (((notBool eqMInt( andMInt( Imm8, mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( aShiftRightMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(concatenateMInt( mi(9, 0), andMInt( Imm8, mi(8, 31))))), 16, 17), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( Imm8, mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"PF" |-> (#ifMInt (((notBool eqMInt( andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)), mi(8, 0))) andBool (notBool (((((((eqMInt( extractMInt( aShiftRightMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(concatenateMInt( mi(9, 0), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31))))), 15, 16), mi(1, 1)) xorBool eqMInt( extractMInt( aShiftRightMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(concatenateMInt( mi(9, 0), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31))))), 14, 15), mi(1, 1))) xorBool eqMInt( extractMInt( aShiftRightMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(concatenateMInt( mi(9, 0), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31))))), 13, 14), mi(1, 1))) xorBool eqMInt( extractMInt( aShiftRightMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(concatenateMInt( mi(9, 0), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31))))), 12, 13), mi(1, 1))) xorBool eqMInt( extractMInt( aShiftRightMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(concatenateMInt( mi(9, 0), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31))))), 11, 12), mi(1, 1))) xorBool eqMInt( extractMInt( aShiftRightMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(concatenateMInt( mi(9, 0), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31))))), 10, 11), mi(1, 1))) xorBool eqMInt( extractMInt( aShiftRightMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(concatenateMInt( mi(9, 0), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31))))), 9, 10), mi(1, 1))) xorBool eqMInt( extractMInt( aShiftRightMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(concatenateMInt( mi(9, 0), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31))))), 8, 9), mi(1, 1))))) orBool ((notBool (notBool eqMInt( andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("PF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"PF" |-> (#ifMInt (((notBool eqMInt( andMInt( Imm8, mi(8, 31)), mi(8, 0))) andBool (notBool (((((((eqMInt( extractMInt( aShiftRightMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(concatenateMInt( mi(9, 0), andMInt( Imm8, mi(8, 31))))), 15, 16), mi(1, 1)) xorBool eqMInt( extractMInt( aShiftRightMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(concatenateMInt( mi(9, 0), andMInt( Imm8, mi(8, 31))))), 14, 15), mi(1, 1))) xorBool eqMInt( extractMInt( aShiftRightMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(concatenateMInt( mi(9, 0), andMInt( Imm8, mi(8, 31))))), 13, 14), mi(1, 1))) xorBool eqMInt( extractMInt( aShiftRightMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(concatenateMInt( mi(9, 0), andMInt( Imm8, mi(8, 31))))), 12, 13), mi(1, 1))) xorBool eqMInt( extractMInt( aShiftRightMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(concatenateMInt( mi(9, 0), andMInt( Imm8, mi(8, 31))))), 11, 12), mi(1, 1))) xorBool eqMInt( extractMInt( aShiftRightMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(concatenateMInt( mi(9, 0), andMInt( Imm8, mi(8, 31))))), 10, 11), mi(1, 1))) xorBool eqMInt( extractMInt( aShiftRightMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(concatenateMInt( mi(9, 0), andMInt( Imm8, mi(8, 31))))), 9, 10), mi(1, 1))) xorBool eqMInt( extractMInt( aShiftRightMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(concatenateMInt( mi(9, 0), andMInt( Imm8, mi(8, 31))))), 8, 9), mi(1, 1))))) orBool ((notBool (notBool eqMInt( andMInt( Imm8, mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("PF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"AF" |-> (#ifMInt (((notBool eqMInt( andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("AF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"AF" |-> (#ifMInt (((notBool eqMInt( andMInt( Imm8, mi(8, 31)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( Imm8, mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("AF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"ZF" |-> (#ifMInt (((notBool eqMInt( andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( aShiftRightMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(concatenateMInt( mi(9, 0), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31))))), 0, 16), mi(16, 0))) orBool ((notBool (notBool eqMInt( andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("ZF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"ZF" |-> (#ifMInt (((notBool eqMInt( andMInt( Imm8, mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( aShiftRightMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(concatenateMInt( mi(9, 0), andMInt( Imm8, mi(8, 31))))), 0, 16), mi(16, 0))) orBool ((notBool (notBool eqMInt( andMInt( Imm8, mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("ZF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"SF" |-> (#ifMInt (((notBool eqMInt( andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( aShiftRightMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(concatenateMInt( mi(9, 0), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31))))), 0, 1), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"SF" |-> (#ifMInt (((notBool eqMInt( andMInt( Imm8, mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( aShiftRightMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(concatenateMInt( mi(9, 0), andMInt( Imm8, mi(8, 31))))), 0, 1), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( Imm8, mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((eqMInt( andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)), mi(8, 1)) andBool false) orBool ((notBool eqMInt( andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)), mi(8, 1))) andBool (((notBool eqMInt( andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( andMInt( Imm8, mi(8, 31)), mi(8, 1)) andBool false) orBool ((notBool eqMInt( andMInt( Imm8, mi(8, 31)), mi(8, 1))) andBool (((notBool eqMInt( andMInt( Imm8, mi(8, 31)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( Imm8, mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
       )
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
 endmodule

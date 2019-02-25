@@ -6,15 +6,17 @@ module JNO-REL8
   imports X86-FLAG-CHECS-SYNTAX
 
   rule <k> 
-    execinstr (jno Imm8:Imm, .Operands) => .
+    execinstr (jno Imm8:MInt, .Operands) => .
   ...</k>
-      <regstate> RSMap => updateMap(RSMap, ("RIP" |-> addMInt({RSMap["RIP"]}:>MInt, handleImmediateWithSignExtend(Imm8, 8, 64))))
+      <regstate> RSMap => updateMap(RSMap, ("RIP" |-> addMInt({RSMap["RIP"]}:>MInt, signExtend(Imm8, 64))))
       </regstate>
-        requires eqMInt({RSMap["OF"]}:>MInt, mi(1, 0)) 
+      requires bitwidthMInt(Imm8) ==Int 8 andBool
+         eqMInt({RSMap["OF"]}:>MInt, mi(1, 0)) 
 
   rule <k> 
-    execinstr (jno Imm8:Imm, .Operands) => .
+    execinstr (jno Imm8:MInt, .Operands) => .
   ...</k>
       <regstate> RSMap:Map </regstate> 
-        requires notBool eqMInt({RSMap["OF"]}:>MInt, mi(1, 0))
+      requires bitwidthMInt(Imm8) ==Int 8 andBool
+         notBool eqMInt({RSMap["OF"]}:>MInt, mi(1, 0))
 endmodule

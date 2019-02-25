@@ -4,15 +4,17 @@ module JGE-REL8
   imports X86-FLAG-CHECS-SYNTAX
 
   rule <k> 
-    execinstr (jge Imm8:Imm, .Operands) => .
+    execinstr (jge Imm8:MInt, .Operands) => .
   ...</k>
-      <regstate> RSMap => updateMap(RSMap, ("RIP" |-> addMInt({RSMap["RIP"]}:>MInt, handleImmediateWithSignExtend(Imm8, 8, 64))))
+      <regstate> RSMap => updateMap(RSMap, ("RIP" |-> addMInt({RSMap["RIP"]}:>MInt, signExtend(Imm8, 64))))
       </regstate>
-        requires  eqMInt({RSMap["SF"]}:>MInt, {RSMap["OF"]}:>MInt)
+      requires bitwidthMInt(Imm8) ==Int 8 andBool
+          eqMInt({RSMap["SF"]}:>MInt, {RSMap["OF"]}:>MInt)
 
   rule <k> 
-    execinstr (jge Imm8:Imm, .Operands) => .
+    execinstr (jge Imm8:MInt, .Operands) => .
   ...</k>
       <regstate> RSMap:Map </regstate> 
-        requires  notBool eqMInt({RSMap["SF"]}:>MInt, {RSMap["OF"]}:>MInt)
+      requires bitwidthMInt(Imm8) ==Int 8 andBool
+          notBool eqMInt({RSMap["SF"]}:>MInt, {RSMap["OF"]}:>MInt)
 endmodule

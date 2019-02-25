@@ -59,15 +59,14 @@ module PCLMULQDQ-XMM-M128-IMM8
   */   
   rule <k>
     memLoadValue(MemVal:MInt):MemLoadValue ~>
-    execinstr (pclmulqdq Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm,  .Operands) => 
+    execinstr (pclmulqdq Imm8:MInt, memOffset( MemOff:MInt):MemOffset, R3:Xmm,  .Operands) => 
       execinstr(pclmulqdq 
-          selectSlice(getRegisterValue(R3, RSMap), handleImmediateWithSignExtend(Imm8,
-              8, 8), 7, 64, 0),
-          selectSlice(MemVal, handleImmediateWithSignExtend(Imm8,
-              8, 8), 3, 64, 0), R3
+          selectSlice(getRegisterValue(R3, RSMap), Imm8, 7, 64, 0),
+          selectSlice(MemVal,                      Imm8, 3, 64, 0), R3
           , .Operands)
   ...</k>
     <regstate> RSMap </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
 
   rule <k>
     execinstr (pclmulqdq TEMP1:MInt, TEMP2:MInt, R3:Xmm,   .Operands) => 

@@ -5,26 +5,27 @@ module ORQ-R64-IMM32
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (orq Imm32:Imm, R2:R64,  .Operands) => .
+    execinstr (orq Imm32:MInt, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> orMInt( getParentValue(R2, RSMap), mi(64, svalueMInt(handleImmediateWithSignExtend(Imm32, 32, 32))))
+convToRegKeys(R2) |-> orMInt( getParentValue(R2, RSMap), mi(64, svalueMInt(Imm32)))
 
 "CF" |-> mi(1, 0)
 
-"PF" |-> (#ifMInt (notBool (((((((eqMInt( orMInt( extractMInt( getParentValue(R2, RSMap), 63, 64), extractMInt( handleImmediateWithSignExtend(Imm32, 32, 32), 31, 32)), mi(1, 1)) xorBool eqMInt( orMInt( extractMInt( getParentValue(R2, RSMap), 62, 63), extractMInt( handleImmediateWithSignExtend(Imm32, 32, 32), 30, 31)), mi(1, 1))) xorBool eqMInt( orMInt( extractMInt( getParentValue(R2, RSMap), 61, 62), extractMInt( handleImmediateWithSignExtend(Imm32, 32, 32), 29, 30)), mi(1, 1))) xorBool eqMInt( orMInt( extractMInt( getParentValue(R2, RSMap), 60, 61), extractMInt( handleImmediateWithSignExtend(Imm32, 32, 32), 28, 29)), mi(1, 1))) xorBool eqMInt( orMInt( extractMInt( getParentValue(R2, RSMap), 59, 60), extractMInt( handleImmediateWithSignExtend(Imm32, 32, 32), 27, 28)), mi(1, 1))) xorBool eqMInt( orMInt( extractMInt( getParentValue(R2, RSMap), 58, 59), extractMInt( handleImmediateWithSignExtend(Imm32, 32, 32), 26, 27)), mi(1, 1))) xorBool eqMInt( orMInt( extractMInt( getParentValue(R2, RSMap), 57, 58), extractMInt( handleImmediateWithSignExtend(Imm32, 32, 32), 25, 26)), mi(1, 1))) xorBool eqMInt( orMInt( extractMInt( getParentValue(R2, RSMap), 56, 57), extractMInt( handleImmediateWithSignExtend(Imm32, 32, 32), 24, 25)), mi(1, 1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"PF" |-> (#ifMInt (notBool (((((((eqMInt( orMInt( extractMInt( getParentValue(R2, RSMap), 63, 64), extractMInt( Imm32, 31, 32)), mi(1, 1)) xorBool eqMInt( orMInt( extractMInt( getParentValue(R2, RSMap), 62, 63), extractMInt( Imm32, 30, 31)), mi(1, 1))) xorBool eqMInt( orMInt( extractMInt( getParentValue(R2, RSMap), 61, 62), extractMInt( Imm32, 29, 30)), mi(1, 1))) xorBool eqMInt( orMInt( extractMInt( getParentValue(R2, RSMap), 60, 61), extractMInt( Imm32, 28, 29)), mi(1, 1))) xorBool eqMInt( orMInt( extractMInt( getParentValue(R2, RSMap), 59, 60), extractMInt( Imm32, 27, 28)), mi(1, 1))) xorBool eqMInt( orMInt( extractMInt( getParentValue(R2, RSMap), 58, 59), extractMInt( Imm32, 26, 27)), mi(1, 1))) xorBool eqMInt( orMInt( extractMInt( getParentValue(R2, RSMap), 57, 58), extractMInt( Imm32, 25, 26)), mi(1, 1))) xorBool eqMInt( orMInt( extractMInt( getParentValue(R2, RSMap), 56, 57), extractMInt( Imm32, 24, 25)), mi(1, 1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
 "AF" |-> (undefMInt)
 
-"ZF" |-> (#ifMInt eqMInt( orMInt( getParentValue(R2, RSMap), mi(64, svalueMInt(handleImmediateWithSignExtend(Imm32, 32, 32)))), mi(64, 0)) #then mi(1, 1) #else mi(1, 0) #fi)
+"ZF" |-> (#ifMInt eqMInt( orMInt( getParentValue(R2, RSMap), mi(64, svalueMInt(Imm32))), mi(64, 0)) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"SF" |-> orMInt( extractMInt( getParentValue(R2, RSMap), 0, 1), extractMInt( mi(64, svalueMInt(handleImmediateWithSignExtend(Imm32, 32, 32))), 0, 1))
+"SF" |-> orMInt( extractMInt( getParentValue(R2, RSMap), 0, 1), extractMInt( mi(64, svalueMInt(Imm32)), 0, 1))
 
 "OF" |-> mi(1, 0)
 )
 
     </regstate>
+      requires bitwidthMInt(Imm32) ==Int 32
     
 endmodule
 

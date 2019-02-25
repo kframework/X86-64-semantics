@@ -6,15 +6,17 @@ module JP-REL8
   imports X86-FLAG-CHECS-SYNTAX
 
   rule <k> 
-    execinstr (jp Imm8:Imm, .Operands) => .
+    execinstr (jp Imm8:MInt, .Operands) => .
   ...</k>
-      <regstate> RSMap => updateMap(RSMap, ("RIP" |-> addMInt({RSMap["RIP"]}:>MInt, handleImmediateWithSignExtend(Imm8, 8, 64))))
+      <regstate> RSMap => updateMap(RSMap, ("RIP" |-> addMInt({RSMap["RIP"]}:>MInt, signExtend(Imm8, 64))))
       </regstate>
-        requires  eqMInt({RSMap["PF"]}:>MInt, mi(1, 1))
+      requires bitwidthMInt(Imm8) ==Int 8 andBool
+          eqMInt({RSMap["PF"]}:>MInt, mi(1, 1))
 
   rule <k> 
-    execinstr (jp Imm8:Imm, .Operands) => .
+    execinstr (jp Imm8:MInt, .Operands) => .
   ...</k>
       <regstate> RSMap:Map </regstate> 
-        requires  eqMInt({RSMap["PF"]}:>MInt, mi(1, 0))
+      requires bitwidthMInt(Imm8) ==Int 8 andBool
+          eqMInt({RSMap["PF"]}:>MInt, mi(1, 0))
 endmodule

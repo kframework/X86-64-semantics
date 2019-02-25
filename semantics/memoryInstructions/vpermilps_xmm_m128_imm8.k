@@ -4,22 +4,24 @@ requires "x86-configuration.k"
 module VPERMILPS-XMM-M128-IMM8
   imports X86-CONFIGURATION
 
-  context execinstr(vpermilps:Opcode Imm8:Imm, HOLE:Mem, R3:Xmm,  .Operands) [result(MemOffset)]
+  context execinstr(vpermilps:Opcode Imm8:MInt, HOLE:Mem, R3:Xmm,  .Operands) [result(MemOffset)]
   
   rule <k>
-    execinstr (vpermilps:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm,  .Operands) =>
+    execinstr (vpermilps:Opcode Imm8:MInt, memOffset( MemOff:MInt):MemOffset, R3:Xmm,  .Operands) =>
       loadFromMemory( MemOff, 128) ~>
       execinstr (vpermilps Imm8, memOffset( MemOff), R3:Xmm,  .Operands)
   ...</k>
     <regstate> RSMap:Map </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
           
   rule <k>
-    memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (vpermilps:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm,  .Operands) =>
+    memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (vpermilps:Opcode Imm8:MInt, memOffset( MemOff:MInt):MemOffset, R3:Xmm,  .Operands) =>
       .
   ...</k>
     <regstate>
       RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 0, 2), mi(2, 0)) #then extractMInt( Mem128, 96, 128) #else (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 0, 2), mi(2, 1)) #then extractMInt( Mem128, 64, 96) #else (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 0, 2), mi(2, 2)) #then extractMInt( Mem128, 32, 64) #else extractMInt( Mem128, 0, 32) #fi) #fi) #fi), concatenateMInt( (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 2, 4), mi(2, 0)) #then extractMInt( Mem128, 96, 128) #else (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 2, 4), mi(2, 1)) #then extractMInt( Mem128, 64, 96) #else (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 2, 4), mi(2, 2)) #then extractMInt( Mem128, 32, 64) #else extractMInt( Mem128, 0, 32) #fi) #fi) #fi), concatenateMInt( (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 4, 6), mi(2, 0)) #then extractMInt( Mem128, 96, 128) #else (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 4, 6), mi(2, 1)) #then extractMInt( Mem128, 64, 96) #else (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 4, 6), mi(2, 2)) #then extractMInt( Mem128, 32, 64) #else extractMInt( Mem128, 0, 32) #fi) #fi) #fi), (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 6, 8), mi(2, 0)) #then extractMInt( Mem128, 96, 128) #else (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 6, 8), mi(2, 1)) #then extractMInt( Mem128, 64, 96) #else (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 6, 8), mi(2, 2)) #then extractMInt( Mem128, 32, 64) #else extractMInt( Mem128, 0, 32) #fi) #fi) #fi)))))
+convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt eqMInt( extractMInt( Imm8, 0, 2), mi(2, 0)) #then extractMInt( Mem128, 96, 128) #else (#ifMInt eqMInt( extractMInt( Imm8, 0, 2), mi(2, 1)) #then extractMInt( Mem128, 64, 96) #else (#ifMInt eqMInt( extractMInt( Imm8, 0, 2), mi(2, 2)) #then extractMInt( Mem128, 32, 64) #else extractMInt( Mem128, 0, 32) #fi) #fi) #fi), concatenateMInt( (#ifMInt eqMInt( extractMInt( Imm8, 2, 4), mi(2, 0)) #then extractMInt( Mem128, 96, 128) #else (#ifMInt eqMInt( extractMInt( Imm8, 2, 4), mi(2, 1)) #then extractMInt( Mem128, 64, 96) #else (#ifMInt eqMInt( extractMInt( Imm8, 2, 4), mi(2, 2)) #then extractMInt( Mem128, 32, 64) #else extractMInt( Mem128, 0, 32) #fi) #fi) #fi), concatenateMInt( (#ifMInt eqMInt( extractMInt( Imm8, 4, 6), mi(2, 0)) #then extractMInt( Mem128, 96, 128) #else (#ifMInt eqMInt( extractMInt( Imm8, 4, 6), mi(2, 1)) #then extractMInt( Mem128, 64, 96) #else (#ifMInt eqMInt( extractMInt( Imm8, 4, 6), mi(2, 2)) #then extractMInt( Mem128, 32, 64) #else extractMInt( Mem128, 0, 32) #fi) #fi) #fi), (#ifMInt eqMInt( extractMInt( Imm8, 6, 8), mi(2, 0)) #then extractMInt( Mem128, 96, 128) #else (#ifMInt eqMInt( extractMInt( Imm8, 6, 8), mi(2, 1)) #then extractMInt( Mem128, 64, 96) #else (#ifMInt eqMInt( extractMInt( Imm8, 6, 8), mi(2, 2)) #then extractMInt( Mem128, 32, 64) #else extractMInt( Mem128, 0, 32) #fi) #fi) #fi)))))
       )
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
 endmodule

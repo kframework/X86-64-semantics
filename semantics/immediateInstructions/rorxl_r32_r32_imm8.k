@@ -5,17 +5,18 @@ module RORXL-R32-R32-IMM8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (rorx Imm8:Imm, R2:R32, R3:R32,  .Operands) =>   execinstr (rorxl Imm8:Imm, R2:R32, R3:R32,  .Operands) 
+    execinstr (rorx Imm8:MInt, R2:R32, R3:R32,  .Operands) =>   execinstr (rorxl Imm8:MInt, R2:R32, R3:R32,  .Operands) 
   ...</k>
   rule <k>
-    execinstr (rorxl Imm8:Imm, R2:R32, R3:R32,  .Operands) => .
+    execinstr (rorxl Imm8:MInt, R2:R32, R3:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( mi(32, 0), orMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), uvalueMInt(andMInt( concatenateMInt( mi(24, 0), handleImmediateWithSignExtend(Imm8, 8, 8)), mi(32, 31)))), shiftLeftMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), uvalueMInt(subMInt( mi(32, 32), andMInt( concatenateMInt( mi(24, 0), handleImmediateWithSignExtend(Imm8, 8, 8)), mi(32, 31)))))))
+convToRegKeys(R3) |-> concatenateMInt( mi(32, 0), orMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), uvalueMInt(andMInt( concatenateMInt( mi(24, 0), Imm8), mi(32, 31)))), shiftLeftMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), uvalueMInt(subMInt( mi(32, 32), andMInt( concatenateMInt( mi(24, 0), Imm8), mi(32, 31)))))))
 )
 
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
     
 endmodule
 

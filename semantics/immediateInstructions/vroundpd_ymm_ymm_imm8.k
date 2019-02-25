@@ -5,14 +5,15 @@ module VROUNDPD-YMM-YMM-IMM8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (vroundpd Imm8:Imm, R2:Ymm, R3:Ymm,  .Operands) => .
+    execinstr (vroundpd Imm8:MInt, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( cvt_double_to_int64_rm(extractMInt( getParentValue(R2, RSMap), 0, 64), handleImmediateWithSignExtend(Imm8, 8, 8)), concatenateMInt( cvt_double_to_int64_rm(extractMInt( getParentValue(R2, RSMap), 64, 128), handleImmediateWithSignExtend(Imm8, 8, 8)), concatenateMInt( cvt_double_to_int64_rm(extractMInt( getParentValue(R2, RSMap), 128, 192), handleImmediateWithSignExtend(Imm8, 8, 8)), cvt_double_to_int64_rm(extractMInt( getParentValue(R2, RSMap), 192, 256), handleImmediateWithSignExtend(Imm8, 8, 8)))))
+convToRegKeys(R3) |-> concatenateMInt( cvt_double_to_int64_rm(extractMInt( getParentValue(R2, RSMap), 0, 64), Imm8), concatenateMInt( cvt_double_to_int64_rm(extractMInt( getParentValue(R2, RSMap), 64, 128), Imm8), concatenateMInt( cvt_double_to_int64_rm(extractMInt( getParentValue(R2, RSMap), 128, 192), Imm8), cvt_double_to_int64_rm(extractMInt( getParentValue(R2, RSMap), 192, 256), Imm8))))
 )
 
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
     
 endmodule
 

@@ -4,22 +4,24 @@ requires "x86-configuration.k"
 module VROUNDSS-XMM-XMM-M32-IMM8
   imports X86-CONFIGURATION
 
-  context execinstr(vroundss:Opcode Imm8:Imm, HOLE:Mem, R3:Xmm, R4:Xmm,  .Operands) [result(MemOffset)]
+  context execinstr(vroundss:Opcode Imm8:MInt, HOLE:Mem, R3:Xmm, R4:Xmm,  .Operands) [result(MemOffset)]
   
   rule <k>
-    execinstr (vroundss:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm, R4:Xmm,  .Operands) =>
+    execinstr (vroundss:Opcode Imm8:MInt, memOffset( MemOff:MInt):MemOffset, R3:Xmm, R4:Xmm,  .Operands) =>
       loadFromMemory( MemOff, 32) ~>
       execinstr (vroundss Imm8, memOffset( MemOff), R3:Xmm, R4:Xmm,  .Operands)
   ...</k>
     <regstate> RSMap:Map </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
           
   rule <k>
-    memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (vroundss:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm, R4:Xmm,  .Operands) =>
+    memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (vroundss:Opcode Imm8:MInt, memOffset( MemOff:MInt):MemOffset, R3:Xmm, R4:Xmm,  .Operands) =>
       .
   ...</k>
     <regstate>
       RSMap:Map => updateMap(RSMap,
-convToRegKeys(R4) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt( getParentValue(R3, RSMap), 128, 224), cvt_single_to_int32_rm(Mem32, handleImmediateWithSignExtend(Imm8, 8, 8))))
+convToRegKeys(R4) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt( getParentValue(R3, RSMap), 128, 224), cvt_single_to_int32_rm(Mem32, Imm8)))
       )
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
 endmodule
