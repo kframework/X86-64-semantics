@@ -46,7 +46,7 @@ createSingleFileDefn();
 execute("git status x86-instructions-semantics.k");
 execute(
     "time  kompile x86-semantics.k --syntax-module X86-SYNTAX --main-module \\
-    X86-SEMANTICS --debug -v --backend $backend -I common", 1
+    X86-SEMANTICS --debug -v --backend $backend -I ./ -I common/x86-config/", 1
 );
 
 $CWD = $current;

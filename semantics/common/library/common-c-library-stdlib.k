@@ -20,9 +20,10 @@ module COMMON-C-LIBRARY-STDLIB
 
   rule stdlib_exit(I::Int) => exitExecution(I)
 
-  rule stdlib_abort ~> _
-       =>
-       writeFD(#stdout, "Aborted\n") ~> flush(#stdout) ~> asCInt(134)
+  //rule stdlib_abort ~> _
+  //     =>
+  //     writeFD(#stdout, "Aborted\n") ~> flush(#stdout) ~> asCInt(134)
+  rule <k> stdlib_abort ~> _ => writeFD(#stdout, "Aborted\n") ~> flush(#stdout) ~> asCInt(134) </k>
 
   rule <k> stdlib_atexit(FP::VoidFunctionPointer) => success ...</k>
        <atexit> (.K => callExitHandler(FP)) ...</atexit>

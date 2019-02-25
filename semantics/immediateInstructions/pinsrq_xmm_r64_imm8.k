@@ -5,7 +5,7 @@ module PINSRQ-XMM-R64-IMM8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (pinsrq Imm8:Imm, R2:R64, R3:Xmm  .Operands) => .
+    execinstr (pinsrq Imm8:Imm, R2:R64, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
