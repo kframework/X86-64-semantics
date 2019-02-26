@@ -5,6 +5,18 @@ module FLOAT-CONVERSIONS
   imports FLOAT
   imports FLOAT-SYNTAX
 
+  syntax Bool ::= isPositiveZero(Float) [function]
+  rule isPositiveZero(F:Float) => true
+    requires SignBit(F) ==Int 0 andBool MantissaFloat(F) ==Int 0 andBool ExponentBitVectorFloat(F) ==Int 0
+  rule isPositiveZero(F:Float) => false
+    requires notBool( SignBit(F) ==Int 0 andBool MantissaFloat(F) ==Int 0 andBool ExponentBitVectorFloat(F) ==Int 0)
+
+  syntax Bool ::= isNegativeZero(Float) [function]
+  rule isNegativeZero(F:Float) => true
+    requires SignBit(F) ==Int 1 andBool MantissaFloat(F) ==Int 0 andBool ExponentBitVectorFloat(F) ==Int 0
+  rule isNegativeZero(F:Float) => false
+    requires notBool( SignBit(F) ==Int 1 andBool MantissaFloat(F) ==Int 0 andBool ExponentBitVectorFloat(F) ==Int 0)
+
   syntax Float ::= GetInfinity(Int, Int) [function] // Dumb hack because Kompile won't parse Infinity/NaN as a float.
   rule GetInfinity(Mlen, Elen) => roundFloat(1.0 /Float 0.0, Mlen, Elen)
   

@@ -598,20 +598,55 @@ module MINT-WRAPPER
   rule mul_double(MI1:MInt, MI2:MInt) => Float2MInt(MInt2Float(MI1, 53, 11) *Float MInt2Float(MI2, 53, 11), 64)
   rule div_double(MI1:MInt, MI2:MInt) => Float2MInt(MInt2Float(MI1, 53, 11) /Float MInt2Float(MI2, 53, 11), 64)
 
+  // max double
+  rule maxcmp_double(MI1:MInt, MI2:MInt) => mi(1,0)
+    requires  isNegativeZero(MInt2Float(MI1, 53, 11))  andBool isPositiveZero(MInt2Float(MI2, 53, 11))
+
+  rule maxcmp_double(MI1:MInt, MI2:MInt) => mi(1,1)
+    requires  isNegativeZero(MInt2Float(MI2, 53, 11))  andBool isPositiveZero(MInt2Float(MI1, 53, 11))
+
+
   rule maxcmp_double(MI1:MInt, MI2:MInt) => #ifMInt 
                                               maxFloat(
                                                   MInt2Float(MI1, 53, 11), 
                                                   MInt2Float(MI2, 53, 11)) 
                                               ==Float MInt2Float(MI1, 53, 11)
                                             #then mi(1, 1) #else mi(1,0) #fi
-    requires notBool isNaN(MInt2Float(MI1, 53, 11))  andBool notBool isNaN(MInt2Float(MI2, 53, 11)) 
+    requires
+        notBool (isNaN(MInt2Float(MI1, 53, 11))  andBool notBool isNaN(MInt2Float(MI2, 53, 11)))
+      andBool
+        notBool (
+          (isNegativeZero(MInt2Float(MI1, 53, 11))  andBool isPositiveZero(MInt2Float(MI2, 53, 11)))
+        orBool
+          (isNegativeZero(MInt2Float(MI2, 53, 11))  andBool isPositiveZero(MInt2Float(MI1, 53, 11)))
+        )
 
 
   rule maxcmp_double(MI1:MInt, MI2:MInt) => mi(1, 1)
     requires  isNaN(MInt2Float(MI1, 24, 8))  andBool (notBool isNaN(MInt2Float(MI2, 53, 11)) )
+    andBool
+        notBool (
+          (isNegativeZero(MInt2Float(MI1, 53, 11))  andBool isPositiveZero(MInt2Float(MI2, 53, 11)))
+        orBool
+          (isNegativeZero(MInt2Float(MI2, 53, 11))  andBool isPositiveZero(MInt2Float(MI1, 53, 11)))
+        )
 
   rule maxcmp_double(MI1:MInt, MI2:MInt) => mi(1, 0)
     requires  (notBool isNaN(MInt2Float(MI1, 53, 11)))  andBool  isNaN(MInt2Float(MI2, 53, 11)) 
+    andBool
+        notBool (
+          (isNegativeZero(MInt2Float(MI1, 53, 11))  andBool isPositiveZero(MInt2Float(MI2, 53, 11)))
+        orBool
+          (isNegativeZero(MInt2Float(MI2, 53, 11))  andBool isPositiveZero(MInt2Float(MI1, 53, 11)))
+        )
+
+
+  // min double
+  rule mincmp_double(MI1:MInt, MI2:MInt) => mi(1,1)
+    requires  isNegativeZero(MInt2Float(MI1, 53, 11))  andBool isPositiveZero(MInt2Float(MI2, 53, 11))
+
+  rule mincmp_double(MI1:MInt, MI2:MInt) => mi(1,0)
+    requires  isNegativeZero(MInt2Float(MI2, 53, 11))  andBool isPositiveZero(MInt2Float(MI1, 53, 11))
 
 
   rule mincmp_double(MI1:MInt, MI2:MInt) => #ifMInt 
@@ -620,11 +655,46 @@ module MINT-WRAPPER
                                                   MInt2Float(MI2, 53, 11)) 
                                               ==Float MInt2Float(MI1, 53, 11)
                                             #then mi(1, 1) #else mi(1,0) #fi
-                                            
+    requires
+      notBool (isNaN(MInt2Float(MI1, 53, 11))  andBool notBool isNaN(MInt2Float(MI2, 53, 11)))
+    andBool
+      notBool (
+          (isNegativeZero(MInt2Float(MI1, 53, 11))  andBool isPositiveZero(MInt2Float(MI2, 53, 11)))
+        orBool
+          (isNegativeZero(MInt2Float(MI2, 53, 11))  andBool isPositiveZero(MInt2Float(MI1, 53, 11)))
+        )
+
+
+  rule mincmp_double(MI1:MInt, MI2:MInt) => mi(1, 1)
+    requires  isNaN(MInt2Float(MI1, 24, 8))  andBool (notBool isNaN(MInt2Float(MI2, 53, 11)) )
+    andBool
+      notBool (
+          (isNegativeZero(MInt2Float(MI1, 53, 11))  andBool isPositiveZero(MInt2Float(MI2, 53, 11)))
+        orBool
+          (isNegativeZero(MInt2Float(MI2, 53, 11))  andBool isPositiveZero(MInt2Float(MI1, 53, 11)))
+        )
+
+  rule mincmp_double(MI1:MInt, MI2:MInt) => mi(1, 0)
+    requires  (notBool isNaN(MInt2Float(MI1, 53, 11)))  andBool  isNaN(MInt2Float(MI2, 53, 11)) 
+    andBool
+      notBool (
+          (isNegativeZero(MInt2Float(MI1, 53, 11))  andBool isPositiveZero(MInt2Float(MI2, 53, 11)))
+        orBool
+          (isNegativeZero(MInt2Float(MI2, 53, 11))  andBool isPositiveZero(MInt2Float(MI1, 53, 11)))
+        )
+
   rule add_single(MI1:MInt, MI2:MInt) => Float2MInt(MInt2Float(MI1, 24, 8) +Float MInt2Float(MI2, 24, 8), 32)
   rule sub_single(MI1:MInt, MI2:MInt) => Float2MInt(MInt2Float(MI1, 24, 8) -Float MInt2Float(MI2, 24, 8), 32)
   rule mul_single(MI1:MInt, MI2:MInt) => Float2MInt(MInt2Float(MI1, 24, 8) *Float MInt2Float(MI2, 24, 8), 32)
   rule div_single(MI1:MInt, MI2:MInt) => Float2MInt(MInt2Float(MI1, 24, 8) /Float MInt2Float(MI2, 24, 8), 32)
+
+
+  // max single
+  rule maxcmp_single(MI1:MInt, MI2:MInt) => mi(1,0)
+    requires  isNegativeZero(MInt2Float(MI1, 24, 8))  andBool isPositiveZero(MInt2Float(MI2, 24, 8)) 
+
+  rule maxcmp_single(MI1:MInt, MI2:MInt) => mi(1,1)
+    requires  isNegativeZero(MInt2Float(MI2, 24, 8))  andBool isPositiveZero(MInt2Float(MI1, 24, 8)) 
 
   rule maxcmp_single(MI1:MInt, MI2:MInt) => #ifMInt 
                                               maxFloat(
@@ -632,14 +702,72 @@ module MINT-WRAPPER
                                                   MInt2Float(MI2, 24, 8))
                                               ==Float MInt2Float(MI1, 24, 8)
                                             #then mi(1, 1) #else mi(1,0) #fi
-    requires notBool isNaN(MInt2Float(MI1, 24, 8))  andBool notBool isNaN(MInt2Float(MI2, 24, 8)) 
+    requires
+      notBool (isNaN(MInt2Float(MI1, 24, 8))  andBool notBool isNaN(MInt2Float(MI2, 24, 8)))
+    andBool
+      notBool (
+          (isNegativeZero(MInt2Float(MI1, 24, 8))  andBool isPositiveZero(MInt2Float(MI2, 24, 8)))
+        orBool
+          (isNegativeZero(MInt2Float(MI2, 24, 8))  andBool isPositiveZero(MInt2Float(MI1, 24, 8)))
+        )
 
   rule maxcmp_single(MI1:MInt, MI2:MInt) => mi(1, 1)
     requires  isNaN(MInt2Float(MI1, 24, 8))  andBool (notBool isNaN(MInt2Float(MI2, 24, 8)))
+    andBool
+      notBool (
+          (isNegativeZero(MInt2Float(MI1, 24, 8))  andBool isPositiveZero(MInt2Float(MI2, 24, 8)))
+        orBool
+          (isNegativeZero(MInt2Float(MI2, 24, 8))  andBool isPositiveZero(MInt2Float(MI1, 24, 8)))
+        )
 
   rule maxcmp_single(MI1:MInt, MI2:MInt) => mi(1, 0)
     requires  (notBool isNaN(MInt2Float(MI1, 24, 8)))  andBool  isNaN(MInt2Float(MI2, 24, 8)) 
+    andBool
+      notBool (
+          (isNegativeZero(MInt2Float(MI1, 24, 8))  andBool isPositiveZero(MInt2Float(MI2, 24, 8)))
+        orBool
+          (isNegativeZero(MInt2Float(MI2, 24, 8))  andBool isPositiveZero(MInt2Float(MI1, 24, 8)))
+        )
 
+  // min single
+  rule mincmp_single(MI1:MInt, MI2:MInt) => mi(1,1)
+    requires  isNegativeZero(MInt2Float(MI1, 24, 8))  andBool isPositiveZero(MInt2Float(MI2, 24, 8)) 
+
+  rule mincmp_single(MI1:MInt, MI2:MInt) => mi(1,0)
+    requires  isNegativeZero(MInt2Float(MI2, 24, 8))  andBool isPositiveZero(MInt2Float(MI1, 24, 8)) 
+
+  rule mincmp_single(MI1:MInt, MI2:MInt) => #ifMInt 
+                                              minFloat(
+                                                  MInt2Float(MI1, 24, 8),
+                                                  MInt2Float(MI2, 24, 8))
+                                              ==Float MInt2Float(MI1, 24, 8)
+                                            #then mi(1, 1) #else mi(1,0) #fi
+    requires
+      notBool (isNaN(MInt2Float(MI1, 24, 8))  andBool notBool isNaN(MInt2Float(MI2, 24, 8)))
+    andBool
+      notBool (
+          (isNegativeZero(MInt2Float(MI1, 24, 8))  andBool isPositiveZero(MInt2Float(MI2, 24, 8)))
+        orBool
+          (isNegativeZero(MInt2Float(MI2, 24, 8))  andBool isPositiveZero(MInt2Float(MI1, 24, 8)))
+        )
+
+  rule mincmp_single(MI1:MInt, MI2:MInt) => mi(1, 1)
+    requires  isNaN(MInt2Float(MI1, 24, 8))  andBool (notBool isNaN(MInt2Float(MI2, 24, 8)))
+    andBool
+      notBool (
+          (isNegativeZero(MInt2Float(MI1, 24, 8))  andBool isPositiveZero(MInt2Float(MI2, 24, 8)))
+        orBool
+          (isNegativeZero(MInt2Float(MI2, 24, 8))  andBool isPositiveZero(MInt2Float(MI1, 24, 8)))
+        )
+
+  rule mincmp_single(MI1:MInt, MI2:MInt) => mi(1, 0)
+    requires  (notBool isNaN(MInt2Float(MI1, 24, 8)))  andBool  isNaN(MInt2Float(MI2, 24, 8)) 
+    andBool
+      notBool (
+          (isNegativeZero(MInt2Float(MI1, 24, 8))  andBool isPositiveZero(MInt2Float(MI2, 24, 8)))
+        orBool
+          (isNegativeZero(MInt2Float(MI2, 24, 8))  andBool isPositiveZero(MInt2Float(MI1, 24, 8)))
+        )
 
   // Signed Divide
   // Helpers     
