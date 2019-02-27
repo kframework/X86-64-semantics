@@ -10,7 +10,7 @@ RUN_SH=../../../scripts/run.pl
 
 
 
-all:	kstate xstate compare collect
+all:	collect kompile cleankstate kstate cleanxstate xstate compare
 
 collect: ${TESTS}
 kstate: ${KSTATES}

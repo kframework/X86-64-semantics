@@ -6,7 +6,10 @@ use File::Compare;
 use File::Basename;
 use File::Find;
 
-use lib qw( /home/sdasgup3/x86-semantics/scripts/ );
+BEGIN {
+    my $script_dir = dirname(__FILE__);
+    unshift @INC, $script_dir;
+}
 use kutils;
 
 my $help = "";
@@ -274,7 +277,7 @@ sub add_pre {
     my $fd_ref = shift @_;
     my $fd     = ${$fd_ref};
 
-    print $fd ".section .text\n.globl _start\n\n_start:\n";
+    print $fd ".text\n.globl _start\n\n_start:\n";
 }
 
 sub add_post {
