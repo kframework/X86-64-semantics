@@ -599,88 +599,71 @@ module MINT-WRAPPER
   rule div_double(MI1:MInt, MI2:MInt) => Float2MInt(MInt2Float(MI1, 53, 11) /Float MInt2Float(MI2, 53, 11), 64)
 
   // max double
+  // If the values being compared are both 0.0s (of either sign), the value in the second source operand is returned.
+
+  // Note that the instructions like maxsd invoke maxcmp_double with args MI1 and MI2 such that
+  // MI2 == SRC2
+  // MI1 == SRC1
   rule maxcmp_double(MI1:MInt, MI2:MInt) => mi(1,0)
-    requires  isNegativeZero(MInt2Float(MI1, 53, 11))  andBool isPositiveZero(MInt2Float(MI2, 53, 11))
+    requires isZero(MInt2Float(MI1, 53, 11)) andBool isZero(MInt2Float(MI2, 53, 11))
 
-  rule maxcmp_double(MI1:MInt, MI2:MInt) => mi(1,1)
-    requires  isNegativeZero(MInt2Float(MI2, 53, 11))  andBool isPositiveZero(MInt2Float(MI1, 53, 11))
-
-
-  rule maxcmp_double(MI1:MInt, MI2:MInt) => #ifMInt 
+  // If only one value is a NaN (SNaN or QNaN) for this instruction, the second
+  // source operand, either a NaN or a valid floating-point value, is written
+  // to the result.
+  // Case I: Both are Non-NaNs
+  rule maxcmp_double(MI1:MInt, MI2:MInt) => #ifMInt
                                               maxFloat(
-                                                  MInt2Float(MI1, 53, 11), 
-                                                  MInt2Float(MI2, 53, 11)) 
+                                                  MInt2Float(MI1, 53, 11),
+                                                  MInt2Float(MI2, 53, 11))
                                               ==Float MInt2Float(MI1, 53, 11)
                                             #then mi(1, 1) #else mi(1,0) #fi
     requires
-        notBool (isNaN(MInt2Float(MI1, 53, 11))  andBool notBool isNaN(MInt2Float(MI2, 53, 11)))
-      andBool
-        notBool (
-          (isNegativeZero(MInt2Float(MI1, 53, 11))  andBool isPositiveZero(MInt2Float(MI2, 53, 11)))
-        orBool
-          (isNegativeZero(MInt2Float(MI2, 53, 11))  andBool isPositiveZero(MInt2Float(MI1, 53, 11)))
-        )
-
-
-  rule maxcmp_double(MI1:MInt, MI2:MInt) => mi(1, 1)
-    requires  isNaN(MInt2Float(MI1, 24, 8))  andBool (notBool isNaN(MInt2Float(MI2, 53, 11)) )
+      (notBool isNaN(MInt2Float(MI1, 53, 11))  andBool notBool isNaN(MInt2Float(MI2, 53, 11)))
     andBool
-        notBool (
-          (isNegativeZero(MInt2Float(MI1, 53, 11))  andBool isPositiveZero(MInt2Float(MI2, 53, 11)))
-        orBool
-          (isNegativeZero(MInt2Float(MI2, 53, 11))  andBool isPositiveZero(MInt2Float(MI1, 53, 11)))
+      notBool (
+        isZero(MInt2Float(MI1, 53, 11)) andBool isZero(MInt2Float(MI2, 53, 11))
         )
 
+  // If SRC1 is NaN or SRC2 is NaN => SRC2
   rule maxcmp_double(MI1:MInt, MI2:MInt) => mi(1, 0)
-    requires  (notBool isNaN(MInt2Float(MI1, 53, 11)))  andBool  isNaN(MInt2Float(MI2, 53, 11)) 
+    requires  (isNaN(MInt2Float(MI1, 53, 11))  orBool  isNaN(MInt2Float(MI2, 53, 11)))
     andBool
-        notBool (
-          (isNegativeZero(MInt2Float(MI1, 53, 11))  andBool isPositiveZero(MInt2Float(MI2, 53, 11)))
-        orBool
-          (isNegativeZero(MInt2Float(MI2, 53, 11))  andBool isPositiveZero(MInt2Float(MI1, 53, 11)))
+      notBool (
+        isZero(MInt2Float(MI1, 53, 11)) andBool isZero(MInt2Float(MI2, 53, 11))
         )
-
 
   // min double
-  rule mincmp_double(MI1:MInt, MI2:MInt) => mi(1,1)
-    requires  isNegativeZero(MInt2Float(MI1, 53, 11))  andBool isPositiveZero(MInt2Float(MI2, 53, 11))
+  // If the values being compared are both 0.0s (of either sign), the value in the second source operand is returned.
 
+  // Note that the instructions like maxsd invoke mincmp_double with args MI1 and MI2 such that
+  // MI2 == SRC2
+  // MI1 == SRC1
   rule mincmp_double(MI1:MInt, MI2:MInt) => mi(1,0)
-    requires  isNegativeZero(MInt2Float(MI2, 53, 11))  andBool isPositiveZero(MInt2Float(MI1, 53, 11))
+    requires isZero(MInt2Float(MI1, 53, 11)) andBool isZero(MInt2Float(MI2, 53, 11))
 
-
-  rule mincmp_double(MI1:MInt, MI2:MInt) => #ifMInt 
+  // If only one value is a NaN (SNaN or QNaN) for this instruction, the second
+  // source operand, either a NaN or a valid floating-point value, is written
+  // to the result.
+  // Case I: Both are Non-NaNs
+  rule mincmp_double(MI1:MInt, MI2:MInt) => #ifMInt
                                               minFloat(
-                                                  MInt2Float(MI1, 53, 11), 
-                                                  MInt2Float(MI2, 53, 11)) 
+                                                  MInt2Float(MI1, 53, 11),
+                                                  MInt2Float(MI2, 53, 11))
                                               ==Float MInt2Float(MI1, 53, 11)
                                             #then mi(1, 1) #else mi(1,0) #fi
     requires
-      notBool (isNaN(MInt2Float(MI1, 53, 11))  andBool notBool isNaN(MInt2Float(MI2, 53, 11)))
+      (notBool isNaN(MInt2Float(MI1, 53, 11))  andBool notBool isNaN(MInt2Float(MI2, 53, 11)))
     andBool
       notBool (
-          (isNegativeZero(MInt2Float(MI1, 53, 11))  andBool isPositiveZero(MInt2Float(MI2, 53, 11)))
-        orBool
-          (isNegativeZero(MInt2Float(MI2, 53, 11))  andBool isPositiveZero(MInt2Float(MI1, 53, 11)))
+        isZero(MInt2Float(MI1, 53, 11)) andBool isZero(MInt2Float(MI2, 53, 11))
         )
 
-
-  rule mincmp_double(MI1:MInt, MI2:MInt) => mi(1, 1)
-    requires  isNaN(MInt2Float(MI1, 24, 8))  andBool (notBool isNaN(MInt2Float(MI2, 53, 11)) )
-    andBool
-      notBool (
-          (isNegativeZero(MInt2Float(MI1, 53, 11))  andBool isPositiveZero(MInt2Float(MI2, 53, 11)))
-        orBool
-          (isNegativeZero(MInt2Float(MI2, 53, 11))  andBool isPositiveZero(MInt2Float(MI1, 53, 11)))
-        )
-
+  // If SRC1 is NaN or SRC2 is NaN => SRC2
   rule mincmp_double(MI1:MInt, MI2:MInt) => mi(1, 0)
-    requires  (notBool isNaN(MInt2Float(MI1, 53, 11)))  andBool  isNaN(MInt2Float(MI2, 53, 11)) 
+    requires  (isNaN(MInt2Float(MI1, 53, 11))  orBool  isNaN(MInt2Float(MI2, 53, 11)))
     andBool
       notBool (
-          (isNegativeZero(MInt2Float(MI1, 53, 11))  andBool isPositiveZero(MInt2Float(MI2, 53, 11)))
-        orBool
-          (isNegativeZero(MInt2Float(MI2, 53, 11))  andBool isPositiveZero(MInt2Float(MI1, 53, 11)))
+        isZero(MInt2Float(MI1, 53, 11)) andBool isZero(MInt2Float(MI2, 53, 11))
         )
 
   rule add_single(MI1:MInt, MI2:MInt) => Float2MInt(MInt2Float(MI1, 24, 8) +Float MInt2Float(MI2, 24, 8), 32)
@@ -690,83 +673,71 @@ module MINT-WRAPPER
 
 
   // max single
+  // If the values being compared are both 0.0s (of either sign), the value in the second source operand is returned.
+
+  // Note that the instructions like maxss invoke maxcmp_single with args MI1 and MI2 such that
+  // MI2 == SRC2
+  // MI1 == SRC1
   rule maxcmp_single(MI1:MInt, MI2:MInt) => mi(1,0)
-    requires  isNegativeZero(MInt2Float(MI1, 24, 8))  andBool isPositiveZero(MInt2Float(MI2, 24, 8)) 
+    requires isZero(MInt2Float(MI1, 24, 8)) andBool isZero(MInt2Float(MI2, 24, 8))
 
-  rule maxcmp_single(MI1:MInt, MI2:MInt) => mi(1,1)
-    requires  isNegativeZero(MInt2Float(MI2, 24, 8))  andBool isPositiveZero(MInt2Float(MI1, 24, 8)) 
-
-  rule maxcmp_single(MI1:MInt, MI2:MInt) => #ifMInt 
+  // If only one value is a NaN (SNaN or QNaN) for this instruction, the second
+  // source operand, either a NaN or a valid floating-point value, is written
+  // to the result.
+  // Case I: Both are Non-NaNs
+  rule maxcmp_single(MI1:MInt, MI2:MInt) => #ifMInt
                                               maxFloat(
                                                   MInt2Float(MI1, 24, 8),
                                                   MInt2Float(MI2, 24, 8))
                                               ==Float MInt2Float(MI1, 24, 8)
                                             #then mi(1, 1) #else mi(1,0) #fi
     requires
-      notBool (isNaN(MInt2Float(MI1, 24, 8))  andBool notBool isNaN(MInt2Float(MI2, 24, 8)))
+      (notBool isNaN(MInt2Float(MI1, 24, 8))  andBool notBool isNaN(MInt2Float(MI2, 24, 8)))
     andBool
       notBool (
-          (isNegativeZero(MInt2Float(MI1, 24, 8))  andBool isPositiveZero(MInt2Float(MI2, 24, 8)))
-        orBool
-          (isNegativeZero(MInt2Float(MI2, 24, 8))  andBool isPositiveZero(MInt2Float(MI1, 24, 8)))
+        isZero(MInt2Float(MI1, 24, 8)) andBool isZero(MInt2Float(MI2, 24, 8))
         )
 
-  rule maxcmp_single(MI1:MInt, MI2:MInt) => mi(1, 1)
-    requires  isNaN(MInt2Float(MI1, 24, 8))  andBool (notBool isNaN(MInt2Float(MI2, 24, 8)))
-    andBool
-      notBool (
-          (isNegativeZero(MInt2Float(MI1, 24, 8))  andBool isPositiveZero(MInt2Float(MI2, 24, 8)))
-        orBool
-          (isNegativeZero(MInt2Float(MI2, 24, 8))  andBool isPositiveZero(MInt2Float(MI1, 24, 8)))
-        )
-
+  // If SRC1 is NaN or SRC2 is NaN => SRC2
   rule maxcmp_single(MI1:MInt, MI2:MInt) => mi(1, 0)
-    requires  (notBool isNaN(MInt2Float(MI1, 24, 8)))  andBool  isNaN(MInt2Float(MI2, 24, 8)) 
+    requires  (isNaN(MInt2Float(MI1, 24, 8))  orBool  isNaN(MInt2Float(MI2, 24, 8)))
     andBool
       notBool (
-          (isNegativeZero(MInt2Float(MI1, 24, 8))  andBool isPositiveZero(MInt2Float(MI2, 24, 8)))
-        orBool
-          (isNegativeZero(MInt2Float(MI2, 24, 8))  andBool isPositiveZero(MInt2Float(MI1, 24, 8)))
+        isZero(MInt2Float(MI1, 24, 8)) andBool isZero(MInt2Float(MI2, 24, 8))
         )
 
   // min single
-  rule mincmp_single(MI1:MInt, MI2:MInt) => mi(1,1)
-    requires  isNegativeZero(MInt2Float(MI1, 24, 8))  andBool isPositiveZero(MInt2Float(MI2, 24, 8)) 
+  // If the values being compared are both 0.0s (of either sign), the value in the second source operand is returned.
 
+  // Note that the instructions like maxss invoke mincmp_single with args MI1 and MI2 such that
+  // MI2 == SRC2
+  // MI1 == SRC1
   rule mincmp_single(MI1:MInt, MI2:MInt) => mi(1,0)
-    requires  isNegativeZero(MInt2Float(MI2, 24, 8))  andBool isPositiveZero(MInt2Float(MI1, 24, 8)) 
+    requires isZero(MInt2Float(MI1, 24, 8)) andBool isZero(MInt2Float(MI2, 24, 8))
 
-  rule mincmp_single(MI1:MInt, MI2:MInt) => #ifMInt 
+  // If only one value is a NaN (SNaN or QNaN) for this instruction, the second
+  // source operand, either a NaN or a valid floating-point value, is written
+  // to the result.
+  // Case I: Both are Non-NaNs
+  rule mincmp_single(MI1:MInt, MI2:MInt) => #ifMInt
                                               minFloat(
                                                   MInt2Float(MI1, 24, 8),
                                                   MInt2Float(MI2, 24, 8))
                                               ==Float MInt2Float(MI1, 24, 8)
                                             #then mi(1, 1) #else mi(1,0) #fi
     requires
-      notBool (isNaN(MInt2Float(MI1, 24, 8))  andBool notBool isNaN(MInt2Float(MI2, 24, 8)))
+      (notBool isNaN(MInt2Float(MI1, 24, 8))  andBool notBool isNaN(MInt2Float(MI2, 24, 8)))
     andBool
       notBool (
-          (isNegativeZero(MInt2Float(MI1, 24, 8))  andBool isPositiveZero(MInt2Float(MI2, 24, 8)))
-        orBool
-          (isNegativeZero(MInt2Float(MI2, 24, 8))  andBool isPositiveZero(MInt2Float(MI1, 24, 8)))
+        isZero(MInt2Float(MI1, 24, 8)) andBool isZero(MInt2Float(MI2, 24, 8))
         )
 
-  rule mincmp_single(MI1:MInt, MI2:MInt) => mi(1, 1)
-    requires  isNaN(MInt2Float(MI1, 24, 8))  andBool (notBool isNaN(MInt2Float(MI2, 24, 8)))
-    andBool
-      notBool (
-          (isNegativeZero(MInt2Float(MI1, 24, 8))  andBool isPositiveZero(MInt2Float(MI2, 24, 8)))
-        orBool
-          (isNegativeZero(MInt2Float(MI2, 24, 8))  andBool isPositiveZero(MInt2Float(MI1, 24, 8)))
-        )
-
+  // If SRC1 is NaN or SRC2 is NaN => SRC2
   rule mincmp_single(MI1:MInt, MI2:MInt) => mi(1, 0)
-    requires  (notBool isNaN(MInt2Float(MI1, 24, 8)))  andBool  isNaN(MInt2Float(MI2, 24, 8)) 
+    requires  (isNaN(MInt2Float(MI1, 24, 8))  orBool  isNaN(MInt2Float(MI2, 24, 8)))
     andBool
       notBool (
-          (isNegativeZero(MInt2Float(MI1, 24, 8))  andBool isPositiveZero(MInt2Float(MI2, 24, 8)))
-        orBool
-          (isNegativeZero(MInt2Float(MI2, 24, 8))  andBool isPositiveZero(MInt2Float(MI1, 24, 8)))
+        isZero(MInt2Float(MI1, 24, 8)) andBool isZero(MInt2Float(MI2, 24, 8))
         )
 
   // Signed Divide

@@ -17,6 +17,13 @@ module FLOAT-CONVERSIONS
   rule isNegativeZero(F:Float) => false
     requires notBool( SignBit(F) ==Int 1 andBool MantissaFloat(F) ==Int 0 andBool ExponentBitVectorFloat(F) ==Int 0)
 
+  syntax Bool ::= isZero(Float) [function]
+  rule isZero(F:Float) => true
+    requires isPositiveZero(F) orBool isNegativeZero(F)
+  rule isZero(F:Float) => false
+    requires notBool ( isPositiveZero(F) orBool isNegativeZero(F) )
+
+
   syntax Float ::= GetInfinity(Int, Int) [function] // Dumb hack because Kompile won't parse Infinity/NaN as a float.
   rule GetInfinity(Mlen, Elen) => roundFloat(1.0 /Float 0.0, Mlen, Elen)
   

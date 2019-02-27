@@ -4,7 +4,7 @@ requires "x86-configuration.k"
 module VMAXSS-XMM-XMM-XMM
   imports X86-CONFIGURATION
 
-  rule <k>
+  rule <k>            //SRC2  //SRC1
     execinstr (vmaxss R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
