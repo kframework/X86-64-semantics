@@ -1442,14 +1442,15 @@ module MINT-WRAPPER
   */   
   rule computePCLMULQDQ1(TEMP1:MInt, TEMP2:MInt, DEST:MInt, M:Int, N:Int) => DEST
       requires M >Int N
-
+                                                            //0    //63 
   rule computePCLMULQDQ1(TEMP1:MInt, TEMP2:MInt, DEST:MInt, M:Int, N:Int) =>
     computePCLMULQDQ1( 
         TEMP1, TEMP2, plugInMask(DEST, computePCLMULQDQ1Refine(TEMP1, TEMP2, M), M), M +Int 1, N)
       requires M <=Int N
 
   rule computePCLMULQDQ1Refine(TEMP1:MInt, TEMP2:MInt, M:Int) =>
-  refineHelper(TEMP1, TEMP2, 1, M, 
+                            //1  i i 
+  refineHelper(TEMP1, TEMP2, 1, M, M,
         andMInt( 
           extractMInt(TEMP1, 63, 64), extractMInt(TEMP2, 63 -Int M, 64 -Int M) 
           )
@@ -1464,7 +1465,7 @@ module MINT-WRAPPER
     DEST[ i ]←TmpB[ i ];
   }
   */
-
+                                                            //64   //126
   rule computePCLMULQDQ2(TEMP1:MInt, TEMP2:MInt, DEST:MInt, M:Int, N:Int) => DEST
       requires M >Int N
 
@@ -1472,24 +1473,25 @@ module MINT-WRAPPER
     computePCLMULQDQ2( 
         TEMP1, TEMP2, plugInMask(DEST, computePCLMULQDQ2Refine(TEMP1, TEMP2, M), M), M +Int 1, N)
       requires M <=Int N
-
+                                                       // i
   rule computePCLMULQDQ2Refine(TEMP1:MInt, TEMP2:MInt, M:Int) =>
-  refineHelper(TEMP1, TEMP2, M -Int 63, 63,  mi(1, 0))
+                             //i - 63  63  i 
+  refineHelper(TEMP1, TEMP2, M -Int 63, 63, M,  mi(1, 0))
 
 
   // Utils
-  syntax MInt ::= refineHelper(MInt, MInt, Int, Int, MInt) [function]
-  rule refineHelper(TEMP1:MInt, TEMP2:MInt, P:Int, Q:Int,
-      RES:MInt) => RES
+  syntax MInt ::= refineHelper(MInt, MInt, Int, Int, Int, MInt) [function]
+                                          //j =1 to i       TmpB
+                                          //j = i-63 to 63
+  rule refineHelper(TEMP1:MInt, TEMP2:MInt, P:Int, Q:Int, I:Int, RES:MInt) => RES
       requires P >Int Q
 
-  rule refineHelper(TEMP1:MInt, TEMP2:MInt, P:Int, Q:Int,
-      RES:MInt) => 
-    refineHelper(TEMP1, TEMP2, P +Int 1, Q, 
+  rule refineHelper(TEMP1:MInt, TEMP2:MInt, P:Int, Q:Int, I:Int, RES:MInt) => 
+    refineHelper(TEMP1, TEMP2, P +Int 1, Q, I,
         xorMInt(RES, 
           andMInt(
             extractMInt(TEMP1, 63 -Int P,         64 -Int P),
-            extractMInt(TEMP2, 63 -Int (P -Int Q), 64 -Int (P -Int Q))
+            extractMInt(TEMP2, 63 -Int (I -Int P), 64 -Int (I -Int P))
             )))
       requires P <=Int Q
 

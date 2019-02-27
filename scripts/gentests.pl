@@ -277,7 +277,7 @@ sub add_pre {
     my $fd_ref = shift @_;
     my $fd     = ${$fd_ref};
 
-    print $fd ".text\n.globl _start\n\n_start:\n";
+    print $fd " .text\n.globl _start\n\n_start:\n";
 }
 
 sub add_post {

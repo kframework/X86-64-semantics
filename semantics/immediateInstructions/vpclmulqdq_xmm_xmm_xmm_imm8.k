@@ -16,12 +16,30 @@ module VPCLMULQDQ-XMM-XMM-XMM-IMM8
             TEMP2←SRC2 [63:0];
         ELSE
             TEMP2←SRC2 [127:64];
+
+       For i = 0 to 63 {
+        TmpB [ i ]←(TEMP1[ 0 ] and TEMP2[ i ]);
+        For j = 1 to i {
+            TmpB [ i ]←TmpB [ i ] xor (TEMP1[ j ] and TEMP2[ i - j ])
+        }
+        DEST[ i ]←TmpB[ i ];
+
+    For i = 64 to 126 {
+    TmpB [ i ]←0;
+    For j = i - 63 to 63 {
+        TmpB [ i ]←TmpB [ i ] xor (TEMP1[ j ] and TEMP2[ i - j ])
+    }
+    DEST[ i ]←TmpB[ i ];
+
+
   */   
-  rule <k>
+  rule <k>                          //SRC2  //SRC1
     execinstr (vpclmulqdq Imm8:Imm, R2:Xmm, R3:Xmm, R4:Xmm, .Operands) => 
       execinstr(vpclmulqdq 
+          // IMM[0] is for SRC1
           selectSlice(getRegisterValue(R3, RSMap), handleImmediateWithSignExtend(Imm8,
               8, 8), 7, 64, 0),
+          // IMM[4] is for SRC2
           selectSlice(getRegisterValue(R2, RSMap), handleImmediateWithSignExtend(Imm8,
               8, 8), 3, 64, 0), R4
           , .Operands)
