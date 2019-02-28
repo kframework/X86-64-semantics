@@ -29,7 +29,8 @@ module X86-ABSTRACT-SEMANTICS
     instrcution.    
   */
 
-  // (%r64)    
+  rule <k> Address(A) => mi(64, A) ... </k>
+
   rule <k> (R1:R64):Mem => 0 (R1:R64) ...</k>
   rule <k> I:Int (R1:R64):Mem => memOffset( addMInt(mi(64, I), getRegisterValue(R1, RSMap))) ... </k>
        <regstate> RSMap </regstate>
@@ -283,16 +284,21 @@ module X86-ABSTRACT-SEMANTICS
     setRegisterValue(MI, convSubRegsToRegs(R))    
   ...</k>
 
+
+  syntax MInt ::= KItemToMInt(KItem) [function]
+  rule KItemToMInt(MI:MInt) => MI
+
+ 
   /*@
     Getting the registers values according to the register variants.
   */
-  rule getRegisterValue(R:R8,  RSMap)  =>  extractMask({RSMap[convToRegKeys(R)]}:>MInt, 8, 0)
-  rule getRegisterValue(R:R16, RSMap)  =>  extractMask({RSMap[convToRegKeys(R)]}:>MInt, 16, 0)
-  rule getRegisterValue(R:R32, RSMap)  =>  extractMask({RSMap[convToRegKeys(R)]}:>MInt, 32, 0)
-  rule getRegisterValue(R:R64, RSMap)  =>  {RSMap[convToRegKeys(R)]}:>MInt
-  rule getRegisterValue(R:Rh,  RSMap)  =>  extractMask({RSMap[convToRegKeys(R)]}:>MInt, 8, 8)
-  rule getRegisterValue(X:Xmm, RSMap)  =>  extractMask({RSMap[convToRegKeys(X)]}:>MInt, 128, 0)
-  rule getRegisterValue(Y:Ymm, RSMap)  =>  {RSMap[convToRegKeys(Y)]}:>MInt
+  rule getRegisterValue(R:R8,  RSMap)  =>  extractMask(KItemToMInt(RSMap[convToRegKeys(R)]), 8, 0)
+  rule getRegisterValue(R:R16, RSMap)  =>  extractMask(KItemToMInt(RSMap[convToRegKeys(R)]), 16, 0)
+  rule getRegisterValue(R:R32, RSMap)  =>  extractMask(KItemToMInt(RSMap[convToRegKeys(R)]), 32, 0)
+  rule getRegisterValue(R:R64, RSMap)  =>  KItemToMInt(RSMap[convToRegKeys(R)])
+  rule getRegisterValue(R:Rh,  RSMap)  =>  extractMask(KItemToMInt(RSMap[convToRegKeys(R)]), 8, 8)
+  rule getRegisterValue(X:Xmm, RSMap)  =>  extractMask(KItemToMInt(RSMap[convToRegKeys(X)]), 128, 0)
+  rule getRegisterValue(Y:Ymm, RSMap)  =>  KItemToMInt(RSMap[convToRegKeys(Y)])
 /*
   rule getRegisterValue(M:Mm,  RSMap)  =>  {RSMap[convToRegKeys(M)]}:>MInt
 */
@@ -348,13 +354,13 @@ module X86-ABSTRACT-SEMANTICS
   rule <k> decRSPInBytes(I:Int) => .  ...</k>
     <regstate> RSMap:Map => updateMap(
         RSMap, 
-        "RSP" |-> subMInt({RSMap["RSP"]}:>MInt, mi(64, I)))
+        "RSP" |-> subMInt(KItemToMInt(RSMap["RSP"]), mi(64, I)))
     </regstate>
 
   rule <k> incRSPInBytes(I:Int) => .  ...</k>
     <regstate> RSMap:Map => updateMap(
         RSMap, 
-        "RSP" |-> addMInt({RSMap["RSP"]}:>MInt, mi(64, I)))
+        "RSP" |-> addMInt(KItemToMInt(RSMap["RSP"]), mi(64, I)))
     </regstate>
 
   /*@
@@ -519,12 +525,15 @@ module X86-ABSTRACT-SEMANTICS
     #ifMInt absInt(svalueMInt(Length)) >Int 16 #then mi(8, 16) #else mi(8, absInt(svalueMInt(Length))) #fi
       requires eqMInt(extractMInt(Imm8, 7, 8), mi(1, 0)) // Interpret as 16 bytes  
 
+  syntax Int ::= KItemToInt(KItem) [function]
+  rule KItemToInt(I:Int) => I
+
   /*@
     findLimitIndexI
   */
   rule findLimitIndexI(Value:MInt, Imm8:MInt) => findLimitIndexIHelper(Value, 
-      {#ifInt eqMInt(extractMInt(Imm8, 7, 8), mi(1, 1)) #then 16 #else 8 #fi}:>Int, 
-      {#ifInt eqMInt(extractMInt(Imm8, 7, 8), mi(1, 1)) #then 8 #else 16 #fi}:>Int, 
+      KItemToInt(#ifInt eqMInt(extractMInt(Imm8, 7, 8), mi(1, 1)) #then 16 #else 8 #fi),
+      KItemToInt(#ifInt eqMInt(extractMInt(Imm8, 7, 8), mi(1, 1)) #then 8 #else 16 #fi}), 
       0) 
 
   rule findLimitIndexIHelper(Value:MInt, BitLength:Int, NumElems:Int, Count:Int) => mi(8, Count)
@@ -583,8 +592,8 @@ module X86-ABSTRACT-SEMANTICS
 
   rule compareEqual(Count2:Int, Count1:Int, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, SOrU:MInt) => 
     compareEqualSignedOrUnsigned(
-        extractMask(Value2, {#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Count2 *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi}:>Int),
-        extractMask(Value1, {#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Count1 *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi}:>Int),
+        extractMask(Value2, KItemToInt(#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Count2 *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi)),
+        extractMask(Value1, KItemToInt(#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Count1 *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi)),
         SOrU
     )           
       requires Count1 <Int uvalueMInt(Limit1) andBool Count2 <Int uvalueMInt(Limit2) // If both of the data are valid, return comparison result
@@ -634,8 +643,8 @@ module X86-ABSTRACT-SEMANTICS
 
   rule compareEach(Index:Int, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, SOrU:MInt) => 
     compareEqualSignedOrUnsigned(
-        extractMask(Value2, {#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Index *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi}:>Int),
-        extractMask(Value1, {#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Index *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi}:>Int),
+        extractMask(Value2, KItemToInt(#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Index *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi)),
+        extractMask(Value1, KItemToINt(#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Index *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi)),
         SOrU
     )           
       requires // If both of the data are valid
@@ -689,13 +698,13 @@ module X86-ABSTRACT-SEMANTICS
   rule compareRange(Count2:Int, Count1:Int, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, SOrU:MInt) => 
     andMInt(
       compareGESignedOrUnsigned(
-          extractMask(Value2, {#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Count2 *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi}:>Int),
-          extractMask(Value1, {#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Count1 *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi}:>Int),
+          extractMask(Value2, KItemToInt(#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Count2 *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi)),
+          extractMask(Value1, KItemToInt(#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Count1 *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi)),
           SOrU
       ),
       compareLESignedOrUnsigned(
-          extractMask(Value2, {#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Count2 *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi}:>Int),
-          extractMask(Value1, {#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Count1 *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi}:>Int),
+          extractMask(Value2, KItemToInt(#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Count2 *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi)),
+          extractMask(Value1, KItemToInt(#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Count1 *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi)),
           SOrU
       ))
 
@@ -749,8 +758,8 @@ module X86-ABSTRACT-SEMANTICS
 
   rule compareEqualOrdered(Count2:Int, Count1:Int, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, SOrU:MInt) => 
       compareEqualSignedOrUnsigned(
-          extractMask(Value2, {#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Count2 *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi}:>Int),
-          extractMask(Value1, {#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Count1 *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi}:>Int),
+          extractMask(Value2, KItemToInt(#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Count2 *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi})),
+          extractMask(Value1, KItemToInt(#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Count1 *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi})),
           SOrU
       )
 
@@ -816,9 +825,9 @@ module X86-ABSTRACT-SEMANTICS
   rule expandMaskHelper(IntRes2:MInt, NumElems:Int, Count:Int) => 
     #ifMInt eqMInt(extractMask(IntRes2, 1, Count), mi(1, 0)) 
     #then 
-        {#ifMInt NumElems ==Int 8 #then mi(16, 0) #else mi(8, 0) #fi}:>MInt
+        KItemToMInt(#ifMInt NumElems ==Int 8 #then mi(16, 0) #else mi(8, 0) #fi)
     #else    
-        {#ifMInt NumElems ==Int 8 #then mi(16, -1) #else mi(8, -1) #fi}:>MInt
+        KItemToMInt(#ifMInt NumElems ==Int 8 #then mi(16, -1) #else mi(8, -1) #fi)
     #fi
       requires Count ==Int (NumElems -Int 1)
 
@@ -828,9 +837,9 @@ module X86-ABSTRACT-SEMANTICS
         expandMaskHelper(IntRes2, NumElems, Count +Int 1),
         #ifMInt eqMInt(extractMask(IntRes2, 1, Count), mi(1, 0)) 
         #then 
-          {#ifMInt NumElems ==Int 8 #then mi(16, 0) #else mi(8, 0) #fi}:>MInt
+          KItemToMInt(#ifMInt NumElems ==Int 8 #then mi(16, 0) #else mi(8, 0) #fi)
         #else    
-          {#ifMInt NumElems ==Int 8 #then mi(16, -1) #else mi(8, -1) #fi}:>MInt
+          KItemToMInt(#ifMInt NumElems ==Int 8 #then mi(16, -1) #else mi(8, -1) #fi)
         #fi
       )
         requires Count =/=Int (NumElems -Int 1)

@@ -5,14 +5,15 @@ module VPALIGNR-XMM-XMM-XMM-IMM8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (vpalignr Imm8:Imm, R2:Xmm, R3:Xmm, R4:Xmm,  .Operands) => .
+    execinstr (vpalignr Imm8:MInt, R2:Xmm, R3:Xmm, R4:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R4) |-> concatenateMInt( mi(128, 0), extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R3, RSMap), 128, 256), extractMInt( getParentValue(R2, RSMap), 128, 256)), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(248, 0), handleImmediateWithSignExtend(Imm8, 8, 8)), uvalueMInt(mi(256, 3))))), 128, 256))
+convToRegKeys(R4) |-> concatenateMInt( mi(128, 0), extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R3, RSMap), 128, 256), extractMInt( getParentValue(R2, RSMap), 128, 256)), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(248, 0), Imm8), uvalueMInt(mi(256, 3))))), 128, 256))
 )
 
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
     
 endmodule
 

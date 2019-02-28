@@ -4,22 +4,24 @@ requires "x86-configuration.k"
 module VROUNDPD-YMM-M256-IMM8
   imports X86-CONFIGURATION
 
-  context execinstr(vroundpd:Opcode Imm8:Imm, HOLE:Mem, R3:Ymm,  .Operands) [result(MemOffset)]
+  context execinstr(vroundpd:Opcode Imm8:MInt, HOLE:Mem, R3:Ymm,  .Operands) [result(MemOffset)]
   
   rule <k>
-    execinstr (vroundpd:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Ymm,  .Operands) =>
+    execinstr (vroundpd:Opcode Imm8:MInt, memOffset( MemOff:MInt):MemOffset, R3:Ymm,  .Operands) =>
       loadFromMemory( MemOff, 256) ~>
       execinstr (vroundpd Imm8, memOffset( MemOff), R3:Ymm,  .Operands)
   ...</k>
     <regstate> RSMap:Map </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
           
   rule <k>
-    memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vroundpd:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Ymm,  .Operands) =>
+    memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vroundpd:Opcode Imm8:MInt, memOffset( MemOff:MInt):MemOffset, R3:Ymm,  .Operands) =>
       .
   ...</k>
     <regstate>
       RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( cvt_double_to_int64_rm(extractMInt( Mem256, 0, 64), handleImmediateWithSignExtend(Imm8, 8, 8)), concatenateMInt( cvt_double_to_int64_rm(extractMInt( Mem256, 64, 128), handleImmediateWithSignExtend(Imm8, 8, 8)), concatenateMInt( cvt_double_to_int64_rm(extractMInt( Mem256, 128, 192), handleImmediateWithSignExtend(Imm8, 8, 8)), cvt_double_to_int64_rm(extractMInt( Mem256, 192, 256), handleImmediateWithSignExtend(Imm8, 8, 8)))))
+convToRegKeys(R3) |-> concatenateMInt( cvt_double_to_int64_rm(extractMInt( Mem256, 0, 64), Imm8), concatenateMInt( cvt_double_to_int64_rm(extractMInt( Mem256, 64, 128), Imm8), concatenateMInt( cvt_double_to_int64_rm(extractMInt( Mem256, 128, 192), Imm8), cvt_double_to_int64_rm(extractMInt( Mem256, 192, 256), Imm8))))
       )
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
 endmodule

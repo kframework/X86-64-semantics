@@ -5,24 +5,25 @@ module TESTW-AX-IMM16
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (testw Imm16:Imm, %ax,  .Operands) => .
+    execinstr (testw Imm16:MInt, %ax,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
 "CF" |-> mi(1, 0)
 
-"PF" |-> (#ifMInt (notBool (((((((eqMInt( andMInt( extractMInt( getParentValue(%rax, RSMap), 63, 64), extractMInt( handleImmediateWithSignExtend(Imm16, 16, 16), 15, 16)), mi(1, 1)) xorBool eqMInt( andMInt( extractMInt( getParentValue(%rax, RSMap), 62, 63), extractMInt( handleImmediateWithSignExtend(Imm16, 16, 16), 14, 15)), mi(1, 1))) xorBool eqMInt( andMInt( extractMInt( getParentValue(%rax, RSMap), 61, 62), extractMInt( handleImmediateWithSignExtend(Imm16, 16, 16), 13, 14)), mi(1, 1))) xorBool eqMInt( andMInt( extractMInt( getParentValue(%rax, RSMap), 60, 61), extractMInt( handleImmediateWithSignExtend(Imm16, 16, 16), 12, 13)), mi(1, 1))) xorBool eqMInt( andMInt( extractMInt( getParentValue(%rax, RSMap), 59, 60), extractMInt( handleImmediateWithSignExtend(Imm16, 16, 16), 11, 12)), mi(1, 1))) xorBool eqMInt( andMInt( extractMInt( getParentValue(%rax, RSMap), 58, 59), extractMInt( handleImmediateWithSignExtend(Imm16, 16, 16), 10, 11)), mi(1, 1))) xorBool eqMInt( andMInt( extractMInt( getParentValue(%rax, RSMap), 57, 58), extractMInt( handleImmediateWithSignExtend(Imm16, 16, 16), 9, 10)), mi(1, 1))) xorBool eqMInt( andMInt( extractMInt( getParentValue(%rax, RSMap), 56, 57), extractMInt( handleImmediateWithSignExtend(Imm16, 16, 16), 8, 9)), mi(1, 1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"PF" |-> (#ifMInt (notBool (((((((eqMInt( andMInt( extractMInt( getParentValue(%rax, RSMap), 63, 64), extractMInt( Imm16, 15, 16)), mi(1, 1)) xorBool eqMInt( andMInt( extractMInt( getParentValue(%rax, RSMap), 62, 63), extractMInt( Imm16, 14, 15)), mi(1, 1))) xorBool eqMInt( andMInt( extractMInt( getParentValue(%rax, RSMap), 61, 62), extractMInt( Imm16, 13, 14)), mi(1, 1))) xorBool eqMInt( andMInt( extractMInt( getParentValue(%rax, RSMap), 60, 61), extractMInt( Imm16, 12, 13)), mi(1, 1))) xorBool eqMInt( andMInt( extractMInt( getParentValue(%rax, RSMap), 59, 60), extractMInt( Imm16, 11, 12)), mi(1, 1))) xorBool eqMInt( andMInt( extractMInt( getParentValue(%rax, RSMap), 58, 59), extractMInt( Imm16, 10, 11)), mi(1, 1))) xorBool eqMInt( andMInt( extractMInt( getParentValue(%rax, RSMap), 57, 58), extractMInt( Imm16, 9, 10)), mi(1, 1))) xorBool eqMInt( andMInt( extractMInt( getParentValue(%rax, RSMap), 56, 57), extractMInt( Imm16, 8, 9)), mi(1, 1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
 "AF" |-> (undefMInt)
 
-"ZF" |-> (#ifMInt eqMInt( andMInt( extractMInt( getParentValue(%rax, RSMap), 48, 64), handleImmediateWithSignExtend(Imm16, 16, 16)), mi(16, 0)) #then mi(1, 1) #else mi(1, 0) #fi)
+"ZF" |-> (#ifMInt eqMInt( andMInt( extractMInt( getParentValue(%rax, RSMap), 48, 64), Imm16), mi(16, 0)) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"SF" |-> andMInt( extractMInt( getParentValue(%rax, RSMap), 48, 49), extractMInt( handleImmediateWithSignExtend(Imm16, 16, 16), 0, 1))
+"SF" |-> andMInt( extractMInt( getParentValue(%rax, RSMap), 48, 49), extractMInt( Imm16, 0, 1))
 
 "OF" |-> mi(1, 0)
 )
 
     </regstate>
+      requires bitwidthMInt(Imm16) ==Int 16
     
 endmodule
 

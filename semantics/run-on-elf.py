@@ -111,7 +111,7 @@ def inum_file_pair_from_line(line):
 
 def get_instructions_from_inums(inums):
     with open(os.path.join(decoder_directory, "generator", "datafiles", "full-map.txt"), "r") as f:
-        return list(map(lambda pair: pair[1], filter(lambda pair: pair[0] in inums,  map(inum_file_pair_from_line, f.readlines()))))
+        return list(set(map(lambda pair: pair[1], filter(lambda pair: pair[0] in inums,  map(inum_file_pair_from_line, f.readlines())))))
 
 def copy_instructions(full_names):
     for name in full_names:

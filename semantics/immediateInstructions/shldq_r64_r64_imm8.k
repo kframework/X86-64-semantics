@@ -5,11 +5,12 @@ module SHLDQ-R64-R64
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (shldq Imm8:Imm, R2:R64, R1:R64,  .Operands) =>  
+    execinstr (shldq Imm8:MInt, R2:R64, R1:R64,  .Operands) =>  
       execinstr (shldq R1, getRegisterValue(R1, RSMap), getRegisterValue(R2, RSMap), 
-          shiftCountMask(handleImmediateWithSignExtend(Imm8, 8, 8), 64),  .Operands)
+          shiftCountMask(Imm8, 64),  .Operands)
   ...</k>
     <regstate> RSMap </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
 
   rule <k>
     execinstr (shldq R, MIdest:MInt, MIsrc:MInt, MIcount:MInt, .Operands) => .

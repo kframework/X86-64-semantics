@@ -49,15 +49,14 @@ module PCLMULQDQ-XMM-XMM-IMM8
             TEMP2←SRC2 [127:64];
   */   
   rule <k>
-    execinstr (pclmulqdq Imm8:Imm, R2:Xmm, R3:Xmm,  .Operands) => 
+    execinstr (pclmulqdq Imm8:MInt, R2:Xmm, R3:Xmm,  .Operands) => 
       execinstr(pclmulqdq 
-          selectSlice(getRegisterValue(R3, RSMap), handleImmediateWithSignExtend(Imm8,
-              8, 8), 7, 64, 0),
-          selectSlice(getRegisterValue(R2, RSMap), handleImmediateWithSignExtend(Imm8,
-              8, 8), 3, 64, 0), R3
+          selectSlice(getRegisterValue(R3, RSMap), Imm8, 7, 64, 0),
+          selectSlice(getRegisterValue(R2, RSMap), Imm8, 3, 64, 0), R3
           , .Operands)
   ...</k>
     <regstate> RSMap </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
 
   rule <k>
     execinstr (pclmulqdq TEMP1:MInt, TEMP2:MInt, R3:Xmm,   .Operands) => 

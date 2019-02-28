@@ -15,43 +15,44 @@ module MPSADBW-XMM-M128-IMM8
 
   rule <k>
     memLoadValue(MemVal:MInt):MemLoadValue ~>
-    execinstr (mpsadbw Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm,  .Operands) =>
+    execinstr (mpsadbw Imm8:MInt, memOffset( MemOff:MInt):MemOffset, R3:Xmm,  .Operands) =>
       execinstr (mpsadbw
         selectSliceMPSAD(MemVal,
-          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 6, 8), 7 , 0 ),
+          extractMInt(Imm8, 6, 8), 7 , 0 ),
         selectSliceMPSAD(MemVal,
-          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 6, 8), 15, 8 ),
+          extractMInt(Imm8, 6, 8), 15, 8 ),
         selectSliceMPSAD(MemVal,
-          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 6, 8), 23, 16),
+          extractMInt(Imm8, 6, 8), 23, 16),
         selectSliceMPSAD(MemVal,
-          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 6, 8), 31, 24),
+          extractMInt(Imm8, 6, 8), 31, 24),
 
         selectSliceMPSAD(getRegisterValue(R3, RSMap),
-          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 7 ,  0),
+          extractMInt(Imm8, 5, 6), 7 ,  0),
         selectSliceMPSAD(getRegisterValue(R3, RSMap),
-          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 15,  8),
+          extractMInt(Imm8, 5, 6), 15,  8),
         selectSliceMPSAD(getRegisterValue(R3, RSMap),
-          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 23, 16),
+          extractMInt(Imm8, 5, 6), 23, 16),
         selectSliceMPSAD(getRegisterValue(R3, RSMap),
-          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 31, 24),
+          extractMInt(Imm8, 5, 6), 31, 24),
         selectSliceMPSAD(getRegisterValue(R3, RSMap),
-          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 39, 32),
+          extractMInt(Imm8, 5, 6), 39, 32),
         selectSliceMPSAD(getRegisterValue(R3, RSMap),
-          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 47, 40),
+          extractMInt(Imm8, 5, 6), 47, 40),
         selectSliceMPSAD(getRegisterValue(R3, RSMap),
-          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 55, 48),
+          extractMInt(Imm8, 5, 6), 55, 48),
         selectSliceMPSAD(getRegisterValue(R3, RSMap),
-          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 63, 56),
+          extractMInt(Imm8, 5, 6), 63, 56),
         selectSliceMPSAD(getRegisterValue(R3, RSMap),
-          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 71, 64),
+          extractMInt(Imm8, 5, 6), 71, 64),
         selectSliceMPSAD(getRegisterValue(R3, RSMap),
-          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 79, 72),
+          extractMInt(Imm8, 5, 6), 79, 72),
         selectSliceMPSAD(getRegisterValue(R3, RSMap),
-          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 87, 80),
+          extractMInt(Imm8, 5, 6), 87, 80),
         R3:Xmm, 
         .Operands)
   ...</k>   
     <regstate> RSMap </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
 
   rule <k> 
     execinstr (mpsadbw 

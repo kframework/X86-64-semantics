@@ -18,15 +18,14 @@ module VPCLMULQDQ-XMM-XMM-XMM-IMM8
             TEMP2←SRC2 [127:64];
   */   
   rule <k>
-    execinstr (vpclmulqdq Imm8:Imm, R2:Xmm, R3:Xmm, R4:Xmm, .Operands) => 
+    execinstr (vpclmulqdq Imm8:MInt, R2:Xmm, R3:Xmm, R4:Xmm, .Operands) => 
       execinstr(vpclmulqdq 
-          selectSlice(getRegisterValue(R3, RSMap), handleImmediateWithSignExtend(Imm8,
-              8, 8), 7, 64, 0),
-          selectSlice(getRegisterValue(R2, RSMap), handleImmediateWithSignExtend(Imm8,
-              8, 8), 3, 64, 0), R4
+          selectSlice(getRegisterValue(R3, RSMap), Imm8, 7, 64, 0),
+          selectSlice(getRegisterValue(R2, RSMap), Imm8, 3, 64, 0), R4
           , .Operands)
   ...</k>
     <regstate> RSMap </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
 
   rule <k>
     execinstr (vpclmulqdq TEMP1:MInt, TEMP2:MInt, R4:Xmm,   .Operands) => 

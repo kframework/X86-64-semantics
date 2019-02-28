@@ -4,24 +4,26 @@ requires "x86-configuration.k"
 module VCVTPS2PH-M64-XMM-IMM8
   imports X86-CONFIGURATION
 
-  context execinstr(vcvtps2ph:Opcode Imm8:Imm, R2:Xmm, HOLE:Mem,  .Operands) [result(MemOffset)]
+  context execinstr(vcvtps2ph:Opcode Imm8:MInt, R2:Xmm, HOLE:Mem,  .Operands) [result(MemOffset)]
   
   rule <k>
-    execinstr (vcvtps2ph:Opcode Imm8:Imm, R2:Xmm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+    execinstr (vcvtps2ph:Opcode Imm8:MInt, R2:Xmm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       loadFromMemory( MemOff, 64) ~>
       execinstr (vcvtps2ph Imm8, R2:Xmm, memOffset( MemOff),  .Operands)
   ...</k>
     <regstate> RSMap:Map </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
           
   rule <k>
-    memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (vcvtps2ph:Opcode Imm8:Imm, R2:Xmm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+    memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (vcvtps2ph:Opcode Imm8:MInt, R2:Xmm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       
             storeToMemory(
-              concatenateMInt( cvt_single_to_fp16_rm(extractMInt( getParentValue(R2, RSMap), 128, 160), handleImmediateWithSignExtend(Imm8, 8, 8)), concatenateMInt( cvt_single_to_fp16_rm(extractMInt( getParentValue(R2, RSMap), 160, 192), handleImmediateWithSignExtend(Imm8, 8, 8)), concatenateMInt( cvt_single_to_fp16_rm(extractMInt( getParentValue(R2, RSMap), 192, 224), handleImmediateWithSignExtend(Imm8, 8, 8)), cvt_single_to_fp16_rm(extractMInt( getParentValue(R2, RSMap), 224, 256), handleImmediateWithSignExtend(Imm8, 8, 8))))),
+              concatenateMInt( cvt_single_to_fp16_rm(extractMInt( getParentValue(R2, RSMap), 128, 160), Imm8), concatenateMInt( cvt_single_to_fp16_rm(extractMInt( getParentValue(R2, RSMap), 160, 192), Imm8), concatenateMInt( cvt_single_to_fp16_rm(extractMInt( getParentValue(R2, RSMap), 192, 224), Imm8), cvt_single_to_fp16_rm(extractMInt( getParentValue(R2, RSMap), 224, 256), Imm8)))),
               MemOff,
               64
             )
           
   ...</k>
     <regstate> RSMap:Map </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
 endmodule

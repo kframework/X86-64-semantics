@@ -4,20 +4,21 @@ requires "x86-configuration.k"
 module ADCL-M32-IMM32
   imports X86-CONFIGURATION
 
-  context execinstr(adcl:Opcode Imm32:Imm, HOLE:Mem,  .Operands) [result(MemOffset)]
+  context execinstr(adcl:Opcode Imm32:MInt, HOLE:Mem,  .Operands) [result(MemOffset)]
   
   rule <k>
-    execinstr (adcl:Opcode Imm32:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+    execinstr (adcl:Opcode Imm32:MInt, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       loadFromMemory( MemOff, 32) ~>
       execinstr (adcl Imm32, memOffset( MemOff),  .Operands)
   ...</k>
     <regstate> RSMap:Map </regstate>
+      requires bitwidthMInt(Imm32) ==Int 32
           
   rule <k>
-    memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (adcl:Opcode Imm32:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+    memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (adcl:Opcode Imm32:MInt, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       
             storeToMemory(
-              extractMInt( addMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then addMInt( concatenateMInt( mi(1, 0), handleImmediateWithSignExtend(Imm32, 32, 32)), mi(33, 1)) #else concatenateMInt( mi(1, 0), handleImmediateWithSignExtend(Imm32, 32, 32)) #fi), concatenateMInt( mi(1, 0), Mem32)), 1, 33),
+              extractMInt( addMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then addMInt( concatenateMInt( mi(1, 0), Imm32), mi(33, 1)) #else concatenateMInt( mi(1, 0), Imm32) #fi), concatenateMInt( mi(1, 0), Mem32)), 1, 33),
               MemOff,
               32
             )
@@ -25,17 +26,18 @@ module ADCL-M32-IMM32
   ...</k>
     <regstate>
       RSMap:Map => updateMap(RSMap,
-"CF" |-> extractMInt( addMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then addMInt( concatenateMInt( mi(1, 0), handleImmediateWithSignExtend(Imm32, 32, 32)), mi(33, 1)) #else concatenateMInt( mi(1, 0), handleImmediateWithSignExtend(Imm32, 32, 32)) #fi), concatenateMInt( mi(1, 0), Mem32)), 0, 1)
+"CF" |-> extractMInt( addMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then addMInt( concatenateMInt( mi(1, 0), Imm32), mi(33, 1)) #else concatenateMInt( mi(1, 0), Imm32) #fi), concatenateMInt( mi(1, 0), Mem32)), 0, 1)
 
-"PF" |-> (#ifMInt (notBool (((((((eqMInt( extractMInt( addMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then addMInt( concatenateMInt( mi(1, 0), handleImmediateWithSignExtend(Imm32, 32, 32)), mi(33, 1)) #else concatenateMInt( mi(1, 0), handleImmediateWithSignExtend(Imm32, 32, 32)) #fi), concatenateMInt( mi(1, 0), Mem32)), 32, 33), mi(1, 1)) xorBool eqMInt( extractMInt( addMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then addMInt( concatenateMInt( mi(1, 0), handleImmediateWithSignExtend(Imm32, 32, 32)), mi(33, 1)) #else concatenateMInt( mi(1, 0), handleImmediateWithSignExtend(Imm32, 32, 32)) #fi), concatenateMInt( mi(1, 0), Mem32)), 31, 32), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then addMInt( concatenateMInt( mi(1, 0), handleImmediateWithSignExtend(Imm32, 32, 32)), mi(33, 1)) #else concatenateMInt( mi(1, 0), handleImmediateWithSignExtend(Imm32, 32, 32)) #fi), concatenateMInt( mi(1, 0), Mem32)), 30, 31), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then addMInt( concatenateMInt( mi(1, 0), handleImmediateWithSignExtend(Imm32, 32, 32)), mi(33, 1)) #else concatenateMInt( mi(1, 0), handleImmediateWithSignExtend(Imm32, 32, 32)) #fi), concatenateMInt( mi(1, 0), Mem32)), 29, 30), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then addMInt( concatenateMInt( mi(1, 0), handleImmediateWithSignExtend(Imm32, 32, 32)), mi(33, 1)) #else concatenateMInt( mi(1, 0), handleImmediateWithSignExtend(Imm32, 32, 32)) #fi), concatenateMInt( mi(1, 0), Mem32)), 28, 29), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then addMInt( concatenateMInt( mi(1, 0), handleImmediateWithSignExtend(Imm32, 32, 32)), mi(33, 1)) #else concatenateMInt( mi(1, 0), handleImmediateWithSignExtend(Imm32, 32, 32)) #fi), concatenateMInt( mi(1, 0), Mem32)), 27, 28), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then addMInt( concatenateMInt( mi(1, 0), handleImmediateWithSignExtend(Imm32, 32, 32)), mi(33, 1)) #else concatenateMInt( mi(1, 0), handleImmediateWithSignExtend(Imm32, 32, 32)) #fi), concatenateMInt( mi(1, 0), Mem32)), 26, 27), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then addMInt( concatenateMInt( mi(1, 0), handleImmediateWithSignExtend(Imm32, 32, 32)), mi(33, 1)) #else concatenateMInt( mi(1, 0), handleImmediateWithSignExtend(Imm32, 32, 32)) #fi), concatenateMInt( mi(1, 0), Mem32)), 25, 26), mi(1, 1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"PF" |-> (#ifMInt (notBool (((((((eqMInt( extractMInt( addMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then addMInt( concatenateMInt( mi(1, 0), Imm32), mi(33, 1)) #else concatenateMInt( mi(1, 0), Imm32) #fi), concatenateMInt( mi(1, 0), Mem32)), 32, 33), mi(1, 1)) xorBool eqMInt( extractMInt( addMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then addMInt( concatenateMInt( mi(1, 0), Imm32), mi(33, 1)) #else concatenateMInt( mi(1, 0), Imm32) #fi), concatenateMInt( mi(1, 0), Mem32)), 31, 32), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then addMInt( concatenateMInt( mi(1, 0), Imm32), mi(33, 1)) #else concatenateMInt( mi(1, 0), Imm32) #fi), concatenateMInt( mi(1, 0), Mem32)), 30, 31), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then addMInt( concatenateMInt( mi(1, 0), Imm32), mi(33, 1)) #else concatenateMInt( mi(1, 0), Imm32) #fi), concatenateMInt( mi(1, 0), Mem32)), 29, 30), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then addMInt( concatenateMInt( mi(1, 0), Imm32), mi(33, 1)) #else concatenateMInt( mi(1, 0), Imm32) #fi), concatenateMInt( mi(1, 0), Mem32)), 28, 29), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then addMInt( concatenateMInt( mi(1, 0), Imm32), mi(33, 1)) #else concatenateMInt( mi(1, 0), Imm32) #fi), concatenateMInt( mi(1, 0), Mem32)), 27, 28), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then addMInt( concatenateMInt( mi(1, 0), Imm32), mi(33, 1)) #else concatenateMInt( mi(1, 0), Imm32) #fi), concatenateMInt( mi(1, 0), Mem32)), 26, 27), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then addMInt( concatenateMInt( mi(1, 0), Imm32), mi(33, 1)) #else concatenateMInt( mi(1, 0), Imm32) #fi), concatenateMInt( mi(1, 0), Mem32)), 25, 26), mi(1, 1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"AF" |-> xorMInt( xorMInt( extractMInt( handleImmediateWithSignExtend(Imm32, 32, 32), 27, 28), extractMInt( Mem32, 27, 28)), extractMInt( addMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then addMInt( concatenateMInt( mi(1, 0), handleImmediateWithSignExtend(Imm32, 32, 32)), mi(33, 1)) #else concatenateMInt( mi(1, 0), handleImmediateWithSignExtend(Imm32, 32, 32)) #fi), concatenateMInt( mi(1, 0), Mem32)), 28, 29))
+"AF" |-> xorMInt( xorMInt( extractMInt( Imm32, 27, 28), extractMInt( Mem32, 27, 28)), extractMInt( addMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then addMInt( concatenateMInt( mi(1, 0), Imm32), mi(33, 1)) #else concatenateMInt( mi(1, 0), Imm32) #fi), concatenateMInt( mi(1, 0), Mem32)), 28, 29))
 
-"ZF" |-> (#ifMInt eqMInt( extractMInt( addMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then addMInt( concatenateMInt( mi(1, 0), handleImmediateWithSignExtend(Imm32, 32, 32)), mi(33, 1)) #else concatenateMInt( mi(1, 0), handleImmediateWithSignExtend(Imm32, 32, 32)) #fi), concatenateMInt( mi(1, 0), Mem32)), 1, 33), mi(32, 0)) #then mi(1, 1) #else mi(1, 0) #fi)
+"ZF" |-> (#ifMInt eqMInt( extractMInt( addMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then addMInt( concatenateMInt( mi(1, 0), Imm32), mi(33, 1)) #else concatenateMInt( mi(1, 0), Imm32) #fi), concatenateMInt( mi(1, 0), Mem32)), 1, 33), mi(32, 0)) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"SF" |-> extractMInt( addMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then addMInt( concatenateMInt( mi(1, 0), handleImmediateWithSignExtend(Imm32, 32, 32)), mi(33, 1)) #else concatenateMInt( mi(1, 0), handleImmediateWithSignExtend(Imm32, 32, 32)) #fi), concatenateMInt( mi(1, 0), Mem32)), 1, 2)
+"SF" |-> extractMInt( addMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then addMInt( concatenateMInt( mi(1, 0), Imm32), mi(33, 1)) #else concatenateMInt( mi(1, 0), Imm32) #fi), concatenateMInt( mi(1, 0), Mem32)), 1, 2)
 
-"OF" |-> (#ifMInt ((eqMInt( extractMInt( handleImmediateWithSignExtend(Imm32, 32, 32), 0, 1), mi(1, 1)) ==Bool eqMInt( extractMInt( Mem32, 0, 1), mi(1, 1))) andBool (notBool (eqMInt( extractMInt( handleImmediateWithSignExtend(Imm32, 32, 32), 0, 1), mi(1, 1)) ==Bool eqMInt( extractMInt( addMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then addMInt( concatenateMInt( mi(1, 0), handleImmediateWithSignExtend(Imm32, 32, 32)), mi(33, 1)) #else concatenateMInt( mi(1, 0), handleImmediateWithSignExtend(Imm32, 32, 32)) #fi), concatenateMInt( mi(1, 0), Mem32)), 1, 2), mi(1, 1))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( extractMInt( Imm32, 0, 1), mi(1, 1)) ==Bool eqMInt( extractMInt( Mem32, 0, 1), mi(1, 1))) andBool (notBool (eqMInt( extractMInt( Imm32, 0, 1), mi(1, 1)) ==Bool eqMInt( extractMInt( addMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then addMInt( concatenateMInt( mi(1, 0), Imm32), mi(33, 1)) #else concatenateMInt( mi(1, 0), Imm32) #fi), concatenateMInt( mi(1, 0), Mem32)), 1, 2), mi(1, 1))))) #then mi(1, 1) #else mi(1, 0) #fi)
       )
     </regstate>
+      requires bitwidthMInt(Imm32) ==Int 32
 endmodule

@@ -5,14 +5,15 @@ module VEXTRACTI128-XMM-YMM-IMM8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (vextracti128 Imm8:Imm, R2:Ymm, R3:Xmm,  .Operands) => .
+    execinstr (vextracti128 Imm8:MInt, R2:Ymm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 7, 8), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap), 128, 256) #else extractMInt( getParentValue(R3, RSMap), 0, 128) #fi))
+convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), (#ifMInt eqMInt( extractMInt( Imm8, 7, 8), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap), 128, 256) #else extractMInt( getParentValue(R3, RSMap), 0, 128) #fi))
 )
 
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
     
 endmodule
 

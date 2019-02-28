@@ -4,22 +4,24 @@ requires "x86-configuration.k"
 module VBLENDPD-YMM-YMM-M256-IMM8
   imports X86-CONFIGURATION
 
-  context execinstr(vblendpd:Opcode Imm8:Imm, HOLE:Mem, R3:Ymm, R4:Ymm,  .Operands) [result(MemOffset)]
+  context execinstr(vblendpd:Opcode Imm8:MInt, HOLE:Mem, R3:Ymm, R4:Ymm,  .Operands) [result(MemOffset)]
   
   rule <k>
-    execinstr (vblendpd:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Ymm, R4:Ymm,  .Operands) =>
+    execinstr (vblendpd:Opcode Imm8:MInt, memOffset( MemOff:MInt):MemOffset, R3:Ymm, R4:Ymm,  .Operands) =>
       loadFromMemory( MemOff, 256) ~>
       execinstr (vblendpd Imm8, memOffset( MemOff), R3:Ymm, R4:Ymm,  .Operands)
   ...</k>
     <regstate> RSMap:Map </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
           
   rule <k>
-    memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vblendpd:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Ymm, R4:Ymm,  .Operands) =>
+    memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vblendpd:Opcode Imm8:MInt, memOffset( MemOff:MInt):MemOffset, R3:Ymm, R4:Ymm,  .Operands) =>
       .
   ...</k>
     <regstate>
       RSMap:Map => updateMap(RSMap,
-convToRegKeys(R4) |-> concatenateMInt( (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 4, 5), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap), 0, 64) #else extractMInt( Mem256, 0, 64) #fi), concatenateMInt( (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap), 64, 128) #else extractMInt( Mem256, 64, 128) #fi), concatenateMInt( (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 6, 7), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap), 128, 192) #else extractMInt( Mem256, 128, 192) #fi), (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 7, 8), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap), 192, 256) #else extractMInt( Mem256, 192, 256) #fi))))
+convToRegKeys(R4) |-> concatenateMInt( (#ifMInt eqMInt( extractMInt( Imm8, 4, 5), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap), 0, 64) #else extractMInt( Mem256, 0, 64) #fi), concatenateMInt( (#ifMInt eqMInt( extractMInt( Imm8, 5, 6), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap), 64, 128) #else extractMInt( Mem256, 64, 128) #fi), concatenateMInt( (#ifMInt eqMInt( extractMInt( Imm8, 6, 7), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap), 128, 192) #else extractMInt( Mem256, 128, 192) #fi), (#ifMInt eqMInt( extractMInt( Imm8, 7, 8), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap), 192, 256) #else extractMInt( Mem256, 192, 256) #fi))))
       )
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
 endmodule

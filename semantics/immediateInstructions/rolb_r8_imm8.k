@@ -5,18 +5,19 @@ module ROLB-R8-IMM8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (rolb Imm8:Imm, R2:R8,  .Operands) => .
+    execinstr (rolb Imm8:MInt, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 56), rol( extractMInt( getParentValue(R2, RSMap), 56, 64), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31))))
+convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 56), rol( extractMInt( getParentValue(R2, RSMap), 56, 64), andMInt( Imm8, mi(8, 31))))
 
-"CF" |-> (#ifMInt (((notBool eqMInt( andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 56, 64), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31))), 7, 8), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"CF" |-> (#ifMInt (((notBool eqMInt( andMInt( Imm8, mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 56, 64), andMInt( Imm8, mi(8, 31))), 7, 8), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( Imm8, mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((eqMInt( andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)), mi(8, 1)) andBool (eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 56, 64), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 56, 64), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31))), 7, 8), mi(1, 1)))) orBool ((notBool eqMInt( andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)), mi(8, 1))) andBool (((notBool eqMInt( andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( andMInt( Imm8, mi(8, 31)), mi(8, 1)) andBool (eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 56, 64), andMInt( Imm8, mi(8, 31))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 56, 64), andMInt( Imm8, mi(8, 31))), 7, 8), mi(1, 1)))) orBool ((notBool eqMInt( andMInt( Imm8, mi(8, 31)), mi(8, 1))) andBool (((notBool eqMInt( andMInt( Imm8, mi(8, 31)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( Imm8, mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
     
 endmodule
 

@@ -5,14 +5,15 @@ module VCVTPS2PH-XMM-XMM-IMM8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (vcvtps2ph Imm8:Imm, R2:Xmm, R3:Xmm,  .Operands) => .
+    execinstr (vcvtps2ph Imm8:MInt, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( mi(192, 0), concatenateMInt( cvt_single_to_fp16_rm(extractMInt( getParentValue(R2, RSMap), 128, 160), handleImmediateWithSignExtend(Imm8, 8, 8)), concatenateMInt( cvt_single_to_fp16_rm(extractMInt( getParentValue(R2, RSMap), 160, 192), handleImmediateWithSignExtend(Imm8, 8, 8)), concatenateMInt( cvt_single_to_fp16_rm(extractMInt( getParentValue(R2, RSMap), 192, 224), handleImmediateWithSignExtend(Imm8, 8, 8)), cvt_single_to_fp16_rm(extractMInt( getParentValue(R2, RSMap), 224, 256), handleImmediateWithSignExtend(Imm8, 8, 8))))))
+convToRegKeys(R3) |-> concatenateMInt( mi(192, 0), concatenateMInt( cvt_single_to_fp16_rm(extractMInt( getParentValue(R2, RSMap), 128, 160), Imm8), concatenateMInt( cvt_single_to_fp16_rm(extractMInt( getParentValue(R2, RSMap), 160, 192), Imm8), concatenateMInt( cvt_single_to_fp16_rm(extractMInt( getParentValue(R2, RSMap), 192, 224), Imm8), cvt_single_to_fp16_rm(extractMInt( getParentValue(R2, RSMap), 224, 256), Imm8)))))
 )
 
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
     
 endmodule
 

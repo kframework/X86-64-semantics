@@ -4,20 +4,21 @@ requires "x86-configuration.k"
 module XORW-M16-IMM8
   imports X86-CONFIGURATION
 
-  context execinstr(xorw:Opcode Imm8:Imm, HOLE:Mem,  .Operands) [result(MemOffset)]
+  context execinstr(xorw:Opcode Imm8:MInt, HOLE:Mem,  .Operands) [result(MemOffset)]
   
   rule <k>
-    execinstr (xorw:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+    execinstr (xorw:Opcode Imm8:MInt, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       loadFromMemory( MemOff, 16) ~>
       execinstr (xorw Imm8, memOffset( MemOff),  .Operands)
   ...</k>
     <regstate> RSMap:Map </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
           
   rule <k>
-    memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (xorw:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+    memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (xorw:Opcode Imm8:MInt, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       
             storeToMemory(
-              xorMInt( Mem16, mi(16, svalueMInt(handleImmediateWithSignExtend(Imm8, 8, 8)))),
+              xorMInt( Mem16, mi(16, svalueMInt(Imm8))),
               MemOff,
               16
             )
@@ -27,15 +28,16 @@ module XORW-M16-IMM8
       RSMap:Map => updateMap(RSMap,
 "CF" |-> mi(1, 0)
 
-"PF" |-> (#ifMInt (notBool (((((((eqMInt( xorMInt( extractMInt( Mem16, 15, 16), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 7, 8)), mi(1, 1)) xorBool eqMInt( xorMInt( extractMInt( Mem16, 14, 15), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 6, 7)), mi(1, 1))) xorBool eqMInt( xorMInt( extractMInt( Mem16, 13, 14), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6)), mi(1, 1))) xorBool eqMInt( xorMInt( extractMInt( Mem16, 12, 13), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 4, 5)), mi(1, 1))) xorBool eqMInt( xorMInt( extractMInt( Mem16, 11, 12), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 3, 4)), mi(1, 1))) xorBool eqMInt( xorMInt( extractMInt( Mem16, 10, 11), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 2, 3)), mi(1, 1))) xorBool eqMInt( xorMInt( extractMInt( Mem16, 9, 10), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 1, 2)), mi(1, 1))) xorBool eqMInt( xorMInt( extractMInt( Mem16, 8, 9), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 0, 1)), mi(1, 1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"PF" |-> (#ifMInt (notBool (((((((eqMInt( xorMInt( extractMInt( Mem16, 15, 16), extractMInt( Imm8, 7, 8)), mi(1, 1)) xorBool eqMInt( xorMInt( extractMInt( Mem16, 14, 15), extractMInt( Imm8, 6, 7)), mi(1, 1))) xorBool eqMInt( xorMInt( extractMInt( Mem16, 13, 14), extractMInt( Imm8, 5, 6)), mi(1, 1))) xorBool eqMInt( xorMInt( extractMInt( Mem16, 12, 13), extractMInt( Imm8, 4, 5)), mi(1, 1))) xorBool eqMInt( xorMInt( extractMInt( Mem16, 11, 12), extractMInt( Imm8, 3, 4)), mi(1, 1))) xorBool eqMInt( xorMInt( extractMInt( Mem16, 10, 11), extractMInt( Imm8, 2, 3)), mi(1, 1))) xorBool eqMInt( xorMInt( extractMInt( Mem16, 9, 10), extractMInt( Imm8, 1, 2)), mi(1, 1))) xorBool eqMInt( xorMInt( extractMInt( Mem16, 8, 9), extractMInt( Imm8, 0, 1)), mi(1, 1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
 "AF" |-> (undefMInt)
 
-"ZF" |-> (#ifMInt eqMInt( xorMInt( Mem16, mi(16, svalueMInt(handleImmediateWithSignExtend(Imm8, 8, 8)))), mi(16, 0)) #then mi(1, 1) #else mi(1, 0) #fi)
+"ZF" |-> (#ifMInt eqMInt( xorMInt( Mem16, mi(16, svalueMInt(Imm8))), mi(16, 0)) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"SF" |-> xorMInt( extractMInt( Mem16, 0, 1), extractMInt( mi(16, svalueMInt(handleImmediateWithSignExtend(Imm8, 8, 8))), 0, 1))
+"SF" |-> xorMInt( extractMInt( Mem16, 0, 1), extractMInt( mi(16, svalueMInt(Imm8)), 0, 1))
 
 "OF" |-> mi(1, 0)
       )
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
 endmodule

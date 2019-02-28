@@ -4,22 +4,24 @@ requires "x86-configuration.k"
 module VSHUFPD-XMM-XMM-M128-IMM8
   imports X86-CONFIGURATION
 
-  context execinstr(vshufpd:Opcode Imm8:Imm, HOLE:Mem, R3:Xmm, R4:Xmm,  .Operands) [result(MemOffset)]
+  context execinstr(vshufpd:Opcode Imm8:MInt, HOLE:Mem, R3:Xmm, R4:Xmm,  .Operands) [result(MemOffset)]
   
   rule <k>
-    execinstr (vshufpd:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm, R4:Xmm,  .Operands) =>
+    execinstr (vshufpd:Opcode Imm8:MInt, memOffset( MemOff:MInt):MemOffset, R3:Xmm, R4:Xmm,  .Operands) =>
       loadFromMemory( MemOff, 128) ~>
       execinstr (vshufpd Imm8, memOffset( MemOff), R3:Xmm, R4:Xmm,  .Operands)
   ...</k>
     <regstate> RSMap:Map </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
           
   rule <k>
-    memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (vshufpd:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm, R4:Xmm,  .Operands) =>
+    memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (vshufpd:Opcode Imm8:MInt, memOffset( MemOff:MInt):MemOffset, R3:Xmm, R4:Xmm,  .Operands) =>
       .
   ...</k>
     <regstate>
       RSMap:Map => updateMap(RSMap,
-convToRegKeys(R4) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 6, 7), mi(1, 1)) #then extractMInt( Mem128, 0, 64) #else extractMInt( Mem128, 64, 128) #fi), (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 7, 8), mi(1, 1)) #then extractMInt( getParentValue(R3, RSMap), 128, 192) #else extractMInt( getParentValue(R3, RSMap), 192, 256) #fi)))
+convToRegKeys(R4) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt eqMInt( extractMInt( Imm8, 6, 7), mi(1, 1)) #then extractMInt( Mem128, 0, 64) #else extractMInt( Mem128, 64, 128) #fi), (#ifMInt eqMInt( extractMInt( Imm8, 7, 8), mi(1, 1)) #then extractMInt( getParentValue(R3, RSMap), 128, 192) #else extractMInt( getParentValue(R3, RSMap), 192, 256) #fi)))
       )
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
 endmodule

@@ -123,35 +123,35 @@ module COMMON-C-LIBRARY-STDIO
 
   syntax KItem ::= getFD(FilePointer)
   rule (.K => getValidFD(FDPtr)) ~> getFD(FDPtr::FilePointer)
-    requires notBool isNull(FDPtr)
+    requires notBool isNullFDPtr(FDPtr)
   rule invalidLibCValue ~> getFD(_) => ""
   rule FD:FD ~> getFD(_) => FD
   rule getFD(FDPtr::FilePointer) => error(outOfBoundsMemoryAccess)
-    requires isNull(FDPtr)
+    requires isNullFDPtr(FDPtr)
 
   syntax KItem ::= setFD(FilePointer, Int)
   rule setFD(FDPtr::FilePointer, FD::Int) => setValidFD(FDPtr, FD)
-    requires notBool isNull(FDPtr)
+    requires notBool isNullFDPtr(FDPtr)
   rule setFD(FDPtr::FilePointer, _::Int) => error(outOfBoundsMemoryAccess)
-    requires isNull(FDPtr)
+    requires isNullFDPtr(FDPtr)
 
   syntax KItem ::= getFPos(FPosPointer)
   rule (.K => getValidFPos(PosPtr)) ~> getFPos(PosPtr::FPosPointer)
-    requires notBool isNull(PosPtr)
+    requires notBool isNullFPosPtr(PosPtr)
   rule invalidLibCValue ~> getFPos(_) => fpos("", 0)
   rule FPos:FPos ~> getFPos(_) => FPos
   rule getFPos(PosPtr::FPosPointer) => error(outOfBoundsMemoryAccess)
-    requires isNull(PosPtr)
+    requires isNullFPosPtr(PosPtr)
 
   syntax KItem ::= setFPos(FPosPointer, String, Int)
   rule setFPos(PosPtr::FPosPointer, Path::String, Pos::Int)
        =>
        setValidFPos(PosPtr, Path, Pos)
-    requires notBool isNull(PosPtr)
+    requires notBool isNullFPosPtr(PosPtr)
   rule setFPos(PosPtr::FPosPointer, _::String, _::Int)
        =>
        error(outOfBoundsMemoryAccess)
-    requires isNull(PosPtr)
+    requires isNullFPosPtr(PosPtr)
 
   syntax Bool ::= isReadWritable(String) [function]
   rule isReadWritable("r+") => true
@@ -198,10 +198,10 @@ module COMMON-C-LIBRARY-STDIO
        [structural]
 
   rule stdio_fflush(FDPtr::FilePointer) => fflush(getFD(FDPtr))
-       requires notBool isNull(FDPtr)
+       requires notBool isNullFDPtr(FDPtr)
        [structural]
   rule stdio_fflush(FDPtr::FilePointer) => flushAll ~> success
-       requires isNull(FDPtr)
+       requires isNullFDPtr(FDPtr)
        [structural]
 
   syntax KItem ::= fsetpos(K, K) [seqstrict(1,2)]
@@ -441,10 +441,10 @@ module COMMON-C-LIBRARY-STDIO
     [structural]
 
   rule stdio_fclose(FDPtr::FilePointer) => fclose(getFD(FDPtr), FDPtr)
-    requires notBool isNull(FDPtr)
+    requires notBool isNullFDPtr(FDPtr)
     [structural]
   rule stdio_fclose(FDPtr::FilePointer) => eof
-    requires isNull(FDPtr)
+    requires isNullFDPtr(FDPtr)
     [structural]
 
   syntax KItem ::= fclose(K, FilePointer) [strict(1)]
@@ -473,10 +473,10 @@ module COMMON-C-LIBRARY-STDIO
                      FDPtr::FilePointer)
        =>
        freopen(Filename, Mode, FDPtr, getFD(FDPtr))
-    requires notBool isNull(FDPtr)
+    requires notBool isNullFDPtr(FDPtr)
     [structural]
   rule stdio_freopen( _, _, FDPtr::FilePointer) => nullFilePointer
-    requires isNull(FDPtr)
+    requires isNullFDPtr(FDPtr)
     [structural]
 
   syntax KItem ::= freopen(StringPointer, StringPointer, FilePointer, K)
@@ -486,7 +486,7 @@ module COMMON-C-LIBRARY-STDIO
        =>
        fclose'(FD) ~> discard ~>
        fopen(FDPtr, readString(Filename), readString(Mode))
-    requires notBool isNull(Filename)
+    requires notBool isNullStrPtr(Filename)
     [structural]
   rule <k>
          freopen(Filename::StringPointer, Mode::StringPointer,
@@ -495,7 +495,7 @@ module COMMON-C-LIBRARY-STDIO
        ...</k>
        <fid> FD </fid>
        <uri> Filename':String </uri>
-       requires isNull(Filename)
+       requires isNullStrPtr(Filename)
        [structural]
 
   syntax KItem ::= fopen(FilePointer, K, K) [seqstrict(2,3)]
@@ -537,23 +537,23 @@ module COMMON-C-LIBRARY-STDIO
        =>
        trapStrBuf(StrPtr, bufSiz) ~> setbuf(getFD(FDPtr), fullBuf, bufSiz) ~>
        discard
-    requires notBool isNull(StrPtr)
+    requires notBool isNullStrPtr(StrPtr)
     [structural]
   rule stdio_setbuf(FDPtr::FilePointer, StrPtr::StringPointer)
        =>
        setbuf(getFD(FDPtr), noBuf, bufSiz) ~> discard
-    requires isNull(StrPtr)
+    requires isNullStrPtr(StrPtr)
     [structural]
 
   rule stdio_setbuffer(FDPtr::FilePointer, StrPtr::StringPointer, Sz::Int)
        =>
        trapStrBuf(StrPtr, Sz) ~> setbuf(getFD(FDPtr), fullBuf, Sz) ~> discard
-    requires notBool isNull(StrPtr)
+    requires notBool isNullStrPtr(StrPtr)
     [structural]
   rule stdio_setbuffer(FDPtr::FilePointer, StrPtr::StringPointer, Sz::Int)
        =>
        setbuf(getFD(FDPtr), noBuf, Sz) ~> discard
-    requires isNull(StrPtr)
+    requires isNullStrPtr(StrPtr)
     [structural]
 
   rule stdio_setvbuf(FDPtr::FilePointer, StrPtr::StringPointer, 0, Sz::Int)
@@ -576,12 +576,12 @@ module COMMON-C-LIBRARY-STDIO
 
   syntax KItem ::= trapBuf(BufferPointer, Int)
   rule trapBuf(BufPtr::BufferPointer, Sz::Int) => writeTrapBytes(BufPtr, Sz)
-    requires notBool isNull(BufPtr) andBool Sz >Int 0
+    requires notBool isNullBufPtr(BufPtr) andBool Sz >Int 0
   rule trapBuf(_, _) => .K
 
   syntax KItem ::= trapStrBuf(StringPointer, Int)
   rule trapStrBuf(StrPtr::StringPointer, Sz::Int) => writeTrapBytes(StrPtr, Sz)
-    requires notBool isNull(StrPtr) andBool Sz >Int 0
+    requires notBool isNullStrPtr(StrPtr) andBool Sz >Int 0
   rule trapStrBuf(_, _) => .K
 
   syntax KItem ::= setbuf(K, BufMode, Int) [strict(1)]

@@ -5,14 +5,15 @@ module VPSLLDQ-YMM-YMM-IMM8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (vpslldq Imm8:Imm, R2:Ymm, R3:Ymm,  .Operands) => .
+    execinstr (vpslldq Imm8:MInt, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( shiftLeftMInt( extractMInt( getParentValue(R2, RSMap), 0, 128), uvalueMInt(shiftLeftMInt( (#ifMInt ugtMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 15)) #then concatenateMInt( mi(120, 0), mi(8, 16)) #else concatenateMInt( mi(120, 0), handleImmediateWithSignExtend(Imm8, 8, 8)) #fi), uvalueMInt(mi(128, 3))))), shiftLeftMInt( extractMInt( getParentValue(R2, RSMap), 128, 256), uvalueMInt(shiftLeftMInt( (#ifMInt ugtMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 15)) #then concatenateMInt( mi(120, 0), mi(8, 16)) #else concatenateMInt( mi(120, 0), handleImmediateWithSignExtend(Imm8, 8, 8)) #fi), uvalueMInt(mi(128, 3))))))
+convToRegKeys(R3) |-> concatenateMInt( shiftLeftMInt( extractMInt( getParentValue(R2, RSMap), 0, 128), uvalueMInt(shiftLeftMInt( (#ifMInt ugtMInt( Imm8, mi(8, 15)) #then concatenateMInt( mi(120, 0), mi(8, 16)) #else concatenateMInt( mi(120, 0), Imm8) #fi), uvalueMInt(mi(128, 3))))), shiftLeftMInt( extractMInt( getParentValue(R2, RSMap), 128, 256), uvalueMInt(shiftLeftMInt( (#ifMInt ugtMInt( Imm8, mi(8, 15)) #then concatenateMInt( mi(120, 0), mi(8, 16)) #else concatenateMInt( mi(120, 0), Imm8) #fi), uvalueMInt(mi(128, 3))))))
 )
 
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
     
 endmodule
 

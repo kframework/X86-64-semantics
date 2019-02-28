@@ -4,22 +4,24 @@ requires "x86-configuration.k"
 module VINSERTF128-YMM-YMM-M128-IMM8
   imports X86-CONFIGURATION
 
-  context execinstr(vinsertf128:Opcode Imm8:Imm, HOLE:Mem, R3:Ymm, R4:Ymm,  .Operands) [result(MemOffset)]
+  context execinstr(vinsertf128:Opcode Imm8:MInt, HOLE:Mem, R3:Ymm, R4:Ymm,  .Operands) [result(MemOffset)]
   
   rule <k>
-    execinstr (vinsertf128:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Ymm, R4:Ymm,  .Operands) =>
+    execinstr (vinsertf128:Opcode Imm8:MInt, memOffset( MemOff:MInt):MemOffset, R3:Ymm, R4:Ymm,  .Operands) =>
       loadFromMemory( MemOff, 128) ~>
       execinstr (vinsertf128 Imm8, memOffset( MemOff), R3:Ymm, R4:Ymm,  .Operands)
   ...</k>
     <regstate> RSMap:Map </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
           
   rule <k>
-    memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (vinsertf128:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Ymm, R4:Ymm,  .Operands) =>
+    memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (vinsertf128:Opcode Imm8:MInt, memOffset( MemOff:MInt):MemOffset, R3:Ymm, R4:Ymm,  .Operands) =>
       .
   ...</k>
     <regstate>
       RSMap:Map => updateMap(RSMap,
-convToRegKeys(R4) |-> (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 7, 8), mi(1, 0)) #then concatenateMInt( extractMInt( getParentValue(R3, RSMap), 0, 128), Mem128) #else concatenateMInt( Mem128, extractMInt( getParentValue(R3, RSMap), 128, 256)) #fi)
+convToRegKeys(R4) |-> (#ifMInt eqMInt( extractMInt( Imm8, 7, 8), mi(1, 0)) #then concatenateMInt( extractMInt( getParentValue(R3, RSMap), 0, 128), Mem128) #else concatenateMInt( Mem128, extractMInt( getParentValue(R3, RSMap), 128, 256)) #fi)
       )
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
 endmodule

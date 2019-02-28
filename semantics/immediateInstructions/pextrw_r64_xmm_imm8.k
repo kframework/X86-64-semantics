@@ -5,14 +5,15 @@ module PEXTRW-R64-XMM-IMM8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (pextrw Imm8:Imm, R2:Xmm, R3:R64,  .Operands) => .
+    execinstr (pextrw Imm8:MInt, R2:Xmm, R3:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( mi(48, 0), extractMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 128, 256), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(125, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 5, 8)), uvalueMInt(mi(128, 4))))), 112, 128))
+convToRegKeys(R3) |-> concatenateMInt( mi(48, 0), extractMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 128, 256), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(125, 0), extractMInt( Imm8, 5, 8)), uvalueMInt(mi(128, 4))))), 112, 128))
 )
 
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
     
 endmodule
 

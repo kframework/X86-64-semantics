@@ -5,11 +5,12 @@ module SHLDW-R16-R16
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (shldw Imm8:Imm, R2:R16, R1:R16,  .Operands) =>  
+    execinstr (shldw Imm8:MInt, R2:R16, R1:R16,  .Operands) =>  
       execinstr (shldw R1, getRegisterValue(R1, RSMap), getRegisterValue(R2, RSMap), 
-          shiftCountMask(handleImmediateWithSignExtend(Imm8, 8, 8), 32),  .Operands)
+          shiftCountMask(Imm8, 32),  .Operands)
   ...</k>
     <regstate> RSMap </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
 
   rule <k>
     execinstr (shldw R, MIdest:MInt, MIsrc:MInt, MIcount:MInt, .Operands) => .

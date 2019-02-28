@@ -6,16 +6,17 @@ module PCMPESTRM-XMM-XMM-IMM8
 
   // Find Limit Index
   rule <k>
-    execinstr (pcmpestrm Imm8:Imm, Xmm2:Xmm, Xmm1:Xmm,  .Operands) => 
+    execinstr (pcmpestrm Imm8:MInt, Xmm2:Xmm, Xmm1:Xmm,  .Operands) => 
       execinstr (pcmpestrm 
-          handleImmediateWithSignExtend(Imm8, 8, 8), 
+          Imm8, 
           getRegisterValue(Xmm2, RSMap), 
           getRegisterValue(Xmm1, RSMap),
-          findLimitIndexE(getRegisterValue(Xmm2, RSMap), getRegisterValue(%rdx, RSMap), handleImmediateWithSignExtend(Imm8, 8, 8)),   
-          findLimitIndexE(getRegisterValue(Xmm1, RSMap), getRegisterValue(%rax, RSMap), handleImmediateWithSignExtend(Imm8, 8, 8)),   
+          findLimitIndexE(getRegisterValue(Xmm2, RSMap), getRegisterValue(%rdx, RSMap), Imm8),   
+          findLimitIndexE(getRegisterValue(Xmm1, RSMap), getRegisterValue(%rax, RSMap), Imm8),   
           .Operands) 
   ...</k>
   <regstate> RSMap </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
 
    // Find data size and interpretation
   rule <k>

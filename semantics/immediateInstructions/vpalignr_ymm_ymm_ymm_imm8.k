@@ -5,14 +5,15 @@ module VPALIGNR-YMM-YMM-YMM-IMM8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (vpalignr Imm8:Imm, R2:Ymm, R3:Ymm, R4:Ymm,  .Operands) => .
+    execinstr (vpalignr Imm8:MInt, R2:Ymm, R3:Ymm, R4:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R4) |-> concatenateMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R3, RSMap), 0, 128), extractMInt( getParentValue(R2, RSMap), 0, 128)), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(248, 0), handleImmediateWithSignExtend(Imm8, 8, 8)), uvalueMInt(mi(256, 3))))), 128, 256), extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R3, RSMap), 128, 256), extractMInt( getParentValue(R2, RSMap), 128, 256)), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(248, 0), handleImmediateWithSignExtend(Imm8, 8, 8)), uvalueMInt(mi(256, 3))))), 128, 256))
+convToRegKeys(R4) |-> concatenateMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R3, RSMap), 0, 128), extractMInt( getParentValue(R2, RSMap), 0, 128)), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(248, 0), Imm8), uvalueMInt(mi(256, 3))))), 128, 256), extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R3, RSMap), 128, 256), extractMInt( getParentValue(R2, RSMap), 128, 256)), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(248, 0), Imm8), uvalueMInt(mi(256, 3))))), 128, 256))
 )
 
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
     
 endmodule
 

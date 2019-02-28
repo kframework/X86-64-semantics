@@ -5,11 +5,12 @@ module SHLDL-R32-R32
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (shldl Imm8:Imm, R2:R32, R1:R32,  .Operands) =>  
+    execinstr (shldl Imm8:MInt, R2:R32, R1:R32,  .Operands) =>  
       execinstr (shldl R1, getRegisterValue(R1, RSMap), getRegisterValue(R2, RSMap), 
-          shiftCountMask(handleImmediateWithSignExtend(Imm8, 8, 8), 32),  .Operands)
+          shiftCountMask(Imm8, 32),  .Operands)
   ...</k>
     <regstate> RSMap </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
 
   rule <k>
     execinstr (shldl R, MIdest:MInt, MIsrc:MInt, MIcount:MInt, .Operands) => 

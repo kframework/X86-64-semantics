@@ -4,22 +4,23 @@ requires "x86-configuration.k"
 module BTL-M32-IMM8
   imports X86-CONFIGURATION
 
-  context execinstr(btl:Opcode Imm8:Imm, HOLE:Mem,  .Operands) [result(MemOffset)]
+  context execinstr(btl:Opcode Imm8:MInt, HOLE:Mem,  .Operands) [result(MemOffset)]
   
   rule <k>
-    execinstr (btl:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-      loadFromMemory( addMInt( MemOff, concatenateMInt( mi(59, 0), andMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 0, 5), mi(5, 3)))), 8) ~>
+    execinstr (btl:Opcode Imm8:MInt, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( addMInt( MemOff, concatenateMInt( mi(59, 0), andMInt( extractMInt( Imm8, 0, 5), mi(5, 3)))), 8) ~>
       execinstr (btl Imm8, memOffset( MemOff),  .Operands)
   ...</k>
     <regstate> RSMap:Map </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
           
   rule <k>
-    memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (btl:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+    memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (btl:Opcode Imm8:MInt, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       .
   ...</k>
     <regstate>
       RSMap:Map => updateMap(RSMap,
-"CF" |-> extractMInt( lshrMInt( Mem8, uvalueMInt(concatenateMInt( mi(5, 0), andMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 5, 8), mi(3, 7))))), 7, 8)
+"CF" |-> extractMInt( lshrMInt( Mem8, uvalueMInt(concatenateMInt( mi(5, 0), andMInt( extractMInt( Imm8, 5, 8), mi(3, 7))))), 7, 8)
 
 "PF" |-> (undefMInt)
 
@@ -30,4 +31,5 @@ module BTL-M32-IMM8
 "OF" |-> (undefMInt)
       )
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
 endmodule

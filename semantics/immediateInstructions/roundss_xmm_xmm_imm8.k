@@ -5,14 +5,15 @@ module ROUNDSS-XMM-XMM-IMM8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (roundss Imm8:Imm, R2:Xmm, R3:Xmm,  .Operands) => .
+    execinstr (roundss Imm8:MInt, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( extractMInt( getParentValue(R3, RSMap), 0, 224), cvt_single_to_int32_rm(extractMInt( getParentValue(R2, RSMap), 224, 256), handleImmediateWithSignExtend(Imm8, 8, 8)))
+convToRegKeys(R3) |-> concatenateMInt( extractMInt( getParentValue(R3, RSMap), 0, 224), cvt_single_to_int32_rm(extractMInt( getParentValue(R2, RSMap), 224, 256), Imm8))
 )
 
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
     
 endmodule
 

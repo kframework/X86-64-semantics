@@ -133,6 +133,7 @@ module X86-SYNTAX
                | "(" R64 "," R64 ")"
                | Offset "(" R64 "," R64 "," Scale ")"
                | Offset "(" R64 "," R64 ")"
+               | Address(Int)
                //------------------------------------
                //| Offset /* This solution would cause about a million problems with Mem matching incorrectly.  I'll find a better way later (maybe wrap all Mems with some label).
 
