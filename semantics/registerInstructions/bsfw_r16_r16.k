@@ -26,7 +26,7 @@ RSMap:Map => updateMap(RSMap,
   ...</k>
    <regstate>
 RSMap:Map => updateMap(RSMap,
-  convToRegKeys(R2) |-> mi(16, scanForward(getRegisterValue(R1, RSMap), 15, 16))
+  convToRegKeys(R2) |-> mi(64, scanForward(getRegisterValue(R1, RSMap), 15, 16))
   "ZF" |-> mi(1,0)
   "SF" |-> (undefMInt)
   "CF" |-> (undefMInt)

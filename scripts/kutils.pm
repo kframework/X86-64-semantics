@@ -736,6 +736,7 @@ sub containsNaN {
 sub compareInts {
     my $knum = shift @_;
     my $xnum = shift @_;
+    my $checkWidth = shift @_;
 
     #print "Check: " . $knum . " " . $xnum . "\n";
     my $khexnum = "";
@@ -744,6 +745,10 @@ sub compareInts {
 
     if ( $knum =~ /(\d+)'([-]?\d+)/ ) {
         $bit     = $1;
+        if ( $bit != $checkWidth) {
+            failInfo("Check Width Failed, Expected $checkWidth, Found $bit\n");
+            return 0;
+        }
         $knum    = $2;
         $khexnum = toHex( $knum, $bit );
     }
@@ -844,7 +849,15 @@ sub compareStates {
             next;
         }
 
-        if ( 0 == compareInts( $kstates[$i], $xstates[$i] ) ) {
+        # Derive the bit width
+        my $checkWidth = 64;
+        if($regMap{$i % $regcount} =~ m/ymm/) {
+          $checkWidth = 256;
+        } elsif($regMap{$i % $regcount} =~ m/pf|af|of|sf|zf|cf/) {
+          $checkWidth = 1;
+        }
+
+        if ( 0 == compareInts( $kstates[$i], $xstates[$i], $checkWidth ) ) {
 
             #print $kstates[$i] . "\n" . $xstates[$i] . "\n";
             print(  "$regMap{$i % $regcount} at instrcount: "

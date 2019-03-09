@@ -34,7 +34,7 @@ execute() {
                 ../scripts/process_spec.pl --compile --backend java
 		cd $THIS_DIR
 		# Parallel test runs
-                cat filelist.txt | parallel -j $pjobs "echo; echo running kstate: {}; echo ====; cd {}; make kstate; cd -"
+                cat filelist.txt | parallel -j $pjobs "echo; echo running kstate: {}; echo ====; cd {}; make cleankstate; make kstate; cd -"
 	fi
 
 	if [ "$cleanxstate" == "1" ]; then
@@ -42,7 +42,7 @@ execute() {
 	fi
 
 	if [ "$xstate" == "1" ]; then
-		cat filelist.txt | parallel "echo; echo runing xstate: {}; echo ====; cd {}; make xstate; cd -"
+		cat filelist.txt | parallel "echo; echo runing xstate: {}; echo ====; cd {}; make cleanxstate; make xstate; cd -"
 	fi
 
 	if [ "$cleancstate" == "1" ]; then
