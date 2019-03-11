@@ -280,8 +280,8 @@ module MINT-LEMMAS
     requires eqMInt(ZMI, mi(bitwidthMInt(ZMI), 0))
 
   // minFloat
-  rule minFloat(F:Float, F:Float) => F [lemma]
-  rule maxFloat(F:Float, F:Float) => F [lemma]
+  //rule minFloat(F:Float, F:Float) => F [lemma]
+  //rule maxFloat(F:Float, F:Float) => F [lemma]
 
   // Float2MInt/MInt2Float
   rule Float2MInt(MInt2Float(MI:MInt, 53, 11), 64) => MI [lemma]

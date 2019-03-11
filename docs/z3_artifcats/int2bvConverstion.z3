@@ -10,7 +10,7 @@
 (pop)
 
 (push)
-(assert (= c ((_ int2bv 32) d) ))
+(assert (= c ((_ int2bv 32) (bv2int d)) ))
 (check-sat)
 (get-model)
 (pop)

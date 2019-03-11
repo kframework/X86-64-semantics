@@ -28,7 +28,7 @@ execute() {
 	fi
 
 	if [ "$xstate" == "1" ]; then
-		cat filelist.txt | parallel "echo; echo runing xstate: {}; echo ====; cd {}; make xstate; cd .."
+		cat filelist.txt | parallel "echo; echo runing xstate: {}; echo ====; cd {}; make cleanxstate; make xstate; cd .."
 		exit 0
 	fi
 
@@ -36,11 +36,13 @@ execute() {
                 rm -rf $K_DIR/underTestInstructions/*
                 cp $K_DIR/pseudoTestInstructions/* $K_DIR/underTestInstructions/
 		cat filelist.txt | parallel "../../scripts/collect_instructions_semantics.pl --file {}/test.s"
-                cd $K_DIR
-                ../scripts/kompile.pl --backend java
+		# Compile the collected semantics
+		cd $K_DIR	
+                ../scripts/process_spec.pl --compile --backend java
+		cd $THIS_DIR
 
-                cd $THIS_DIR
-                cat filelist.txt | parallel -j 5 "echo; echo running kstate: {}; echo ====; cd {}; make kstate; cd .."
+                # Parallel test runs
+                cat filelist.txt | parallel -j 5 "echo; echo running kstate: {}; echo ====; cd {}; make cleankstate; make kstate; cd .."
 		exit 0
 	fi
 
