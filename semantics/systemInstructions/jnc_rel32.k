@@ -5,18 +5,11 @@ module JNC-REL32
   imports X86-CONFIGURATION
   imports X86-FLAG-CHECS-SYNTAX
 
-  rule <k> 
-    execinstr (jnc Imm32:MInt, .Operands) => .
-  ...</k>
-      <regstate> RSMap => updateMap(RSMap, ("RIP" |-> addMInt({RSMap["RIP"]}:>MInt, signExtend(Imm32, 64))))
-      </regstate>
-      requires bitwidthMInt(Imm32) ==Int 32 andBool
-          eqMInt({RSMap["CF"]}:>MInt, mi(1, 0))
+  rule <k> execinstr (jnc Imm64:MInt, .Operands) => . ...</k>
+      <regstate> RSMap => updateMap(RSMap, ("RIP" |-> Imm64)) </regstate>
+      requires eqMInt({RSMap["CF"]}:>MInt, mi(1, 0))
 
-  rule <k> 
-    execinstr (jnc Imm32:MInt, .Operands) => .
-  ...</k>
-      <regstate> RSMap:Map </regstate> 
-      requires bitwidthMInt(Imm32) ==Int 32 andBool
-          eqMInt({RSMap["CF"]}:>MInt, mi(1, 1))
+  rule <k> execinstr (jnc _:MInt, .Operands) => . ... </k>
+      <regstate> RSMap </regstate> 
+      requires eqMInt({RSMap["CF"]}:>MInt, mi(1, 1))
 endmodule

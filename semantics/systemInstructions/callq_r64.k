@@ -6,7 +6,7 @@ module CALLQ-R64
   imports X86-CONFIGURATION
 
   rule <k> 
-    execinstr (call R1:R64, .Operands) => 
+    execinstr (callq R1:R64, .Operands) => 
       storeToMemory({RSMap["RIP"]}:>MInt, subMInt(getRegisterValue(%rsp, RSMap), mi(64, 8)), 64)  
       ~>  decRSPInBytes(8)
   ...</k>

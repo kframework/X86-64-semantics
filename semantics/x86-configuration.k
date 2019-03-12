@@ -107,4 +107,5 @@ module X86-CONFIGURATION
     <c-library/>
     <formatting/>
     <decoder/>
+    <decodedinstructions> .List </decodedinstructions> // For debugging, similar to regstatequeue
 endmodule

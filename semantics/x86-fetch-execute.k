@@ -38,10 +38,15 @@ module X86-FETCH-EXECUTE
   rule memLoadValue(MI:MInt) ~> loadInstructionBytesFromMemoryAux(Ip, Is, I) => loadInstructionBytesFromMemoryAux(addMInt(Ip, mi(logicalAddressWidth, 1)), uvalueMInt(MI) Is, I +Int 1) [owise]
   rule loadInstructionBytesFromMemoryAux(_, Is, maxInstructionLength) => reverseInts(Is)
 
-  rule invokeDecoder(I:Int, Is:Ints) => Decode(I, Is)
-  rule <k> DecodedInstruction(Len:Int, _, I:Instruction, _) => execinstr(I) ... </k>
-       <regstate> RSMap => RSMap["RIP" <- addMInt({RSMap["RIP"]}:>MInt, mi(logicalAddressWidth, Len))] </regstate>
+  syntax K ::= IncrementRIP(Int)
 
+  rule invokeDecoder(I:Int, Is:Ints) => Decode(I, Is)
+  rule <k> DecodedInstruction(Len:Int, _, I:Instruction, _) => IncrementRIP(Len) ~> execinstr(I)  ... </k>
+       <decodedinstructions> ... .List => ListItem(I) </decodedinstructions>
+
+
+  rule <k> IncrementRIP(Len) => . ... </k>
+       <regstate> RSMap => RSMap["RIP" <- addMInt({RSMap["RIP"]}:>MInt, mi(logicalAddressWidth, Len))] </regstate>
 
   syntax KItem ::= "exit_0"
   syntax KItem ::= "illegal_halt"

@@ -86,8 +86,8 @@ module X86-SYNTAX
                         * Adding Int and Float as operands helps in
                         * testing float-conversion directly.
                         */ 
-                       | Int
-                       | Float
+//                       | Int
+//                       | Float
                        /*@
                         *  execinstr(Opcode (R:Operand .Operands):Operands) 
                         *  are sometimes writen as 

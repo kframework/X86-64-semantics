@@ -13,18 +13,16 @@ module CALLQ-REL32
 
 
   rule <k> 
-    execinstr (callq Imm32:MInt, .Operands) => 
+    execinstr (callq Imm64:MInt, .Operands) => 
       storeToMemory({RSMap["RIP"]}:>MInt, subMInt(getRegisterValue(%rsp, RSMap), mi(64, 8)), 64)  
       ~>  decRSPInBytes(8)
   ...</k>
-      <regstate> RSMap => updateMap(RSMap, ("RIP" |->addMInt({RSMap["RIP"]}:>MInt, signExtend(Imm32, 64)) )) </regstate>
+      <regstate> RSMap => updateMap(RSMap, ("RIP" |-> Imm64)) </regstate>
       <symbols> SymMap </symbols>
-      requires notBool HasBuiltinAtAddress(SymMap, addMInt({RSMap["RIP"]}:>MInt, signExtend(Imm32, 64)))
-      	andBool bitwidthMInt(Imm32) ==Int 32
+      requires notBool HasBuiltinAtAddress(SymMap, Imm64)
     
-  rule <k> execinstr (callq Imm32:MInt, .Operands) => execinstr(call GetBuiltinFromAddress(SymMap, addMInt({RSMap["RIP"]}:>MInt, signExtend(Imm32, 64)))) ... </k>
+  rule <k> execinstr (callq Imm64:MInt, .Operands) => execinstr(call GetBuiltinFromAddress(SymMap, Imm64)) ... </k>
        <regstate> RSMap </regstate>
        <symbols> SymMap </symbols>
-       requires HasBuiltinAtAddress(SymMap, addMInt({RSMap["RIP"]}:>MInt, signExtend(Imm32, 64)))
-      	andBool bitwidthMInt(Imm32) ==Int 32
+      requires HasBuiltinAtAddress(SymMap, Imm64)
 endmodule

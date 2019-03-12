@@ -7,6 +7,14 @@ module NOP
   rule <k>
     execinstr (nop  .Operands) => .
   ...</k>
+
+  //TODO: Temporary
+  rule <k>
+    execinstr (nopw  Operands) => .
+  ...</k>
+  rule <k>
+    execinstr (nopl  Operands) => .
+  ...</k>
 endmodule
 
 module NOP-SEMANTICS
