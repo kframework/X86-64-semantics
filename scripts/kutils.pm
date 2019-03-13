@@ -23,8 +23,8 @@ $VERSION = 1.00;
 my $home = "";
 
 BEGIN {
-    $home = $ENV{"HOME"};
-    unshift @INC, "$home/Github/binary-decompilation/x86-semantics/scripts/";
+    my $script_dir = dirname(__FILE__);
+    unshift @INC, $script_dir;
 }
 use utils;
 
@@ -691,7 +691,7 @@ sub processXFile {
         if ( $line =~ m/$xpatterns[1]/ ) {
 
             #print "Ys".$1. "\n";
-            push @xstates, "0x" . $2 . $1;
+            push @xstates, "0x" . zeroExtend( $2, 128 ) . zeroExtend( $1, 128 );
         }
 
         if ( $line =~ m/$xpatterns[2]/ ) {
@@ -734,34 +734,50 @@ sub containsNaN {
 }
 
 sub compareInts {
-    my $knum = shift @_;
-    my $xnum = shift @_;
+    my $knum       = shift @_;
+    my $xnum       = shift @_;
     my $checkWidth = shift @_;
 
     #print "Check: " . $knum . " " . $xnum . "\n";
-    my $khexnum = "";
-    my $xhexnum = "";
-    my $bit     = 64;
+    my $khexnum             = "";
+    my $xhexnum             = "";
+    my $bit                 = 64;
+    my $kdecimalnum         = "";
+    my $kunsigneddecimalnum = "";
+    my $xdecimalnum         = "";
+    my $xunsigneddecimalnum = "";
 
     if ( $knum =~ /(\d+)'([-]?\d+)/ ) {
-        $bit     = $1;
-        if ( $bit != $checkWidth) {
+        $bit = $1;
+        if ( $bit != $checkWidth ) {
             failInfo("Check Width Failed, Expected $checkWidth, Found $bit\n");
             return 0;
         }
-        $knum    = $2;
+        $knum = $2;
         $khexnum = toHex( $knum, $bit );
-    }
 
-    #if ( $xnum =~ /([\dabcdef]+), ([\dabcdef]+)/ ) {
-    if ( $xnum =~ /0x([\dabcdef]+)/ ) {
-
-        #$xhexnum = $1 . $2;
-        $xhexnum = $1;
+        #( $kdecimalnum, $kunsigneddecimalnum ) = toDec( $khexnum, $bit );
+        #$kdecimalnum = hex($khexnum);
     }
     else {
-        #print "Check3: ".$xnum."\n";
+        failInfo("Knum is not in format W'N. Exiting...");
+        exit(1);
+    }
+
+    if ( $xnum =~ /0x([\dabcdef]+)/ ) {
+
+        $xhexnum = $1;
+
+        #$xhexnum = zeroExtend( $xhexnum, $bit );
+        #( $xdecimalnum, $xunsigneddecimalnum ) = toDec( $xhexnum_se, $bit );
+        #$xdecimalnum = hex($xhexnum);
+    }
+    else {
         $xhexnum = toHex( $xnum, $bit );
+
+        #( $xdecimalnum, $xunsigneddecimalnum ) = toDec( $xhexnum, $bit );
+        #$xdecimalnum = twosComplement( $xhexnum, $bit );
+        $xdecimalnum = hex($xhexnum);
     }
 
     if ( $khexnum eq "" or $xhexnum eq "" ) {
@@ -771,6 +787,9 @@ sub compareInts {
 
     # print "Check2: " . $khexnum . " " . $xhexnum . "\n";
     if ( $xhexnum eq $khexnum ) {
+
+#if (($kdecimalnum == $xdecimalnum) and ($kunsigneddecimalnum == $xunsigneddecimalnum) ) {
+#if ( ( $kdecimalnum == $xdecimalnum ) ) {
         return 1;
     }
     else {
@@ -851,10 +870,11 @@ sub compareStates {
 
         # Derive the bit width
         my $checkWidth = 64;
-        if($regMap{$i % $regcount} =~ m/ymm/) {
-          $checkWidth = 256;
-        } elsif($regMap{$i % $regcount} =~ m/pf|af|of|sf|zf|cf/) {
-          $checkWidth = 1;
+        if ( $regMap{ $i % $regcount } =~ m/ymm/ ) {
+            $checkWidth = 256;
+        }
+        elsif ( $regMap{ $i % $regcount } =~ m/pf|af|of|sf|zf|cf/ ) {
+            $checkWidth = 1;
         }
 
         if ( 0 == compareInts( $kstates[$i], $xstates[$i], $checkWidth ) ) {

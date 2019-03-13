@@ -6,15 +6,17 @@ use warnings;
 use Getopt::Long;
 use File::Compare;
 use File::Basename;
+
 #use File::chdir;
 use Cwd;
 use File::Path qw(make_path remove_tree);
 use Env;
 Getopt::Long::Configure('prefix=+');
 my $home = "";
-BEGIN{
-	$home = $ENV{"HOME"};
-	unshift @INC, "$home/Github/binary-decompilation/x86-semantics/scripts/";
+
+BEGIN {
+    my $script_dir = dirname(__FILE__);
+    unshift @INC, $script_dir;
 }
 
 

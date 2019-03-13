@@ -17,7 +17,7 @@ use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
 $VERSION = 1.00;
 @ISA     = qw(Exporter);
 @EXPORT =
-  qw(createDir execute info passInfo failInfo warnInfo display toHex toDec printwithspaces dec2bin signExtend float2binary bin2hex split_filename trim debugInfo removequotes joinarray printMap printArray myGrep max min scalarToArray arrayToMap printMapArray belongsTo belongsTo3 compareMaps initThreads numlines arrayAllSame diffStrings compareMaps compareMapArray);
+  qw(createDir execute info passInfo failInfo warnInfo display toHex toDec twosComplement printwithspaces dec2bin signExtend zeroExtend float2binary bin2hex split_filename trim debugInfo removequotes joinarray printMap printArray myGrep max min scalarToArray arrayToMap printMapArray belongsTo belongsTo3 compareMaps initThreads numlines arrayAllSame diffStrings compareMaps compareMapArray);
 @EXPORT_OK = qw();
 
 our $home = $ENV{'HOME'};
@@ -417,6 +417,39 @@ sub signExtend {
     return $ans;
 }
 
+sub zeroExtend {
+
+    my $hex = shift @_;
+    my $bit = shift @_;
+
+    my @hexstr        = split( //, $hex );
+    my $msb4bits      = $hexstr[0];
+    my $n             = hex($msb4bits);
+    my $ans           = "" . $hex;
+    my $fourBitchunks = $bit / 4;
+    my $tobefilled    = $fourBitchunks - scalar(@hexstr);
+    my $filler        = "0";
+
+    for ( my $i = 0 ; $i < $tobefilled ; $i++ ) {
+        $ans = $filler . $ans;
+    }
+
+    return $ans;
+}
+
+# convert hex to decimal
+sub twosComplement {
+
+    my $hexstr = shift @_;
+    my $bits   = shift @_;
+    my $value  = hex($hexstr);
+
+    if ( $value & ( 1 << ( $bits - 1 ) ) ) {
+        $value = $value - ( 1 << $bits );
+    }
+    return $value;
+}
+
 # convert hex to decimal
 sub toDec {
 
@@ -437,7 +470,7 @@ sub toDec {
         my $unsigned = hex($hex);
 
         #print $addend."\n";
-        return $addend - $smin, hex($hex);
+        return ( $signed, $unsigned );
     }
     else {
         return ( hex($hex), hex($hex) );
