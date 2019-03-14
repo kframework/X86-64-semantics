@@ -7,6 +7,7 @@ module LOOPNE-REL8
 
   rule <k> execinstr (loopne Imm64:MInt, .Operands) => execinstr (loope Imm64, subMInt(getRegisterValue(%rcx, RSMap), mi(64, 1)), .Operands) ... </k>
     <regstate> RSMap </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
 
   rule <k> execinstr (loopne Imm64:MInt, Count:MInt,  .Operands) => . ...</k>
       <regstate> RSMap => updateMap(RSMap, ("RIP" |-> Imm64) ("RCX" |-> Count)) </regstate>

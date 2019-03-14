@@ -154,7 +154,7 @@ module X86-MEMORY
   rule findValueInROM(A, ListItem(StringSegment(Start, End, S)) L) => findValueInROM(A, L)
   requires uvalueMInt(A) <Int Start orBool uvalueMInt(A) >=Int End
 
-  rule findValueInROM(A, .List) => 0 
+  rule findValueInROM(A, .List) => mi(8, 0) 
 
   rule <k> loadFromMemory(Addr, 8) => memLoadValue(findValueInMemory(Addr, MemMap, ROMList)) ... </k>
        <memory> MemMap => MemMap[Addr <- findValueInMemory(Addr, MemMap, ROMList)] </memory>
