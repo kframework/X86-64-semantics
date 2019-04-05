@@ -3,10 +3,11 @@ import xml.etree.ElementTree as et
 import subprocess, sys, os, shutil, re, signal
 from collections import defaultdict
 import functools
+import multiprocessing
 
 default_backend = "ocaml"
 
-legal_backends = ["java", "ocaml", "llvm"]
+legal_backends = ["java", "ocaml", "llvm", "haskell"]
 
 k_opts = "-Xmx32g"
 
@@ -33,18 +34,24 @@ parser_script = os.path.join(semantics_directory, "semantics", "parser_script.sh
 
 sys.path.insert(0, os.path.join(decoder_directory, "generator")) # Ick, https://stackoverflow.com/questions/4383571/importing-files-from-different-folder 
 
-from generate import generate_decoder
+from generate import generate_decoder, match_iclass_filter
 
-def await_process_or_interrupt(name, process, stdin=None):
+def await_process_or_interrupt(name, process, stdin=None, fatal=True, timeout=None):
     outdata = None
     try:
-        outdata = process.communicate(stdin)
+        outdata = process.communicate(stdin, timeout)
     except KeyboardInterrupt:
         os.kill(process.pid, signal.SIGINT)
         sys.exit(1)
+    except subprocess.TimeoutExpired:
+        process.kill()
+        return None
     if process.returncode != 0:
         print("{0} exited with nonzero retcode {1}".format(name, process.returncode), file=sys.stderr)
-        sys.exit(1)
+        print(outdata[0], file=sys.stderr)
+        print(outdata[1], file=sys.stderr)
+        if fatal:
+            sys.exit(1)
     return outdata
 
 def read_xed(input_file):
@@ -171,32 +178,51 @@ def invoke_kompile(backend):
 
 
 def invoke_krun(elf_file, extra_args):
-    command = ["time", "krun", "-o", "none", "--parser", parser_script, elf_file]
+    timeout = 60*5
+    command = ["time", "krun", "--parser", parser_script, elf_file]
     command.extend(extra_args)
-    krun_process = subprocess.Popen(command, stdin=sys.stdin, stdout=sys.stdout, stderr=sys.stderr, cwd=definition_directory)
-    await_process_or_interrupt("KRun", krun_process)
+    krun_process = subprocess.Popen(command, stdin=sys.stdin, stdout=subprocess.PIPE, stderr=sys.stderr, cwd=definition_directory)
+    return await_process_or_interrupt("KRun", krun_process, None, False, timeout)
+
+def run_file(args):
+    elf_file = args[0]
+    extra_args = args[1]
+    print("Running file " + elf_file, file=sys.stderr)
+    ret = invoke_krun(elf_file, extra_args)
+    if ret is None:
+        print("Output for file " + elf_file + " TIMEOUT")
+    else:
+        print("Output for file " + elf_file + "\n" + ret[0].decode("utf-8"))
+
 
 def main():
     if len(sys.argv) == 1:
-        print("Usage ./run-on-elf ELF-FILE [BACKEND=ocaml] [ARGS_TO_KRUN]*")
+        print("Usage ./run-on-elf ELF-FILES -- [BACKEND=ocaml] [ARGS_TO_KRUN]*")
         sys.exit(1)
-    backend = sys.argv[2] if len(sys.argv) == 3 else default_backend
+    dashes = sys.argv.index("--") if "--" in sys.argv else -1
+    backend = sys.argv[dashes + 1] if dashes > -1 and dashes + 1 < len(sys.argv) else default_backend
     assert backend in legal_backends
-    elf_file = sys.argv[1]
+    elf_files = sys.argv[1:dashes] if dashes > -1 else sys.argv[1:]
+    print(sys.argv)
+    print(elf_files)
     print("Finding instructions in elf", file=sys.stderr)
-    instructions = parse_instructions(read_instructions(read_xed(sys.argv[1])))
-    iclasses = sorted(list(set([inst.iclass for inst in instructions])))
-    if len(iclasses) == 0:
-        print("No iclasses found (is this elf valid?", file=sys.stderr)
+    instructions = []
+    for elf_file in elf_files:
+        instructions.extend(parse_instructions(read_instructions(read_xed(elf_file))))
+    if len(instructions) == 0:
+        print("No iclasses found (are these elfs valid?)", file=sys.stderr)
         sys.exit(1)
-    print("Generating decoder with {0} iclasses".format(len(iclasses)), file=sys.stderr)
-    inums = regenerate_decoder(iclasses)
+    #print("Generating decoder with {0} iclasses".format(len(iclasses)), file=sys.stderr) # Moved to generate.py (ick?)
+    inums = regenerate_decoder(lambda insts: match_iclass_filter(list(set([i.iclass for i in instructions])), insts))
     print("Generating semantics with {0} inums".format(len(inums)), file=sys.stderr)
     regenerate_semantics(inums)
     print("Invoking kompile", file=sys.stderr)
     invoke_kompile(backend)
+    extra_args = sys.argv[(dashes + 1):] if dashes > -1 and dashes + 1 < len(sys.argv) else []
     print("Running on semantics", file=sys.stderr)
-    invoke_krun(elf_file, sys.argv[2:])
+    pool = multiprocessing.Pool(4)
+    args = [(elf_file, extra_args) for elf_file in elf_files]
+    pool.map(run_file, args)
 
 if __name__ == "__main__":
     main()

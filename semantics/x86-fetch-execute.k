@@ -11,10 +11,16 @@ module X86-FETCH-EXECUTE
   syntax Int ::= "maxInstructionLength"
   rule maxInstructionLength => 15 [macro]
 
+  syntax Int ::= haltType(MInt) [function]
+
   syntax Bool ::= isHaltAddress(MInt) [function]
-  rule isHaltAddress(MI) => svalueMInt(MI) ==Int -1
+  rule isHaltAddress(MI) => svalueMInt(MI) <Int 0 andBool svalueMInt(MI) >Int -1000
 
   // This file basically needs to be rewritten.
+
+  syntax Int ::= "exitAddress" | "abortAddress"
+  rule abortAddress => -2 [macro]
+  rule exitAddress => -1 [macro]
 
   syntax K ::= invokeDecoder(Int, K) [strict]
 
@@ -42,34 +48,37 @@ module X86-FETCH-EXECUTE
 
   rule invokeDecoder(I:Int, Is:Ints) => Decode(I, Is)
   rule <k> DecodedInstruction(Len:Int, _, I:Instruction, _) => IncrementRIP(Len) ~> execinstr(I)  ... </k>
-       <decodedinstructions> ... .List => ListItem(I) </decodedinstructions>
+//       <decodedinstructions> ... .List => ListItem(I) </decodedinstructions>
 
 
   rule <k> IncrementRIP(Len) => . ... </k>
        <regstate> RSMap => RSMap["RIP" <- addMInt({RSMap["RIP"]}:>MInt, mi(logicalAddressWidth, Len))] </regstate>
 
   syntax KItem ::= "exit_0"
+  syntax KItem ::= "abort"
   syntax KItem ::= "illegal_halt"
 
   rule D:DecoderError => illegal_halt ~> D
 
-  syntax K ::= makeExitTag(K) [function]
-  rule makeExitTag(.K) => exit_0
-  rule makeExitTag(_) => illegal_halt [owise]
+  syntax K ::= makeExitTag(K, MInt) [function]
+  rule makeExitTag(.K, MI) => exit_0 requires svalueMInt(MI) ==Int exitAddress
+  rule makeExitTag(_, MI) => abort requires svalueMInt(MI) ==Int abortAddress
+  rule makeExitTag(_, _) => illegal_halt [owise] // Internal error.
 
   /*@ 
     After execution of last instrcution, no more fecthes. 
     The last return instruction drive the PC to an invalid location
     (out of code section)
   */
-  rule <k> fetch ~> R => makeExitTag(R) ~> R </k>
+  rule <k> fetch ~> R => makeExitTag(R, {RSMap["RIP"]}:>MInt) ~> R </k>
        <regstate> RSMap </regstate>
+       <exitstate> _ => makeExitTag(R, {RSMap["RIP"]}:>MInt) </exitstate>
        requires isHaltAddress({RSMap["RIP"]}:>MInt)
 
   /*@
     inforegisters prints all the register states for debug purposes.
   */
   rule <k> inforegisters => . ... </k>
-       <regstatequeue> ... .List => ListItem(RSMap) </regstatequeue>
-       <regstate> RSMap </regstate>
+//       <regstatequeue> ... .List => ListItem(RSMap) </regstatequeue>
+//       <regstate> RSMap </regstate>
 endmodule

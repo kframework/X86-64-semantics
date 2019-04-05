@@ -80,7 +80,7 @@ module X86-MEMORY
   // TODO: Maybe.  x86 Manual says that stack may be placed anywhere in memory where it doesn't collide with the other program segments.  So this is overly specific.  
   // But how should we generalize? Random position? Symbolic position?
   syntax Int ::= BaseStackAddress(/* Stack alignment requirements in bytes */ Int) [function]
-  rule BaseStackAddress(I) => (1 <<Int 64) -Int (1 <<Int (I -Int 1)) requires 2 ^Int log2Int(I) ==Int I // AKA: requires I is a power of 2
+  rule BaseStackAddress(I) => (1 <<Int 64) -Int (1 <<Int (I -Int 1)) +Int 8 requires 2 ^Int log2Int(I) ==Int I // AKA: requires I is a power of 2
 
   // x86 memory API implementation
 
@@ -100,7 +100,7 @@ module X86-MEMORY
       *    *                v (High Adress)
   */
   rule <k> makeStack(Base, Size) => . ... </k>
-       <argv> _ => mi(logicalAddressWidth, Size -Int StackSpaceForEnvs +Int 8) </argv>
+       <argv> _ => mi(logicalAddressWidth, Size -Int StackSpaceForEnvs) </argv>
        <stackbase> _ => mi(logicalAddressWidth, Base)  </stackbase>
        <regstate> RSMap => updateMap(RSMap, ("RSP" |-> mi(logicalAddressWidth, Base)) ("RBP" |-> mi(logicalAddressWidth, Base))) </regstate>
 

@@ -102,6 +102,8 @@ module X86-CONFIGURATION
 
     <regstatequeue> .List </regstatequeue>
 
+    <exitstate> .K </exitstate>
+
     <formatcountint> 0 </formatcountint>
     <formatcountfloat> 0 </formatcountfloat>
     <c-library/>

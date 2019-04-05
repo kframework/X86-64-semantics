@@ -7,10 +7,14 @@ int main () {
    const int len = strlen(str);
    const char * space = " ";
    char buf[len + 1];
-   char * sptr = buf;
    strncpy(buf, str, len);
-   while (sptr != NULL) {
-       puts(strsep(&sptr, space));
+   puts(buf);
+   for (int i = 'a'; i <= 'z'; ++i) {
+       char * ptr;
+       while (ptr = strchr(buf, i)) {
+           *ptr = '_';
+       }
+       puts(buf);
    }
    return 0;
 }
