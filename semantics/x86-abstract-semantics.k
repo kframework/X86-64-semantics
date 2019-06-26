@@ -1,96 +1,14 @@
 require "x86-configuration.k"
+require "hex-token.k"
 
 module X86-ABSTRACT-SEMANTICS
   imports X86-CONFIGURATION
+  imports HEX-TOKEN
 
   /*@
     Function related to null checks
   */
-  rule isPointerValNull(null) => true
-  rule isPointerValNull(ptr(Loc:MemLoc, Offs:MInt))
-       =>
-       isMemLocNull(Loc) andBool eqMInt(Offs, mi(bitwidthMInt(Offs), 0))
-
-  /*@
-    Redefining functions over PointerVal
-  */
-  rule getMemLoc(ptr(L:MemLoc, MI:MInt)) => L
-  rule getMIntVal(ptr(L:MemLoc, MI:MInt)) => MI
-
-  syntax MInt ::= "convertPV" "(" MInt ")" [function]
-  rule convertPV(PV:PointerVal) => getMIntVal(PV)
-  rule convertPV(MI:MInt) => MI  [owise]
-
-  //rule mi(W:Int, svalueMInt(PV:PointerVal)) => ptr(getMemLoc(PV), mi(W, svalueMInt(getMIntVal(PV))))
-
-  //negMInt
-  rule negMInt(PV:PointerVal) =>
-    ptr (getMemLoc(PV), negMInt(getMIntVal(PV)))
-
-  //lshrMInt
-  rule lshrMInt(PV:PointerVal, I:Int) =>
-    ptr (getMemLoc(PV), lshrMInt(getMIntVal(PV), I))
-
-  //shlMInt
-  rule shlMInt(PV:PointerVal, I:Int) =>
-    ptr (getMemLoc(PV), shlMInt(getMIntVal(PV), I))
-
-  // Arithmetic:add
-  rule addMInt(PV:PointerVal, MI:MInt) => 
-    ptr( getMemLoc(PV), addMInt(convertPV(PV), convertPV(MI)))
-  rule addMInt(MI:MInt, PV:PointerVal) => 
-    ptr( getMemLoc(PV), addMInt(convertPV(MI), convertPV(PV)))
-
-  // Arithmetic:and
-  rule andMInt(PV:PointerVal, MI:MInt) => 
-    ptr( getMemLoc(PV), andMInt(convertPV(PV), convertPV(MI)))
-  rule andMInt(MI:MInt, PV:PointerVal) => 
-    ptr( getMemLoc(PV), andMInt(convertPV(MI), convertPV(PV)))
-
-  // Mul
-  rule mulMInt(PV:PointerVal, MI:MInt) => 
-    ptr( getMemLoc(PV), mulMInt(convertPV(PV), convertPV(MI)))
-  rule mulMInt(MI:MInt, PV:PointerVal) => 
-    ptr( getMemLoc(PV), mulMInt(convertPV(MI), convertPV(PV)))
-
-  // Xor
-  rule xorMInt(PV:PointerVal, MI:MInt) => 
-    ptr( getMemLoc(PV), xorMInt(convertPV(PV), convertPV(MI)))
-  rule xorMInt(MI:MInt, PV:PointerVal) => 
-    ptr( getMemLoc(PV), xorMInt(convertPV(MI), convertPV(PV)))
-
-  // Sub
-  rule subMInt(PV:PointerVal, MI:MInt) => 
-    ptr( getMemLoc(PV), subMInt(convertPV(PV), convertPV(MI)))
-  
-  // Bitwidth
-  //rule bitwidthMInt(ptr(L:MemLoc, MI:MInt)) => bitwidthMInt(MI)
-  rule bitwidthMInt(PV:PointerVal) => bitwidthMInt(getMIntVal(PV))
-
-  // Extract
-  //rule extractMInt(ptr(L:MemLoc, MI:MInt), S:Int, E:Int) => ptr(L, extractMInt(MI, S, E))
-  rule extractMInt(PV:PointerVal, S:Int, E:Int) =>
-    ptr(getMemLoc(PV), extractMInt(getMIntVal(PV), S, E))
-
-  // Concatenate
-  rule concatenateMInt(PV:PointerVal, MI:MInt) => 
-    ptr( getMemLoc(PV), concatenateMInt(convertPV(PV), convertPV(MI)))
-  rule concatenateMInt(MI:MInt, PV:PointerVal) => 
-    ptr( getMemLoc(PV), concatenateMInt(convertPV(MI), convertPV(PV)))
-
-
-  // eqMInt
-  rule eqMInt(ptr(L:MemLoc, MI1:MInt), MI2:MInt) => eqMInt(MI1, MI2)
-  rule eqMInt(MI1:MInt, ptr(L:MemLoc, MI2:MInt)) => eqMInt(MI1, MI2)
-  rule eqMInt(ptr(L:MemLoc, MI1:MInt), ptr(L:MemLoc, MI2:MInt)) =>
-    eqMInt(MI1, MI2)
-
-  // Sign Extension
-  //rule mi(W:Int, svalueMInt(PV:PointerVal)) => 
-  //  ptr(getMemLoc(PV), mi(W, svalueMInt(getMIntVal(PV))))
-
-  // Avoid bloating
-  //rule ptr(L:MemLoc, ptr(L:MemLoc, M:MInt)) => ptr(L, M)
+  rule isPointerValNull(Addr:MInt) => uvalueMInt(Addr) ==Int 0
 
   /*@
     X86-64 mnemonic allows the following ways of computing memory offsets.
@@ -111,71 +29,31 @@ module X86-ABSTRACT-SEMANTICS
     instrcution.    
   */
 
-  // rip
-  rule <k>  L:X86Id (%rip) =>  L:X86Id + 0 (%rip) ...</k>
-  rule <k>  L:X86Id + I:Int (%rip) => 
-    memOffset( ptr(getMemLoc(LoadAddr), addMInt( getMIntVal(LoadAddr), mi(bitwidthMInt(LoadAddr), I))))
-  ...</k>
-      <regstate> RSMap </regstate>
-      <functargets>...  L |-> LoadAddr:PointerVal  ...</functargets>
+  rule <k> Address(A) => mi(64, A) ... </k>
 
-  // (%r64)    
   rule <k> (R1:R64):Mem => 0 (R1:R64) ...</k>
-  rule <k> I:Int (R1:R64):Mem => 
-    memOffset( addMInt(mi(64, I), addMInt(getRegisterValue(R1, RSMap), mulMInt(mi(64, 0), mi(64, 1)))))
-  ...</k>
-      <regstate> RSMap </regstate>
+  rule <k> I:Int (R1:R64):Mem => memOffset( addMInt(mi(64, I), getRegisterValue(R1, RSMap))) ... </k>
+       <regstate> RSMap </regstate>
 
-  rule <k>  L:X86Id (R1:R64):Mem =>  L:X86Id + 0 (R1:R64):Mem ...</k>
-  rule <k>  L:X86Id + I:Int (R1:R64):Mem => 
-    memOffset( addMInt(addMInt(LoadAddr, mi(bitwidthMInt(LoadAddr), I)), addMInt(getRegisterValue(R1, RSMap), mulMInt(mi(64, 0), mi(64, 1)))))
-  ...</k>
-      <regstate> RSMap </regstate>
-      <functargets>...  L |-> LoadAddr:PointerVal  ...</functargets>
+  rule <k> (R:Rip):Mem => 0 (R) ... </k>
+  
+  rule <k> I:Int (R:Rip) => memOffset(addMInt(mi(64, I), getRegisterValue(R, RSMap))) ... </k>
+       <regstate> RSMap </regstate>
 
   // (, %r64)                                    
   rule <k> (, R2:R64):Mem         => 0 (, R2, 1) ...</k>
   rule <k> I:Int (, R2:R64):Mem   => I (, R2, 1) ...</k>
   rule <k> ( , R2:R64, S:Int):Mem => 0 (, R2, S) ...</k>
   rule <k> I:Int (, R2:R64):Mem   => I (, R2, 1) ...</k>
-  rule <k> I:Int (, R2:R64, S:Int):Mem => 
-    memOffset( addMInt(mi(64, I), addMInt(mi(64, 0), mulMInt(getRegisterValue(R2, RSMap), mi(64, S)))))
-  ...</k>
-      <regstate> RSMap </regstate>
-
-  rule <k>  L:X86Id (, R2:R64):Mem         =>  L + 0  (, R2, 1) ...</k>
-  rule <k>  L:X86Id ( , R2:R64, S:Int):Mem =>  L + 0  (, R2, S) ...</k>
-  rule <k>  L:X86Id + I:Int (, R2:R64, S:Int):Mem => 
-    memOffset( addMInt(
-          addMInt(LoadAddr, mi(bitwidthMInt(LoadAddr), I)), 
-          addMInt(mi(64, 0), mulMInt(getRegisterValue(R2, RSMap), mi(64, S)))))
-  ...</k>
-      <regstate> RSMap </regstate>
-      <functargets>...  L |-> LoadAddr:PointerVal  ...</functargets>
+  rule <k> I:Int (, R2:R64, S:Int):Mem => memOffset( addMInt(mi(64, I), mulMInt(getRegisterValue(R2, RSMap), mi(64, S)))) ... </k>
+       <regstate> RSMap </regstate>
 
   // (%r64, %r64)                                
   rule <k> (R1:R64, R2:R64):Mem => 0 (R1, R2, 1) ...</k>
   rule <k> (R1:R64, R2:R64, S:Int):Mem => 0 (R1, R2, S) ...</k>
   rule <k> I:Int (R1:R64, R2:R64):Mem => I (R1, R2, 1) ...</k>
-  rule <k> I:Int (R1:R64, R2:R64, S:Int):Mem => 
-    memOffset( addMInt(mi(64, I), addMInt(getRegisterValue(R1, RSMap), mulMInt(getRegisterValue(R2, RSMap), mi(64, S)))))
-  ...</k>
-      <regstate> RSMap </regstate>
-
-  rule <k>  L:X86Id (R1:R64, R2:R64):Mem           =>  L + 0 (R1, R2, 1) ...</k>
-  rule <k>  L:X86Id (R1:R64, R2:R64, S:Int):Mem    =>  L + 0 (R1, R2, S) ...</k>
-  rule <k>  L:X86Id + I:Int (R1:R64, R2:R64):Mem    =>  L + I (R1, R2, 1) ...</k>
-  rule <k>  L:X86Id + I:Int (R1:R64, R2:R64, S:Int):Mem => 
-    memOffset( addMInt(
-          addMInt(LoadAddr, mi(bitwidthMInt(LoadAddr), I)), 
-          addMInt(getRegisterValue(R1, RSMap), mulMInt(getRegisterValue(R2, RSMap), mi(64, S)))))
-  ...</k>
-      <regstate> RSMap </regstate>
-      <functargets>...  L |-> LoadAddr:PointerVal  ...</functargets>
-  /*@
-    Size of instructions.
-  rule getISize((OpC:Opcode OpR:Operands):Instruction) => 1
-  */  
+  rule <k> I:Int (R1:R64, R2:R64, S:Int):Mem => memOffset( addMInt(mi(64, I), addMInt(getRegisterValue(R1, RSMap), mulMInt(getRegisterValue(R2, RSMap), mi(64, S))))) ...</k>
+       <regstate> RSMap </regstate>
 
   /*@
     Reg to Regtstate keys
@@ -411,19 +289,22 @@ module X86-ABSTRACT-SEMANTICS
     setRegisterValue(MI, convSubRegsToRegs(R))    
   ...</k>
 
+
+  syntax MInt ::= KItemToMInt(KItem) [function]
+  rule KItemToMInt(MI:MInt) => MI
+
+ 
   /*@
     Getting the registers values according to the register variants.
   */
-  rule getRegisterValue(R:R8,  RSMap)  =>  extractMask({RSMap[convToRegKeys(R)]}:>MInt, 8, 0)
-  rule getRegisterValue(R:R16, RSMap)  =>  extractMask({RSMap[convToRegKeys(R)]}:>MInt, 16, 0)
-  rule getRegisterValue(R:R32, RSMap)  =>  extractMask({RSMap[convToRegKeys(R)]}:>MInt, 32, 0)
-  rule getRegisterValue(R:R64, RSMap)  =>  {RSMap[convToRegKeys(R)]}:>MInt
-  rule getRegisterValue(R:Rh,  RSMap)  =>  extractMask({RSMap[convToRegKeys(R)]}:>MInt, 8, 8)
-  rule getRegisterValue(X:Xmm, RSMap)  =>  extractMask({RSMap[convToRegKeys(X)]}:>MInt, 128, 0)
-  rule getRegisterValue(Y:Ymm, RSMap)  =>  {RSMap[convToRegKeys(Y)]}:>MInt
-/*
-  rule getRegisterValue(M:Mm,  RSMap)  =>  {RSMap[convToRegKeys(M)]}:>MInt
-*/
+  rule getRegisterValue(R:R8,  RSMap)  =>  extractMask(KItemToMInt(RSMap[convToRegKeys(R)]), 8, 0)
+  rule getRegisterValue(R:R16, RSMap)  =>  extractMask(KItemToMInt(RSMap[convToRegKeys(R)]), 16, 0)
+  rule getRegisterValue(R:R32, RSMap)  =>  extractMask(KItemToMInt(RSMap[convToRegKeys(R)]), 32, 0)
+  rule getRegisterValue(R:R64, RSMap)  =>  KItemToMInt(RSMap[convToRegKeys(R)])
+  rule getRegisterValue(R:Rip, RSMap)  =>  KItemToMInt(RSMap["RIP"])
+  rule getRegisterValue(R:Rh,  RSMap)  =>  extractMask(KItemToMInt(RSMap[convToRegKeys(R)]), 8, 8)
+  rule getRegisterValue(X:Xmm, RSMap)  =>  extractMask(KItemToMInt(RSMap[convToRegKeys(X)]), 128, 0)
+  rule getRegisterValue(Y:Ymm, RSMap)  =>  KItemToMInt(RSMap[convToRegKeys(Y)])
   rule getParentValue(R:Register, RSMap) => getRegisterValue(convSubRegsToRegs(R), RSMap)
 
   /*@
@@ -434,13 +315,9 @@ module X86-ABSTRACT-SEMANTICS
   // Imm could be an Int
   rule handleImmediateWithSignExtend(($ I:Int):Imm, M:Int, N:Int) => signExtend(mi(M,I), N)
 
-  // Or a HexConstant: For hexconstants ike 0x800, we have to provide the substr 800
-  // as an argument to  String2Base                                          
-  syntax String ::= HexConstant2String ( HexConstant )    [function, hook(STRING.token2string)]
-  //rule handleImmediateWithSignExtend($0x H:HexConstant, M:Int, N:Int) =>
-  //  signExtend(mi(M, String2Base(HexConstant2String(H), 16)), N)
-  rule handleImmediateWithSignExtend((H:HexConstant):Imm, M:Int, N:Int) =>
-    signExtend(mi(M, String2Base(substrString(HexConstant2String(H), 3, lengthString(HexConstant2String(H))), 16)), N)
+  // Or a HexConstant: For hexconstants like 0x800, we have to provide the substr 800
+  // as an argument to  String2Base
+  rule handleImmediateWithSignExtend(($ H:HexConstant):Imm, M:Int, N:Int) => signExtend(mi(M, HexConstant2Int(H)), N)
 
   /*@ 
     Check if two registers are the same
@@ -480,13 +357,13 @@ module X86-ABSTRACT-SEMANTICS
   rule <k> decRSPInBytes(I:Int) => .  ...</k>
     <regstate> RSMap:Map => updateMap(
         RSMap, 
-        "RSP" |-> subMInt({RSMap["RSP"]}:>MInt, mi(64, I)))
+        "RSP" |-> subMInt(KItemToMInt(RSMap["RSP"]), mi(64, I)))
     </regstate>
 
   rule <k> incRSPInBytes(I:Int) => .  ...</k>
     <regstate> RSMap:Map => updateMap(
         RSMap, 
-        "RSP" |-> addMInt({RSMap["RSP"]}:>MInt, mi(64, I)))
+        "RSP" |-> addMInt(KItemToMInt(RSMap["RSP"]), mi(64, I)))
     </regstate>
 
   /*@
@@ -651,12 +528,15 @@ module X86-ABSTRACT-SEMANTICS
     #ifMInt absInt(svalueMInt(Length)) >Int 16 #then mi(8, 16) #else mi(8, absInt(svalueMInt(Length))) #fi
       requires eqMInt(extractMInt(Imm8, 7, 8), mi(1, 0)) // Interpret as 16 bytes  
 
+  syntax Int ::= KItemToInt(KItem) [function]
+  rule KItemToInt(I:Int) => I
+
   /*@
     findLimitIndexI
   */
   rule findLimitIndexI(Value:MInt, Imm8:MInt) => findLimitIndexIHelper(Value, 
-      {#ifInt eqMInt(extractMInt(Imm8, 7, 8), mi(1, 1)) #then 16 #else 8 #fi}:>Int, 
-      {#ifInt eqMInt(extractMInt(Imm8, 7, 8), mi(1, 1)) #then 8 #else 16 #fi}:>Int, 
+      KItemToInt(#ifInt eqMInt(extractMInt(Imm8, 7, 8), mi(1, 1)) #then 16 #else 8 #fi),
+      KItemToInt(#ifInt eqMInt(extractMInt(Imm8, 7, 8), mi(1, 1)) #then 8 #else 16 #fi), 
       0) 
 
   rule findLimitIndexIHelper(Value:MInt, BitLength:Int, NumElems:Int, Count:Int) => mi(8, Count)
@@ -715,8 +595,8 @@ module X86-ABSTRACT-SEMANTICS
 
   rule compareEqual(Count2:Int, Count1:Int, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, SOrU:MInt) => 
     compareEqualSignedOrUnsigned(
-        extractMask(Value2, {#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Count2 *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi}:>Int),
-        extractMask(Value1, {#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Count1 *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi}:>Int),
+        extractMask(Value2, KItemToInt(#ifInt NumElems ==Int 8 #then 16 #else 8 #fi), Count2 *Int #if NumElems ==Int 8 #then 16 #else 8 #fi),
+        extractMask(Value1, KItemToInt(#ifInt NumElems ==Int 8 #then 16 #else 8 #fi), Count1 *Int #if NumElems ==Int 8 #then 16 #else 8 #fi),
         SOrU
     )           
       requires Count1 <Int uvalueMInt(Limit1) andBool Count2 <Int uvalueMInt(Limit2) // If both of the data are valid, return comparison result
@@ -766,8 +646,8 @@ module X86-ABSTRACT-SEMANTICS
 
   rule compareEach(Index:Int, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, SOrU:MInt) => 
     compareEqualSignedOrUnsigned(
-        extractMask(Value2, {#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Index *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi}:>Int),
-        extractMask(Value1, {#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Index *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi}:>Int),
+        extractMask(Value2, KItemToInt(#ifInt NumElems ==Int 8 #then 16 #else 8 #fi), Index *Int #if NumElems ==Int 8 #then 16 #else 8 #fi),
+        extractMask(Value1, KItemToInt(#ifInt NumElems ==Int 8 #then 16 #else 8 #fi), Index *Int #if NumElems ==Int 8 #then 16 #else 8 #fi),
         SOrU
     )           
       requires // If both of the data are valid
@@ -821,13 +701,13 @@ module X86-ABSTRACT-SEMANTICS
   rule compareRange(Count2:Int, Count1:Int, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, SOrU:MInt) => 
     andMInt(
       compareGESignedOrUnsigned(
-          extractMask(Value2, {#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Count2 *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi}:>Int),
-          extractMask(Value1, {#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Count1 *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi}:>Int),
+          extractMask(Value2, KItemToInt(#ifInt NumElems ==Int 8 #then 16 #else 8 #fi), Count2 *Int #if NumElems ==Int 8 #then 16 #else 8 #fi),
+          extractMask(Value1, KItemToInt(#ifInt NumElems ==Int 8 #then 16 #else 8 #fi), Count1 *Int #if NumElems ==Int 8 #then 16 #else 8 #fi),
           SOrU
       ),
       compareLESignedOrUnsigned(
-          extractMask(Value2, {#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Count2 *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi}:>Int),
-          extractMask(Value1, {#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Count1 *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi}:>Int),
+          extractMask(Value2, KItemToInt(#ifInt NumElems ==Int 8 #then 16 #else 8 #fi), Count2 *Int #if NumElems ==Int 8 #then 16 #else 8 #fi),
+          extractMask(Value1, KItemToInt(#ifInt NumElems ==Int 8 #then 16 #else 8 #fi), Count1 *Int #if NumElems ==Int 8 #then 16 #else 8 #fi),
           SOrU
       ))
 
@@ -881,8 +761,8 @@ module X86-ABSTRACT-SEMANTICS
 
   rule compareEqualOrdered(Count2:Int, Count1:Int, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, SOrU:MInt) => 
       compareEqualSignedOrUnsigned(
-          extractMask(Value2, {#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Count2 *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi}:>Int),
-          extractMask(Value1, {#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Count1 *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi}:>Int),
+          extractMask(Value2, KItemToInt(#ifInt NumElems ==Int 8 #then 16 #else 8 #fi), Count2 *Int #if NumElems ==Int 8 #then 16 #else 8 #fi),
+          extractMask(Value1, KItemToInt(#ifInt NumElems ==Int 8 #then 16 #else 8 #fi), Count1 *Int #if NumElems ==Int 8 #then 16 #else 8 #fi),
           SOrU
       )
 
@@ -948,9 +828,9 @@ module X86-ABSTRACT-SEMANTICS
   rule expandMaskHelper(IntRes2:MInt, NumElems:Int, Count:Int) => 
     #ifMInt eqMInt(extractMask(IntRes2, 1, Count), mi(1, 0)) 
     #then 
-        {#ifMInt NumElems ==Int 8 #then mi(16, 0) #else mi(8, 0) #fi}:>MInt
+        KItemToMInt(#ifMInt NumElems ==Int 8 #then mi(16, 0) #else mi(8, 0) #fi)
     #else    
-        {#ifMInt NumElems ==Int 8 #then mi(16, -1) #else mi(8, -1) #fi}:>MInt
+        KItemToMInt(#ifMInt NumElems ==Int 8 #then mi(16, -1) #else mi(8, -1) #fi)
     #fi
       requires Count ==Int (NumElems -Int 1)
 
@@ -960,31 +840,11 @@ module X86-ABSTRACT-SEMANTICS
         expandMaskHelper(IntRes2, NumElems, Count +Int 1),
         #ifMInt eqMInt(extractMask(IntRes2, 1, Count), mi(1, 0)) 
         #then 
-          {#ifMInt NumElems ==Int 8 #then mi(16, 0) #else mi(8, 0) #fi}:>MInt
+          KItemToMInt(#ifMInt NumElems ==Int 8 #then mi(16, 0) #else mi(8, 0) #fi)
         #else    
-          {#ifMInt NumElems ==Int 8 #then mi(16, -1) #else mi(8, -1) #fi}:>MInt
+          KItemToMInt(#ifMInt NumElems ==Int 8 #then mi(16, -1) #else mi(8, -1) #fi)
         #fi
       )
         requires Count =/=Int (NumElems -Int 1)
-
-
 endmodule
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

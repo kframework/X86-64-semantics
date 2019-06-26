@@ -41,10 +41,10 @@ module COMMON-C-LIBRARY-OPAQUE-SYNTAX
   imports STRING
 
   // The following functions check for null.
-  syntax Bool ::= isNull(FilePointer) [function, klabel(isNullFDPtr)]
-  syntax Bool ::= isNull(FPosPointer) [function, klabel(isNullFPosPtr)]
-  syntax Bool ::= isNull(StringPointer) [function, klabel(isNullStrPtr)]
-  syntax Bool ::= isNull(BufferPointer) [function, klabel(isNullBufPtr)]
+  syntax Bool ::= isNullFDPtr(FilePointer) [function]
+  syntax Bool ::= isNullFPosPtr(FPosPointer) [function]
+  syntax Bool ::= isNullStrPtr(StringPointer) [function]
+  syntax Bool ::= isNullBufPtr(BufferPointer) [function]
 
   // The following functions should perform appropriate pointer arithmetic.
   syntax StringPointer ::= StringPointer "+chars" Int [function]

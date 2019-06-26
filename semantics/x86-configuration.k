@@ -1,52 +1,46 @@
 require "x86-syntax.k"
+require "elf-syntax.k"
 require "x86-abstract-syntax.k"
-require "common-memory.k"
 require "x86-memory.k"
 require "x86-env-init.k"
 require "x86-mint-wrapper.k"
+require "decoder-configuration.k"
 
 module X86-CONFIGURATION
   imports X86-SYNTAX
   imports X86-ABSTRACT-SYNTAX
-  imports COMMON-MEMORY-CONFIGURATION
-  imports X86-MEMORY-SYNTAX
   imports X86-INIT-SYNTAX
   imports MINT-WRAPPER-SYNTAX
-  imports X86-LOADER-SYNTAX
   imports COMMON-C-LIBRARY-CONFIGURATION
+  imports X86-MEMORY-SYNTAX
+  imports ELF-SYNTAX
+  imports DECODER-CONFIGURATION
 
 
-  // configuration <T>
   configuration
-//initEnvironment(ListItem("a.out") ListItem("HelloWorld!") .List) ~> 
     <k> 
 	//initRegisters($REGV:RegValPairList) ~> 
-	//initEnvironment($ARGV:List) ~> 
+	//initEnvironment($ARGV:List) ~>
+        $PGM:Elf ~> 
 	initEnvironment(.List) ~> 
-	$PGM:Instructions ~> 
-        loadEntryPoint ~>
-	inforegisters ~> 
+        inforegisters ~> 
 	fetch 
     </k>
 
-    <functargets> .Map </functargets> 
-    <rotargets> .Map </rotargets> 
-    <datatargets> .Map </datatargets> 
-    <bsstargets> .Map </bsstargets> 
-    <entrypoint> .K </entrypoint>
-    <nextLocPc> mi(64, 0) </nextLocPc>
-    <lastseenlabel> .K </lastseenlabel>
-    <currentsection> "text" </currentsection>
+
+    <symbols> .Map </symbols> 
 
     <memstate>
-      <text> code( .Map ) </text>
       <stack>
-        <memory/>
-        <stackbase> stackBaseInfo(.K, .K) </stackbase>
-        <robase> roBaseInfo(.K /* Alocation id*/, .K /*Base Pointer*/, .K /*Next Location*/ ) </robase>
-        <database> dataBaseInfo(.K , .K , .K ) </database>
-        <bssbase>   bssBaseInfo(.K , .K , .K ) </bssbase>
+        <stackbase> mi(64, -1) </stackbase>
+        <stackcap> mi(64, -1) </stackcap>
       </stack>
+      <heap>
+        <heapbase> mi(64, -1) </heapbase>
+        <brk> mi(64, -1) </brk>
+      </heap>
+      <memory> .Map </memory>
+      <ROM> .List </ROM> 
     </memstate>
 
     <environment>
@@ -106,11 +100,14 @@ module X86-CONFIGURATION
       regstatequeue: For testing purposes
     */
 
-    // <itracer> .List </itracer>
     <regstatequeue> .List </regstatequeue>
+
+    <exitstate> .K </exitstate>
 
     <formatcountint> 0 </formatcountint>
     <formatcountfloat> 0 </formatcountfloat>
     <c-library/>
     <formatting/>
+    <decoder/>
+    <decodedinstructions> .List </decodedinstructions> // For debugging, similar to regstatequeue
 endmodule

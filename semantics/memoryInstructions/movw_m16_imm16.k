@@ -4,17 +4,18 @@ requires "x86-configuration.k"
 module MOVW-M16-IMM16
   imports X86-CONFIGURATION
 
-  context execinstr(movw:Opcode Imm16:Imm, HOLE:Mem,  .Operands) [result(MemOffset)]
+  context execinstr(movw:Opcode Imm16:MInt, HOLE:Mem,  .Operands) [result(MemOffset)]
   
   rule <k>
-     execinstr (movw:Opcode Imm16:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+     execinstr (movw:Opcode Imm16:MInt, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       
             storeToMemory(
-              handleImmediateWithSignExtend(Imm16, 16, 16),
+              Imm16,
               MemOff,
               16
             )
           
   ...</k>
     <regstate> RSMap:Map </regstate>
+      requires bitwidthMInt(Imm16) ==Int 16
 endmodule

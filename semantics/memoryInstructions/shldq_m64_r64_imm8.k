@@ -4,21 +4,23 @@ requires "x86-configuration.k"
 module SHLDQ-M64-R64-CL
   imports X86-CONFIGURATION
 
-  context execinstr (shldq Imm8:Imm, R2:R64, HOLE:Mem,  .Operands) [result(MemOffset)]
+  context execinstr (shldq Imm8:MInt, R2:R64, HOLE:Mem,  .Operands) [result(MemOffset)]
 
   rule <k>
-    execinstr (shldq Imm8:Imm, R2:R64,  memOffset( MemOff:MInt):MemOffset,  .Operands)  =>
+    execinstr (shldq Imm8:MInt, R2:R64,  memOffset( MemOff:MInt):MemOffset,  .Operands)  =>
       loadFromMemory( MemOff, 64) ~>
-      execinstr (shldq Imm8:Imm, R2,  memOffset( MemOff),  .Operands)
+      execinstr (shldq Imm8:MInt, R2,  memOffset( MemOff),  .Operands)
   ...</k>
+      requires bitwidthMInt(Imm8) ==Int 8
 
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~>  
-        execinstr (shldq Imm8:Imm, R2:R64, memOffset( MemOff:MInt):MemOffset,  .Operands) =>  
+        execinstr (shldq Imm8:MInt, R2:R64, memOffset( MemOff:MInt):MemOffset,  .Operands) =>  
       execinstr (shldq memOffset( MemOff), Mem64, getRegisterValue(R2, RSMap), 
-          shiftCountMask(handleImmediateWithSignExtend(Imm8, 8, 8), 64),  .Operands)
+          shiftCountMask(Imm8, 64),  .Operands)
   ...</k>
     <regstate> RSMap </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
 
   rule <k>
     execinstr (shldq memOffset( MemOff), MIdest:MInt, MIsrc:MInt, MIcount:MInt, .Operands) => .

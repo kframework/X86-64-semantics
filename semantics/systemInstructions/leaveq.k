@@ -5,7 +5,7 @@ module RETQ
   imports X86-CONFIGURATION
 
   rule <k> 
-    execinstr (leave .Operands) => 
+    execinstr (leaveq .Operands) => 
       execinstr(movq %rbp, %rsp, .Operands) ~> 
       execinstr(popq %rbp, .Operands)
   ...</k>

@@ -4,22 +4,24 @@ requires "x86-configuration.k"
 module VPINSRB-XMM-XMM-M8-IMM8
   imports X86-CONFIGURATION
 
-  context execinstr(vpinsrb:Opcode Imm8:Imm, HOLE:Mem, R3:Xmm, R4:Xmm,  .Operands) [result(MemOffset)]
+  context execinstr(vpinsrb:Opcode Imm8:MInt, HOLE:Mem, R3:Xmm, R4:Xmm,  .Operands) [result(MemOffset)]
   
   rule <k>
-    execinstr (vpinsrb:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm, R4:Xmm,  .Operands) =>
+    execinstr (vpinsrb:Opcode Imm8:MInt, memOffset( MemOff:MInt):MemOffset, R3:Xmm, R4:Xmm,  .Operands) =>
       loadFromMemory( MemOff, 8) ~>
       execinstr (vpinsrb Imm8, memOffset( MemOff), R3:Xmm, R4:Xmm,  .Operands)
   ...</k>
     <regstate> RSMap:Map </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
           
   rule <k>
-    memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (vpinsrb:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm, R4:Xmm,  .Operands) =>
+    memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (vpinsrb:Opcode Imm8:MInt, memOffset( MemOff:MInt):MemOffset, R3:Xmm, R4:Xmm,  .Operands) =>
       .
   ...</k>
     <regstate>
       RSMap:Map => updateMap(RSMap,
-convToRegKeys(R4) |-> concatenateMInt( mi(128, 0), orMInt( andMInt( extractMInt( getParentValue(R3, RSMap), 128, 256), negMInt( shiftLeftMInt( mi(128, 255), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(124, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 4, 8)), uvalueMInt(mi(128, 3))))))), andMInt( shiftLeftMInt( concatenateMInt( mi(120, 0), Mem8), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(124, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 4, 8)), uvalueMInt(mi(128, 3))))), shiftLeftMInt( mi(128, 255), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(124, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 4, 8)), uvalueMInt(mi(128, 3))))))))
+convToRegKeys(R4) |-> concatenateMInt( mi(128, 0), orMInt( andMInt( extractMInt( getParentValue(R3, RSMap), 128, 256), negMInt( shiftLeftMInt( mi(128, 255), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(124, 0), extractMInt( Imm8, 4, 8)), uvalueMInt(mi(128, 3))))))), andMInt( shiftLeftMInt( concatenateMInt( mi(120, 0), Mem8), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(124, 0), extractMInt( Imm8, 4, 8)), uvalueMInt(mi(128, 3))))), shiftLeftMInt( mi(128, 255), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(124, 0), extractMInt( Imm8, 4, 8)), uvalueMInt(mi(128, 3))))))))
       )
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
 endmodule

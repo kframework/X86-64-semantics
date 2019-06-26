@@ -4,22 +4,24 @@ requires "x86-configuration.k"
 module VPSHUFD-YMM-M256-IMM8
   imports X86-CONFIGURATION
 
-  context execinstr(vpshufd:Opcode Imm8:Imm, HOLE:Mem, R3:Ymm,  .Operands) [result(MemOffset)]
+  context execinstr(vpshufd:Opcode Imm8:MInt, HOLE:Mem, R3:Ymm,  .Operands) [result(MemOffset)]
   
   rule <k>
-    execinstr (vpshufd:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Ymm,  .Operands) =>
+    execinstr (vpshufd:Opcode Imm8:MInt, memOffset( MemOff:MInt):MemOffset, R3:Ymm,  .Operands) =>
       loadFromMemory( MemOff, 256) ~>
       execinstr (vpshufd Imm8, memOffset( MemOff), R3:Ymm,  .Operands)
   ...</k>
     <regstate> RSMap:Map </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
           
   rule <k>
-    memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vpshufd:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Ymm,  .Operands) =>
+    memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vpshufd:Opcode Imm8:MInt, memOffset( MemOff:MInt):MemOffset, R3:Ymm,  .Operands) =>
       .
   ...</k>
     <regstate>
       RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( extractMInt( lshrMInt( extractMInt( Mem256, 0, 128), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(126, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 0, 2)), uvalueMInt(mi(128, 5))))), 96, 128), concatenateMInt( extractMInt( lshrMInt( extractMInt( Mem256, 0, 128), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(126, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 2, 4)), uvalueMInt(mi(128, 5))))), 96, 128), concatenateMInt( extractMInt( lshrMInt( extractMInt( Mem256, 0, 128), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(126, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 4, 6)), uvalueMInt(mi(128, 5))))), 96, 128), concatenateMInt( extractMInt( lshrMInt( extractMInt( Mem256, 0, 128), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(126, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 6, 8)), uvalueMInt(mi(128, 5))))), 96, 128), concatenateMInt( extractMInt( lshrMInt( extractMInt( Mem256, 128, 256), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(126, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 0, 2)), uvalueMInt(mi(128, 5))))), 96, 128), concatenateMInt( extractMInt( lshrMInt( extractMInt( Mem256, 128, 256), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(126, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 2, 4)), uvalueMInt(mi(128, 5))))), 96, 128), concatenateMInt( extractMInt( lshrMInt( extractMInt( Mem256, 128, 256), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(126, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 4, 6)), uvalueMInt(mi(128, 5))))), 96, 128), extractMInt( lshrMInt( extractMInt( Mem256, 128, 256), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(126, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 6, 8)), uvalueMInt(mi(128, 5))))), 96, 128))))))))
+convToRegKeys(R3) |-> concatenateMInt( extractMInt( lshrMInt( extractMInt( Mem256, 0, 128), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(126, 0), extractMInt( Imm8, 0, 2)), uvalueMInt(mi(128, 5))))), 96, 128), concatenateMInt( extractMInt( lshrMInt( extractMInt( Mem256, 0, 128), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(126, 0), extractMInt( Imm8, 2, 4)), uvalueMInt(mi(128, 5))))), 96, 128), concatenateMInt( extractMInt( lshrMInt( extractMInt( Mem256, 0, 128), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(126, 0), extractMInt( Imm8, 4, 6)), uvalueMInt(mi(128, 5))))), 96, 128), concatenateMInt( extractMInt( lshrMInt( extractMInt( Mem256, 0, 128), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(126, 0), extractMInt( Imm8, 6, 8)), uvalueMInt(mi(128, 5))))), 96, 128), concatenateMInt( extractMInt( lshrMInt( extractMInt( Mem256, 128, 256), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(126, 0), extractMInt( Imm8, 0, 2)), uvalueMInt(mi(128, 5))))), 96, 128), concatenateMInt( extractMInt( lshrMInt( extractMInt( Mem256, 128, 256), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(126, 0), extractMInt( Imm8, 2, 4)), uvalueMInt(mi(128, 5))))), 96, 128), concatenateMInt( extractMInt( lshrMInt( extractMInt( Mem256, 128, 256), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(126, 0), extractMInt( Imm8, 4, 6)), uvalueMInt(mi(128, 5))))), 96, 128), extractMInt( lshrMInt( extractMInt( Mem256, 128, 256), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(126, 0), extractMInt( Imm8, 6, 8)), uvalueMInt(mi(128, 5))))), 96, 128))))))))
       )
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
 endmodule

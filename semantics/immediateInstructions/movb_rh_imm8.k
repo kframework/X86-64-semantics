@@ -5,14 +5,15 @@ module MOVB-RH-IMM8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (movb Imm8:Imm, R2:Rh,  .Operands) => .
+    execinstr (movb Imm8:MInt, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 48), handleImmediateWithSignExtend(Imm8, 8, 8)), extractMInt( getParentValue(R2, RSMap), 56, 64))
+convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 48), Imm8), extractMInt( getParentValue(R2, RSMap), 56, 64))
 )
 
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
     
 endmodule
 

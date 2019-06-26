@@ -5,14 +5,15 @@ module VCMPPD-YMM-YMM-YMM-IMM8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (vcmppd Imm8:Imm, R2:Ymm, R3:Ymm, R4:Ymm,  .Operands) => .
+    execinstr (vcmppd Imm8:MInt, R2:Ymm, R3:Ymm, R4:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R4) |-> concatenateMInt( (#ifMInt eqMInt( cmp_double_pred(extractMInt( getParentValue(R3, RSMap), 0, 64), extractMInt( getParentValue(R2, RSMap), 0, 64), handleImmediateWithSignExtend(Imm8, 8, 8)), mi(1, 1)) #then mi(64, 18446744073709551615) #else mi(64, 0) #fi), concatenateMInt( (#ifMInt eqMInt( cmp_double_pred(extractMInt( getParentValue(R3, RSMap), 64, 128), extractMInt( getParentValue(R2, RSMap), 64, 128), handleImmediateWithSignExtend(Imm8, 8, 8)), mi(1, 1)) #then mi(64, 18446744073709551615) #else mi(64, 0) #fi), concatenateMInt( (#ifMInt eqMInt( cmp_double_pred(extractMInt( getParentValue(R3, RSMap), 128, 192), extractMInt( getParentValue(R2, RSMap), 128, 192), handleImmediateWithSignExtend(Imm8, 8, 8)), mi(1, 1)) #then mi(64, 18446744073709551615) #else mi(64, 0) #fi), (#ifMInt eqMInt( cmp_double_pred(extractMInt( getParentValue(R3, RSMap), 192, 256), extractMInt( getParentValue(R2, RSMap), 192, 256), handleImmediateWithSignExtend(Imm8, 8, 8)), mi(1, 1)) #then mi(64, 18446744073709551615) #else mi(64, 0) #fi))))
+convToRegKeys(R4) |-> concatenateMInt( (#ifMInt eqMInt( cmp_double_pred(extractMInt( getParentValue(R3, RSMap), 0, 64), extractMInt( getParentValue(R2, RSMap), 0, 64), Imm8), mi(1, 1)) #then mi(64, 18446744073709551615) #else mi(64, 0) #fi), concatenateMInt( (#ifMInt eqMInt( cmp_double_pred(extractMInt( getParentValue(R3, RSMap), 64, 128), extractMInt( getParentValue(R2, RSMap), 64, 128), Imm8), mi(1, 1)) #then mi(64, 18446744073709551615) #else mi(64, 0) #fi), concatenateMInt( (#ifMInt eqMInt( cmp_double_pred(extractMInt( getParentValue(R3, RSMap), 128, 192), extractMInt( getParentValue(R2, RSMap), 128, 192), Imm8), mi(1, 1)) #then mi(64, 18446744073709551615) #else mi(64, 0) #fi), (#ifMInt eqMInt( cmp_double_pred(extractMInt( getParentValue(R3, RSMap), 192, 256), extractMInt( getParentValue(R2, RSMap), 192, 256), Imm8), mi(1, 1)) #then mi(64, 18446744073709551615) #else mi(64, 0) #fi))))
 )
 
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
     
 endmodule
 

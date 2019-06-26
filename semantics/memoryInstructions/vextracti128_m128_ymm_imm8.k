@@ -4,24 +4,26 @@ requires "x86-configuration.k"
 module VEXTRACTI128-M128-YMM-IMM8
   imports X86-CONFIGURATION
 
-  context execinstr(vextracti128:Opcode Imm8:Imm, R2:Ymm, HOLE:Mem,  .Operands) [result(MemOffset)]
+  context execinstr(vextracti128:Opcode Imm8:MInt, R2:Ymm, HOLE:Mem,  .Operands) [result(MemOffset)]
   
   rule <k>
-    execinstr (vextracti128:Opcode Imm8:Imm, R2:Ymm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+    execinstr (vextracti128:Opcode Imm8:MInt, R2:Ymm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       loadFromMemory( MemOff, 128) ~>
       execinstr (vextracti128 Imm8, R2:Ymm, memOffset( MemOff),  .Operands)
   ...</k>
     <regstate> RSMap:Map </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
           
   rule <k>
-    memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (vextracti128:Opcode Imm8:Imm, R2:Ymm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+    memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (vextracti128:Opcode Imm8:MInt, R2:Ymm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       
             storeToMemory(
-              (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 7, 8), mi(1, 0)) #then extractMInt( getParentValue(R2, RSMap), 128, 256) #else extractMInt( getParentValue(R2, RSMap), 0, 128) #fi),
+              (#ifMInt eqMInt( extractMInt( Imm8, 7, 8), mi(1, 0)) #then extractMInt( getParentValue(R2, RSMap), 128, 256) #else extractMInt( getParentValue(R2, RSMap), 0, 128) #fi),
               MemOff,
               128
             )
           
   ...</k>
     <regstate> RSMap:Map </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
 endmodule

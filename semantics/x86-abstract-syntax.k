@@ -1,8 +1,8 @@
+require "elf-syntax.k"
 require "x86-syntax.k"
 require "x86-memory.k"
 module  X86-ABSTRACT-SORTS
   syntax PointerVal
-  syntax NullVal
 endmodule
 
 module X86-ABSTRACT-SYNTAX
@@ -10,43 +10,16 @@ module X86-ABSTRACT-SYNTAX
   imports MINT
   imports X86-SORT
   imports X86-MEMORY-SORT
-  imports COMMON-MEMORY-SORTS
   imports X86-ABSTRACT-SORTS
 
-
-  syntax PointerVal ::= ptr(MemLoc, /* offset in bits */ MInt)
-  syntax MInt ::= PointerVal
-  syntax NullVal ::= "null"
-  syntax PointerVal ::= NullVal
+  syntax PointerVal ::= MInt
   syntax Bool ::= isPointerValNull(PointerVal) [function]
-  syntax MemLoc ::= getMemLoc(PointerVal) [function]
-  syntax MInt ::= getMIntVal(PointerVal) [function]
-
-  /*@
-    Sorts of config cell entities
-  */  
-  syntax CodeInMemory ::= code(/*PointerVal -> storeInstr(Instruction)*/ Map)
-  //syntax CodeInMemory ::= code(/*iloc(MInt) -> storeInstr(Instruction)*/ Map)
-  //syntax Int ::= iloc(MInt)
-  syntax StackBaseInfo ::= stackBaseInfo(/*MemLoc, Intial Offset*/ K, K)
-  syntax ROBaseInfo ::= roBaseInfo(/*MemLoc, Intial Offset, Next location*/ K, K, K)
-  syntax DataBaseInfo ::= dataBaseInfo(/*MemLoc, Intial Offset, Next location*/ K, K, K)
-  syntax BssBaseInfo ::= bssBaseInfo(/*MemLoc, Intial Offset, Next location*/ K, K, K)
-
-  syntax Abstractinstruction ::= storedInstr(Instruction)
-  syntax Abstractinstruction ::= execinstr(Instruction)
-  syntax Abstractinstruction ::= "IllegalInstructionException" [token]
 
   /*@
     Used for late evaluation of memory offset in case of instructions
     like popq_m64
   */
   syntax KItem ::= evaluateMemOffset (K) [strict(1)] 
-
-  syntax Int ::= "addrSize"
-  rule addrSize => 64 [macro]
-
-  // syntax Int ::= getISize(Instruction) [function]
 
   syntax KItem ::= "fetch" [token]
   syntax KItem ::= "inforegisters" [token]
@@ -55,8 +28,6 @@ module X86-ABSTRACT-SYNTAX
     Subregs to Regs
   */
   syntax Register ::= convSubRegsToRegs(Register) [function]
-  //syntax R64 ::= convSubRegsToRegs(Register) [function]
-  //syntax Ymm ::= convSubRegsToRegs(Register) [function]
 
   /*@
     Reg to Regtstate keys

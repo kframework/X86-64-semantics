@@ -5,14 +5,15 @@ module MOVW-R16-IMM16
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (movw Imm16:Imm, R2:R16,  .Operands) => .
+    execinstr (movw Imm16:MInt, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 48), handleImmediateWithSignExtend(Imm16, 16, 16))
+convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 48), Imm16)
 )
 
     </regstate>
+      requires bitwidthMInt(Imm16) ==Int 16
     
 endmodule
 

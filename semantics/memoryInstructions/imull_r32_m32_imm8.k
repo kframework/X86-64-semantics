@@ -4,24 +4,25 @@ requires "x86-configuration.k"
 module IMULL-R32-M32-IMM8
   imports X86-CONFIGURATION
 
-  context execinstr(imull:Opcode Imm8:Imm, HOLE:Mem, R3:R32,  .Operands) [result(MemOffset)]
+  context execinstr(imull:Opcode Imm8:MInt, HOLE:Mem, R3:R32,  .Operands) [result(MemOffset)]
   
   rule <k>
-    execinstr (imull:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:R32,  .Operands) =>
+    execinstr (imull:Opcode Imm8:MInt, memOffset( MemOff:MInt):MemOffset, R3:R32,  .Operands) =>
       loadFromMemory( MemOff, 32) ~>
       execinstr (imull Imm8, memOffset( MemOff), R3,  .Operands)
   ...</k>
     <regstate> RSMap:Map </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
           
   rule <k>
-    memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (imull:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:R32,  .Operands) =>
+    memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (imull:Opcode Imm8:MInt, memOffset( MemOff:MInt):MemOffset, R3:R32,  .Operands) =>
       .
   ...</k>
     <regstate>
       RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( mi(32, 0), extractMInt( mulMInt( mi(64, svalueMInt(Mem32)), mi(64, svalueMInt(handleImmediateWithSignExtend(Imm8, 8, 8)))), 32, 64))
+convToRegKeys(R3) |-> concatenateMInt( mi(32, 0), extractMInt( mulMInt( mi(64, svalueMInt(Mem32)), mi(64, svalueMInt(Imm8))), 32, 64))
 
-"CF" |-> (#ifMInt (notBool eqMInt( mulMInt( mi(64, svalueMInt(Mem32)), mi(64, svalueMInt(handleImmediateWithSignExtend(Imm8, 8, 8)))), mi(64, svalueMInt(extractMInt( mulMInt( mi(64, svalueMInt(Mem32)), mi(64, svalueMInt(handleImmediateWithSignExtend(Imm8, 8, 8)))), 32, 64))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"CF" |-> (#ifMInt (notBool eqMInt( mulMInt( mi(64, svalueMInt(Mem32)), mi(64, svalueMInt(Imm8))), mi(64, svalueMInt(extractMInt( mulMInt( mi(64, svalueMInt(Mem32)), mi(64, svalueMInt(Imm8))), 32, 64))))) #then mi(1, 1) #else mi(1, 0) #fi)
 
 "PF" |-> (undefMInt)
 
@@ -31,7 +32,8 @@ convToRegKeys(R3) |-> concatenateMInt( mi(32, 0), extractMInt( mulMInt( mi(64, s
 
 "SF" |-> (undefMInt)
 
-"OF" |-> (#ifMInt (notBool eqMInt( mulMInt( mi(64, svalueMInt(Mem32)), mi(64, svalueMInt(handleImmediateWithSignExtend(Imm8, 8, 8)))), mi(64, svalueMInt(extractMInt( mulMInt( mi(64, svalueMInt(Mem32)), mi(64, svalueMInt(handleImmediateWithSignExtend(Imm8, 8, 8)))), 32, 64))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt (notBool eqMInt( mulMInt( mi(64, svalueMInt(Mem32)), mi(64, svalueMInt(Imm8))), mi(64, svalueMInt(extractMInt( mulMInt( mi(64, svalueMInt(Mem32)), mi(64, svalueMInt(Imm8))), 32, 64))))) #then mi(1, 1) #else mi(1, 0) #fi)
       )
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
 endmodule

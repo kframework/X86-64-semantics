@@ -11,6 +11,7 @@ module X86-MEMORY-SYNTAX
   imports X86-ABSTRACT-SORTS
   imports MINT-WRAPPER-SORT
   imports MINT
+  imports STRING
   imports INT
 
   syntax Int ::= "StackSpaceForEnvs"
@@ -29,57 +30,19 @@ module X86-MEMORY-SYNTAX
     If N is the number of stack slots allocated, the upper 64 slots are used for 
     environment memory.
   */
-  syntax KItem ::= allocateStackMemory(
-      /* Number of elements */ Int,
-      /* Alignment in bits */ Int)
+  syntax K ::= initStackMemory(/* Number of elements */ Int, /* Alignment in bits */ Int)
 
-  /*@
-    Allocate Bss  memory and save allocated pointer
-  */
-  syntax KItem ::= allocateBssMemory(
-      /* Number of elements */ Int,
-      /* Alignment in bits */ Int)
+  syntax K ::= initHeapMemory(/* Number of elements */ Int, /* Alignment in bits */ Int)
 
-  /*@
-    Allocate Data  memory and save allocated pointer
-  */
-  syntax KItem ::= allocateDataMemory(
-      /* Number of elements */ Int,
-      /* Alignment in bits */ Int)
+  syntax K ::= changeHeapSize(/* New Size */Int)
 
-  /*@
-    Allocate memory: Used for allocating Read only memory
-  */
-  syntax KItem ::= allocateROMemory(
-      /* Number of elements */ Int,
-      /* Alignment in bits */ Int)
-
-  /*@
-    Allocate memory: Used for allocating memory for stdout file IO
-  */
-  syntax KItem ::= allocateSTDOUTMemory(
-      /* Number of elements */ Int,
-      /* Alignment in bits */ Int)
-
-  /*@
-    Allocate memory: Used for allocating local memory
-  */
-  syntax KItem ::= allocateLocalMemory(
-      /* Number of elements */ Int,
-      /* Alignment in bits */ Int)
-
-  /*@
-    Free memory allocated for stack.
-  */
-  //syntax KItem ::= "freeMemory" [token]
-  syntax KItem ::= freeMemory(PointerVal)
+  syntax K ::= allocateHeapMemory(/* Number of bytes */ Int)
+  syntax K ::= freeMemory(MInt)
 
   /*@
     Load memory at Address represented by MInt for Int bits
   */
-  syntax KItem ::=  loadFromMemory(
-                      /* Address */ MInt,
-                      /* Load size in bits */ Int)
+  syntax KItem ::= loadFromMemory(/* Address */ MInt, /* Load size in bits */ Int)
 
   /*@
     Sorts to be stored in memory.
@@ -89,94 +52,41 @@ module X86-MEMORY-SYNTAX
   /*@
     Store 'Val' in 'Nbits' of memory starting at address 'AddrMI'
   */
-  syntax KItem ::=  storeToMemory(
-                      /* Data */ StoreVal,
-                      /* Address */ MInt,
-                      /* Store size in bits*/ Int)
+  syntax KItem ::=  storeToMemory(/* Data */ StoreVal, /* Address */ MInt, /* Store size in bits*/ Int)
 
+  syntax Bool ::= isCanonicalAddress(MInt) [function]
+  
+  syntax Int ::= "logicalAddressWidth" | "physicalAddressWidth" | "canonicalAddressBits" | "StackSpaceForEnvs"
+
+  rule logicalAddressWidth => 64 [macro]
+  rule physicalAddressWidth => 48 [macro] // Chosen to match real x86_64 processors.
+  rule canonicalAddressBits => 1 +Int logicalAddressWidth -Int physicalAddressWidth [macro] 
+
+
+  syntax ROMSegment ::= StringSegment(Int, Int, String)
 endmodule
 
 
 module X86-MEMORY
-  imports COMMON-MEMORY-OPAQUE-SYNTAX
-  imports COMMON-MEMORY-SYNTAX
+  imports X86-MEMORY-SYNTAX
   imports X86-CONFIGURATION
 
 
+  rule isCanonicalAddress(MI) => eqMInt(extractMInt(MI, 0, canonicalAddressBits), mi(canonicalAddressBits, 0)) orBool
+                                 eqMInt(extractMInt(MI, 0, canonicalAddressBits), mi(canonicalAddressBits, (1 <<Int canonicalAddressBits) -Int 1))
+
   rule StackSpaceForEnvs => 8 [macro]
 
-  /// Decomposition of a dynamic value into bytes
-  syntax ByteVal ::= byte(/* position, 0 being the LSB */ Int, MInt)
-
-  // AbstractValue sort defintion for x86 semantics
-  syntax AbstractValue ::= ByteVal
-  rule getDefaultAbstractValue() => byte(0, undefMInt8)
-
-  // x86 memory helper API implementation for allocation and store.
-
-
-  /*@
-    Create a MemValue out of a storeVal of size Nbits
-  */
-  syntax MemValue ::= toMemValue(StoreVal, Int)  [function]
-  rule toMemValue(V:StoreVal, N:Int) => mList(N /Int 8, 8, toMemData(V, N, .MemData))
-
-  /*@
-    Create a MemData out of a storeVal of size Nbits
-  */
-  syntax MemData ::= toMemData(StoreVal, Int, MemData)  [function, klabel(toMemDataMInt)]
-
-  /*@
-    MInt -> MemData
-  */
-  rule toMemData(V:MInt, N:Int, Bytes:MemData) => toMemDataFromMInt(V, N, Bytes)
-    requires bitwidthMInt(V) ==Int N 
-
-  syntax MemData ::= toMemDataFromMInt(MInt, Int, MemData) [function]
-  rule toMemDataFromMInt(MI:MInt, N:Int, Bytes:MemData) => appendMemData(Bytes, toBytes(N, MI))
-
-  /*@
-    MIntMap -> MemData
-  */
-  rule toMemData(mimap(M):MIntMap, N:Int, Bytes:MemData) => toMemDataFromMIntMap(M, 0, size(M), Bytes)
-    requires bitwidthMInt({M[0]}:>MInt) *Int size(M) ==Int N 
-
-  syntax MemData ::= toMemDataFromMIntMap(Map, Int, Int, MemData) [function]
-
-  rule toMemDataFromMIntMap(_:Map, N:Int, N, Bytes:MemData) => Bytes
-  rule toMemDataFromMIntMap(M:Map, I:Int, N:Int, Bytes:MemData) =>
-        toMemDataFromMIntMap(M, I +Int 1, N, toMemData({M[I]}:>MInt, bitwidthMInt({M[I]}:>MInt), Bytes))
-    requires I <Int N
-
-  /*@
-    toBytes(N:Int, MI:MInt)
-    Convert MI to 
-      List{ byte(0, MI)  byte(1, MI) ... byte(M-1, MI) } where M = N / 8
-  */  
-  syntax MemData ::= toBytes(Int, MInt) [function]
-  rule toBytes(N:Int, MI:MInt) => toBytesAux(N /Int 8, MI, .MemData)
-
-  syntax MemData ::= toBytesAux(Int, MInt, /* bytes accumulator */ MemData) [function]
-  rule toBytesAux(0 , _:MInt, Bytes:MemData) => Bytes
-  rule toBytesAux(N:Int, MI:MInt, Bytes:MemData)
-       =>
-       toBytesAux(N -Int 1, MI, byte(N -Int 1, MI) Bytes)
-    requires N >Int 0
-
-
-  // x86 memory helper API implementation for load.
-  syntax KItem ::= fromMemValue(K, Int) [strict(1)]
-  rule fromMemValue(mList(_:Int, 8, Bytes:MemData), N:Int) => 
-   memLoadValue ( fromBytes(takeMemData(N /Int 8, Bytes)) )
-
-
-  syntax MInt ::= fromBytes(MemData) [function]
-  rule fromBytes(byte(I:Int, MI:MInt) Rest) =>  extractMask(MI, 8, I *Int 8)
-    requires Rest ==K .MemData
-  rule fromBytes(byte(I:Int, MI:MInt) Rest:MemData) =>  concatenateMInt(fromBytes(Rest), extractMask(MI, 8, I *Int 8))
-    requires Rest =/=K .MemData
+  // TODO: Maybe.  x86 Manual says that stack may be placed anywhere in memory where it doesn't collide with the other program segments.  So this is overly specific.  
+  // But how should we generalize? Random position? Symbolic position?
+  syntax Int ::= BaseStackAddress(/* Stack alignment requirements in bytes */ Int) [function]
+  rule BaseStackAddress(I) => (1 <<Int 64) -Int (1 <<Int (I -Int 1)) +Int 8 requires 2 ^Int log2Int(I) ==Int I // AKA: requires I is a power of 2
 
   // x86 memory API implementation
+
+  syntax K ::= makeStack(/* Base */ Int, /* Size */ Int)
+
+  rule initStackMemory(N, A) => makeStack(BaseStackAddress(A), N)
 
   /*@
     Allocate stack memory: Used for allocating stack memory and saving the stack base address
@@ -189,132 +99,78 @@ module X86-MEMORY
  A+8: *    * <-- argv       |
       *    *                v (High Adress)
   */
-  rule <k> allocateStackMemory(N:Int, A:Int) =>  
-    saveAllocPointer(allocateLocalMemory(N, A)) ... </k>
-      //<regstate> RSMap => updateMap(RSMap,
-      //                    ("RSP"  |->  mi(addrSize, N -Int StackSpaceForEnvs)) 
-      //                    ("RBP"  |->  mi(addrSize, N -Int StackSpaceForEnvs)) ) 
-      //</regstate>
-      <argv> _ => mi(addrSize, N -Int StackSpaceForEnvs +Int 8) </argv>
-      <stackbase> stackBaseInfo(_:K , _:K => mi(addrSize, N -Int StackSpaceForEnvs))  </stackbase>
-      /*
-      <regstate> RSMap </regstate>
-      <argv> _ => mi(addrSize, 
-          uvalueMInt({RSMap["RSP"]}:>MInt) +Int StackSpaceForEnvs  // N
-          -Int StackSpaceForEnvs +Int 8) </argv>
-      <stackbase> stackBaseInfo(_:K , _:K => mi(addrSize, 
-            uvalueMInt({RSMap["RSP"]}:>MInt) +Int StackSpaceForEnvs // N 
-            -Int StackSpaceForEnvs))  
-      </stackbase>
-	*/
+  rule <k> makeStack(Base, Size) => . ... </k>
+       <argv> _ => mi(logicalAddressWidth, Size -Int StackSpaceForEnvs) </argv>
+       <stackbase> _ => mi(logicalAddressWidth, Base)  </stackbase>
+       <regstate> RSMap => updateMap(RSMap, ("RSP" |-> mi(logicalAddressWidth, Base)) ("RBP" |-> mi(logicalAddressWidth, Base))) </regstate>
 
-  /*@
-    Save the allocation id for later reads/writes/free.
-  */
-  syntax KItem ::=  saveAllocPointer(K) [strict(1)]
-  rule <k> saveAllocPointer(L:MemLoc) => .
-  ... </k>
-    <stackbase> stackBaseInfo(_:K => L, BP:MInt)  </stackbase>
-    <regstate> RSMap => updateMap(RSMap,
-                        ("RSP"  |->  ptr(L, BP)) 
-                        ("RBP"  |->  ptr(L, BP)) ) 
-    </regstate>
 
-  /*@
-    Allocate Bss  memory and save allocated pointer
-  */
-  rule <k> allocateBssMemory(N:Int, A:Int) =>  
-    saveBssPointer(allocateLocalMemory(N, A)) ... </k>
-      <bssbase> 
-        bssBaseInfo(_:K, _:K => mi(addrSize, 0), _:K => mi(addrSize, 0))  
-      </bssbase>
+  syntax KResult ::= Int
 
-  syntax KItem ::=  saveBssPointer(K) [strict(1)]
-  rule <k> saveBssPointer(L:MemLoc) => .
-  ... </k>
-    <bssbase> bssBaseInfo(_:K => L, _:K, _:K)  </bssbase>
+  syntax K ::= makeHeap(/* Base */ K, /* Size */ Int) [strict]
+  syntax K ::= computeHeapBase(Int)
+  syntax K ::= findSegmentMax(List, Int)
+  syntax K ::= addAlignment(Int)
 
-  /*@
-    Allocate Data  memory and save allocated pointer
-  */
-  rule <k> allocateDataMemory(N:Int, A:Int) =>  
-    saveDataPointer(allocateLocalMemory(N, A)) ... </k>
-      <database> 
-        dataBaseInfo(_:K, _:K => mi(addrSize, 0), _:K => mi(addrSize, 0))  
-      </database>
+  rule initHeapMemory(N, A) => makeHeap(computeHeapBase(A), N)
 
-  syntax KItem ::=  saveDataPointer(K) [strict(1)]
-  rule <k> saveDataPointer(L:MemLoc) => .
-  ... </k>
-    <database> dataBaseInfo(_:K => L, _:K, _:K)  </database>
+  rule <k> computeHeapBase(A) => findSegmentMax(L, 0) ~> addAlignment(A) ... </k>
+       <ROM> L </ROM>
 
-  /*@
-    Allocate Read Only memory and save allocated pointer
-  */
-  rule <k> allocateROMemory(N:Int, A:Int) =>  
-    saveROPointer(allocateLocalMemory(N, A)) ... </k>
-      <robase> 
-        roBaseInfo(_:K, _:K => mi(addrSize, 0), _:K => mi(addrSize, 0))  
-      </robase>
+  rule findSegmentMax(ListItem(StringSegment(_, End, _)) L, M) => findSegmentMax(L, maxInt(M, End))
+  rule findSegmentMax(.List, M) => M
 
-  syntax KItem ::=  saveROPointer(K) [strict(1)]
-  rule <k> saveROPointer(L:MemLoc) => .
-  ... </k>
-    <robase> roBaseInfo(_:K => L, _:K, _:K)  </robase>
+  rule I:Int ~> addAlignment(A) => I requires A dividesInt I
+  rule I:Int ~> addAlignment(A) => A +Int ((I /Int A) *Int A) requires notBool (A dividesInt I)
 
-  /*@
-    Allocate memory for stdout file pointer
-  */
-  rule <k> allocateSTDOUTMemory(N:Int, A:Int) =>  
-    saveSTDOUTPointer(allocateLocalMemory(N, A)) ... </k>
+  rule <k> makeHeap(S, N) => . ... </k>
+       <heapbase> _ => mi(logicalAddressWidth, S) </heapbase>
+       <brk> _ => mi(logicalAddressWidth, S +Int N) </brk>
 
-  syntax KItem ::=  saveSTDOUTPointer(K) [strict(1)]
-  rule <k> saveSTDOUTPointer(L:MemLoc) => 
-    storeToMemory(mi(32, #stdout), ptr(L, mi(64,1)), 32)
-  ... </k>
-    <functargets> FMap:Map => FMap[stdout <- ptr(L, mi(64,1))] </functargets>
 
-  /*@
-    Allocate memory: Used for allocating local memory
-    `makeUndefMIntMap(N)` creates N 1 byte undefMInt and return a Map storing them
-    in byte granularity, which are then store in memory.
-  */
-  rule <k> allocateLocalMemory(N:Int, A:Int) => 
-          mAlloc(N,  8, A)
-            // toMemValue(makeUndefMIntMap(N), N *Int 8),
-  ... </k>
-  /*
-  rule <k> allocateLocalMemory(N:Int, A:Int) => 
-          mAlloc(
-            toMemValue(
-              makeUndefMIntMap(N, uvalueMInt({RSMap["RSP"]}:>MInt) +Int StackSpaceForEnvs -Int N), 
-              N *Int 8), A)
-  ... </k>
-  <regstate> RSMap </regstate>
-  */
+  /* TODO: Revisit this and add rules to terminate execution if the store is out of bounds? */
+  rule <k> storeToMemory(Val, Addr, 8) => . ... </k>
+       <memory> MemMap => MemMap[Addr <- Val] </memory>
+       requires bitwidthMInt(Val) ==Int 8 andBool bitwidthMInt(Addr) ==Int logicalAddressWidth
 
-  rule <k> freeMemory(PV:PointerVal) => mClear(getMemLoc(PV)) ... </k>
-    //<stackbase> stackBaseInfo( Loc:MemLoc, _:K) </stackbase>
+  rule <k> storeToMemory(Val, Addr, Sz) => 
+    storeToMemory(extractMInt(Val, bitwidthMInt(Val) -Int 8, bitwidthMInt(Val)), Addr, 8) ~> 
+    storeToMemory(extractMInt(Val, 0, bitwidthMInt(Val) -Int 8), addMInt(Addr, mi(logicalAddressWidth, 1)), Sz -Int 8) ... </k>
+  requires bitwidthMInt(Val) >Int 8 andBool 8 dividesInt bitwidthMInt(Val) andBool bitwidthMInt(Addr) ==Int logicalAddressWidth [structural]
 
-  /*@
-    Load memory Nbits:Int bits from Address represented AddrMI:MInt
-  */
-  rule <k>
-    //loadFromMemory(AddrMI:MInt, Nbits:Int) =>
-    loadFromMemory(ptr(L:MemLoc, AddrMI:MInt), Nbits:Int) =>
-      fromMemValue(mRead(L, uvalueMInt(AddrMI) *Int 8, Nbits /Int 8, 8), Nbits)
-  ... </k>
-    //<stackbase> stackBaseInfo( L:MemLoc, _:K) </stackbase>
-      requires Nbits %Int 8 ==Int 0
 
-  /*@
-    Store 'Val' in 'Nbits' of memory starting at address 'AddrMI'
-  */
-  rule <k>
-    //storeToMemory(Val:StoreVal, AddrMI:MInt, Nbits:Int) => mWrite(L, uvalueMInt(AddrMI) *Int 8, toMemValue(Val, Nbits))
-    storeToMemory(Val:StoreVal, ptr(L:MemLoc, AddrMI:MInt), Nbits:Int) => mWrite(L, uvalueMInt(AddrMI) *Int 8, toMemValue(Val, Nbits))
-  ... </k>
-    //<stackbase> stackBaseInfo( L:MemLoc, _:K) </stackbase>
-      requires Nbits %Int 8 ==Int 0
+  syntax MInt ::= findValueInMemory(MInt, Map, List) [function]
+  syntax MInt ::= findValueInROM(MInt, List) [function]
 
+  rule findValueInMemory(A, M, _) => {M[A]}:>MInt requires A in_keys(M)
+  rule findValueInMemory(A, M, L) => findValueInROM(A, L) requires notBool(A in_keys(M))
+
+  rule findValueInROM(A, ListItem(StringSegment(Start, End, S)) L) => mi(8, String2Base(substrString(S, 2 *Int (uvalueMInt(A) -Int Start), 2 *Int (uvalueMInt(A) -Int Start) +Int 2), 16))
+  requires uvalueMInt(A) >=Int Start andBool 2 *Int (uvalueMInt(A) -Int Start) <Int lengthString(S)
+
+  rule findValueInROM(A, ListItem(StringSegment(Start, End, S)) L) => mi(8, 0) 
+  requires 2 *Int (uvalueMInt(A) -Int Start) >=Int lengthString(S) andBool uvalueMInt(A) <Int End
+
+  rule findValueInROM(A, ListItem(StringSegment(Start, End, S)) L) => findValueInROM(A, L)
+  requires uvalueMInt(A) <Int Start orBool uvalueMInt(A) >=Int End
+
+  rule findValueInROM(A, .List) => mi(8, 0) 
+
+  rule <k> loadFromMemory(Addr, 8) => memLoadValue(findValueInMemory(Addr, MemMap, ROMList)) ... </k>
+       <memory> MemMap => MemMap[Addr <- findValueInMemory(Addr, MemMap, ROMList)] </memory>
+       <ROM> ROMList </ROM>
+
+  syntax K ::= CombineReads(K, K) [strict]
+
+  rule loadFromMemory(Addr, Sz) => CombineReads(loadFromMemory(Addr, 8), loadFromMemory(addMInt(Addr, mi(logicalAddressWidth, 1)), Sz -Int 8)) 
+  requires Sz >Int 8 andBool 8 dividesInt Sz andBool bitwidthMInt(Addr) ==Int logicalAddressWidth [structural]
+
+  rule CombineReads(memLoadValue(undefMInt), memLoadValue(_)) => memLoadValue(undefMInt) [structural]
+  rule CombineReads(memLoadValue(_), memLoadValue(undefMInt)) => memLoadValue(undefMInt) [structural]
+  rule CombineReads(memLoadValue(M1), memLoadValue(M2)) => memLoadValue(concatenateMInt(M2, M1))  [structural] // Switching the order here is important, else we would read in big endian order!
+
+  // Trivial memory leak heap implementation for now.
+  rule <k> allocateHeapMemory(N) => B ... </k>
+       <brk> B => addMInt(B, mi(logicalAddressWidth, N)) </brk>
+  rule <k> freeMemory(M) => . ... </k> 
 endmodule

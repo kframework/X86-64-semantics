@@ -4,26 +4,28 @@ requires "x86-configuration.k"
 module VPCMPISTRM-XMM-M128-IMM8
   imports X86-CONFIGURATION
 
-  context execinstr(vpcmpistrm:Opcode Imm8:Imm, HOLE:Mem, Xmm1:Xmm, .Operands) [result(MemOffset)]
+  context execinstr(vpcmpistrm:Opcode Imm8:MInt, HOLE:Mem, Xmm1:Xmm, .Operands) [result(MemOffset)]
   rule <k>
-    execinstr (vpcmpistrm:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, Xmm1:Xmm,  .Operands) =>
+    execinstr (vpcmpistrm:Opcode Imm8:MInt, memOffset( MemOff:MInt):MemOffset, Xmm1:Xmm,  .Operands) =>
       loadFromMemory( MemOff, 128) ~>
       execinstr (vpcmpistrm Imm8, memOffset( MemOff), Xmm1,  .Operands)
   ...</k>
+      requires bitwidthMInt(Imm8) ==Int 8
 
   // Find Limit Index
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> 
-                  execinstr (vpcmpistrm Imm8:Imm, Xmm2:Xmm, Xmm1:Xmm,  .Operands) => 
+                  execinstr (vpcmpistrm Imm8:MInt, Xmm2:Xmm, Xmm1:Xmm,  .Operands) => 
       execinstr (vpcmpistrm 
-          handleImmediateWithSignExtend(Imm8, 8, 8), 
+          Imm8, 
           Mem128,
           getRegisterValue(Xmm1, RSMap),
-          findLimitIndexI(Mem128, handleImmediateWithSignExtend(Imm8, 8, 8)),   
-          findLimitIndexI(getRegisterValue(Xmm1, RSMap), handleImmediateWithSignExtend(Imm8, 8, 8)),   
+          findLimitIndexI(Mem128, Imm8),   
+          findLimitIndexI(getRegisterValue(Xmm1, RSMap), Imm8),   
           .Operands) 
   ...</k>
   <regstate> RSMap </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
 
    // Find data size and interpretation
   rule <k>

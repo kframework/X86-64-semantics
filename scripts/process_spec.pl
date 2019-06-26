@@ -30,7 +30,7 @@ my $instantiated_instr_path =
   "$home/Github/strata-data/data-regs/instructions/";
 my $script = "~/x86-semantics/scripts/process_spec.pl";
 my $UTInstructionsPath        = "underTestInstructions/";
-
+my $DECODER_DIR = "/home/andrewmiranti/Documents/University/Grad/decoder"; # TEMPORARY
 my $help                 = "";
 my $stratum              = "";
 my $readmod              = "";
@@ -313,10 +313,15 @@ if ( "" ne $compile ) {
     execute("mkdir -p $UTInstructionsPath");
     createSingleFileDefn();
     execute("git status x86-instructions-semantics.k");
+#    execute(
+#"time  kompile x86-semantics.k --syntax-module X86-SYNTAX --main-module X86-SEMANTICS --debug -v --backend $backend -I ~/Github/llvm-verified-backend/ -I ~/Github/llvm-verified-backend/common/x86-config/",
+#        1
+#    );
     execute(
-"time  kompile x86-semantics.k --syntax-module X86-SYNTAX --main-module X86-SEMANTICS --debug -v --backend $backend -I ~/Github/llvm-verified-backend/ -I ~/Github/llvm-verified-backend/common/x86-config/",
+"time  kompile x86-semantics.k --syntax-module ELF-SYNTAX --main-module X86-SEMANTICS --debug -v --backend $backend -I . -I ./common/ -I $DECODER_DIR",
         1
     );
+
 
     exit(0);
 }

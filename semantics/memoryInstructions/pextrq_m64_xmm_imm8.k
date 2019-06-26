@@ -4,24 +4,26 @@ requires "x86-configuration.k"
 module PEXTRQ-M64-XMM-IMM8
   imports X86-CONFIGURATION
 
-  context execinstr(pextrq:Opcode Imm8:Imm, R2:Xmm, HOLE:Mem,  .Operands) [result(MemOffset)]
+  context execinstr(pextrq:Opcode Imm8:MInt, R2:Xmm, HOLE:Mem,  .Operands) [result(MemOffset)]
   
   rule <k>
-    execinstr (pextrq:Opcode Imm8:Imm, R2:Xmm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+    execinstr (pextrq:Opcode Imm8:MInt, R2:Xmm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       loadFromMemory( MemOff, 64) ~>
       execinstr (pextrq Imm8, R2:Xmm, memOffset( MemOff),  .Operands)
   ...</k>
     <regstate> RSMap:Map </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
           
   rule <k>
-    memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (pextrq:Opcode Imm8:Imm, R2:Xmm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+    memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (pextrq:Opcode Imm8:MInt, R2:Xmm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       
             storeToMemory(
-              extractMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 128, 256), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(127, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 7, 8)), uvalueMInt(mi(128, 6))))), 64, 128),
+              extractMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 128, 256), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(127, 0), extractMInt( Imm8, 7, 8)), uvalueMInt(mi(128, 6))))), 64, 128),
               MemOff,
               64
             )
           
   ...</k>
     <regstate> RSMap:Map </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
 endmodule

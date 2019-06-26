@@ -4,22 +4,24 @@ requires "x86-configuration.k"
 module VROUNDPS-YMM-M256-IMM8
   imports X86-CONFIGURATION
 
-  context execinstr(vroundps:Opcode Imm8:Imm, HOLE:Mem, R3:Ymm,  .Operands) [result(MemOffset)]
+  context execinstr(vroundps:Opcode Imm8:MInt, HOLE:Mem, R3:Ymm,  .Operands) [result(MemOffset)]
   
   rule <k>
-    execinstr (vroundps:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Ymm,  .Operands) =>
+    execinstr (vroundps:Opcode Imm8:MInt, memOffset( MemOff:MInt):MemOffset, R3:Ymm,  .Operands) =>
       loadFromMemory( MemOff, 256) ~>
       execinstr (vroundps Imm8, memOffset( MemOff), R3:Ymm,  .Operands)
   ...</k>
     <regstate> RSMap:Map </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
           
   rule <k>
-    memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vroundps:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Ymm,  .Operands) =>
+    memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vroundps:Opcode Imm8:MInt, memOffset( MemOff:MInt):MemOffset, R3:Ymm,  .Operands) =>
       .
   ...</k>
     <regstate>
       RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( cvt_single_to_int32_rm(extractMInt( Mem256, 0, 32), handleImmediateWithSignExtend(Imm8, 8, 8)), concatenateMInt( cvt_single_to_int32_rm(extractMInt( Mem256, 32, 64), handleImmediateWithSignExtend(Imm8, 8, 8)), concatenateMInt( cvt_single_to_int32_rm(extractMInt( Mem256, 64, 96), handleImmediateWithSignExtend(Imm8, 8, 8)), concatenateMInt( cvt_single_to_int32_rm(extractMInt( Mem256, 96, 128), handleImmediateWithSignExtend(Imm8, 8, 8)), concatenateMInt( cvt_single_to_int32_rm(extractMInt( Mem256, 128, 160), handleImmediateWithSignExtend(Imm8, 8, 8)), concatenateMInt( cvt_single_to_int32_rm(extractMInt( Mem256, 160, 192), handleImmediateWithSignExtend(Imm8, 8, 8)), concatenateMInt( cvt_single_to_int32_rm(extractMInt( Mem256, 192, 224), handleImmediateWithSignExtend(Imm8, 8, 8)), cvt_single_to_int32_rm(extractMInt( Mem256, 224, 256), handleImmediateWithSignExtend(Imm8, 8, 8)))))))))
+convToRegKeys(R3) |-> concatenateMInt( cvt_single_to_int32_rm(extractMInt( Mem256, 0, 32), Imm8), concatenateMInt( cvt_single_to_int32_rm(extractMInt( Mem256, 32, 64), Imm8), concatenateMInt( cvt_single_to_int32_rm(extractMInt( Mem256, 64, 96), Imm8), concatenateMInt( cvt_single_to_int32_rm(extractMInt( Mem256, 96, 128), Imm8), concatenateMInt( cvt_single_to_int32_rm(extractMInt( Mem256, 128, 160), Imm8), concatenateMInt( cvt_single_to_int32_rm(extractMInt( Mem256, 160, 192), Imm8), concatenateMInt( cvt_single_to_int32_rm(extractMInt( Mem256, 192, 224), Imm8), cvt_single_to_int32_rm(extractMInt( Mem256, 224, 256), Imm8))))))))
       )
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
 endmodule

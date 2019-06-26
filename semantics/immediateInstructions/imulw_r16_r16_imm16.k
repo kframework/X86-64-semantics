@@ -5,13 +5,13 @@ module IMULW-R16-R16-IMM16
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (imulw Imm16:Imm, R2:R16, R3:R16,  .Operands) => .
+    execinstr (imulw Imm16:MInt, R2:R16, R3:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( extractMInt( getParentValue(R3, RSMap), 0, 48), extractMInt( mulMInt( mi(32, svalueMInt(extractMInt( getParentValue(R2, RSMap), 48, 64))), mi(32, svalueMInt(handleImmediateWithSignExtend(Imm16, 16, 16)))), 16, 32))
+convToRegKeys(R3) |-> concatenateMInt( extractMInt( getParentValue(R3, RSMap), 0, 48), extractMInt( mulMInt( mi(32, svalueMInt(extractMInt( getParentValue(R2, RSMap), 48, 64))), mi(32, svalueMInt(Imm16))), 16, 32))
 
-"CF" |-> (#ifMInt (notBool eqMInt( mulMInt( mi(32, svalueMInt(extractMInt( getParentValue(R2, RSMap), 48, 64))), mi(32, svalueMInt(handleImmediateWithSignExtend(Imm16, 16, 16)))), mi(32, svalueMInt(extractMInt( mulMInt( mi(32, svalueMInt(extractMInt( getParentValue(R2, RSMap), 48, 64))), mi(32, svalueMInt(handleImmediateWithSignExtend(Imm16, 16, 16)))), 16, 32))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"CF" |-> (#ifMInt (notBool eqMInt( mulMInt( mi(32, svalueMInt(extractMInt( getParentValue(R2, RSMap), 48, 64))), mi(32, svalueMInt(Imm16))), mi(32, svalueMInt(extractMInt( mulMInt( mi(32, svalueMInt(extractMInt( getParentValue(R2, RSMap), 48, 64))), mi(32, svalueMInt(Imm16))), 16, 32))))) #then mi(1, 1) #else mi(1, 0) #fi)
 
 "PF" |-> (undefMInt)
 
@@ -21,10 +21,11 @@ convToRegKeys(R3) |-> concatenateMInt( extractMInt( getParentValue(R3, RSMap), 0
 
 "SF" |-> (undefMInt)
 
-"OF" |-> (#ifMInt (notBool eqMInt( mulMInt( mi(32, svalueMInt(extractMInt( getParentValue(R2, RSMap), 48, 64))), mi(32, svalueMInt(handleImmediateWithSignExtend(Imm16, 16, 16)))), mi(32, svalueMInt(extractMInt( mulMInt( mi(32, svalueMInt(extractMInt( getParentValue(R2, RSMap), 48, 64))), mi(32, svalueMInt(handleImmediateWithSignExtend(Imm16, 16, 16)))), 16, 32))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt (notBool eqMInt( mulMInt( mi(32, svalueMInt(extractMInt( getParentValue(R2, RSMap), 48, 64))), mi(32, svalueMInt(Imm16))), mi(32, svalueMInt(extractMInt( mulMInt( mi(32, svalueMInt(extractMInt( getParentValue(R2, RSMap), 48, 64))), mi(32, svalueMInt(Imm16))), 16, 32))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+      requires bitwidthMInt(Imm16) ==Int 16
     
 endmodule
 

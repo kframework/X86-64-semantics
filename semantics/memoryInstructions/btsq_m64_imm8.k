@@ -4,28 +4,29 @@ requires "x86-configuration.k"
 module BTSQ-M64-IMM8
   imports X86-CONFIGURATION
 
-  context execinstr(btsq:Opcode Imm8:Imm, HOLE:Mem,  .Operands) [result(MemOffset)]
+  context execinstr(btsq:Opcode Imm8:MInt, HOLE:Mem,  .Operands) [result(MemOffset)]
   
   rule <k>
-    execinstr (btsq:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-      loadFromMemory( addMInt( MemOff, concatenateMInt( mi(59, 0), andMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 0, 5), mi(5, 7)))), 8) ~>
+    execinstr (btsq:Opcode Imm8:MInt, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( addMInt( MemOff, concatenateMInt( mi(59, 0), andMInt( extractMInt( Imm8, 0, 5), mi(5, 7)))), 8) ~>
       execinstr (btsq Imm8, memOffset( MemOff),  .Operands)
   ...</k>
     <regstate> RSMap:Map </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
           
   rule <k>
-    memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (btsq:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+    memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (btsq:Opcode Imm8:MInt, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       
             storeToMemory(
-              orMInt( Mem8, shiftLeftMInt( mi(8, 1), uvalueMInt(concatenateMInt( mi(5, 0), andMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 5, 8), mi(3, 7)))))),
-              addMInt( MemOff, concatenateMInt( mi(59, 0), andMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 0, 5), mi(5, 7)))),
+              orMInt( Mem8, shiftLeftMInt( mi(8, 1), uvalueMInt(concatenateMInt( mi(5, 0), andMInt( extractMInt( Imm8, 5, 8), mi(3, 7)))))),
+              addMInt( MemOff, concatenateMInt( mi(59, 0), andMInt( extractMInt( Imm8, 0, 5), mi(5, 7)))),
               8
             )
           
   ...</k>
     <regstate>
       RSMap:Map => updateMap(RSMap,
-"CF" |-> extractMInt( lshrMInt( Mem8, uvalueMInt(concatenateMInt( mi(5, 0), andMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 5, 8), mi(3, 7))))), 7, 8)
+"CF" |-> extractMInt( lshrMInt( Mem8, uvalueMInt(concatenateMInt( mi(5, 0), andMInt( extractMInt( Imm8, 5, 8), mi(3, 7))))), 7, 8)
 
 "PF" |-> (undefMInt)
 
@@ -36,4 +37,5 @@ module BTSQ-M64-IMM8
 "OF" |-> (undefMInt)
       )
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
 endmodule

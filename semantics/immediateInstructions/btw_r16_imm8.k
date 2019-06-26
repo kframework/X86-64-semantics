@@ -5,11 +5,11 @@ module BTW-R16-IMM8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (btw Imm8:Imm, R2:R16,  .Operands) => .
+    execinstr (btw Imm8:MInt, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-"CF" |-> extractMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), uvalueMInt(mi(16, svalueMInt(andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 15)))))), 15, 16)
+"CF" |-> extractMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), uvalueMInt(mi(16, svalueMInt(andMInt( Imm8, mi(8, 15)))))), 15, 16)
 
 "PF" |-> (undefMInt)
 
@@ -21,6 +21,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
     
 endmodule
 

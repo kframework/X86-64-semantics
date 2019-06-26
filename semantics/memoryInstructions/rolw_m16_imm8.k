@@ -4,20 +4,21 @@ requires "x86-configuration.k"
 module ROLW-M16-IMM8
   imports X86-CONFIGURATION
 
-  context execinstr(rolw:Opcode Imm8:Imm, HOLE:Mem,  .Operands) [result(MemOffset)]
+  context execinstr(rolw:Opcode Imm8:MInt, HOLE:Mem,  .Operands) [result(MemOffset)]
   
   rule <k>
-    execinstr (rolw:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+    execinstr (rolw:Opcode Imm8:MInt, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       loadFromMemory( MemOff, 16) ~>
       execinstr (rolw Imm8, memOffset( MemOff),  .Operands)
   ...</k>
     <regstate> RSMap:Map </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
           
   rule <k>
-    memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (rolw:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+    memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (rolw:Opcode Imm8:MInt, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       
             storeToMemory(
-              rol( Mem16, concatenateMInt( mi(8, 0), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)))),
+              rol( Mem16, concatenateMInt( mi(8, 0), andMInt( Imm8, mi(8, 31)))),
               MemOff,
               16
             )
@@ -25,9 +26,10 @@ module ROLW-M16-IMM8
   ...</k>
     <regstate>
       RSMap:Map => updateMap(RSMap,
-"CF" |-> (#ifMInt (((notBool eqMInt( andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( rol( Mem16, concatenateMInt( mi(8, 0), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)))), 15, 16), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"CF" |-> (#ifMInt (((notBool eqMInt( andMInt( Imm8, mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( rol( Mem16, concatenateMInt( mi(8, 0), andMInt( Imm8, mi(8, 31)))), 15, 16), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( Imm8, mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((eqMInt( andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)), mi(8, 1)) andBool (eqMInt( extractMInt( rol( Mem16, concatenateMInt( mi(8, 0), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( Mem16, concatenateMInt( mi(8, 0), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)))), 15, 16), mi(1, 1)))) orBool ((notBool eqMInt( andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)), mi(8, 1))) andBool (((notBool eqMInt( andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( andMInt( Imm8, mi(8, 31)), mi(8, 1)) andBool (eqMInt( extractMInt( rol( Mem16, concatenateMInt( mi(8, 0), andMInt( Imm8, mi(8, 31)))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( Mem16, concatenateMInt( mi(8, 0), andMInt( Imm8, mi(8, 31)))), 15, 16), mi(1, 1)))) orBool ((notBool eqMInt( andMInt( Imm8, mi(8, 31)), mi(8, 1))) andBool (((notBool eqMInt( andMInt( Imm8, mi(8, 31)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( Imm8, mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
       )
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
 endmodule

@@ -5,14 +5,15 @@ module CMPPS-XMM-XMM-IMM8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (cmpps Imm8:Imm, R2:Xmm, R3:Xmm,  .Operands) => .
+    execinstr (cmpps Imm8:MInt, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( extractMInt( getParentValue(R3, RSMap), 0, 128), concatenateMInt( (#ifMInt eqMInt( cmp_single_pred(extractMInt( getParentValue(R3, RSMap), 128, 160), extractMInt( getParentValue(R2, RSMap), 128, 160), handleImmediateWithSignExtend(Imm8, 8, 8)), mi(1, 1)) #then mi(32, 4294967295) #else mi(32, 0) #fi), concatenateMInt( (#ifMInt eqMInt( cmp_single_pred(extractMInt( getParentValue(R3, RSMap), 160, 192), extractMInt( getParentValue(R2, RSMap), 160, 192), handleImmediateWithSignExtend(Imm8, 8, 8)), mi(1, 1)) #then mi(32, 4294967295) #else mi(32, 0) #fi), concatenateMInt( (#ifMInt eqMInt( cmp_single_pred(extractMInt( getParentValue(R3, RSMap), 192, 224), extractMInt( getParentValue(R2, RSMap), 192, 224), handleImmediateWithSignExtend(Imm8, 8, 8)), mi(1, 1)) #then mi(32, 4294967295) #else mi(32, 0) #fi), (#ifMInt eqMInt( cmp_single_pred(extractMInt( getParentValue(R3, RSMap), 224, 256), extractMInt( getParentValue(R2, RSMap), 224, 256), handleImmediateWithSignExtend(Imm8, 8, 8)), mi(1, 1)) #then mi(32, 4294967295) #else mi(32, 0) #fi)))))
+convToRegKeys(R3) |-> concatenateMInt( extractMInt( getParentValue(R3, RSMap), 0, 128), concatenateMInt( (#ifMInt eqMInt( cmp_single_pred(extractMInt( getParentValue(R3, RSMap), 128, 160), extractMInt( getParentValue(R2, RSMap), 128, 160), Imm8), mi(1, 1)) #then mi(32, 4294967295) #else mi(32, 0) #fi), concatenateMInt( (#ifMInt eqMInt( cmp_single_pred(extractMInt( getParentValue(R3, RSMap), 160, 192), extractMInt( getParentValue(R2, RSMap), 160, 192), Imm8), mi(1, 1)) #then mi(32, 4294967295) #else mi(32, 0) #fi), concatenateMInt( (#ifMInt eqMInt( cmp_single_pred(extractMInt( getParentValue(R3, RSMap), 192, 224), extractMInt( getParentValue(R2, RSMap), 192, 224), Imm8), mi(1, 1)) #then mi(32, 4294967295) #else mi(32, 0) #fi), (#ifMInt eqMInt( cmp_single_pred(extractMInt( getParentValue(R3, RSMap), 224, 256), extractMInt( getParentValue(R2, RSMap), 224, 256), Imm8), mi(1, 1)) #then mi(32, 4294967295) #else mi(32, 0) #fi)))))
 )
 
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
     
 endmodule
 

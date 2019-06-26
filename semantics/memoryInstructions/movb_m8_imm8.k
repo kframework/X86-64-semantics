@@ -4,17 +4,18 @@ requires "x86-configuration.k"
 module MOVB-M8-IMM8
   imports X86-CONFIGURATION
 
-  context execinstr(movb:Opcode Imm8:Imm, HOLE:Mem,  .Operands) [result(MemOffset)]
+  context execinstr(movb:Opcode Imm8:MInt, HOLE:Mem,  .Operands) [result(MemOffset)]
   
   rule <k>
-     execinstr (movb:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+     execinstr (movb:Opcode Imm8:MInt, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       
             storeToMemory(
-              handleImmediateWithSignExtend(Imm8, 8, 8),
+              Imm8,
               MemOff,
               8
             )
           
   ...</k>
     <regstate> RSMap:Map </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
 endmodule

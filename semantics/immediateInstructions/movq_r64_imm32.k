@@ -5,14 +5,15 @@ module MOVQ-R64-IMM32
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (movq Imm32:Imm, R2:R64,  .Operands) => .
+    execinstr (movq Imm32:MInt, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> mi(64, svalueMInt(handleImmediateWithSignExtend(Imm32, 32, 32)))
+convToRegKeys(R2) |-> mi(64, svalueMInt(Imm32))
 )
 
     </regstate>
+      requires bitwidthMInt(Imm32) ==Int 32
     
 endmodule
 

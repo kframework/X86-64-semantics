@@ -39,7 +39,7 @@ int memcmp(const void* s1, const void* s2,size_t n)
 }
 
 void __stack_chk_fail() {
-   __asm__ ("movq $-1, %rax\n\t"
+   __asm__ ("movq $-2, %rax\n\t"
             "jmp %rax\n\t");
 }
 
@@ -51,7 +51,7 @@ void exit(int code) {
 }
 
 void abort(void) {
-   __asm__ ("movq $-1, %rax\n\t"
+   __asm__ ("movq $-2, %rax\n\t"
             "jmp %rax\n\t");
 }
 
@@ -72,13 +72,13 @@ void *memcpy(void *dest, const void *src, size_t n)
     return dest;
 }
 
-//void* malloc(size_t n) {
-//  return (void*) 1000;
-//}
-//
-//void* calloc(size_t ele, size_t n) {
-//  return (void*) 1000;
-//}
+void* malloc(size_t n) {
+  return (void*) 1000;
+}
+
+void* calloc(size_t ele, size_t n) {
+  return (void*) 1000;
+}
 
 
 

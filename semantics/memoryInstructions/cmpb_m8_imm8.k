@@ -4,32 +4,34 @@ requires "x86-configuration.k"
 module CMPB-M8-IMM8
   imports X86-CONFIGURATION
 
-  context execinstr(cmpb:Opcode Imm8:Imm, HOLE:Mem,  .Operands) [result(MemOffset)]
+  context execinstr(cmpb:Opcode Imm8:MInt, HOLE:Mem,  .Operands) [result(MemOffset)]
   
   rule <k>
-    execinstr (cmpb:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+    execinstr (cmpb:Opcode Imm8:MInt, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       loadFromMemory( MemOff, 8) ~>
       execinstr (cmpb Imm8, memOffset( MemOff),  .Operands)
   ...</k>
     <regstate> RSMap:Map </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
           
   rule <k>
-    memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (cmpb:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+    memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (cmpb:Opcode Imm8:MInt, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       .
   ...</k>
     <regstate>
       RSMap:Map => updateMap(RSMap,
-"CF" |-> (#ifMInt (notBool eqMInt( extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( handleImmediateWithSignExtend(Imm8, 8, 8))), mi(9, 1)), concatenateMInt( mi(1, 0), Mem8)), 0, 1), mi(1, 1))) #then mi(1, 1) #else mi(1, 0) #fi)
+"CF" |-> (#ifMInt (notBool eqMInt( extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( Imm8)), mi(9, 1)), concatenateMInt( mi(1, 0), Mem8)), 0, 1), mi(1, 1))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"PF" |-> (#ifMInt (notBool (((((((eqMInt( extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( handleImmediateWithSignExtend(Imm8, 8, 8))), mi(9, 1)), concatenateMInt( mi(1, 0), Mem8)), 8, 9), mi(1, 1)) xorBool eqMInt( extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( handleImmediateWithSignExtend(Imm8, 8, 8))), mi(9, 1)), concatenateMInt( mi(1, 0), Mem8)), 7, 8), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( handleImmediateWithSignExtend(Imm8, 8, 8))), mi(9, 1)), concatenateMInt( mi(1, 0), Mem8)), 6, 7), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( handleImmediateWithSignExtend(Imm8, 8, 8))), mi(9, 1)), concatenateMInt( mi(1, 0), Mem8)), 5, 6), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( handleImmediateWithSignExtend(Imm8, 8, 8))), mi(9, 1)), concatenateMInt( mi(1, 0), Mem8)), 4, 5), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( handleImmediateWithSignExtend(Imm8, 8, 8))), mi(9, 1)), concatenateMInt( mi(1, 0), Mem8)), 3, 4), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( handleImmediateWithSignExtend(Imm8, 8, 8))), mi(9, 1)), concatenateMInt( mi(1, 0), Mem8)), 2, 3), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( handleImmediateWithSignExtend(Imm8, 8, 8))), mi(9, 1)), concatenateMInt( mi(1, 0), Mem8)), 1, 2), mi(1, 1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"PF" |-> (#ifMInt (notBool (((((((eqMInt( extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( Imm8)), mi(9, 1)), concatenateMInt( mi(1, 0), Mem8)), 8, 9), mi(1, 1)) xorBool eqMInt( extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( Imm8)), mi(9, 1)), concatenateMInt( mi(1, 0), Mem8)), 7, 8), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( Imm8)), mi(9, 1)), concatenateMInt( mi(1, 0), Mem8)), 6, 7), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( Imm8)), mi(9, 1)), concatenateMInt( mi(1, 0), Mem8)), 5, 6), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( Imm8)), mi(9, 1)), concatenateMInt( mi(1, 0), Mem8)), 4, 5), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( Imm8)), mi(9, 1)), concatenateMInt( mi(1, 0), Mem8)), 3, 4), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( Imm8)), mi(9, 1)), concatenateMInt( mi(1, 0), Mem8)), 2, 3), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( Imm8)), mi(9, 1)), concatenateMInt( mi(1, 0), Mem8)), 1, 2), mi(1, 1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"AF" |-> xorMInt( xorMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 3, 4), extractMInt( Mem8, 3, 4)), extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( handleImmediateWithSignExtend(Imm8, 8, 8))), mi(9, 1)), concatenateMInt( mi(1, 0), Mem8)), 4, 5))
+"AF" |-> xorMInt( xorMInt( extractMInt( Imm8, 3, 4), extractMInt( Mem8, 3, 4)), extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( Imm8)), mi(9, 1)), concatenateMInt( mi(1, 0), Mem8)), 4, 5))
 
-"ZF" |-> (#ifMInt eqMInt( extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( handleImmediateWithSignExtend(Imm8, 8, 8))), mi(9, 1)), concatenateMInt( mi(1, 0), Mem8)), 1, 9), mi(8, 0)) #then mi(1, 1) #else mi(1, 0) #fi)
+"ZF" |-> (#ifMInt eqMInt( extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( Imm8)), mi(9, 1)), concatenateMInt( mi(1, 0), Mem8)), 1, 9), mi(8, 0)) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"SF" |-> extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( handleImmediateWithSignExtend(Imm8, 8, 8))), mi(9, 1)), concatenateMInt( mi(1, 0), Mem8)), 1, 2)
+"SF" |-> extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( Imm8)), mi(9, 1)), concatenateMInt( mi(1, 0), Mem8)), 1, 2)
 
-"OF" |-> (#ifMInt ((eqMInt( negMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 0, 1)), mi(1, 1)) ==Bool eqMInt( extractMInt( Mem8, 0, 1), mi(1, 1))) andBool (notBool (eqMInt( negMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 0, 1)), mi(1, 1)) ==Bool eqMInt( extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( handleImmediateWithSignExtend(Imm8, 8, 8))), mi(9, 1)), concatenateMInt( mi(1, 0), Mem8)), 1, 2), mi(1, 1))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( negMInt( extractMInt( Imm8, 0, 1)), mi(1, 1)) ==Bool eqMInt( extractMInt( Mem8, 0, 1), mi(1, 1))) andBool (notBool (eqMInt( negMInt( extractMInt( Imm8, 0, 1)), mi(1, 1)) ==Bool eqMInt( extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( Imm8)), mi(9, 1)), concatenateMInt( mi(1, 0), Mem8)), 1, 2), mi(1, 1))))) #then mi(1, 1) #else mi(1, 0) #fi)
       )
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
 endmodule

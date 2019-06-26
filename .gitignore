@@ -7,3 +7,5 @@
 *.swo
 semantics/underTestInstructions/*
 semantics/x86-instructions-semantics.k
+bin/
+a.out

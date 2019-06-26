@@ -5,14 +5,15 @@ module VROUNDPD-XMM-XMM-IMM8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (vroundpd Imm8:Imm, R2:Xmm, R3:Xmm,  .Operands) => .
+    execinstr (vroundpd Imm8:MInt, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( cvt_double_to_int64_rm(extractMInt( getParentValue(R2, RSMap), 128, 192), handleImmediateWithSignExtend(Imm8, 8, 8)), cvt_double_to_int64_rm(extractMInt( getParentValue(R2, RSMap), 192, 256), handleImmediateWithSignExtend(Imm8, 8, 8))))
+convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( cvt_double_to_int64_rm(extractMInt( getParentValue(R2, RSMap), 128, 192), Imm8), cvt_double_to_int64_rm(extractMInt( getParentValue(R2, RSMap), 192, 256), Imm8)))
 )
 
     </regstate>
+      requires bitwidthMInt(Imm8) ==Int 8
     
 endmodule
 
