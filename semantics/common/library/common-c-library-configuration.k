@@ -19,7 +19,7 @@ module COMMON-C-LIBRARY-CONFIGURATION
       <open-files> .Set </open-files>
 
       <files>
-        <file multiplicity="*">
+        <file multiplicity="*" type="Map">
           <fid> .K </fid>
           <uri> .K </uri>
           <pos> 0 </pos>
