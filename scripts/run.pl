@@ -132,10 +132,10 @@ sub createRegArgs {
 if ( "" ne $krun ) {
     my ( $dir, $basename, $ext ) = utils::split_filename($file);
 
-    #my $envArgs = createEnv( \@args );
-    #my $regArgs = createRegArgs();
-    my $envArgs = "";
-    my $regArgs = "";
+#my $envArgs = createEnv( \@args );
+#my $regArgs = createRegArgs();
+my $envArgs = "";
+my $regArgs = "";
 
     if ( $nopathsplit ne "" ) {
         $basename = $dir . "/" . $basename;
