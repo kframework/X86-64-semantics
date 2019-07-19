@@ -26,6 +26,20 @@ module X86-FETCH-EXECUTE
         requires notBool  {RSMap["RIP"]}:>PointerVal  in_keys ( CMap )
 
   /*@
+    The variants of fetch without debugging support.
+  */
+  rule
+    <k> fetchNoDBG => execinstr(OpC OpR) ~> fetchNoDBG ... </k>
+      <text>code(PV:PointerVal |-> storedInstr(OpC OpR) _:Map) </text>
+      <regstate>... "RIP" |-> ( PV => addMInt(PV,  ptr(getMemLoc(PV), mi(64, 1))))  ...</regstate>
+
+  rule
+    <k> fetchNoDBG => .  ... </k>
+      <text> code (CMap) </text>
+      <regstate> RSMap </regstate>
+        requires notBool  {RSMap["RIP"]}:>PointerVal  in_keys ( CMap )
+
+  /*@
     inforegisters prints all the register states for debug purposes.
   */
   rule

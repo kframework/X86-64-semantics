@@ -49,6 +49,7 @@ module X86-ABSTRACT-SYNTAX
   // syntax Int ::= getISize(Instruction) [function]
 
   syntax KItem ::= "fetch" [token]
+  syntax KItem ::= "fetchNoDBG" [token]
   syntax KItem ::= "inforegisters" [token]
 
   /*@
