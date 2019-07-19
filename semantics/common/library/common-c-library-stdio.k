@@ -1091,7 +1091,7 @@ module COMMON-C-LIBRARY-STDIO
   rule writeItem(%(true, _, Length::String, "n"), _, Ptr::LibCValue, M::Int)
        => writeAsInt(Ptr, M, "%d", "")
 
-  //rule  writeItem(_, _, _, _) => .K [owise]
+  rule  writeItem(_, _, _, _) => {.K}:>KItem [owise]
 
 // TODO: Add scanning of floats.
 /*
