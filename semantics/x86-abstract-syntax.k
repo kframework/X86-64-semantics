@@ -41,7 +41,7 @@ module X86-ABSTRACT-SYNTAX
     Used for late evaluation of memory offset in case of instructions
     like popq_m64
   */
-  syntax KItem ::= evaluateMemOffset (K) [strict(1)] 
+  syntax KItem ::= evaluateMemOffset (KItem) [strict(1)] 
 
   syntax Int ::= "addrSize"
   rule addrSize => 64 [macro]
@@ -74,7 +74,7 @@ module X86-ABSTRACT-SYNTAX
     Ex. setRegisterValue(M8, %ah): Updates 8 bits in rax
       starting from lsb 8.
   */
-  syntax KItem ::= setRegisterValue(K, Register) [strict(1)]
+  syntax KItem ::= setRegisterValue(KItem, Register) [strict(1)]
 
   syntax KResult ::= MInt
                     /*@
@@ -95,7 +95,7 @@ module X86-ABSTRACT-SYNTAX
     Setting the Parent register's values.
       Ex. setParentValue(MI, %ax) -> set MI to %rax
   */  
-  syntax MInt  ::= setParentValue(K, Register) [strict(1)]
+  syntax MInt  ::= setParentValue(KItem, Register) [strict(1)]
 
   /*@
     Getting the registers values.

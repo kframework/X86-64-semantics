@@ -164,7 +164,7 @@ module COMMON-C-LIBRARY-OPAQUE-SYNTAX
   // The following KItem should rewrite to true if the given LibCValue (after
   // heating) is equal to one. It is safe to assume that the given LibCValue
   // represents a C int.
-  syntax KItem ::= isEqToOne(K) [strict]
+  syntax KItem ::= isEqToOne(KItem) [strict]
 
   // The following functions should check and extract a C int from a LibCValue.
   // The extractCInt function can assume that isCInt is true for its argument.

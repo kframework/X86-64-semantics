@@ -204,7 +204,7 @@ module COMMON-C-LIBRARY-STDIO
        requires isNull(FDPtr)
        [structural]
 
-  syntax KItem ::= fsetpos(K, K) [seqstrict(1,2)]
+  syntax KItem ::= fsetpos(KItem, KItem) [seqstrict(1,2)]
   rule <k>
          fsetpos(FD:Int, fpos(Path::String, Pos::Int)) => fseek(FD, Pos, 0)
        ...</k>
@@ -226,7 +226,7 @@ module COMMON-C-LIBRARY-STDIO
        requires Path =/=String Path'
     [structural]
 
-  syntax KItem ::= fflush(K) [strict]
+  syntax KItem ::= fflush(KItem) [strict]
   rule <k> fflush(FD:Int) => flush(FD) ~> success ...</k>
        <fid> FD </fid>
        <mode> Mode:String </mode>
@@ -246,7 +246,7 @@ module COMMON-C-LIBRARY-STDIO
        requires notBool (isWritable(Mode) andBool (Op =/=K inputOp))
     [structural]
 
-  syntax KItem ::= fseek(K, Int, Int) [strict(1)]
+  syntax KItem ::= fseek(KItem, Int, Int) [strict(1)]
   rule fseek(FD:Int, Offset::Int, 0)
        =>
        flush(FD) ~> seek(FD, Offset, seekSet) ~> cleareof(FD) ~> success
@@ -268,13 +268,13 @@ module COMMON-C-LIBRARY-STDIO
        fgetpos(getFD(FDPtr), PosPtr)
     [structural]
 
-  syntax KItem ::= ftell(K) [strict]
+  syntax KItem ::= ftell(KItem) [strict]
   rule (.K => tell(FD)) ~> ftell(FD:Int)
     [structural]
   rule Pos:Int ~> ftell(_) => asCLongInt(Pos)
     [structural]
 
-  syntax KItem ::= fgetpos(K, FPosPointer) [strict(1)]
+  syntax KItem ::= fgetpos(KItem, FPosPointer) [strict(1)]
   rule <k> (.K => tell(FD)) ~> fgetpos(FD:Int, _) ...</k>
        <open-files> OpenFiles:Set </open-files>
     requires FD in OpenFiles
@@ -301,7 +301,7 @@ module COMMON-C-LIBRARY-STDIO
   rule stdio_putchar(N:Int) => fputc(N, #stdout)
     [structural]
 
-  syntax KItem ::= fputc(Int, K) [strict(2)]
+  syntax KItem ::= fputc(Int, KItem) [strict(2)]
   rule <k> fputc(N::Int, FD:Int) => writeFD(FD, N) ~> asCInt(N) ...</k>
        <fid> FD </fid>
        <mode> Mode:String </mode>
@@ -334,7 +334,7 @@ module COMMON-C-LIBRARY-STDIO
     requires C ==K valueOfEOF
     [structural]
 
-  syntax KItem ::= fgetc(K) [strict]
+  syntax KItem ::= fgetc(KItem) [strict]
   rule <k> (.K => readFD(FD, 1)) ~> fgetc(FD:Int) ...</k>
        <fid> FD </fid>
        <mode> Mode:String </mode>
@@ -356,7 +356,7 @@ module COMMON-C-LIBRARY-STDIO
   rule str("") ~> fgetc(_) => eof
     [structural]
 
-  syntax KItem ::= ungetc(Int, K) [strict(2)]
+  syntax KItem ::= ungetc(Int, KItem) [strict(2)]
   rule <k>
          ungetc(C::Int, FD:Int)
          =>
@@ -379,7 +379,7 @@ module COMMON-C-LIBRARY-STDIO
   rule stdio_fileno(FDPtr::FilePointer) => fileno(getFD(FDPtr))
     [structural]
 
-  syntax KItem ::= feof(K) [strict]
+  syntax KItem ::= feof(KItem) [strict]
   rule <k> feof(FD:Int) => asCInt(1) ...</k>
        <fid> FD </fid>
        <read-buffer> "" </read-buffer>
@@ -396,7 +396,7 @@ module COMMON-C-LIBRARY-STDIO
     requires (FD ==K "") orBool (notBool FD in OpenFiles)
     [structural]
 
-  syntax KItem ::= ferror(K) [strict]
+  syntax KItem ::= ferror(KItem) [strict]
   rule <k> ferror(FD:Int) => asCInt(1) ...</k>
        <fid> FD </fid>
        <ferror> Err:Int </ferror>
@@ -411,7 +411,7 @@ module COMMON-C-LIBRARY-STDIO
     requires (FD ==K "") orBool (notBool FD in OpenFiles)
     [structural]
 
-  syntax KItem ::= fileno(K) [strict]
+  syntax KItem ::= fileno(KItem) [strict]
   rule <k> fileno(FD:Int) => asCInt(FD) ...</k>
        <open-files> OpenFiles:Set </open-files>
     requires FD in OpenFiles
@@ -424,7 +424,7 @@ module COMMON-C-LIBRARY-STDIO
   rule stdio_clearerr(FDPtr::FilePointer) => clearerr(getFD(FDPtr))
     [structural]
 
-  syntax KItem ::= clearerr(K) [strict]
+  syntax KItem ::= clearerr(KItem) [strict]
   rule <k> clearerr(FD:Int) => cleareof(FD) ...</k>
        <fid> FD </fid>
        <ferror> _ => 0 </ferror>
@@ -447,7 +447,7 @@ module COMMON-C-LIBRARY-STDIO
     requires isNull(FDPtr)
     [structural]
 
-  syntax KItem ::= fclose(K, FilePointer) [strict(1)]
+  syntax KItem ::= fclose(KItem, FilePointer) [strict(1)]
   rule fclose(FD:Int, FDPtr::FilePointer) => freeFile(FDPtr) ~> fclose'(FD)
     [structural]
 
@@ -479,7 +479,7 @@ module COMMON-C-LIBRARY-STDIO
     requires isNull(FDPtr)
     [structural]
 
-  syntax KItem ::= freopen(StringPointer, StringPointer, FilePointer, K)
+  syntax KItem ::= freopen(StringPointer, StringPointer, FilePointer, KItem)
     [strict(4)]
   rule freopen(Filename::StringPointer, Mode::StringPointer, FDPtr::FilePointer,
                FD:Int)
@@ -498,7 +498,7 @@ module COMMON-C-LIBRARY-STDIO
        requires isNull(Filename)
        [structural]
 
-  syntax KItem ::= fopen(FilePointer, K, K) [seqstrict(2,3)]
+  syntax KItem ::= fopen(FilePointer, KItem, KItem) [seqstrict(2,3)]
   rule fopen(FDPtr:FilePointer, str(Filename::String), str(Mode::String))
        =>
        fopen'(FDPtr, Filename, Mode, #open(Filename, Mode))
@@ -584,7 +584,7 @@ module COMMON-C-LIBRARY-STDIO
     requires notBool isNull(StrPtr) andBool Sz >Int 0
   rule trapStrBuf(_, _) => .K
 
-  syntax KItem ::= setbuf(K, BufMode, Int) [strict(1)]
+  syntax KItem ::= setbuf(KItem, BufMode, Int) [strict(1)]
   rule <k>
          setbuf(FD:Int, Mode::BufMode, Sz::Int)
          =>
@@ -620,7 +620,7 @@ module COMMON-C-LIBRARY-STDIO
        fgets(StrPtr, NMemb, getFD(FDPtr))
     [structural]
 
-  syntax KItem ::= fread(BufferPointer, Int, Int, K) [strict(4)]
+  syntax KItem ::= fread(BufferPointer, Int, Int, KItem) [strict(4)]
   rule <k>
          fread(BufPtr::BufferPointer, Size::Int, NMemb::Int, FD:Int)
          =>
@@ -641,7 +641,7 @@ module COMMON-C-LIBRARY-STDIO
     requires (FD ==K "") orBool notBool (FD in OpenFiles)
     [structural]
 
-  syntax KItem ::= "fread'" "(" BufferPointer "," Int "," K ")" [strict(3)]
+  syntax KItem ::= "fread'" "(" BufferPointer "," Int "," KItem ")" [strict(3)]
   rule fread'(BufPtr::BufferPointer, Size::Int, str(Read::String))
        =>
        writeCharBytes(BufPtr, Read) ~>
@@ -656,7 +656,7 @@ module COMMON-C-LIBRARY-STDIO
     requires (lengthString(Read) %Int Size) ==Int 0
     [structural]
 
-  syntax KItem ::= fgets(StringPointer, Int, K) [strict(3)]
+  syntax KItem ::= fgets(StringPointer, Int, KItem) [strict(3)]
   rule fgets(StrPtr::StringPointer, NMemb::Int, _) => asCCharPtr(StrPtr)
     requires NMemb <Int 1
     [structural]
@@ -704,7 +704,7 @@ module COMMON-C-LIBRARY-STDIO
     requires lengthString(S) <Int NMemb -Int 1
     [structural]
 
-  syntax KItem ::= readNewline(K, FauxFD) [strict(1)]
+  syntax KItem ::= readNewline(KItem, FauxFD) [strict(1)]
   rule (.K
         =>
         isEqToOne(fscanf(FD, str("%1[\n]"), ListItem(asCCharPtr(StrPtr))))) ~>
@@ -742,7 +742,7 @@ module COMMON-C-LIBRARY-STDIO
        fwrite(readBytes(BufPtr, Size *Int NMemb), Size, getFD(FDPtr))
     [structural]
 
-  syntax KItem ::= fprintf(K, K) [seqstrict(1,2)]
+  syntax KItem ::= fprintf(KItem, KItem) [seqstrict(1,2)]
   rule <k>
          fprintf(FD:Int, formattedResult(S::String))
          =>
@@ -763,7 +763,7 @@ module COMMON-C-LIBRARY-STDIO
     requires (FD ==K "") orBool notBool (FD in OpenFiles)
     [structural]
 
-  syntax KItem ::= fwrite(K, Int, K) [seqstrict(1,3)]
+  syntax KItem ::= fwrite(KItem, Int, KItem) [seqstrict(1,3)]
   rule <k>
          fwrite(str(S::String), Size::Int, FD:Int)
          =>
@@ -789,7 +789,7 @@ module COMMON-C-LIBRARY-STDIO
        sprintf(formatter(readString(Format), VarArgs), Dest)
     [structural]
 
-  syntax KItem ::= sprintf(K, StringPointer) [strict(1)]
+  syntax KItem ::= sprintf(KItem, StringPointer) [strict(1)]
   rule sprintf(formattedResult(S::String), Dest::StringPointer)
        =>
        writeString(Dest, S) ~> asCInt(lengthString(S))
@@ -801,7 +801,7 @@ module COMMON-C-LIBRARY-STDIO
        snprintf(formatter(readString(Format), VarArgs), Dest, Len)
     [structural]
 
-  syntax KItem ::= snprintf(K, StringPointer, Int) [strict(1)]
+  syntax KItem ::= snprintf(KItem, StringPointer, Int) [strict(1)]
   rule snprintf(formattedResult(S::String), Dest::StringPointer, Len::Int)
        =>
        writeString(Dest,
@@ -830,7 +830,7 @@ module COMMON-C-LIBRARY-STDIO
        fscanf(readString(StrPtr), readString(Format), VarArgs)
     [structural]
 
-  syntax KItem ::= fscanf(K, K, List) [seqstrict(1,2)]
+  syntax KItem ::= fscanf(KItem, KItem, List) [seqstrict(1,2)]
   rule <k>
          fscanf(FD:Int, str(S::String), VarArgs::List)
          =>
@@ -1091,7 +1091,7 @@ module COMMON-C-LIBRARY-STDIO
   rule writeItem(%(true, _, Length::String, "n"), _, Ptr::LibCValue, M::Int)
        => writeAsInt(Ptr, M, "%d", "")
 
-  rule writeItem(_, _, _, _) => .K [owise]
+  //rule  writeItem(_, _, _, _) => .K [owise]
 
 // TODO: Add scanning of floats.
 /*
@@ -1575,10 +1575,10 @@ module COMMON-C-LIBRARY-STDIO
   syntax List ::= snd(ParseStrResult) [function, klabel(sndParseStr)]
   rule snd(parseStrResult(_, L::List)) => L
 
-  syntax KItem ::= formatter(K, List) [strict(1)]
+  syntax KItem ::= formatter(KItem, List) [strict(1)]
   syntax Str ::= formattedResult(String)
 
-  syntax KItem ::= formatter(K, List) [strict(1)]
+  syntax KItem ::= formatter(KItem, List) [strict(1)]
   rule [format-start]:
        <k> formatter(str(S::String), VarArgs::List)
             => formatter'(VarArgs)
@@ -2081,19 +2081,19 @@ module COMMON-C-LIBRARY-STDIO
        [structural]
 
 
-  syntax KItem ::= "formatter-arg" "(" K "," List ")" [strict(1)]
+  syntax KItem ::= "formatter-arg" "(" KItem "," List ")" [strict(1)]
   rule <k> formatter-arg(V::FormatArg, Args:List)
             => formatter'(Args)
        ...</k>
        <format-arg> _ => V </format-arg>
        [structural]
-  syntax KItem ::= "formatter-prec" "(" K "," List ")" [strict(1)]
+  syntax KItem ::= "formatter-prec" "(" KItem "," List ")" [strict(1)]
   rule <k> formatter-prec(formatInt(V::Int), Args:List)
             => formatter-next(Args)
        ...</k>
        <format-precision> _ => Int2String(V) </format-precision>
        [structural]
-  syntax KItem ::= "formatter-width" "(" K "," List ")" [strict(1)]
+  syntax KItem ::= "formatter-width" "(" KItem "," List ")" [strict(1)]
   rule <k> formatter-width(formatInt(V:Int), Args:List)
             => formatter-next(Args)
        ...</k>

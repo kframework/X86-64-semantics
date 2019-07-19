@@ -165,7 +165,7 @@ module X86-MEMORY
 
 
   // x86 memory helper API implementation for load.
-  syntax KItem ::= fromMemValue(K, Int) [strict(1)]
+  syntax KItem ::= fromMemValue(KItem, Int) [strict(1)]
   rule fromMemValue(mList(_:Int, 8, Bytes:MemData), N:Int) => 
    memLoadValue ( fromBytes(takeMemData(N /Int 8, Bytes)) )
 
@@ -211,7 +211,7 @@ module X86-MEMORY
   /*@
     Save the allocation id for later reads/writes/free.
   */
-  syntax KItem ::=  saveAllocPointer(K) [strict(1)]
+  syntax KItem ::=  saveAllocPointer(KItem) [strict(1)]
   rule <k> saveAllocPointer(L:MemLoc) => .
   ... </k>
     <stackbase> stackBaseInfo(_:K => L, BP:MInt)  </stackbase>
@@ -229,7 +229,7 @@ module X86-MEMORY
         bssBaseInfo(_:K, _:K => mi(addrSize, 0), _:K => mi(addrSize, 0))  
       </bssbase>
 
-  syntax KItem ::=  saveBssPointer(K) [strict(1)]
+  syntax KItem ::=  saveBssPointer(KItem) [strict(1)]
   rule <k> saveBssPointer(L:MemLoc) => .
   ... </k>
     <bssbase> bssBaseInfo(_:K => L, _:K, _:K)  </bssbase>
@@ -243,7 +243,7 @@ module X86-MEMORY
         dataBaseInfo(_:K, _:K => mi(addrSize, 0), _:K => mi(addrSize, 0))  
       </database>
 
-  syntax KItem ::=  saveDataPointer(K) [strict(1)]
+  syntax KItem ::=  saveDataPointer(KItem) [strict(1)]
   rule <k> saveDataPointer(L:MemLoc) => .
   ... </k>
     <database> dataBaseInfo(_:K => L, _:K, _:K)  </database>
@@ -257,7 +257,7 @@ module X86-MEMORY
         roBaseInfo(_:K, _:K => mi(addrSize, 0), _:K => mi(addrSize, 0))  
       </robase>
 
-  syntax KItem ::=  saveROPointer(K) [strict(1)]
+  syntax KItem ::=  saveROPointer(KItem) [strict(1)]
   rule <k> saveROPointer(L:MemLoc) => .
   ... </k>
     <robase> roBaseInfo(_:K => L, _:K, _:K)  </robase>
@@ -268,7 +268,7 @@ module X86-MEMORY
   rule <k> allocateSTDOUTMemory(N:Int, A:Int) =>  
     saveSTDOUTPointer(allocateLocalMemory(N, A)) ... </k>
 
-  syntax KItem ::=  saveSTDOUTPointer(K) [strict(1)]
+  syntax KItem ::=  saveSTDOUTPointer(KItem) [strict(1)]
   rule <k> saveSTDOUTPointer(L:MemLoc) => 
     storeToMemory(mi(32, #stdout), ptr(L, mi(64,1)), 32)
   ... </k>

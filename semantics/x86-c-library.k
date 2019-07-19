@@ -44,7 +44,7 @@ module X86-C-LIBRARY
        =>
        checkFD(loadFromMemory(ptr(L, addMInt(Offs, fdBitOffset)), 32))
 
-  syntax KItem ::= checkFD(K) [strict]
+  syntax KItem ::= checkFD(KItem) [strict]
   rule checkFD(memLoadValue(FD:MInt)) => svalueMInt(FD)
     requires svalueMInt(FD) =/=Int 0
   rule checkFD(FD:MInt) => invalidLibCValue
