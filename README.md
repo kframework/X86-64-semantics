@@ -10,10 +10,9 @@ of x86-64 to date. Our semantics faithfully formalizes all the non-deprecated,
 # User Guide
 
 ## Prerequisites
- - Download X86 and LLVM semantics defined in K.
+ - Download X86 semantics defined in K.
   ```
   git clone https://github.com/kframework/X86-64-semantics.git
-  git clone https://github.com/theo25/llvm-verified-backend.git [f_llvm_parser branch]
   ```
 
  - Download & Install K tool [README](https://github.com/kframework/k/blob/master/README.md)
@@ -21,11 +20,11 @@ of x86-64 to date. Our semantics faithfully formalizes all the non-deprecated,
 ## To compile the x86-64 semantics
   ```
   cd X86-semantics/semantics
-  ../scripts/kompile.pl [--backend java]  // Default is ocaml backend
+  ../scripts/kompile.pl --backend java
   ```
 ## A simple test run -- Concrete execution of a binary (compiled from a C program)
 ```
-../scripts/run-single-c-file.sh ../tests/program-tests/bubblesort/test.c |& tee /tmp/run.log
+../scripts/run-single-c-file.sh ../tests/program-tests/bubblesort/test.c java |& tee /tmp/run.log
 ```
 
 ## Testing the semantics
