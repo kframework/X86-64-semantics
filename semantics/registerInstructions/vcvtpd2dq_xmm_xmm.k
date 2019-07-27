@@ -16,6 +16,6 @@ convToRegKeys(R2) |-> concatenateMInt( mi(192, 0), concatenateMInt( cvt_double_t
     
 endmodule
 
-module VCVTPD2DQX-XMM-XMM-SEMANTICS
-  imports VCVTPD2DQX-XMM-XMM
+module VCVTPD2DQ-XMM-XMM-SEMANTICS
+  imports VCVTPD2DQ-XMM-XMM
 endmodule

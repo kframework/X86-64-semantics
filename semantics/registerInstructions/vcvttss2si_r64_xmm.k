@@ -16,6 +16,6 @@ convToRegKeys(R2) |-> cvt_single_to_int64_truncate(extractMInt( getParentValue(R
     
 endmodule
 
-module VCVTTSS2SIQ-R64-XMM-SEMANTICS
-  imports VCVTTSS2SIQ-R64-XMM
+module VCVTTSS2SI-R64-XMM-SEMANTICS
+  imports VCVTTSS2SI-R64-XMM
 endmodule
