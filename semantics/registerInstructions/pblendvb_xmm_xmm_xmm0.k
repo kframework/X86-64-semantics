@@ -5,7 +5,7 @@ module PBLENDVB-XMM-XMM-XMM0
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (pblendvb XMM0, R2:Xmm, R3:Xmm,  .Operands) => .
+    execinstr (pblendvb %xmm0, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
