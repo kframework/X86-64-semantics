@@ -5,7 +5,7 @@ module BLENDVPS-XMM-XMM-XMM0
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (blendvps XMM0, R2:Xmm, R3:Xmm,  .Operands) => .
+    execinstr (blendvps %xmm0, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

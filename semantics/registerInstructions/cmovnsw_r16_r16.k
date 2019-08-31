@@ -7,6 +7,9 @@ module CMOVNSW-R16-R16
   rule <k>
     execinstr (cmovns R1:R16, R2:R16,  .Operands) => execinstr (cmovnsw R1:R16, R2:R16,  .Operands)
   ...</k>
+  rule <k>
+    execinstr (cmovnsw R1:R16, R2:R16,  .Operands) => .K
+  ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 48), (#ifMInt (notBool eqMInt(getFlag("SF", RSMap), mi(1,1))) #then extractMInt( getParentValue(R1, RSMap), 48, 64) #else extractMInt( getParentValue(R2, RSMap), 48, 64) #fi))

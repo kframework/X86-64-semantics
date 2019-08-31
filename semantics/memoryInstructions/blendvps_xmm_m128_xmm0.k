@@ -4,17 +4,17 @@ requires "x86-configuration.k"
 module BLENDVPS-XMM-M128-XMM0
   imports X86-CONFIGURATION
 
-  context execinstr(blendvps:Opcode XMM0, HOLE:Mem, R3:Xmm,  .Operands) [result(MemOffset)]
+  context execinstr(blendvps:Opcode %xmm0, HOLE:Mem, R3:Xmm,  .Operands) [result(MemOffset)]
   
   rule <k>
-    execinstr (blendvps:Opcode XMM0, memOffset( MemOff:MInt):MemOffset, R3:Xmm,  .Operands) =>
+    execinstr (blendvps:Opcode %xmm0, memOffset( MemOff:MInt):MemOffset, R3:Xmm,  .Operands) =>
       loadFromMemory( MemOff, 128) ~>
-      execinstr (blendvps XMM0, memOffset( MemOff), R3:Xmm,  .Operands)
+      execinstr (blendvps %xmm0, memOffset( MemOff), R3:Xmm,  .Operands)
   ...</k>
     <regstate> RSMap:Map </regstate>
           
   rule <k>
-    memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (blendvps:Opcode XMM0, memOffset( MemOff:MInt):MemOffset, R3:Xmm,  .Operands) =>
+    memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (blendvps:Opcode %xmm0, memOffset( MemOff:MInt):MemOffset, R3:Xmm,  .Operands) =>
       .
   ...</k>
     <regstate>

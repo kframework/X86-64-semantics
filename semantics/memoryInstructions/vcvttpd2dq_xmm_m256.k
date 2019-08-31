@@ -5,14 +5,21 @@ module VCVTTPD2DQ-XMM-M256
   imports X86-CONFIGURATION
 
   context execinstr(vcvttpd2dq:Opcode HOLE:Mem, R2:Xmm,  .Operands) [result(MemOffset)]
-  
+
   rule <k>
-     execinstr (vcvttpd2dq:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>
+    execinstr (vcvttpd2dq:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>
+      loadFromMemory( MemOff, 256) ~>
+      execinstr (vcvttpd2dq memOffset( MemOff), R2:Xmm,  .Operands)
+  ...</k>
+    <regstate> RSMap:Map </regstate>
+
+  rule <k>
+     memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vcvttpd2dq:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>
       .
   ...</k>
     <regstate>
       RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( cvt_double_to_int32_truncate(extractMInt( getParentValue(R2, RSMap), 0, 64)), concatenateMInt( cvt_double_to_int32_truncate(extractMInt( getParentValue(R2, RSMap), 64, 128)), concatenateMInt( cvt_double_to_int32_truncate(extractMInt( getParentValue(R2, RSMap), 128, 192)), cvt_double_to_int32_truncate(extractMInt( getParentValue(R2, RSMap), 192, 256))))))
+convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( cvt_double_to_int32_truncate(extractMInt( Mem256, 0, 64)), concatenateMInt( cvt_double_to_int32_truncate(extractMInt( Mem256, 64, 128)), concatenateMInt( cvt_double_to_int32_truncate(extractMInt( Mem256, 128, 192)), cvt_double_to_int32_truncate(extractMInt( Mem256, 192, 256))))))
       )
     </regstate>
 endmodule

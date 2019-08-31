@@ -9,7 +9,7 @@ module VCVTPD2PS-XMM-YMM
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( cvt_double_to_single(extractMInt( getParentValue(R2, RSMap), 0, 64)), concatenateMInt( cvt_double_to_single(extractMInt( getParentValue(R2, RSMap), 64, 128)), concatenateMInt( cvt_double_to_single(extractMInt( getParentValue(R2, RSMap), 128, 192)), cvt_double_to_single(extractMInt( getParentValue(R2, RSMap), 192, 256))))))
+convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( cvt_double_to_single(extractMInt( getParentValue(R1, RSMap), 0, 64)), concatenateMInt( cvt_double_to_single(extractMInt( getParentValue(R1, RSMap), 64, 128)), concatenateMInt( cvt_double_to_single(extractMInt( getParentValue(R1, RSMap), 128, 192)), cvt_double_to_single(extractMInt( getParentValue(R1, RSMap), 192, 256))))))
 )
 
     </regstate>
