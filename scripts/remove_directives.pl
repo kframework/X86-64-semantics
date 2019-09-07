@@ -57,7 +57,7 @@ for my $line (@lines) {
     }
 
     if ( $line =~
-        m/\.type|\.size|\.ident|\.align|\.weak|\.local|\.file|\.p2align|\.cfi\_/
+        m/\.type|\.size|\.ident|\.align|\.weak|\.local|\.file|\.p2align|\.text\.startup|\.cfi\_/
       )
     {
         next;

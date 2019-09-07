@@ -11,7 +11,7 @@ use File::Basename;
 use Cwd;
 use File::Path qw(make_path remove_tree);
 
-my $home = "";
+my $home = $ENV{"HOME"};
 BEGIN{
 	$home = $ENV{"HOME"};
 	unshift @INC, "$home/Github/binary-decompilation/x86-semantics/scripts/";
@@ -28,7 +28,7 @@ use threads;
 my $file = "";
 my $instantiated_instr_path =
   "$home/Github/strata-data/data-regs/instructions/";
-my $script = "~/x86-semantics/scripts/process_spec.pl";
+my $script = "$home/Github/binay-decompilation/x86-semantics/scripts/process_spec.pl";
 my $UTInstructionsPath        = "underTestInstructions/";
 
 my $help                 = "";
@@ -56,7 +56,6 @@ my $z3prove              = "";
 my $useuif               = "";
 my $getregvariant        = "";
 my $compile              = "";
-my $backend              = "ocaml";
 my $compareintel         = "";
 my $comparemaps          = "";
 my $getbvfs              = "";
@@ -81,6 +80,7 @@ my $update_tc            = "";
 my $use_updated_tc       = "";
 my $no_strata_handler    = "";
 my $samereg              = "";
+my $stokedir             = "";
 
 GetOptions(
     "help"                 => \$help,
@@ -131,7 +131,7 @@ GetOptions(
     "testid:s"             => \$testid,
     "workdir:s"            => \$workdir,
     "opcode:s"             => \$opcode,
-    "backend:s"            => \$backend,
+    "stokedir:s"           => \$stokedir,
     "samereg"              => \$samereg,
 ) or die("Error in command line arguments\n");
 
@@ -139,6 +139,8 @@ GetOptions(
 my $sfp;
 my $removeComment;
 my $debugprint = 0;
+my $stoke_check_circuit = "$stokedir/bin/stoke_check_circuit";
+my $stoke_check_circuit_with_sat_check = "$stokedir/bin/stoke_check_circuit_with_sat_check";
 
 if ( "" ne $compareintel ) {
     ## file names
@@ -163,6 +165,8 @@ if ( "" ne $compareintel ) {
     my $xedfile =
 "$home/Github/binary-decompilation/x86-semantics/docs/relatedwork/mcsema/xed.txt";
     my $acl2file = "$home/Github/binary-decompilation/x86-semantics/docs/relatedwork/acl2/implemented.txt";
+    my $sailfile = "$home/Github/binary-decompilation/x86-semantics/docs/relatedwork/sail/support.txt";
+    my $cppfile = "$home/Github/binary-decompilation/x86-semantics/docs/relatedwork/verbeek/support.txt";
 #"$home/Github/binary-decompilation/x86-semantics/docs/relatedwork/acl2/supportedOPcodes.txt";
     my $r2file = "$home/Github/binary-decompilation/x86-semantics/docs/relatedwork/radare2/r2log.txt";
     my $stoke_strata_unsup_file =
@@ -170,12 +174,13 @@ if ( "" ne $compareintel ) {
     my $ungeneralized_memory =
       "docs/relatedwork/strata/ungeneralized_memory.txt";
 
+    print(  " | Scope of instrucion support | Number of Att/Intel Opcodes | \n|-----|-----|\n");
     ## get intel <-> att
     my ( $intel2att_ref, $att2intel_ref ) =
       assocIntelATT( $intelatt, $debugprint );
     my %intel2att = %{$intel2att_ref};
     my %att2intel = %{$att2intel_ref};
-    print(  " | Att/Intel Opcodes |"
+    print(  " | Total Att/Intel Opcodes |"
           . scalar( keys %{att2intel} ) . "/"
           . scalar( keys %{intel2att} )
           . "|\n" );
@@ -185,11 +190,12 @@ if ( "" ne $compareintel ) {
       modelInstructions( $idealfile, $intelatt, "", 0 );
     my %ideal_supp_att   = %{$ideal_supp_att_ref};
     my %ideal_supp_intel = %{$ideal_supp_intel_ref};
-    print(  "| Ideal Support(att/intel)| "
+    print(  "| Ideal User Level Support(att/intel)| "
           . scalar( keys %ideal_supp_att ) . "/"
           . scalar( keys %ideal_supp_intel )
           . "|\n" );
 
+    print(  " \n| Project Name | Number of Att/Intel Opcodes [Supported percentage w.r.t Ideal User Level Support] | \n|-----|-----|\n");
     ## Get the current supported instr
     my ( $curr_supp_att_ref, $curr_supp_intel_ref ) =
       modelInstructions( $currentfile, $intelatt, "", 0 );
@@ -202,6 +208,29 @@ if ( "" ne $compareintel ) {
           . " \t[". scalar( keys %curr_supp_intel ) * 100 / scalar( keys %ideal_supp_intel ) ." %]"
           . "|\n" );
     #printMap(\%curr_supp_intel); 
+
+    ## Get the sail supported instr
+    my ( $sail_supp_att_ref, $sail_supp_intel_ref ) =
+      modelInstructions( $sailfile, $intelatt, "", 0 );
+    my %sail_supp_att   = %{$sail_supp_att_ref};
+    my %sail_supp_intel = %{$sail_supp_intel_ref};
+    print(  "| Sail Support(att/intel)| "
+          . scalar( keys %sail_supp_att ) . "/"
+          . scalar( keys %sail_supp_intel )
+          . " \t[". scalar( keys %sail_supp_intel ) * 100 / scalar( keys %ideal_supp_intel ) ." %]"
+          . "|\n" );
+
+    ## Get the sail supported instr
+    my ( $cpp_supp_att_ref, $cpp_supp_intel_ref ) =
+      modelInstructions( $cppfile, $intelatt, "", 0 );
+    my %cpp_supp_att   = %{$cpp_supp_att_ref};
+    my %cpp_supp_intel = %{$cpp_supp_intel_ref};
+    print(  "| CPP Support(att/intel)| "
+          . scalar( keys %cpp_supp_att ) . "/"
+          . scalar( keys %cpp_supp_intel )
+          . " \t[". scalar( keys %cpp_supp_intel ) * 100 / scalar( keys %ideal_supp_intel ) ." %]"
+          . "|\n" );
+
 
     ## Get the bap supported instr
     my ( $bap_supp_att_ref, $bap_supp_intel_ref ) =
@@ -224,6 +253,8 @@ if ( "" ne $compareintel ) {
           . scalar( keys %r2_supp_intel )
           . " \t[". scalar( keys %r2_supp_intel ) * 100 / scalar( keys %ideal_supp_intel ) ." %]"
           . "|\n" );
+
+
 
 
     ## Get the angr supported instr
@@ -274,6 +305,7 @@ if ( "" ne $compareintel ) {
     print "\n\n";
     #printMap(\%acl2_intel); 
 
+=pod
     # Strata Vs McSema
     utils::compareMaps(
         \%strata_supp_intel, \%mcsema_supp_intel,
@@ -305,6 +337,7 @@ if ( "" ne $compareintel ) {
       modelInstructions( $ungeneralized_memory, $intelatt, "", 0 );
     utils::compareMaps( $ug_intel_ref, \%mcsema_supp_intel,
         $debugprint, "A: UnGeneralized Memory B: McSema" );
+=cut
 
     exit(0);
 }
@@ -314,7 +347,7 @@ if ( "" ne $compile ) {
     createSingleFileDefn();
     execute("git status x86-instructions-semantics.k");
     execute(
-"time  kompile x86-semantics.k --syntax-module X86-SYNTAX --main-module X86-SEMANTICS --debug -v --backend $backend -I ~/Github/llvm-verified-backend/ -I ~/Github/llvm-verified-backend/common/x86-config/",
+"time  kompile x86-semantics.k --syntax-module X86-SYNTAX --main-module X86-SEMANTICS --debug -v --backend java -I ./ -I common/x86-config/",
         1
     );
 
@@ -463,6 +496,8 @@ if ( "" ne $prepare_concrete ) {
 
     print "\n\nInstantiating  $opcode\n";
     execute("mkdir -p $workdir");
+    execute("touch $workdir/check_stoke.txt");
+    execute("echo $opcode > $workdir/check_stoke.txt");
     my $switch_samereg = "";
     if ( "" ne $samereg ) {
         $switch_samereg = "--samereg";
@@ -515,14 +550,14 @@ if ( "" ne $prepare_concrete_imm ) {
     print "\n\nPreparing workdir $workdir\n";
     execute( "mkdir -p $workdir", 1 );
 
-    #my $check_stoke_text = "$workdir/$prefix.txt";
+    my $check_stoke_text = "$workdir/$prefix.txt";
 
-    #open( my $scfp, ">", $check_stoke_text )
-    #  or die "cannot open: $!";
+    open( my $scfp, ">", $check_stoke_text )
+      or die "cannot open: $!";
     for ( my $i = 0 ; $i < 256 ; $i++ ) {
         my $conc_instr = $line . "_" . $i;
 
-        #print $scfp $conc_instr . "\n";
+        print $scfp $conc_instr . "\n";
         execute("$specgen_setup --workdir $workdir --opc $conc_instr");
     }
 
@@ -713,9 +748,17 @@ sub threadop_check_stoke {
         }
     }
 
+    if($stokedir eq "") {
+      utils::failInfo("Provide --stokedir. Exiting..");
+      exit(0);
+    }
+
     my $testcases_path = $kutils::testcases;
+    my $stoke_check_bin = $stoke_check_circuit;
+    print $stoke_check_bin . "\n";
     if ( "" ne $use_updated_tc ) {
         $testcases_path = "$instructions_path/../testcases.$testid.tc";
+        $stoke_check_bin = $stoke_check_circuit_with_sat_check;
     }
 
     my $strata_path_switch = "--strata_path $kutils::strata_path";
@@ -723,7 +766,7 @@ sub threadop_check_stoke {
         $strata_path_switch = "";
     }
     execute(
-"timeout 30m  $kutils::stoke_check_circuit $strata_path_switch --target $target --functions $kutils::functions_dir --testcases $testcases_path --def_in $def_in --live_out $live_out --maybe_undef_out $maybe_undef_out",
+"timeout 30m  $stoke_check_bin $strata_path_switch --target $target --functions $kutils::functions_dir --testcases $testcases_path --def_in $def_in --live_out $live_out --maybe_undef_out $maybe_undef_out",
         1
     );
     my $duration = time - $start;
