@@ -286,7 +286,8 @@ module COMMON-C-LIBRARY-IO
   syntax KItem ::= "seek'" "(" Int ")"
   rule <k> seek'(FD:Int) => .K ...</k>
        <fid> FD </fid>
-       <pos> _ => #projectInt(#tell(FD)) </pos>
+       // <pos> _ => #projectInt(#tell(FD)) </pos>
+       <pos> _ => {#tell(FD)}:>Int </pos>
        <next-byte> _ => .K </next-byte>
        <read-buffer> _ => "" </read-buffer>
        <write-buffer> _ => "" </write-buffer>
