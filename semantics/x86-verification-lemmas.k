@@ -837,7 +837,7 @@ module X86-VERIFICATION-LEMMAS
   // imports INTEGER-LEMMAS
   // imports BOOLEAN-LEMMAS
   imports MINT-LEMMAS
-  imports FLOAT-LEMMAS
+  //imports FLOAT-LEMMAS
   // imports ITE-LEMMAS
   // imports PROG-VERIFICATION-LEMMAS
   // The following in needed only while generating K rules cotaining

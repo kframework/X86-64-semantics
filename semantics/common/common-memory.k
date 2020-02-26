@@ -7,7 +7,7 @@ endmodule
 
 module COMMON-MEMORY-SORTS
   syntax MemLoc    [smt-prelude]
-  syntax MemData
+  syntax MemData   [smt-prelude]
   syntax MemValue
   syntax MemoryMap [smt-prelude]
   syntax MemorySet [smt-prelude]
@@ -436,23 +436,23 @@ module COMMON-MEMORY
   // Concrete implementation for MemoryMap
   syntax MemoryMap ::= Map
 
-  rule .MemoryMap => .Map [concrete]
+  rule .MemoryMap => .Map //[concrete]
 
   rule selectMemoryMap(M:Map, L:MemLoc) => {M[L]}:>AbstractValue
        requires L in_keys(M)
-    [concrete]
+    //[concrete]
   rule selectMemoryMap(M:Map, L:MemLoc) => getDefaultAbstractValue()
        requires notBool (L in_keys(M))
-    [concrete]
+    //[concrete]
 
-  rule storeMemoryMap(M:Map, L:MemLoc, V:AbstractValue) => M[L <- V] [concrete]
+  rule storeMemoryMap(M:Map, L:MemLoc, V:AbstractValue) => M[L <- V] //[concrete]
 
   // Concrete implementation for MemorySet
   syntax MemorySet ::= Set
 
-  rule .MemorySet => .Set [concrete]
+  rule .MemorySet => .Set //[concrete]
 
-  rule inMemorySet(L:MemLoc, S:Set) => L in S [concrete]
+  rule inMemorySet(L:MemLoc, S:Set) => L in S //[concrete]
 
-  rule addMemorySet(S:Set, L:MemLoc) => SetItem(L) S [concrete]
+  rule addMemorySet(S:Set, L:MemLoc) => SetItem(L) S //[concrete]
 endmodule
