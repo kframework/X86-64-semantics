@@ -22,9 +22,9 @@ module MULXQ-R64-R64-M64
   ...</k>
     <regstate>
       RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> extractMInt( mulMInt( concatenateMInt( mi(64, 0), MemOff), concatenateMInt( mi(64, 0), Mem64)), 64, 128)
+convToRegKeys(R2) |-> extractMInt( mulMInt( concatenateMInt( mi(64, 0), getParentValue(%rdx, RSMap)), concatenateMInt( mi(64, 0), Mem64)), 64, 128)
 
-convToRegKeys(R3) |-> extractMInt( mulMInt( concatenateMInt( mi(64, 0), MemOff), concatenateMInt( mi(64, 0), Mem64)), 0, 64)
+convToRegKeys(R3) |-> extractMInt( mulMInt( concatenateMInt( mi(64, 0), getParentValue(%rdx, RSMap)), concatenateMInt( mi(64, 0), Mem64)), 0, 64)
       )
     </regstate>
 endmodule

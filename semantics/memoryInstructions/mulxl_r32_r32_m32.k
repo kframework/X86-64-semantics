@@ -22,9 +22,9 @@ module MULXL-R32-R32-M32
   ...</k>
     <regstate>
       RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), extractMInt( mulMInt( concatenateMInt( mi(32, 0), extractMInt( MemOff, 32, 64)), concatenateMInt( mi(32, 0), Mem32)), 32, 64))
+convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), extractMInt( mulMInt( concatenateMInt( mi(32, 0), extractMInt( getParentValue(%rdx, RSMap), 32, 64)), concatenateMInt( mi(32, 0), Mem32)), 32, 64))
 
-convToRegKeys(R3) |-> concatenateMInt( mi(32, 0), extractMInt( mulMInt( concatenateMInt( mi(32, 0), extractMInt( MemOff, 32, 64)), concatenateMInt( mi(32, 0), Mem32)), 0, 32))
+convToRegKeys(R3) |-> concatenateMInt( mi(32, 0), extractMInt( mulMInt( concatenateMInt( mi(32, 0), extractMInt( getParentValue(%rdx, RSMap), 32, 64)), concatenateMInt( mi(32, 0), Mem32)), 0, 32))
       )
     </regstate>
 endmodule
