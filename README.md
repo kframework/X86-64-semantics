@@ -17,6 +17,12 @@ of x86-64 to date. Our semantics faithfully formalizes all the non-deprecated,
 
  - Download & Install K tool [README](https://github.com/kframework/k/blob/master/README.md)
 
+**NOTE**
+Due to [polymorphic sort support](https://github.com/kframework/k/pull/839), the syntax of machine integers aka MInt has changed a bit and the current x86-64 semantics is not responsive to that. Hence compiling x86-64 semantics using the master
+k will issue [compilation error](https://github.com/kframework/X86-64-semantics/issues/10). Before the x86-64 semantics is ported to the new MInt syntax, it is recommended to 
+ - Either check out a revision `45a4243af6e4cd42a4212e5c7575e876898ec38b` of of the master https://github.com/kframework/k.git branch. The commit hash is just before the aforementioned change.
+ - Or use the  [forked repository](https://github.com/sdasgup3/k.git) of k, which is currently in use and hence recommended.
+
 ## To compile the x86-64 semantics
   ```
   cd X86-semantics/semantics
